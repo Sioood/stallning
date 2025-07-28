@@ -1,5 +1,16 @@
 # @stallning/prettier
 
+## 1.2.0
+
+### Patch Changes
+
+- cf7f713: chore(config): :wrench: use catalog to share package version
+- cf7f713: chore(config): :wrench: add typescript
+- cf7f713: chore(global): :truck: rename devoid to stallning
+- cf7f713: fix(config): :bug: skip husky on release action
+- cf7f713: chore(config): :wrench: add eslint oxlint and prettier
+- cf7f713: chore(config): :wrench: add turbo
+
 ## 1.1.0
 
 ### Patch Changes

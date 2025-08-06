@@ -5,7 +5,7 @@ const { resolve } = createResolver(import.meta.url)
 export default defineNuxtConfig({
   devtools: { enabled: true },
   extends: [['@stallning/nuxt-essentials', { install: true }]],
-  modules: ['@nuxt/fonts', '@nuxt/icon', '@nuxt/image', '@nuxtjs/tailwindcss'],
+  modules: ['@nuxt/fonts', '@nuxt/icon', '@nuxt/image', '@nuxtjs/tailwindcss', 'v-gsap-nuxt'],
   alias: { '~ui': resolve('./') },
   components: [
     {

@@ -9,6 +9,10 @@
       "path": "../apps/web",
     },
     {
+      "name": "nuxt-essentials",
+      "path": "../packages/nuxt-essentials",
+    },
+    {
       "name": "ui",
       "path": "../packages/ui",
     },
@@ -29,7 +33,7 @@
       "apps/": true,
       "packages/": true,
     },
-    "conventionalCommits.scopes": ["global", "config", "docs", "ui", "web"],
+    "conventionalCommits.scopes": ["global", "config", "docs", "nuxt-essentials", "ui", "web"],
     "editor.formatOnSave": true,
     "cSpell.words": ["stallning", "oxlint", "Nuxt"],
   },

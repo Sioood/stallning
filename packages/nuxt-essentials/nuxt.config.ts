@@ -1,16 +1,19 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 import { createResolver } from '@nuxt/kit'
+import ViteYaml from '@modyfi/vite-plugin-yaml'
 const { resolve } = createResolver(import.meta.url)
 
+// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  extends: [['@stallning/nuxt-essentials', { install: true }]],
-  modules: ['@nuxt/fonts', '@nuxt/icon', '@nuxt/image', '@nuxtjs/tailwindcss'],
-  alias: { '~ui': resolve('./') },
+  modules: ['@nuxt/eslint', '@nuxtjs/i18n'],
+  vite: {
+    plugins: [ViteYaml()],
+  },
+  alias: { '~nuxt-essentials': resolve('./') },
   components: [
     {
       path: resolve('./components'),
-      prefix: 'UI',
+      prefix: 'NEss',
     },
   ],
   i18n: {

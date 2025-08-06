@@ -67,6 +67,7 @@
         [
           "global",
           "config",
+          "nuxt-essentials",
           "ui",
           "web"
         ]

@@ -25,6 +25,7 @@
     "@stallning/eslint": "workspace:^",
     "@stallning/oxlint": "workspace:^",
     "@stallning/prettier": "workspace:^",
+    "@vueuse/nuxt": "^13.6.0",
     "eslint": "^9.32.0",
     "nuxt": "^4.0.1",
     "nuxt-security": "^2.3.0",

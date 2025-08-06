@@ -8,15 +8,15 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
     '@nuxtjs/i18n',
-    '@pinia/nuxt',
-    /**
+    '@pinia/nuxt' /**
      * See thoses links for more information
      * https://nuxt-security.vercel.app/getting-started/configuration#overriding-a-layers-configuration
      *
      * https://nuxt-security.vercel.app/advanced/good-practices
      * https://nuxt-security.vercel.app/advanced/improve-security
-     */
+     */,
     'nuxt-security',
+    '@vueuse/nuxt',
   ],
   vite: {
     plugins: [ViteYaml()],

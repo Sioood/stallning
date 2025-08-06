@@ -27,6 +27,7 @@
     "@stallning/prettier": "workspace:^",
     "eslint": "^9.32.0",
     "nuxt": "^4.0.1",
+    "nuxt-security": "^2.3.0",
     "typescript": "^5.8.3",
     "vue": "latest"
   },

@@ -5,7 +5,19 @@ const { resolve } = createResolver(import.meta.url)
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint', '@nuxtjs/i18n', '@pinia/nuxt'],
+  modules: [
+    '@nuxt/eslint',
+    '@nuxtjs/i18n',
+    '@pinia/nuxt',
+    /**
+     * See thoses links for more information
+     * https://nuxt-security.vercel.app/getting-started/configuration#overriding-a-layers-configuration
+     *
+     * https://nuxt-security.vercel.app/advanced/good-practices
+     * https://nuxt-security.vercel.app/advanced/improve-security
+     */
+    'nuxt-security',
+  ],
   vite: {
     plugins: [ViteYaml()],
   },

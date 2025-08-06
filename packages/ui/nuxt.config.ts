@@ -18,4 +18,10 @@ export default defineNuxtConfig({
     // ISO 639-1 + ISO 3166-1
     locales: [{ code: 'fr-FR', name: 'Français', file: 'fr-FR/index.ts' }],
   },
+
+  site: {
+    url: 'https://ui.com',
+    name: 'UI',
+    description: 'UI component library',
+  },
 })

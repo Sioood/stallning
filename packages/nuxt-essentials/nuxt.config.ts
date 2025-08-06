@@ -17,6 +17,7 @@ export default defineNuxtConfig({
      */,
     'nuxt-security',
     '@vueuse/nuxt',
+    '@nuxtjs/seo',
   ],
   vite: {
     plugins: [ViteYaml()],
@@ -32,5 +33,10 @@ export default defineNuxtConfig({
     defaultLocale: 'fr-FR',
     // ISO 639-1 + ISO 3166-1
     locales: [{ code: 'fr-FR', name: 'Français', file: 'fr-FR/index.ts' }],
+  },
+  site: {
+    url: 'https://example.com',
+    name: 'Nuxt Essentials',
+    description: 'Welcome to my awesome site!',
   },
 })

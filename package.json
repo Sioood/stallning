@@ -9,6 +9,8 @@
     "lint": "turbo run lint",
     "lint:oxlint": "turbo run lint:oxlint",
     "lint:eslint": "turbo run lint:eslint",
+    "deps:check:minor": "npx taze minor -r",
+    "deps:check:major": "npx taze major -r",
     "format": "turbo format",
     "prepare": "husky || true",
     "pre-commit": "lint-staged",

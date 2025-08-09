@@ -1,5 +1,4 @@
 import { createResolver } from '@nuxt/kit'
-import ViteYaml from '@modyfi/vite-plugin-yaml'
 const { resolve } = createResolver(import.meta.url)
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
@@ -19,9 +18,6 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@nuxtjs/seo',
   ],
-  vite: {
-    plugins: [ViteYaml()],
-  },
   alias: { '~nuxt-essentials': resolve('./') },
   components: [
     {

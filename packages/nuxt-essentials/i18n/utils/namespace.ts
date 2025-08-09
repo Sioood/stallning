@@ -1,20 +1,19 @@
-export const getMessagesWithNamespace = async (translations: Record<string, () => Promise<unknown>>) => {
-  let messages: Record<string, string> = {}
+export const prefixKeys = (prefix: string, obj: Record<string, string>) =>
+  Object.fromEntries(Object.entries(obj).map(([key, value]) => [`${prefix}:${key}`, value]))
 
-  for (const path in translations) {
-    const file = await translations[path]?.()
-    const content = (file as { default: Record<string, string> })?.default ?? {}
+export const getMessagesWithNamespace = async (files: Record<string, () => Promise<{ default: Record<string, string> }>>) => {
+  const namespaces = Object.keys(files)
 
-    const namespace = path.split('/')[1]?.split('.')[0]
-    if (!namespace || namespace === 'translations' || namespace === 'index') {
-      messages = { ...messages, ...content }
-      continue
-    }
+  const messagesArray = await Promise.all(
+    namespaces.map(async (name) => {
+      const loadFn = files[name]
+      if (!loadFn) {
+        throw new Error(`Namespace "${name}" not found`)
+      }
+      const module = await loadFn()
+      return name === 'translations' ? module.default : prefixKeys(name, module.default)
+    }),
+  )
 
-    for (const key in content) {
-      messages[`${namespace}:${key}`] = content[key] || key
-    }
-  }
-
-  return messages
+  return Object.assign({}, ...messagesArray)
 }

@@ -1,5 +1,9 @@
-import { getMessagesWithNamespace } from '../../utils/namespace'
+import { getMessagesWithNamespace } from '~nuxt-essentials/i18n/utils/namespace'
+
 export default defineI18nLocale(async () => {
-  const translations = import.meta.glob('./*.{yaml,json}', { eager: false })
-  return getMessagesWithNamespace(translations)
+  const namespacesFiles = {
+    translations: () => import('./translations.json'),
+  }
+
+  return await getMessagesWithNamespace(namespacesFiles)
 })

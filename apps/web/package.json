@@ -10,7 +10,8 @@
     "postinstall": "nuxt prepare",
     "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
     "lint:oxlint": "pnpx oxlint || true",
-    "lint:eslint": "pnpx eslint . --max-warnings 0"
+    "lint:eslint": "pnpx eslint . --max-warnings 0",
+    "i18n:coverage": "npx tsx node_modules/@stallning/ui/node_modules/@stallning/nuxt-essentials/i18n/utils/coverage -f ./i18n/locales"
   },
   "dependencies": {
     "@stallning/ui": "workspace:^",

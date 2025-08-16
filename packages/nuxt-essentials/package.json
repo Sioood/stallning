@@ -11,7 +11,8 @@
     "preview": "nuxt preview .playground",
     "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
     "lint:oxlint": "pnpx oxlint || true",
-    "lint:eslint": "pnpx eslint . --max-warnings 0"
+    "lint:eslint": "pnpx eslint . --max-warnings 0",
+    "i18n:coverage": "npx tsx ./i18n/utils/coverage -f ./i18n/locales"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.11.2",
@@ -25,8 +26,12 @@
     "@stallning/eslint": "workspace:^",
     "@stallning/oxlint": "workspace:^",
     "@stallning/prettier": "workspace:^",
+    "@types/minimist": "^1.2.5",
     "@vueuse/nuxt": "^13.6.0",
+    "consola": "^3.4.2",
+    "es-main": "^1.4.0",
     "eslint": "^9.32.0",
+    "minimist": "^1.2.8",
     "nuxt": "catalog:",
     "nuxt-security": "^2.3.0",
     "typescript": "^5.8.3",

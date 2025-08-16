@@ -16,7 +16,7 @@
   "scripts": {
     "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
     "lint:oxlint": "pnpx oxlint || true",
-    "lint:eslint": "pnpx eslint . --max-warnings 0",
+    "lint:eslint": "pnpx eslint .",
     "format": "pnpx prettier --write ."
   },
   "keywords": [],

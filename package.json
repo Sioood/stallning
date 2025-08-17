@@ -2,13 +2,14 @@
   "name": "stallning",
   "version": "1.0.0",
   "description": "",
-  "packageManager": "pnpm@10.13.1",
+  "packageManager": "pnpm@10.14.0",
   "type": "module",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "lint": "turbo run lint",
     "lint:oxlint": "turbo run lint:oxlint",
     "lint:eslint": "turbo run lint:eslint",
+    "i18n:coverage": "turbo run i18n:coverage",
     "deps:check:minor": "npx taze minor -r",
     "deps:check:major": "npx taze major -r",
     "format": "turbo format",
@@ -22,7 +23,7 @@
   "author": "",
   "license": "ISC",
   "engines": {
-    "node": ">=22.5.1"
+    "node": ">=22.18.0"
   },
   "dependencies": {
     "@changesets/cli": "^2.29.5"

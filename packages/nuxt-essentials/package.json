@@ -12,7 +12,7 @@
     "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
     "lint:oxlint": "pnpx oxlint || true",
     "lint:eslint": "pnpx eslint .",
-    "i18n:coverage": "npx tsx ./i18n/utils/coverage -f ./i18n/locales"
+    "i18n:coverage": "node ./i18n/utils/coverage.ts -f ./i18n/locales"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.11.2",

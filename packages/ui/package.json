@@ -4,25 +4,26 @@
   "version": "0.0.1",
   "main": "./nuxt.config.ts",
   "scripts": {
-    "dev": "nuxi dev .playground",
-    "dev:prepare": "nuxt prepare .playground",
-    "build": "nuxt build .playground",
-    "generate": "nuxt generate .playground",
-    "preview": "nuxt preview .playground",
+    "dev": "nuxi dev",
+    "prepare": "nuxt prepare",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
     "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
     "lint:oxlint": "pnpx oxlint || true",
     "lint:eslint": "pnpx eslint .",
     "i18n:coverage": "node ./node_modules/@stallning/nuxt-essentials/i18n/utils/coverage.ts -f ./i18n/locales"
   },
   "dependencies": {
-    "@stallning/nuxt-essentials": "workspace:^"
+    "@stallning/nuxt-essentials": "workspace:^",
+    "@tailwindcss/vite": "^4.1.12",
+    "tailwindcss": "^4.1.12"
   },
   "devDependencies": {
     "@nuxt/fonts": "0.11.4",
     "@nuxt/icon": "1.15.0",
     "@nuxt/image": "1.10.0",
     "@nuxt/kit": "^4.0.2",
-    "@nuxtjs/tailwindcss": "^6.14.0",
     "@stallning/eslint": "workspace:^",
     "@stallning/oxlint": "workspace:^",
     "@stallning/prettier": "workspace:^",

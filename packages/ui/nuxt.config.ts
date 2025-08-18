@@ -1,11 +1,16 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { createResolver } from '@nuxt/kit'
+import tailwindcss from '@tailwindcss/vite'
 const { resolve } = createResolver(import.meta.url)
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
   extends: [['@stallning/nuxt-essentials', { install: true }]],
-  modules: ['@nuxt/fonts', '@nuxt/icon', '@nuxt/image', '@nuxtjs/tailwindcss', 'v-gsap-nuxt'],
+  css: [resolve('./assets/css/main.css')],
+  vite: {
+    plugins: [tailwindcss()],
+  },
+  modules: ['@nuxt/fonts', '@nuxt/icon', '@nuxt/image', 'v-gsap-nuxt'],
   alias: { '~ui': resolve('./') },
   components: [
     {

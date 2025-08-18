@@ -27,6 +27,7 @@
     "@stallning/oxlint": "workspace:^",
     "@stallning/prettier": "workspace:^",
     "eslint": "^9.32.0",
+    "eslint-plugin-tailwindcss": "4.0.0-beta.0",
     "nuxt": "catalog:",
     "typescript": "^5.8.3",
     "v-gsap-nuxt": "^1.4.4",

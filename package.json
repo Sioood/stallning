@@ -17,7 +17,8 @@
     "pre-commit": "lint-staged",
     "changeset": "pnpm exec changeset",
     "changeset:conventional-commits": "node --experimental-strip-types ./.changeset/changeset-conventional-commits.ts",
-    "changeset:release": "pnpm exec changeset tag"
+    "changeset:release": "pnpm exec changeset tag",
+    "build": "turbo run build"
   },
   "keywords": [],
   "author": "",

@@ -3,21 +3,19 @@
   "private": true,
   "version": "1.2.0",
   "description": "",
-  "main": "eslint.config.js",
+  "main": "index.ts",
   "exports": {
-    ".": "./eslint.config.js",
-    "./configs/vue": "./configs/vue.js",
-    "./configs/tailwind": "./configs/tailwind.js"
+    ".": "./index.ts"
   },
   "files": [
-    "eslint.config.js",
-    "configs/vue.js"
+    "index.ts",
+    "eslint.config.ts"
   ],
   "type": "module",
   "scripts": {
     "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
     "lint:oxlint": "pnpx oxlint || true",
-    "lint:eslint": "pnpx eslint .",
+    "lint:eslint": "eslint . --ext .ts,.js",
     "format": "pnpx prettier --write ."
   },
   "keywords": [],
@@ -26,13 +24,22 @@
   "devDependencies": {
     "@stallning/oxlint": "workspace:^",
     "@stallning/prettier": "workspace:^",
+    "@types/eslint-plugin-tailwindcss": "^3.17.0",
+    "eslint": "catalog:",
     "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import-x": "^4.16.1",
+    "eslint-plugin-jsonc": "^2.20.1",
+    "eslint-plugin-markdown": "^5.1.0",
     "eslint-plugin-oxlint": "^1.8.0",
     "eslint-plugin-prettier": "^5.5.3",
     "eslint-plugin-tailwindcss": "beta",
     "eslint-plugin-vue": "^10.3.0",
-    "eslint": "catalog:",
+    "eslint-plugin-yml": "^1.18.0",
+    "jiti": "^2.5.1",
+    "jsonc-eslint-parser": "^2.4.0",
     "oxlint": "catalog:",
-    "typescript-eslint": "^8.38.0"
+    "typescript-eslint": "^8.38.0",
+    "yaml-eslint-parser": "^1.3.0"
   }
 }

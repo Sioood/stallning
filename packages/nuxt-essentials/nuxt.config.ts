@@ -40,6 +40,11 @@ export default defineNuxtConfig({
       },
     },
   },
+  eslint: {
+    config: {
+      standalone: false,
+    },
+  },
   i18n: {
     defaultLocale: 'fr-FR',
     // ISO 639-1 + ISO 3166-1

@@ -1,5 +1,13 @@
-import { createConfigForNuxt } from '@nuxt/eslint-config'
-import baseVue from '@stallning/eslint/configs/vue'
-import baseTailwind from '@stallning/eslint/configs/tailwind'
+import eslint from '@stallning/eslint'
 
-export default createConfigForNuxt().append(baseTailwind, baseVue)
+import { withNuxt } from './.nuxt/eslint.config.mjs'
+
+export default withNuxt(
+  eslint({
+    oxlint: true,
+    prettier: true,
+    typescript: true,
+    tailwindcss: './assets/css/main.css',
+    vue: true,
+  }),
+)

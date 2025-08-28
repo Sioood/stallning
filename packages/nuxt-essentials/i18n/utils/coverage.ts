@@ -1,9 +1,10 @@
-import minimist from 'minimist'
-import esMain from 'es-main'
-import { join, resolve } from 'node:path'
 import { readdirSync, readFileSync } from 'node:fs'
+import { join, resolve } from 'node:path'
+
 import { consola } from 'consola'
 import { colorize } from 'consola/utils'
+import esMain from 'es-main'
+import { default as minimist } from 'minimist'
 
 interface Argv extends minimist.ParsedArgs {
   f?: string

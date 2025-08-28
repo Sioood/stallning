@@ -2,7 +2,11 @@
   "name": "@stallning/prettier",
   "version": "1.2.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
+  "exports": {
+    ".": "./index.js"
+  },
   "scripts": {
     "format": "pnpx prettier --write ."
   },

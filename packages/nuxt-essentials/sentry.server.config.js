@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/nuxt'
+
 import release from '~nuxt-essentials/utils/release'
 
 if (process.env.NUXT_PUBLIC_SENTRY_DSN) {

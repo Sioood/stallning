@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/nuxt'
+
 import { useRuntimeConfig } from '#imports'
 import release from '~nuxt-essentials/utils/release'
 

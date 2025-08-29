@@ -1,7 +1,7 @@
 import path from 'node:path'
 
 import { pluginTailwind } from '../plugins.ts'
-import { defineConfig } from '../types.ts'
+import { defineConfig, type FlatConfig } from '../types.ts'
 
 export function tailwindcss(options: boolean | string) {
   if (options === false) return []
@@ -10,7 +10,7 @@ export function tailwindcss(options: boolean | string) {
 
   if (typeof options === 'string') {
     return defineConfig([
-      ...recommended,
+      ...(recommended as FlatConfig[]),
       {
         settings: {
           tailwindcss: {
@@ -19,10 +19,11 @@ export function tailwindcss(options: boolean | string) {
         },
         rules: {
           'tailwindcss/no-custom-classname': 'off',
+          'tailwindcss/classnames-order': 'warn',
         },
       },
     ])
   }
 
-  return defineConfig(recommended)
+  return defineConfig(recommended as FlatConfig)
 }

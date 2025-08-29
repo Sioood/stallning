@@ -1,4 +1,4 @@
-import prettierConfig from '@stallning/prettier'
+import prettierConfig from '@stallning/prettier/prettier.config.js'
 import pluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 
 import { defineConfig } from '../types.ts'

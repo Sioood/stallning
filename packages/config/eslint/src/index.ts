@@ -49,7 +49,7 @@ export function eslint(options: OptionsConfig = {}, ...userConfigs: FlatConfigs)
   }
 
   if (hasVue) {
-    configs.push(...vue)
+    configs.push(...vue({ hasTypescript }))
   }
 
   if (hasPrettier) {

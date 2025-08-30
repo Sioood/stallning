@@ -4,7 +4,7 @@ import { withNuxt } from './.playground/.nuxt/eslint.config.mjs'
 
 export default withNuxt(
   eslint({
-    oxlint: true,
+    oxlint: 'node_modules/@stallning/oxlint/.oxlintrc.json',
     prettier: true,
     typescript: true,
     vue: true,

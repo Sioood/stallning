@@ -7,3 +7,6 @@ export { default as pluginMarkdown } from 'eslint-plugin-markdown'
 // export { default as pluginPrettierRecommended } from 'eslint-plugin-prettier/recommended'
 export { default as pluginTailwind } from 'eslint-plugin-tailwindcss'
 export { default as pluginVue } from 'eslint-plugin-vue'
+
+export { default as parserVue } from 'vue-eslint-parser'
+export { default as parserTs } from '@typescript-eslint/parser'

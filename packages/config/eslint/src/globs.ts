@@ -1,3 +1,5 @@
+export const GLOB_VUE = '**/*.vue'
+
 export const GLOB_EXCLUDE = [
   '**/node_modules',
   '**/dist',

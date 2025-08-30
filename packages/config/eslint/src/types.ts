@@ -29,6 +29,10 @@ export type TypedFlatConfigItem = Omit<Linter.Config, 'plugins' | 'rules'> & {
   rules?: Rules
 }
 
+export interface OptionsHasTypeScript {
+  hasTypescript?: boolean
+}
+
 export interface OptionsConfig {
   /**
    * Enable oxlint support.

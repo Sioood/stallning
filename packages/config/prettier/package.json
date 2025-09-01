@@ -2,7 +2,12 @@
   "name": "@stallning/prettier",
   "version": "1.2.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
+  "exports": {
+    ".": "./prettier.config.js",
+    "./prettier.config.js": "./prettier.config.js"
+  },
   "scripts": {
     "format": "pnpx prettier --write ."
   },

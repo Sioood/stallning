@@ -35,6 +35,7 @@
     },
     "conventionalCommits.scopes": ["global", "config", "docs", "nuxt-essentials", "ui", "web"],
     "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
     "cSpell.words": ["stallning", "oxlint", "Nuxt"],
   },
   "extensions": {

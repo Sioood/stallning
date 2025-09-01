@@ -21,9 +21,10 @@
       "apps/": true,
       "packages/": true,
     },
-    "conventionalCommits.scopes": ["global", "config", "docs", "ui", "web"],
+    "conventionalCommits.scopes": ["global", "config", "docs"],
     "editor.formatOnSave": true,
-    "cSpell.words": ["stallning", "oxlint", "Nuxt"],
+    "editor.formatOnSaveMode": "file",
+    "cSpell.words": ["stallning", "oxlint"],
   },
   "extensions": {
     "recommendations": [

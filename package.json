@@ -49,10 +49,10 @@
   },
   "prettier": "@stallning/prettier",
   "lint-staged": {
-    "**/*.{json,js,ts,tsx,vue}": [
-      "pnpm run lint:oxlint -- --fix",
-      "pnpm run lint:eslint -- --fix",
-      "pnpm run format -- --write"
+    "**/*.{json,js,ts,md,yaml,yml}": [
+      "oxlint --fix",
+      "eslint --fix",
+      "prettier --write"
     ]
   },
   "commitlint": {

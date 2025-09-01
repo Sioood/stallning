@@ -38,5 +38,12 @@
     "typescript": "^5.8.3",
     "vue": "latest"
   },
+  "lint-staged": {
+    "**/*.{json,js,ts,md,yaml,yml,vue}": [
+      "oxlint --fix",
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
   "prettier": "@stallning/prettier"
 }

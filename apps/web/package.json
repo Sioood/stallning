@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@nuxt/eslint": "1.7.1",
+    "@nuxtjs/i18n": "^10.0.3",
     "@stallning/eslint": "workspace:^",
     "@stallning/oxlint": "workspace:^",
     "@stallning/prettier": "workspace:^"

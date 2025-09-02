@@ -106,6 +106,12 @@ The following scripts are available at the root of the monorepo:
 | `pnpm changeset:release` | Create a release tag from changesets.  |
 | `pnpm build`             | Build all packages and applications.   |
 
+## Git Workflow
+
+The recommended workflow for this repository is to use [Git Flow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow).
+
+Combined with changesets for versioning, this workflow allows you to keep track of changes and releases in a structured and efficient way. It automatically creates release tags and generates changelogs when a PR is merged to main and contains changesets.
+
 ## 🛠️ Fetching the Latest Changes
 
 If you want to stay up-to-date with the latest changes, you can pick either one or multiple commits.

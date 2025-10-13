@@ -170,3 +170,4 @@ git fetch https://github.com/Sioood/stallning.git <target_branch>
 ```sh
 git checkout FETCH_HEAD -- <path_to_folder_or_file>
 ```
+# flovism

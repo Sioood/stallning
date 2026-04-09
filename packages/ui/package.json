@@ -22,8 +22,8 @@
     "vue-router": "catalog:"
   },
   "devDependencies": {
+    "@nuxt/kit": "catalog:",
     "@stallning/eslint": "workspace:^",
-    "@stallning/oxlint": "workspace:^",
-    "@stallning/typescript": "workspace:^"
+    "@stallning/oxlint": "workspace:^"
   }
 }

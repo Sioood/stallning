@@ -4,6 +4,6 @@ packages:
   - "packages/config/*"
 
 catalog:
-  eslint: ^9.32.0
+  eslint: ^9.39.4
   oxfmt: ^0.44.0
-  oxlint: ^1.8.0
+  oxlint: ^1.59.0

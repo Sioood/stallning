@@ -1,16 +1,12 @@
 {
+  "extends": "@stallning/typescript/base.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "strict": true,
-    "esModuleInterop": true,
     "allowImportingTsExtensions": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
     "noEmit": true,
     "allowJs": true,
-    "checkJs": true
+    "checkJs": true,
+    "moduleResolution": "nodenext",
+    "module": "nodenext"
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "eslint.config.ts"]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.d.mts", "eslint.config.ts", "index.ts"]
 }

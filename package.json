@@ -2,7 +2,9 @@
   "name": "stallning",
   "version": "1.0.0",
   "description": "",
-  "packageManager": "pnpm@10.14.0",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "type": "module",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
@@ -11,19 +13,15 @@
     "lint:eslint": "turbo run lint:eslint",
     "deps:check:minor": "npx taze minor -r",
     "deps:check:major": "npx taze major -r",
-    "format": "turbo format",
+    "format": "turbo run format",
+    "format:check": "turbo run format:check",
+    "check-types": "turbo run check-types",
     "prepare": "husky || true",
     "pre-commit": "lint-staged",
     "changeset": "pnpm exec changeset",
     "changeset:conventional-commits": "node --experimental-strip-types ./.changeset/changeset-conventional-commits.ts",
     "changeset:release": "pnpm exec changeset tag",
     "build": "turbo run build"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "engines": {
-    "node": ">=22.18.0"
   },
   "dependencies": {
     "@changesets/cli": "^2.29.5"
@@ -36,8 +34,8 @@
     "@commitlint/config-conventional": "^19.8.1",
     "@manypkg/get-packages": "^3.1.0",
     "@stallning/eslint": "workspace:^",
+    "@stallning/oxfmt": "workspace:^",
     "@stallning/oxlint": "workspace:^",
-    "@stallning/prettier": "workspace:^",
     "@stallning/typescript": "workspace:^",
     "@types/node": "^24.1.0",
     "commander": "^14.0.0",
@@ -46,12 +44,11 @@
     "oxlint": "catalog:",
     "turbo": "^2.5.5"
   },
-  "prettier": "@stallning/prettier",
   "lint-staged": {
     "**/*.{json,js,ts,md,yaml,yml}": [
       "oxlint --fix",
       "eslint --fix",
-      "prettier --write"
+      "oxfmt --write"
     ]
   },
   "commitlint": {
@@ -90,5 +87,9 @@
         ]
       ]
     }
-  }
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "packageManager": "pnpm@10.14.0"
 }

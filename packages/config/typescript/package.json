@@ -2,11 +2,18 @@
   "name": "@stallning/typescript",
   "version": "1.2.0",
   "description": "",
-  "scripts": {},
   "keywords": [],
-  "author": "",
   "license": "ISC",
+  "author": "",
   "files": [
     "base.json"
-  ]
+  ],
+  "scripts": {
+    "format": "pnpm --filter @stallning/oxfmt exec oxfmt --write .",
+    "format:check": "pnpm --filter @stallning/oxfmt exec oxfmt --check .",
+    "check-types": "echo \"No TypeScript source files to type-check in @stallning/typescript\""
+  },
+  "devDependencies": {
+    "@stallning/oxfmt": "workspace:^"
+  }
 }

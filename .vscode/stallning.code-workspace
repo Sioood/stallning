@@ -17,7 +17,7 @@
       "**/CVS": true,
       "**/.DS_Store": true,
       "**/Thumbs.db": true,
-      "node_module": true,
+      "node_modules": true,
       "apps/": true,
       "packages/": true,
     },
@@ -30,7 +30,6 @@
     "recommendations": [
       "oxc.oxc-vscode",
       "dbaeumer.vscode-eslint",
-      "esbenp.prettier-vscode",
       "vivaxy.vscode-conventional-commits",
       "Gruntfuggly.todo-tree",
       "antfu.iconify",

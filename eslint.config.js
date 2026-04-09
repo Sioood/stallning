@@ -1,7 +1,6 @@
-import eslint from '@stallning/eslint'
+import eslint from "@stallning/eslint";
 
 export default eslint({
   oxlint: true,
-  prettier: true,
   typescript: true,
-})
+});

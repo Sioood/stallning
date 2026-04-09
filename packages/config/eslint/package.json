@@ -1,38 +1,39 @@
 {
   "name": "@stallning/eslint",
-  "private": true,
   "version": "1.2.0",
+  "private": true,
   "description": "",
-  "main": "index.ts",
-  "exports": {
-    ".": "./index.ts"
-  },
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "files": [
     "index.ts",
     "eslint.config.ts"
   ],
   "type": "module",
+  "main": "index.ts",
+  "exports": {
+    ".": "./index.ts"
+  },
   "scripts": {
     "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
-    "lint:oxlint": "pnpx oxlint || true",
+    "lint:oxlint": "pnpx oxlint",
     "lint:eslint": "eslint . --ext .ts,.js",
-    "format": "pnpx prettier --write ."
+    "format": "pnpm --filter @stallning/oxfmt exec oxfmt --write .",
+    "format:check": "pnpm --filter @stallning/oxfmt exec oxfmt --check .",
+    "check-types": "tsc --noEmit -p tsconfig.json"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
+    "@stallning/oxfmt": "workspace:^",
     "@stallning/oxlint": "workspace:^",
-    "@stallning/prettier": "workspace:^",
+    "@typescript-eslint/parser": "^8.38.0",
     "eslint": "catalog:",
-    "eslint-config-prettier": "^10.1.8",
     "eslint-flat-config-utils": "^2.1.1",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import-x": "^4.16.1",
     "eslint-plugin-jsonc": "^2.20.1",
     "eslint-plugin-markdown": "^5.1.0",
     "eslint-plugin-oxlint": "^1.8.0",
-    "eslint-plugin-prettier": "^5.5.3",
     "eslint-plugin-yml": "^1.18.0",
     "jiti": "^2.5.1",
     "jsonc-eslint-parser": "^2.4.0",
@@ -44,7 +45,7 @@
     "**/*.{json,js,ts,md,yaml,yml}": [
       "oxlint --fix",
       "eslint --fix",
-      "prettier --write"
+      "pnpm --filter @stallning/oxfmt exec oxfmt --write"
     ]
   }
 }

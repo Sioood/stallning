@@ -2,13 +2,17 @@
   "name": "@stallning/oxlint",
   "version": "1.2.0",
   "description": "",
-  "scripts": {
-    "lint": "pnpx oxlint"
-  },
   "keywords": [],
-  "author": "",
   "license": "ISC",
+  "author": "",
+  "scripts": {
+    "lint": "pnpx oxlint",
+    "format": "pnpm --filter @stallning/oxfmt exec oxfmt --write .",
+    "format:check": "pnpm --filter @stallning/oxfmt exec oxfmt --check .",
+    "check-types": "echo \"No TypeScript files to check in @stallning/oxlint\""
+  },
   "devDependencies": {
+    "@stallning/oxfmt": "workspace:^",
     "oxlint": "catalog:"
   }
 }

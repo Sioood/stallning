@@ -13,7 +13,7 @@ This boilerplate serves as a foundation for building future projects. Feel free 
 
 - **Monorepo Architecture**: Organized with PNPM workspaces and accelerated with Turborepo.
 - **Multiple Templates**: Choose from a minimal setup or a full-fledged Nuxt application.
-- **Code Quality**: Comes with ESLint, Prettier, and commit linting configured out-of-the-box.
+- **Code Quality**: Comes with ESLint, Oxlint, oxfmt, and commit linting configured out-of-the-box.
 - **Automation**: Husky for pre-commit hooks and Changesets for automated versioning and changelogs.
 - **Modern Tech**: Built with TypeScript, Nuxt, and other modern technologies.
 
@@ -25,8 +25,9 @@ This boilerplate serves as a foundation for building future projects. Feel free 
 └── packages/
     └── config/
         ├── eslint
+        ├── oxfmt
         ├── oxlint
-        └── prettier
+        └── typescript
 ```
 
 ```mermaid
@@ -35,10 +36,12 @@ flowchart LR
 . --> apps
 . --> packages
 packages --> config
-config --> prettier
+config --> typescript
+config --> oxfmt
 config --> oxlint
 config --> eslint
-prettier --> eslint
+oxfmt --> eslint
+typescript --> eslint
 oxlint --> eslint
 eslint --> .
 oxlint --> .
@@ -54,7 +57,8 @@ A variety of templates are available, ranging from minimal (main branch) to tech
   - Minimal template configuration to get started with the essentials for any new project.
     - [Typescript](https://www.typescriptlang.org/)
     - [ESLint](https://eslint.org/)
-    - [Prettier](https://prettier.io/)
+    - [Oxlint](https://oxc.rs/docs/guide/usage/linter)
+    - [oxfmt](https://oxc.rs/docs/guide/usage/formatter)
     - [Husky](https://github.com/typicode/husky), [lint-staged](https://github.com/okonet/lint-staged) and [commitlint](https://github.com/conventional-changelog/commitlint)
     - [Changeset](https://github.com/changesets/changeset)
 
@@ -101,7 +105,9 @@ The following scripts are available at the root of the monorepo:
 | `pnpm lint`              | Run all linting checks.                |
 | `pnpm lint:oxlint`       | Run oxlint checks.                     |
 | `pnpm lint:eslint`       | Run ESLint checks.                     |
-| `pnpm format`            | Format the codebase with Prettier.     |
+| `pnpm check-types`       | Run all TypeScript checks.             |
+| `pnpm format`            | Format the codebase with oxfmt.        |
+| `pnpm format:check`      | Verify formatting with oxfmt.          |
 | `pnpm changeset`         | Create a new changeset for versioning. |
 | `pnpm changeset:release` | Create a release tag from changesets.  |
 | `pnpm build`             | Build all packages and applications.   |

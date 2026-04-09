@@ -11,6 +11,7 @@ export function eslint(options: OptionsConfig = {}, ...userConfigs: FlatConfigs)
     jsonc: hasJsonc = true,
     markdown: hasMarkdown = true,
     oxlint: oxlintOptions = true,
+    tsconfigRootDir,
     typescript: hasTypescript = true,
     vue: hasVue = false,
     yml: hasYml = true,
@@ -23,7 +24,7 @@ export function eslint(options: OptionsConfig = {}, ...userConfigs: FlatConfigs)
   ]
 
   if (hasTypescript) {
-    configs.push(...typescript)
+    configs.push(...typescript(tsconfigRootDir))
   }
 
   if (hasImports) {
@@ -40,10 +41,6 @@ export function eslint(options: OptionsConfig = {}, ...userConfigs: FlatConfigs)
 
   if (hasYml) {
     configs.push(...yml)
-  }
-
-  if (hasVue) {
-    configs.push(...vue({ hasTypescript }))
   }
 
   if (hasVue) {

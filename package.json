@@ -59,7 +59,7 @@
   "lint-staged": {
     "**/*.{json,js,ts,md,yaml,yml}": [
       "oxlint --fix",
-      "eslint --fix",
+      "eslint --fix -c eslint.config.js",
       "pnpm exec oxfmt --write"
     ]
   },

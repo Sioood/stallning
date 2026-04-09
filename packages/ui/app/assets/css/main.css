@@ -1,5 +1,5 @@
 /* @import './font.css'; */
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @source '../../app/components';
 @source '../../app/pages/*';
@@ -12,7 +12,7 @@
   /* TODO colors design system */
 
   /* FONTS */
-  --font-primary: "Inter", sans-serif;
+  --font-primary: 'Inter', sans-serif;
 }
 
 html {

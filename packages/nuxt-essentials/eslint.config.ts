@@ -1,26 +1,22 @@
-import { dirname } from "node:path";
-import { fileURLToPath } from "node:url";
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-import eslint from "@stallning/eslint";
+import eslint from '@stallning/eslint'
 
-import { withNuxt } from "./.nuxt/eslint.config.mjs";
+import { withNuxt } from './.nuxt/eslint.config.mjs'
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 export default withNuxt(
   eslint({
-    oxlint: "../config/oxlint/.oxlintrc.json",
+    oxlint: resolve(__dirname, '../../.oxlintrc.json'),
+    tsconfigRootDir: __dirname,
     typescript: true,
     vue: true,
   }),
   {
-    languageOptions: {
-      parserOptions: {
-        tsconfigRootDir: __dirname,
-      },
-    },
     rules: {
-      "import-x/no-unresolved": ["error", { ignore: ["^~nuxt-essentials/"] }],
+      'import-x/no-unresolved': ['error', { ignore: ['^~nuxt-essentials/'] }],
     },
   },
-);
+)

@@ -32,6 +32,12 @@ export interface OptionsConfig {
   typescript?: boolean
 
   /**
+   * Absolute path to the directory containing the tsconfig.json.
+   * Required in monorepos with ESLint v10+ to avoid multi-root ambiguity.
+   */
+  tsconfigRootDir?: string
+
+  /**
    * Enable imports support.
    *
    * @default true

@@ -19,8 +19,10 @@
     "prepare": "husky || true",
     "pre-commit": "lint-staged",
     "changeset": "pnpm exec changeset",
-    "changeset:conventional-commits": "node --experimental-strip-types ./.changeset/changeset-conventional-commits.ts",
+    "changeset:conventional-commits": "node ./.changeset/changeset-conventional-commits.ts",
     "changeset:release": "pnpm exec changeset tag",
+    "sync:merge": "node --experimental-strip-types ./scripts/sync-from-minimal.ts",
+    "sync:pick": "node --experimental-strip-types ./scripts/pick-commits.ts",
     "build": "turbo run build"
   },
   "dependencies": {
@@ -39,8 +41,10 @@
     "@stallning/typescript": "workspace:^",
     "@types/node": "^25.5.2",
     "commander": "^14.0.3",
+    "consola": "^3.4.2",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
+    "minimist": "^1.2.8",
     "oxlint": "catalog:",
     "turbo": "^2.9.5"
   },
@@ -48,7 +52,7 @@
     "**/*.{json,js,ts,md,yaml,yml}": [
       "oxlint --fix",
       "eslint --fix",
-      "oxfmt --write"
+      "pnpm exec oxfmt --write"
     ]
   },
   "commitlint": {

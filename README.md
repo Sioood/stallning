@@ -100,17 +100,19 @@ Open the workspace file at `./.vscode/.code-workspace` to get started.
 
 The following scripts are available at the root of the monorepo:
 
-| Script                   | Description                            |
-| ------------------------ | -------------------------------------- |
-| `pnpm lint`              | Run all linting checks.                |
-| `pnpm lint:oxlint`       | Run oxlint checks.                     |
-| `pnpm lint:eslint`       | Run ESLint checks.                     |
-| `pnpm check-types`       | Run all TypeScript checks.             |
-| `pnpm format`            | Format the codebase with oxfmt.        |
-| `pnpm format:check`      | Verify formatting with oxfmt.          |
-| `pnpm changeset`         | Create a new changeset for versioning. |
-| `pnpm changeset:release` | Create a release tag from changesets.  |
-| `pnpm build`             | Build all packages and applications.   |
+| Script                   | Description                                                  |
+| ------------------------ | ------------------------------------------------------------ |
+| `pnpm lint`              | Run all linting checks.                                      |
+| `pnpm lint:oxlint`       | Run oxlint checks.                                           |
+| `pnpm lint:eslint`       | Run ESLint checks.                                           |
+| `pnpm check-types`       | Run all TypeScript checks.                                   |
+| `pnpm format`            | Format the codebase with oxfmt.                              |
+| `pnpm format:check`      | Verify formatting with oxfmt.                                |
+| `pnpm sync:merge`        | Merge one remote branch into a target branch.                |
+| `pnpm sync:pick`         | Cherry-pick commit(s) from remote branch into target branch. |
+| `pnpm changeset`         | Create a new changeset for versioning.                       |
+| `pnpm changeset:release` | Create a release tag from changesets.                        |
+| `pnpm build`             | Build all packages and applications.                         |
 
 ## Git Workflow
 
@@ -118,54 +120,64 @@ The recommended workflow for this repository is to use [Git Flow](https://www.at
 
 Combined with changesets for versioning, this workflow allows you to keep track of changes and releases in a structured and efficient way. It automatically creates release tags and generates changelogs when a PR is merged to main and contains changesets.
 
-## 🛠️ Fetching the Latest Changes
+## Branch Sync Workflow
 
-If you want to stay up-to-date with the latest changes, you can pick either one or multiple commits.
-I recommend using `git cherry-pick` to apply a specific commit from the remote repository to your local branch.
-This ensures that you don't overwrite any changes you've made locally. And is not relative to a git history, `git cherry-pick` copies the changes from the selected commit to the current branch, with a new commit hash.
+Use a hybrid strategy:
 
-### 🍒 Cherry-Picking Commits
+- **Baseline sync**: regularly merge shared boilerplate updates from `minimal`.
+- **Selective sync**: cherry-pick specific commits when only some templates need the change.
 
-#### Storing the targeted branch temporary as `FETCH_HEAD`:
+This keeps template branches (for example `nuxt`) aligned with the foundation while preserving branch-specific work.
 
-```sh
-git fetch https://github.com/Sioood/stallning.git <target_branch>
-```
+### Branch roles
 
-#### Pick one commit:
+- `minimal`: source of truth for cross-project configuration and defaults.
+- template branches (`nuxt`, future branches): specialized layers on top of `minimal`.
 
-```sh
-git cherry-pick <commit_hash>
-```
+### Fork setup (`origin` + `upstream`)
 
-or
+If you fork this repository:
 
 ```sh
-git cherry-pick FETCH_HEAD~<commit_index>
+git remote -v
+git remote add upstream https://github.com/Sioood/stallning.git
+git fetch upstream
 ```
 
-#### Pick a range of commits:
+- `origin` should point to your fork.
+- `upstream` should point to this template repository.
+
+### Baseline sync (recommended regularly)
 
 ```sh
-git cherry-pick <start_commit_hash>^..<end_commit_hash>
+pnpm run sync:merge -- --source-remote upstream --source-branch minimal --target nuxt
 ```
 
-or
+This merges `upstream/minimal` into `nuxt` and is the preferred way to bring in foundation changes.
+
+### Selective sync (for branch-specific picks)
+
+Pick a single commit:
 
 ```sh
-git cherry-pick FETCH_HEAD~<older_commit_index>^..FETCH_HEAD~<recent_commit_index>
+pnpm run sync:pick -- --source-remote upstream --source-branch minimal --target nuxt --commit <sha>
 ```
 
-### 🔎 Copying the changes of specific folder/files
-
-#### Storing the targeted branch temporary as `FETCH_HEAD`:
+Pick a range:
 
 ```sh
-git fetch https://github.com/Sioood/stallning.git <target_branch>
+pnpm run sync:pick -- --source-remote upstream --source-branch minimal --target nuxt --range <start>..<end>
 ```
 
-#### Copying the changes:
+### Validate after every sync
 
 ```sh
-git checkout FETCH_HEAD -- <path_to_folder_or_file>
+pnpm check-types
+pnpm lint
+pnpm format:check
+pnpm build
 ```
+
+### Full runbook
+
+See [`docs/branch-sync.md`](docs/branch-sync.md) for conflict handling, recovery flows, and examples for adding new template branches.

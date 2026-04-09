@@ -3,4 +3,3 @@ export { importX } from "eslint-plugin-import-x";
 export { default as pluginJsonc } from "eslint-plugin-jsonc";
 export { default as pluginYml } from "eslint-plugin-yml";
 export { default as pluginMarkdown } from "eslint-plugin-markdown";
-export { default as parserTs } from "@typescript-eslint/parser";

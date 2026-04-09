@@ -23,7 +23,8 @@
     "changeset:release": "pnpm exec changeset tag",
     "sync:merge": "node --experimental-strip-types ./scripts/sync-from-minimal.ts",
     "sync:pick": "node --experimental-strip-types ./scripts/pick-commits.ts",
-    "build": "turbo run build"
+    "build": "turbo run build",
+    "knip": "knip"
   },
   "dependencies": {
     "@changesets/cli": "^2.30.0"
@@ -36,17 +37,21 @@
     "@commitlint/config-conventional": "^20.5.0",
     "@manypkg/get-packages": "^3.1.0",
     "@stallning/eslint": "workspace:^",
-    "@stallning/oxfmt": "workspace:^",
     "@stallning/oxlint": "workspace:^",
     "@stallning/typescript": "workspace:^",
     "@types/node": "^25.5.2",
     "commander": "^14.0.3",
     "consola": "^3.4.2",
+    "eslint": "catalog:",
     "husky": "^9.1.7",
+    "knip": "^6.3.1",
     "lint-staged": "^16.4.0",
     "minimist": "^1.2.8",
+    "only-allow": "^1.2.1",
+    "oxfmt": "latest",
     "oxlint": "catalog:",
-    "turbo": "^2.9.5"
+    "turbo": "^2.9.5",
+    "typescript": "^6.0.2"
   },
   "lint-staged": {
     "**/*.{json,js,ts,md,yaml,yml}": [

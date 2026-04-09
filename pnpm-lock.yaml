@@ -21,6 +21,9 @@ catalogs:
     oxlint:
       specifier: ^1.59.0
       version: 1.59.0
+    typescript:
+      specifier: ^6.0.2
+      version: 6.0.2
 
 importers:
 
@@ -88,7 +91,7 @@ importers:
         specifier: ^1.2.1
         version: 1.2.2
       oxfmt:
-        specifier: latest
+        specifier: 'catalog:'
         version: 0.44.0
       oxlint:
         specifier: 'catalog:'
@@ -97,7 +100,7 @@ importers:
         specifier: ^2.9.5
         version: 2.9.5
       typescript:
-        specifier: ^6.0.2
+        specifier: 'catalog:'
         version: 6.0.2
 
   packages/config/eslint:
@@ -129,9 +132,6 @@ importers:
       jiti:
         specifier: ^2.6.1
         version: 2.6.1
-      oxfmt:
-        specifier: latest
-        version: 0.44.0
       oxlint:
         specifier: 'catalog:'
         version: 1.59.0
@@ -139,26 +139,13 @@ importers:
         specifier: ^8.58.1
         version: 8.58.1(eslint@10.2.0(jiti@2.6.1))(typescript@6.0.2)
 
-  packages/config/oxfmt:
-    devDependencies:
-      oxfmt:
-        specifier: 'catalog:'
-        version: 0.44.0
-
   packages/config/oxlint:
     devDependencies:
-      oxfmt:
-        specifier: latest
-        version: 0.44.0
       oxlint:
         specifier: 'catalog:'
         version: 1.59.0
 
-  packages/config/typescript:
-    devDependencies:
-      oxfmt:
-        specifier: latest
-        version: 0.44.0
+  packages/config/typescript: {}
 
 packages:
 

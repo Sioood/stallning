@@ -78,15 +78,24 @@ const defaultCommitTypes = [
 ]
 
 export const isBreakingChange = (commit: string) => {
-  return commit.includes('BREAKING CHANGE:') || defaultCommitTypes.some((commitType) => commit.match(new RegExp(`^${commitType.type}(?:\(.*\))?!:`)))
+  return (
+    commit.includes('BREAKING CHANGE:') ||
+    defaultCommitTypes.some((commitType) =>
+      commit.match(new RegExp(`^${commitType.type}(?:(.*))?!:`)),
+    )
+  )
 }
 
 export const isConventionalCommit = (commit: string) => {
-  return defaultCommitTypes.some((commitType) => commit.match(new RegExp(`^${commitType.type}(?:\(.*\))?!?:`)))
+  return defaultCommitTypes.some((commitType) =>
+    commit.match(new RegExp(`^${commitType.type}(?:(.*))?!?:`)),
+  )
 }
 
 /* Attempts to associate non-conventional commits to the nearest conventional commit */
-export const associateCommitsToConventionalCommitMessages = (commits: Commit[]): ConventionalMessagesToCommits[] => {
+export const associateCommitsToConventionalCommitMessages = (
+  commits: Commit[],
+): ConventionalMessagesToCommits[] => {
   return commits.reduce((acc, curr) => {
     if (!acc.length) {
       return [
@@ -164,7 +173,11 @@ export const conventionalMessagesWithCommitsToChangesets = (
           return {
             name: pkg.packageJson.name,
             // Maybe add a mapping of commit types to semver levels so chore, refactor, test, etc. don't bump the version
-            type: isBreakingChange(entry.changelogMessage) ? 'major' : entry.changelogMessage.startsWith('feat') ? 'minor' : 'patch',
+            type: isBreakingChange(entry.changelogMessage)
+              ? 'major'
+              : entry.changelogMessage.startsWith('feat')
+                ? 'minor'
+                : 'patch',
           }
         }),
         summary: entry.changelogMessage,
@@ -193,15 +206,24 @@ export const getCommitsSinceRef = (branch: string) => {
     try {
       sinceRef = execSync('git describe --tags --abbrev=0').toString().trim().replace(/\n|\r/g, '')
     } catch {
-      console.log("No git tags found, using repo's first commit for automated change detection. Note: this may take a while.")
-      sinceRef = execSync('git rev-list --max-parents=0 HEAD').toString().trim().replace(/\n|\r/g, '')
+      console.log(
+        "No git tags found, using repo's first commit for automated change detection. Note: this may take a while.",
+      )
+      sinceRef = execSync('git rev-list --max-parents=0 HEAD')
+        .toString()
+        .trim()
+        .replace(/\n|\r/g, '')
     }
   }
-  return execSync(`git rev-list --ancestry-path ${sinceRef}...HEAD`).toString().split('\n').filter(Boolean).reverse()
+  return execSync(`git rev-list --ancestry-path ${sinceRef}...HEAD`)
+    .toString()
+    .split('\n')
+    .filter(Boolean)
+    .reverse()
 }
 
 const compareChangeSet = (a: Changeset, b: Changeset): boolean => {
-  return a.summary === b.summary && JSON.stringify(a.releases) == JSON.stringify(b.releases)
+  return a.summary === b.summary && JSON.stringify(a.releases) === JSON.stringify(b.releases)
 }
 
 export const difference = (a: Changeset[], b: Changeset[]): Changeset[] => {
@@ -210,9 +232,16 @@ export const difference = (a: Changeset[], b: Changeset[]): Changeset[] => {
 
 const CHANGESET_CONFIG_LOCATION = path.join('.changeset', 'config.json')
 
-const conventionalCommitChangeset = async (cwd: string = process.cwd(), options: { ignoredFiles: (string | RegExp)[] } = { ignoredFiles: [] }) => {
-  const packages = getPackagesSync(cwd).packages.filter((pkg) => !pkg.packageJson.private && Boolean(pkg.packageJson.version))
-  const changesetConfig = JSON.parse(fs.readFileSync(path.join(cwd, CHANGESET_CONFIG_LOCATION)).toString())
+const conventionalCommitChangeset = async (
+  cwd: string = process.cwd(),
+  options: { ignoredFiles: (string | RegExp)[] } = { ignoredFiles: [] },
+) => {
+  const packages = getPackagesSync(cwd).packages.filter(
+    (pkg) => !pkg.packageJson.private && Boolean(pkg.packageJson.version),
+  )
+  const changesetConfig = JSON.parse(
+    fs.readFileSync(path.join(cwd, CHANGESET_CONFIG_LOCATION)).toString(),
+  )
   const { baseBranch = 'main' } = changesetConfig
 
   const commitsSinceBase = getCommitsSinceRef(baseBranch)
@@ -222,16 +251,21 @@ const conventionalCommitChangeset = async (cwd: string = process.cwd(), options:
     commitMessage: execSync(`git log -n 1 --pretty=format:%s ${commitHash}`).toString(),
   }))
 
-  const changelogMessagesWithAssociatedCommits = associateCommitsToConventionalCommitMessages(commitsWithMessages)
+  const changelogMessagesWithAssociatedCommits =
+    associateCommitsToConventionalCommitMessages(commitsWithMessages)
 
-  const changesets = conventionalMessagesWithCommitsToChangesets(changelogMessagesWithAssociatedCommits, {
-    ignoredFiles: options.ignoredFiles,
-    packages,
-  })
+  const changesets = conventionalMessagesWithCommitsToChangesets(
+    changelogMessagesWithAssociatedCommits,
+    {
+      ignoredFiles: options.ignoredFiles,
+      packages,
+    },
+  )
 
   const currentChangesets = await readChangeset(cwd)
 
-  const newChangesets = currentChangesets.length === 0 ? changesets : difference(changesets, currentChangesets)
+  const newChangesets =
+    currentChangesets.length === 0 ? changesets : difference(changesets, currentChangesets)
 
   newChangesets.map((changeset) => writeChangeset(changeset, cwd))
 }

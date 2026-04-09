@@ -11,12 +11,12 @@ Shared ESLint flat-config for the monorepo.
 ## Usage
 
 ```ts
-import eslint from "@stallning/eslint";
+import eslint from '@stallning/eslint'
 
 export default eslint({
   oxlint: true,
   typescript: true,
-});
+})
 ```
 
 ## Scripts

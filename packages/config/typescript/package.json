@@ -9,11 +9,6 @@
     "base.json"
   ],
   "scripts": {
-    "format": "pnpm exec oxfmt --write .",
-    "format:check": "pnpm exec oxfmt --check .",
     "check-types": "echo \"No TypeScript source files to type-check in @stallning/typescript\""
-  },
-  "devDependencies": {
-    "oxfmt": "latest"
   }
 }

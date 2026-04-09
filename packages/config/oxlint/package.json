@@ -7,12 +7,9 @@
   "author": "",
   "scripts": {
     "lint": "pnpx oxlint",
-    "format": "pnpm exec oxfmt --write .",
-    "format:check": "pnpm exec oxfmt --check .",
     "check-types": "echo \"No TypeScript files to check in @stallning/oxlint\""
   },
   "devDependencies": {
-    "oxfmt": "latest",
     "oxlint": "catalog:"
   }
 }

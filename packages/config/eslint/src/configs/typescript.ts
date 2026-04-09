@@ -1,23 +1,23 @@
-import { configs as tseslintConfigs } from "typescript-eslint";
+import { configs as tseslintConfigs } from 'typescript-eslint'
 
-import { defineConfig, type FlatConfigs } from "../types.ts";
+import { defineConfig, type FlatConfigs } from '../types.ts'
 
 export const typescript = defineConfig([
   ...(tseslintConfigs.recommended as FlatConfigs),
   {
     files: [
-      "**/*.ts",
-      "**/*.tsx",
-      "**/*.mts",
-      "**/*.cts",
-      "**/*.js",
-      "**/*.jsx",
-      "**/*.mjs",
-      "**/*.cjs",
+      '**/*.ts',
+      '**/*.tsx',
+      '**/*.mts',
+      '**/*.cts',
+      '**/*.js',
+      '**/*.jsx',
+      '**/*.mjs',
+      '**/*.cjs',
     ],
     rules: {
-      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
-      "@typescript-eslint/no-explicit-any": "error",
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-explicit-any': 'error',
     },
   },
-]);
+])

@@ -21,8 +21,8 @@
     "changeset": "pnpm exec changeset",
     "changeset:conventional-commits": "node ./.changeset/changeset-conventional-commits.ts",
     "changeset:release": "pnpm exec changeset tag",
-    "sync:merge": "node --experimental-strip-types ./scripts/sync-from-minimal.ts",
-    "sync:pick": "node --experimental-strip-types ./scripts/pick-commits.ts",
+    "sync:merge": "node ./scripts/sync-from-minimal.ts",
+    "sync:pick": "node ./scripts/pick-commits.ts",
     "build": "turbo run build",
     "knip": "knip"
   },

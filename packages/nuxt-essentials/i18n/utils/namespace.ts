@@ -1,48 +1,28 @@
-import { parse as parseYaml } from "yaml";
-
 type Messages = Record<string, string>;
-type LoadedMessages = { default: Messages } | Messages | string;
-type NamespaceFiles = Record<string, () => Promise<LoadedMessages>>;
+type NamespaceFiles = Record<string, () => Promise<Messages | { default: Messages }>>;
 
 export const prefixKeys = (prefix: string, obj: Messages) =>
   Object.fromEntries(Object.entries(obj).map(([key, value]) => [`${prefix}:${key}`, value]));
 
-const normalizeMessages = (name: string, moduleOrData: LoadedMessages): Messages => {
-  if (typeof moduleOrData === "string") {
-    const parsed = parseYaml(moduleOrData);
-    if (!parsed || typeof parsed !== "object") {
-      throw new Error(`Namespace "${name}" has invalid YAML content`);
-    }
-    return parsed as Messages;
+const normalizeMessages = (name: string, data: Messages | { default: Messages }): Messages => {
+  if (typeof data === "object" && data !== null && "default" in data) {
+    const inner = data.default;
+    if (typeof inner === "object" && inner !== null) return inner as Messages;
+    throw new Error(`Namespace "${name}" has invalid default export`);
   }
-
-  if (
-    typeof moduleOrData === "object" &&
-    moduleOrData !== null &&
-    "default" in moduleOrData &&
-    typeof moduleOrData.default === "object" &&
-    moduleOrData.default !== null
-  ) {
-    return moduleOrData.default as Messages;
-  }
-
-  return moduleOrData as Messages;
+  return data as Messages;
 };
 
 export const getMessagesWithNamespace = async (files: NamespaceFiles) => {
-  const namespaces = Object.keys(files);
+  const entries = Object.entries(files);
 
   const messagesArray = await Promise.all(
-    namespaces.map(async (name) => {
-      const loadFn = files[name];
-      if (!loadFn) {
-        throw new Error(`Namespace "${name}" not found`);
-      }
+    entries.map(async ([name, loadFn]) => {
       const loaded = await loadFn();
       const messages = normalizeMessages(name, loaded);
       return name === "translations" ? messages : prefixKeys(name, messages);
     }),
   );
 
-  return Object.assign({}, ...messagesArray);
+  return Object.assign({}, ...messagesArray) as Messages;
 };

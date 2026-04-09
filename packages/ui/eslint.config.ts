@@ -20,7 +20,7 @@ export default withNuxt(
       },
     },
     rules: {
-      "import-x/no-unresolved": ["error", { ignore: ["^~nuxt-essentials/"] }],
+      "import-x/no-unresolved": ["error", { ignore: ["^~ui/", "^~nuxt-essentials/"] }],
     },
   },
 );

@@ -12,6 +12,10 @@
       "name": "nuxt-essentials",
       "path": "../packages/nuxt-essentials",
     },
+    {
+      "name": "ui",
+      "path": "../packages/ui",
+    }
   ],
   "settings": {
     "files.exclude": {
@@ -25,7 +29,7 @@
       "apps/": true,
       "packages/": true,
     },
-    "conventionalCommits.scopes": ["global", "config", "docs", "nuxt-essentials"],
+    "conventionalCommits.scopes": ["global", "config", "docs", "nuxt-essentials", "ui"],
     "editor.formatOnSave": true,
     "editor.formatOnSaveMode": "file",
     "cSpell.words": ["stallning", "oxlint"],

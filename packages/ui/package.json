@@ -1,0 +1,29 @@
+{
+  "name": "@stallning/ui",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@compodium/nuxt": "0.1.0-beta.12",
+    "@nuxt/fonts": "0.14.0",
+    "@nuxt/icon": "2.2.1",
+    "@nuxt/image": "2.0.0",
+    "@stallning/nuxt-essentials": "workspace:*",
+    "@tailwindcss/vite": "catalog:",
+    "nuxt": "catalog:",
+    "v-gsap-nuxt": "1.5.12",
+    "vue": "catalog:",
+    "vue-router": "catalog:"
+  },
+  "devDependencies": {
+    "@stallning/eslint": "workspace:^",
+    "@stallning/oxlint": "workspace:^",
+    "@stallning/typescript": "workspace:^"
+  }
+}

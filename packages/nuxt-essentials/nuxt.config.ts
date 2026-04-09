@@ -1,7 +1,8 @@
+import ViteYaml from "@modyfi/vite-plugin-yaml";
 import { createResolver } from "@nuxt/kit";
 const { resolve } = createResolver(import.meta.url);
 
-// // https://nuxt.com/docs/api/configuration/nuxt-config
+// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
@@ -14,6 +15,14 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "nuxt-security",
   ],
+  vite: {
+    plugins: [ViteYaml()],
+  },
+  nitro: {
+    rollupConfig: {
+      plugins: [ViteYaml()],
+    },
+  },
   alias: { "~nuxt-essentials": resolve("./") },
   eslint: {
     config: {

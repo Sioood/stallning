@@ -3,7 +3,7 @@
   "changelog": "@changesets/cli/changelog",
   "commit": false,
   "fixed": [],
-  "linked": [["@stallning/eslint", "@stallning/oxfmt", "@stallning/typescript"]],
+  "linked": [["@stallning/eslint", "@stallning/typescript"]],
   "access": "restricted",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",

@@ -1,9 +1,9 @@
-import { composer } from "eslint-flat-config-utils";
+import { composer } from 'eslint-flat-config-utils'
 
-import { imports, jsonc, markdown, oxlint, typescript, vue, yml } from "./configs.ts";
-import { GLOB_EXCLUDE } from "./globs.ts";
+import { imports, jsonc, markdown, oxlint, typescript, vue, yml } from './configs.ts'
+import { GLOB_EXCLUDE } from './globs.ts'
 
-import type { FlatConfigs, OptionsConfig } from "./types.ts";
+import type { FlatConfigs, OptionsConfig } from './types.ts'
 
 export function eslint(options: OptionsConfig = {}, ...userConfigs: FlatConfigs) {
   const {
@@ -14,41 +14,45 @@ export function eslint(options: OptionsConfig = {}, ...userConfigs: FlatConfigs)
     typescript: hasTypescript = true,
     vue: hasVue = false,
     yml: hasYml = true,
-  } = options;
+  } = options
 
   const configs: FlatConfigs = [
     {
       ignores: [...GLOB_EXCLUDE],
     },
-  ];
+  ]
 
   if (hasTypescript) {
-    configs.push(...typescript);
+    configs.push(...typescript)
   }
 
   if (hasImports) {
-    configs.push(...imports);
+    configs.push(...imports)
   }
 
   if (hasJsonc) {
-    configs.push(...jsonc);
+    configs.push(...jsonc)
   }
 
   if (hasMarkdown) {
-    configs.push(...markdown);
+    configs.push(...markdown)
   }
 
   if (hasYml) {
-    configs.push(...yml);
+    configs.push(...yml)
   }
 
   if (hasVue) {
-    configs.push(...vue({ hasTypescript }));
+    configs.push(...vue({ hasTypescript }))
+  }
+
+  if (hasVue) {
+    configs.push(...vue({ hasTypescript }))
   }
 
   if (oxlintOptions) {
-    configs.push(...oxlint(oxlintOptions));
+    configs.push(...oxlint(oxlintOptions))
   }
 
-  return composer(...configs, ...userConfigs);
+  return composer(...configs, ...userConfigs)
 }

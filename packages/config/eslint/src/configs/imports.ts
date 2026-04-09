@@ -1,5 +1,5 @@
-import { importX } from "../plugins.ts";
-import { defineConfig, type FlatConfig } from "../types.ts";
+import { importX } from '../plugins.ts'
+import { defineConfig, type FlatConfig } from '../types.ts'
 
 export const imports = defineConfig([
   importX.flatConfigs.recommended as FlatConfig,
@@ -7,26 +7,26 @@ export const imports = defineConfig([
   {
     rules: {
       // Opinionated rule to enforce import order
-      "import-x/order": [
-        "error",
+      'import-x/order': [
+        'error',
         {
           groups: [
-            "builtin",
-            "external",
-            "internal",
-            "parent",
-            "sibling",
-            "index",
-            "object",
-            "type",
+            'builtin',
+            'external',
+            'internal',
+            'parent',
+            'sibling',
+            'index',
+            'object',
+            'type',
           ],
-          "newlines-between": "always",
+          'newlines-between': 'always',
           alphabetize: {
-            order: "asc",
+            order: 'asc',
             caseInsensitive: true,
           },
         },
       ],
     },
   },
-]);
+])

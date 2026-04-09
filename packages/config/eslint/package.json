@@ -19,8 +19,6 @@
     "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
     "lint:oxlint": "pnpx oxlint",
     "lint:eslint": "eslint . --ext .ts,.js",
-    "format": "pnpm exec oxfmt --write .",
-    "format:check": "pnpm exec oxfmt --check .",
     "check-types": "tsc --noEmit -p tsconfig.json"
   },
   "devDependencies": {
@@ -35,16 +33,8 @@
     "eslint-plugin-vue": "^10.5.1",
     "eslint-plugin-yml": "^3.3.1",
     "jiti": "^2.6.1",
-    "oxfmt": "latest",
     "oxlint": "catalog:",
     "typescript-eslint": "^8.58.1",
     "vue-eslint-parser": "^10.2.0"
-  },
-  "lint-staged": {
-    "**/*.{json,js,ts,md,yaml,yml}": [
-      "oxlint --fix",
-      "eslint --fix",
-      "pnpm exec oxfmt --write"
-    ]
   }
 }

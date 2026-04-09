@@ -110,6 +110,8 @@ The following scripts are available at the root of the monorepo:
 | `pnpm format:check`      | Verify formatting with oxfmt.                                |
 | `pnpm sync:merge`        | Merge one remote branch into a target branch.                |
 | `pnpm sync:pick`         | Cherry-pick commit(s) from remote branch into target branch. |
+| `pnpm knip`              | Detect unused files, exports, and dependencies.              |
+| `pnpm knip:fix`          | Run Knip with autofix for fixable issues.                    |
 | `pnpm changeset`         | Create a new changeset for versioning.                       |
 | `pnpm changeset:release` | Create a release tag from changesets.                        |
 | `pnpm build`             | Build all packages and applications.                         |

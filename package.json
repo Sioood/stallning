@@ -24,7 +24,8 @@
     "sync:merge": "node ./scripts/sync-from-minimal.ts",
     "sync:pick": "node ./scripts/pick-commits.ts",
     "build": "turbo run build",
-    "knip": "knip"
+    "knip": "knip",
+    "knip:fix": "knip --fix"
   },
   "dependencies": {
     "@changesets/cli": "^2.30.0"

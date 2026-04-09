@@ -39,6 +39,13 @@ export interface OptionsConfig {
   imports?: boolean;
 
   /**
+   * Enable vue support.
+   *
+   * @default false
+   */
+  vue?: boolean;
+
+  /**
    * Enable jsonc support.
    *
    * @default true

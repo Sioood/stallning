@@ -35,3 +35,5 @@ export const GLOB_EXCLUDE = [
 
   "**/.turbo",
 ];
+
+export const GLOB_VUE = "**/*.vue";

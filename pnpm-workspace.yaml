@@ -4,11 +4,16 @@ packages:
   - "packages/config/*"
 
 catalog:
+  "@nuxt/kit": ^4.4.2
   "@types/minimist": ^1.2.5
   "@types/node": ^25.5.2
-  typescript: ^6.0.2
+  "vue-router": ^5.0.4
+  "vue": ^3.5.32
+  "yaml": ^2.8.1
   eslint: ^10.2.0
+  nuxt: ^4.4.2
   oxfmt: ^0.44.0
   oxlint: ^1.59.0
+  typescript: ^6.0.2
 
 minimumReleaseAge: 1440 # 24 hours

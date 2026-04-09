@@ -1,6 +1,6 @@
 import { composer } from "eslint-flat-config-utils";
 
-import { imports, jsonc, markdown, oxlint, typescript, yml } from "./configs.ts";
+import { imports, jsonc, markdown, oxlint, typescript, vue, yml } from "./configs.ts";
 import { GLOB_EXCLUDE } from "./globs.ts";
 
 import type { FlatConfigs, OptionsConfig } from "./types.ts";
@@ -12,6 +12,7 @@ export function eslint(options: OptionsConfig = {}, ...userConfigs: FlatConfigs)
     markdown: hasMarkdown = true,
     oxlint: oxlintOptions = true,
     typescript: hasTypescript = true,
+    vue: hasVue = false,
     yml: hasYml = true,
   } = options;
 
@@ -39,6 +40,10 @@ export function eslint(options: OptionsConfig = {}, ...userConfigs: FlatConfigs)
 
   if (hasYml) {
     configs.push(...yml);
+  }
+
+  if (hasVue) {
+    configs.push(...vue({ hasTypescript }));
   }
 
   if (oxlintOptions) {

@@ -24,6 +24,7 @@
     "check-types": "tsc --noEmit -p tsconfig.json"
   },
   "devDependencies": {
+    "@typescript-eslint/parser": "^8.58.1",
     "eslint": "catalog:",
     "eslint-flat-config-utils": "^3.1.0",
     "eslint-import-resolver-typescript": "^4.4.4",
@@ -31,11 +32,13 @@
     "eslint-plugin-jsonc": "^3.1.2",
     "eslint-plugin-markdown": "^5.1.0",
     "eslint-plugin-oxlint": "^1.59.0",
+    "eslint-plugin-vue": "^10.5.1",
     "eslint-plugin-yml": "^3.3.1",
     "jiti": "^2.6.1",
     "oxfmt": "latest",
     "oxlint": "catalog:",
-    "typescript-eslint": "^8.58.1"
+    "typescript-eslint": "^8.58.1",
+    "vue-eslint-parser": "^10.2.0"
   },
   "lint-staged": {
     "**/*.{json,js,ts,md,yaml,yml}": [

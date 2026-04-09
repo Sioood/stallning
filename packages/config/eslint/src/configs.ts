@@ -3,4 +3,5 @@ export * from "./configs/jsonc.ts";
 export * from "./configs/markdown.ts";
 export * from "./configs/oxlint.ts";
 export * from "./configs/typescript.ts";
+export * from "./configs/vue.ts";
 export * from "./configs/yml.ts";

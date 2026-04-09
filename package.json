@@ -40,7 +40,8 @@
     "@stallning/eslint": "workspace:^",
     "@stallning/oxlint": "workspace:^",
     "@stallning/typescript": "workspace:^",
-    "@types/node": "^25.5.2",
+    "@types/minimist": "catalog:",
+    "@types/node": "catalog:",
     "commander": "^14.0.3",
     "consola": "^3.4.2",
     "eslint": "catalog:",
@@ -52,7 +53,7 @@
     "oxfmt": "latest",
     "oxlint": "catalog:",
     "turbo": "^2.9.5",
-    "typescript": "^6.0.2"
+    "typescript": "catalog:"
   },
   "lint-staged": {
     "**/*.{json,js,ts,md,yaml,yml}": [

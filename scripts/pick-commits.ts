@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/// <reference types="node" />
 
 import { spawnSync, type SpawnSyncReturns } from "node:child_process";
 
@@ -109,7 +110,7 @@ function parseArgs(): CliArgs {
     string: ["source-remote", "source-branch", "target", "commit", "range"],
     alias: { r: "source-remote", s: "source-branch", t: "target", c: "commit" },
     default: { "source-remote": "origin" },
-  }) as CliArgs;
+  }) as unknown as CliArgs;
 
   if (!args["source-branch"] || !args.target) {
     printUsage();

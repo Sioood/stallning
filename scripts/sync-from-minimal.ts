@@ -70,7 +70,7 @@ function parseArgs(): CliArgs {
     string: ["source-remote", "source-branch", "target"],
     alias: { r: "source-remote", s: "source-branch", t: "target" },
     default: { "source-remote": "origin" },
-  }) as CliArgs;
+  }) as unknown as CliArgs;
 
   if (!args["source-branch"] || !args.target) {
     printUsage();

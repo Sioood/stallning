@@ -15,7 +15,11 @@
     {
       "name": "ui",
       "path": "../packages/ui",
-    }
+    },
+    {
+      "name": "web",
+      "path": "../apps/web",
+    },
   ],
   "settings": {
     "files.exclude": {
@@ -29,7 +33,7 @@
       "apps/": true,
       "packages/": true,
     },
-    "conventionalCommits.scopes": ["global", "config", "docs", "nuxt-essentials", "ui"],
+    "conventionalCommits.scopes": ["global", "config", "docs", "nuxt-essentials", "ui", "web"],
     "editor.formatOnSave": true,
     "editor.formatOnSaveMode": "file",
     "cSpell.words": ["stallning", "oxlint"],

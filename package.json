@@ -81,7 +81,8 @@
           "config",
           "docs",
           "nuxt-essentials",
-          "ui"
+          "ui",
+          "web"
         ]
       ],
       "type-enum": [

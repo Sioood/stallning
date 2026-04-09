@@ -7,7 +7,12 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
+    "lint:oxlint": "pnpx oxlint || true",
+    "lint:eslint": "pnpm exec eslint .",
+    "format": "pnpm exec oxfmt",
+    "format:check": "pnpm exec oxfmt --check ."
   },
   "dependencies": {
     "@stallning/ui": "workspace:*",

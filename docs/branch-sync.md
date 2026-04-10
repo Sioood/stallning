@@ -15,6 +15,7 @@ This runbook defines how to keep specialized template branches synced with the s
 In a forked project, configure remotes once:
 
 ```sh
+# this is done automatically when you run the init script (see README.md)
 git remote -v
 git remote add upstream https://github.com/Sioood/stallning.git
 git fetch upstream

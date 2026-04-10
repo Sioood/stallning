@@ -1,6 +1,7 @@
 {
   "extends": "@stallning/typescript/base.json",
   "compilerOptions": {
+    "types": ["node"],
     "allowImportingTsExtensions": true,
     "noEmit": true,
     "allowJs": true,

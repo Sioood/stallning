@@ -18,10 +18,11 @@
   "scripts": {
     "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
     "lint:oxlint": "pnpx oxlint",
-    "lint:eslint": "eslint . --ext .ts,.js",
+    "lint:eslint": "eslint .",
     "check-types": "tsc --noEmit -p tsconfig.json"
   },
   "devDependencies": {
+    "@types/node": "catalog:",
     "@typescript-eslint/parser": "^8.58.1",
     "eslint": "catalog:",
     "eslint-flat-config-utils": "^3.1.0",

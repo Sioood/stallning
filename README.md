@@ -25,7 +25,6 @@ This boilerplate serves as a foundation for building future projects. Feel free 
 └── packages/
     └── config/
         ├── eslint
-        ├── oxfmt
         ├── oxlint
         └── typescript
 ```
@@ -70,14 +69,34 @@ This boilerplate is intended to constantly evolve. So if you have any feedback o
 
 ### Minimal prerequisites (Check package.json)
 
-1. [**node**](https://nodejs.org/en/download) >=22.18.0
-2. [**pnpm**](https://pnpm.io/installation) pnpm@10.14.0
+1. [**node**](https://nodejs.org/en/download) >=25.0.0
+2. [**pnpm**](https://pnpm.io/installation) pnpm@10.33.0
 
 ```sh
 npm install -g pnpm
 ```
 
 3. [**git**](https://git-scm.com/download)
+
+### Initialize the project
+
+If you cloned this boilerplate to start a new project, run the init script once to customize it:
+
+```sh
+pnpm init
+```
+
+This will:
+
+- Replace "stallning" with your project name across all files and directories
+- Optionally reset git history for a fresh start
+- Optionally add the upstream remote for future syncs
+
+After initialization, install dependencies and you're ready to go.
+
+```sh
+pnpm install
+```
 
 ### 📦 Recommended extensions
 
@@ -108,6 +127,7 @@ The following scripts are available at the root of the monorepo:
 | `pnpm check-types`       | Run all TypeScript checks.                                   |
 | `pnpm format`            | Format the codebase with oxfmt.                              |
 | `pnpm format:check`      | Verify formatting with oxfmt.                                |
+| `pnpm init`              | Initialize the project with your custom name (used once)     |
 | `pnpm sync:merge`        | Merge one remote branch into a target branch.                |
 | `pnpm sync:pick`         | Cherry-pick commit(s) from remote branch into target branch. |
 | `pnpm knip`              | Detect unused files, exports, and dependencies.              |
@@ -125,62 +145,9 @@ Combined with changesets for versioning, this workflow allows you to keep track 
 
 ## Branch Sync Workflow
 
-Use a hybrid strategy:
+This repository uses a hybrid sync strategy to keep template branches aligned with the foundation:
 
-- **Baseline sync**: regularly merge shared boilerplate updates from `minimal`.
-- **Selective sync**: cherry-pick specific commits when only some templates need the change.
+- **Baseline sync**: merge shared boilerplate updates from `minimal` regularly
+- **Selective sync**: cherry-pick specific commits when only some templates need changes
 
-This keeps template branches (for example `nuxt`) aligned with the foundation while preserving branch-specific work.
-
-### Branch roles
-
-- `minimal`: source of truth for cross-project configuration and defaults.
-- template branches (`nuxt`, future branches): specialized layers on top of `minimal`.
-
-### Fork setup (`origin` + `upstream`)
-
-If you fork this repository:
-
-```sh
-git remote -v
-git remote add upstream https://github.com/Sioood/stallning.git
-git fetch upstream
-```
-
-- `origin` should point to your fork.
-- `upstream` should point to this template repository.
-
-### Baseline sync (recommended regularly)
-
-```sh
-pnpm run sync:merge -- --source-remote upstream --source-branch minimal --target nuxt
-```
-
-This merges `upstream/minimal` into `nuxt` and is the preferred way to bring in foundation changes.
-
-### Selective sync (for branch-specific picks)
-
-Pick a single commit:
-
-```sh
-pnpm run sync:pick -- --source-remote upstream --source-branch minimal --target nuxt --commit <sha>
-```
-
-Pick a range:
-
-```sh
-pnpm run sync:pick -- --source-remote upstream --source-branch minimal --target nuxt --range <start>..<end>
-```
-
-### Validate after every sync
-
-```sh
-pnpm check-types
-pnpm lint
-pnpm format:check
-pnpm build
-```
-
-### Full runbook
-
-See [`docs/branch-sync.md`](docs/branch-sync.md) for conflict handling, recovery flows, and examples for adding new template branches.
+See [`docs/branch-sync.md`](docs/branch-sync.md) for fork setup, sync commands, validation steps, conflict handling, and recovery flows.

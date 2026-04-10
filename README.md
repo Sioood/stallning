@@ -76,6 +76,12 @@ This boilerplate is intended to constantly evolve. So if you have any feedback o
 npm install -g pnpm
 ```
 
+After pnpm installation, install dependencies to run the init script:
+
+```sh
+pnpm install
+```
+
 3. [**git**](https://git-scm.com/download)
 
 ### Initialize the project
@@ -83,16 +89,25 @@ npm install -g pnpm
 If you cloned this boilerplate to start a new project, run the init script once to customize it:
 
 ```sh
+# Preview changes without applying them
+pnpm init --dry-run
+
+# Interactive mode - answer prompts to customize
 pnpm init
+
+# Non-interactive mode - provide all options via CLI
+pnpm init -y --name my-project --description "My project"
 ```
 
-This will:
+The init script will:
 
 - Replace "stallning" with your project name across all files and directories
 - Optionally reset git history for a fresh start
 - Optionally add the upstream remote for future syncs
 
-After initialization, install dependencies and you're ready to go.
+Use `--dry-run` to preview what changes would be made without actually modifying any files.
+
+After running the init script, install dependencies again and you're ready to go.
 
 ```sh
 pnpm install

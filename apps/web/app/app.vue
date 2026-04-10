@@ -1,7 +1,7 @@
 <template>
   <div>
     <UIButton />
-    {{ $t('welcome') }}
-    {{ $t('namespace:welcome') }}
+    {{ $t('hell') }}
+    {{ $t('namespace:hell') }}
   </div>
 </template>

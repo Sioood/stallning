@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ $t('welcome') }}</h1>
-    <p>{{ $t('namespace:welcome') }}</p>
+    <h1>{{ $t('hell') }}</h1>
+    <p>{{ $t('namespace:hell') }}</p>
   </div>
 </template>

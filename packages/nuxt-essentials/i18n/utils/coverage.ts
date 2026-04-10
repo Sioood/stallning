@@ -12,6 +12,8 @@ import { parse as parseYaml } from 'yaml'
 interface Argv extends minimist.ParsedArgs {
   f?: string
   ns?: boolean
+  k?: boolean
+  keys?: boolean
 }
 
 const localeLabels: Record<string, string> = {
@@ -30,7 +32,10 @@ type Messages = Record<string, string>
 type MessagesByLocale = Record<string, Messages>
 type CoverageData = {
   data: { total: number }
-  locale: Record<string, { percentage: number; count: number; missing: number }>
+  locale: Record<
+    string,
+    { percentage: number; count: number; missing: number; missingKeys: string[] }
+  >
 }
 
 const hasSupportedExtension = (filename: string) => /\.(json|ya?ml)$/i.test(filename)
@@ -94,9 +99,11 @@ export const getTreeStructure = ({
 export const renderTreeStructure = ({
   tree,
   data,
+  showKeys,
 }: {
   tree: LocaleTree
   data?: CoverageData
+  showKeys?: boolean
 }): string[] => {
   const lines: string[] = ['.']
 
@@ -127,6 +134,19 @@ export const renderTreeStructure = ({
       const isNamespaceLast = i === namespaces.length - 1
       const connector = isNamespaceLast ? treeCharacters.LAST_CHILD : treeCharacters.CHILD
       lines.push(`${folderConnector}${connector}${namespace}`)
+    }
+
+    if (showKeys && localeCoverage?.missingKeys && localeCoverage.missingKeys.length > 0) {
+      const folderConnector = isLocaleLast ? treeCharacters.EMPTY : treeCharacters.DIRECTORY
+      lines.push(`${folderConnector}${treeCharacters.CHILD}${colorize('gray', 'missing keys:')}`)
+      for (let i = 0; i < localeCoverage.missingKeys.length; i++) {
+        const key = localeCoverage.missingKeys[i]!
+        const isKeyLast = i === localeCoverage.missingKeys.length - 1
+        const keyConnector = isKeyLast ? treeCharacters.LAST_CHILD : treeCharacters.CHILD
+        const keyIndent =
+          folderConnector + (isLocaleLast ? treeCharacters.EMPTY : treeCharacters.DIRECTORY)
+        lines.push(`${keyIndent}${keyConnector}${colorize('red', key)}`)
+      }
     }
   }
 
@@ -192,12 +212,15 @@ export const getCoverageData = ({
       Object.entries(messagesByLocale).map(([locale, keys]) => {
         const count = Object.keys(keys).length
         const percentage = total === 0 ? 100 : Number(((count / total) * 100).toFixed(2))
+        const localeKeys = new Set(Object.keys(keys))
+        const missingKeys = uniqueMessageKeys.filter((key) => !localeKeys.has(key))
         return [
           locale,
           {
             percentage,
             count,
-            missing: Math.max(total - count, 0),
+            missing: missingKeys.length,
+            missingKeys,
           },
         ]
       }),
@@ -208,9 +231,11 @@ export const getCoverageData = ({
 export const renderCoverage = ({
   localesPath,
   showNamespaces,
+  showKeys,
 }: {
   localesPath: string
   showNamespaces?: boolean
+  showKeys?: boolean
 }): void => {
   const locales = getLocales(localesPath)
   consola.start(`Running coverage of locales: ${localesPath}`)
@@ -229,6 +254,7 @@ export const renderCoverage = ({
   const treeRender = renderTreeStructure({
     tree: getTreeStructure({ localesPath, showNamespaces }),
     data: coverageData,
+    showKeys,
   })
 
   consola.log('')
@@ -246,10 +272,10 @@ if (esMain(import.meta)) {
 
   if (!argv.f) {
     consola.error('Please provide a locales path with -f.')
-    consola.error('Usage: pnpm i18n:coverage -- -f ./i18n/locales --ns')
+    consola.error('Usage: pnpm i18n:coverage -- -f ./i18n/locales --ns -k')
     process.exit(1)
   }
 
   const localesPath = resolve(argv.f)
-  renderCoverage({ localesPath, showNamespaces: argv.ns })
+  renderCoverage({ localesPath, showNamespaces: argv.ns, showKeys: argv.k || argv.keys })
 }

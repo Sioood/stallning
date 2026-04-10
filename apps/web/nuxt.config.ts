@@ -9,6 +9,9 @@ export default defineNuxtConfig({
   i18n: {
     defaultLocale: 'fr-FR',
     // ISO 639-1 + ISO 3166-1
-    locales: [{ code: 'fr-FR', name: 'Français', file: 'fr-FR/index.ts' }],
+    locales: [
+      { code: 'fr-FR', name: 'Français', file: 'fr-FR/index.ts' },
+      { code: 'en-US', name: 'English', file: 'en-US/index.ts' },
+    ],
   },
 })

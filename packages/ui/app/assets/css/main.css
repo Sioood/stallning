@@ -1824,6 +1824,7 @@
 
   /* FONTS */
   --font-primary: 'Inter', sans-serif;
+  --font-mono: 'Spline Sans Mono', monospace;
 }
 
 /* TODO: add dark mode support (just invert the light mode scales) */

@@ -9,6 +9,12 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   extends: [resolve('../nuxt-essentials')],
   modules: ['@nuxt/fonts', '@nuxt/icon', '@compodium/nuxt', '@nuxt/image', 'v-gsap-nuxt'],
+  fonts: {
+    families: [
+      { name: 'Inter', provider: 'google' },
+      { name: 'Spline Sans Mono', provider: 'google' },
+    ],
+  },
   css: [resolve('./app/assets/css/main.css')],
   vite: {
     plugins: [tailwindcss()],

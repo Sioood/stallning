@@ -1864,16 +1864,7 @@
   --font-weight-black: 900;
 }
 
-/* TODO: add dark mode support (just invert the light mode scales) */
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --color-red-50: hsl(4 22% 15%);
-  }
-} */
-
-:root {
-  font-size: 16px;
-
+@layer components {
   .txt-small {
     @apply text-small;
     @apply leading-small;
@@ -1945,6 +1936,17 @@
     @apply leading-supertitle;
     @apply font-bold;
   }
+}
+
+/* TODO: add dark mode support (just invert the light mode scales) */
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --color-red-50: hsl(4 22% 15%);
+  }
+} */
+
+:root {
+  font-size: 16px;
 }
 
 html {

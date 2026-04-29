@@ -61,6 +61,7 @@
       "Gruntfuggly.todo-tree",
       "antfu.iconify",
       "yoavbls.pretty-ts-errors",
+      "streetsidesoftware.code-spell-checker",
     ],
   },
 }

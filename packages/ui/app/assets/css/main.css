@@ -570,7 +570,6 @@
 
   --color-accent-text-on-fill: var(--color-accent-50);
 
-
   /* SEMANTIC */
   /* ──────────────────────────────────────────────────────────────
     error
@@ -763,7 +762,6 @@
   --color-warning-icon-inverse-disabled: var(--color-warning-600);
 
   --color-warning-text-on-fill: var(--color-warning-50);
-
 
   /* ──────────────────────────────────────────────────────────────
     info
@@ -1822,9 +1820,48 @@
 
   --color-purple-text-on-fill: var(--color-purple-50);
 
+  /* SPACING */
+  --spacing: 4px;
+
   /* FONTS */
   --font-primary: 'Inter', sans-serif;
   --font-mono: 'Spline Sans Mono', monospace;
+
+  --text-small: .5rem;
+  --text-caption: .75rem;
+  --text-base: 1rem;
+  --text-label: 1rem;
+  --text-h6: 1.25rem;
+  --text-h5: 1.5rem;
+  --text-h4: 2rem;
+  --text-h3: 2.5rem;
+  --text-h2: 3rem;
+  --text-h1: 3.75rem;
+  --text-title: 4.5rem;
+  --text-supertitle: 5.25rem;
+
+  --leading-small: 1;
+  --leading-caption: 1.25;
+  --leading-base: 1;
+  --leading-label: 1;
+  --leading-h6: 1.4;
+  --leading-h5: 1.3333;
+  --leading-h4: 1.25;
+  --leading-h3: 1.2;
+  --leading-h2: 1.1667;
+  --leading-h1: 1.1333;
+  --leading-title: 1.1111;
+  --leading-supertitle: 1.0952;
+
+  --font-weight-thing: 100;
+  --font-weight-extralight: 200;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
 }
 
 /* TODO: add dark mode support (just invert the light mode scales) */
@@ -1836,6 +1873,78 @@
 
 :root {
   font-size: 16px;
+
+  .txt-small {
+    @apply text-small;
+    @apply leading-small;
+    @apply font-normal;
+  }
+
+  .txt-caption {
+    @apply text-caption;
+    @apply leading-caption;
+    @apply font-normal;
+  }
+
+  .txt-base {
+    @apply text-base;
+    @apply leading-base;
+    @apply font-normal;
+  }
+
+  .txt-label {
+    @apply text-label;
+    @apply leading-label;
+    @apply font-normal;
+  }
+
+  .txt-h6 {
+    @apply text-h6;
+    @apply leading-h6;
+    @apply font-medium;
+  }
+
+  .txt-h5 {
+    @apply text-h5;
+    @apply leading-h5;
+    @apply font-medium;
+  }
+
+  .txt-h4 {
+    @apply text-h4;
+    @apply leading-h4;
+    @apply font-medium;
+  }
+
+  .txt-h3 {
+    @apply text-h3;
+    @apply leading-h3;
+    @apply font-semibold;
+  }
+
+  .txt-h2 {
+    @apply text-h2;
+    @apply leading-h2;
+    @apply font-semibold;
+  }
+
+  .txt-h1 {
+    @apply text-h1;
+    @apply leading-h1;
+    @apply font-semibold;
+  }
+
+  .txt-title {
+    @apply text-title;
+    @apply leading-title;
+    @apply font-bold;
+  }
+
+  .txt-supertitle {
+    @apply text-supertitle;
+    @apply leading-supertitle;
+    @apply font-bold;
+  }
 }
 
 html {

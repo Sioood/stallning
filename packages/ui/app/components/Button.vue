@@ -149,7 +149,7 @@ extendCompodiumMeta<typeof props>({
     loadingIcon: 'tabler:loader',
     successIcon: 'tabler:circle-check',
     warningIcon: 'tabler:alert-triangle',
-    errorIcon: 'tabler:circle-x',
+    errorIcon: 'tabler:alert-hexagon',
   },
 })
 </script>

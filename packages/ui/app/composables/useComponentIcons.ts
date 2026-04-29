@@ -32,19 +32,26 @@ export function useComponentIcons(componentProps: MaybeRefOrGetter<UseComponentI
       !!props.value.trailingIcon,
   )
 
+  const defaultIcons = {
+    loading: 'tabler:loader',
+    success: 'tabler:circle-check',
+    warning: 'tabler:alert-triangle',
+    error: 'tabler:alert-hexagon',
+  }
+
   const leadingIconName = computed(() => {
     const state = props.value.state || 'default'
     if (state === 'loading') {
-      return props.value.loadingIcon || 'tabler:loader'
+      return props.value.loadingIcon || defaultIcons.loading
     }
     if (state === 'success') {
-      return props.value.successIcon || 'tabler:circle-check'
+      return props.value.successIcon || defaultIcons.success
     }
     if (state === 'warning') {
-      return props.value.warningIcon || 'tabler:alert-triangle'
+      return props.value.warningIcon || defaultIcons.warning
     }
     if (state === 'error') {
-      return props.value.errorIcon || 'tabler:circle-x'
+      return props.value.errorIcon || defaultIcons.error
     }
 
     return props.value.leadingIcon || props.value.icon || ''
@@ -53,16 +60,16 @@ export function useComponentIcons(componentProps: MaybeRefOrGetter<UseComponentI
     const state = props.value.state || 'default'
     if (state !== 'default' && !isLeading.value) {
       if (state === 'loading') {
-        return props.value.loadingIcon || 'tabler:loader'
+        return props.value.loadingIcon || defaultIcons.loading
       }
       if (state === 'success') {
-        return props.value.successIcon || 'tabler:circle-check'
+        return props.value.successIcon || defaultIcons.success
       }
       if (state === 'warning') {
-        return props.value.warningIcon || 'tabler:alert-triangle'
+        return props.value.warningIcon || defaultIcons.warning
       }
       if (state === 'error') {
-        return props.value.errorIcon || 'tabler:circle-x'
+        return props.value.errorIcon || defaultIcons.error
       }
     }
 

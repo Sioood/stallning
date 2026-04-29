@@ -14,4 +14,9 @@ export default defineNuxtConfig({
       { code: 'en-US', language: 'en-US', name: 'English', file: 'en-US/index.ts' },
     ],
   },
+  runtimeConfig: {
+    public: {
+      siteUrl: 'https://web.com',
+    },
+  },
 })

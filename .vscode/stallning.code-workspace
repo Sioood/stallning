@@ -63,7 +63,7 @@
     },
     "oxc.enable": true,
     "oxc.enable.oxfmt": true,
-    "cSpell.words": ["stallning", "oxlint"],
+    "cSpell.words": ["stallning", "oxlint", "nuxt"],
   },
   "extensions": {
     "recommendations": [

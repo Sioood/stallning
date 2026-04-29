@@ -15,6 +15,10 @@ export default defineNuxtConfig({
       { name: 'Spline Sans Mono', provider: 'google' },
     ],
   },
+  icon: {
+    size: '1rem',
+    mode: 'svg',
+  },
   css: [resolve('./app/assets/css/main.css')],
   vite: {
     plugins: [tailwindcss()],
@@ -35,5 +39,10 @@ export default defineNuxtConfig({
     url: 'https://ui.com',
     name: 'UI',
     description: 'UI component library',
+  },
+  runtimeConfig: {
+    public: {
+      siteUrl: 'https://ui.com',
+    },
   },
 })

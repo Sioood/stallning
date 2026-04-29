@@ -64,6 +64,9 @@
     "oxc.enable": true,
     "oxc.enable.oxfmt": true,
     "cSpell.words": ["stallning", "oxlint", "nuxt"],
+    "[vue]": {
+      "editor.defaultFormatter": "oxc.oxc-vscode",
+    },
   },
   "extensions": {
     "recommendations": [

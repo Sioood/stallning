@@ -23,6 +23,7 @@
     "@nuxt/image": "2.0.0",
     "@stallning/nuxt-essentials": "workspace:*",
     "@tailwindcss/vite": "catalog:",
+    "class-variance-authority": "catalog:",
     "nuxt": "catalog:",
     "v-gsap-nuxt": "1.5.12",
     "vue": "catalog:",

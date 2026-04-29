@@ -157,7 +157,11 @@ extendCompodiumMeta<typeof props>({
 <template>
   <component
     :is="to ? Link : 'button'"
-    v-bind="to ? { ...linkProps, disabled } : { type, disabled: props.disabled || effectiveState === 'loading', onClick: handleClick }"
+    v-bind="
+      to
+        ? { ...linkProps, disabled }
+        : { type, disabled: props.disabled || effectiveState === 'loading', onClick: handleClick }
+    "
     :class="
       button({
         variant: props.variant,

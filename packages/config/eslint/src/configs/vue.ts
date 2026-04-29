@@ -5,7 +5,7 @@ import { defineConfig } from '../types.ts'
 import type { OptionsHasTypeScript } from '../types.ts'
 
 export function vue(options: OptionsHasTypeScript = {}) {
-  const { hasTypescript = true } = options
+  const { hasTypescript = true, tsconfigRootDir } = options
 
   return defineConfig([
     ...pluginVue.configs['flat/recommended'],
@@ -20,6 +20,7 @@ export function vue(options: OptionsHasTypeScript = {}) {
           extraFileExtensions: ['.vue'],
           parser: hasTypescript ? parserTs : undefined,
           sourceType: 'module',
+          ...(tsconfigRootDir ? { tsconfigRootDir } : {}),
         },
       },
       rules: {

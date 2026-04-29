@@ -44,7 +44,7 @@ export function eslint(options: OptionsConfig = {}, ...userConfigs: FlatConfigs)
   }
 
   if (hasVue) {
-    configs.push(...vue({ hasTypescript }))
+    configs.push(...vue({ hasTypescript, tsconfigRootDir }))
   }
 
   if (oxlintOptions) {

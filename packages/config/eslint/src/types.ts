@@ -13,6 +13,7 @@ export type TypedFlatConfigItem = Linter.Config
 
 export interface OptionsHasTypeScript {
   hasTypescript?: boolean
+  tsconfigRootDir?: string
 }
 
 export interface OptionsConfig {

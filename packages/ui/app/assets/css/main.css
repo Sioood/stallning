@@ -1958,6 +1958,12 @@ body {
   overscroll-behavior-y: none;
 }
 
+*:focus {
+  @apply outline-1;
+  @apply outline-primary-border-strong;
+  @apply outline-offset-1;
+}
+
 .join {
   @apply inline-flex items-stretch;
   /* --join-radius: var(--radius-field, 9999px); */

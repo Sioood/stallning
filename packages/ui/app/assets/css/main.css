@@ -1959,7 +1959,7 @@ body {
   @apply overscroll-y-none;
 }
 
-*:focus {
+*:focus-visible {
   @apply outline-1;
   @apply outline-primary-border-strong;
   @apply outline-offset-1;

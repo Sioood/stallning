@@ -45,4 +45,8 @@ export default defineNuxtConfig({
       siteUrl: 'https://ui.com',
     },
   },
+  compodium: {
+    dir: 'app/compodium/',
+    includeLibraryCollections: true,
+  },
 })

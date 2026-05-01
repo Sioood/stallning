@@ -17,6 +17,7 @@
     "i18n:coverage:namespace": "node ./node_modules/@stallning/nuxt-essentials/i18n/utils/coverage.ts -f ./i18n/locales -n"
   },
   "dependencies": {
+    "@ark-ui/vue": "catalog:",
     "@compodium/nuxt": "0.1.0-beta.12",
     "@nuxt/fonts": "0.14.0",
     "@nuxt/icon": "2.2.1",

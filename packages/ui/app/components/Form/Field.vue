@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Field as ArkField } from '@ark-ui/vue/field'
 import { cva, type VariantProps } from 'class-variance-authority'
-import { useSlots } from 'vue'
 
 const fieldRoot = cva('fieldRoot flex flex-col gap-1', {
   variants: {
@@ -113,7 +112,11 @@ extendCompodiumMeta<typeof props>({
       {{ helperText }}
     </ArkField.HelperText>
 
-    <ArkField.ErrorText v-if="showError" class="txt-caption text-error-text-default">
+    <ArkField.ErrorText
+      v-if="showError"
+      aria-live="polite"
+      class="txt-caption text-error-text-default"
+    >
       <slot name="error">{{ error }}</slot>
     </ArkField.ErrorText>
   </ArkField.Root>

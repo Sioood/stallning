@@ -11,6 +11,8 @@
     "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
     "lint:oxlint": "pnpx oxlint || true",
     "lint:eslint": "pnpm exec eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "format": "pnpm exec oxfmt",
     "format:check": "pnpm exec oxfmt --check .",
     "i18n:coverage": "node ./node_modules/@stallning/nuxt-essentials/i18n/utils/coverage.ts -f ./i18n/locales",
@@ -24,15 +26,19 @@
     "@nuxt/image": "2.0.0",
     "@stallning/nuxt-essentials": "workspace:*",
     "@tailwindcss/vite": "catalog:",
+    "@tanstack/form-core": "1.29.1",
+    "@tanstack/vue-form": "catalog:",
     "class-variance-authority": "catalog:",
     "nuxt": "catalog:",
     "v-gsap-nuxt": "1.5.12",
     "vue": "catalog:",
-    "vue-router": "catalog:"
+    "vue-router": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@nuxt/kit": "catalog:",
     "@stallning/eslint": "workspace:^",
-    "@stallning/oxlint": "workspace:^"
+    "@stallning/oxlint": "workspace:^",
+    "vitest": "^3.2.4"
   }
 }

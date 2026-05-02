@@ -100,31 +100,12 @@ pnpm install
 
 ### Initialize the project
 
-If you cloned this boilerplate to start a new project, run the init script once to customize it:
+see [Create Ställning](https://github.com/Sioood/create-stallning)
+
+or run directly:
 
 ```sh
-# Preview changes without applying them
-pnpm init --dry-run
-
-# Interactive mode - answer prompts to customize
-pnpm init
-
-# Non-interactive mode - provide all options via CLI
-pnpm init -y --name my-project --description "My project"
-```
-
-The init script will:
-
-- Replace "stallning" with your project name across all files and directories
-- Optionally reset git history for a fresh start
-- Optionally add the upstream remote for future syncs
-
-Use `--dry-run` to preview what changes would be made without actually modifying any files.
-
-After running the init script, install dependencies again and you're ready to go.
-
-```sh
-pnpm install
+pnpm create stallning@latest
 ```
 
 ### 📦 Recommended extensions

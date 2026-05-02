@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Toast, Toaster } from '@ark-ui/vue/toast'
+import { Toast as ArkToast, Toaster as ArkToaster } from '@ark-ui/vue/toast'
 import { cva, type VariantProps } from 'class-variance-authority'
 
 import { useComponentIcons, type ComponentState } from '~ui/app/composables/useComponentIcons'
@@ -97,8 +97,8 @@ const getType = (type: string | undefined): ToastRootCVAProps['intent'] | undefi
 <template>
   <div v-if="toaster">
     <Teleport to="body">
-      <Toaster v-slot="toast" :toaster="toaster">
-        <Toast.Root
+      <ArkToaster v-slot="toast" :toaster="toaster">
+        <ArkToast.Root
           :class="
             toastRoot({
               intent: getType(toast.meta?.type || toast.type),
@@ -106,7 +106,7 @@ const getType = (type: string | undefined): ToastRootCVAProps['intent'] | undefi
             })
           "
         >
-          <Toast.Title :class="toastTitle({ size })">
+          <ArkToast.Title  :class="toastTitle({ size })">
             <Icon
               :name="getToastIcon(toast.meta?.type || toast.type).iconName.value"
               :class="{
@@ -114,32 +114,32 @@ const getType = (type: string | undefined): ToastRootCVAProps['intent'] | undefi
               }"
             />
             {{ toast.title }}
-          </Toast.Title>
-          <Toast.Description
+          </ArkToast.Title>
+          <ArkToast.Description
             v-if="toast.description"
             :class="toastDescription({ intent: getType(toast.meta?.type || toast.type), size })"
           >
             {{ toast.description }}
-          </Toast.Description>
+          </ArkToast.Description>
 
           <slot :toast="toast" />
 
-          <Toast.ActionTrigger v-if="toast.action" :class="toastAction({ size })">
+          <ArkToast.ActionTrigger v-if="toast.action" :class="toastAction({ size })">
             <UIButton size="sm" :intent="getType(toast.meta?.type || toast.type)">
               {{ toast.action.label }}
             </UIButton>
-          </Toast.ActionTrigger>
+          </ArkToast.ActionTrigger>
 
-          <Toast.CloseTrigger v-if="toast.closable" :class="toastError({ size })">
+          <ArkToast.CloseTrigger v-if="toast.closable" :class="toastError({ size })">
             <UIButton
               size="sm"
               variant="ghost"
               icon="tabler:x"
               :intent="getType(toast.meta?.type || toast.type)"
             />
-          </Toast.CloseTrigger>
-        </Toast.Root>
-      </Toaster>
+          </ArkToast.CloseTrigger>
+        </ArkToast.Root>
+      </ArkToaster>
     </Teleport>
   </div>
 </template>

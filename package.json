@@ -79,7 +79,8 @@
         "always",
         [
           "global",
-          "config"
+          "config",
+          "docs"
         ]
       ],
       "type-enum": [

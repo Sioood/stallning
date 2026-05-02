@@ -3,7 +3,7 @@ import { z } from 'zod'
 
 import UIFormInput from '~ui/app/components/Form/Input.vue'
 
-import type { SchemaFieldsMap, SchemaFormLayout } from '~ui/app/components/Form/schema'
+import type { InferSchemaValues, SchemaFieldsMap, SchemaFormLayout } from '~ui/app/components/Form/schema'
 
 const schema = z.object({
   firstName: z.string().trim().min(2),
@@ -11,7 +11,7 @@ const schema = z.object({
   email: z.string().trim().email(),
 })
 
-type FormValues = z.infer<typeof schema>
+type FormValues = InferSchemaValues<typeof schema>
 
 const defaultValues: FormValues = {
   firstName: '',

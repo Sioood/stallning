@@ -24,18 +24,6 @@ type FieldAsyncFn<
 > = FieldAsyncValidateOrFn<TValues, TName, FieldData<TValues, TName>>
 
 /**
- * Props shape expected from dynamic field components used with {@link UIForm}.
- * Controls may accept a wider `modelValue`; this documents the minimum contract.
- */
-export interface FormControlBindings<TValue = unknown> {
-  name?: string
-  modelValue: TValue
-  invalid?: boolean
-  error?: string
-  id?: string
-}
-
-/**
  * Per-field config for {@link UIForm}.
  * Validator generics use `Fn | undefined` (not `undefined` alone) so optional slots like
  * `onChangeAsync` accept real validators.

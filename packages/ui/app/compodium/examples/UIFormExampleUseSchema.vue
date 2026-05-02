@@ -4,12 +4,14 @@ import { z } from 'zod'
 import { useSchemaForm } from '~ui/app/composables/useSchemaForm'
 import { formatFieldErrors } from '~ui/app/utils/form-field-errors'
 
+import type { InferSchemaValues } from '~ui/app/components/Form/schema'
+
 const schema = z.object({
   firstName: z.string().trim().min(2),
   lastName: z.string().trim().min(1),
 })
 
-type FormValues = z.infer<typeof schema>
+type FormValues = InferSchemaValues<typeof schema>
 
 const defaultValues: FormValues = {
   firstName: '',

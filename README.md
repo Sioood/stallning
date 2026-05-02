@@ -61,6 +61,20 @@ A variety of templates are available, ranging from minimal (main branch) to tech
     - [Husky](https://github.com/typicode/husky), [lint-staged](https://github.com/okonet/lint-staged) and [commitlint](https://github.com/conventional-changelog/commitlint)
     - [Changeset](https://github.com/changesets/changeset)
 
+- [nuxt](https://github.com/Sioood/stallning/tree/nuxt)
+  - Full-fledged Nuxt application with a rich feature set.
+    - [Nuxt](https://nuxt.com/) (Vue framework)
+    - [Tailwind CSS](https://tailwindcss.com/) for styling
+    - [@ark-ui/vue](https://ark.ecosyste.ms/packages/@ark-ui/vue) for accessible UI components
+    - [Pinia](https://pinia.vuejs.org/) for state management
+    - [@nuxtjs/i18n](https://i18n.nuxt.dev/) for internationalization (en-US, fr-FR)
+    - [@nuxtjs/seo](https://seo.nuxt.dev/) for SEO optimization
+    - [VueUse](https://vueuse.org/) for composable utilities
+    - [@nuxt/image](https://image.nuxt.com/), [@nuxt/icon](https://github.com/nuxt-modules/icon), [@nuxt/fonts](https://fonts.nuxt.com/)
+    - [v-gsap-nuxt](https://github.com/davidcariss/v-gsap-nuxt) for animations
+    - [Compodium](https://compodium.dev/) for component documentation
+    - [nuxt-security](https://nuxt-security.vercel.app/) for security headers
+
 ## 🚧 Evolution
 
 This boilerplate is intended to constantly evolve. So if you have any feedback or suggestions, please don't hesitate to reach out, or open an issue.

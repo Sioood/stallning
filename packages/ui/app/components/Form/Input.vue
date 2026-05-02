@@ -132,11 +132,6 @@ const resolvedInputType = computed(() =>
   isPasswordField.value ? (showPassword.value ? 'text' : 'password') : props.type,
 )
 
-const togglePasswordVisible = () => {
-  if (props.disabled || props.readOnly) return
-  showPassword.value = !showPassword.value
-}
-
 const iconProps = computed<UseComponentIconsProps>(() => ({
   icon: props.icon,
   leading: props.leading,
@@ -156,8 +151,6 @@ const { isLeading, isTrailing, leadingIconName, trailingIconName, shouldAnimate 
   useComponentIcons(iconProps)
 
 const passwordToggleLabel = computed(() => (showPassword.value ? 'Hide password' : 'Show password'))
-
-const passwordToggleIcon = computed(() => (showPassword.value ? 'tabler:eye-off' : 'tabler:eye'))
 
 extendCompodiumMeta<typeof props & { modelValue?: string }>({
   defaultProps: {
@@ -224,18 +217,23 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
         @blur="emit('blur', $event)"
       />
 
-      <!-- FIXME when toggle is implemented -->
-      <button
+      <UIToggle
         v-if="isPasswordField"
-        type="button"
-        class="flex shrink-0 items-center justify-center p-1.5 text-primary-icon-subtle transition-colors hover:bg-primary-fill-subtle-hover hover:text-primary-text-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-border-default disabled:pointer-events-none"
+        v-model:pressed="showPassword"
+        variant="ghost"
+        intent="primary"
+        size="sm"
+        icon-only
         :disabled="disabled || readOnly"
         :aria-label="passwordToggleLabel"
-        :aria-pressed="showPassword"
-        @click="togglePasswordVisible"
       >
-        <Icon :name="passwordToggleIcon" class="size-4 shrink-0" />
-      </button>
+        <template #on>
+          <Icon name="tabler:eye-off" class="size-4 shrink-0" />
+        </template>
+        <template #off>
+          <Icon name="tabler:eye" class="size-4 shrink-0" />
+        </template>
+      </UIToggle>
 
       <span
         v-else-if="isTrailing && trailingIconName"

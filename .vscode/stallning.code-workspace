@@ -63,7 +63,7 @@
     },
     "oxc.enable": true,
     "oxc.enable.oxfmt": true,
-    "cSpell.words": ["stallning", "oxlint", "nuxt"],
+    "cSpell.words": ["stallning", "oxlint", "nuxt", "compodium"],
     "[vue]": {
       "editor.defaultFormatter": "oxc.oxc-vscode",
     },

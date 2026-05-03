@@ -106,7 +106,7 @@ const getType = (type: string | undefined): ToastRootCVAProps['intent'] | undefi
             })
           "
         >
-          <ArkToast.Title  :class="toastTitle({ size })">
+          <ArkToast.Title :class="toastTitle({ size })">
             <Icon
               :name="getToastIcon(toast.meta?.type || toast.type).iconName.value"
               :class="{

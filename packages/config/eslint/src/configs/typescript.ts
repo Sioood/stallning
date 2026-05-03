@@ -1,5 +1,6 @@
 import { configs as tseslintConfigs } from 'typescript-eslint'
 
+import { GLOB_VUE } from '../globs.ts'
 import { defineConfig, type FlatConfigs } from '../types.ts'
 
 export function typescript(tsconfigRootDir?: string) {
@@ -15,6 +16,7 @@ export function typescript(tsconfigRootDir?: string) {
         '**/*.jsx',
         '**/*.mjs',
         '**/*.cjs',
+        GLOB_VUE,
       ],
       languageOptions: {
         parserOptions: {

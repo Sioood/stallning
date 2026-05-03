@@ -9,7 +9,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
-    "lint:oxlint": "pnpx oxlint || true",
+    "lint:oxlint": "pnpm exec oxlint",
     "lint:eslint": "pnpm exec eslint .",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",

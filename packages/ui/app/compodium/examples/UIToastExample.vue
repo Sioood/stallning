@@ -33,13 +33,12 @@ const showActionToast = () => {
         console.log('Undo clicked')
       },
     },
-
   })
 }
 </script>
 
 <template>
-  <div class="flex gap-2 flex-wrap">
+  <div class="flex flex-wrap gap-2">
     <UIButton
       v-for="type in ['info', 'success', 'warning', 'error'] as const"
       :key="type"

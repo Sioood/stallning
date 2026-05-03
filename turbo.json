@@ -19,6 +19,40 @@
     },
     "lint:oxlint": {
       "dependsOn": ["^lint:oxlint"]
+    },
+    "test": {
+      "dependsOn": [],
+      "inputs": [
+        "app/**/*.{ts,vue}",
+        "i18n/**/*.{ts,json,yaml,yml}",
+        "**/__fixtures__/**",
+        "test/**/*.ts",
+        "vitest-nuxt-environment.ts",
+        "vitest.config.ts"
+      ],
+      "outputs": ["coverage/**"]
+    },
+    "test:component": {
+      "dependsOn": [],
+      "inputs": [
+        "app/**/*.{ts,vue}",
+        "test/**/*.ts",
+        "vitest.config.ts",
+        "vitest-nuxt-environment.ts"
+      ],
+      "outputs": ["coverage/**"]
+    },
+    "test:coverage": {
+      "dependsOn": [],
+      "inputs": [
+        "app/**/*.{ts,vue}",
+        "i18n/**/*.{ts,json,yaml,yml}",
+        "**/__fixtures__/**",
+        "test/**/*.ts",
+        "vitest-nuxt-environment.ts",
+        "vitest.config.ts"
+      ],
+      "outputs": ["coverage/**"]
     }
   }
 }

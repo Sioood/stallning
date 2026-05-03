@@ -3,12 +3,20 @@ import { createResolver } from '@nuxt/kit'
 import tailwindcss from '@tailwindcss/vite'
 const { resolve } = createResolver(import.meta.url)
 
+const isVitest = process.env.VITEST === 'true'
+
 // // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   extends: [resolve('../nuxt-essentials')],
-  modules: ['@nuxt/fonts', '@nuxt/icon', '@compodium/nuxt', '@nuxt/image', 'v-gsap-nuxt'],
+  modules: [
+    '@nuxt/fonts',
+    '@nuxt/icon',
+    ...(isVitest ? [] : ['@compodium/nuxt']),
+    '@nuxt/image',
+    'v-gsap-nuxt',
+  ],
   fonts: {
     families: [
       { name: 'Inter', provider: 'google' },
@@ -45,8 +53,12 @@ export default defineNuxtConfig({
       siteUrl: 'https://ui.com',
     },
   },
-  compodium: {
-    dir: 'app/compodium/',
-    includeLibraryCollections: true,
-  },
+  ...(isVitest
+    ? {}
+    : {
+        compodium: {
+          dir: 'app/compodium/',
+          includeLibraryCollections: true,
+        },
+      }),
 })

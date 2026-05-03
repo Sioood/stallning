@@ -1,0 +1,314 @@
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
+import { tmpdir } from 'node:os'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+import { consola } from 'consola'
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
+
+import {
+  getCoverageData,
+  getLocaleNamespaces,
+  getMessagesByLocaleWithNamespace,
+  getTreeStructure,
+  getUniqueMessageKeys,
+  renderCoverage,
+  renderTreeStructure,
+} from '../../../i18n/utils/coverage'
+
+const fixturesLocalesPath = join(
+  dirname(fileURLToPath(import.meta.url)),
+  '..',
+  '..',
+  '..',
+  'i18n',
+  'utils',
+  '__fixtures__',
+  'locales',
+)
+
+describe('getMessagesByLocaleWithNamespace', () => {
+  it('throws when a YAML translation file is not an object', () => {
+    const root = mkdtempSync(join(tmpdir(), 'stallning-i18n-bad-yaml-'))
+    const localeDir = join(root, 'en-US')
+    mkdirSync(localeDir)
+    writeFileSync(join(localeDir, 'broken.yml'), 'null\n')
+    try {
+      expect(() =>
+        getMessagesByLocaleWithNamespace({ locales: ['en-US'], localesPath: root }),
+      ).toThrow(/Invalid translation content/)
+    } finally {
+      rmSync(root, { recursive: true, force: true })
+    }
+  })
+
+  it('merges translations without prefix and namespaces json keys with prefix', () => {
+    const messages = getMessagesByLocaleWithNamespace({
+      locales: ['en-US'],
+      localesPath: fixturesLocalesPath,
+    })
+
+    expect(messages['en-US']).toEqual({
+      hello: 'Hello from en',
+      app: 'App title',
+      'ui:submit': 'Submit',
+    })
+    expect(Object.keys(messages['en-US']!).some((k) => k.includes('README'))).toBe(false)
+  })
+
+  it('loads multiple locales from fixtures with YAML and JSON mix', () => {
+    const messages = getMessagesByLocaleWithNamespace({
+      locales: ['en-US', 'fr-FR'],
+      localesPath: fixturesLocalesPath,
+    })
+
+    expect(messages['en-US']).toMatchObject({
+      hello: 'Hello from en',
+      'ui:submit': 'Submit',
+    })
+    expect(messages['fr-FR']).toEqual({
+      hello: 'Bonjour',
+      'ui:submit': 'Envoyer',
+    })
+  })
+})
+
+describe('getUniqueMessageKeys', () => {
+  it('collects all unique keys across locales', () => {
+    const messagesByLocale = {
+      'fr-FR': { hello: 'Bonjour', 'ui:button': 'Bouton' },
+      'en-US': { hello: 'Hello', 'ui:button': 'Button' },
+    }
+
+    const keys = getUniqueMessageKeys(messagesByLocale)
+    expect(keys).toEqual(['hello', 'ui:button'])
+  })
+
+  it('deduplicates keys across locales', () => {
+    const messagesByLocale = {
+      'fr-FR': { shared: 'FR value' },
+      'en-US': { shared: 'EN value' },
+    }
+
+    const keys = getUniqueMessageKeys(messagesByLocale)
+    expect(keys).toHaveLength(1)
+    expect(keys[0]).toBe('shared')
+  })
+
+  it('returns sorted keys', () => {
+    const messagesByLocale = {
+      'en-US': { zebra: 'z', alpha: 'a', beta: 'b' },
+    }
+
+    const keys = getUniqueMessageKeys(messagesByLocale)
+    expect(keys).toEqual(['alpha', 'beta', 'zebra'])
+  })
+
+  it('handles empty input', () => {
+    const messagesByLocale = {}
+    const keys = getUniqueMessageKeys(messagesByLocale)
+    expect(keys).toEqual([])
+  })
+})
+
+describe('getCoverageData', () => {
+  it('calculates correct percentage for full coverage', () => {
+    const messagesByLocale = {
+      'en-US': { hello: 'Hello', world: 'World' },
+    }
+    const uniqueKeys = ['hello', 'world']
+
+    const data = getCoverageData({ messagesByLocale, uniqueMessageKeys: uniqueKeys })
+
+    expect(data.data.total).toBe(2)
+    expect(data.locale['en-US']!.percentage).toBe(100)
+    expect(data.locale['en-US']!.count).toBe(2)
+    expect(data.locale['en-US']!.missing).toBe(0)
+    expect(data.locale['en-US']!.missingKeys).toEqual([])
+  })
+
+  it('calculates correct percentage for partial coverage', () => {
+    const messagesByLocale = {
+      'fr-FR': { hello: 'Bonjour' },
+    }
+    const uniqueKeys = ['hello', 'world']
+
+    const data = getCoverageData({ messagesByLocale, uniqueMessageKeys: uniqueKeys })
+
+    expect(data.locale['fr-FR']!.percentage).toBe(50)
+    expect(data.locale['fr-FR']!.count).toBe(1)
+    expect(data.locale['fr-FR']!.missing).toBe(1)
+    expect(data.locale['fr-FR']!.missingKeys).toEqual(['world'])
+  })
+
+  it('handles multiple locales with different coverage', () => {
+    const messagesByLocale = {
+      'en-US': { hello: 'Hello', world: 'World' },
+      'fr-FR': { hello: 'Bonjour' },
+    }
+    const uniqueKeys = ['hello', 'world']
+
+    const data = getCoverageData({ messagesByLocale, uniqueMessageKeys: uniqueKeys })
+
+    expect(data.locale['en-US']!.percentage).toBe(100)
+    expect(data.locale['fr-FR']!.percentage).toBe(50)
+  })
+
+  it('handles empty locale', () => {
+    const messagesByLocale = {
+      empty: {},
+    }
+    const uniqueKeys = ['hello']
+
+    const data = getCoverageData({ messagesByLocale, uniqueMessageKeys: uniqueKeys })
+
+    expect(data.locale['empty']!.percentage).toBe(0)
+    expect(data.locale['empty']!.count).toBe(0)
+    expect(data.locale['empty']!.missing).toBe(1)
+  })
+
+  it('when unique key list is empty, total is zero and each locale reports 100%', () => {
+    const data = getCoverageData({
+      messagesByLocale: {
+        'en-US': { foo: 'a', bar: 'b' },
+      },
+      uniqueMessageKeys: [],
+    })
+
+    expect(data.data.total).toBe(0)
+    expect(data.locale['en-US']!.percentage).toBe(100)
+    expect(data.locale['en-US']!.missing).toBe(0)
+    expect(data.locale['en-US']!.missingKeys).toEqual([])
+  })
+
+  it('when there are no locales and no keys, total is zero', () => {
+    const data = getCoverageData({
+      messagesByLocale: {},
+      uniqueMessageKeys: [],
+    })
+
+    expect(data.data.total).toBe(0)
+    expect(Object.keys(data.locale)).toHaveLength(0)
+  })
+})
+
+describe('getLocaleNamespaces', () => {
+  it('lists only json/yaml translation files, sorted', () => {
+    const ns = getLocaleNamespaces({ localesPath: fixturesLocalesPath, locale: 'en-US' })
+    expect(ns).toContain('translations.yaml')
+    expect(ns).toContain('ui.json')
+    expect(ns.some((f) => f.includes('README'))).toBe(false)
+    const sorted = [...ns].sort((a, b) => a.localeCompare(b))
+    expect(ns).toEqual(sorted)
+  })
+})
+
+describe('getTreeStructure', () => {
+  it('leaves namespace lists empty when showNamespaces is false', () => {
+    const tree = getTreeStructure({ localesPath: fixturesLocalesPath, showNamespaces: false })
+    expect(tree.length).toBeGreaterThan(0)
+    expect(tree.every(([, namespaces]) => namespaces.length === 0)).toBe(true)
+  })
+
+  it('fills namespace filenames when showNamespaces is true', () => {
+    const tree = getTreeStructure({ localesPath: fixturesLocalesPath, showNamespaces: true })
+    const en = tree.find(([locale]) => locale === 'en-US')
+    expect(en?.[1].length).toBeGreaterThan(0)
+    expect(en?.[1].some((f) => f.includes('translations'))).toBe(true)
+  })
+})
+
+describe('renderTreeStructure', () => {
+  const sampleTree: ReturnType<typeof getTreeStructure> = [
+    ['en-US', []],
+    ['fr-FR', []],
+  ]
+
+  it('adds green styling for percentage >= 90', () => {
+    const lines = renderTreeStructure({
+      tree: sampleTree,
+      data: {
+        data: { total: 2 },
+        locale: {
+          'en-US': { percentage: 92, count: 2, missing: 0, missingKeys: [] },
+        },
+      },
+    })
+    expect(lines.some((l) => l.includes('92'))).toBe(true)
+  })
+
+  it('adds yellow styling for percentage between 50 and 89', () => {
+    const lines = renderTreeStructure({
+      tree: [['en-US', []]],
+      data: {
+        data: { total: 2 },
+        locale: {
+          'en-US': { percentage: 75, count: 1, missing: 1, missingKeys: ['a'] },
+        },
+      },
+    })
+    expect(lines.some((l) => l.includes('75'))).toBe(true)
+  })
+
+  it('adds red styling for percentage below 50', () => {
+    const lines = renderTreeStructure({
+      tree: [['en-US', []]],
+      data: {
+        data: { total: 2 },
+        locale: {
+          'en-US': { percentage: 30, count: 1, missing: 1, missingKeys: ['x'] },
+        },
+      },
+    })
+    expect(lines.some((l) => l.includes('30'))).toBe(true)
+  })
+
+  it('prints missing keys when showKeys is true', () => {
+    const lines = renderTreeStructure({
+      tree: [['fr-FR', []]],
+      data: {
+        data: { total: 1 },
+        locale: {
+          'fr-FR': { percentage: 0, count: 0, missing: 1, missingKeys: ['only.in.en'] },
+        },
+      },
+      showKeys: true,
+    })
+    expect(lines.some((l) => l.includes('only.in.en'))).toBe(true)
+  })
+})
+
+describe('renderCoverage', () => {
+  let emptyLocalesDir: string
+
+  beforeAll(() => {
+    emptyLocalesDir = mkdtempSync(join(tmpdir(), 'stallning-i18n-empty-'))
+  })
+
+  afterAll(() => {
+    rmSync(emptyLocalesDir, { recursive: true, force: true })
+  })
+
+  it('warns and skips rendering when no locale directories exist', () => {
+    const warn = vi.spyOn(consola, 'warn').mockImplementation(() => {})
+    const start = vi.spyOn(consola, 'start').mockImplementation(() => {})
+    renderCoverage({ localesPath: emptyLocalesDir })
+    expect(start).toHaveBeenCalled()
+    expect(warn).toHaveBeenCalledWith('No locale directories found.')
+    warn.mockRestore()
+    start.mockRestore()
+  })
+
+  it('logs a tree for fixture locales', () => {
+    const log = vi.spyOn(consola, 'log').mockImplementation(() => {})
+    const start = vi.spyOn(consola, 'start').mockImplementation(() => {})
+    const success = vi.spyOn(consola, 'success').mockImplementation(() => {})
+    renderCoverage({ localesPath: fixturesLocalesPath, showNamespaces: true })
+    expect(start).toHaveBeenCalled()
+    expect(success).toHaveBeenCalled()
+    expect(log.mock.calls.length).toBeGreaterThan(0)
+    log.mockRestore()
+    start.mockRestore()
+    success.mockRestore()
+  })
+})

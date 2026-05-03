@@ -19,4 +19,11 @@ export default withNuxt(
       'import-x/no-unresolved': ['error', { ignore: ['^~ui/', '^~nuxt-essentials/'] }],
     },
   },
+  {
+    files: ['test/**/*.ts'],
+    rules: {
+      'vue/require-default-prop': 'off',
+      'vue/one-component-per-file': 'off',
+    },
+  },
 )

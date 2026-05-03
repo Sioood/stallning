@@ -6,24 +6,31 @@ import { useComponentIcons, type ComponentState } from '~ui/app/composables/useC
 
 const toaster = useToast()
 
-const toastRoot = cva('toastRoot border relative overflow-hidden z-index-[var(--z-index)] will-change-transform-opacity h-[var(--height)] translate-x-[var(--x)] translate-y-[var(--y)] scale-[var(--scale)] flex-col opacity-[var(--opacity)] transition-all duration-300 ease-in-out', {
-  variants: {
-    intent: {
-      neutral: 'bg-neutral-surface-default border-neutral-border-default text-neutral-text-default',
-      primary: 'bg-primary-surface-default border-primary-border-default text-primary-text-default',
-      secondary:
-        'bg-secondary-surface-default border-secondary-border-default text-secondary-text-default',
-      accent: 'bg-accent-surface-default border-accent-border-default text-accent-text-default',
-      info: 'bg-info-surface-default border-info-border-default text-info-text-default',
-      warning: 'bg-warning-surface-default border-warning-border-default text-warning-text-default',
-      error: 'bg-error-surface-default border-error-border-default text-error-text-default',
-      success: 'bg-success-surface-default border-success-border-default text-success-text-default',
-    },
-    size: {
-      md: 'min-w-64 p-2 pr-12',
+const toastRoot = cva(
+  'toastRoot border relative overflow-hidden z-index-[var(--z-index)] will-change-transform-opacity h-[var(--height)] translate-x-[var(--x)] translate-y-[var(--y)] scale-[var(--scale)] flex-col opacity-[var(--opacity)] transition-all duration-300 ease-in-out',
+  {
+    variants: {
+      intent: {
+        neutral:
+          'bg-neutral-surface-default border-neutral-border-default text-neutral-text-default',
+        primary:
+          'bg-primary-surface-default border-primary-border-default text-primary-text-default',
+        secondary:
+          'bg-secondary-surface-default border-secondary-border-default text-secondary-text-default',
+        accent: 'bg-accent-surface-default border-accent-border-default text-accent-text-default',
+        info: 'bg-info-surface-default border-info-border-default text-info-text-default',
+        warning:
+          'bg-warning-surface-default border-warning-border-default text-warning-text-default',
+        error: 'bg-error-surface-default border-error-border-default text-error-text-default',
+        success:
+          'bg-success-surface-default border-success-border-default text-success-text-default',
+      },
+      size: {
+        md: 'min-w-64 p-2 pr-12',
+      },
     },
   },
-})
+)
 
 type ToastRootCVAProps = VariantProps<typeof toastRoot>
 

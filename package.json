@@ -27,7 +27,9 @@
     "build": "turbo run build",
     "knip": "knip",
     "knip:fix": "knip --fix",
-    "todoctor": "pnpx todoctor"
+    "todoctor": "pnpx todoctor",
+    "test": "turbo run test",
+    "test:coverage": "turbo run test:coverage"
   },
   "dependencies": {
     "@changesets/cli": "^2.30.0"

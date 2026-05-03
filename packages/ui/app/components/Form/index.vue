@@ -1,8 +1,4 @@
-<script
-  setup
-  lang="ts"
-  generic="TValues extends Record<string, unknown>"
->
+<script setup lang="ts" generic="TValues extends Record<string, unknown>">
 import { computed, watchEffect } from 'vue'
 
 import { useSchemaForm, type SchemaFormValidationMode } from '~ui/app/composables/useSchemaForm'
@@ -49,21 +45,23 @@ const formIsSubmitted = form.useStore((s) => s.isSubmitted)
 const errorSummaryText = computed(() => formatFieldErrors(formErrors.value))
 
 /** One config lookup per layout field per reactive update (avoid repeated `fields[key]` in template). */
-const fieldConfigByKey = computed((): Record<string, SchemaFieldConfig<TValues, keyof TValues & string>> => {
-  const out: Record<string, SchemaFieldConfig<TValues, keyof TValues & string>> = {}
-  for (const row of props.layout) {
-    for (const k of layoutRowKeys(row)) {
-      if (out[k]) continue
-      const key = k as keyof TValues & string
-      const cfg = props.fields[key]
-      if (cfg === undefined || cfg === null) {
-        throw new Error(`[UIForm] Missing fields["${k}"]`)
+const fieldConfigByKey = computed(
+  (): Record<string, SchemaFieldConfig<TValues, keyof TValues & string>> => {
+    const out: Record<string, SchemaFieldConfig<TValues, keyof TValues & string>> = {}
+    for (const row of props.layout) {
+      for (const k of layoutRowKeys(row)) {
+        if (out[k]) continue
+        const key = k as keyof TValues & string
+        const cfg = props.fields[key]
+        if (cfg === undefined || cfg === null) {
+          throw new Error(`[UIForm] Missing fields["${k}"]`)
+        }
+        out[k] = cfg
       }
-      out[k] = cfg
     }
-  }
-  return out
-})
+    return out
+  },
+)
 
 if (import.meta.dev) {
   watchEffect(() => {
@@ -107,7 +105,7 @@ defineExpose({ form })
             >
               <template #default="{ field, state }">
                 <UIFormBoundControl
-                  :field-name="(fieldKey as keyof TValues & string)"
+                  :field-name="fieldKey as keyof TValues & string"
                   :config="fieldConfigByKey[String(fieldKey)]!"
                   :field-api="field"
                   :state="state"
@@ -118,10 +116,6 @@ defineExpose({ form })
         </template>
       </div>
     </template>
-    <slot
-      name="actions"
-      :can-submit="formCanSubmit"
-      :is-submitting="formSubmitting"
-    />
+    <slot name="actions" :can-submit="formCanSubmit" :is-submitting="formSubmitting" />
   </form>
 </template>

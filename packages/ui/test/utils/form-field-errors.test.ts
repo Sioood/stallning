@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { formatFieldErrors } from './form-field-errors'
+import { formatFieldErrors } from '../../app/utils/form-field-errors'
 
 describe('formatFieldErrors', () => {
   it('joins string errors', () => {
@@ -22,5 +22,13 @@ describe('formatFieldErrors', () => {
   it('dedupes identical messages (e.g. form onChange + onBlur)', () => {
     expect(formatFieldErrors(['Too short', 'Too short'])).toBe('Too short')
     expect(formatFieldErrors([{ message: 'x' }, { message: 'x' }, { message: 'y' }])).toBe('x, y')
+  })
+
+  it('skips nullish entries in the error list', () => {
+    expect(formatFieldErrors([null, undefined, 'ok'])).toBe('ok')
+  })
+
+  it('ignores objects whose message is not a string', () => {
+    expect(formatFieldErrors([{ message: 123 }, { message: 'ok' }])).toBe('ok')
   })
 })

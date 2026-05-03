@@ -105,10 +105,7 @@ extendCompodiumMeta<typeof props>({
 
     <slot />
 
-    <ArkField.HelperText
-      v-if="helperText && !invalid"
-      :class="fieldHelperText({ intent, size })"
-    >
+    <ArkField.HelperText v-if="helperText && !invalid" :class="fieldHelperText({ intent, size })">
       {{ helperText }}
     </ArkField.HelperText>
 

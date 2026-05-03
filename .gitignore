@@ -25,5 +25,10 @@ yarn-error.log*
 # Custom
 .data
 
+# Tests / coverage
+coverage/
+playwright-report/
+test-results/
+
 # Todoctor
 /todoctor

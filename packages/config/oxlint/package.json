@@ -6,7 +6,7 @@
   "license": "ISC",
   "author": "",
   "scripts": {
-    "lint": "pnpx oxlint",
+    "lint": "pnpm exec oxlint",
     "check-types": "echo \"No TypeScript files to check in @stallning/oxlint\""
   },
   "devDependencies": {

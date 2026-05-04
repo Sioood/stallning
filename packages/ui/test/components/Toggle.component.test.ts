@@ -6,7 +6,7 @@ import Toggle from '../../app/components/Toggle.vue'
 describe('Toggle', () => {
   it('shows the off slot when not pressed', async () => {
     const wrapper = await mountSuspended(Toggle, {
-      props: { pressed: false },
+      props: { modelValue: false },
       slots: {
         on: 'On',
         off: 'Off',
@@ -19,7 +19,7 @@ describe('Toggle', () => {
 
   it('shows the on slot when pressed', async () => {
     const wrapper = await mountSuspended(Toggle, {
-      props: { pressed: true },
+      props: { modelValue: true },
       slots: {
         on: 'On',
         off: 'Off',

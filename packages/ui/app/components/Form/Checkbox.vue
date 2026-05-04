@@ -4,22 +4,18 @@ import {
   type CheckboxRootBaseProps as ArkCheckboxRootBaseProps,
   type CheckboxCheckedState as ArkCheckboxCheckedState,
 } from '@ark-ui/vue/checkbox'
+import { createReusableTemplate } from '@vueuse/core'
 import { cva, type VariantProps } from 'class-variance-authority'
 
 import type { FieldProps } from '~ui/app/components/Form/Field.vue'
 
-const checkboxRoot = cva('checkboxRoot inline-flex items-center gap-2', {
+const checkboxRoot = cva('checkboxRoot group inline-flex items-center gap-2', {
   variants: {
     intent: {
       primary: '',
     },
     size: {
       md: '',
-    },
-    checked: {
-      true: '',
-      false: '',
-      indeterminate: '',
     },
     disabled: {
       true: 'cursor-not-allowed',
@@ -43,11 +39,6 @@ const checkboxControl = cva('checkboxControl size-4 border', {
     size: {
       md: '',
     },
-    checked: {
-      true: '',
-      false: '',
-      indeterminate: '',
-    },
     disabled: {
       true: '',
       false: '',
@@ -59,29 +50,32 @@ const checkboxControl = cva('checkboxControl size-4 border', {
   },
 })
 
-const checkboxIndicator = cva('checkboxIndicator size-full flex items-center justify-center', {
-  variants: {
-    intent: {
-      primary: '',
-    },
-    size: {
-      md: '',
-    },
-    disabled: {
-      true: '',
-      false: '',
-    },
-    checked: {
-      true: 'bg-primary-fill-default text-primary-fill-inverse',
-      false: 'bg-primary-fill-subtle text-primary-text-default',
-      indeterminate: 'bg-primary-fill-default text-primary-fill-inverse',
-    },
-    invalid: {
-      true: '',
-      false: '',
+const checkboxIndicator = cva(
+  [
+    'checkboxIndicator size-full flex items-center justify-center',
+    'bg-primary-fill-subtle text-primary-text-default',
+    'group-data-[state=checked]:bg-primary-fill-default group-data-[state=checked]:text-primary-fill-inverse',
+    'group-data-[state=indeterminate]:bg-primary-fill-default group-data-[state=indeterminate]:text-primary-fill-inverse',
+  ].join(' '),
+  {
+    variants: {
+      intent: {
+        primary: '',
+      },
+      size: {
+        md: '',
+      },
+      disabled: {
+        true: '',
+        false: '',
+      },
+      invalid: {
+        true: '',
+        false: '',
+      },
     },
   },
-})
+)
 
 const fieldLabel = cva('fieldLabel', {
   variants: {
@@ -95,6 +89,11 @@ const fieldLabel = cva('fieldLabel', {
 })
 
 interface CheckboxProps extends ArkCheckboxRootBaseProps, Omit<FieldProps, 'ids'> {
+  /**
+   * Renders only the checkbox control (no `UIFormField`). Use inside `UIFormCheckboxGroup`.
+   * Selection is driven by the surrounding `Checkbox.Group`; do not use `v-model:checked`.
+   */
+  inGroup?: boolean
   intent?: CheckboxRootVariants['intent']
   size?: CheckboxRootVariants['size']
 }
@@ -104,10 +103,13 @@ const checked = defineModel<ArkCheckboxCheckedState>({
 })
 
 const props = withDefaults(defineProps<CheckboxProps>(), {
+  inGroup: false,
   intent: 'primary',
   label: '',
   size: 'md',
 })
+
+const invalid = computed(() => Boolean(props.invalid || (props.error && String(props.error).length > 0)))
 
 const fieldProps = computed(() => ({
   ...pick(props, [
@@ -126,40 +128,61 @@ const fieldProps = computed(() => ({
     'size',
   ] as const),
   hideLabel: true,
-  invalid: Boolean(props.invalid || (props.error && String(props.error).length > 0)),
+  invalid: invalid.value,
 }))
 
+const ROOT_PROP_KEYS = [
+  'asChild',
+  'defaultChecked',
+  'disabled',
+  'form',
+  'id',
+  'ids',
+  'intent',
+  'invalid',
+  'readOnly',
+  'required',
+  'size',
+  'value',
+] as const satisfies readonly (keyof CheckboxProps)[]
+
 const rootProps = computed(() => ({
-  ...pick(props, [
-    'asChild',
-    'defaultChecked',
-    'disabled',
-    'form',
-    'id',
-    'ids',
-    'intent',
-    'invalid',
-    'name',
-    'readOnly',
-    'required',
-    'size',
-    'value',
-  ] as const),
-  invalid: Boolean(props.invalid || (props.error && String(props.error).length > 0)),
+  ...pick(
+    props,
+    props.inGroup ? ROOT_PROP_KEYS : [...ROOT_PROP_KEYS, 'name'],
+  ),
+  invalid: invalid.value,
 }))
+
+const rootBindings = computed(() => {
+  const base = rootProps.value
+  if (props.inGroup) {
+    return base
+  }
+  return {
+    ...base,
+    checked: checked.value,
+    ['onUpdate:checked' as const]: (v: ArkCheckboxCheckedState) => {
+      checked.value = v
+    },
+  }
+})
+
+type CheckboxControlBindings = {
+  rootBindings: Record<string, unknown>
+}
+
+const [DefineCheckboxControl, ReuseCheckboxControl] =
+  createReusableTemplate<CheckboxControlBindings>()
 </script>
 <template>
-  <UIFormField v-bind="fieldProps">
-    <ArkCheckbox.Root
-      v-model:checked="checked"
-      v-bind="rootProps"
-      :class="checkboxRoot({ intent, size, checked, disabled })"
-    >
-      <ArkCheckbox.Control :class="checkboxControl({ intent, size, checked, disabled })">
-        <ArkCheckbox.Indicator :class="checkboxIndicator({ intent, size, checked, disabled })">
+  <DefineCheckboxControl v-slot="p">
+    <ArkCheckbox.Root v-bind="p.rootBindings" :class="checkboxRoot({ intent, size, disabled })">
+      <ArkCheckbox.Control :class="checkboxControl({ intent, size, disabled })">
+        <ArkCheckbox.Indicator :class="checkboxIndicator({ intent, size, disabled })">
           <Icon name="tabler:check" class="size-3 shrink-0" />
         </ArkCheckbox.Indicator>
-        <ArkCheckbox.Indicator :class="checkboxIndicator({ intent, size, checked, disabled })" indeterminate>
+        <ArkCheckbox.Indicator :class="checkboxIndicator({ intent, size, disabled })" indeterminate>
           <Icon name="tabler:minus" class="size-3 shrink-0" />
         </ArkCheckbox.Indicator>
       </ArkCheckbox.Control>
@@ -172,5 +195,10 @@ const rootProps = computed(() => ({
       </ArkCheckbox.Label>
       <ArkCheckbox.HiddenInput />
     </ArkCheckbox.Root>
+  </DefineCheckboxControl>
+
+  <UIFormField v-if="!inGroup" v-bind="fieldProps">
+    <ReuseCheckboxControl :root-bindings="rootBindings" />
   </UIFormField>
+  <ReuseCheckboxControl v-else :root-bindings="rootBindings" />
 </template>

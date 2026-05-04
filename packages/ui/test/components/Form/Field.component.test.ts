@@ -36,4 +36,31 @@ describe('UIFormField', () => {
 
     expect(wrapper.text()).toContain('Required')
   })
+
+  it('fieldset mode orders legend, helper, control, then error', async () => {
+    const wrapper = await mountSuspended(Field, {
+      props: {
+        asFieldset: true,
+        label: 'Select frameworks',
+        helperText: 'Choose your preferred frameworks',
+        invalid: true,
+        error: 'Pick at least one',
+      },
+      slots: {
+        default: '<div class="group">Group</div>',
+      },
+    })
+
+    const html = wrapper.html()
+    const legendIdx = html.indexOf('Select frameworks')
+    const helperIdx = html.indexOf('Choose your preferred frameworks')
+    const groupIdx = html.indexOf('Group')
+    const errIdx = html.indexOf('Pick at least one')
+
+    expect(legendIdx).toBeGreaterThan(-1)
+    expect(helperIdx).toBeGreaterThan(-1)
+    expect(legendIdx).toBeLessThan(helperIdx)
+    expect(helperIdx).toBeLessThan(groupIdx)
+    expect(groupIdx).toBeLessThan(errIdx)
+  })
 })

@@ -3,9 +3,11 @@ import {
   Field as ArkField,
   type FieldRootBaseProps as ArkFieldRootBaseProps,
 } from '@ark-ui/vue/field'
+import { Fieldset as ArkFieldset } from '@ark-ui/vue/fieldset'
+import { createReusableTemplate } from '@vueuse/core'
 import { cva, type VariantProps } from 'class-variance-authority'
 
-import type { ClassValue } from 'vue'
+import type { ClassValue, Component } from 'vue'
 
 defineOptions({ inheritAttrs: false })
 
@@ -56,6 +58,11 @@ const fieldHelperText = cva('fieldHelperText', {
 })
 
 export interface FieldProps extends ArkFieldRootBaseProps {
+  /**
+   * When true, the root is `Fieldset` (legend + helper under legend) for control groups
+   * (e.g. `Checkbox.Group`). Error text stays last.
+   */
+  asFieldset?: boolean
   /** Shown when `invalid` is true (e.g. validation message). */
   error?: string
   helperText?: string
@@ -66,6 +73,7 @@ export interface FieldProps extends ArkFieldRootBaseProps {
   /**
    * When false, the label is rendered as plain text (no `label for=`).
    * Use for groups of controls where a single target id would be wrong.
+   * Ignored when `asFieldset` is true (legend is always used).
    */
   labelAssociatesControl?: boolean
   /** Prefer setting on the field so Ark can wire label and control ids. */
@@ -74,6 +82,7 @@ export interface FieldProps extends ArkFieldRootBaseProps {
 }
 
 const props = withDefaults(defineProps<FieldProps>(), {
+  asFieldset: false,
   error: undefined,
   helperText: undefined,
   intent: 'primary',
@@ -96,9 +105,46 @@ const showError = computed(
   () => props.invalid && (Boolean(slots.error) || String(props.error ?? '').length > 0),
 )
 
-const rootProps = computed(() => ({
+const invalid = computed(
+  () => props.invalid || Boolean(slots.error) || String(props.error ?? '').length > 0,
+)
+
+const arkFieldRootProps = computed(() => ({
   ...pick(props, ['asChild', 'disabled', 'id', 'ids', 'readOnly', 'required'] as const),
-  invalid: props.invalid || Boolean(slots.error) || String(props.error ?? '').length > 0,
+  invalid: invalid.value,
+}))
+
+const fieldsetRootProps = computed(() => ({
+  ...pick(props, ['asChild', 'disabled', 'id'] as const),
+  invalid: invalid.value,
+}))
+
+type FieldChromeBindings = {
+  helperText: string
+  intent: FieldCVAProps['intent']
+  showHelper: boolean
+  size: FieldCVAProps['size']
+  ui?: Partial<UIFieldSlots>
+  variant: 'field' | 'fieldset'
+}
+
+const [DefineFieldChrome, ReuseFieldChrome] = createReusableTemplate<FieldChromeBindings>()
+
+const labelComponent = computed((): Component | string => {
+  if (props.asFieldset) return ArkFieldset.Legend
+  if (props.labelAssociatesControl) return ArkField.Label
+  return 'div'
+})
+
+const errorTextComponent = computed(() =>
+  props.asFieldset ? ArkFieldset.ErrorText : ArkField.ErrorText,
+)
+
+const fieldRootTag = computed(() => (props.asFieldset ? ArkFieldset.Root : ArkField.Root))
+
+const mergedRootBind = computed(() => ({
+  ...(props.asFieldset ? fieldsetRootProps.value : arkFieldRootProps.value),
+  ...fieldRootAttrs.value,
 }))
 
 extendCompodiumMeta<typeof props>({
@@ -115,45 +161,70 @@ extendCompodiumMeta<typeof props>({
 </script>
 
 <template>
-  <ArkField.Root
-    v-bind="{ ...rootProps, ...fieldRootAttrs }"
+  <DefineFieldChrome v-slot="p">
+    <template v-if="p.variant === 'fieldset' && p.showHelper">
+      <ArkFieldset.HelperText
+        :class="cn(fieldHelperText({ intent: p.intent, size: p.size }), p.ui?.helperText)"
+      >
+        {{ p.helperText }}
+      </ArkFieldset.HelperText>
+    </template>
+
+    <component :is="p.$slots.default" />
+
+    <template v-if="p.variant === 'field' && p.showHelper">
+      <ArkField.HelperText
+        :class="cn(fieldHelperText({ intent: p.intent, size: p.size }), p.ui?.helperText)"
+      >
+        {{ p.helperText }}
+      </ArkField.HelperText>
+    </template>
+  </DefineFieldChrome>
+
+  <component
+    :is="fieldRootTag"
+    v-bind="mergedRootBind"
     :class="cn(fieldRoot({ size, invalid }), attrs.class, ui?.root)"
   >
-    <ArkField.Label
-      v-if="!hideLabel && labelAssociatesControl && (label || required)"
+    <component
+      :is="labelComponent"
+      v-if="!hideLabel && (label || required)"
       :class="cn(fieldLabel({ intent, size }), ui?.label)"
     >
       <template v-if="label">{{ label }}</template>
-      <ArkField.RequiredIndicator v-if="required" class="txt-caption text-error-icon-default">
+      <ArkField.RequiredIndicator
+        v-if="required && !asFieldset"
+        class="txt-caption text-error-icon-default"
+      >
         *
       </ArkField.RequiredIndicator>
-    </ArkField.Label>
-
-    <div
-      v-else-if="!hideLabel && !labelAssociatesControl && (label || required)"
-      :class="cn(fieldLabel({ intent, size }), ui?.label)"
-    >
-      <template v-if="label">{{ label }}</template>
-      <ArkField.RequiredIndicator v-if="required" class="txt-caption text-error-icon-default">
+      <span
+        v-else-if="required"
+        class="txt-caption text-error-icon-default"
+        aria-hidden="true"
+      >
         *
-      </ArkField.RequiredIndicator>
-    </div>
+      </span>
+    </component>
 
-    <slot />
-
-    <ArkField.HelperText
-      v-if="helperText"
-      :class="cn(fieldHelperText({ intent, size }), ui?.helperText)"
+    <ReuseFieldChrome
+      :helper-text="helperText ?? ''"
+      :intent="intent"
+      :show-helper="Boolean(helperText)"
+      :size="size"
+      :ui="ui"
+      :variant="asFieldset ? 'fieldset' : 'field'"
     >
-      {{ helperText }}
-    </ArkField.HelperText>
+      <slot />
+    </ReuseFieldChrome>
 
-    <ArkField.ErrorText
+    <component
+      :is="errorTextComponent"
       v-if="showError"
       aria-live="polite"
       :class="cn('txt-caption text-error-text-default', ui?.error)"
     >
       <slot name="error">{{ error }}</slot>
-    </ArkField.ErrorText>
-  </ArkField.Root>
+    </component>
+  </component>
 </template>

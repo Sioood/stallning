@@ -165,19 +165,20 @@ const iconProps = computed<UseComponentIconsProps>(() => ({
   trailingIcon: isPasswordField.value ? undefined : props.trailingIcon,
 }))
 
+const resolvedInputType = computed(() =>
+  isPasswordField.value ? (showPassword.value ? 'text' : 'password') : props.type,
+)
+
 const inputProps = computed(() => ({
-  ...pick(props, ['type', 'name', 'placeholder', 'disabled', 'readOnly', 'required'] as const),
+  ...pick(props, ['name', 'placeholder', 'disabled', 'readOnly', 'required'] as const),
   invalid: props.invalid || String(props.error ?? '').length > 0,
+  type: resolvedInputType.value,
 }))
 
 const isPasswordField = computed(() => props.type === 'password')
 const showPassword = ref(false)
 // TODO: i18n
 const passwordToggleLabel = computed(() => (showPassword.value ? 'Hide password' : 'Show password'))
-
-const resolvedInputType = computed(() =>
-  isPasswordField.value ? (showPassword.value ? 'text' : 'password') : props.type,
-)
 
 const { isLeading, isTrailing, leadingIconName, trailingIconName, shouldAnimate } =
   useComponentIcons(iconProps)

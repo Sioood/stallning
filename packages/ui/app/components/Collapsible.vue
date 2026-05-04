@@ -1,21 +1,11 @@
 <script setup lang="ts">
 import {
   Collapsible,
-  type CollapsibleOpenChangeDetails,
-  type CollapsibleRootProps,
+  type CollapsibleRootBaseProps as ArkCollapsibleRootBaseProps,
 } from '@ark-ui/vue/collapsible'
 import { cva, type VariantProps } from 'class-variance-authority'
 
 defineOptions({ inheritAttrs: false })
-
-interface CollapsibleProps extends CollapsibleRootProps {
-  /** Shown when the `#title` slot is empty. */
-  heading?: string
-  intent?: CollapsibleTriggerVariants['intent']
-  size?: CollapsibleTriggerVariants['size']
-  /** When false, panel height open/close animation is off (same effect as prefers-reduced-motion for content). */
-  contentAnimated?: boolean
-}
 
 const collapsibleTrigger = cva(
   'collapsibleTrigger flex w-full items-center justify-between border-b text-left',
@@ -76,53 +66,54 @@ const collapsibleContent = cva('collapsibleContent overflow-hidden', {
 
 type CollapsibleTriggerVariants = VariantProps<typeof collapsibleTrigger>
 
+export interface CollapsibleProps extends ArkCollapsibleRootBaseProps {
+  /** When false, panel height open/close animation is off (same effect as prefers-reduced-motion for content). */
+  contentAnimated?: boolean
+  /** Shown when the `#title` slot is empty. */
+  heading?: string
+  intent?: CollapsibleTriggerVariants['intent']
+  size?: CollapsibleTriggerVariants['size']
+}
+
+const modelValue = defineModel<boolean>({ default: false })
+
 /**
  * Default `open` to `undefined` so Vue does not coerce absent Boolean props to `false` (controlled stuck closed).
  */
 const props = withDefaults(defineProps<CollapsibleProps>(), {
-  lazyMount: false,
-  unmountOnExit: false,
-  disabled: false,
+  contentAnimated: true,
   heading: '',
   intent: 'neutral',
   size: 'md',
-  open: undefined,
-  contentAnimated: true,
 })
 
-const emit = defineEmits<{
-  'update:open': [open: boolean]
-  openChange: [details: CollapsibleOpenChangeDetails]
-  exitComplete: []
-}>()
-
-const attrs = useAttrs()
-
-const rootBindings = computed(() => {
-  const { heading: _heading, ...arkProps } = props
-  return { ...arkProps, ...attrs }
-})
+const rootProps = computed(() => ({
+  ...pick(props, [
+    'asChild',
+    'collapsedHeight',
+    'collapsedWidth',
+    'defaultOpen',
+    'disabled',
+    'id',
+    'ids',
+    'lazyMount',
+    'unmountOnExit',
+  ] as const),
+}))
 
 extendCompodiumMeta<CollapsibleProps>({
   defaultProps: {
+    heading: 'Heading',
     intent: 'neutral',
     size: 'md',
-    open: undefined,
-    lazyMount: false,
-    unmountOnExit: false,
-    disabled: false,
-    heading: 'Heading',
-    contentAnimated: true,
   },
 })
 </script>
 
 <template>
   <Collapsible.Root
-    v-bind="rootBindings"
-    @update:open="emit('update:open', $event)"
-    @open-change="emit('openChange', $event)"
-    @exit-complete="emit('exitComplete')"
+    v-bind="{ ...rootProps, ...$attrs }"
+    v-model:open="modelValue"
   >
     <Collapsible.Trigger type="button" :class="collapsibleTrigger({ intent, size, disabled })">
       <span :class="collapsibleTitle({ size })">

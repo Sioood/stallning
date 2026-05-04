@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { Toggle as ArkToggle } from '@ark-ui/vue/toggle'
+import {
+  Toggle as ArkToggle,
+  type ToggleRootBaseProps as ArkToggleRootBaseProps,
+} from '@ark-ui/vue/toggle'
 
 import { buttonVariants, togglePressedOn } from '../utils/button-variants'
 
@@ -7,58 +10,58 @@ import type { ButtonVariants } from '~ui/app/utils/button-variants'
 
 defineOptions({ inheritAttrs: false })
 
-interface ToggleProps {
-  disabled?: boolean
-  variant?: ButtonVariants['variant']
-  intent?: ButtonVariants['intent']
-  size?: ButtonVariants['size']
-  /** Compact square padding for icon-only toggles (e.g. password visibility). */
-  iconOnly?: boolean
+/** `pressed` is provided via `v-model:pressed`, not as a static root prop. */
+export interface ToggleProps extends Omit<ArkToggleRootBaseProps, 'pressed'> {
   /** When on, use the same background / border / text as the button’s active (pressed) state. */
   activeBackground?: boolean
+  /** Compact square padding for icon-only toggles (e.g. password visibility). */
+  iconOnly?: boolean
+  intent?: ButtonVariants['intent']
+  size?: ButtonVariants['size']
+  variant?: ButtonVariants['variant']
 }
 
 const props = withDefaults(defineProps<ToggleProps>(), {
-  disabled: false,
-  variant: 'ghost',
+  activeBackground: false,
+  iconOnly: false,
   intent: 'primary',
   size: 'sm',
-  iconOnly: false,
-  activeBackground: false,
+  variant: 'ghost',
 })
 
-const pressed = defineModel<boolean>('pressed', { default: false })
+const modelValue = defineModel<boolean>({ default: false })
+
+const rootProps = computed(() => ({
+  ...pick(props, ['asChild', 'defaultPressed', 'disabled'] as const),
+}))
 
 const rootClass = computed(() => [
   buttonVariants({
-    variant: props.variant,
+    disabled: props.disabled,
     intent: props.intent,
     size: props.size,
-    disabled: props.disabled,
+    variant: props.variant,
   }),
-  props.activeBackground ? togglePressedOn({ variant: props.variant, intent: props.intent }) : null,
+  props.activeBackground ? togglePressedOn({ intent: props.intent, variant: props.variant }) : null,
   props.iconOnly ? 'min-w-0 shrink-0 gap-0 px-1.5 py-1.5' : null,
 ])
 
-extendCompodiumMeta<typeof props & { pressed?: boolean }>({
+extendCompodiumMeta<typeof props & { modelValue?: boolean }>({
   defaultProps: {
-    pressed: false,
-    disabled: false,
-    variant: 'ghost',
+    activeBackground: true,
+    iconOnly: true,
     intent: 'primary',
     size: 'sm',
-    iconOnly: true,
-    activeBackground: true,
+    variant: 'ghost',
   },
 })
 </script>
 
 <template>
   <ArkToggle.Root
-    v-bind="$attrs"
-    v-model:pressed="pressed"
+    v-bind="{ ...rootProps, ...$attrs }"
+    v-model:pressed="modelValue"
     type="button"
-    :disabled
     :class="rootClass"
   >
     <ArkToggle.Indicator>

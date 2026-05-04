@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { Toast as ArkToast, Toaster as ArkToaster } from '@ark-ui/vue/toast'
+import {
+  Toast as ArkToast,
+  Toaster as ArkToaster,
+  type ToasterBaseProps,
+} from '@ark-ui/vue/toast'
 import { cva, type VariantProps } from 'class-variance-authority'
 
 import { useComponentIcons, type ComponentState } from '~ui/app/composables/useComponentIcons'
@@ -76,18 +80,20 @@ const toastAction = cva('toastAction', {
   },
 })
 
-interface ToastProps {
+export interface ToastProps extends ToasterBaseProps {
   size?: ToastRootCVAProps['size']
 }
 
-withDefaults(defineProps<ToastProps>(), {
+const props = withDefaults(defineProps<ToastProps>(), {
   size: 'md',
 })
 
+const toasterProps = computed(() => pick(props, ['asChild'] as const))
+
 const getToastIcon = (type: string | undefined) => {
   const { iconName, shouldAnimate } = useComponentIcons({
-    state: type as ComponentState,
     mode: 'single',
+    state: type as ComponentState,
   })
   return { iconName, shouldAnimate }
 }
@@ -104,7 +110,7 @@ const getType = (type: string | undefined): ToastRootCVAProps['intent'] | undefi
 <template>
   <div v-if="toaster">
     <Teleport to="body">
-      <ArkToaster v-slot="toast" :toaster="toaster">
+      <ArkToaster v-slot="toast" :toaster="toaster" v-bind="toasterProps">
         <ArkToast.Root
           :class="
             toastRoot({

@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { Field as ArkField } from '@ark-ui/vue/field'
+import {
+  Field as ArkField,
+  type FieldInputBaseProps as ArkFieldInputBaseProps,
+} from '@ark-ui/vue/field'
 import { cva, type VariantProps } from 'class-variance-authority'
-import { computed, ref } from 'vue'
 
 import {
   useComponentIcons,
   type UseComponentIconsProps,
 } from '~ui/app/composables/useComponentIcons'
+
+import type { FieldProps } from '~ui/app/components/Form/Field.vue'
 
 defineOptions({ inheritAttrs: false })
 
@@ -75,82 +79,95 @@ const fieldInput = cva(
 
 type ShellVariants = VariantProps<typeof controlShell>
 
-interface InputProps {
-  label?: string
-  placeholder?: string
-  disabled?: boolean
-  readOnly?: boolean
-  type?: string
-  size?: ShellVariants['size']
+interface InputProps extends FieldProps, ArkFieldInputBaseProps {
   intent?: ShellVariants['intent']
-  invalid?: boolean
-  required?: boolean
-  helperText?: string
-  error?: string
-  id?: string
   name?: string
+  placeholder?: string
+  size?: ShellVariants['size']
+  type?: string
 }
-
-const props = withDefaults(defineProps<InputProps & UseComponentIconsProps>(), {
-  label: undefined,
-  placeholder: '',
-  disabled: false,
-  readOnly: false,
-  type: 'text',
-  size: 'md',
-  intent: 'primary',
-  invalid: false,
-  required: false,
-  helperText: undefined,
-  error: undefined,
-  id: undefined,
-  name: undefined,
-  icon: undefined,
-  leading: false,
-  leadingIcon: undefined,
-  trailing: false,
-  trailingIcon: undefined,
-  state: 'default',
-  loadingIcon: undefined,
-  successIcon: undefined,
-  warningIcon: undefined,
-  errorIcon: undefined,
-  infoIcon: undefined,
-  mode: 'button',
-})
-
-const modelValue = defineModel<string>({ default: '' })
 
 const emit = defineEmits<{
   blur: [event: FocusEvent]
 }>()
 
+const modelValue = defineModel<string>({ default: '' })
+
+const props = withDefaults(defineProps<InputProps & UseComponentIconsProps>(), {
+  error: undefined,
+  errorIcon: undefined,
+  helperText: undefined,
+  icon: undefined,
+  infoIcon: undefined,
+  intent: 'primary',
+  label: undefined,
+  leading: false,
+  leadingIcon: undefined,
+  loadingIcon: undefined,
+  mode: 'button',
+  name: undefined,
+  placeholder: '',
+  size: 'md',
+  state: 'default',
+  successIcon: undefined,
+  trailing: false,
+  trailingIcon: undefined,
+  type: 'text',
+  warningIcon: undefined,
+})
+
+const fieldProps = computed(() => ({
+  ...pick(props, [
+    'asChild',
+    'disabled',
+    'error',
+    'helperText',
+    'hideLabel',
+    'id',
+    'ids',
+    'intent',
+    'label',
+    'labelAssociatesControl',
+    'readOnly',
+    'required',
+    'size',
+  ] as const),
+  invalid: props.invalid || String(props.error ?? '').length > 0,
+}))
+
+const iconProps = computed<UseComponentIconsProps>(() => ({
+  ...pick(props, [
+    'errorIcon',
+    'icon',
+    'infoIcon',
+    'leading',
+    'leadingIcon',
+    'loadingIcon',
+    'mode',
+    'state',
+    'successIcon',
+    'warningIcon',
+  ] as const),
+  trailing: isPasswordField.value ? false : props.trailing,
+  trailingIcon: isPasswordField.value ? undefined : props.trailingIcon,
+}))
+
+const inputProps = computed(() => ({
+  ...pick(props, ['type', 'name', 'placeholder', 'disabled', 'readOnly', 'required'] as const),
+  invalid: props.invalid || String(props.error ?? '').length > 0,
+}))
+
 const isPasswordField = computed(() => props.type === 'password')
 const showPassword = ref(false)
+// TODO: i18n
+const passwordToggleLabel = computed(() => (showPassword.value ? 'Hide password' : 'Show password'))
 
 const resolvedInputType = computed(() =>
   isPasswordField.value ? (showPassword.value ? 'text' : 'password') : props.type,
 )
 
-const iconProps = computed<UseComponentIconsProps>(() => ({
-  icon: props.icon,
-  leading: props.leading,
-  leadingIcon: props.leadingIcon,
-  trailing: isPasswordField.value ? false : props.trailing,
-  trailingIcon: isPasswordField.value ? undefined : props.trailingIcon,
-  state: props.state,
-  loadingIcon: props.loadingIcon,
-  successIcon: props.successIcon,
-  warningIcon: props.warningIcon,
-  errorIcon: props.errorIcon,
-  infoIcon: props.infoIcon,
-  mode: props.mode,
-}))
-
 const { isLeading, isTrailing, leadingIconName, trailingIconName, shouldAnimate } =
   useComponentIcons(iconProps)
-
-const passwordToggleLabel = computed(() => (showPassword.value ? 'Hide password' : 'Show password'))
 
 extendCompodiumMeta<typeof props & { modelValue?: string }>({
   defaultProps: {
@@ -158,11 +175,8 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
     label: 'Email',
     placeholder: 'you@example.com',
     type: 'text',
-    disabled: false,
-    readOnly: false,
     size: 'md',
     intent: 'primary',
-    invalid: false,
     required: true,
     leading: true,
     leadingIcon: 'tabler:sparkles',
@@ -172,16 +186,7 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
 
 <template>
   <UIFormField
-    :id="id"
-    :intent
-    :label
-    :required
-    :helper-text
-    :error
-    :invalid
-    :disabled
-    :read-only
-    :size
+    v-bind="fieldProps"
   >
     <div
       :class="
@@ -206,13 +211,8 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
       </span>
 
       <ArkField.Input
-        v-bind="$attrs"
+        v-bind="{ ...inputProps, ...$attrs }"
         v-model="modelValue"
-        :type="resolvedInputType"
-        :name="name"
-        :placeholder="placeholder"
-        :disabled="disabled"
-        :read-only="readOnly"
         :class="fieldInput({ size })"
         @blur="emit('blur', $event)"
       />

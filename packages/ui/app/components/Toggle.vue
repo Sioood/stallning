@@ -4,11 +4,14 @@ import {
   type ToggleRootBaseProps as ArkToggleRootBaseProps,
 } from '@ark-ui/vue/toggle'
 
-import { buttonVariants, togglePressedOn } from '../utils/button-variants'
-
+import type { ClassValue } from 'vue'
 import type { ButtonVariants } from '~ui/app/utils/button-variants'
 
 defineOptions({ inheritAttrs: false })
+
+export interface UIToggleSlots {
+  root?: ClassValue
+}
 
 /** `pressed` is provided via `v-model:pressed`, not as a static root prop. */
 export interface ToggleProps extends Omit<ArkToggleRootBaseProps, 'pressed'> {
@@ -19,6 +22,7 @@ export interface ToggleProps extends Omit<ArkToggleRootBaseProps, 'pressed'> {
   intent?: ButtonVariants['intent']
   size?: ButtonVariants['size']
   variant?: ButtonVariants['variant']
+  ui?: Partial<UIToggleSlots>
 }
 
 const props = withDefaults(defineProps<ToggleProps>(), {
@@ -27,24 +31,38 @@ const props = withDefaults(defineProps<ToggleProps>(), {
   intent: 'primary',
   size: 'sm',
   variant: 'ghost',
+  ui: undefined,
 })
 
 const modelValue = defineModel<boolean>({ default: false })
+
+const attrs = useAttrs()
 
 const rootProps = computed(() => ({
   ...pick(props, ['asChild', 'defaultPressed', 'disabled'] as const),
 }))
 
-const rootClass = computed(() => [
-  buttonVariants({
-    disabled: props.disabled,
-    intent: props.intent,
-    size: props.size,
-    variant: props.variant,
-  }),
-  props.activeBackground ? togglePressedOn({ intent: props.intent, variant: props.variant }) : null,
-  props.iconOnly ? 'min-w-0 shrink-0 gap-0 px-1.5 py-1.5' : null,
-])
+const rootAttrs = computed(() => {
+  const { class: _cls, ...rest } = attrs as Record<string, unknown> & { class?: unknown }
+  return rest
+})
+
+const rootClass = computed(() =>
+  cn(
+    buttonVariants({
+      disabled: props.disabled,
+      intent: props.intent,
+      size: props.size,
+      variant: props.variant,
+    }),
+    props.activeBackground
+      ? togglePressedOn({ intent: props.intent, variant: props.variant })
+      : null,
+    props.iconOnly ? 'min-w-0 shrink-0 gap-0 px-1.5 py-1.5' : null,
+    attrs.class,
+    props.ui?.root,
+  ),
+)
 
 extendCompodiumMeta<typeof props & { modelValue?: boolean }>({
   defaultProps: {
@@ -59,7 +77,7 @@ extendCompodiumMeta<typeof props & { modelValue?: boolean }>({
 
 <template>
   <ArkToggle.Root
-    v-bind="{ ...rootProps, ...$attrs }"
+    v-bind="{ ...rootProps, ...rootAttrs }"
     v-model:pressed="modelValue"
     type="button"
     :class="rootClass"

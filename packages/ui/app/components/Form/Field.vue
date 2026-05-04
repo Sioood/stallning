@@ -5,6 +5,18 @@ import {
 } from '@ark-ui/vue/field'
 import { cva, type VariantProps } from 'class-variance-authority'
 
+import type { ClassValue } from 'vue'
+
+defineOptions({ inheritAttrs: false })
+
+/** Optional class overrides per field sub-part (merge with `cn` / tailwind-merge). */
+export interface UIFieldSlots {
+  root?: ClassValue
+  label?: ClassValue
+  helperText?: ClassValue
+  error?: ClassValue
+}
+
 const fieldRoot = cva('fieldRoot flex flex-col gap-1', {
   variants: {
     intent: {
@@ -58,6 +70,7 @@ export interface FieldProps extends ArkFieldRootBaseProps {
   labelAssociatesControl?: boolean
   /** Prefer setting on the field so Ark can wire label and control ids. */
   size?: FieldCVAProps['size']
+  ui?: Partial<UIFieldSlots>
 }
 
 const props = withDefaults(defineProps<FieldProps>(), {
@@ -67,9 +80,17 @@ const props = withDefaults(defineProps<FieldProps>(), {
   label: undefined,
   labelAssociatesControl: true,
   size: 'md',
+  ui: undefined,
 })
 
 const slots = useSlots()
+
+const attrs = useAttrs()
+
+const fieldRootAttrs = computed(() => {
+  const { class: _cls, ...rest } = attrs as Record<string, unknown> & { class?: unknown }
+  return rest
+})
 
 const showError = computed(
   () => props.invalid && (Boolean(slots.error) || String(props.error ?? '').length > 0),
@@ -94,10 +115,13 @@ extendCompodiumMeta<typeof props>({
 </script>
 
 <template>
-  <ArkField.Root v-bind="rootProps" :class="fieldRoot({ size, invalid })">
+  <ArkField.Root
+    v-bind="{ ...rootProps, ...fieldRootAttrs }"
+    :class="cn(fieldRoot({ size, invalid }), attrs.class, ui?.root)"
+  >
     <ArkField.Label
       v-if="!hideLabel && labelAssociatesControl && (label || required)"
-      :class="fieldLabel({ intent, size })"
+      :class="cn(fieldLabel({ intent, size }), ui?.label)"
     >
       <template v-if="label">{{ label }}</template>
       <ArkField.RequiredIndicator v-if="required" class="txt-caption text-error-icon-default">
@@ -107,7 +131,7 @@ extendCompodiumMeta<typeof props>({
 
     <div
       v-else-if="!hideLabel && !labelAssociatesControl && (label || required)"
-      :class="fieldLabel({ intent, size })"
+      :class="cn(fieldLabel({ intent, size }), ui?.label)"
     >
       <template v-if="label">{{ label }}</template>
       <ArkField.RequiredIndicator v-if="required" class="txt-caption text-error-icon-default">
@@ -117,14 +141,17 @@ extendCompodiumMeta<typeof props>({
 
     <slot />
 
-    <ArkField.HelperText v-if="helperText && !invalid" :class="fieldHelperText({ intent, size })">
+    <ArkField.HelperText
+      v-if="helperText && !invalid"
+      :class="cn(fieldHelperText({ intent, size }), ui?.helperText)"
+    >
       {{ helperText }}
     </ArkField.HelperText>
 
     <ArkField.ErrorText
       v-if="showError"
       aria-live="polite"
-      class="txt-caption text-error-text-default"
+      :class="cn('txt-caption text-error-text-default', ui?.error)"
     >
       <slot name="error">{{ error }}</slot>
     </ArkField.ErrorText>

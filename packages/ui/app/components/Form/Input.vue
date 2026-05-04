@@ -10,9 +10,19 @@ import {
   type UseComponentIconsProps,
 } from '~ui/app/composables/useComponentIcons'
 
-import type { FieldProps } from '~ui/app/components/Form/Field.vue'
+import type { ClassValue } from 'vue'
+import type { FieldProps, UIFieldSlots } from '~ui/app/components/Form/Field.vue'
+
 
 defineOptions({ inheritAttrs: false })
+
+/** Field slots plus control-specific parts for `UIFormInput`. */
+export interface UIInputSlots extends UIFieldSlots {
+  shell?: ClassValue
+  input?: ClassValue
+  leadingIcon?: ClassValue
+  trailingIcon?: ClassValue
+}
 
 const controlShell = cva(
   'controlShell flex w-full min-w-0 items-center gap-0.5 transition-[box-shadow,border-color]',
@@ -79,12 +89,13 @@ const fieldInput = cva(
 
 type ShellVariants = VariantProps<typeof controlShell>
 
-interface InputProps extends FieldProps, ArkFieldInputBaseProps {
+interface InputProps extends Omit<FieldProps, 'ui'>, ArkFieldInputBaseProps {
   intent?: ShellVariants['intent']
   name?: string
   placeholder?: string
   size?: ShellVariants['size']
   type?: string
+  ui?: Partial<UIInputSlots>
 }
 
 const emit = defineEmits<{
@@ -114,6 +125,7 @@ const props = withDefaults(defineProps<InputProps & UseComponentIconsProps>(), {
   trailingIcon: undefined,
   type: 'text',
   warningIcon: undefined,
+  ui: undefined,
 })
 
 const fieldProps = computed(() => ({
@@ -131,6 +143,7 @@ const fieldProps = computed(() => ({
     'readOnly',
     'required',
     'size',
+    'ui',
   ] as const),
   invalid: props.invalid || String(props.error ?? '').length > 0,
 }))
@@ -169,6 +182,13 @@ const resolvedInputType = computed(() =>
 const { isLeading, isTrailing, leadingIconName, trailingIconName, shouldAnimate } =
   useComponentIcons(iconProps)
 
+const attrs = useAttrs()
+
+const inputFallthroughAttrs = computed(() => {
+  const { class: _cls, ...rest } = attrs as Record<string, unknown> & { class?: unknown }
+  return rest
+})
+
 extendCompodiumMeta<typeof props & { modelValue?: string }>({
   defaultProps: {
     modelValue: '',
@@ -190,17 +210,22 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
   >
     <div
       :class="
-        controlShell({
-          intent,
-          size,
-          invalid,
-          disabled,
-        })
+        cn(
+          controlShell({
+            intent,
+            size,
+            invalid,
+            disabled,
+          }),
+          ui?.shell,
+        )
       "
     >
       <span
         v-if="isLeading && leadingIconName"
-        class="flex shrink-0 items-center pl-2 text-primary-icon-subtle"
+        :class="
+          cn('flex shrink-0 items-center pl-2 text-primary-icon-subtle', ui?.leadingIcon)
+        "
         aria-hidden="true"
       >
         <Icon
@@ -211,9 +236,10 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
       </span>
 
       <ArkField.Input
-        v-bind="{ ...inputProps, ...$attrs }"
+        v-bind="{ ...inputProps, ...inputFallthroughAttrs }"
         v-model="modelValue"
-        :class="fieldInput({ size })"
+        :type="resolvedInputType"
+        :class="cn(fieldInput({ size, intent, disabled }), attrs.class, ui?.input)"
         @blur="emit('blur', $event)"
       />
 
@@ -237,7 +263,9 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
 
       <span
         v-else-if="isTrailing && trailingIconName"
-        class="flex shrink-0 items-center pr-2 text-primary-icon-subtle"
+        :class="
+          cn('flex shrink-0 items-center pr-2 text-primary-icon-subtle', ui?.trailingIcon)
+        "
         aria-hidden="true"
       >
         <Icon

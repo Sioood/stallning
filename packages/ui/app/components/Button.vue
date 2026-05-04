@@ -1,17 +1,28 @@
 <script setup lang="ts">
+import { mergeProps, type ClassValue } from 'vue'
+
 import {
   useComponentIcons,
   type UseComponentIconsProps,
   type ComponentState,
 } from '~ui/app/composables/useComponentIcons'
 import { buttonVariants as button } from '~ui/app/utils/button-variants'
+import { cn } from '~ui/app/utils/cn'
 
 import Link from './Link.vue'
 
 import type { NuxtLinkProps } from '#app'
 import type { VariantProps } from 'class-variance-authority'
 
+defineOptions({ inheritAttrs: false })
+
 type ButtonCVAProps = VariantProps<typeof button>
+
+export interface UIButtonSlots {
+  root?: ClassValue
+  leadingIcon?: ClassValue
+  trailingIcon?: ClassValue
+}
 
 interface ButtonProps {
   /**
@@ -33,6 +44,7 @@ interface ButtonProps {
   onClick?: () => Promise<void> | void
   autoResetDelay?: number
   onStateChange?: (state: ComponentState) => void
+  ui?: Partial<UIButtonSlots>
 }
 
 const props = withDefaults(defineProps<NuxtLinkProps & UseComponentIconsProps & ButtonProps>(), {
@@ -56,6 +68,7 @@ const props = withDefaults(defineProps<NuxtLinkProps & UseComponentIconsProps & 
   variant: 'default',
   intent: 'primary',
   size: 'md',
+  ui: undefined,
 })
 
 const internalState = ref<ComponentState>(props.state || 'default')
@@ -70,6 +83,13 @@ const { isLeading, isTrailing, leadingIconName, trailingIconName, shouldAnimate 
 const linkProps = computed(
   () => props as Omit<typeof props, keyof ButtonProps | keyof UseComponentIconsProps>,
 )
+
+const attrs = useAttrs()
+
+const buttonRootAttrs = computed(() => {
+  const { class: _cls, ...rest } = attrs as Record<string, unknown> & { class?: unknown }
+  return rest
+})
 
 const handleClick = async () => {
   if (!props.onClick || props.to || internalState.value !== 'default' || props.disabled) return
@@ -122,25 +142,40 @@ extendCompodiumMeta<typeof props>({
   <component
     :is="to ? Link : 'button'"
     v-bind="
-      to
-        ? { ...linkProps, disabled }
-        : { type, disabled: props.disabled || effectiveState === 'loading', onClick: handleClick }
+      mergeProps(
+        buttonRootAttrs,
+        to
+          ? { ...linkProps, disabled }
+          : { type, disabled: props.disabled || effectiveState === 'loading', onClick: handleClick },
+      )
     "
     :class="
-      button({
-        variant: props.variant,
-        intent: ['success', 'error'].includes(effectiveState)
-          ? (effectiveState as 'success' | 'error')
-          : props.intent,
-        size: props.size,
-        disabled: props.disabled || effectiveState !== 'default',
-      })
+      cn(
+        button({
+          variant: props.variant,
+          intent: ['success', 'error'].includes(effectiveState)
+            ? (effectiveState as 'success' | 'error')
+            : props.intent,
+          size: props.size,
+          disabled: props.disabled || effectiveState !== 'default',
+        }),
+        attrs.class,
+        props.ui?.root,
+      )
     "
   >
-    <Icon v-if="isLeading" :name="leadingIconName" :class="{ 'animate-spin': shouldAnimate }" />
+    <Icon
+      v-if="isLeading"
+      :name="leadingIconName"
+      :class="cn({ 'animate-spin': shouldAnimate }, props.ui?.leadingIcon)"
+    />
     <slot>
       {{ text }}
     </slot>
-    <Icon v-if="isTrailing" :name="trailingIconName" :class="{ 'animate-spin': shouldAnimate }" />
+    <Icon
+      v-if="isTrailing"
+      :name="trailingIconName"
+      :class="cn({ 'animate-spin': shouldAnimate }, props.ui?.trailingIcon)"
+    />
   </component>
 </template>

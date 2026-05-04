@@ -42,6 +42,9 @@ catalogs:
     oxlint:
       specifier: ^1.59.0
       version: 1.59.0
+    tailwind-merge:
+      specifier: ^3.5.0
+      version: 3.5.0
     typescript:
       specifier: ^6.0.2
       version: 6.0.2
@@ -316,6 +319,9 @@ importers:
       nuxt:
         specifier: 'catalog:'
         version: 4.4.2(@babel/core@7.29.0)(@babel/plugin-syntax-jsx@7.28.6(@babel/core@7.29.0))(@emnapi/core@1.5.0)(@emnapi/runtime@1.9.2)(@parcel/watcher@2.5.6)(@types/node@25.5.2)(@vue/compiler-sfc@3.5.33)(cac@6.7.14)(commander@14.0.3)(db0@0.3.4)(eslint@10.2.0(jiti@2.6.1))(ioredis@5.10.1)(lightningcss@1.32.0)(magicast@0.5.2)(meow@13.2.0)(optionator@0.9.4)(oxlint@1.59.0)(pinia@3.0.4(typescript@6.0.2)(vue@3.5.32(typescript@6.0.2)))(rollup-plugin-visualizer@7.0.1(rollup@4.60.1))(rollup@4.60.1)(srvx@0.11.15)(terser@5.46.1)(typescript@6.0.2)(vite@7.3.2(@types/node@25.5.2)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.46.1)(yaml@2.8.3))(yaml@2.8.3)
+      tailwind-merge:
+        specifier: 'catalog:'
+        version: 3.5.0
       v-gsap-nuxt:
         specifier: 1.5.12
         version: 1.5.12(magicast@0.5.2)

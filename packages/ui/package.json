@@ -33,6 +33,7 @@
     "@tanstack/vue-form": "catalog:",
     "class-variance-authority": "catalog:",
     "nuxt": "catalog:",
+    "tailwind-merge": "catalog:",
     "v-gsap-nuxt": "1.5.12",
     "vue": "catalog:",
     "vue-router": "catalog:",

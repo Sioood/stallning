@@ -4,7 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 
 import { useComponentIcons, type ComponentState } from '~ui/app/composables/useComponentIcons'
 
-const { value: toaster } = useToast()
+const toaster = useToast()
 
 const toastRoot = cva(
   'toastRoot border relative overflow-hidden z-index-[var(--z-index)] will-change-transform-opacity h-[var(--height)] translate-x-[var(--x)] translate-y-[var(--y)] scale-[var(--scale)] flex-col opacity-[var(--opacity)] transition-all duration-300 ease-in-out',
@@ -115,23 +115,23 @@ const getType = (type: string | undefined): ToastRootCVAProps['intent'] | undefi
       <ArkToast.Root
         :class="
           toastRoot({
-            intent: getType(toast.meta?.type || toast.type),
+            intent: getType(toast.meta?.type ?? toast.type),
             size,
           })
         "
       >
         <ArkToast.Title :class="toastTitle({ size })">
           <Icon
-            :name="resolveToastMeta(toast.meta?.type || toast.type).iconName.value"
+            :name="resolveToastMeta(toast.meta?.type ?? toast.type).iconName.value"
             :class="{
-              'animate-spin': resolveToastMeta(toast.meta?.type || toast.type).shouldAnimate.value,
+              'animate-spin': resolveToastMeta(toast.meta?.type ?? toast.type).shouldAnimate.value,
             }"
           />
           {{ toast.title }}
         </ArkToast.Title>
         <ArkToast.Description
           v-if="toast.description"
-          :class="toastDescription({ intent: getType(toast.meta?.type || toast.type), size })"
+          :class="toastDescription({ intent: getType(toast.meta?.type ?? toast.type), size })"
         >
           {{ toast.description }}
         </ArkToast.Description>
@@ -139,7 +139,7 @@ const getType = (type: string | undefined): ToastRootCVAProps['intent'] | undefi
         <slot :toast="toast" />
 
         <ArkToast.ActionTrigger v-if="toast.action" :class="toastAction({ size })">
-          <UIButton size="sm" :intent="getType(toast.meta?.type || toast.type)">
+          <UIButton size="sm" :intent="getType(toast.meta?.type ?? toast.type)">
             {{ toast.action.label }}
           </UIButton>
         </ArkToast.ActionTrigger>
@@ -149,7 +149,7 @@ const getType = (type: string | undefined): ToastRootCVAProps['intent'] | undefi
             size="sm"
             variant="ghost"
             icon="tabler:x"
-            :intent="getType(toast.meta?.type || toast.type)"
+            :intent="getType(toast.meta?.type ?? toast.type)"
           />
         </ArkToast.CloseTrigger>
       </ArkToast.Root>

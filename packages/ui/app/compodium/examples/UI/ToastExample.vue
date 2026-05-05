@@ -51,6 +51,6 @@ const showActionToast = () => {
     </UIButton>
     <UIButton intent="primary" @click="showPromiseToast">Show promise toast</UIButton>
     <UIButton intent="secondary" @click="showActionToast">Show action toast</UIButton>
-    <UIToast v-if="toaster" :toaster="toaster" />
+    <UIToast v-if="toaster" />
   </div>
 </template>

@@ -81,97 +81,97 @@ export const buttonVariants = cva('button inline-flex justify-center items-cente
       variant: 'subtle',
       intent: 'primary',
       class:
-        'bg-primary-fill-subtle border-primary-border-subtle text-primary-text-subtle hover:bg-primary-fill-subtle-hover hover:border-primary-border-hover hover:text-primary-text-subtle-hover active:bg-primary-fill-subtle-active active:border-primary-border-subtle-active active:text-primary-text-subtle-active disabled:bg-primary-fill-subtle-disabled disabled:border-primary-border-subtle-disabled disabled:text-primary-text-subtle-disabled',
+        'bg-primary-fill-subtle border-primary-border-subtle text-primary-text-subtle hover:bg-primary-fill-subtle-hover hover:border-primary-border-subtle-hover hover:text-primary-text-subtle-hover active:bg-primary-fill-subtle-active active:border-primary-border-subtle-active active:text-primary-text-subtle-active disabled:bg-primary-fill-subtle-disabled disabled:border-primary-border-subtle-disabled disabled:text-primary-text-subtle-disabled',
     },
     {
       variant: 'subtle',
       intent: 'secondary',
       class:
-        'bg-secondary-fill-subtle border-secondary-border-subtle text-secondary-text-subtle hover:bg-secondary-fill-subtle-hover hover:border-secondary-border-hover hover:text-secondary-text-subtle-hover active:bg-secondary-fill-subtle-active active:border-secondary-border-subtle-active active:text-secondary-text-subtle-active disabled:bg-secondary-fill-subtle-disabled disabled:border-secondary-border-subtle-disabled disabled:text-secondary-text-subtle-disabled',
+        'bg-secondary-fill-subtle border-secondary-border-subtle text-secondary-text-subtle hover:bg-secondary-fill-subtle-hover hover:border-secondary-border-subtle-hover hover:text-secondary-text-subtle-hover active:bg-secondary-fill-subtle-active active:border-secondary-border-subtle-active active:text-secondary-text-subtle-active disabled:bg-secondary-fill-subtle-disabled disabled:border-secondary-border-subtle-disabled disabled:text-secondary-text-subtle-disabled',
     },
     {
       variant: 'subtle',
       intent: 'accent',
       class:
-        'bg-accent-fill-subtle border-accent-border-subtle text-accent-text-subtle hover:bg-accent-fill-subtle-hover hover:border-accent-border-hover hover:text-accent-text-subtle-hover active:bg-accent-fill-subtle-active active:border-accent-border-subtle-active active:text-accent-text-subtle-active disabled:bg-accent-fill-subtle-disabled disabled:border-accent-border-subtle-disabled disabled:text-accent-text-subtle-disabled',
+        'bg-accent-fill-subtle border-accent-border-subtle text-accent-text-subtle hover:bg-accent-fill-subtle-hover hover:border-accent-border-subtle-hover hover:text-accent-text-subtle-hover active:bg-accent-fill-subtle-active active:border-accent-border-subtle-active active:text-accent-text-subtle-active disabled:bg-accent-fill-subtle-disabled disabled:border-accent-border-subtle-disabled disabled:text-accent-text-subtle-disabled',
     },
     {
       variant: 'subtle',
       intent: 'neutral',
       class:
-        'bg-neutral-fill-subtle border-neutral-border-subtle text-neutral-text-subtle hover:bg-neutral-fill-subtle-hover hover:border-neutral-border-hover hover:text-neutral-text-subtle-hover active:bg-neutral-fill-subtle-active active:border-neutral-border-subtle-active active:text-neutral-text-subtle-active disabled:bg-neutral-fill-subtle-disabled disabled:border-neutral-border-subtle-disabled disabled:text-neutral-text-subtle-disabled',
+        'bg-neutral-fill-subtle border-neutral-border-subtle text-neutral-text-subtle hover:bg-neutral-fill-subtle-hover hover:border-neutral-border-subtle-hover hover:text-neutral-text-subtle-hover active:bg-neutral-fill-subtle-active active:border-neutral-border-subtle-active active:text-neutral-text-subtle-active disabled:bg-neutral-fill-subtle-disabled disabled:border-neutral-border-subtle-disabled disabled:text-neutral-text-subtle-disabled',
     },
     {
       variant: 'subtle',
       intent: 'info',
       class:
-        'bg-info-fill-subtle border-info-border-subtle text-info-text-subtle hover:bg-info-fill-subtle-hover hover:border-info-border-hover hover:text-info-text-subtle-hover active:bg-info-fill-subtle-active active:border-info-border-subtle-active active:text-info-text-subtle-active disabled:bg-info-fill-subtle-disabled disabled:border-info-border-subtle-disabled disabled:text-info-text-subtle-disabled',
+        'bg-info-fill-subtle border-info-border-subtle text-info-text-subtle hover:bg-info-fill-subtle-hover hover:border-info-border-subtle-hover hover:text-info-text-subtle-hover active:bg-info-fill-subtle-active active:border-info-border-subtle-active active:text-info-text-subtle-active disabled:bg-info-fill-subtle-disabled disabled:border-info-border-subtle-disabled disabled:text-info-text-subtle-disabled',
     },
     {
       variant: 'subtle',
       intent: 'warning',
       class:
-        'bg-warning-fill-subtle border-warning-border-subtle text-warning-text-subtle hover:bg-warning-fill-subtle-hover hover:border-warning-border-hover hover:text-warning-text-subtle-hover active:bg-warning-fill-subtle-active active:border-warning-border-subtle-active active:text-warning-text-subtle-active disabled:bg-warning-fill-subtle-disabled disabled:border-warning-border-subtle-disabled disabled:text-warning-text-subtle-disabled',
+        'bg-warning-fill-subtle border-warning-border-subtle text-warning-text-subtle hover:bg-warning-fill-subtle-hover hover:border-warning-border-subtle-hover hover:text-warning-text-subtle-hover active:bg-warning-fill-subtle-active active:border-warning-border-subtle-active active:text-warning-text-subtle-active disabled:bg-warning-fill-subtle-disabled disabled:border-warning-border-subtle-disabled disabled:text-warning-text-subtle-disabled',
     },
     {
       variant: 'subtle',
       intent: 'error',
       class:
-        'bg-error-fill-subtle border-error-border-subtle text-error-text-subtle hover:bg-error-fill-subtle-hover hover:border-error-border-hover hover:text-error-text-subtle-hover active:bg-error-fill-subtle-active active:border-error-border-subtle-active active:text-error-text-subtle-active disabled:bg-error-fill-subtle-disabled disabled:border-error-border-subtle-disabled disabled:text-error-text-subtle-disabled',
+        'bg-error-fill-subtle border-error-border-subtle text-error-text-subtle hover:bg-error-fill-subtle-hover hover:border-error-border-subtle-hover hover:text-error-text-subtle-hover active:bg-error-fill-subtle-active active:border-error-border-subtle-active active:text-error-text-subtle-active disabled:bg-error-fill-subtle-disabled disabled:border-error-border-subtle-disabled disabled:text-error-text-subtle-disabled',
     },
     {
       variant: 'subtle',
       intent: 'success',
       class:
-        'bg-success-fill-subtle border-success-border-subtle text-success-text-subtle hover:bg-success-fill-subtle-hover hover:border-success-border-hover hover:text-success-text-subtle-hover active:bg-success-fill-subtle-active active:border-success-border-subtle-active active:text-success-text-subtle-active disabled:bg-success-fill-subtle-disabled disabled:border-success-border-subtle-disabled disabled:text-success-text-subtle-disabled',
+        'bg-success-fill-subtle border-success-border-subtle text-success-text-subtle hover:bg-success-fill-subtle-hover hover:border-success-border-subtle-hover hover:text-success-text-subtle-hover active:bg-success-fill-subtle-active active:border-success-border-subtle-active active:text-success-text-subtle-active disabled:bg-success-fill-subtle-disabled disabled:border-success-border-subtle-disabled disabled:text-success-text-subtle-disabled',
     },
     {
       variant: 'ghost',
       intent: 'primary',
       class:
-        'bg-transparent text-primary-text-subtle hover:bg-primary-fill-subtle-hover hover:!border-primary-border-hover hover:text-primary-text-subtle-hover active:bg-primary-fill-subtle-active active:border-primary-border-subtle-active active:text-primary-text-subtle-active disabled:bg-primary-fill-subtle-disabled disabled:border-primary-border-subtle-disabled disabled:text-primary-text-subtle-disabled',
+        'bg-transparent text-primary-text-subtle hover:bg-primary-fill-subtle-hover hover:!border-primary-border-subtle-hover hover:text-primary-text-subtle-hover active:bg-primary-fill-subtle-active active:border-primary-border-subtle-active active:text-primary-text-subtle-active disabled:bg-primary-fill-subtle-disabled disabled:border-primary-border-subtle-disabled disabled:text-primary-text-subtle-disabled',
     },
     {
       variant: 'ghost',
       intent: 'secondary',
       class:
-        'bg-transparent text-secondary-text-subtle hover:bg-secondary-fill-subtle-hover hover:border-secondary-border-hover hover:text-secondary-text-subtle-hover active:bg-secondary-fill-subtle-active active:border-secondary-border-subtle-active active:text-secondary-text-subtle-active disabled:bg-secondary-fill-subtle-disabled disabled:border-secondary-border-subtle-disabled disabled:text-secondary-text-subtle-disabled',
+        'bg-transparent text-secondary-text-subtle hover:bg-secondary-fill-subtle-hover hover:border-secondary-border-subtle-hover hover:text-secondary-text-subtle-hover active:bg-secondary-fill-subtle-active active:border-secondary-border-subtle-active active:text-secondary-text-subtle-active disabled:bg-secondary-fill-subtle-disabled disabled:border-secondary-border-subtle-disabled disabled:text-secondary-text-subtle-disabled',
     },
     {
       variant: 'ghost',
       intent: 'accent',
       class:
-        'bg-transparent text-accent-text-subtle hover:bg-accent-fill-subtle-hover hover:border-accent-border-hover hover:text-accent-text-subtle-hover active:bg-accent-fill-subtle-active active:border-accent-border-subtle-active active:text-accent-text-subtle-active disabled:bg-accent-fill-subtle-disabled disabled:border-accent-border-subtle-disabled disabled:text-accent-text-subtle-disabled',
+        'bg-transparent text-accent-text-subtle hover:bg-accent-fill-subtle-hover hover:border-accent-border-subtle-hover hover:text-accent-text-subtle-hover active:bg-accent-fill-subtle-active active:border-accent-border-subtle-active active:text-accent-text-subtle-active disabled:bg-accent-fill-subtle-disabled disabled:border-accent-border-subtle-disabled disabled:text-accent-text-subtle-disabled',
     },
     {
       variant: 'ghost',
       intent: 'neutral',
       class:
-        'bg-transparent text-neutral-text-subtle hover:bg-neutral-fill-subtle-hover hover:border-neutral-border-hover hover:text-neutral-text-subtle-hover active:bg-neutral-fill-subtle-active active:border-neutral-border-subtle-active active:text-neutral-text-subtle-active disabled:bg-neutral-fill-subtle-disabled disabled:border-neutral-border-subtle-disabled disabled:text-neutral-text-subtle-disabled',
+        'bg-transparent text-neutral-text-subtle hover:bg-neutral-fill-subtle-hover hover:border-neutral-border-subtle-hover hover:text-neutral-text-subtle-hover active:bg-neutral-fill-subtle-active active:border-neutral-border-subtle-active active:text-neutral-text-subtle-active disabled:bg-neutral-fill-subtle-disabled disabled:border-neutral-border-subtle-disabled disabled:text-neutral-text-subtle-disabled',
     },
     {
       variant: 'ghost',
       intent: 'info',
       class:
-        'bg-transparent text-info-text-subtle hover:bg-info-fill-subtle-hover hover:border-info-border-hover hover:text-info-text-subtle-hover active:bg-info-fill-subtle-active active:border-info-border-subtle-active active:text-info-text-subtle-active disabled:bg-info-fill-subtle-disabled disabled:border-info-border-subtle-disabled disabled:text-info-text-subtle-disabled',
+        'bg-transparent text-info-text-subtle hover:bg-info-fill-subtle-hover hover:border-info-border-subtle-hover hover:text-info-text-subtle-hover active:bg-info-fill-subtle-active active:border-info-border-subtle-active active:text-info-text-subtle-active disabled:bg-info-fill-subtle-disabled disabled:border-info-border-subtle-disabled disabled:text-info-text-subtle-disabled',
     },
     {
       variant: 'ghost',
       intent: 'warning',
       class:
-        'bg-transparent text-warning-text-subtle hover:bg-warning-fill-subtle-hover hover:border-warning-border-hover hover:text-warning-text-subtle-hover active:bg-warning-fill-subtle-active active:border-warning-border-subtle-active active:text-warning-text-subtle-active disabled:bg-warning-fill-subtle-disabled disabled:border-warning-border-subtle-disabled disabled:text-warning-text-subtle-disabled',
+        'bg-transparent text-warning-text-subtle hover:bg-warning-fill-subtle-hover hover:border-warning-border-subtle-hover hover:text-warning-text-subtle-hover active:bg-warning-fill-subtle-active active:border-warning-border-subtle-active active:text-warning-text-subtle-active disabled:bg-warning-fill-subtle-disabled disabled:border-warning-border-subtle-disabled disabled:text-warning-text-subtle-disabled',
     },
     {
       variant: 'ghost',
       intent: 'error',
       class:
-        'bg-transparent text-error-text-subtle hover:bg-error-fill-subtle-hover hover:border-error-border-hover hover:text-error-text-subtle-hover active:bg-error-fill-subtle-active active:border-error-border-subtle-active active:text-error-text-subtle-active disabled:bg-error-fill-subtle-disabled disabled:border-error-border-subtle-disabled disabled:text-error-text-subtle-disabled',
+        'bg-transparent text-error-text-subtle hover:bg-error-fill-subtle-hover hover:border-error-border-subtle-hover hover:text-error-text-subtle-hover active:bg-error-fill-subtle-active active:border-error-border-subtle-active active:text-error-text-subtle-active disabled:bg-error-fill-subtle-disabled disabled:border-error-border-subtle-disabled disabled:text-error-text-subtle-disabled',
     },
     {
       variant: 'ghost',
       intent: 'success',
       class:
-        'bg-transparent text-success-text-subtle hover:bg-success-fill-subtle-hover hover:border-success-border-hover hover:text-success-text-subtle-hover active:bg-success-fill-subtle-active active:border-success-border-subtle-active active:text-success-text-subtle-active disabled:bg-success-fill-subtle-disabled disabled:border-success-border-subtle-disabled disabled:text-success-text-subtle-disabled',
+        'bg-transparent text-success-text-subtle hover:bg-success-fill-subtle-hover hover:border-success-border-subtle-hover hover:text-success-text-subtle-hover active:bg-success-fill-subtle-active active:border-success-border-subtle-active active:text-success-text-subtle-active disabled:bg-success-fill-subtle-disabled disabled:border-success-border-subtle-disabled disabled:text-success-text-subtle-disabled',
     },
   ],
 })

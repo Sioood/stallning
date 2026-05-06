@@ -98,6 +98,10 @@ interface CheckboxProps extends ArkCheckboxRootBaseProps, Omit<FieldProps, 'ids'
   size?: CheckboxRootVariants['size']
 }
 
+const emit = defineEmits<{
+  blur: [event: FocusEvent]
+}>()
+
 const checked = defineModel<ArkCheckboxCheckedState>({
   default: false,
 })
@@ -193,7 +197,7 @@ const [DefineCheckboxControl, ReuseCheckboxControl] =
           *
         </span>
       </ArkCheckbox.Label>
-      <ArkCheckbox.HiddenInput />
+      <ArkCheckbox.HiddenInput @blur="emit('blur', $event)" />
     </ArkCheckbox.Root>
   </DefineCheckboxControl>
 

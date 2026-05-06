@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { cva, type VariantProps } from 'class-variance-authority'
 import { mergeProps, type ClassValue } from 'vue'
 
 import {
@@ -12,11 +13,20 @@ import { cn } from '~ui/app/utils/cn'
 import Link from './Link.vue'
 
 import type { NuxtLinkProps } from '#app'
-import type { VariantProps } from 'class-variance-authority'
 
 defineOptions({ inheritAttrs: false })
 
 type ButtonCVAProps = VariantProps<typeof button>
+
+const buttonIconCVA = cva('buttonIcon shrink-0', {
+  variants: {
+    size: {
+      sm: 'size-2.5',
+      md: 'size-3',
+      lg: 'size-4',
+    },
+  },
+})
 
 export interface UIButtonSlots {
   root?: ClassValue
@@ -79,6 +89,9 @@ const propsWithState = computed(() => ({ ...props, state: effectiveState.value }
 
 const { isLeading, isTrailing, leadingIconName, trailingIconName, shouldAnimate } =
   useComponentIcons(propsWithState)
+
+const iconClass = (slotClass: ClassValue | undefined) =>
+  cn(buttonIconCVA({ size: props.size }), { 'animate-spin': shouldAnimate.value }, slotClass)
 
 const linkProps = computed(
   () => props as Omit<typeof props, keyof ButtonProps | keyof UseComponentIconsProps>,
@@ -167,7 +180,7 @@ extendCompodiumMeta<typeof props>({
     <Icon
       v-if="isLeading"
       :name="leadingIconName"
-      :class="cn({ 'animate-spin': shouldAnimate }, props.ui?.leadingIcon)"
+      :class="iconClass(props.ui?.leadingIcon)"
     />
     <slot>
       {{ text }}
@@ -175,7 +188,7 @@ extendCompodiumMeta<typeof props>({
     <Icon
       v-if="isTrailing"
       :name="trailingIconName"
-      :class="cn({ 'animate-spin': shouldAnimate }, props.ui?.trailingIcon)"
+      :class="iconClass(props.ui?.trailingIcon)"
     />
   </component>
 </template>

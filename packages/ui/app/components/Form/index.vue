@@ -1,13 +1,14 @@
 <script setup lang="ts" generic="TValues extends Record<string, unknown>">
-import { computed, watchEffect } from 'vue'
-
+import {
+  layoutRowKeys,
+  type SchemaFieldConfig,
+  type SchemaFieldsMap,
+  type SchemaFormLayout,
+} from '~ui/app/components/Form/schema'
 import { useSchemaForm, type SchemaFormValidationMode } from '~ui/app/composables/useSchemaForm'
 import { formatFieldErrors } from '~ui/app/utils/form-field-errors'
 
-import UIFormBoundControl from './BoundControl.vue'
-import { layoutRowKeys } from './schema'
 
-import type { SchemaFieldConfig, SchemaFieldsMap, SchemaFormLayout } from './schema'
 import type { z } from 'zod'
 
 const props = withDefaults(

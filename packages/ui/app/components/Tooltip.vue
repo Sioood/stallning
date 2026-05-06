@@ -12,7 +12,7 @@ const tooltipContentCVA = cva(
     'tooltipContent',
     'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0',
     'w-[min(var(--available-width),max-content)] max-w-[min(var(--available-width),28rem)]',
-  ].join(' '),
+  ],
   {
     variants: {
       intent: {
@@ -32,7 +32,7 @@ const tooltipContentCVA = cva(
   },
 )
 
-const tooltipArrowCVA = cva(['tooltipArrow', 'flex items-center justify-center'].join(' '), {
+const tooltipArrowCVA = cva(['tooltipArrow', 'flex items-center justify-center'], {
   variants: {
     intent: {
       neutral: '[--arrow-background:var(--color-neutral-surface-default)]',
@@ -49,7 +49,7 @@ const tooltipArrowCVA = cva(['tooltipArrow', 'flex items-center justify-center']
     },
   },
 })
-const tooltipArrowTipCVA = cva(['tooltipArrowTip', 'size-full'].join(' '))
+const tooltipArrowTipCVA = cva(['tooltipArrowTip', 'size-full'] )
 
 type TooltipCVAProps = VariantProps<typeof tooltipContentCVA>
 

@@ -56,7 +56,7 @@ const checkboxIndicatorCVA = cva(
     'bg-primary-fill-subtle text-primary-text-default',
     'group-data-[state=checked]:bg-primary-fill-default group-data-[state=checked]:text-primary-fill-inverse',
     'group-data-[state=indeterminate]:bg-primary-fill-default group-data-[state=indeterminate]:text-primary-fill-inverse',
-  ].join(' '),
+  ],
   {
     variants: {
       intent: {

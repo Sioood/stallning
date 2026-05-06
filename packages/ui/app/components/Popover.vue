@@ -12,7 +12,7 @@ const popoverContentCVA = cva(
     'popoverContent',
     'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0',
     'w-[min(var(--available-width),max-content)] max-w-[min(var(--available-width),28rem)]',
-  ].join(' '),
+  ],
   {
     variants: {
       intent: {
@@ -25,7 +25,7 @@ const popoverContentCVA = cva(
   },
 )
 
-const popoverArrowCVA = cva(['popoverArrow', 'flex items-center justify-center'].join(' '), {
+const popoverArrowCVA = cva(['popoverArrow', 'flex items-center justify-center'], {
   variants: {
     intent: {
       neutral: '[--arrow-background:var(--color-neutral-surface-default)]',
@@ -36,7 +36,7 @@ const popoverArrowCVA = cva(['popoverArrow', 'flex items-center justify-center']
   },
 })
 
-const popoverArrowTipCVA = cva(['popoverArrowTip', 'size-full'].join(' '))
+const popoverArrowTipCVA = cva(['popoverArrowTip', 'size-full'])
 const popoverTitleCVA = cva('popoverTitle', {
   variants: {
     size: {

@@ -60,6 +60,8 @@ interface TooltipProps extends ArkTooltipRootBaseProps {
   size?: TooltipCVAProps['size']
 }
 
+const open = defineModel<boolean>('open', { default: false })
+
 const props = withDefaults(defineProps<TooltipProps>(), {
   closeDelay: 100,
   content: '',
@@ -71,7 +73,6 @@ const props = withDefaults(defineProps<TooltipProps>(), {
   ids: undefined,
   intent: 'neutral',
   interactive: undefined,
-  open: undefined,
   openDelay: 300,
   positioning: undefined,
   size: 'md',
@@ -100,7 +101,6 @@ const rootProps = computed(() => {
       'id',
       'ids',
       'interactive',
-      'open',
       'openDelay',
       'triggerValue',
     ]),
@@ -119,7 +119,7 @@ function handleTriggerPointerMove(
 </script>
 
 <template>
-  <ArkTooltip.Root v-bind="rootProps">
+  <ArkTooltip.Root v-bind="rootProps" v-model:open="open">
     <ArkTooltip.Context v-slot="tooltip">
       <slot
         name="triggers"

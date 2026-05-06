@@ -34,7 +34,7 @@ export interface UIButtonSlots {
   trailingIcon?: ClassValue
 }
 
-interface ButtonProps {
+interface ButtonProps extends UseComponentIconsProps {
   /**
    * text to display in the button
    * used if no slot is provided
@@ -47,10 +47,6 @@ interface ButtonProps {
   size?: ButtonCVAProps['size']
   handleLoadingState?: boolean
   state?: ComponentState
-  loadingIcon?: string
-  successIcon?: string
-  warningIcon?: string
-  errorIcon?: string
   onClick?: () => Promise<void> | void
   autoResetDelay?: number
   onStateChange?: (state: ComponentState) => void
@@ -68,10 +64,6 @@ const props = withDefaults(defineProps<NuxtLinkProps & UseComponentIconsProps & 
   trailingIcon: undefined,
   state: 'default',
   handleLoadingState: false,
-  loadingIcon: undefined,
-  successIcon: undefined,
-  warningIcon: undefined,
-  errorIcon: undefined,
   onClick: undefined,
   autoResetDelay: 3500,
   onStateChange: undefined,

@@ -2,9 +2,9 @@ import { computed, toValue, type MaybeRefOrGetter } from 'vue'
 
 export type ComponentState = 'default' | 'loading' | 'success' | 'warning' | 'error' | 'info'
 
-export type IconMode = 'button' | 'single'
+export type IconMode = 'leadingAndTrailing' | 'single'
 
-export interface UseComponentIconsProps {
+export interface UseComponentIconsInputProps {
   icon?: string
   leading?: boolean
   leadingIcon?: string
@@ -19,6 +19,8 @@ export interface UseComponentIconsProps {
   mode?: IconMode
 }
 
+export type UseComponentIconsProps = Omit<UseComponentIconsInputProps, 'mode'>
+
 const defaultIcons = {
   loading: 'tabler:loader',
   success: 'tabler:circle-check',
@@ -27,13 +29,13 @@ const defaultIcons = {
   info: 'tabler:info-circle',
 }
 
-export function useComponentIcons(componentProps: MaybeRefOrGetter<UseComponentIconsProps>) {
+export function useComponentIcons(componentProps: MaybeRefOrGetter<UseComponentIconsInputProps>) {
   const props = computed(() => toValue(componentProps))
-  const mode = computed(() => props.value.mode || 'button')
+  const mode = computed(() => props.value.mode || 'leadingAndTrailing')
 
   const isLeading = computed(
     () =>
-      mode.value === 'button' &&
+      mode.value === 'leadingAndTrailing' &&
       ((props.value.icon && props.value.leading) ||
         (props.value.icon && !props.value.trailing) ||
         (props.value.state !== 'default' && !props.value.trailing) ||
@@ -41,7 +43,7 @@ export function useComponentIcons(componentProps: MaybeRefOrGetter<UseComponentI
   )
   const isTrailing = computed(
     () =>
-      mode.value === 'button' &&
+      mode.value === 'leadingAndTrailing' &&
       ((props.value.icon && props.value.trailing) ||
         (props.value.state !== 'default' && props.value.trailing) ||
         !!props.value.trailingIcon),

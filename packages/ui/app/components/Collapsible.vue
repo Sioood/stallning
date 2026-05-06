@@ -72,6 +72,13 @@ export interface CollapsibleProps extends ArkCollapsibleRootBaseProps {
   /** Shown when the `#title` slot is empty. */
   heading?: string
   intent?: CollapsibleTriggerVariants['intent']
+  ui?: {
+    content?: string
+    icon?: string
+    indicator?: string
+    title?: string
+    trigger?: string
+  }
   size?: CollapsibleTriggerVariants['size']
 }
 
@@ -85,6 +92,7 @@ const props = withDefaults(defineProps<CollapsibleProps>(), {
   heading: '',
   intent: 'neutral',
   size: 'md',
+  ui: undefined,
 })
 
 const rootProps = computed(() => ({
@@ -111,20 +119,22 @@ extendCompodiumMeta<CollapsibleProps>({
 </script>
 
 <template>
-  <Collapsible.Root
-    v-bind="{ ...rootProps, ...$attrs }"
-    v-model:open="modelValue"
-  >
-    <Collapsible.Trigger type="button" :class="cn(collapsibleTriggerCVA({ intent, size, disabled }))">
+  <Collapsible.Root v-bind="{ ...rootProps, ...$attrs }" v-model:open="modelValue">
+    <Collapsible.Trigger
+      type="button"
+      :class="cn(collapsibleTriggerCVA({ intent, size, disabled }), ui?.trigger)"
+    >
       <span :class="cn(collapsibleTitleCVA({ size }))">
         <slot name="title">{{ heading }}</slot>
       </span>
-      <Collapsible.Indicator :class="cn(collapsibleIndicatorCVA({ size }))">
-        <Icon name="tabler:chevron-down" :class="cn(collapsibleIconCVA({ size }))" />
+      <Collapsible.Indicator :class="cn(collapsibleIndicatorCVA({ size }), ui?.indicator)">
+        <Icon name="tabler:chevron-down" :class="cn(collapsibleIconCVA({ size }), ui?.icon)" />
       </Collapsible.Indicator>
     </Collapsible.Trigger>
 
-    <Collapsible.Content :class="cn(collapsibleContentCVA({ size, animated: contentAnimated }))">
+    <Collapsible.Content
+      :class="cn(collapsibleContentCVA({ size, animated: contentAnimated }), ui?.content)"
+    >
       <slot />
     </Collapsible.Content>
   </Collapsible.Root>

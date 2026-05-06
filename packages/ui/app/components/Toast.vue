@@ -78,10 +78,18 @@ const toastActionCVA = cva('toastAction', {
 
 export interface ToastProps extends ToasterBaseProps {
   size?: ToastRootCVAProps['size']
+  ui?: {
+    root?: string
+    title?: string
+    description?: string
+    action?: string
+    closeTrigger?: string
+  }
 }
 
 const props = withDefaults(defineProps<ToastProps>(), {
   size: 'md',
+  ui: undefined,
 })
 
 const toasterProps = computed(() => pick(props, ['asChild'] as const))
@@ -114,13 +122,16 @@ const getType = (type: string | undefined): ToastRootCVAProps['intent'] | undefi
     <ArkToaster v-slot="toast" :toaster="toaster" v-bind="toasterProps">
       <ArkToast.Root
         :class="
-          toastRootCVA({
-            intent: getType(toast.meta?.type ?? toast.type),
-            size,
-          })
+          cn(
+            toastRootCVA({
+              intent: getType(toast.meta?.type ?? toast.type),
+              size,
+            }),
+            ui?.root,
+          )
         "
       >
-        <ArkToast.Title :class="toastTitleCVA({ size })">
+        <ArkToast.Title :class="cn(toastTitleCVA({ size }), ui?.title)">
           <Icon
             :name="resolveToastMeta(toast.meta?.type ?? toast.type).iconName.value"
             :class="{
@@ -131,20 +142,31 @@ const getType = (type: string | undefined): ToastRootCVAProps['intent'] | undefi
         </ArkToast.Title>
         <ArkToast.Description
           v-if="toast.description"
-          :class="toastDescriptionCVA({ intent: getType(toast.meta?.type ?? toast.type), size })"
+          :class="
+            cn(
+              toastDescriptionCVA({ intent: getType(toast.meta?.type ?? toast.type), size }),
+              ui?.description,
+            )
+          "
         >
           {{ toast.description }}
         </ArkToast.Description>
 
         <slot :toast="toast" />
 
-        <ArkToast.ActionTrigger v-if="toast.action" :class="toastActionCVA({ size })">
+        <ArkToast.ActionTrigger
+          v-if="toast.action"
+          :class="cn(toastActionCVA({ size }), ui?.action)"
+        >
           <UIButton size="sm" :intent="getType(toast.meta?.type ?? toast.type)">
             {{ toast.action.label }}
           </UIButton>
         </ArkToast.ActionTrigger>
 
-        <ArkToast.CloseTrigger v-if="toast.closable" :class="toastErrorCVA({ size })">
+        <ArkToast.CloseTrigger
+          v-if="toast.closable"
+          :class="cn(toastErrorCVA({ size }), ui?.closeTrigger)"
+        >
           <UIButton
             size="sm"
             variant="ghost"

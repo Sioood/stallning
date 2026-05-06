@@ -61,46 +61,28 @@ interface PopoverProps extends ArkPopoverRootBaseProps {
   intent?: PopoverCVAProps['intent']
   showCloseTrigger?: boolean
   size?: PopoverCVAProps['size']
+  ui?: {
+    content?: string
+    title?: string
+    description?: string
+    closeTrigger?: string
+    arrow?: string
+    arrowTip?: string
+  }
   title?: string
 }
 
 const open = defineModel<boolean>('open', { default: false })
 
 const props = withDefaults(defineProps<PopoverProps>(), {
-  autoFocus: undefined,
-  closeOnEscape: undefined,
-  closeOnInteractOutside: undefined,
   content: '',
-  defaultOpen: undefined,
-  defaultTriggerValue: undefined,
   description: '',
-  finalFocusEl: undefined,
-  id: undefined,
-  ids: undefined,
-  initialFocusEl: undefined,
   intent: 'neutral',
-  lazyMount: undefined,
   modal: false,
-  onEscapeKeyDown: undefined,
-  onExitComplete: undefined,
-  onFocusOutside: undefined,
-  onInteractOutside: undefined,
-  onOpenChange: undefined,
-  onPointerDownOutside: undefined,
-  onRequestDismiss: undefined,
-  onTriggerValueChange: undefined,
-  persistentElements: undefined,
-  portalled: undefined,
-  positioning: undefined,
-  present: undefined,
-  restoreFocus: undefined,
   showCloseTrigger: false,
   size: 'md',
-  skipAnimationOnMount: undefined,
   title: '',
-  translations: undefined,
-  triggerValue: undefined,
-  unmountOnExit: undefined,
+  ui: undefined,
 })
 
 const rootProps = computed(() =>
@@ -137,7 +119,7 @@ const rootProps = computed(() =>
 </script>
 
 <template>
-  <ArkPopover.Root v-bind="rootProps" v-model:open="open" @open-change="console.log($event)">
+  <ArkPopover.Root v-bind="rootProps" v-model:open="open">
     <ArkPopover.Context v-slot="popover">
       <slot
         name="triggers"
@@ -155,11 +137,11 @@ const rootProps = computed(() =>
       </slot>
 
       <ArkPopover.Positioner class="[--z-index:9999] origin-(--transform-origin)">
-        <ArkPopover.Content :class="cn(popoverContentCVA({ intent, size }))">
-          <ArkPopover.Title v-if="title" :class="cn(popoverTitleCVA({ size }))">
+        <ArkPopover.Content :class="cn(popoverContentCVA({ intent, size }), ui?.content)">
+          <ArkPopover.Title v-if="title" :class="cn(popoverTitleCVA({ size }), ui?.title)">
             {{ title }}
           </ArkPopover.Title>
-          <ArkPopover.Description v-if="description" :class="cn(popoverDescriptionCVA({ size }))">
+          <ArkPopover.Description v-if="description" :class="cn(popoverDescriptionCVA({ size }), ui?.description)">
             {{ description }}
           </ArkPopover.Description>
 
@@ -173,14 +155,14 @@ const rootProps = computed(() =>
             {{ content }}
           </slot>
 
-          <ArkPopover.CloseTrigger v-if="showCloseTrigger" :class="cn(popoverCloseCVA())">
+          <ArkPopover.CloseTrigger v-if="showCloseTrigger" :class="cn(popoverCloseCVA(), ui?.closeTrigger)">
             <slot name="close-trigger">
               <UIButton type="button" size="sm" variant="ghost" icon="tabler:x" intent="neutral" />
             </slot>
           </ArkPopover.CloseTrigger>
 
-          <ArkPopover.Arrow :class="cn(popoverArrowCVA({ intent, size }))">
-            <ArkPopover.ArrowTip :class="cn(popoverArrowTipCVA())" />
+          <ArkPopover.Arrow :class="cn(popoverArrowCVA({ intent, size }), ui?.arrow)">
+            <ArkPopover.ArrowTip :class="cn(popoverArrowTipCVA(), ui?.arrowTip)" />
           </ArkPopover.Arrow>
         </ArkPopover.Content>
       </ArkPopover.Positioner>

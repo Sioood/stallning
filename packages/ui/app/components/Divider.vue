@@ -25,19 +25,21 @@ type DividerCVAProps = VariantProps<typeof dividerCVA>
 
 interface DividerProps {
   intent?: DividerCVAProps['intent']
-  size?: DividerCVAProps['size']
   orientation?: DividerCVAProps['orientation']
-  class?: string
+  size?: DividerCVAProps['size']
+  ui?: {
+    root?: string
+  }
 }
 
-const props = withDefaults(defineProps<DividerProps>(), {
+withDefaults(defineProps<DividerProps>(), {
   intent: 'primary',
   size: 'md',
   orientation: 'horizontal',
-  class: '',
+  ui: undefined,
 })
 </script>
 
 <template>
-  <span :class="cn(dividerCVA({ intent, size, orientation }), props.class)" />
+  <span :class="cn(dividerCVA({ intent, size, orientation }), ui?.root)" />
 </template>

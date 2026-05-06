@@ -58,6 +58,11 @@ interface TooltipProps extends ArkTooltipRootBaseProps {
   followCursor?: boolean
   intent?: TooltipCVAProps['intent']
   size?: TooltipCVAProps['size']
+  ui?: {
+    content?: string
+    arrow?: string
+    arrowTip?: string
+  }
 }
 
 const open = defineModel<boolean>('open', { default: false })
@@ -65,18 +70,11 @@ const open = defineModel<boolean>('open', { default: false })
 const props = withDefaults(defineProps<TooltipProps>(), {
   closeDelay: 100,
   content: '',
-  defaultOpen: undefined,
-  defaultTriggerValue: undefined,
-  disabled: undefined,
   followCursor: false,
-  id: undefined,
-  ids: undefined,
   intent: 'neutral',
-  interactive: undefined,
   openDelay: 300,
-  positioning: undefined,
   size: 'md',
-  triggerValue: undefined,
+  ui: undefined,
 })
 
 const anchorRect = ref<DOMRect | null>(null)
@@ -137,7 +135,7 @@ function handleTriggerPointerMove(
         </ArkTooltip.Trigger>
       </slot>
       <ArkTooltip.Positioner class="[--z-index:9999] origin-(--transform-origin)">
-        <ArkTooltip.Content :class="cn(tooltipContentCVA({ intent, size }))">
+        <ArkTooltip.Content :class="cn(tooltipContentCVA({ intent, size }), ui?.content)">
           <slot
             name="content"
             :tooltip="tooltip"
@@ -147,8 +145,8 @@ function handleTriggerPointerMove(
           >
             {{ content }}
           </slot>
-          <ArkTooltip.Arrow :class="cn(tooltipArrowCVA({ intent, size }))">
-            <ArkTooltip.ArrowTip :class="cn(tooltipArrowTipCVA())" />
+          <ArkTooltip.Arrow :class="cn(tooltipArrowCVA({ intent, size }), ui?.arrow)">
+            <ArkTooltip.ArrowTip :class="cn(tooltipArrowTipCVA(), ui?.arrowTip)" />
           </ArkTooltip.Arrow>
         </ArkTooltip.Content>
       </ArkTooltip.Positioner>

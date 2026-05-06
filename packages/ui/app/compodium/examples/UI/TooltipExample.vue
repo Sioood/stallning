@@ -2,7 +2,7 @@
 
 <template>
   <div class="w-fit flex flex-col gap-6">
-    <UITooltip content="I'm a tooltip" :open-delay="450" :close-delay="120">
+    <UITooltip content="I'm a tooltip" :open-delay="450" :close-delay="120" interactive>
       <template #trigger>
         <span class="block h-28 w-72 bg-primary-surface-inverse" />
       </template>

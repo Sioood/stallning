@@ -23,6 +23,9 @@
     To migrate to OKLCH: replace hsl() values here only.
     ================================================================ */
 
+  --color-white: hsl(0 0% 100%);
+  --color-black: hsl(0 0% 0%);
+
   /* ── red · firebug ──────────────────────────────────────────── */
   --color-red-50: hsl(31 59% 92%);
   --color-red-100: hsl(25 59% 91%);

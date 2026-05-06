@@ -4,7 +4,6 @@ import {
   type FieldRootBaseProps as ArkFieldRootBaseProps,
 } from '@ark-ui/vue/field'
 import { Fieldset as ArkFieldset } from '@ark-ui/vue/fieldset'
-import { createReusableTemplate } from '@vueuse/core'
 import { cva, type VariantProps } from 'class-variance-authority'
 
 import type { ClassValue, Component } from 'vue'
@@ -119,17 +118,6 @@ const fieldsetRootProps = computed(() => ({
   invalid: invalid.value,
 }))
 
-type FieldChromeBindings = {
-  helperText: string
-  intent: FieldCVAProps['intent']
-  showHelper: boolean
-  size: FieldCVAProps['size']
-  ui?: Partial<UIFieldSlots>
-  variant: 'field' | 'fieldset'
-}
-
-const [DefineFieldChrome, ReuseFieldChrome] = createReusableTemplate<FieldChromeBindings>()
-
 const labelComponent = computed((): Component | string => {
   if (props.asFieldset) return ArkFieldset.Legend
   if (props.labelAssociatesControl) return ArkField.Label
@@ -161,26 +149,6 @@ extendCompodiumMeta<typeof props>({
 </script>
 
 <template>
-  <DefineFieldChrome v-slot="p">
-    <template v-if="p.variant === 'fieldset' && p.showHelper">
-      <ArkFieldset.HelperText
-        :class="cn(fieldHelperText({ intent: p.intent, size: p.size }), p.ui?.helperText)"
-      >
-        {{ p.helperText }}
-      </ArkFieldset.HelperText>
-    </template>
-
-    <component :is="p.$slots.default" />
-
-    <template v-if="p.variant === 'field' && p.showHelper">
-      <ArkField.HelperText
-        :class="cn(fieldHelperText({ intent: p.intent, size: p.size }), p.ui?.helperText)"
-      >
-        {{ p.helperText }}
-      </ArkField.HelperText>
-    </template>
-  </DefineFieldChrome>
-
   <component
     :is="fieldRootTag"
     v-bind="mergedRootBind"
@@ -207,16 +175,19 @@ extendCompodiumMeta<typeof props>({
       </span>
     </component>
 
-    <ReuseFieldChrome
-      :helper-text="helperText ?? ''"
-      :intent="intent"
-      :show-helper="Boolean(helperText)"
-      :size="size"
-      :ui="ui"
-      :variant="asFieldset ? 'fieldset' : 'field'"
-    >
-      <slot />
-    </ReuseFieldChrome>
+    <template v-if="asFieldset && helperText">
+      <ArkFieldset.HelperText :class="cn(fieldHelperText({ intent, size }), ui?.helperText)">
+        {{ helperText }}
+      </ArkFieldset.HelperText>
+    </template>
+
+    <slot />
+
+    <template v-if="!asFieldset && helperText">
+      <ArkField.HelperText :class="cn(fieldHelperText({ intent, size }), ui?.helperText)">
+        {{ helperText }}
+      </ArkField.HelperText>
+    </template>
 
     <component
       :is="errorTextComponent"

@@ -37,7 +37,7 @@ const props = withDefaults(defineProps<ToggleProps>(), {
   indicatorAnimation: 'fade',
 })
 
-const modelValue = defineModel<boolean>({ default: false })
+const pressed = defineModel<boolean>('pressed',{ default: false })
 
 const attrs = useAttrs()
 
@@ -66,26 +66,16 @@ const rootClass = computed(() =>
     props.ui?.root,
   ),
 )
-
-extendCompodiumMeta<typeof props & { modelValue?: boolean }>({
-  defaultProps: {
-    activeBackground: true,
-    iconOnly: true,
-    intent: 'primary',
-    size: 'sm',
-    variant: 'ghost',
-  },
-})
 </script>
 
 <template>
   <ArkToggle.Root
     v-bind="{ ...rootProps, ...rootAttrs }"
-    v-model:pressed="modelValue"
+    v-model:pressed="pressed"
     type="button"
     :class="rootClass"
   >
-    <Swap.Root :swap="modelValue">
+    <Swap.Root :swap="pressed">
       <ArkToggle.Indicator>
         <Swap.Indicator type="on" :class="indicatorAnimation">
           <slot name="on" />

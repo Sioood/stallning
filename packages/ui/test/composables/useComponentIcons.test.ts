@@ -46,7 +46,7 @@ describe('useComponentIcons', () => {
     const scope = effectScope(true)
     scope.run(() => {
       const props = ref({
-        mode: 'button' as const,
+        mode: 'leadingAndTrailing' as const,
         state: 'success' as const,
         trailing: false,
       })
@@ -61,7 +61,7 @@ describe('useComponentIcons', () => {
     const scope = effectScope(true)
     scope.run(() => {
       const props = ref({
-        mode: 'button' as const,
+        mode: 'leadingAndTrailing' as const,
         state: 'error' as const,
         trailing: true,
       })
@@ -76,7 +76,7 @@ describe('useComponentIcons', () => {
     const scope = effectScope(true)
     scope.run(() => {
       const props = ref({
-        mode: 'button' as const,
+        mode: 'leadingAndTrailing' as const,
         state: 'default' as const,
         icon: 'tabler:mail',
         leading: true,
@@ -92,7 +92,7 @@ describe('useComponentIcons', () => {
     const scope = effectScope(true)
     scope.run(() => {
       const props = ref({
-        mode: 'button' as const,
+        mode: 'leadingAndTrailing' as const,
         state: 'default' as const,
         trailing: true,
         trailingIcon: 'tabler:chevron-down',
@@ -107,7 +107,7 @@ describe('useComponentIcons', () => {
     const scope = effectScope(true)
     scope.run(() => {
       const props = ref({
-        mode: 'button' as const,
+        mode: 'leadingAndTrailing' as const,
         state: 'default' as const,
       })
       const { leadingIconName } = useComponentIcons(props)

@@ -16,7 +16,8 @@
         "app/compodium/**/*.vue"
       ],
       "project": ["app/**/*.{ts,vue}", "i18n/**/*.{ts,json,yaml,yml}", "*.d.ts"],
-      "ignoreDependencies": ["@stallning/nuxt-essentials", "vue", "vue-router", "vue-i18n"]
+      "ignoreDependencies": ["vue-router", "vue-i18n", "@vueuse/core", "@vitejs/plugin-vue"],
+      "ignoreUnresolved": [".*app/components/Toggle\\.vue$"]
     },
     "packages/nuxt-essentials": {
       "entry": ["i18n/locales/**/*.ts", "i18n/utils/namespace.ts", "yaml.d.ts"],

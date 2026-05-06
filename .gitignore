@@ -32,3 +32,6 @@ test-results/
 
 # Todoctor
 /todoctor
+
+.nuxt
+.nuxtrc

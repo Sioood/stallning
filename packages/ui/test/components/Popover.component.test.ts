@@ -1,7 +1,7 @@
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { describe, expect, it } from 'vitest'
 
-import Popover from '../../app/components/Popover.vue'
+import Popover from '~ui/app/components/Popover.vue'
 
 describe('Popover', () => {
   it('renders content in controlled open mode', async () => {

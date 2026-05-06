@@ -2,7 +2,7 @@ import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { describe, expect, it, vi } from 'vitest'
 import { defineComponent, h } from 'vue'
 
-import BoundControl from '../../../app/components/Form/BoundControl.vue'
+import BoundControl from '~ui/app/components/Form/BoundControl.vue'
 
 const DummyInput = defineComponent({
   props: {

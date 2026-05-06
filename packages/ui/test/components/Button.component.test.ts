@@ -2,7 +2,7 @@ import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 
-import Button from '../../app/components/Button.vue'
+import Button from '~ui/app/components/Button.vue'
 
 describe('Button', () => {
   it('renders text prop when there is no slot', async () => {

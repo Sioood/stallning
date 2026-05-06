@@ -1,7 +1,7 @@
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { describe, expect, it } from 'vitest'
 
-import Field from '../../../app/components/Form/Field.vue'
+import Field from '~ui/app/components/Form/Field.vue'
 
 describe('UIFormField', () => {
   it('shows label, required indicator, and helper text', async () => {

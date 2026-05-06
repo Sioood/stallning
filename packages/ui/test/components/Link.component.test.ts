@@ -1,7 +1,7 @@
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { describe, expect, it } from 'vitest'
 
-import Link from '../../app/components/Link.vue'
+import Link from '~ui/app/components/Link.vue'
 
 describe('Link', () => {
   it('renders default slot in custom mode without vue-router', async () => {

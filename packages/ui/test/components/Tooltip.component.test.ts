@@ -1,7 +1,7 @@
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { describe, expect, it } from 'vitest'
 
-import Tooltip from '../../app/components/Tooltip.vue'
+import Tooltip from '~ui/app/components/Tooltip.vue'
 
 describe('Tooltip', () => {
   it('renders content when controlled open is true', async () => {

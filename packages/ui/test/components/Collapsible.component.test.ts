@@ -1,7 +1,7 @@
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { describe, expect, it } from 'vitest'
 
-import Collapsible from '../../app/components/Collapsible.vue'
+import Collapsible from '~ui/app/components/Collapsible.vue'
 
 describe('Collapsible', () => {
   it('shows heading fallback and panel content', async () => {

@@ -3,8 +3,8 @@ import { flushPromises } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 import { defineComponent, h } from 'vue'
 
-import Toast from '../../app/components/Toast.vue'
-import { useToast } from '../../app/composables/useToast'
+import Toast from '~ui/app/components/Toast.vue'
+import { useToast } from '~ui/app/composables/useToast'
 
 describe('Toast', () => {
   it('teleports the toaster and shows created toasts', async () => {

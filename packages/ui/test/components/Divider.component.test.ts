@@ -1,7 +1,7 @@
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { describe, expect, it } from 'vitest'
 
-import Divider from '../../app/components/Divider.vue'
+import Divider from '~ui/app/components/Divider.vue'
 
 describe('Divider', () => {
   it('renders a span with base divider classes', async () => {

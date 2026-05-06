@@ -1,7 +1,7 @@
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { describe, expect, it } from 'vitest'
 
-import Input from '../../../app/components/Form/Input.vue'
+import Input from '~ui/app/components/Form/Input.vue'
 
 describe('UIFormInput', () => {
   it('renders a text input with label and placeholder', async () => {

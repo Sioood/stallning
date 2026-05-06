@@ -3,8 +3,8 @@ import { flushPromises } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 import { z } from 'zod'
 
-import Form from '../../../app/components/Form/index.vue'
-import Input from '../../../app/components/Form/Input.vue'
+import Form from '~ui/app/components/Form/index.vue'
+import Input from '~ui/app/components/Form/Input.vue'
 
 describe('UIForm', () => {
   it('emits submit with values when the schema passes', async () => {

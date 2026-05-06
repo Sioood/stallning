@@ -1,7 +1,7 @@
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { describe, expect, it } from 'vitest'
 
-import CheckboxGroup from '../../../app/components/Form/CheckboxGroup.vue'
+import CheckboxGroup from '~ui/app/components/Form/CheckboxGroup.vue'
 
 describe('UIFormCheckboxGroup', () => {
   it('renders fieldset legend, items, and binds v-model', async () => {

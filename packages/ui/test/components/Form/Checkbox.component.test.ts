@@ -2,7 +2,7 @@ import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 
-import Checkbox from '../../../app/components/Form/Checkbox.vue'
+import Checkbox from '~ui/app/components/Form/Checkbox.vue'
 
 describe('UIFormCheckbox', () => {
   it('renders label and hidden input with name', async () => {

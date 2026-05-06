@@ -6,7 +6,7 @@ import { useComponentIcons, type ComponentState } from '~ui/app/composables/useC
 
 const toaster = useToast()
 
-const toastRoot = cva(
+const toastRootCVA = cva(
   'toastRoot border relative overflow-hidden z-index-[var(--z-index)] will-change-transform-opacity h-[var(--height)] translate-x-[var(--x)] translate-y-[var(--y)] scale-[var(--scale)] flex-col opacity-[var(--opacity)] transition-all duration-300 ease-in-out',
   {
     variants: {
@@ -32,9 +32,9 @@ const toastRoot = cva(
   },
 )
 
-type ToastRootCVAProps = VariantProps<typeof toastRoot>
+type ToastRootCVAProps = VariantProps<typeof toastRootCVA>
 
-const toastTitle = cva('toastTitle inline-flex gap-2', {
+const toastTitleCVA = cva('toastTitle inline-flex gap-2', {
   variants: {
     size: {
       md: 'txt-base',
@@ -42,7 +42,7 @@ const toastTitle = cva('toastTitle inline-flex gap-2', {
   },
 })
 
-const toastDescription = cva('toastDescription', {
+const toastDescriptionCVA = cva('toastDescription', {
   variants: {
     intent: {
       neutral: 'text-neutral-text-subtle',
@@ -60,7 +60,7 @@ const toastDescription = cva('toastDescription', {
   },
 })
 
-const toastError = cva('toastError', {
+const toastErrorCVA = cva('toastError', {
   variants: {
     size: {
       md: 'absolute top-2 right-2',
@@ -68,7 +68,7 @@ const toastError = cva('toastError', {
   },
 })
 
-const toastAction = cva('toastAction', {
+const toastActionCVA = cva('toastAction', {
   variants: {
     size: {
       md: 'mt-2',
@@ -114,13 +114,13 @@ const getType = (type: string | undefined): ToastRootCVAProps['intent'] | undefi
     <ArkToaster v-slot="toast" :toaster="toaster" v-bind="toasterProps">
       <ArkToast.Root
         :class="
-          toastRoot({
+          toastRootCVA({
             intent: getType(toast.meta?.type ?? toast.type),
             size,
           })
         "
       >
-        <ArkToast.Title :class="toastTitle({ size })">
+        <ArkToast.Title :class="toastTitleCVA({ size })">
           <Icon
             :name="resolveToastMeta(toast.meta?.type ?? toast.type).iconName.value"
             :class="{
@@ -131,20 +131,20 @@ const getType = (type: string | undefined): ToastRootCVAProps['intent'] | undefi
         </ArkToast.Title>
         <ArkToast.Description
           v-if="toast.description"
-          :class="toastDescription({ intent: getType(toast.meta?.type ?? toast.type), size })"
+          :class="toastDescriptionCVA({ intent: getType(toast.meta?.type ?? toast.type), size })"
         >
           {{ toast.description }}
         </ArkToast.Description>
 
         <slot :toast="toast" />
 
-        <ArkToast.ActionTrigger v-if="toast.action" :class="toastAction({ size })">
+        <ArkToast.ActionTrigger v-if="toast.action" :class="toastActionCVA({ size })">
           <UIButton size="sm" :intent="getType(toast.meta?.type ?? toast.type)">
             {{ toast.action.label }}
           </UIButton>
         </ArkToast.ActionTrigger>
 
-        <ArkToast.CloseTrigger v-if="toast.closable" :class="toastError({ size })">
+        <ArkToast.CloseTrigger v-if="toast.closable" :class="toastErrorCVA({ size })">
           <UIButton
             size="sm"
             variant="ghost"

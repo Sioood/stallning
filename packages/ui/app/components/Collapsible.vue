@@ -7,7 +7,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 
 defineOptions({ inheritAttrs: false })
 
-const collapsibleTrigger = cva(
+const collapsibleTriggerCVA = cva(
   'collapsibleTrigger flex w-full items-center justify-between border-b text-left',
   {
     variants: {
@@ -25,7 +25,7 @@ const collapsibleTrigger = cva(
   },
 )
 
-const collapsibleTitle = cva('collapsibleTitle', {
+const collapsibleTitleCVA = cva('collapsibleTitle', {
   variants: {
     size: {
       md: 'txt-h6',
@@ -33,7 +33,7 @@ const collapsibleTitle = cva('collapsibleTitle', {
   },
 })
 
-const collapsibleIndicator = cva(
+const collapsibleIndicatorCVA = cva(
   'collapsibleIndicator flex shrink-0 items-center justify-center transition-transform duration-200 ease-out will-change-transform data-[state=open]:rotate-180',
   {
     variants: {
@@ -44,7 +44,7 @@ const collapsibleIndicator = cva(
   },
 )
 
-const collapsibleIcon = cva('collapsibleIcon shrink-0', {
+const collapsibleIconCVA = cva('collapsibleIcon shrink-0', {
   variants: {
     size: {
       md: 'size-4',
@@ -52,7 +52,7 @@ const collapsibleIcon = cva('collapsibleIcon shrink-0', {
   },
 })
 
-const collapsibleContent = cva('collapsibleContent overflow-hidden', {
+const collapsibleContentCVA = cva('collapsibleContent overflow-hidden', {
   variants: {
     size: {
       md: 'pt-2',
@@ -64,7 +64,7 @@ const collapsibleContent = cva('collapsibleContent overflow-hidden', {
   },
 })
 
-type CollapsibleTriggerVariants = VariantProps<typeof collapsibleTrigger>
+type CollapsibleTriggerVariants = VariantProps<typeof collapsibleTriggerCVA>
 
 export interface CollapsibleProps extends ArkCollapsibleRootBaseProps {
   /** When false, panel height open/close animation is off (same effect as prefers-reduced-motion for content). */
@@ -115,16 +115,16 @@ extendCompodiumMeta<CollapsibleProps>({
     v-bind="{ ...rootProps, ...$attrs }"
     v-model:open="modelValue"
   >
-    <Collapsible.Trigger type="button" :class="collapsibleTrigger({ intent, size, disabled })">
-      <span :class="collapsibleTitle({ size })">
+    <Collapsible.Trigger type="button" :class="cn(collapsibleTriggerCVA({ intent, size, disabled }))">
+      <span :class="cn(collapsibleTitleCVA({ size }))">
         <slot name="title">{{ heading }}</slot>
       </span>
-      <Collapsible.Indicator :class="collapsibleIndicator({ size })">
-        <Icon name="tabler:chevron-down" :class="collapsibleIcon({ size })" />
+      <Collapsible.Indicator :class="cn(collapsibleIndicatorCVA({ size }))">
+        <Icon name="tabler:chevron-down" :class="cn(collapsibleIconCVA({ size }))" />
       </Collapsible.Indicator>
     </Collapsible.Trigger>
 
-    <Collapsible.Content :class="collapsibleContent({ size, animated: contentAnimated })">
+    <Collapsible.Content :class="cn(collapsibleContentCVA({ size, animated: contentAnimated }))">
       <slot />
     </Collapsible.Content>
   </Collapsible.Root>

@@ -7,7 +7,7 @@ import { cva } from 'class-variance-authority'
 
 import type { ClassValue } from 'vue'
 
-const groupRoot = cva('groupRoot join', {
+const groupRootCVA = cva('groupRoot join', {
   variants: {
     orientation: {
       horizontal: 'join-horizontal',
@@ -77,7 +77,7 @@ watchEffect(() => {
   <ArkToggleGroup.Root
     v-bind="rootProps"
     v-model:model-value="modelValue"
-    :class="cn(groupRoot({ orientation }), ui?.root)"
+    :class="cn(groupRootCVA({ orientation }), ui?.root)"
   >
     <ArkToggleGroup.Item
       v-for="option in options"

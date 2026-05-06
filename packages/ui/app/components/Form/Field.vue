@@ -18,7 +18,7 @@ export interface UIFieldSlots {
   error?: ClassValue
 }
 
-const fieldRoot = cva('fieldRoot flex flex-col gap-1', {
+const fieldRootCVA = cva('fieldRoot flex flex-col gap-1', {
   variants: {
     intent: {
       primary: '',
@@ -32,9 +32,9 @@ const fieldRoot = cva('fieldRoot flex flex-col gap-1', {
   },
 })
 
-type FieldCVAProps = VariantProps<typeof fieldRoot>
+type FieldCVAProps = VariantProps<typeof fieldRootCVA>
 
-const fieldLabel = cva('fieldLabel', {
+const fieldLabelCVA = cva('fieldLabel', {
   variants: {
     intent: {
       primary: 'text-primary-text-default',
@@ -45,7 +45,7 @@ const fieldLabel = cva('fieldLabel', {
   },
 })
 
-const fieldHelperText = cva('fieldHelperText', {
+const fieldHelperTextCVA = cva('fieldHelperText', {
   variants: {
     intent: {
       primary: 'text-primary-text-subtle',
@@ -152,12 +152,12 @@ extendCompodiumMeta<typeof props>({
   <component
     :is="fieldRootTag"
     v-bind="mergedRootBind"
-    :class="cn(fieldRoot({ size, invalid }), attrs.class, ui?.root)"
+    :class="cn(fieldRootCVA({ size, invalid }), attrs.class, ui?.root)"
   >
     <component
       :is="labelComponent"
       v-if="!hideLabel && (label || required)"
-      :class="cn(fieldLabel({ intent, size }), ui?.label)"
+      :class="cn(fieldLabelCVA({ intent, size }), ui?.label)"
     >
       <template v-if="label">{{ label }}</template>
       <ArkField.RequiredIndicator
@@ -176,7 +176,7 @@ extendCompodiumMeta<typeof props>({
     </component>
 
     <template v-if="asFieldset && helperText">
-      <ArkFieldset.HelperText :class="cn(fieldHelperText({ intent, size }), ui?.helperText)">
+      <ArkFieldset.HelperText :class="cn(fieldHelperTextCVA({ intent, size }), ui?.helperText)">
         {{ helperText }}
       </ArkFieldset.HelperText>
     </template>
@@ -184,7 +184,7 @@ extendCompodiumMeta<typeof props>({
     <slot />
 
     <template v-if="!asFieldset && helperText">
-      <ArkField.HelperText :class="cn(fieldHelperText({ intent, size }), ui?.helperText)">
+      <ArkField.HelperText :class="cn(fieldHelperTextCVA({ intent, size }), ui?.helperText)">
         {{ helperText }}
       </ArkField.HelperText>
     </template>

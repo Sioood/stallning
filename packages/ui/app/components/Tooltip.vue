@@ -7,7 +7,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 
 defineOptions({ inheritAttrs: false })
 
-const tooltipContent = cva(
+const tooltipContentCVA = cva(
   [
     'tooltipContent',
     'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0',
@@ -32,7 +32,7 @@ const tooltipContent = cva(
   },
 )
 
-const tooltipArrow = cva(['tooltipArrow', 'flex items-center justify-center'].join(' '), {
+const tooltipArrowCVA = cva(['tooltipArrow', 'flex items-center justify-center'].join(' '), {
   variants: {
     intent: {
       neutral: '[--arrow-background:var(--color-neutral-surface-default)]',
@@ -49,9 +49,9 @@ const tooltipArrow = cva(['tooltipArrow', 'flex items-center justify-center'].jo
     },
   },
 })
-const tooltipArrowTip = cva(['tooltipArrowTip', 'size-full'].join(' '))
+const tooltipArrowTipCVA = cva(['tooltipArrowTip', 'size-full'].join(' '))
 
-type TooltipCVAProps = VariantProps<typeof tooltipContent>
+type TooltipCVAProps = VariantProps<typeof tooltipContentCVA>
 
 interface TooltipProps extends ArkTooltipRootBaseProps {
   content?: string
@@ -137,7 +137,7 @@ function handleTriggerPointerMove(
         </ArkTooltip.Trigger>
       </slot>
       <ArkTooltip.Positioner class="[--z-index:9999] origin-(--transform-origin)">
-        <ArkTooltip.Content :class="cn(tooltipContent({ intent, size }))">
+        <ArkTooltip.Content :class="cn(tooltipContentCVA({ intent, size }))">
           <slot
             name="content"
             :tooltip="tooltip"
@@ -147,8 +147,8 @@ function handleTriggerPointerMove(
           >
             {{ content }}
           </slot>
-          <ArkTooltip.Arrow :class="cn(tooltipArrow({ intent, size }))">
-            <ArkTooltip.ArrowTip :class="cn(tooltipArrowTip())" />
+          <ArkTooltip.Arrow :class="cn(tooltipArrowCVA({ intent, size }))">
+            <ArkTooltip.ArrowTip :class="cn(tooltipArrowTipCVA())" />
           </ArkTooltip.Arrow>
         </ArkTooltip.Content>
       </ArkTooltip.Positioner>

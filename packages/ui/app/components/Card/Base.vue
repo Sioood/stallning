@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { cva, type VariantProps } from 'class-variance-authority'
 
-const card = cva('card', {
+const cardCVA = cva('card', {
   variants: {
     variant: {
       default: 'border',
@@ -111,7 +111,7 @@ const card = cva('card', {
   ],
 })
 
-type CardCVAProps = VariantProps<typeof card>
+type CardCVAProps = VariantProps<typeof cardCVA>
 
 interface CardProps {
   variant?: CardCVAProps['variant']
@@ -129,7 +129,7 @@ const props = withDefaults(defineProps<CardProps>(), {
 </script>
 
 <template>
-  <div :class="cn(card({ variant, intent, size }), props.class)">
+  <div :class="cn(cardCVA({ variant, intent, size }), props.class)">
     <slot />
   </div>
 </template>

@@ -9,7 +9,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 
 import type { FieldProps } from '~ui/app/components/Form/Field.vue'
 
-const checkboxRoot = cva('checkboxRoot group inline-flex items-center gap-2', {
+const checkboxRootCVA = cva('checkboxRoot group inline-flex items-center gap-2', {
   variants: {
     intent: {
       primary: '',
@@ -28,9 +28,9 @@ const checkboxRoot = cva('checkboxRoot group inline-flex items-center gap-2', {
   },
 })
 
-type CheckboxRootVariants = VariantProps<typeof checkboxRoot>
+type CheckboxRootVariants = VariantProps<typeof checkboxRootCVA>
 
-const checkboxControl = cva('checkboxControl size-4 border', {
+const checkboxControlCVA = cva('checkboxControl size-4 border', {
   variants: {
     intent: {
       primary:
@@ -50,7 +50,7 @@ const checkboxControl = cva('checkboxControl size-4 border', {
   },
 })
 
-const checkboxIndicator = cva(
+const checkboxIndicatorCVA = cva(
   [
     'checkboxIndicator size-full flex items-center justify-center',
     'bg-primary-fill-subtle text-primary-text-default',
@@ -77,7 +77,7 @@ const checkboxIndicator = cva(
   },
 )
 
-const fieldLabel = cva('fieldLabel', {
+const fieldLabelCVA = cva('fieldLabel', {
   variants: {
     intent: {
       primary: 'text-primary-text-default data-[disabled]:text-primary-text-default-disabled',
@@ -181,16 +181,16 @@ const [DefineCheckboxControl, ReuseCheckboxControl] =
 </script>
 <template>
   <DefineCheckboxControl v-slot="p">
-    <ArkCheckbox.Root v-bind="p.rootBindings" :class="checkboxRoot({ intent, size, disabled })">
-      <ArkCheckbox.Control :class="checkboxControl({ intent, size, disabled })">
-        <ArkCheckbox.Indicator :class="checkboxIndicator({ intent, size, disabled })">
+    <ArkCheckbox.Root v-bind="p.rootBindings" :class="cn(checkboxRootCVA({ intent, size, disabled }))">
+      <ArkCheckbox.Control :class="cn(checkboxControlCVA({ intent, size, disabled }))">
+        <ArkCheckbox.Indicator :class="cn(checkboxIndicatorCVA({ intent, size, disabled }))">
           <Icon name="tabler:check" class="size-3 shrink-0" />
         </ArkCheckbox.Indicator>
-        <ArkCheckbox.Indicator :class="checkboxIndicator({ intent, size, disabled })" indeterminate>
+        <ArkCheckbox.Indicator :class="cn(checkboxIndicatorCVA({ intent, size, disabled }))" indeterminate>
           <Icon name="tabler:minus" class="size-3 shrink-0" />
         </ArkCheckbox.Indicator>
       </ArkCheckbox.Control>
-      <ArkCheckbox.Label :class="fieldLabel({ intent, size })">
+      <ArkCheckbox.Label :class="cn(fieldLabelCVA({ intent, size }))">
         <template v-if="label">{{ label }}</template>
 
         <span v-if="required" class="txt-caption text-error-icon-default" aria-hidden="true">

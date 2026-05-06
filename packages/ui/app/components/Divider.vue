@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { cva, type VariantProps } from 'class-variance-authority'
 
-const divider = cva('divider', {
+const dividerCVA = cva('divider', {
   variants: {
     intent: {
       neutral: 'bg-neutral-border-subtle',
@@ -21,7 +21,7 @@ const divider = cva('divider', {
   },
 })
 
-type DividerCVAProps = VariantProps<typeof divider>
+type DividerCVAProps = VariantProps<typeof dividerCVA>
 
 interface DividerProps {
   intent?: DividerCVAProps['intent']
@@ -39,5 +39,5 @@ const props = withDefaults(defineProps<DividerProps>(), {
 </script>
 
 <template>
-  <span :class="cn(divider({ intent, size, orientation }), props.class)" />
+  <span :class="cn(dividerCVA({ intent, size, orientation }), props.class)" />
 </template>

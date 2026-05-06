@@ -24,7 +24,7 @@ export interface UIInputSlots extends UIFieldSlots {
   trailingIcon?: ClassValue
 }
 
-const controlShell = cva(
+const controlShellCVA = cva(
   'controlShell flex w-full min-w-0 items-center gap-0.5 transition-[box-shadow,border-color]',
   {
     variants: {
@@ -58,7 +58,7 @@ const controlShell = cva(
   },
 )
 
-const fieldInput = cva(
+const fieldInputCVA = cva(
   'fieldInput min-w-0 flex-1 border-0 txt-base outline-none read-only:cursor-default',
   {
     variants: {
@@ -87,7 +87,7 @@ const fieldInput = cva(
   },
 )
 
-type ShellVariants = VariantProps<typeof controlShell>
+type ShellVariants = VariantProps<typeof controlShellCVA>
 
 interface InputProps extends Omit<FieldProps, 'ui'>, ArkFieldInputBaseProps {
   intent?: ShellVariants['intent']
@@ -212,7 +212,7 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
     <div
       :class="
         cn(
-          controlShell({
+          controlShellCVA({
             intent,
             size,
             invalid,
@@ -240,7 +240,7 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
         v-bind="{ ...inputProps, ...inputFallthroughAttrs }"
         v-model="modelValue"
         :type="resolvedInputType"
-        :class="cn(fieldInput({ size, intent, disabled }), attrs.class, ui?.input)"
+        :class="cn(fieldInputCVA({ size, intent, disabled }), attrs.class, ui?.input)"
         @blur="emit('blur', $event)"
       />
 

@@ -7,7 +7,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 
 defineOptions({ inheritAttrs: false })
 
-const popoverContent = cva(
+const popoverContentCVA = cva(
   [
     'popoverContent',
     'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0',
@@ -25,7 +25,7 @@ const popoverContent = cva(
   },
 )
 
-const popoverArrow = cva(['popoverArrow', 'flex items-center justify-center'].join(' '), {
+const popoverArrowCVA = cva(['popoverArrow', 'flex items-center justify-center'].join(' '), {
   variants: {
     intent: {
       neutral: '[--arrow-background:var(--color-neutral-surface-default)]',
@@ -36,24 +36,24 @@ const popoverArrow = cva(['popoverArrow', 'flex items-center justify-center'].jo
   },
 })
 
-const popoverArrowTip = cva(['popoverArrowTip', 'size-full'].join(' '))
-const popoverTitle = cva('popoverTitle', {
+const popoverArrowTipCVA = cva(['popoverArrowTip', 'size-full'].join(' '))
+const popoverTitleCVA = cva('popoverTitle', {
   variants: {
     size: {
       md: 'txt-label',
     },
   },
 })
-const popoverDescription = cva('popoverDescription', {
+const popoverDescriptionCVA = cva('popoverDescription', {
   variants: {
     size: {
       md: 'txt-caption',
     },
   },
 })
-const popoverClose = cva('absolute right-1 top-1')
+const popoverCloseCVA = cva('absolute right-1 top-1')
 
-type PopoverCVAProps = VariantProps<typeof popoverContent>
+type PopoverCVAProps = VariantProps<typeof popoverContentCVA>
 
 interface PopoverProps extends ArkPopoverRootBaseProps {
   content?: string
@@ -155,11 +155,11 @@ const rootProps = computed(() =>
       </slot>
 
       <ArkPopover.Positioner class="[--z-index:9999] origin-(--transform-origin)">
-        <ArkPopover.Content :class="cn(popoverContent({ intent, size }))">
-          <ArkPopover.Title v-if="title" :class="cn(popoverTitle({ size }))">
+        <ArkPopover.Content :class="cn(popoverContentCVA({ intent, size }))">
+          <ArkPopover.Title v-if="title" :class="cn(popoverTitleCVA({ size }))">
             {{ title }}
           </ArkPopover.Title>
-          <ArkPopover.Description v-if="description" :class="cn(popoverDescription({ size }))">
+          <ArkPopover.Description v-if="description" :class="cn(popoverDescriptionCVA({ size }))">
             {{ description }}
           </ArkPopover.Description>
 
@@ -173,14 +173,14 @@ const rootProps = computed(() =>
             {{ content }}
           </slot>
 
-          <ArkPopover.CloseTrigger v-if="showCloseTrigger" :class="cn(popoverClose())">
+          <ArkPopover.CloseTrigger v-if="showCloseTrigger" :class="cn(popoverCloseCVA())">
             <slot name="close-trigger">
               <UIButton type="button" size="sm" variant="ghost" icon="tabler:x" intent="neutral" />
             </slot>
           </ArkPopover.CloseTrigger>
 
-          <ArkPopover.Arrow :class="cn(popoverArrow({ intent, size }))">
-            <ArkPopover.ArrowTip :class="cn(popoverArrowTip())" />
+          <ArkPopover.Arrow :class="cn(popoverArrowCVA({ intent, size }))">
+            <ArkPopover.ArrowTip :class="cn(popoverArrowTipCVA())" />
           </ArkPopover.Arrow>
         </ArkPopover.Content>
       </ArkPopover.Positioner>

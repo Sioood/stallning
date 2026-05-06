@@ -41,6 +41,9 @@ const popoverArrowCVA = cva(['popoverArrow', 'flex items-center justify-center']
 const popoverArrowTipCVA = cva(['popoverArrowTip', 'size-full'])
 const popoverTitleCVA = cva('popoverTitle', {
   variants: {
+    intent: {
+      neutral: 'text-neutral-text-default',
+    },
     size: {
       md: 'txt-label',
     },
@@ -48,6 +51,9 @@ const popoverTitleCVA = cva('popoverTitle', {
 })
 const popoverDescriptionCVA = cva('popoverDescription', {
   variants: {
+    intent: {
+      neutral: 'text-neutral-text-subtle',
+    },
     size: {
       md: 'txt-caption',
     },
@@ -141,12 +147,12 @@ const rootProps = computed(() =>
 
       <ArkPopover.Positioner class="[--z-index:9999] origin-(--transform-origin)">
         <ArkPopover.Content :class="cn(popoverContentCVA({ intent, size }), ui?.content)">
-          <ArkPopover.Title v-if="title" :class="cn(popoverTitleCVA({ size }), ui?.title)">
+          <ArkPopover.Title v-if="title" :class="cn(popoverTitleCVA({ intent, size }), ui?.title)">
             {{ title }}
           </ArkPopover.Title>
           <ArkPopover.Description
             v-if="description"
-            :class="cn(popoverDescriptionCVA({ size }), ui?.description)"
+            :class="cn(popoverDescriptionCVA({ intent, size }), ui?.description)"
           >
             {{ description }}
           </ArkPopover.Description>

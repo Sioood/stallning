@@ -12,6 +12,7 @@ defineOptions({ inheritAttrs: false })
 
 export interface UIToggleSlots {
   root?: ClassValue
+  indicator?: ClassValue
 }
 
 /** `pressed` is provided via `v-model:pressed`, not as a static root prop. */
@@ -23,7 +24,7 @@ export interface ToggleProps extends Omit<ArkToggleRootBaseProps, 'pressed'> {
   intent?: ButtonVariants['intent']
   size?: ButtonVariants['size']
   variant?: ButtonVariants['variant']
-  ui?: Partial<UIToggleSlots>
+  ui?: UIToggleSlots
   indicatorAnimation?: 'fade' | 'flip' | 'scale' | 'rotate'
 }
 
@@ -46,7 +47,7 @@ const rootProps = computed(() => ({
 }))
 
 const rootAttrs = computed(() => {
-  const { class: _cls, ...rest } = attrs as Record<string, unknown> & { class?: unknown }
+  const { ui: _ui, ...rest } = attrs as Record<string, unknown> & { ui?: UIToggleSlots }
   return rest
 })
 
@@ -62,7 +63,6 @@ const rootClass = computed(() =>
       ? togglePressedOn({ intent: props.intent, variant: props.variant })
       : null,
     props.iconOnly ? 'min-w-0 shrink-0 gap-0 px-1.5 py-1.5' : null,
-    attrs.class,
     props.ui?.root,
   ),
 )
@@ -76,7 +76,7 @@ const rootClass = computed(() =>
     :class="rootClass"
   >
     <Swap.Root :swap="pressed">
-      <ArkToggle.Indicator>
+      <ArkToggle.Indicator :class="ui?.indicator">
         <Swap.Indicator type="on" :class="indicatorAnimation">
           <slot name="on" />
         </Swap.Indicator>

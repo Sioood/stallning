@@ -13,16 +13,7 @@ import {
 import type { ClassValue } from 'vue'
 import type { FieldProps, UIFieldSlots } from '~ui/app/components/Form/Field.vue'
 
-
 defineOptions({ inheritAttrs: false })
-
-/** Field slots plus control-specific parts for `UIFormInput`. */
-export interface UIInputSlots extends UIFieldSlots {
-  shell?: ClassValue
-  input?: ClassValue
-  leadingIcon?: ClassValue
-  trailingIcon?: ClassValue
-}
 
 const controlShellCVA = cva(
   'controlShell flex w-full min-w-0 items-center gap-0.5 transition-[box-shadow,border-color]',
@@ -89,13 +80,21 @@ const fieldInputCVA = cva(
 
 type ShellVariants = VariantProps<typeof controlShellCVA>
 
+/** Field slots plus control-specific parts for `UIFormInput`. */
+export interface UIInputSlots extends UIFieldSlots {
+  shell?: ClassValue
+  input?: ClassValue
+  leadingIcon?: ClassValue
+  trailingIcon?: ClassValue
+}
+
 interface InputProps extends Omit<FieldProps, 'ui'>, ArkFieldInputBaseProps {
   intent?: ShellVariants['intent']
   name?: string
   placeholder?: string
   size?: ShellVariants['size']
   type?: string
-  ui?: Partial<UIInputSlots>
+  ui?: UIInputSlots
 }
 
 const emit = defineEmits<{
@@ -186,7 +185,7 @@ const { isLeading, isTrailing, leadingIconName, trailingIconName, shouldAnimate 
 const attrs = useAttrs()
 
 const inputFallthroughAttrs = computed(() => {
-  const { class: _cls, ...rest } = attrs as Record<string, unknown> & { class?: unknown }
+  const { ui: _ui, ...rest } = attrs as Record<string, unknown> & { ui?: UIInputSlots }
   return rest
 })
 
@@ -206,9 +205,7 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
 </script>
 
 <template>
-  <UIFormField
-    v-bind="fieldProps"
-  >
+  <UIFormField v-bind="fieldProps">
     <div
       :class="
         cn(
@@ -224,9 +221,7 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
     >
       <span
         v-if="isLeading && leadingIconName"
-        :class="
-          cn('flex shrink-0 items-center pl-2 text-primary-icon-subtle', ui?.leadingIcon)
-        "
+        :class="cn('flex shrink-0 items-center pl-2 text-primary-icon-subtle', ui?.leadingIcon)"
         aria-hidden="true"
       >
         <Icon
@@ -240,7 +235,7 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
         v-bind="{ ...inputProps, ...inputFallthroughAttrs }"
         v-model="modelValue"
         :type="resolvedInputType"
-        :class="cn(fieldInputCVA({ size, intent, disabled }), attrs.class, ui?.input)"
+        :class="cn(fieldInputCVA({ size, intent, disabled }), ui?.input)"
         @blur="emit('blur', $event)"
       />
 
@@ -264,9 +259,7 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
 
       <span
         v-else-if="isTrailing && trailingIconName"
-        :class="
-          cn('flex shrink-0 items-center pr-2 text-primary-icon-subtle', ui?.trailingIcon)
-        "
+        :class="cn('flex shrink-0 items-center pr-2 text-primary-icon-subtle', ui?.trailingIcon)"
         aria-hidden="true"
       >
         <Icon

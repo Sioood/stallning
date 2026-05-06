@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { cva, type VariantProps } from 'class-variance-authority'
+import type { ClassValue } from 'vue'
 
 const cardCVA = cva('card', {
   variants: {
@@ -113,23 +114,28 @@ const cardCVA = cva('card', {
 
 type CardCVAProps = VariantProps<typeof cardCVA>
 
+interface UICardSlots {
+  root?: ClassValue
+  content?: ClassValue
+}
+
 interface CardProps {
   variant?: CardCVAProps['variant']
   intent?: CardCVAProps['intent']
   size?: CardCVAProps['size']
-  class?: string
+  ui?: UICardSlots
 }
 
-const props = withDefaults(defineProps<CardProps>(), {
+withDefaults(defineProps<CardProps>(), {
   variant: 'default',
   intent: 'primary',
   size: 'md',
-  class: '',
+  ui: undefined,
 })
 </script>
 
 <template>
-  <div :class="cn(cardCVA({ variant, intent, size }), props.class)">
-    <slot />
+  <div :class="cn(cardCVA({ variant, intent, size }), ui?.root)">
+    <slot :class="cn(ui?.content)" />
   </div>
 </template>

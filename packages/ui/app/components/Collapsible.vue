@@ -5,6 +5,8 @@ import {
 } from '@ark-ui/vue/collapsible'
 import { cva, type VariantProps } from 'class-variance-authority'
 
+import type { ClassValue } from 'vue'
+
 defineOptions({ inheritAttrs: false })
 
 const collapsibleTriggerCVA = cva(
@@ -66,19 +68,21 @@ const collapsibleContentCVA = cva('collapsibleContent overflow-hidden', {
 
 type CollapsibleTriggerVariants = VariantProps<typeof collapsibleTriggerCVA>
 
+interface UICollapsibleSlots {
+  content?: ClassValue
+  icon?: ClassValue
+  indicator?: ClassValue
+  title?: ClassValue
+  trigger?: ClassValue
+}
+
 export interface CollapsibleProps extends ArkCollapsibleRootBaseProps {
   /** When false, panel height open/close animation is off (same effect as prefers-reduced-motion for content). */
   contentAnimated?: boolean
   /** Shown when the `#title` slot is empty. */
   heading?: string
   intent?: CollapsibleTriggerVariants['intent']
-  ui?: {
-    content?: string
-    icon?: string
-    indicator?: string
-    title?: string
-    trigger?: string
-  }
+  ui?: UICollapsibleSlots
   size?: CollapsibleTriggerVariants['size']
 }
 

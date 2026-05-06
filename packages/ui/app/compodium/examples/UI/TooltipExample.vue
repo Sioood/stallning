@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
   <div class="w-fit flex flex-col gap-6">
     <UITooltip content="I'm a tooltip" :open-delay="450" :close-delay="120" interactive>

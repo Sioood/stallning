@@ -10,14 +10,6 @@ import type { ClassValue, Component } from 'vue'
 
 defineOptions({ inheritAttrs: false })
 
-/** Optional class overrides per field sub-part (merge with `cn` / tailwind-merge). */
-export interface UIFieldSlots {
-  root?: ClassValue
-  label?: ClassValue
-  helperText?: ClassValue
-  error?: ClassValue
-}
-
 const fieldRootCVA = cva('fieldRoot flex flex-col gap-1', {
   variants: {
     intent: {
@@ -56,6 +48,14 @@ const fieldHelperTextCVA = cva('fieldHelperText', {
   },
 })
 
+export interface UIFieldSlots {
+  root?: ClassValue
+  label?: ClassValue
+  helperText?: ClassValue
+  error?: ClassValue
+  requiredIndicator?: ClassValue
+}
+
 export interface FieldProps extends ArkFieldRootBaseProps {
   /**
    * When true, the root is `Fieldset` (legend + helper under legend) for control groups
@@ -77,7 +77,7 @@ export interface FieldProps extends ArkFieldRootBaseProps {
   labelAssociatesControl?: boolean
   /** Prefer setting on the field so Ark can wire label and control ids. */
   size?: FieldCVAProps['size']
-  ui?: Partial<UIFieldSlots>
+  ui?: UIFieldSlots
 }
 
 const props = withDefaults(defineProps<FieldProps>(), {
@@ -96,7 +96,7 @@ const slots = useSlots()
 const attrs = useAttrs()
 
 const fieldRootAttrs = computed(() => {
-  const { class: _cls, ...rest } = attrs as Record<string, unknown> & { class?: unknown }
+  const { ui: _ui, ...rest } = attrs as Record<string, unknown> & { ui?: UIFieldSlots }
   return rest
 })
 
@@ -152,7 +152,7 @@ extendCompodiumMeta<typeof props>({
   <component
     :is="fieldRootTag"
     v-bind="mergedRootBind"
-    :class="cn(fieldRootCVA({ size, invalid }), attrs.class, ui?.root)"
+    :class="cn(fieldRootCVA({ size, invalid }), ui?.root)"
   >
     <component
       :is="labelComponent"
@@ -162,13 +162,13 @@ extendCompodiumMeta<typeof props>({
       <template v-if="label">{{ label }}</template>
       <ArkField.RequiredIndicator
         v-if="required && !asFieldset"
-        class="txt-caption text-error-icon-default"
+        :class="cn('txt-caption text-error-icon-default', ui?.requiredIndicator)"
       >
         *
       </ArkField.RequiredIndicator>
       <span
         v-else-if="required"
-        class="txt-caption text-error-icon-default"
+        :class="cn('txt-caption text-error-icon-default', ui?.requiredIndicator)"
         aria-hidden="true"
       >
         *

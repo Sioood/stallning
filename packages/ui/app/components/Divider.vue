@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { cva, type VariantProps } from 'class-variance-authority'
 
+import type { ClassValue } from 'vue'
+
 const dividerCVA = cva('divider', {
   variants: {
     intent: {
@@ -23,13 +25,15 @@ const dividerCVA = cva('divider', {
 
 type DividerCVAProps = VariantProps<typeof dividerCVA>
 
+interface UIDividerSlots {
+  root?: ClassValue
+}
+
 interface DividerProps {
   intent?: DividerCVAProps['intent']
   orientation?: DividerCVAProps['orientation']
   size?: DividerCVAProps['size']
-  ui?: {
-    root?: string
-  }
+  ui?: UIDividerSlots
 }
 
 withDefaults(defineProps<DividerProps>(), {

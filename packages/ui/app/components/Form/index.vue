@@ -8,7 +8,6 @@ import {
 import { useSchemaForm, type SchemaFormValidationMode } from '~ui/app/composables/useSchemaForm'
 import { formatFieldErrors } from '~ui/app/utils/form-field-errors'
 
-
 import type { z } from 'zod'
 
 const props = withDefaults(

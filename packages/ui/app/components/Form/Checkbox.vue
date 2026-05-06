@@ -7,6 +7,7 @@ import {
 import { createReusableTemplate } from '@vueuse/core'
 import { cva, type VariantProps } from 'class-variance-authority'
 
+import type { ClassValue } from 'vue'
 import type { FieldProps } from '~ui/app/components/Form/Field.vue'
 
 const checkboxRootCVA = cva('checkboxRoot group inline-flex items-center gap-2', {
@@ -88,6 +89,14 @@ const fieldLabelCVA = cva('fieldLabel', {
   },
 })
 
+interface UICheckboxSlots {
+  root?: ClassValue
+  control?: ClassValue
+  indicator?: ClassValue
+  label?: ClassValue
+  hiddenInput?: ClassValue
+}
+
 interface CheckboxProps extends ArkCheckboxRootBaseProps, Omit<FieldProps, 'ids'> {
   /**
    * Renders only the checkbox control (no `UIFormField`). Use inside `UIFormCheckboxGroup`.
@@ -96,6 +105,7 @@ interface CheckboxProps extends ArkCheckboxRootBaseProps, Omit<FieldProps, 'ids'
   inGroup?: boolean
   intent?: CheckboxRootVariants['intent']
   size?: CheckboxRootVariants['size']
+  ui?: UICheckboxSlots
 }
 
 const emit = defineEmits<{
@@ -111,9 +121,12 @@ const props = withDefaults(defineProps<CheckboxProps>(), {
   intent: 'primary',
   label: '',
   size: 'md',
+  ui: undefined,
 })
 
-const invalid = computed(() => Boolean(props.invalid || (props.error && String(props.error).length > 0)))
+const invalid = computed(() =>
+  Boolean(props.invalid || (props.error && String(props.error).length > 0)),
+)
 
 const fieldProps = computed(() => ({
   ...pick(props, [
@@ -151,10 +164,7 @@ const ROOT_PROP_KEYS = [
 ] as const satisfies readonly (keyof CheckboxProps)[]
 
 const rootProps = computed(() => ({
-  ...pick(
-    props,
-    props.inGroup ? ROOT_PROP_KEYS : [...ROOT_PROP_KEYS, 'name'],
-  ),
+  ...pick(props, props.inGroup ? ROOT_PROP_KEYS : [...ROOT_PROP_KEYS, 'name']),
   invalid: invalid.value,
 }))
 
@@ -181,23 +191,31 @@ const [DefineCheckboxControl, ReuseCheckboxControl] =
 </script>
 <template>
   <DefineCheckboxControl v-slot="p">
-    <ArkCheckbox.Root v-bind="p.rootBindings" :class="cn(checkboxRootCVA({ intent, size, disabled }))">
-      <ArkCheckbox.Control :class="cn(checkboxControlCVA({ intent, size, disabled }))">
-        <ArkCheckbox.Indicator :class="cn(checkboxIndicatorCVA({ intent, size, disabled }))">
+    <ArkCheckbox.Root
+      v-bind="p.rootBindings"
+      :class="cn(checkboxRootCVA({ intent, size, disabled }), ui?.root)"
+    >
+      <ArkCheckbox.Control :class="cn(checkboxControlCVA({ intent, size, disabled }), ui?.control)">
+        <ArkCheckbox.Indicator
+          :class="cn(checkboxIndicatorCVA({ intent, size, disabled }), ui?.indicator)"
+        >
           <Icon name="tabler:check" class="size-3 shrink-0" />
         </ArkCheckbox.Indicator>
-        <ArkCheckbox.Indicator :class="cn(checkboxIndicatorCVA({ intent, size, disabled }))" indeterminate>
+        <ArkCheckbox.Indicator
+          :class="cn(checkboxIndicatorCVA({ intent, size, disabled }), ui?.indicator)"
+          indeterminate
+        >
           <Icon name="tabler:minus" class="size-3 shrink-0" />
         </ArkCheckbox.Indicator>
       </ArkCheckbox.Control>
-      <ArkCheckbox.Label :class="cn(fieldLabelCVA({ intent, size }))">
+      <ArkCheckbox.Label :class="cn(fieldLabelCVA({ intent, size }), ui?.label)">
         <template v-if="label">{{ label }}</template>
 
         <span v-if="required" class="txt-caption text-error-icon-default" aria-hidden="true">
           *
         </span>
       </ArkCheckbox.Label>
-      <ArkCheckbox.HiddenInput @blur="emit('blur', $event)" />
+      <ArkCheckbox.HiddenInput :class="cn(ui?.hiddenInput)" @blur="emit('blur', $event)" />
     </ArkCheckbox.Root>
   </DefineCheckboxControl>
 

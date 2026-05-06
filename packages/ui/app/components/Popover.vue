@@ -5,6 +5,8 @@ import {
 } from '@ark-ui/vue/popover'
 import { cva, type VariantProps } from 'class-variance-authority'
 
+import type { ClassValue } from 'vue'
+
 defineOptions({ inheritAttrs: false })
 
 const popoverContentCVA = cva(
@@ -55,21 +57,22 @@ const popoverCloseCVA = cva('absolute right-1 top-1')
 
 type PopoverCVAProps = VariantProps<typeof popoverContentCVA>
 
+interface UIPopoverSlots {
+  content?: ClassValue
+  title?: ClassValue
+  description?: ClassValue
+  closeTrigger?: ClassValue
+  arrow?: ClassValue
+  arrowTip?: ClassValue
+}
 interface PopoverProps extends ArkPopoverRootBaseProps {
+  title?: string
   content?: string
   description?: string
   intent?: PopoverCVAProps['intent']
   showCloseTrigger?: boolean
   size?: PopoverCVAProps['size']
-  ui?: {
-    content?: string
-    title?: string
-    description?: string
-    closeTrigger?: string
-    arrow?: string
-    arrowTip?: string
-  }
-  title?: string
+  ui?: UIPopoverSlots
 }
 
 const open = defineModel<boolean>('open', { default: false })
@@ -141,7 +144,10 @@ const rootProps = computed(() =>
           <ArkPopover.Title v-if="title" :class="cn(popoverTitleCVA({ size }), ui?.title)">
             {{ title }}
           </ArkPopover.Title>
-          <ArkPopover.Description v-if="description" :class="cn(popoverDescriptionCVA({ size }), ui?.description)">
+          <ArkPopover.Description
+            v-if="description"
+            :class="cn(popoverDescriptionCVA({ size }), ui?.description)"
+          >
             {{ description }}
           </ArkPopover.Description>
 
@@ -155,7 +161,10 @@ const rootProps = computed(() =>
             {{ content }}
           </slot>
 
-          <ArkPopover.CloseTrigger v-if="showCloseTrigger" :class="cn(popoverCloseCVA(), ui?.closeTrigger)">
+          <ArkPopover.CloseTrigger
+            v-if="showCloseTrigger"
+            :class="cn(popoverCloseCVA(), ui?.closeTrigger)"
+          >
             <slot name="close-trigger">
               <UIButton type="button" size="sm" variant="ghost" icon="tabler:x" intent="neutral" />
             </slot>

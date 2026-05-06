@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Checkbox as ArkCheckbox } from '@ark-ui/vue/checkbox'
 
+import type { ClassValue } from 'vue'
 import type { FieldProps } from '~ui/app/components/Form/Field.vue'
 
 defineOptions({ inheritAttrs: false })
@@ -11,21 +12,11 @@ export interface CheckboxGroupItem {
   value: string
 }
 
-export interface CheckboxGroupProps
-  extends Pick<
-    FieldProps,
-    | 'disabled'
-    | 'error'
-    | 'helperText'
-    | 'id'
-    | 'intent'
-    | 'invalid'
-    | 'label'
-    | 'readOnly'
-    | 'required'
-    | 'size'
-    | 'ui'
-  > {
+export interface UICheckboxGroupSlots {
+  root?: ClassValue
+}
+
+export interface CheckboxGroupProps extends FieldProps {
   items: CheckboxGroupItem[]
   /** Passed to `Checkbox.Group` for form submission. */
   name?: string
@@ -48,12 +39,12 @@ const props = withDefaults(defineProps<CheckboxGroupProps>(), {
 
 const attrs = useAttrs()
 
-const model = defineModel<string[]>({
+const modelValue = defineModel<string[]>({
   default: () => [],
 })
 
-const invalid = computed(
-  () => Boolean(props.invalid || (props.error && String(props.error).length > 0)),
+const invalid = computed(() =>
+  Boolean(props.invalid || (props.error && String(props.error).length > 0)),
 )
 
 const fieldProps = computed(() => ({
@@ -80,14 +71,14 @@ const groupProps = computed(() => ({
 }))
 
 const passthroughAttrs = computed(() => {
-  const { class: _cls, ...rest } = attrs as Record<string, unknown> & { class?: unknown }
+  const { ui: _ui, ...rest } = attrs as Record<string, unknown> & { ui?: UICheckboxGroupSlots }
   return rest
 })
 </script>
 
 <template>
-  <UIFormField v-bind="{ ...fieldProps, ...passthroughAttrs }" :class="cn(attrs.class, ui?.root)">
-    <ArkCheckbox.Group v-model="model" v-bind="groupProps" class="flex flex-col gap-2">
+  <UIFormField v-bind="{ ...fieldProps, ...passthroughAttrs }" :class="cn(ui?.root)">
+    <ArkCheckbox.Group v-model="modelValue" v-bind="groupProps" class="flex flex-col gap-2">
       <UIFormCheckbox
         v-for="item in items"
         :key="item.value"

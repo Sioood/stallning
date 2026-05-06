@@ -4,6 +4,8 @@ import { cva, type VariantProps } from 'class-variance-authority'
 
 import { useComponentIcons, type ComponentState } from '~ui/app/composables/useComponentIcons'
 
+import type { ClassValue } from 'vue'
+
 const toaster = useToast()
 
 const toastRootCVA = cva(
@@ -76,15 +78,16 @@ const toastActionCVA = cva('toastAction', {
   },
 })
 
+interface UIToastSlots {
+  root?: ClassValue
+  title?: ClassValue
+  description?: ClassValue
+  action?: ClassValue
+  closeTrigger?: ClassValue
+}
 export interface ToastProps extends ToasterBaseProps {
   size?: ToastRootCVAProps['size']
-  ui?: {
-    root?: string
-    title?: string
-    description?: string
-    action?: string
-    closeTrigger?: string
-  }
+  ui?: UIToastSlots
 }
 
 const props = withDefaults(defineProps<ToastProps>(), {

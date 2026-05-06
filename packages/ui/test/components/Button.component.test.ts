@@ -123,4 +123,26 @@ describe('Button', () => {
 
     expect(wrapper.find('button svg').exists()).toBe(true)
   })
+
+  it('applies buttonIcon size classes for each size variant on the leading icon', async () => {
+    const sizes = [
+      { size: 'sm' as const, iconSizeClass: 'size-2.5' },
+      { size: 'md' as const, iconSizeClass: 'size-3' },
+      { size: 'lg' as const, iconSizeClass: 'size-4' },
+    ]
+
+    for (const { size, iconSizeClass } of sizes) {
+      const wrapper = await mountSuspended(Button, {
+        props: {
+          text: 'Go',
+          size,
+          leadingIcon: 'tabler:arrow-right',
+        },
+      })
+
+      const icon = wrapper.find('.buttonIcon')
+      expect(icon.exists(), `leading icon for size ${size}`).toBe(true)
+      expect(icon.classes()).toContain(iconSizeClass)
+    }
+  })
 })

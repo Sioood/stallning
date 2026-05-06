@@ -45,6 +45,10 @@ const formIsSubmitted = form.useStore((s) => s.isSubmitted)
 
 const errorSummaryText = computed(() => formatFieldErrors(formErrors.value))
 
+function hasMultipleFields(row: SchemaFormLayout<keyof TValues & string>): boolean {
+  return layoutRowKeys(row).length > 1
+}
+
 /** One config lookup per layout field per reactive update (avoid repeated `fields[key]` in template). */
 const fieldConfigByKey = computed(
   (): Record<string, SchemaFieldConfig<TValues, keyof TValues & string>> => {
@@ -97,7 +101,10 @@ defineExpose({ form })
     </div>
 
     <template v-for="(row, rowIndex) in layout" :key="rowIndex">
-      <div class="flex flex-col gap-4 sm:flex-row sm:items-start">
+      <div
+        class="gap-4"
+        :class="hasMultipleFields(row) ? 'flex flex-row flex-wrap items-start' : 'flex flex-col'"
+      >
         <template v-for="fieldKey in layoutRowKeys(row)" :key="String(fieldKey)">
           <div class="min-w-0 flex-1">
             <form.Field

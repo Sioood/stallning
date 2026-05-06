@@ -42,37 +42,43 @@ const isSubmitting = form.useStore((s) => s.isSubmitting)
       :aria-busy="isSubmitting ? true : undefined"
       @submit.prevent="void form.handleSubmit()"
     >
-      <form.Field name="firstName">
-        <template #default="{ field, state }">
-          <UIFormInput
-            label="First name"
-            placeholder="Jane"
-            required
-            :name="field.name"
-            :model-value="state.value"
-            :invalid="state.meta.errors.length > 0"
-            :error="formatFieldErrors(state.meta.errors)"
-            @update:model-value="field.handleChange($event)"
-            @blur="field.handleBlur()"
-          />
-        </template>
-      </form.Field>
+      <div class="flex flex-row flex-wrap items-start gap-4">
+        <div class="min-w-0 flex-1">
+          <form.Field name="firstName">
+            <template #default="{ field, state }">
+              <UIFormInput
+                label="First name"
+                placeholder="Jane"
+                required
+                :name="field.name"
+                :model-value="state.value"
+                :invalid="state.meta.errors.length > 0"
+                :error="formatFieldErrors(state.meta.errors)"
+                @update:model-value="field.handleChange($event)"
+                @blur="field.handleBlur()"
+              />
+            </template>
+          </form.Field>
+        </div>
 
-      <form.Field name="lastName">
-        <template #default="{ field, state }">
-          <UIFormInput
-            label="Last name"
-            placeholder="Doe"
-            required
-            :name="field.name"
-            :model-value="state.value"
-            :invalid="state.meta.errors.length > 0"
-            :error="formatFieldErrors(state.meta.errors)"
-            @update:model-value="field.handleChange($event)"
-            @blur="field.handleBlur()"
-          />
-        </template>
-      </form.Field>
+        <div class="min-w-0 flex-1">
+          <form.Field name="lastName">
+            <template #default="{ field, state }">
+              <UIFormInput
+                label="Last name"
+                placeholder="Doe"
+                required
+                :name="field.name"
+                :model-value="state.value"
+                :invalid="state.meta.errors.length > 0"
+                :error="formatFieldErrors(state.meta.errors)"
+                @update:model-value="field.handleChange($event)"
+                @blur="field.handleBlur()"
+              />
+            </template>
+          </form.Field>
+        </div>
+      </div>
 
       <UIButton
         type="submit"

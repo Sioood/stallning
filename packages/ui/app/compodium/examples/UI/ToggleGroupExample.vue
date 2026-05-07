@@ -19,12 +19,7 @@ const styleOptions = [
   <div class="flex flex-col gap-6">
     <div class="flex flex-col gap-2">
       <p class="txt-caption text-primary-text-subtle">Single selection</p>
-      <UIToggleGroup
-        v-model="single"
-        :options="alignOptions"
-        active-background
-        intent="primary"
-      />
+      <UIToggleGroup v-model="single" :options="alignOptions" active-background intent="primary" />
       <p class="txt-caption text-primary-text-subtle">Value: {{ single }}</p>
     </div>
 

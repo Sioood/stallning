@@ -65,7 +65,11 @@ const fields: SchemaFieldsMap<FormValues> = {
   },
 }
 
-const layout: SchemaFormLayout<keyof FormValues & string>[] = [['firstName', 'lastName'], 'email', 'checkbox']
+const layout: SchemaFormLayout<keyof FormValues & string>[] = [
+  ['firstName', 'lastName'],
+  'email',
+  'checkbox',
+]
 
 const submitted = ref('')
 

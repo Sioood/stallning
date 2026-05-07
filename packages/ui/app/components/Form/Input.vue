@@ -88,7 +88,8 @@ export interface UIInputSlots extends UIFieldSlots {
   trailingIcon?: ClassValue
 }
 
-interface InputProps extends Omit<FieldProps, 'ui'>, ArkFieldInputBaseProps, UseComponentIconsProps {
+interface InputProps
+  extends Omit<FieldProps, 'ui'>, ArkFieldInputBaseProps, UseComponentIconsProps {
   intent?: ShellVariants['intent']
   name?: string
   placeholder?: string

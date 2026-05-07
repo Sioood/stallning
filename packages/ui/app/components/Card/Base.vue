@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { cva, type VariantProps } from 'class-variance-authority'
+
 import type { ClassValue } from 'vue'
 
 const cardCVA = cva('card', {
@@ -81,7 +82,8 @@ const cardCVA = cva('card', {
     {
       variant: 'strong',
       intent: 'secondary',
-      class: 'bg-secondary-surface-strong border-secondary-border-strong text-secondary-text-strong',
+      class:
+        'bg-secondary-surface-strong border-secondary-border-strong text-secondary-text-strong',
     },
     {
       variant: 'strong',
@@ -102,7 +104,8 @@ const cardCVA = cva('card', {
     {
       variant: 'inverse',
       intent: 'secondary',
-      class: 'bg-secondary-surface-inverse border-secondary-border-inverse text-secondary-text-inverse',
+      class:
+        'bg-secondary-surface-inverse border-secondary-border-inverse text-secondary-text-inverse',
     },
     {
       variant: 'inverse',

@@ -49,7 +49,7 @@ const tooltipArrowCVA = cva(['tooltipArrow', 'flex items-center justify-center']
     },
   },
 })
-const tooltipArrowTipCVA = cva(['tooltipArrowTip', 'size-full'] )
+const tooltipArrowTipCVA = cva(['tooltipArrowTip', 'size-full'])
 
 type TooltipCVAProps = VariantProps<typeof tooltipContentCVA>
 

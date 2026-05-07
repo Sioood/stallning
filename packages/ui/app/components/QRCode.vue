@@ -5,6 +5,7 @@ import {
   type QrCodeDownloadTriggerProps as ArkQrCodeDownloadTriggerProps,
 } from '@ark-ui/vue/qr-code'
 import { cva, type VariantProps } from 'class-variance-authority'
+
 import type { ClassValue } from 'vue'
 
 const qrCodeRootCVA = cva(['qrCodeRoot', 'size-full flex flex-col items-center justify-center'], {
@@ -86,7 +87,9 @@ const downloadTriggerProps = computed(() => ({
       <ArkQrCode.Frame :class="cn(qrCodeFrameCVA({ intent }), ui?.frame)">
         <ArkQrCode.Pattern :class="cn(ui?.pattern)" />
       </ArkQrCode.Frame>
-      <ArkQrCode.Overlay :class="cn('overflow-hidden size-full flex items-center justify-center', ui?.overlay)">
+      <ArkQrCode.Overlay
+        :class="cn('overflow-hidden size-full flex items-center justify-center', ui?.overlay)"
+      >
         <slot name="overlay" />
       </ArkQrCode.Overlay>
     </div>

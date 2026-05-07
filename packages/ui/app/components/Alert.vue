@@ -161,7 +161,11 @@ extendCompodiumMeta({
 <template>
   <div v-if="visible" :class="cn(alertRootCVA({ intent: defaultIntent, size }), ui?.root)">
     <div :class="cn(alertContentCVA({ intent: defaultIntent, size }), ui?.content)">
-      <Icon v-if="iconName || defaultIcon" :name="iconName || defaultIcon!" :class="cn(alertContentIconCVA({ size }), ui?.icon)" />
+      <Icon
+        v-if="iconName || defaultIcon"
+        :name="iconName || defaultIcon!"
+        :class="cn(alertContentIconCVA({ size }), ui?.icon)"
+      />
       <span :class="cn(alertTitleCVA({ intent: defaultIntent, size }), ui?.title)">{{
         title
       }}</span>

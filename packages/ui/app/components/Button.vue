@@ -146,7 +146,11 @@ extendCompodiumMeta<typeof props>({
         buttonRootAttrs,
         to
           ? { ...linkProps, disabled }
-          : { type, disabled: props.disabled || effectiveState === 'loading', onClick: handleClick },
+          : {
+            type,
+            disabled: props.disabled || effectiveState === 'loading',
+            onClick: handleClick,
+          },
       )
     "
     :class="
@@ -164,18 +168,10 @@ extendCompodiumMeta<typeof props>({
       )
     "
   >
-    <Icon
-      v-if="isLeading"
-      :name="leadingIconName"
-      :class="iconClass(props.ui?.leadingIcon)"
-    />
+    <Icon v-if="isLeading" :name="leadingIconName" :class="iconClass(props.ui?.leadingIcon)" />
     <slot>
       {{ text }}
     </slot>
-    <Icon
-      v-if="isTrailing"
-      :name="trailingIconName"
-      :class="iconClass(props.ui?.trailingIcon)"
-    />
+    <Icon v-if="isTrailing" :name="trailingIconName" :class="iconClass(props.ui?.trailingIcon)" />
   </component>
 </template>

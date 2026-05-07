@@ -1956,7 +1956,6 @@
     --color-red-900: hsl(25 59% 91%);
     --color-red-950: hsl(31 59% 92%);
 
-
     /* ── orange · cinnamon ────────────────────────────────────────── */
     --color-orange-50: hsl(20 29% 14%);
     --color-orange-100: hsl(22 70% 21%);
@@ -1969,7 +1968,6 @@
     --color-orange-800: hsl(29 69% 86%);
     --color-orange-900: hsl(31 66% 91%);
     --color-orange-950: hsl(31 64% 92%);
-
 
     /* ── yellow · sun ────────────────────────────────────────────── */
     --color-yellow-50: hsl(42 60% 14%);
@@ -1984,7 +1982,6 @@
     --color-yellow-900: hsl(45 52% 91%);
     --color-yellow-950: hsl(46 51% 92%);
 
-
     /* ── blue · heavenlysky ───────────────────────────────────────── */
     --color-blue-50: hsl(240 4% 15%);
     --color-blue-100: hsl(218 16% 24%);
@@ -1997,7 +1994,6 @@
     --color-blue-800: hsl(28 23% 87%);
     --color-blue-900: hsl(30 41% 91%);
     --color-blue-950: hsl(30 53% 93%);
-
 
     /* ── green · mosslands ─────────────────────────────────────────── */
     --color-green-50: hsl(120 7% 14%);
@@ -2012,7 +2008,6 @@
     --color-green-900: hsl(35 46% 91%);
     --color-green-950: hsl(33 55% 92%);
 
-
     /* ── purple · aster ───────────────────────────────────────────── */
     --color-purple-50: hsl(280 8% 15%);
     --color-purple-100: hsl(269 18% 25%);
@@ -2026,7 +2021,6 @@
     --color-purple-900: hsl(26 49% 92%);
     --color-purple-950: hsl(30 53% 93%);
 
-
     /* ── pink · firstlove ─────────────────────────────────────────── */
     --color-pink-50: hsl(309 9% 15%);
     --color-pink-100: hsl(310 20% 24%);
@@ -2039,7 +2033,6 @@
     --color-pink-800: hsl(19 48% 88%);
     --color-pink-900: hsl(26 53% 92%);
     --color-pink-950: hsl(30 58% 93%);
-
 
     /* ── gray · void ──────────────────────────────────────────────── */
     --color-gray-50: hsl(30 10% 7%);
@@ -2100,7 +2093,7 @@ body {
     }
   }
 
-  >.join-item:where(:first-child) {
+  > .join-item:where(:first-child) {
     --join-ss: var(--join-radius);
     --join-se: 0;
     --join-es: var(--join-radius);
@@ -2116,7 +2109,7 @@ body {
     }
   }
 
-  >.join-item:where(:last-child) {
+  > .join-item:where(:last-child) {
     --join-ss: 0;
     --join-se: var(--join-radius);
     --join-es: 0;
@@ -2132,7 +2125,7 @@ body {
     }
   }
 
-  >.join-item:where(:only-child) {
+  > .join-item:where(:only-child) {
     --join-ss: var(--join-radius);
     --join-se: var(--join-radius);
     --join-es: var(--join-radius);
@@ -2173,7 +2166,7 @@ body {
 .join-vertical {
   @apply flex-col;
 
-  >.join-item:first-child {
+  > .join-item:first-child {
     --join-ss: var(--join-radius);
     --join-se: var(--join-radius);
     --join-es: 0;
@@ -2189,7 +2182,7 @@ body {
     }
   }
 
-  >.join-item:last-child {
+  > .join-item:last-child {
     --join-ss: 0;
     --join-se: 0;
     --join-es: var(--join-radius);
@@ -2205,7 +2198,7 @@ body {
     }
   }
 
-  >.join-item:only-child {
+  > .join-item:only-child {
     --join-ss: var(--join-radius);
     --join-se: var(--join-radius);
     --join-es: var(--join-radius);
@@ -2232,7 +2225,7 @@ body {
 .join-horizontal {
   @apply flex-row;
 
-  >.join-item:first-child {
+  > .join-item:first-child {
     --join-ss: var(--join-radius);
     --join-se: 0;
     --join-es: var(--join-radius);
@@ -2248,7 +2241,7 @@ body {
     }
   }
 
-  >.join-item:last-child {
+  > .join-item:last-child {
     --join-ss: 0;
     --join-se: var(--join-radius);
     --join-es: 0;
@@ -2264,7 +2257,7 @@ body {
     }
   }
 
-  >.join-item:only-child {
+  > .join-item:only-child {
     --join-ss: var(--join-radius);
     --join-se: var(--join-radius);
     --join-es: var(--join-radius);

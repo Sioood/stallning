@@ -21,7 +21,7 @@ export interface UseComponentIconsInputProps {
 
 export type UseComponentIconsProps = Omit<UseComponentIconsInputProps, 'mode'>
 
-const defaultIcons = {
+export const useSemanticIcons: Record<Exclude<ComponentState, 'default'>, string> = {
   loading: 'tabler:loader',
   success: 'tabler:circle-check',
   warning: 'tabler:alert-triangle',
@@ -50,11 +50,11 @@ export function useComponentIcons(componentProps: MaybeRefOrGetter<UseComponentI
   )
 
   const getStateIcon = (state: ComponentState) => {
-    if (state === 'loading') return props.value.loadingIcon || defaultIcons.loading
-    if (state === 'success') return props.value.successIcon || defaultIcons.success
-    if (state === 'warning') return props.value.warningIcon || defaultIcons.warning
-    if (state === 'error') return props.value.errorIcon || defaultIcons.error
-    if (state === 'info') return props.value.infoIcon || defaultIcons.info
+    if (state === 'loading') return props.value.loadingIcon || useSemanticIcons.loading
+    if (state === 'success') return props.value.successIcon || useSemanticIcons.success
+    if (state === 'warning') return props.value.warningIcon || useSemanticIcons.warning
+    if (state === 'error') return props.value.errorIcon || useSemanticIcons.error
+    if (state === 'info') return props.value.infoIcon || useSemanticIcons.info
     return ''
   }
 

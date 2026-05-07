@@ -34,7 +34,7 @@ export interface UIButtonSlots {
   trailingIcon?: ClassValue
 }
 
-interface ButtonProps extends UseComponentIconsProps {
+export interface ButtonProps extends UseComponentIconsProps {
   /**
    * text to display in the button
    * used if no slot is provided

@@ -14,6 +14,7 @@ interface Argv extends minimist.ParsedArgs {
   ns?: boolean
   k?: boolean
   keys?: boolean
+  '--'?: string[]
 }
 
 const localeLabels: Record<string, string> = {
@@ -29,6 +30,7 @@ const treeCharacters = {
 } as const
 
 type Messages = Record<string, string>
+type RawMessages = Record<string, unknown>
 type MessagesByLocale = Record<string, Messages>
 type CoverageData = {
   data: { total: number }
@@ -40,18 +42,58 @@ type CoverageData = {
 
 const hasSupportedExtension = (filename: string) => /\.(json|ya?ml)$/i.test(filename)
 
+const isPlainObject = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value !== null && !Array.isArray(value)
+
+const flattenMessages = (messages: RawMessages): Messages => {
+  const flattened: Messages = {}
+  const stack: Array<{ path: string; value: unknown }> = Object.entries(messages).map(
+    ([key, value]) => ({
+      path: key,
+      value,
+    }),
+  )
+
+  while (stack.length > 0) {
+    const current = stack.pop()
+    if (!current) {
+      continue
+    }
+
+    if (isPlainObject(current.value)) {
+      for (const [nestedKey, nestedValue] of Object.entries(current.value)) {
+        stack.push({
+          path: `${current.path}.${nestedKey}`,
+          value: nestedValue,
+        })
+      }
+      continue
+    }
+
+    if (Array.isArray(current.value)) {
+      for (let index = 0; index < current.value.length; index++) {
+        stack.push({
+          path: `${current.path}.${index}`,
+          value: current.value[index],
+        })
+      }
+      continue
+    }
+
+    flattened[current.path] = String(current.value ?? '')
+  }
+
+  return flattened
+}
+
 const parseTranslationFile = (filePath: string): Messages => {
   const raw = readFileSync(filePath, 'utf-8')
+  const parsed: unknown = /\.json$/i.test(filePath) ? JSON.parse(raw) : parseYaml(raw)
 
-  if (/\.json$/i.test(filePath)) {
-    return JSON.parse(raw) as Messages
-  }
-
-  const parsed = parseYaml(raw)
-  if (!parsed || typeof parsed !== 'object') {
+  if (!isPlainObject(parsed)) {
     throw new Error(`Invalid translation content in '${filePath}'.`)
   }
-  return parsed as Messages
+  return flattenMessages(parsed)
 }
 
 export const getLocales = (localesPath: string): string[] =>
@@ -125,26 +167,34 @@ export const renderTreeStructure = ({
       lines[lines.length - 1] +=
         ` ${colorize(coverageBgColor, ` ${colorize('bold', `${localeCoverage.percentage}%`)} `)}` +
         ` count: ${colorize('bold', String(localeCoverage.count))},` +
-        ` missing: ${colorize('bold', String(localeCoverage.missing))}`
+        ` missing: ${colorize('bold', colorize(localeCoverage.missing > 0 ? 'red' : 'green', String(localeCoverage.missing)))}`
     }
+
+    const shouldRenderMissingKeys = Boolean(showKeys && localeCoverage?.missingKeys)
 
     for (let i = 0; i < namespaces.length; i++) {
       const folderConnector = isLocaleLast ? treeCharacters.EMPTY : treeCharacters.DIRECTORY
       const namespace = namespaces[i]!
-      const isNamespaceLast = i === namespaces.length - 1
+      const isNamespaceLast = i === namespaces.length - 1 && !shouldRenderMissingKeys
       const connector = isNamespaceLast ? treeCharacters.LAST_CHILD : treeCharacters.CHILD
       lines.push(`${folderConnector}${connector}${namespace}`)
     }
 
-    if (showKeys && localeCoverage?.missingKeys && localeCoverage.missingKeys.length > 0) {
+    if (shouldRenderMissingKeys && localeCoverage) {
       const folderConnector = isLocaleLast ? treeCharacters.EMPTY : treeCharacters.DIRECTORY
-      lines.push(`${folderConnector}${treeCharacters.CHILD}${colorize('gray', 'missing keys:')}`)
+      lines.push(
+        `${folderConnector}${treeCharacters.LAST_CHILD}${colorize('gray', 'missing keys:')}`,
+      )
+      if (localeCoverage.missingKeys.length === 0) {
+        const keyIndent = folderConnector + treeCharacters.EMPTY
+        lines.push(`${keyIndent}${treeCharacters.LAST_CHILD}${colorize('green', '(none)')}`)
+        continue
+      }
       for (let i = 0; i < localeCoverage.missingKeys.length; i++) {
         const key = localeCoverage.missingKeys[i]!
         const isKeyLast = i === localeCoverage.missingKeys.length - 1
         const keyConnector = isKeyLast ? treeCharacters.LAST_CHILD : treeCharacters.CHILD
-        const keyIndent =
-          folderConnector + (isLocaleLast ? treeCharacters.EMPTY : treeCharacters.DIRECTORY)
+        const keyIndent = folderConnector + treeCharacters.EMPTY
         lines.push(`${keyIndent}${keyConnector}${colorize('red', key)}`)
       }
     }
@@ -268,7 +318,13 @@ export const renderCoverage = ({
 }
 
 if (esMain(import.meta)) {
-  const argv: Argv = minimist(process.argv.slice(2))
+  const argv: Argv = minimist(process.argv.slice(2), {
+    alias: {
+      k: 'keys',
+    },
+    '--': true,
+    boolean: ['ns', 'k', 'keys'],
+  })
 
   if (!argv.f) {
     consola.error('Please provide a locales path with -f.')
@@ -276,6 +332,12 @@ if (esMain(import.meta)) {
     process.exit(1)
   }
 
+  const passthroughArgs = argv['--'] ?? []
+  const showNamespaces = Boolean(argv.ns || passthroughArgs.includes('--ns'))
+  const showKeys = Boolean(
+    argv.keys || argv.k || passthroughArgs.includes('--keys') || passthroughArgs.includes('--k'),
+  )
+
   const localesPath = resolve(argv.f)
-  renderCoverage({ localesPath, showNamespaces: argv.ns, showKeys: argv.k || argv.keys })
+  renderCoverage({ localesPath, showNamespaces, showKeys })
 }

@@ -71,6 +71,50 @@ describe('getMessagesByLocaleWithNamespace', () => {
       'ui:submit': 'Envoyer',
     })
   })
+
+  it('flattens nested YAML/JSON leaves and array entries', () => {
+    const root = mkdtempSync(join(tmpdir(), 'stallning-i18n-nested-'))
+    const localeDir = join(root, 'en-US')
+    mkdirSync(localeDir)
+    writeFileSync(
+      join(localeDir, 'pwa.yaml'),
+      [
+        'offlineReady:',
+        "  title: 'Offline ready'",
+        "  description: 'Works offline'",
+        'updateAvailable:',
+        "  title: 'Update available'",
+        "  description: 'Reload required'",
+        "  reloadLabel: 'Reload'",
+      ].join('\n'),
+    )
+    writeFileSync(
+      join(localeDir, 'ui.json'),
+      JSON.stringify({
+        form: {
+          fields: [
+            {
+              label: 'Name',
+            },
+          ],
+        },
+      }),
+    )
+    try {
+      const messages = getMessagesByLocaleWithNamespace({ locales: ['en-US'], localesPath: root })
+
+      expect(messages['en-US']).toMatchObject({
+        'pwa:offlineReady.title': 'Offline ready',
+        'pwa:offlineReady.description': 'Works offline',
+        'pwa:updateAvailable.title': 'Update available',
+        'pwa:updateAvailable.description': 'Reload required',
+        'pwa:updateAvailable.reloadLabel': 'Reload',
+        'ui:form.fields.0.label': 'Name',
+      })
+    } finally {
+      rmSync(root, { recursive: true, force: true })
+    }
+  })
 })
 
 describe('getUniqueMessageKeys', () => {
@@ -275,6 +319,21 @@ describe('renderTreeStructure', () => {
       showKeys: true,
     })
     expect(lines.some((l) => l.includes('only.in.en'))).toBe(true)
+  })
+
+  it('prints missing keys section with none when showKeys is true and locale is complete', () => {
+    const lines = renderTreeStructure({
+      tree: [['fr-FR', []]],
+      data: {
+        data: { total: 1 },
+        locale: {
+          'fr-FR': { percentage: 100, count: 1, missing: 0, missingKeys: [] },
+        },
+      },
+      showKeys: true,
+    })
+    expect(lines.some((l) => l.includes('missing keys:'))).toBe(true)
+    expect(lines.some((l) => l.includes('(none)'))).toBe(true)
   })
 })
 

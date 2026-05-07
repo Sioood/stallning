@@ -89,7 +89,7 @@ interface UIToastSlots {
   action?: ClassValue
   closeTrigger?: ClassValue
 }
-export interface ToastProps extends ToasterBaseProps, UseComponentIconsProps {
+export interface ToastProps extends Omit<ToasterBaseProps, 'toaster'>, UseComponentIconsProps {
   size?: ToastRootCVAProps['size']
   ui?: UIToastSlots
 }

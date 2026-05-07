@@ -12,9 +12,48 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@nuxtjs/seo',
     '@pinia/nuxt',
+    '@vite-pwa/nuxt',
     '@vueuse/nuxt',
     'nuxt-security',
   ],
+  // @ts-expect-error `pwa` options are injected by `@vite-pwa/nuxt`.
+  pwa: {
+    registerType: 'prompt',
+    client: {
+      installPrompt: true,
+    },
+    manifest: {
+      name: 'Stallning App',
+      short_name: 'Stallning',
+      description: 'Stallning application',
+      theme_color: '#111827',
+      background_color: '#ffffff',
+      display: 'standalone',
+    },
+    workbox: {
+      globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff2}'],
+      navigateFallback: '/',
+      runtimeCaching: [
+        {
+          // Keep dynamic API responses fresh while still leveraging cache on flaky networks.
+          urlPattern: '/api/.*',
+          handler: 'NetworkFirst',
+          options: {
+            cacheName: 'api-network-first',
+            expiration: {
+              maxEntries: 100,
+              maxAgeSeconds: 60 * 60,
+            },
+            networkTimeoutSeconds: 10,
+          },
+        },
+      ],
+    },
+    devOptions: {
+      enabled: false,
+      suppressWarnings: true,
+    },
+  },
   vite: {
     plugins: [ViteYaml()],
   },

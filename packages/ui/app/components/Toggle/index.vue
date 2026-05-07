@@ -38,7 +38,7 @@ const props = withDefaults(defineProps<ToggleProps>(), {
   indicatorAnimation: 'fade',
 })
 
-const pressed = defineModel<boolean>('pressed',{ default: false })
+const pressed = defineModel<boolean>('pressed', { default: false })
 
 const attrs = useAttrs()
 
@@ -50,22 +50,6 @@ const rootAttrs = computed(() => {
   const { ui: _ui, ...rest } = attrs as Record<string, unknown> & { ui?: UIToggleSlots }
   return rest
 })
-
-const rootClass = computed(() =>
-  cn(
-    buttonVariants({
-      disabled: props.disabled,
-      intent: props.intent,
-      size: props.size,
-      variant: props.variant,
-    }),
-    props.activeBackground
-      ? togglePressedOn({ intent: props.intent, variant: props.variant })
-      : null,
-    props.iconOnly ? 'min-w-0 shrink-0 gap-0 px-1.5 py-1.5' : null,
-    props.ui?.root,
-  ),
-)
 </script>
 
 <template>
@@ -73,10 +57,24 @@ const rootClass = computed(() =>
     v-bind="{ ...rootProps, ...rootAttrs }"
     v-model:pressed="pressed"
     type="button"
-    :class="rootClass"
+    :class="
+      cn(
+        buttonVariants({
+          disabled: props.disabled,
+          intent: props.intent,
+          size: props.size,
+          variant: props.variant,
+        }),
+        props.activeBackground
+          ? togglePressedOn({ intent: props.intent, variant: props.variant })
+          : null,
+        props.iconOnly ? 'min-w-0 shrink-0 gap-0 px-1.5 py-1.5' : null,
+        props.ui?.root,
+      )
+    "
   >
     <Swap.Root :swap="pressed">
-      <ArkToggle.Indicator :class="ui?.indicator">
+      <ArkToggle.Indicator :class="cn(ui?.indicator)">
         <Swap.Indicator type="on" :class="indicatorAnimation">
           <slot name="on" />
         </Swap.Indicator>

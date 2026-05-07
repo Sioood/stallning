@@ -88,7 +88,7 @@ export interface UIInputSlots extends UIFieldSlots {
   trailingIcon?: ClassValue
 }
 
-interface InputProps extends Omit<FieldProps, 'ui'>, ArkFieldInputBaseProps {
+interface InputProps extends Omit<FieldProps, 'ui'>, ArkFieldInputBaseProps, UseComponentIconsProps {
   intent?: ShellVariants['intent']
   name?: string
   placeholder?: string
@@ -103,7 +103,7 @@ const emit = defineEmits<{
 
 const modelValue = defineModel<string>({ default: '' })
 
-const props = withDefaults(defineProps<InputProps & UseComponentIconsProps>(), {
+const props = withDefaults(defineProps<InputProps>(), {
   error: undefined,
   errorIcon: undefined,
   helperText: undefined,

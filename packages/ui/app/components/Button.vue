@@ -34,7 +34,7 @@ export interface UIButtonSlots {
   trailingIcon?: ClassValue
 }
 
-export interface ButtonProps extends UseComponentIconsProps {
+export interface ButtonProps extends NuxtLinkProps, UseComponentIconsProps {
   /**
    * text to display in the button
    * used if no slot is provided
@@ -53,15 +53,10 @@ export interface ButtonProps extends UseComponentIconsProps {
   ui?: Partial<UIButtonSlots>
 }
 
-const props = withDefaults(defineProps<NuxtLinkProps & UseComponentIconsProps & ButtonProps>(), {
+const props = withDefaults(defineProps<ButtonProps>(), {
   text: '',
   type: 'button',
   disabled: false,
-  icon: undefined,
-  leading: false,
-  leadingIcon: undefined,
-  trailing: false,
-  trailingIcon: undefined,
   state: 'default',
   handleLoadingState: false,
   onClick: undefined,

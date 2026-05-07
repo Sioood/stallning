@@ -2,7 +2,7 @@
 import { Toast as ArkToast, Toaster as ArkToaster, type ToasterBaseProps } from '@ark-ui/vue/toast'
 import { cva, type VariantProps } from 'class-variance-authority'
 
-import { useComponentIcons, type ComponentState } from '~ui/app/composables/useComponentIcons'
+import { useComponentIcons, type ComponentState, type UseComponentIconsProps } from '~ui/app/composables/useComponentIcons'
 
 import type { ClassValue } from 'vue'
 
@@ -85,7 +85,7 @@ interface UIToastSlots {
   action?: ClassValue
   closeTrigger?: ClassValue
 }
-export interface ToastProps extends ToasterBaseProps {
+export interface ToastProps extends ToasterBaseProps, UseComponentIconsProps {
   size?: ToastRootCVAProps['size']
   ui?: UIToastSlots
 }

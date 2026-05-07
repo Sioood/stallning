@@ -174,7 +174,7 @@ interface UIChipSlots {
   actionIcon?: ClassValue
 }
 
-interface ChipProps {
+interface ChipProps extends UseComponentIconsProps {
   actionIcon?: 'tabler:x' | 'tabler:plus'
   disabled?: boolean
   intent?: ChipCVAProps['intent']
@@ -185,7 +185,7 @@ interface ChipProps {
   ui?: UIChipSlots
 }
 
-const props = withDefaults(defineProps<ChipProps & UseComponentIconsProps>(), {
+const props = withDefaults(defineProps<ChipProps>(), {
   actionIcon: 'tabler:x',
   disabled: false,
   intent: 'primary',

@@ -27,4 +27,41 @@ describe('applyServerFieldErrors', () => {
     applyServerFieldErrors({ setFieldMeta }, { email: undefined })
     expect(setFieldMeta).not.toHaveBeenCalled()
   })
+
+  it('preserves existing meta properties when applying errors', () => {
+    const setFieldMeta = vi.fn()
+    applyServerFieldErrors({ setFieldMeta }, { name: 'Required' })
+    const updater = getUpdater(setFieldMeta)
+    const result = updater({ isTouched: true, isDirty: false })
+    expect(result).toEqual({ isTouched: true, isDirty: false, errors: ['Required'] })
+  })
+
+  it('handles multiple fields in one call', () => {
+    const setFieldMeta = vi.fn()
+    applyServerFieldErrors({ setFieldMeta }, { email: 'Bad email', password: 'Too short' })
+    expect(setFieldMeta).toHaveBeenCalledTimes(2)
+    expect(setFieldMeta).toHaveBeenCalledWith('email', expect.any(Function))
+    expect(setFieldMeta).toHaveBeenCalledWith('password', expect.any(Function))
+  })
+
+  it('skips empty arrays', () => {
+    const setFieldMeta = vi.fn()
+    applyServerFieldErrors({ setFieldMeta }, { email: [] })
+    expect(setFieldMeta).not.toHaveBeenCalled()
+  })
+
+  it('filters out empty strings from arrays', () => {
+    const setFieldMeta = vi.fn()
+    applyServerFieldErrors({ setFieldMeta }, { email: ['', 'Valid error', ''] })
+    const updater = getUpdater(setFieldMeta)
+    expect(updater({})).toEqual({ errors: ['Valid error'] })
+  })
+
+  it('handles prev being null or non-object gracefully', () => {
+    const setFieldMeta = vi.fn()
+    applyServerFieldErrors({ setFieldMeta }, { name: 'Err' })
+    const updater = getUpdater(setFieldMeta)
+    expect(updater(null)).toEqual({ errors: ['Err'] })
+    expect(updater(undefined)).toEqual({ errors: ['Err'] })
+  })
 })

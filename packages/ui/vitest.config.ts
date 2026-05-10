@@ -1,12 +1,16 @@
-import { dirname } from 'node:path'
+import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { defineVitestProject } from '@nuxt/test-utils/config'
+import tailwindcss from '@tailwindcss/vite'
+import vue from '@vitejs/plugin-vue'
+import autoImport from 'unplugin-auto-import/vite'
 import { coverageConfigDefaults, defineConfig, defineProject } from 'vitest/config'
 
 const packageRoot = dirname(fileURLToPath(import.meta.url))
 const stubPath = fileURLToPath(new URL('./test/extend-compodium-meta-stub.ts', import.meta.url))
 const componentSetupPath = fileURLToPath(new URL('./test/component-setup.ts', import.meta.url))
+const visualSetupPath = fileURLToPath(new URL('./test/visual-setup.ts', import.meta.url))
 
 const uiCoverage = {
   provider: 'v8' as const,
@@ -94,10 +98,33 @@ export default defineConfig(async () => {
             name: 'ui-unit',
             environment: 'node',
             include: ['test/**/*.test.ts'],
-            exclude: ['test/**/*.component.test.ts'],
+            exclude: ['test/**/*.component.test.ts', 'test/**/*.visual.test.ts'],
           },
         }),
         uiComponent,
+        defineProject({
+          root: packageRoot,
+          plugins: [tailwindcss(), vue(), autoImport({ imports: ['vue'], dts: false })],
+          resolve: {
+            alias: {
+              '~ui': packageRoot,
+              '#app': resolve(packageRoot, 'test/visual/stubs/nuxt-app.ts'),
+            },
+          },
+          test: {
+            name: 'ui-visual',
+            setupFiles: [visualSetupPath],
+            include: ['test/**/*.visual.test.ts'],
+            browser: {
+              enabled: true,
+              provider: 'playwright',
+              headless: true,
+              instances: [{ browser: 'chromium' }],
+              viewport: { width: 1280, height: 720 },
+              screenshotFailures: false,
+            },
+          },
+        }),
       ],
     },
   }

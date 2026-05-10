@@ -15,8 +15,14 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'html', 'lcov'],
       reportsDirectory: './coverage',
-      include: ['i18n/utils/**/*.ts'],
+      include: ['i18n/utils/**/*.ts', 'app/composables/**/*.ts'],
       exclude: ['i18n/utils/__fixtures__/**', 'test/**'],
+      thresholds: {
+        statements: 80,
+        branches: 80,
+        functions: 80,
+        lines: 80,
+      },
     },
   },
 })

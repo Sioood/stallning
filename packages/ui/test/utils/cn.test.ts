@@ -30,4 +30,24 @@ describe('cn', () => {
   it('returns empty string when no classes', () => {
     expect(cn()).toBe('')
   })
+
+  it('handles undefined and null inputs gracefully', () => {
+    expect(cn(undefined, null, 'valid')).toBe('valid')
+  })
+
+  it('handles empty string inputs', () => {
+    expect(cn('', 'foo', '')).toBe('foo')
+  })
+
+  it('merges responsive variants correctly', () => {
+    expect(cn('md:p-2', 'md:p-4')).toBe('md:p-4')
+  })
+
+  it('preserves non-conflicting classes from different categories', () => {
+    expect(cn('text-red-500', 'bg-blue-500', 'p-4')).toBe('text-red-500 bg-blue-500 p-4')
+  })
+
+  it('handles deeply nested Vue array class values', () => {
+    expect(cn([['a', 'b'], ['c']])).toBe('a b c')
+  })
 })

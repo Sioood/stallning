@@ -1,75 +1,109 @@
-# Nuxt Minimal Starter
+# @stallning/web
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+The main Nuxt 4 web application. A thin shell that extends `@stallning/ui` (which transitively includes `@stallning/nuxt-essentials`).
 
-## Setup
-
-Make sure to install dependencies:
+## Getting Started
 
 ```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
+# From monorepo root
 pnpm dev
 
-# yarn
-yarn dev
-
-# bun
-bun run dev
+# Or just this app
+cd apps/web && pnpm dev
 ```
 
-## Production
+## Scripts
 
-Build the application for production:
+| Script             | Description                              |
+| ------------------ | ---------------------------------------- |
+| `pnpm dev`         | Start dev server (http://localhost:3000) |
+| `pnpm build`       | Build for production                     |
+| `pnpm preview`     | Preview production build                 |
+| `pnpm test:e2e`    | Run Playwright E2E tests                 |
+| `pnpm test:e2e:ui` | E2E with Playwright UI mode              |
+
+## Layer Inheritance
+
+This app inherits everything from `@stallning/ui` and `@stallning/nuxt-essentials`:
+
+| From `nuxt-essentials` | From `ui`             |
+| ---------------------- | --------------------- |
+| i18n, SEO, PWA         | All `UI*` components  |
+| Pinia, VueUse          | Tailwind theme, fonts |
+| Security headers       | Icons (Tabler)        |
+| Error boundary         | Image optimization    |
+
+## Configuration
+
+### Adding Locales
+
+```ts
+// nuxt.config.ts
+export default defineNuxtConfig({
+  i18n: {
+    locales: [
+      { code: 'fr-FR', language: 'fr-FR', name: 'Français', file: 'fr-FR/index.ts' },
+      { code: 'en-US', language: 'en-US', name: 'English', file: 'en-US/index.ts' },
+    ],
+  },
+})
+```
+
+Then create `i18n/locales/{locale}/index.ts` with your translations.
+
+### Runtime Config
+
+```ts
+export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      siteUrl: 'https://myapp.com', // Override NUXT_PUBLIC_SITE_URL env var
+    },
+  },
+})
+```
+
+### Security Overrides
+
+```ts
+// Allow additional CSP sources for your API/CDN
+export default defineNuxtConfig({
+  security: {
+    headers: {
+      contentSecurityPolicy: {
+        'connect-src': ["'self'", 'https://api.myapp.com'],
+      },
+    },
+  },
+})
+```
+
+## E2E Testing
+
+Tests live in `e2e/` and run against a built preview server:
 
 ```bash
-# npm
-npm run build
+# Run all E2E tests
+pnpm test:e2e
 
-# pnpm
-pnpm build
+# Interactive mode
+pnpm test:e2e:ui
 
-# yarn
-yarn build
-
-# bun
-bun run build
+# Run specific test
+pnpm exec playwright test e2e/my-flow.spec.ts
 ```
 
-Locally preview production build:
+Write tests using Playwright:
 
-```bash
-# npm
-npm run preview
+```ts
+import { expect, test } from '@playwright/test'
 
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
+test('homepage loads', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.locator('body')).toBeVisible()
+})
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## API Calls
+
+> **Note:** The API layer is not yet implemented. It will be added later using [Tuyau](https://tuyau.julr.dev/) to connect to an AdonisJS backend. A shared fetch composable (`useFetchServerData`) will be provided in `packages/nuxt-essentials` at that time.

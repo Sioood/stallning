@@ -6,6 +6,12 @@ import { buttonVariants } from '~ui/app/utils/button-variants'
 
 import type { ClassValue } from 'vue'
 
+type MenuTriggerValueSource = { triggerValue?: string | null }
+
+function menuTriggerValue(menu: unknown): string | null {
+  return (menu as MenuTriggerValueSource).triggerValue ?? null
+}
+
 defineOptions({ inheritAttrs: false })
 const slots = useSlots()
 
@@ -22,7 +28,8 @@ const menuContentCVA = cva(
       intent: {
         neutral: 'border-neutral-border-subtle bg-neutral-fill-subtle text-neutral-text-default',
         primary: 'border-primary-border-subtle bg-primary-fill-subtle text-primary-text-default',
-        secondary: 'border-secondary-border-subtle bg-secondary-fill-subtle text-secondary-text-default',
+        secondary:
+          'border-secondary-border-subtle bg-secondary-fill-subtle text-secondary-text-default',
         accent: 'border-accent-border-subtle bg-accent-fill-subtle text-accent-text-default',
       },
       size: {
@@ -72,6 +79,7 @@ interface MenuBaseItem {
 }
 
 export interface MenuItemEntry extends MenuBaseItem {
+  /** Explicit `'item'` or omitted (defaults to `'item'` at runtime). */
   type?: 'item'
   label: string
   value: string
@@ -81,6 +89,18 @@ export interface MenuItemEntry extends MenuBaseItem {
   href?: string
   target?: string
 }
+
+/**
+ * Narrowed variant requiring a literal `type` discriminant.
+ * Use in switch/if-chains that need exhaustive checking via `assertNever`.
+ */
+export type MenuListEntryStrict =
+  | (MenuItemEntry & { type: 'item' })
+  | MenuCheckboxEntry
+  | MenuRadioGroupEntry
+  | MenuGroupEntry
+  | MenuSubmenuEntry
+  | MenuSeparatorEntry
 
 export interface MenuCheckboxEntry extends MenuBaseItem {
   type: 'checkbox'
@@ -229,7 +249,7 @@ extendCompodiumMeta<MenuProps>({
         name="context-trigger"
         :context-trigger="ArkMenu.ContextTrigger"
         :menu="menu"
-        :trigger-value="(menu as unknown as { triggerValue?: string | null }).triggerValue ?? null"
+        :trigger-value="menuTriggerValue(menu)"
       >
         <ArkMenu.ContextTrigger
           v-if="contextTriggerText"
@@ -243,7 +263,7 @@ extendCompodiumMeta<MenuProps>({
         name="triggers"
         :trigger="ArkMenu.Trigger"
         :menu="menu"
-        :trigger-value="(menu as unknown as { triggerValue?: string | null }).triggerValue ?? null"
+        :trigger-value="menuTriggerValue(menu)"
       >
         <ArkMenu.Trigger v-if="showDefaultTrigger" :class="triggerClass">
           <slot name="trigger">{{ triggerText }}</slot>
@@ -255,7 +275,7 @@ extendCompodiumMeta<MenuProps>({
         </ArkMenu.Trigger>
       </slot>
 
-      <Teleport v-if="portalled" :to="teleportTo">
+      <Teleport :to="teleportTo" :disabled="!portalled">
         <ArkMenu.Positioner :class="cn(menuPositionerCVA(), ui?.positioner)">
           <ArkMenu.Content :class="cn(menuContentCVA({ intent, size }), ui?.content)">
             <ArkMenu.Arrow v-if="showArrow" :class="cn(menuArrowCVA({ intent, size }), ui?.arrow)">
@@ -280,7 +300,7 @@ extendCompodiumMeta<MenuProps>({
               :item-indicator="ArkMenu.ItemIndicator"
               :item-text="ArkMenu.ItemText"
               :context-trigger="ArkMenu.ContextTrigger"
-              :trigger-value="(menu as unknown as { triggerValue?: string | null }).triggerValue ?? null"
+              :trigger-value="menuTriggerValue(menu)"
             >
               <UIMenuEntryRenderer
                 :items="items"
@@ -292,38 +312,6 @@ extendCompodiumMeta<MenuProps>({
           </ArkMenu.Content>
         </ArkMenu.Positioner>
       </Teleport>
-
-      <ArkMenu.Positioner v-else :class="cn(menuPositionerCVA(), ui?.positioner)">
-        <ArkMenu.Content :class="cn(menuContentCVA({ intent, size }), ui?.content)">
-          <slot
-            name="content"
-            :menu="menu"
-            :root="ArkMenu.Root"
-            :trigger="ArkMenu.Trigger"
-            :trigger-item="ArkMenu.TriggerItem"
-            :positioner="ArkMenu.Positioner"
-            :content-part="ArkMenu.Content"
-            :item="ArkMenu.Item"
-            :checkbox-item="ArkMenu.CheckboxItem"
-            :radio-item-group="ArkMenu.RadioItemGroup"
-            :radio-item="ArkMenu.RadioItem"
-            :item-group="ArkMenu.ItemGroup"
-            :item-group-label="ArkMenu.ItemGroupLabel"
-            :separator="ArkMenu.Separator"
-            :item-indicator="ArkMenu.ItemIndicator"
-            :item-text="ArkMenu.ItemText"
-            :context-trigger="ArkMenu.ContextTrigger"
-            :trigger-value="(menu as unknown as { triggerValue?: string | null }).triggerValue ?? null"
-          >
-            <UIMenuEntryRenderer
-              :items="items"
-              :intent="intent"
-              :size="size"
-              v-bind="itemUiProps"
-            />
-          </slot>
-        </ArkMenu.Content>
-      </ArkMenu.Positioner>
     </ArkMenu.Context>
   </ArkMenu.Root>
 </template>

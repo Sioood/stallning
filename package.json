@@ -27,6 +27,8 @@
     "build": "turbo run build",
     "knip": "knip",
     "knip:fix": "knip --fix",
+    "mutation": "turbo run mutation",
+    "mutation:open": "turbo run mutation:open",
     "todoctor": "pnpx todoctor",
     "test": "turbo run test",
     "test:coverage": "turbo run test:coverage"
@@ -60,9 +62,9 @@
     "typescript": "catalog:"
   },
   "lint-staged": {
-    "**/*.{json,js,ts,md,yaml,yml}": [
+    "**/*.{json,js,ts,vue,md,yaml,yml}": [
       "oxlint --fix",
-      "eslint --fix -c eslint.config.ts",
+      "eslint --fix --no-warn-ignored -c eslint.config.ts",
       "pnpm exec oxfmt --write"
     ]
   },

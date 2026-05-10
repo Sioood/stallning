@@ -5,7 +5,6 @@ const { resolve } = createResolver(import.meta.url)
 
 const isVitest = process.env.VITEST === 'true'
 
-// // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
@@ -26,6 +25,19 @@ export default defineNuxtConfig({
   icon: {
     size: '1rem',
     mode: 'svg',
+  },
+  image: {
+    quality: 80,
+    format: ['avif', 'webp'],
+    screens: {
+      xs: 320,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      '2xl': 1536,
+    },
+    densities: [1, 2],
   },
   css: [resolve('./app/assets/css/main.css')],
   vite: {

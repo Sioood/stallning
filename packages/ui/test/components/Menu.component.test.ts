@@ -164,4 +164,79 @@ describe('Menu', () => {
     expect(wrapper.findAll('[data-part="trigger"]')).toHaveLength(2)
     expect(document.body.querySelector('[data-part="trigger-item"]')).not.toBeNull()
   })
+
+  it('applies intent variant classes to trigger', async () => {
+    const wrapper = await mountSuspended(Menu, {
+      props: {
+        intent: 'primary',
+      },
+    })
+
+    const trigger = wrapper.find('[data-part="trigger"]')
+    expect(trigger.classes().join(' ')).toMatch(/primary/)
+  })
+
+  it('shows arrow when showArrow is true', async () => {
+    await mountSuspended(Menu, {
+      props: {
+        open: true,
+        showArrow: true,
+        items: [{ type: 'item', value: 'a', label: 'A' }],
+      },
+    })
+
+    expect(document.body.querySelector('[data-part="arrow"]')).not.toBeNull()
+  })
+
+  it('renders context trigger text when contextTriggerText is set', async () => {
+    const wrapper = await mountSuspended(Menu, {
+      props: {
+        contextTriggerText: 'Right-click here',
+      },
+    })
+
+    expect(wrapper.text()).toContain('Right-click here')
+  })
+
+  it('renders custom trigger text', async () => {
+    const wrapper = await mountSuspended(Menu, {
+      props: {
+        triggerText: 'Options',
+      },
+    })
+
+    expect(wrapper.find('[data-part="trigger"]').text()).toContain('Options')
+  })
+
+  it('applies custom ui classes to positioner and content', async () => {
+    await mountSuspended(Menu, {
+      props: {
+        open: true,
+        ui: {
+          positioner: 'custom-positioner',
+          content: 'custom-content',
+        },
+        items: [{ type: 'item', value: 'a', label: 'A' }],
+      },
+    })
+
+    expect(document.body.querySelector('.custom-positioner')).not.toBeNull()
+    expect(document.body.querySelector('.custom-content')).not.toBeNull()
+  })
+
+  it('renders disabled items with disabled attribute', async () => {
+    await mountSuspended(Menu, {
+      props: {
+        open: true,
+        items: [{ type: 'item', value: 'disabled', label: 'Disabled', disabled: true }],
+      },
+    })
+
+    const items = document.body.querySelectorAll('[data-part="item"]')
+    const item = Array.from(items).find((el) => el.textContent?.includes('Disabled'))
+    expect(item).not.toBeUndefined()
+    expect(
+      item?.hasAttribute('data-disabled') || item?.getAttribute('aria-disabled') === 'true',
+    ).toBe(true)
+  })
 })

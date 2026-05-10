@@ -29,6 +29,14 @@ yarn-error.log*
 coverage/
 playwright-report/
 test-results/
+.stryker-tmp/
+stryker-setup-*.js
+reports/stryker-incremental.json
+reports/stryker-mutation.html
+
+# Visual regression — keep __screenshots__/ in git (Vitest baselines for toMatchFileSnapshot).
+# Only ignore ephemeral browser test artifacts.
+.vitest-attachments/
 
 # Todoctor
 /todoctor

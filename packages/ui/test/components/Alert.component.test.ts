@@ -72,4 +72,70 @@ describe('Alert', () => {
     await actionButton?.trigger('click')
     expect(onClick).toHaveBeenCalledTimes(1)
   })
+
+  it('applies intent from type prop when both type and intent are set', async () => {
+    const wrapper = await mountSuspended(Alert, {
+      props: {
+        title: 'Type overrides',
+        type: 'error',
+        intent: 'neutral',
+      },
+    })
+
+    expect(wrapper.find('.alertRoot').classes().join(' ')).toMatch(/bg-error-surface-subtle/)
+  })
+
+  it('renders content slot', async () => {
+    const wrapper = await mountSuspended(Alert, {
+      props: { title: 'With slot' },
+      slots: {
+        content: '<div data-testid="custom-content">Custom content</div>',
+      },
+    })
+
+    expect(wrapper.find('[data-testid="custom-content"]').exists()).toBe(true)
+    expect(wrapper.text()).toContain('Custom content')
+  })
+
+  it('renders with neutral type and shows info icon as fallback', async () => {
+    const wrapper = await mountSuspended(Alert, {
+      props: {
+        title: 'Neutral info',
+        type: 'neutral',
+      },
+    })
+
+    expect(wrapper.find('.alertContentIcon').exists()).toBe(true)
+    expect(wrapper.find('.alertRoot').classes().join(' ')).toMatch(/bg-neutral-surface-subtle/)
+  })
+
+  it('does not render icon when no type and no icon prop', async () => {
+    const wrapper = await mountSuspended(Alert, {
+      props: { title: 'No icon' },
+    })
+
+    expect(wrapper.find('.alertContentIcon').exists()).toBe(false)
+  })
+
+  it('renders custom icon from prop', async () => {
+    const wrapper = await mountSuspended(Alert, {
+      props: {
+        title: 'Custom icon',
+        icon: 'tabler:bell',
+      },
+    })
+
+    expect(wrapper.find('.alertContentIcon').exists()).toBe(true)
+  })
+
+  it('supports v-model:visible to control visibility', async () => {
+    const wrapper = await mountSuspended(Alert, {
+      props: {
+        title: 'Toggleable',
+        visible: false,
+      },
+    })
+
+    expect(wrapper.find('.alertRoot').exists()).toBe(false)
+  })
 })

@@ -129,9 +129,26 @@ const props = withDefaults(defineProps<AlertProps>(), {
 
 const { iconName } = useComponentIcons(() => ({ mode: 'single', ...props }))
 
+type AlertType = NonNullable<AlertProps['type']>
+
+const getAlertTypeIcon = (type: AlertType): string => {
+  switch (type) {
+    case 'neutral':
+    case 'info':
+      return useSemanticIcons.info
+    case 'success':
+      return useSemanticIcons.success
+    case 'warning':
+      return useSemanticIcons.warning
+    case 'error':
+      return useSemanticIcons.error
+    default:
+      assertNever(type)
+  }
+}
+
 const defaultIcon = computed(() => {
-  if (props.type)
-    return props.type === 'neutral' ? useSemanticIcons['info'] : useSemanticIcons[props.type]
+  if (props.type) return getAlertTypeIcon(props.type)
   return props.icon
 })
 

@@ -1,27 +1,88 @@
 import { mountSuspended } from '@nuxt/test-utils/runtime'
-import { describe, expect, it } from 'vitest'
+import { flushPromises } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { defineComponent, h } from 'vue'
 import { z } from 'zod'
 
 import { useSchemaForm } from '../../app/composables/useSchemaForm'
 
 describe('useSchemaForm', () => {
-  it('wires Zod as validators for change, blur, and submit', async () => {
+  it('rejects invalid values on submit when validateSchemaOn includes submit', async () => {
     const schema = z.object({ email: z.string().min(1) })
+    const onSubmit = vi.fn()
+
+    let formRef: ReturnType<typeof useSchemaForm>['form'] | undefined
 
     const Consumer = defineComponent({
       setup() {
-        useSchemaForm({
+        const { form } = useSchemaForm({
           schema,
           defaultValues: { email: '' },
           validateSchemaOn: ['change', 'blur', 'submit'],
-          onSubmit: () => {},
+          onSubmit,
         })
+        formRef = form
+        return () => h('div')
+      },
+    })
+
+    await mountSuspended(Consumer)
+    await formRef!.handleSubmit()
+    await flushPromises()
+
+    expect(onSubmit).not.toHaveBeenCalled()
+  })
+
+  it('returns a form instance that can submit valid values', async () => {
+    const schema = z.object({ name: z.string().min(1) })
+    const onSubmit = vi.fn()
+
+    let formRef: ReturnType<typeof useSchemaForm>['form'] | undefined
+
+    const Consumer = defineComponent({
+      setup() {
+        const { form } = useSchemaForm({
+          schema,
+          defaultValues: { name: 'Alice' },
+          validateSchemaOn: ['submit'],
+          onSubmit,
+        })
+        formRef = form
         return () => h('div', { 'data-ready': '1' })
       },
     })
 
-    const wrapper = await mountSuspended(Consumer)
-    expect(wrapper.find('[data-ready="1"]').exists()).toBe(true)
+    await mountSuspended(Consumer)
+    await formRef!.handleSubmit()
+    await flushPromises()
+
+    expect(onSubmit).toHaveBeenCalledWith({ value: { name: 'Alice' } })
+  })
+
+  it('defaults validateSchemaOn to change — invalid values trigger onChange validation', async () => {
+    const schema = z.object({ x: z.string().min(3) })
+    const onSubmit = vi.fn()
+
+    let formRef: ReturnType<typeof useSchemaForm>['form'] | undefined
+
+    const Consumer = defineComponent({
+      setup() {
+        const { form } = useSchemaForm({
+          schema,
+          defaultValues: { x: 'ab' },
+          onSubmit,
+        })
+        formRef = form
+        return () => h('div')
+      },
+    })
+
+    await mountSuspended(Consumer)
+
+    formRef!.setFieldValue('x', 'a')
+    await flushPromises()
+
+    const errors = formRef!.state.errors
+    expect(errors.length).toBeGreaterThan(0)
   })
 })

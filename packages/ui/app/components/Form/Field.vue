@@ -100,7 +100,7 @@ const fieldRootAttrs = computed(() => {
   return rest
 })
 
-const showError = computed(
+const shouldShowError = computed(
   () => props.invalid && (Boolean(slots.error) || String(props.error ?? '').length > 0),
 )
 
@@ -191,7 +191,7 @@ extendCompodiumMeta<typeof props>({
 
     <component
       :is="errorTextComponent"
-      v-if="showError"
+      v-if="shouldShowError"
       aria-live="polite"
       :class="cn('txt-caption text-error-text-default', ui?.error)"
     >

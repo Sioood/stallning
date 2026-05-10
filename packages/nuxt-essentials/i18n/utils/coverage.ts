@@ -6,10 +6,10 @@ import { join, resolve } from 'node:path'
 import { consola } from 'consola'
 import { colorize } from 'consola/utils'
 import esMain from 'es-main'
-import minimist from 'minimist'
+import minimist, { type ParsedArgs } from 'minimist'
 import { parse as parseYaml } from 'yaml'
 
-interface Argv extends minimist.ParsedArgs {
+interface Argv extends ParsedArgs {
   f?: string
   ns?: boolean
   k?: boolean

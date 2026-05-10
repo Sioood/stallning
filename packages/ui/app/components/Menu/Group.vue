@@ -2,8 +2,6 @@
 import { Menu as ArkMenu } from '@ark-ui/vue/menu'
 import { cva } from 'class-variance-authority'
 
-import { pick } from '~ui/app/utils/object'
-
 import type { MenuCheckboxItemProps } from './CheckboxItem.vue'
 import type { MenuIntent, MenuListEntry } from './index.vue'
 import type { MenuItemProps } from './Item.vue'
@@ -92,7 +90,10 @@ const groupProps = computed(() => pick(props, ['label', 'items', 'intent', 'size
 
 <template>
   <ArkMenu.ItemGroup :class="cn(menuItemGroupCVA(), itemGroup, customClass)">
-    <ArkMenu.ItemGroupLabel v-if="label" :class="cn(menuItemGroupLabelCVA({ intent, size }), itemGroupLabel)">
+    <ArkMenu.ItemGroupLabel
+      v-if="label"
+      :class="cn(menuItemGroupLabelCVA({ intent, size }), itemGroupLabel)"
+    >
       {{ label }}
     </ArkMenu.ItemGroupLabel>
 

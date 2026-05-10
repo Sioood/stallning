@@ -7,6 +7,12 @@ import { cva, type VariantProps } from 'class-variance-authority'
 
 import type { ClassValue } from 'vue'
 
+type PopoverTriggerValueSource = { triggerValue?: string | null }
+
+function popoverTriggerValue(popover: unknown): string | null {
+  return (popover as PopoverTriggerValueSource).triggerValue ?? null
+}
+
 defineOptions({ inheritAttrs: false })
 
 const popoverContentCVA = cva(
@@ -134,9 +140,7 @@ const rootProps = computed(() =>
         name="triggers"
         :trigger="ArkPopover.Trigger"
         :popover="popover"
-        :trigger-value="
-          (popover as unknown as { triggerValue?: string | null }).triggerValue ?? null
-        "
+        :trigger-value="popoverTriggerValue(popover)"
       >
         <ArkPopover.Trigger>
           <slot name="trigger">
@@ -157,13 +161,7 @@ const rootProps = computed(() =>
             {{ description }}
           </ArkPopover.Description>
 
-          <slot
-            name="content"
-            :popover="popover"
-            :trigger-value="
-              (popover as unknown as { triggerValue?: string | null }).triggerValue ?? null
-            "
-          >
+          <slot name="content" :popover="popover" :trigger-value="popoverTriggerValue(popover)">
             {{ content }}
           </slot>
 

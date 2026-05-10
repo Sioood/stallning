@@ -2,7 +2,8 @@
   "$schema": "https://turborepo.com/schema.json",
   "tasks": {
     "build": {
-      "outputs": []
+      "dependsOn": ["^build"],
+      "outputs": [".output/**", ".nuxt/**"]
     },
     "check-types": {
       "dependsOn": ["^check-types"]
@@ -12,13 +13,16 @@
       "cache": false
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "dependsOn": ["^lint"],
+      "inputs": ["**/*.{ts,vue,js,json,yaml,yml,md}", "eslint.config.ts", ".oxlintrc.json"]
     },
     "lint:eslint": {
-      "dependsOn": ["^lint:eslint"]
+      "dependsOn": ["^lint:eslint"],
+      "inputs": ["**/*.{ts,vue,js,json,yaml,yml,md}", "eslint.config.ts"]
     },
     "lint:oxlint": {
-      "dependsOn": ["^lint:oxlint"]
+      "dependsOn": ["^lint:oxlint"],
+      "inputs": ["**/*.{ts,vue,js}", ".oxlintrc.json"]
     },
     "test": {
       "dependsOn": [],
@@ -53,6 +57,22 @@
         "vitest.config.ts"
       ],
       "outputs": ["coverage/**"]
+    },
+    "mutation": {
+      "dependsOn": [],
+      "cache": false,
+      "inputs": [
+        "app/utils/**/*.ts",
+        "app/composables/**/*.ts",
+        "i18n/utils/**/*.ts",
+        "test/**/*.test.ts",
+        "stryker.config.mjs"
+      ],
+      "outputs": ["reports/stryker-mutation.html", "reports/stryker-incremental.json"]
+    },
+    "mutation:open": {
+      "dependsOn": [],
+      "cache": false
     }
   }
 }

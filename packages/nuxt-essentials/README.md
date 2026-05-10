@@ -1,75 +1,135 @@
-# Nuxt Minimal Starter
+# @stallning/nuxt-essentials
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+The foundational Nuxt layer providing shared modules, security, i18n, and PWA configuration for all Stallning applications.
 
-## Setup
+## Usage
 
-Make sure to install dependencies:
+Extend this package in your Nuxt layer or app:
 
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
+```ts
+// nuxt.config.ts
+export default defineNuxtConfig({
+  extends: ['@stallning/nuxt-essentials'],
+})
 ```
 
-## Development Server
+## Scripts
 
-Start the development server on `http://localhost:3000`:
+| Script                         | Description                    |
+| ------------------------------ | ------------------------------ |
+| `pnpm test`                    | Run unit tests                 |
+| `pnpm test:coverage`           | Tests with coverage            |
+| `pnpm mutation`                | Mutation testing (Stryker)     |
+| `pnpm i18n:coverage`           | Check translation completeness |
+| `pnpm i18n:coverage:namespace` | Coverage per namespace         |
 
-```bash
-# npm
-npm run dev
+## Modules Included
 
-# pnpm
-pnpm dev
+| Module           |     Auto-configured      |
+| ---------------- | :----------------------: |
+| `@nuxtjs/i18n`   |  Default locale `fr-FR`  |
+| `@nuxtjs/seo`    |    Site meta, sitemap    |
+| `@pinia/nuxt`    |     State management     |
+| `@vite-pwa/nuxt` |    Offline-first PWA     |
+| `@vueuse/nuxt`   |   Composable utilities   |
+| `nuxt-security`  | CSP, CORS, rate limiting |
 
-# yarn
-yarn dev
+## Security
 
-# bun
-bun run dev
+Security is **disabled in development** to allow Nuxt DevTools. In production, the following protections are active:
+
+| Protection      | Configuration                            |
+| --------------- | ---------------------------------------- |
+| CSP             | Nonce-based `script-src`, strict-dynamic |
+| CORS            | Origin from `NUXT_PUBLIC_SITE_URL` env   |
+| HSTS            | 1 year, preload, includeSubdomains       |
+| Rate limiting   | 100 req / 5 min                          |
+| Request size    | 2MB body, 8MB uploads                    |
+| SRI             | Enabled for all assets                   |
+| X-Frame-Options | DENY                                     |
+
+### Override in Your App
+
+```ts
+// apps/web/nuxt.config.ts
+export default defineNuxtConfig({
+  security: {
+    headers: {
+      contentSecurityPolicy: {
+        // Allow your API and CDN
+        'connect-src': ["'self'", 'https://api.myapp.com'],
+        'img-src': ["'self'", 'https://cdn.myapp.com', 'data:'],
+      },
+    },
+    corsHandler: {
+      origin: 'https://myapp.com',
+    },
+  },
+})
 ```
 
-## Production
+## i18n
 
-Build the application for production:
+### Adding a Locale
 
-```bash
-# npm
-npm run build
+1. Create `i18n/locales/{locale}/index.ts`
+2. Add translations in `translations.yaml` or namespaced JSON files
+3. Register in `nuxt.config.ts`:
 
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+```ts
+export default defineNuxtConfig({
+  i18n: {
+    locales: [
+      { code: 'fr-FR', language: 'fr-FR', name: 'Français', file: 'fr-FR/index.ts' },
+      { code: 'en-US', language: 'en-US', name: 'English', file: 'en-US/index.ts' },
+    ],
+  },
+})
 ```
 
-Locally preview production build:
+### Translation Files
 
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
+```yaml
+# i18n/locales/fr-FR/translations.yaml (unprefixed keys)
+hello: Bonjour
+goodbye: Au revoir
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+```jsonc
+// i18n/locales/fr-FR/auth.json (prefixed as auth:key)
+{ "login": "Connexion", "logout": "Déconnexion" }
+```
+
+Access: `$t('hello')`, `$t('auth:login')`
+
+## Composables
+
+### `extractStore()`
+
+Ergonomic Pinia store destructuring with full reactivity:
+
+```ts
+const store = useMyStore()
+const { count, doubled, increment } = extractStore(store)
+// `count` and `doubled` are reactive refs
+// `increment` is a plain function
+```
+
+## Error Handling
+
+A global `error.vue` provides consistent error pages:
+
+- **404** — "Page not found"
+- **403** — "Access denied"
+- **500** — "Something went wrong"
+
+Override by placing your own `error.vue` in the consuming app's `app/` directory.
+
+## Mutation Testing
+
+```bash
+pnpm mutation        # Run incremental mutation testing
+pnpm mutation:open   # Same + opens HTML report
+```
+
+Targets: `i18n/utils/**/*.ts`, `app/composables/**/*.ts`

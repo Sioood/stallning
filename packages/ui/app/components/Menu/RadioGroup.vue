@@ -2,8 +2,6 @@
 import { Menu as ArkMenu } from '@ark-ui/vue/menu'
 import { cva } from 'class-variance-authority'
 
-import { pick } from '~ui/app/utils/object'
-
 import type { MenuIntent } from './index.vue'
 import type { ClassValue } from 'vue'
 
@@ -54,13 +52,16 @@ const menuItemIndicatorCVA = cva('menuItemIndicator inline-flex items-center jus
     },
   },
 })
-const menuItemIndicatorSlotCVA = cva('menuItemIndicatorSlot inline-flex shrink-0 items-center justify-center', {
-  variants: {
-    size: {
-      md: 'size-4',
+const menuItemIndicatorSlotCVA = cva(
+  'menuItemIndicatorSlot inline-flex shrink-0 items-center justify-center',
+  {
+    variants: {
+      size: {
+        md: 'size-4',
+      },
     },
   },
-})
+)
 const menuItemTextCVA = cva('menuItemText', {
   variants: {
     intent: {
@@ -122,7 +123,10 @@ function handleValueChange(value: string) {
     :class="cn(menuItemGroupCVA(), itemGroup)"
     @update:model-value="handleValueChange(($event as string) ?? '')"
   >
-    <ArkMenu.ItemGroupLabel v-if="label" :class="cn(menuItemGroupLabelCVA({ intent, size }), itemGroupLabel)">
+    <ArkMenu.ItemGroupLabel
+      v-if="label"
+      :class="cn(menuItemGroupLabelCVA({ intent, size }), itemGroupLabel)"
+    >
       {{ label }}
     </ArkMenu.ItemGroupLabel>
 

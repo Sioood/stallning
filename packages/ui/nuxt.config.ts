@@ -27,6 +27,19 @@ export default defineNuxtConfig({
     size: '1rem',
     mode: 'svg',
   },
+  image: {
+    quality: 80,
+    format: ['avif', 'webp'],
+    screens: {
+      xs: 320,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      '2xl': 1536,
+    },
+    densities: [1, 2],
+  },
   css: [resolve('./app/assets/css/main.css')],
   vite: {
     plugins: [tailwindcss()],

@@ -19,10 +19,22 @@
 
 N/A
 
+## Testing checklist
+
+- [ ] Unit tests pass (`pnpm test`)
+- [ ] New logic covered by unit tests
+- [ ] Component tests pass (if UI changes)
+- [ ] E2E tests pass (if user-facing flow changes)
+- [ ] Mutation testing reviewed (`pnpm mutation`) for critical logic
+- [ ] Visual regression screenshots updated (if applicable)
+
 ## Review checklist
 
 - [ ] Types are strict (no `any`, discriminated unions used where applicable)
 - [ ] No commented-out code or dead imports
+- [ ] i18n keys added/updated for user-facing text
+- [ ] Accessibility: semantic HTML, ARIA attributes, keyboard navigation
+- [ ] Performance: no unnecessary re-renders, lazy loading where appropriate
 - [ ] Security: inputs validated, no secrets in code
 
 ## Related issues

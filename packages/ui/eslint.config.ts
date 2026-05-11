@@ -18,6 +18,7 @@ export default withNuxt(
     settings: {
       'import-x/resolver': {
         typescript: {
+          alwaysTryTypes: true,
           project: resolve(__dirname, '.nuxt/tsconfig.app.json'),
         },
       },
@@ -27,8 +28,10 @@ export default withNuxt(
     },
   },
   {
-    files: ['test/**/*.ts'],
+    files: ['test/**/*.ts', '**/*.component.test.ts'],
     rules: {
+      'vue/multi-word-component-names': 'off',
+      'vue/no-reserved-component-names': 'off',
       'vue/require-default-prop': 'off',
       'vue/one-component-per-file': 'off',
     },

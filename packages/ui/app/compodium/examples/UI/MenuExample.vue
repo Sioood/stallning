@@ -32,6 +32,11 @@ function onMultipleTriggerMenuSelect(event: { value: string }) {
   handleSelect('multiple-trigger-select', event)
 }
 
+function logControlledMenuOpen(open: boolean) {
+  logAction('controlled-open', open)
+  controlledOpen.value = open
+}
+
 const actionItems = computed<MenuListEntry[]>(() => [
   { type: 'item', value: 'new-file', label: 'New File', onSelect: () => logAction('new-file') },
   { type: 'item', value: 'open', label: 'Open...', onSelect: () => logAction('open') },
@@ -277,10 +282,7 @@ function getMultipleTriggerItems(triggerValue: string | null): MenuListEntry[] {
         variant="subtle"
         intent="neutral"
         text="Open controlled menu"
-        @click="
-          controlledOpen = true
-          logAction('controlled-open', true)
-        "
+        @click="logControlledMenuOpen(true)"
       />
       <UIButton
         v-else
@@ -288,10 +290,7 @@ function getMultipleTriggerItems(triggerValue: string | null): MenuListEntry[] {
         variant="ghost"
         intent="neutral"
         text="Close controlled menu"
-        @click="
-          controlledOpen = false
-          logAction('controlled-open', false)
-        "
+        @click="logControlledMenuOpen(false)"
       />
       <UIMenu
         v-model:open="controlledOpen"

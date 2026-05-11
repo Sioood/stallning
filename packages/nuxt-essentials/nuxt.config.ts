@@ -18,7 +18,6 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     'nuxt-security',
   ],
-  // @ts-expect-error `pwa` options are injected by `@vite-pwa/nuxt`.
   pwa: {
     registerType: 'prompt',
     client: {
@@ -138,5 +137,11 @@ export default defineNuxtConfig({
     url: 'https://nuxt-essentials.com',
     name: 'Nuxt Essentials',
     description: 'Welcome to Nuxt Essentials!',
+  },
+  /** Public keys are overridden at runtime by `NUXT_PUBLIC_*` (see `.env.example`). */
+  runtimeConfig: {
+    public: {
+      siteUrl: 'http://localhost:3000',
+    },
   },
 })

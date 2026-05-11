@@ -58,7 +58,7 @@
     "typescript": "catalog:"
   },
   "lint-staged": {
-    "**/*.{json,js,ts,md,yaml,yml}": [
+    "**/*.{json,js,ts,vue,md,yaml,yml}": [
       "oxlint --fix",
       "eslint --fix -c eslint.config.ts",
       "pnpm exec oxfmt --write"

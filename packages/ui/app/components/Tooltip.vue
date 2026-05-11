@@ -5,6 +5,12 @@ import {
 } from '@ark-ui/vue/tooltip'
 import { cva, type VariantProps } from 'class-variance-authority'
 
+type TooltipTriggerValueSource = { triggerValue?: string | null }
+
+function tooltipTriggerValue(tooltip: unknown): string | null {
+  return (tooltip as TooltipTriggerValueSource).triggerValue ?? null
+}
+
 defineOptions({ inheritAttrs: false })
 
 const tooltipContentCVA = cva(
@@ -123,9 +129,7 @@ function handleTriggerPointerMove(
         name="triggers"
         :trigger="ArkTooltip.Trigger"
         :tooltip="tooltip"
-        :trigger-value="
-          (tooltip as unknown as { triggerValue?: string | null }).triggerValue ?? null
-        "
+        :trigger-value="tooltipTriggerValue(tooltip)"
         :on-trigger-pointer-move="(event: PointerEvent) => handleTriggerPointerMove(event, tooltip)"
       >
         <ArkTooltip.Trigger @pointermove="handleTriggerPointerMove($event, tooltip)">
@@ -136,13 +140,7 @@ function handleTriggerPointerMove(
       </slot>
       <ArkTooltip.Positioner class="[--z-index:9999] origin-(--transform-origin)">
         <ArkTooltip.Content :class="cn(tooltipContentCVA({ intent, size }), ui?.content)">
-          <slot
-            name="content"
-            :tooltip="tooltip"
-            :trigger-value="
-              (tooltip as unknown as { triggerValue?: string | null }).triggerValue ?? null
-            "
-          >
+          <slot name="content" :tooltip="tooltip" :trigger-value="tooltipTriggerValue(tooltip)">
             {{ content }}
           </slot>
           <ArkTooltip.Arrow :class="cn(tooltipArrowCVA({ intent, size }), ui?.arrow)">

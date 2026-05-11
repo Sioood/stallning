@@ -2,8 +2,6 @@
 import { Menu as ArkMenu } from '@ark-ui/vue/menu'
 import { cva } from 'class-variance-authority'
 
-import { pick } from '~ui/app/utils/object'
-
 import type { MenuIntent } from './index.vue'
 import type { ClassValue } from 'vue'
 
@@ -40,13 +38,16 @@ const menuItemIndicatorCVA = cva('menuItemIndicator inline-flex items-center jus
     },
   },
 })
-const menuItemIndicatorSlotCVA = cva('menuItemIndicatorSlot inline-flex shrink-0 items-center justify-center', {
-  variants: {
-    size: {
-      md: 'size-4',
+const menuItemIndicatorSlotCVA = cva(
+  'menuItemIndicatorSlot inline-flex shrink-0 items-center justify-center',
+  {
+    variants: {
+      size: {
+        md: 'size-4',
+      },
     },
   },
-})
+)
 const menuItemTextCVA = cva('menuItemText', {
   variants: {
     intent: {
@@ -105,7 +106,13 @@ function handleCheckedChange(checked: boolean) {
     <span :class="menuItemIndicatorSlotCVA({ size })">
       <span
         aria-hidden="true"
-        :class="cn(menuItemIndicatorCVA({ intent, size }), itemIndicator, checked ? 'opacity-100' : 'opacity-0')"
+        :class="
+          cn(
+            menuItemIndicatorCVA({ intent, size }),
+            itemIndicator,
+            checked ? 'opacity-100' : 'opacity-0',
+          )
+        "
       >
         <ClientOnly fallback-tag="span">
           <Icon name="tabler:check" class="size-full" />

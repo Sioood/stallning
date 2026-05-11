@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { MenuListEntry } from '~ui/app/components/Menu/index.vue'
+import type { MenuListEntry } from '@/components/Menu/index.vue'
 
 const toolbarVisible = ref(true)
 const statusBarVisible = ref(false)
@@ -14,6 +14,22 @@ function logAction(name: string, payload?: unknown) {
 function handleSelect(source: string, event: { value: string }) {
   selectedAction.value = event.value
   logAction(source, event.value)
+}
+
+function onFileMenuSelect(event: { value: string }) {
+  handleSelect('file-select', event)
+}
+
+function onContextMenuSelect(event: { value: string }) {
+  handleSelect('context-select', event)
+}
+
+function onControlledMenuSelect(event: { value: string }) {
+  handleSelect('controlled-select', event)
+}
+
+function onMultipleTriggerMenuSelect(event: { value: string }) {
+  handleSelect('multiple-trigger-select', event)
 }
 
 const actionItems = computed<MenuListEntry[]>(() => [
@@ -188,11 +204,21 @@ const actionItems = computed<MenuListEntry[]>(() => [
 
 const multipleTriggerItems = computed<Record<string, MenuListEntry[]>>(() => ({
   'msg-1': [
-    { type: 'item', value: 'msg-1-reply', label: 'Reply', onSelect: () => logAction('msg-1-reply') },
+    {
+      type: 'item',
+      value: 'msg-1-reply',
+      label: 'Reply',
+      onSelect: () => logAction('msg-1-reply'),
+    },
     { type: 'item', value: 'msg-1-pin', label: 'Pin', onSelect: () => logAction('msg-1-pin') },
   ],
   'msg-2': [
-    { type: 'item', value: 'msg-2-forward', label: 'Forward', onSelect: () => logAction('msg-2-forward') },
+    {
+      type: 'item',
+      value: 'msg-2-forward',
+      label: 'Forward',
+      onSelect: () => logAction('msg-2-forward'),
+    },
     {
       type: 'radio-group',
       label: 'Priority',
@@ -206,8 +232,18 @@ const multipleTriggerItems = computed<Record<string, MenuListEntry[]>>(() => ({
     },
   ],
   'msg-3': [
-    { type: 'item', value: 'msg-3-archive', label: 'Archive', onSelect: () => logAction('msg-3-archive') },
-    { type: 'item', value: 'msg-3-delete', label: 'Delete', onSelect: () => logAction('msg-3-delete') },
+    {
+      type: 'item',
+      value: 'msg-3-archive',
+      label: 'Archive',
+      onSelect: () => logAction('msg-3-archive'),
+    },
+    {
+      type: 'item',
+      value: 'msg-3-delete',
+      label: 'Delete',
+      onSelect: () => logAction('msg-3-delete'),
+    },
   ],
 }))
 
@@ -221,16 +257,9 @@ function getMultipleTriggerItems(triggerValue: string | null): MenuListEntry[] {
 
 <template>
   <div class="flex w-fit flex-col gap-5">
-    <UIMenu
-      trigger-text="File"
-      :items="actionItems"
-      @select="(event: { value: string }) => handleSelect('file-select', event)"
-    />
+    <UIMenu trigger-text="File" :items="actionItems" @select="onFileMenuSelect" />
 
-    <UIMenu
-      :items="actionItems"
-      @select="(event: { value: string }) => handleSelect('context-select', event)"
-    >
+    <UIMenu :items="actionItems" @select="onContextMenuSelect">
       <template #context-trigger="{ contextTrigger: ContextTrigger }">
         <component
           :is="ContextTrigger"
@@ -249,7 +278,7 @@ function getMultipleTriggerItems(triggerValue: string | null): MenuListEntry[] {
         intent="neutral"
         text="Open controlled menu"
         @click="
-          controlledOpen = true;
+          controlledOpen = true
           logAction('controlled-open', true)
         "
       />
@@ -260,7 +289,7 @@ function getMultipleTriggerItems(triggerValue: string | null): MenuListEntry[] {
         intent="neutral"
         text="Close controlled menu"
         @click="
-          controlledOpen = false;
+          controlledOpen = false
           logAction('controlled-open', false)
         "
       />
@@ -270,14 +299,14 @@ function getMultipleTriggerItems(triggerValue: string | null): MenuListEntry[] {
         :items="actionItems"
         intent="primary"
         @update:open="logAction('controlled-update-open', $event)"
-        @select="(event: { value: string }) => handleSelect('controlled-select', event)"
+        @select="onControlledMenuSelect"
       />
     </div>
 
     <UIMenu
       trigger-text="Multiple triggers"
       :positioning="{ placement: 'right-start' }"
-      @select="(event: { value: string }) => handleSelect('multiple-trigger-select', event)"
+      @select="onMultipleTriggerMenuSelect"
     >
       <template #triggers="{ trigger: Trigger }">
         <div class="flex join">
@@ -368,7 +397,9 @@ function getMultipleTriggerItems(triggerValue: string | null): MenuListEntry[] {
           class="menuItem"
           @select="logAction('links-repo')"
         >
-          <a href="https://github.com/chakra-ui/ark" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://github.com/chakra-ui/ark" target="_blank" rel="noopener noreferrer">
+            GitHub
+          </a>
         </component>
         <component :is="Separator" class="menuSeparator" />
         <component

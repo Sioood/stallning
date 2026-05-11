@@ -4,6 +4,12 @@ import { cva } from 'class-variance-authority'
 
 import type { ClassValue } from 'vue'
 
+type MenuTriggerValueSource = { triggerValue?: string | null }
+
+function menuTriggerValue(menu: unknown): string | null {
+  return (menu as MenuTriggerValueSource).triggerValue ?? null
+}
+
 defineOptions({ inheritAttrs: false })
 const slots = useSlots()
 
@@ -241,7 +247,7 @@ extendCompodiumMeta<MenuProps>({
         name="context-trigger"
         :context-trigger="ArkMenu.ContextTrigger"
         :menu="menu"
-        :trigger-value="(menu as unknown as { triggerValue?: string | null }).triggerValue ?? null"
+        :trigger-value="menuTriggerValue(menu)"
       >
         <ArkMenu.ContextTrigger
           v-if="contextTriggerText"
@@ -255,7 +261,7 @@ extendCompodiumMeta<MenuProps>({
         name="triggers"
         :trigger="ArkMenu.Trigger"
         :menu="menu"
-        :trigger-value="(menu as unknown as { triggerValue?: string | null }).triggerValue ?? null"
+        :trigger-value="menuTriggerValue(menu)"
       >
         <ArkMenu.Trigger v-if="showDefaultTrigger" :class="triggerClass">
           <slot name="trigger">{{ triggerText }}</slot>
@@ -267,7 +273,7 @@ extendCompodiumMeta<MenuProps>({
         </ArkMenu.Trigger>
       </slot>
 
-      <Teleport v-if="portalled" :to="teleportTo">
+      <Teleport v-if="portalled" :to="teleportTo" :disabled="!portalled">
         <ArkMenu.Positioner :class="cn(menuPositionerCVA(), ui?.positioner)">
           <ArkMenu.Content :class="cn(menuContentCVA({ intent, size }), ui?.content)">
             <ArkMenu.Arrow v-if="showArrow" :class="cn(menuArrowCVA({ intent, size }), ui?.arrow)">
@@ -292,9 +298,7 @@ extendCompodiumMeta<MenuProps>({
               :item-indicator="ArkMenu.ItemIndicator"
               :item-text="ArkMenu.ItemText"
               :context-trigger="ArkMenu.ContextTrigger"
-              :trigger-value="
-                (menu as unknown as { triggerValue?: string | null }).triggerValue ?? null
-              "
+              :trigger-value="menuTriggerValue(menu)"
             >
               <UIMenuEntryRenderer
                 :items="items"
@@ -327,9 +331,7 @@ extendCompodiumMeta<MenuProps>({
             :item-indicator="ArkMenu.ItemIndicator"
             :item-text="ArkMenu.ItemText"
             :context-trigger="ArkMenu.ContextTrigger"
-            :trigger-value="
-              (menu as unknown as { triggerValue?: string | null }).triggerValue ?? null
-            "
+            :trigger-value="menuTriggerValue(menu)"
           >
             <UIMenuEntryRenderer
               :items="items"

@@ -2,11 +2,11 @@
 import { Menu as ArkMenu } from '@ark-ui/vue/menu'
 import { cva } from 'class-variance-authority'
 
-import type { MenuCheckboxItemProps } from './CheckboxItem.vue'
-import type { MenuIntent, MenuListEntry, MenuListEntryStrict } from './index.vue'
-import type { MenuItemProps } from './Item.vue'
-import type { MenuRadioGroupProps } from './RadioGroup.vue'
-import type { MenuSubmenuProps } from './Submenu.vue'
+import type { MenuCheckboxItemProps } from '@/components/Menu/CheckboxItem.vue'
+import type { MenuIntent, MenuListEntry, MenuListEntryStrict } from '@/components/Menu/index.vue'
+import type { MenuItemProps } from '@/components/Menu/Item.vue'
+import type { MenuRadioGroupProps } from '@/components/Menu/RadioGroup.vue'
+import type { MenuSubmenuProps } from '@/components/Menu/Submenu.vue'
 import type { ClassValue } from 'vue'
 
 const menuSeparatorCVA = cva('menuSeparator block w-full border-t', {

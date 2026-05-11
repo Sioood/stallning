@@ -1,8 +1,8 @@
 import { watch } from 'vue'
 
-import type { Composer } from 'vue-i18n'
-
 import { applyZodLocaleFromI18n } from '~ui/app/utils/zod-locale'
+
+import type { Composer } from 'vue-i18n'
 
 export default defineNuxtPlugin({
   name: 'zod-sync-locale',

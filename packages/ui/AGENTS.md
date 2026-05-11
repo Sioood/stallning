@@ -1,0 +1,190 @@
+# @stallning/ui
+
+## Context
+
+The design system and UI component library for Stallning. Built as a **Nuxt layer** that extends `@stallning/nuxt-essentials`. It provides all reusable UI components, styling infrastructure, and form utilities.
+
+## Architecture
+
+- **Type:** Nuxt 4 layer (consumed via `extends` in nuxt.config)
+- **Headless primitives:** Ark UI (`@ark-ui/vue`) — provides accessible, unstyled component logic
+- **Styling:** Tailwind CSS v4 + CVA (class-variance-authority) + tailwind-merge
+- **Forms:** TanStack Form (`@tanstack/vue-form`) + Zod v4 validation
+- **Icons:** `@nuxt/icon` with Tabler icon set (`tabler:*`)
+- **Images:** `@nuxt/image` with AVIF/WebP auto-format, responsive breakpoints
+- **Docs/Playground:** Compodium (`@compodium/nuxt`)
+
+### Component Pattern
+
+Every component follows this structure:
+
+```text
+<script setup lang="ts">
+// 1. Ark UI headless import
+// 2. CVA variant definitions (inline, not external file unless shared)
+// 3. UI slots interface (for class customization)
+// 4. Props interface (extends Ark base props)
+// 5. defineModel for two-way bindings
+// 6. withDefaults(defineProps<...>())
+// 7. Computed logic
+// 8. extendCompodiumMeta (playground defaults)
+</script>
+
+<template>
+  <!-- Ark primitives with cn() for class merging -->
+</template>
+```
+
+### Key Directories
+
+```
+app/
+├── assets/css/main.css    -- Tailwind theme, tokens, typography
+├── components/            -- All UI components (auto-imported with 'UI' prefix)
+│   ├── Button.vue         -- Flat file for simple components
+│   ├── Form/              -- Feature folder with index.vue entry
+│   │   ├── index.vue      -- Main form component
+│   │   ├── schema.ts      -- Type definitions for form schema
+│   │   ├── Field.vue      -- Field wrapper
+│   │   └── BoundControl.vue
+│   ├── Menu/              -- Complex component with sub-parts
+│   └── Toggle/
+├── composables/           -- Shared hooks
+│   ├── useComponentIcons.ts  -- Icon state machine (loading/success/error)
+│   ├── useSchemaForm.ts      -- TanStack Form + Zod preset
+│   └── useToast.ts           -- Toast notification system
+├── plugins/               -- Nuxt plugins
+├── utils/                 -- Pure utility functions
+│   ├── assert-never.ts    -- Exhaustive switch guard for discriminated unions
+│   ├── cn.ts              -- tailwind-merge + Vue normalizeClass
+│   ├── button-variants.ts -- Shared CVA variants for Button/Toggle/Menu trigger
+│   ├── object.ts          -- pick/omit helpers
+│   ├── zod-locale.ts      -- Zod error messages synced with i18n locale
+│   └── form-field-errors.ts
+└── compodium/examples/    -- Playground examples (excluded from tests/coverage)
+
+test/
+├── composables/           -- Unit + component tests for hooks
+├── utils/                 -- Unit tests for pure functions
+├── components/            -- Component render tests
+└── visual/                -- Visual regression tests (Playwright browser)
+```
+
+## Design System Rules
+
+### Color System
+
+Use semantic tokens — NEVER raw color values:
+
+- `primary-fill-default`, `primary-text-inverse`
+- `neutral-fill-subtle`, `neutral-text-default`, `neutral-border-subtle`
+- `secondary-*`, `accent-*` for alternative intents
+
+### Intent System
+
+All interactive components support `intent` variants:
+
+- `neutral` (default) — standard UI elements
+- `primary` — call-to-action, emphasis
+- `secondary` — alternative actions
+- `accent` — special highlights
+
+### Typography
+
+Use typography utilities defined in CSS: `txt-h1`, `txt-h2`, `txt-h3`, `txt-base`, `txt-label`, `txt-caption`
+
+### Spacing & Sizing
+
+Follow Tailwind's spacing scale. Components use consistent sizes:
+
+- `sm` — compact UI (menus, tags)
+- `md` — default (buttons, inputs)
+- `lg` — emphasis (hero actions)
+
+## Conventions
+
+### Component Naming
+
+- All components auto-registered with `UI` prefix: `UIButton`, `UIMenu`, `UIFormInput`
+- Feature folders use `index.vue` as entry point
+- Sub-components are internal (consumed by parent, not directly by apps)
+
+### Styling
+
+- **Tokens:** Semantic color tokens in `main.css` (`primary-fill-default`, `neutral-text-subtle`, etc.)
+- **CVA:** Define variants inline in the component unless shared (like `buttonVariants`)
+- **`cn()` helper:** Always use for class merging — handles Vue reactive classes + tailwind-merge
+- **`ui` prop:** Every component accepts an optional `ui` prop for slot-level class overrides
+- **Full strings only:** Tailwind needs complete class names (no dynamic interpolation)
+
+### Props Pattern
+
+- Extend Ark UI base props: `interface XxxProps extends ArkXxxRootBaseProps { ... }`
+- Use `defineModel` for open/pressed/checked/value state
+- Use `withDefaults` for all optional props
+- Type class overrides as `ClassValue` (from Vue)
+
+### Type Safety
+
+- Use discriminated unions for all entry/variant types (see `MenuListEntry`)
+- Add `assertNever` in switch default branches for compile-time exhaustive checks
+- Export `*Strict` versions of unions when all members must have an explicit `type` field
+
+### Icons
+
+- Icon set: Tabler (`tabler:*`)
+- State icons: `useComponentIcons` composable handles loading/success/warning/error states
+- Default size: `1rem` (configured in `nuxt.config`)
+
+### Images
+
+- Use `<NuxtImg>` instead of raw `<img>` for automatic optimization
+- Formats: AVIF → WebP → original (auto-negotiated)
+- Quality: 80% default
+- Responsive: Breakpoints at 320/640/768/1024/1280/1536px
+
+### Forms
+
+- Schema-first: Define Zod schema → pass to `useSchemaForm` or `<UIForm>`
+- Layout-driven: `layout` prop defines field arrangement (single key or array for rows)
+- Field configs map component + validators per field name
+- Server errors: Use `applyServerFieldErrors` after HTTP 422
+
+## Dos
+
+- Use Ark UI primitives for interactive components (accessibility built-in)
+- Export component interfaces from `<script setup>` for type reuse
+- Add `extendCompodiumMeta` with representative defaults for the playground
+- Write unit tests for utils/composables, component tests for interactive behavior
+- Use `<Teleport :disabled>` for conditional portal rendering (not createReusableTemplate)
+- Run `pnpm mutation` to validate test quality for new utils/composables
+- Use `<NuxtImg>` with explicit width/height for CLS prevention
+
+## Don'ts
+
+- Don't create components without Ark UI if an equivalent primitive exists
+- Don't use inline styles — always Tailwind utilities or CVA
+- Don't use `!important` in Tailwind (use specificity or `cn()` override)
+- Under `app/`, prefer `@/` (Nuxt aliases it to the `app/` directory). Use `~ui/` when you need the package root (e.g. `~ui/app/...` from configs, or paths outside `app/`)
+- Don't test compodium examples — they're documentation, not production code
+- Don't use raw hex/rgb colors — use semantic tokens
+- Don't create new intent colors without updating ALL components
+
+## Testing Strategy
+
+- **Unit tests** (`test/**/*.test.ts`): Pure functions and composable logic in Node env
+- **Component tests** (`test/**/*.component.test.ts`): Mount with `@nuxt/test-utils`, happy-dom
+- **Visual regression** (`test/**/*.visual.test.ts`): Playwright browser screenshots with tolerance
+- **Mutation testing** (Stryker): Validates utils/composables test quality, incremental mode
+- **Coverage thresholds:** 75% lines, 65% branches, enforced per directory
+- **Setup:** `extendCompodiumMeta` is stubbed, `requestAnimationFrame` polyfilled for happy-dom
+
+## Common Pitfalls
+
+- `extendCompodiumMeta` is a Nuxt-provided global — tests must stub it via Vitest overrides
+- Ark UI components use `data-[state=...]` attributes for styling hooks (not classes)
+- `buttonVariants` is shared across Button, Toggle, and Menu trigger — changes affect all three
+- The `cn()` function uses Vue's `normalizeClass` to handle array/object class values before tailwind-merge
+- Compodium is excluded in Vitest mode (`VITEST=true`) to avoid module conflicts
+- `<Teleport>` in happy-dom causes `subTree` null errors — avoid testing portalled content directly
+- Visual tests need `pnpm test:visual` (separate from `pnpm test` which only runs unit+component)

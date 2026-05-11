@@ -10,6 +10,7 @@ export default eslint({
   oxlint: resolve(__dirname, '.oxlintrc.json'),
   tsconfigRootDir: __dirname,
   typescript: true,
+  /** Required so staged `*.vue` under apps/packages are parsed as SFCs (not plain TS). */
   vue: true,
 }).append(
   {
@@ -24,6 +25,13 @@ export default eslint({
       'vue/no-reserved-component-names': 'off',
       'vue/require-default-prop': 'off',
       'vue/one-component-per-file': 'off',
+    },
+  },
+  {
+    // Embedded code uses virtual paths such as README.md/0_0.js (not *.md), so include **/*.md/**.
+    files: ['**/*.md', '**/*.md/**'],
+    rules: {
+      'import-x/no-unresolved': 'off',
     },
   },
 )

@@ -29,7 +29,7 @@ Shared ESLint flat config factory.
 
 - **Entry:** `index.ts` → exports `eslint()` factory function
 - **Architecture:** Composable config builder using `eslint-flat-config-utils`
-- **Configs included:** TypeScript, imports (import-x), JSONC, Markdown, YAML, oxlint parity
+- **Configs included:** TypeScript, imports (import-x), JSONC, Markdown, YAML, Vue (optional), oxlint parity
 - **Usage:**
 
 ```ts
@@ -37,6 +37,7 @@ import eslint from '@stallning/eslint'
 
 export default eslint({
   typescript: true,
+  vue: true,
   oxlint: resolve(__dirname, '.oxlintrc.json'),
   tsconfigRootDir: __dirname,
 })

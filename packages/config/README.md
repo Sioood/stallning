@@ -25,12 +25,13 @@ import eslint from '@stallning/eslint'
 
 export default eslint({
   typescript: true,
+  vue: true,
   oxlint: resolve(__dirname, '.oxlintrc.json'),
   tsconfigRootDir: __dirname,
 })
 ```
 
-Includes: TypeScript rules, import-x, JSONC, Markdown, YAML, oxlint bridge.
+Includes: TypeScript rules, import-x, JSONC, Markdown, YAML, Vue, oxlint bridge.
 
 ### `@stallning/oxlint`
 

@@ -15,8 +15,15 @@ export default withNuxt(
     vue: true,
   }),
   {
+    settings: {
+      'import-x/resolver': {
+        typescript: {
+          project: resolve(__dirname, '.nuxt/tsconfig.app.json'),
+        },
+      },
+    },
     rules: {
-      'import-x/no-unresolved': ['error', { ignore: ['^~ui/', '^~nuxt-essentials/'] }],
+      'import-x/no-unresolved': 'error',
     },
   },
   {

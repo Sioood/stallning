@@ -1,10 +1,32 @@
-import { dirname } from 'node:path'
+import { readFileSync } from 'node:fs'
+import { dirname, resolve as resolvePath } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { defineVitestProject } from '@nuxt/test-utils/config'
 import { coverageConfigDefaults, defineConfig, defineProject } from 'vitest/config'
 
 const packageRoot = dirname(fileURLToPath(import.meta.url))
+
+/** Vite aliases for `~ui` / `~nuxt-essentials`, aligned with `.nuxt/tsconfig.app.json` (after `nuxt prepare`). */
+function workspaceLayerAliasesFromNuxtAppTsconfig(): Record<string, string> {
+  const tsconfigPath = resolvePath(packageRoot, '.nuxt/tsconfig.app.json')
+  const { compilerOptions } = JSON.parse(readFileSync(tsconfigPath, 'utf8')) as {
+    compilerOptions?: { paths?: Record<string, string[]> }
+  }
+  const paths = compilerOptions?.paths
+  if (!paths) {
+    return {}
+  }
+  const baseDir = dirname(tsconfigPath)
+  const out: Record<string, string> = {}
+  for (const key of ['~ui', '~nuxt-essentials'] as const) {
+    const target = paths[key]?.[0]
+    if (target) {
+      out[key] = resolvePath(baseDir, target)
+    }
+  }
+  return out
+}
 const stubPath = fileURLToPath(new URL('./test/extend-compodium-meta-stub.ts', import.meta.url))
 const componentSetupPath = fileURLToPath(new URL('./test/component-setup.ts', import.meta.url))
 
@@ -90,6 +112,9 @@ export default defineConfig(async () => {
       projects: [
         defineProject({
           root: packageRoot,
+          resolve: {
+            alias: workspaceLayerAliasesFromNuxtAppTsconfig(),
+          },
           test: {
             name: 'ui-unit',
             environment: 'node',

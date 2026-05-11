@@ -2,13 +2,13 @@
 import { Toast as ArkToast, Toaster as ArkToaster, type ToasterBaseProps } from '@ark-ui/vue/toast'
 import { cva, type VariantProps } from 'class-variance-authority'
 
-import type { ClassValue } from 'vue'
-
 import {
   useComponentIcons,
   type ComponentState,
   type UseComponentIconsProps,
 } from '~ui/app/composables/useComponentIcons'
+
+import type { ClassValue } from 'vue'
 
 type ToastIntent =
   | 'neutral'
@@ -24,7 +24,7 @@ type ToastSize = 'md'
 const toaster = useToast()
 
 const toastRootCVA = cva(
-  'toastRoot z-index-(--z-index) relative h-(--height) translate-x-(--x) translate-y-(--y) scale-(--scale) flex-col overflow-hidden border opacity-(--opacity) transition-all duration-300 ease-in-out will-change-[transform,opacity]',
+  'z-index-(--z-index) relative h-(--height) translate-x-(--x) translate-y-(--y) scale-(--scale) flex-col overflow-hidden border opacity-(--opacity) transition-all duration-300 ease-in-out will-change-[transform,opacity]',
   {
     variants: {
       intent: {
@@ -51,7 +51,7 @@ const toastRootCVA = cva(
 
 type ToastRootCVAProps = VariantProps<typeof toastRootCVA>
 
-const toastTitleCVA = cva('toastTitle inline-flex gap-2', {
+const toastTitleCVA = cva('inline-flex gap-2', {
   variants: {
     size: {
       md: 'txt-base',
@@ -59,7 +59,7 @@ const toastTitleCVA = cva('toastTitle inline-flex gap-2', {
   },
 })
 
-const toastDescriptionCVA = cva('toastDescription', {
+const toastDescriptionCVA = cva('', {
   variants: {
     intent: {
       neutral: 'text-neutral-text-subtle',
@@ -77,7 +77,7 @@ const toastDescriptionCVA = cva('toastDescription', {
   },
 })
 
-const toastErrorCVA = cva('toastError', {
+const toastErrorCVA = cva('', {
   variants: {
     size: {
       md: 'absolute top-2 right-2',
@@ -85,7 +85,7 @@ const toastErrorCVA = cva('toastError', {
   },
 })
 
-const toastActionCVA = cva('toastAction', {
+const toastActionCVA = cva('', {
   variants: {
     size: {
       md: 'mt-2',

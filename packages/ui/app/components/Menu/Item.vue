@@ -6,7 +6,7 @@ import type { MenuIntent } from './context'
 import type { ClassValue } from 'vue'
 
 const menuItemCVA = cva(
-  'menuItem flex cursor-pointer items-center gap-2 outline-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-70',
+  'flex cursor-pointer items-center gap-2 outline-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-70',
   {
     variants: {
       intent: {

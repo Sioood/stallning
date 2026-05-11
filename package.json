@@ -56,14 +56,19 @@
     "only-allow": "^1.2.1",
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
+    "oxlint-tailwindcss": "catalog:",
     "turbo": "^2.9.5",
     "typescript": "catalog:"
   },
   "lint-staged": {
-    "**/*.{json,js,ts,vue,md,yaml,yml}": [
-      "oxlint --fix",
-      "eslint --fix -c eslint.config.ts",
+    "**/*.{js,mjs,cjs,ts,mts,cts,vue}": [
+      "node ./scripts/lint-staged-oxlint.mjs",
+      "eslint --fix",
       "pnpm exec oxfmt --write"
+    ],
+    "**/*.{json,md,yaml,yml}": [
+      "pnpm exec oxfmt --write",
+      "eslint --fix"
     ]
   },
   "commitlint": {

@@ -10,8 +10,7 @@ import type { MenuRadioGroupProps } from './RadioGroup.vue'
 import type { MenuSubmenuProps } from './Submenu.vue'
 import type { ClassValue } from 'vue'
 
-const menuItemGroupCVA = cva('menuItemGroup')
-const menuItemGroupLabelCVA = cva('menuItemGroupLabel', {
+const menuItemGroupLabelCVA = cva('', {
   variants: {
     intent: {
       neutral: 'text-neutral-text-subtle',
@@ -24,7 +23,7 @@ const menuItemGroupLabelCVA = cva('menuItemGroupLabel', {
     },
   },
 })
-const menuSeparatorCVA = cva('menuSeparator block w-full border-t', {
+const menuSeparatorCVA = cva('block w-full border-t', {
   variants: {
     intent: {
       neutral: 'border-neutral-border-subtle',
@@ -90,7 +89,7 @@ const groupProps = computed(() => pick(props, ['label', 'items', 'intent', 'size
 </script>
 
 <template>
-  <ArkMenu.ItemGroup :class="cn(menuItemGroupCVA(), itemGroup, customClass)">
+  <ArkMenu.ItemGroup :class="cn(itemGroup, customClass)">
     <ArkMenu.ItemGroupLabel
       v-if="label"
       :class="cn(menuItemGroupLabelCVA({ intent, size }), itemGroupLabel)"

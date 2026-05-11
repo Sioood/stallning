@@ -13,7 +13,7 @@ export type { UIFieldSlots } from './context'
 
 defineOptions({ inheritAttrs: false })
 
-const fieldRootCVA = cva('fieldRoot flex flex-col gap-1', {
+const fieldRootCVA = cva('flex flex-col gap-1', {
   variants: {
     intent: {
       primary: '',
@@ -29,7 +29,7 @@ const fieldRootCVA = cva('fieldRoot flex flex-col gap-1', {
 
 type FieldCVAProps = VariantProps<typeof fieldRootCVA>
 
-const fieldLabelCVA = cva('fieldLabel', {
+const fieldLabelCVA = cva('', {
   variants: {
     intent: {
       primary: 'text-primary-text-default',
@@ -40,7 +40,7 @@ const fieldLabelCVA = cva('fieldLabel', {
   },
 })
 
-const fieldHelperTextCVA = cva('fieldHelperText', {
+const fieldHelperTextCVA = cva('', {
   variants: {
     intent: {
       primary: 'text-primary-text-subtle',

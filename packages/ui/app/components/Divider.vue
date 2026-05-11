@@ -7,7 +7,7 @@ type DividerIntent = 'neutral' | 'primary' | 'secondary' | 'accent'
 type DividerSize = 'sm' | 'md' | 'lg'
 type DividerOrientation = 'horizontal' | 'vertical'
 
-const dividerCVA = cva('divider', {
+const dividerCVA = cva('', {
   variants: {
     intent: {
       neutral: 'bg-neutral-border-subtle',

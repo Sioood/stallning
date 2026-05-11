@@ -15,7 +15,7 @@ import type {
 
 export type { UIToggleGroupSlots } from './context'
 
-const groupRootCVA = cva('groupRoot join', {
+const groupRootCVA = cva('join', {
   variants: {
     orientation: {
       horizontal: 'join-horizontal',

@@ -5,7 +5,6 @@ import {
   menuArrowCVA,
   menuArrowTipCVA,
   menuContentCVA,
-  menuContextTriggerCVA,
   menuIndicatorCVA,
   menuPositionerCVA,
 } from './variants'
@@ -171,7 +170,7 @@ const triggerClass = computed(() =>
       size: 'sm',
       disabled: false,
     }),
-    'menuTrigger transition-colors',
+    'transition-colors',
     props.ui?.trigger,
   ),
 )
@@ -202,10 +201,7 @@ extendCompodiumMeta<MenuProps>({
         :menu="menu"
         :trigger-value="menuTriggerValue(menu)"
       >
-        <ArkMenu.ContextTrigger
-          v-if="contextTriggerText"
-          :class="cn(menuContextTriggerCVA(), ui?.contextTrigger)"
-        >
+        <ArkMenu.ContextTrigger v-if="contextTriggerText" :class="cn(ui?.contextTrigger)">
           {{ contextTriggerText }}
         </ArkMenu.ContextTrigger>
       </slot>

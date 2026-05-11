@@ -17,7 +17,7 @@
   },
   "scripts": {
     "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
-    "lint:oxlint": "pnpm exec oxlint",
+    "lint:oxlint": "pnpm exec oxlint -c .oxlintrc.json .",
     "lint:eslint": "eslint .",
     "check-types": "tsc --noEmit -p tsconfig.json"
   },

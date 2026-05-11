@@ -1,0 +1,11 @@
+{
+  "extends": [
+    "../../packages/config/oxlint/base.oxlintrc.json",
+    "../../packages/config/oxlint/tailwind.oxlintrc.json"
+  ],
+  "settings": {
+    "tailwindcss": {
+      "entryPoint": "../../packages/ui/app/assets/css/main.css"
+    }
+  }
+}

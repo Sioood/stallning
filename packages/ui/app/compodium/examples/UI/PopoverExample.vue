@@ -39,7 +39,7 @@ const triggerLabels: Record<string, string> = {
 
     <UIPopover title="Multiple triggers" :positioning="{ placement: 'top' }">
       <template #triggers="{ trigger: Trigger }">
-        <div class="flex join">
+        <div class="join flex">
           <component
             :is="Trigger"
             v-for="i in [1, 2, 3]"

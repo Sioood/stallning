@@ -9,7 +9,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
-    "lint:oxlint": "pnpm exec oxlint",
+    "lint:oxlint": "pnpm exec oxlint -c .oxlintrc.json .",
     "lint:eslint": "pnpm exec eslint .",
     "test": "vitest run --project ui-unit --project ui-component",
     "test:coverage": "vitest run --coverage",
@@ -19,7 +19,7 @@
     "test:watch": "vitest",
     "mutation": "stryker run --incremental",
     "mutation:open": "stryker run --incremental && open reports/stryker-mutation.html",
-    "format": "pnpm exec oxfmt",
+    "format": "pnpm exec oxfmt --write .",
     "format:check": "pnpm exec oxfmt --check .",
     "i18n:coverage": "pnpm exec stallning-i18n-coverage -f ./i18n/locales",
     "i18n:coverage:namespace": "pnpm exec stallning-i18n-coverage -f ./i18n/locales --ns"
@@ -54,6 +54,9 @@
     "@vitest/coverage-v8": "catalog:",
     "@vue/test-utils": "^2.4.10",
     "happy-dom": "^20.9.0",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "oxlint-tailwindcss": "catalog:",
     "playwright": "catalog:",
     "unplugin-auto-import": "^21.0.0",
     "vitest": "catalog:"

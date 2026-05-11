@@ -6,7 +6,7 @@ import type { MenuIntent } from './context'
 import type { ClassValue } from 'vue'
 
 const menuItemCVA = cva(
-  'menuItem flex cursor-pointer items-center gap-2 outline-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-70',
+  'flex cursor-pointer items-center gap-2 outline-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-70',
   {
     variants: {
       intent: {
@@ -25,8 +25,7 @@ const menuItemCVA = cva(
     },
   },
 )
-const menuItemGroupCVA = cva('menuItemGroup')
-const menuItemGroupLabelCVA = cva('menuItemGroupLabel', {
+const menuItemGroupLabelCVA = cva('', {
   variants: {
     intent: {
       neutral: 'text-neutral-text-subtle',
@@ -39,7 +38,7 @@ const menuItemGroupLabelCVA = cva('menuItemGroupLabel', {
     },
   },
 })
-const menuItemIndicatorCVA = cva('menuItemIndicator inline-flex items-center justify-center', {
+const menuItemIndicatorCVA = cva('inline-flex items-center justify-center', {
   variants: {
     intent: {
       neutral: 'text-neutral-text-default',
@@ -52,17 +51,14 @@ const menuItemIndicatorCVA = cva('menuItemIndicator inline-flex items-center jus
     },
   },
 })
-const menuItemIndicatorSlotCVA = cva(
-  'menuItemIndicatorSlot inline-flex shrink-0 items-center justify-center',
-  {
-    variants: {
-      size: {
-        md: 'size-4',
-      },
+const menuItemIndicatorSlotCVA = cva('inline-flex shrink-0 items-center justify-center', {
+  variants: {
+    size: {
+      md: 'size-4',
     },
   },
-)
-const menuItemTextCVA = cva('menuItemText', {
+})
+const menuItemTextCVA = cva('', {
   variants: {
     intent: {
       neutral: 'text-neutral-text-default',
@@ -120,7 +116,7 @@ function handleValueChange(value: string) {
 <template>
   <ArkMenu.RadioItemGroup
     v-bind="groupProps"
-    :class="cn(menuItemGroupCVA(), itemGroup)"
+    :class="cn(itemGroup)"
     @update:model-value="handleValueChange(($event as string) ?? '')"
   >
     <ArkMenu.ItemGroupLabel

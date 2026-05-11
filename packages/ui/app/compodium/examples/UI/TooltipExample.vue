@@ -1,5 +1,5 @@
 <template>
-  <div class="w-fit flex flex-col gap-6">
+  <div class="flex w-fit flex-col gap-6">
     <UITooltip content="I'm a tooltip" :open-delay="450" :close-delay="120" interactive>
       <template #trigger>
         <span class="block h-28 w-72 bg-primary-surface-inverse" />
@@ -23,7 +23,7 @@
       :positioning="{ placement: 'top' }"
     >
       <template #triggers="{ trigger: Trigger, onTriggerPointerMove }">
-        <div class="flex join">
+        <div class="join flex">
           <component
             :is="Trigger"
             v-for="i in [1, 2, 3]"

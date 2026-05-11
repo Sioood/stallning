@@ -2,11 +2,11 @@ import { cva } from 'class-variance-authority'
 
 import type { MenuIntent, MenuSize } from './context'
 
-export const menuIndicatorCVA = cva('menuIndicator inline-flex items-center')
+export const menuIndicatorCVA = cva('inline-flex items-center')
 export const menuPositionerCVA = cva('origin-(--transform-origin) [--z-index:9999]')
 export const menuContentCVA = cva(
   [
-    'menuContent border',
+    'border',
     'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0',
     'min-w-48 p-1',
   ],
@@ -26,7 +26,7 @@ export const menuContentCVA = cva(
   },
 )
 
-export const menuArrowCVA = cva('menuArrow', {
+export const menuArrowCVA = cva('', {
   variants: {
     intent: {
       neutral: '[--arrow-background:var(--color-neutral-fill-subtle)]',
@@ -40,5 +40,4 @@ export const menuArrowCVA = cva('menuArrow', {
   },
 })
 
-export const menuArrowTipCVA = cva('menuArrowTip size-full')
-export const menuContextTriggerCVA = cva('menuContextTrigger')
+export const menuArrowTipCVA = cva('size-full')

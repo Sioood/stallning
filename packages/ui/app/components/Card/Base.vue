@@ -5,7 +5,7 @@ import type { CardIntent, CardSize, CardVariant, UICardSlots } from './context'
 
 export type { UICardSlots } from './context'
 
-const cardCVA = cva('card', {
+const cardCVA = cva('', {
   variants: {
     variant: {
       default: 'border',

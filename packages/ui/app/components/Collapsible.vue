@@ -12,25 +12,22 @@ defineOptions({ inheritAttrs: false })
 type CollapsibleIntent = 'neutral'
 type CollapsibleSize = 'md'
 
-const collapsibleTriggerCVA = cva(
-  'collapsibleTrigger flex w-full items-center justify-between border-b text-left',
-  {
-    variants: {
-      intent: {
-        neutral: 'border-neutral-border-default text-neutral-text-default',
-      } satisfies Record<CollapsibleIntent, string>,
-      size: {
-        md: 'txt-h6 gap-3 p-1',
-      } satisfies Record<CollapsibleSize, string>,
-      disabled: {
-        true: 'cursor-not-allowed',
-        false: 'cursor-pointer',
-      },
+const collapsibleTriggerCVA = cva('flex w-full items-center justify-between text-left', {
+  variants: {
+    intent: {
+      neutral: 'border-neutral-border-default text-neutral-text-default',
+    } satisfies Record<CollapsibleIntent, string>,
+    size: {
+      md: 'txt-h6 gap-3 border-b p-1',
+    } satisfies Record<CollapsibleSize, string>,
+    disabled: {
+      true: 'cursor-not-allowed',
+      false: 'cursor-pointer',
     },
   },
-)
+})
 
-const collapsibleTitleCVA = cva('collapsibleTitle', {
+const collapsibleTitleCVA = cva('', {
   variants: {
     size: {
       md: 'txt-h6',
@@ -39,7 +36,7 @@ const collapsibleTitleCVA = cva('collapsibleTitle', {
 })
 
 const collapsibleIndicatorCVA = cva(
-  'collapsibleIndicator flex shrink-0 items-center justify-center transition-transform duration-200 ease-out will-change-transform data-[state=open]:rotate-180',
+  'flex shrink-0 items-center justify-center transition-transform duration-200 ease-out will-change-transform data-[state=open]:rotate-180',
   {
     variants: {
       size: {
@@ -49,7 +46,7 @@ const collapsibleIndicatorCVA = cva(
   },
 )
 
-const collapsibleIconCVA = cva('collapsibleIcon shrink-0', {
+const collapsibleIconCVA = cva('shrink-0', {
   variants: {
     size: {
       md: 'size-4',
@@ -57,14 +54,14 @@ const collapsibleIconCVA = cva('collapsibleIcon shrink-0', {
   },
 })
 
-const collapsibleContentCVA = cva('collapsibleContent overflow-hidden', {
+const collapsibleContentCVA = cva('overflow-hidden', {
   variants: {
     size: {
       md: 'pt-2',
     } satisfies Record<CollapsibleSize, string>,
     animated: {
       true: '',
-      false: 'collapsibleContent--static',
+      false: '',
     },
   },
 })

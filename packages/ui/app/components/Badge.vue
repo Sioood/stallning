@@ -23,7 +23,7 @@ type BadgeIntent =
   | 'gray'
 type BadgeSize = 'sm' | 'md' | 'lg'
 
-const badgeCVA = cva(['badge', 'flex items-center justify-center', 'border'], {
+const badgeCVA = cva('flex items-center justify-center', {
   variants: {
     intent: {
       neutral: 'border-neutral-border-default bg-neutral-surface-default',
@@ -44,16 +44,16 @@ const badgeCVA = cva(['badge', 'flex items-center justify-center', 'border'], {
       gray: 'border-gray-border-default bg-gray-surface-default',
     } satisfies Record<BadgeIntent, string>,
     size: {
-      sm: 'gap-0.5 p-0.5',
-      md: 'gap-1 p-1',
-      lg: 'gap-1.5 p-1.5',
+      sm: 'gap-0.5 border p-0.5',
+      md: 'gap-1 border p-1',
+      lg: 'gap-1.5 border p-1.5',
     } satisfies Record<BadgeSize, string>,
   },
 })
 
 type BadgeCVAProps = VariantProps<typeof badgeCVA>
 
-const badgeIconCVA = cva('badgeIcon', {
+const badgeIconCVA = cva('', {
   variants: {
     intent: {
       neutral: 'text-neutral-icon-default',
@@ -81,7 +81,7 @@ const badgeIconCVA = cva('badgeIcon', {
   },
 })
 
-const badgeLabelCVA = cva('badgeLabel', {
+const badgeLabelCVA = cva('', {
   variants: {
     intent: {
       neutral: 'text-neutral-text-default',

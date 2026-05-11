@@ -72,6 +72,9 @@ catalogs:
     oxlint:
       specifier: ^1.59.0
       version: 1.59.0
+    oxlint-tailwindcss:
+      specifier: ^0.7.1
+      version: 0.7.1
     playwright:
       specifier: ^1.59.1
       version: 1.59.1
@@ -176,6 +179,9 @@ importers:
       oxlint:
         specifier: 'catalog:'
         version: 1.59.0
+      oxlint-tailwindcss:
+        specifier: 'catalog:'
+        version: 0.7.1(@oxlint/plugins@1.63.0)
       turbo:
         specifier: ^2.9.5
         version: 2.9.5
@@ -201,9 +207,24 @@ importers:
       '@playwright/test':
         specifier: 'catalog:'
         version: 1.59.1
+      '@stallning/eslint':
+        specifier: workspace:^
+        version: link:../../packages/config/eslint
       '@stallning/nuxt-essentials':
         specifier: workspace:*
         version: link:../../packages/nuxt-essentials
+      eslint:
+        specifier: 'catalog:'
+        version: 10.2.0(jiti@2.6.1)
+      oxfmt:
+        specifier: 'catalog:'
+        version: 0.44.0
+      oxlint:
+        specifier: 'catalog:'
+        version: 1.59.0
+      oxlint-tailwindcss:
+        specifier: 'catalog:'
+        version: 0.7.1(@oxlint/plugins@1.63.0)
 
   packages/config/eslint:
     devDependencies:
@@ -258,6 +279,9 @@ importers:
       oxlint:
         specifier: 'catalog:'
         version: 1.59.0
+      oxlint-tailwindcss:
+        specifier: 'catalog:'
+        version: 0.7.1(@oxlint/plugins@1.63.0)
 
   packages/config/typescript: {}
 
@@ -418,6 +442,15 @@ importers:
       happy-dom:
         specifier: ^20.9.0
         version: 20.9.0
+      oxfmt:
+        specifier: 'catalog:'
+        version: 0.44.0
+      oxlint:
+        specifier: 'catalog:'
+        version: 1.59.0
+      oxlint-tailwindcss:
+        specifier: 'catalog:'
+        version: 0.7.1(@oxlint/plugins@1.63.0)
       playwright:
         specifier: 'catalog:'
         version: 1.59.1
@@ -3929,6 +3962,10 @@ packages:
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [x64]
     os: [win32]
+
+  '@oxlint/plugins@1.63.0':
+    resolution: {integrity: sha512-vZAzaUQkwgdN62RHgPFzfCsiBI6SDJMUdUlBGpJK0V++UHCMUk7UeJseygOhE/wOUSgV3ccE4ORkgab3C3MC6g==}
+    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
   '@package-json/types@0.0.12':
     resolution: {integrity: sha512-uu43FGU34B5VM9mCNjXCwLaGHYjXdNincqKLaraaCW+7S2+SmiBg1Nv8bPnmschrIfZmfKNY9f3fC376MRrObw==}
@@ -8550,6 +8587,12 @@ packages:
     resolution: {integrity: sha512-lnncqvHewyRvaqdrnntVIrZV2tEddz8lbvPsQzG/zlkfvgZkwy0HP1p/2u1aCDToeg1jb9zBpbJdfkV73Itw+w==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
+
+  oxlint-tailwindcss@0.7.1:
+    resolution: {integrity: sha512-l4WuZt/iKvMwggwnfsIPCNvY/GDMK9FffXiYTWfXrh+PR0WeItRwqzU5UD1iFfV5CC0bfsiYZbLFt1CJLT6t3g==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      '@oxlint/plugins': '>=1.43.0'
 
   oxlint@1.59.0:
     resolution: {integrity: sha512-0xBLeGGjP4vD9pygRo8iuOkOzEU1MqOnfiOl7KYezL/QvWL8NUg6n03zXc7ZVqltiOpUxBk2zgHI3PnRIEdAvw==}
@@ -14239,6 +14282,8 @@ snapshots:
   '@oxlint/binding-win32-x64-msvc@1.59.0':
     optional: true
 
+  '@oxlint/plugins@1.63.0': {}
+
   '@package-json/types@0.0.12': {}
 
   '@parcel/watcher-android-arm64@2.5.6':
@@ -18915,7 +18960,7 @@ snapshots:
 
   micromark@2.11.4:
     dependencies:
-      debug: 4.4.1
+      debug: 4.4.3
       parse-entities: 2.0.0
     transitivePeerDependencies:
       - supports-color
@@ -20170,6 +20215,12 @@ snapshots:
       '@oxfmt/binding-win32-arm64-msvc': 0.44.0
       '@oxfmt/binding-win32-ia32-msvc': 0.44.0
       '@oxfmt/binding-win32-x64-msvc': 0.44.0
+
+  oxlint-tailwindcss@0.7.1(@oxlint/plugins@1.63.0):
+    dependencies:
+      '@oxlint/plugins': 1.63.0
+      '@tailwindcss/node': 4.3.0
+      tailwindcss: 4.3.0
 
   oxlint@1.59.0:
     optionalDependencies:

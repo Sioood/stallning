@@ -9,7 +9,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 
 export default withNuxt(
   await eslint({
-    oxlint: resolve(__dirname, '../../.oxlintrc.json'),
+    oxlint: resolve(__dirname, '.oxlintrc.json'),
     tsconfigRootDir: __dirname,
     typescript: true,
     vue: true,

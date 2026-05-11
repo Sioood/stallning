@@ -5,20 +5,20 @@ import {
 } from '@ark-ui/vue/field'
 import { cva, type VariantProps } from 'class-variance-authority'
 
-import type { FormFieldIntent, FormFieldSize, UIInputSlots } from './context'
-import type { FieldProps } from '~ui/app/components/Form/Field.vue'
-
 import {
   useComponentIcons,
   type UseComponentIconsProps,
 } from '~ui/app/composables/useComponentIcons'
+
+import type { FormFieldIntent, FormFieldSize, UIInputSlots } from './context'
+import type { FieldProps } from '~ui/app/components/Form/Field.vue'
 
 export type { UIInputSlots } from './context'
 
 defineOptions({ inheritAttrs: false })
 
 const controlShellCVA = cva(
-  'controlShell flex w-full min-w-0 items-center gap-0.5 transition-[box-shadow,border-color]',
+  'flex w-full min-w-0 items-center gap-0.5 transition-[box-shadow,border-color]',
   {
     variants: {
       intent: {
@@ -52,7 +52,7 @@ const controlShellCVA = cva(
 )
 
 const fieldInputCVA = cva(
-  'fieldInput txt-base min-w-0 flex-1 border-0 outline-none read-only:cursor-default',
+  'txt-base min-w-0 flex-1 border-0 outline-none read-only:cursor-default',
   {
     variants: {
       size: {

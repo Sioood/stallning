@@ -90,9 +90,9 @@ const controlled = ref<string[]>([])
             Locked
             <UIAccordionItemIndicator />
           </UIAccordionItemTrigger>
-          <UIAccordionItemContent
-            >Not interactive when the root is disabled.</UIAccordionItemContent
-          >
+          <UIAccordionItemContent>
+            Not interactive when the root is disabled.
+          </UIAccordionItemContent>
         </UIAccordionItem>
       </UIAccordion>
     </section>
@@ -111,9 +111,9 @@ const controlled = ref<string[]>([])
           <UIAccordionItemContext v-slot="{ expanded, disabled }">
             <UIAccordionItemTrigger>
               <span class="flex flex-1 items-center justify-between gap-2">
-                <span
-                  >Unavailable ({{ expanded ? 'open' : 'closed' }}, disabled: {{ disabled }})</span
-                >
+                <span>
+                  Unavailable ({{ expanded ? 'open' : 'closed' }}, disabled: {{ disabled }})
+                </span>
                 <UIAccordionItemIndicator />
               </span>
             </UIAccordionItemTrigger>
@@ -178,9 +178,9 @@ const controlled = ref<string[]>([])
             Programmatic B
             <UIAccordionItemIndicator />
           </UIAccordionItemTrigger>
-          <UIAccordionItemContent
-            >Shares the same chrome tokens as UIAccordion.</UIAccordionItemContent
-          >
+          <UIAccordionItemContent>
+            Shares the same chrome tokens as UIAccordion.
+          </UIAccordionItemContent>
         </UIAccordionItem>
       </UIAccordionRootProvider>
     </section>

@@ -1,5 +1,4 @@
 import { computed, toValue, type MaybeRefOrGetter } from 'vue'
-
 import { assertNever } from '~nuxt-essentials/app/utils/assert-never'
 
 export type ComponentState = 'default' | 'loading' | 'success' | 'warning' | 'error' | 'info'

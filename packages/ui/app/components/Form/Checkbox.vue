@@ -12,7 +12,7 @@ import type { FieldProps } from '~ui/app/components/Form/Field.vue'
 
 export type { UICheckboxSlots } from './context'
 
-const checkboxRootCVA = cva('checkboxRoot group inline-flex items-center gap-2', {
+const checkboxRootCVA = cva('group inline-flex items-center gap-2', {
   variants: {
     intent: {
       primary: '',
@@ -33,7 +33,7 @@ const checkboxRootCVA = cva('checkboxRoot group inline-flex items-center gap-2',
 
 type CheckboxRootVariants = VariantProps<typeof checkboxRootCVA>
 
-const checkboxControlCVA = cva('checkboxControl size-4 border', {
+const checkboxControlCVA = cva('size-4 border', {
   variants: {
     intent: {
       primary:
@@ -55,7 +55,7 @@ const checkboxControlCVA = cva('checkboxControl size-4 border', {
 
 const checkboxIndicatorCVA = cva(
   [
-    'checkboxIndicator flex size-full items-center justify-center',
+    'flex size-full items-center justify-center',
     'bg-primary-fill-subtle text-primary-text-default',
     'group-data-[state=checked]:bg-primary-fill-default group-data-[state=checked]:text-primary-fill-inverse',
     'group-data-[state=indeterminate]:bg-primary-fill-default group-data-[state=indeterminate]:text-primary-fill-inverse',
@@ -80,7 +80,7 @@ const checkboxIndicatorCVA = cva(
   },
 )
 
-const fieldLabelCVA = cva('fieldLabel', {
+const fieldLabelCVA = cva('', {
   variants: {
     intent: {
       primary: 'text-primary-text-default data-[disabled]:text-primary-text-default-disabled',

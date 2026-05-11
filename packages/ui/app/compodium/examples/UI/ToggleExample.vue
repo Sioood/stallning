@@ -1,5 +1,5 @@
 <template>
-  <div class="flex gap-2 flex-wrap">
+  <div class="flex flex-wrap gap-2">
     <UIToggle>
       <template #on>
         <Icon name="tabler:eye-off" class="size-4 shrink-0" />

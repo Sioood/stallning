@@ -10,7 +10,7 @@ import type { MenuRadioGroupProps } from '@/components/Menu/RadioGroup.vue'
 import type { MenuSubmenuProps } from '@/components/Menu/Submenu.vue'
 import type { ClassValue } from 'vue'
 
-const menuSeparatorCVA = cva('menuSeparator block w-full border-t', {
+const menuSeparatorCVA = cva('block w-full', {
   variants: {
     intent: {
       neutral: 'border-neutral-border-subtle',
@@ -19,7 +19,7 @@ const menuSeparatorCVA = cva('menuSeparator block w-full border-t', {
       accent: 'border-accent-border-subtle',
     },
     size: {
-      md: 'my-1',
+      md: 'my-1 border-t',
     },
   },
 })

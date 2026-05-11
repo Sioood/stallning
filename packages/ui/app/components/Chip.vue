@@ -23,7 +23,7 @@ type ChipIntent =
   | 'gray'
 type ChipSize = 'sm' | 'md' | 'lg'
 
-const chipCVA = cva(['chip', 'flex items-center justify-center', 'border', 'group'], {
+const chipCVA = cva(['flex items-center justify-center', 'group'], {
   variants: {
     intent: {
       neutral: 'border-neutral-border-default bg-neutral-fill-default',
@@ -54,9 +54,9 @@ const chipCVA = cva(['chip', 'flex items-center justify-center', 'border', 'grou
       gray: 'border-gray-border-default bg-gray-fill-default hover:border-gray-border-default-hover hover:bg-gray-fill-default-hover active:border-gray-border-default-active active:bg-gray-fill-default-active',
     } satisfies Record<ChipIntent, string>,
     size: {
-      sm: 'gap-0.5 p-0.5',
-      md: 'gap-1 p-1',
-      lg: 'gap-1.5 p-1.5',
+      sm: 'gap-0.5 border p-0.5',
+      md: 'gap-1 border p-1',
+      lg: 'gap-1.5 border p-1.5',
     } satisfies Record<ChipSize, string>,
     disabled: {
       false: '',
@@ -83,7 +83,7 @@ const chipCVA = cva(['chip', 'flex items-center justify-center', 'border', 'grou
 
 type ChipCVAProps = VariantProps<typeof chipCVA>
 
-const chipIconCVA = cva('chipIcon', {
+const chipIconCVA = cva('', {
   variants: {
     intent: {
       neutral:
@@ -122,7 +122,7 @@ const chipIconCVA = cva('chipIcon', {
   },
 })
 
-const chipActionIconCVA = cva('chipActionIcon', {
+const chipActionIconCVA = cva('', {
   variants: {
     disabled: {
       false: '',
@@ -147,7 +147,7 @@ const chipActionIconCVA = cva('chipActionIcon', {
   ],
 })
 
-const chipLabelCVA = cva(['chipLabel', 'select-none'], {
+const chipLabelCVA = cva('select-none', {
   variants: {
     intent: {
       neutral:

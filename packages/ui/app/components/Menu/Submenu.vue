@@ -7,7 +7,7 @@ import type { MenuListEntry } from './index.vue'
 import type { ClassValue } from 'vue'
 
 const menuSubmenuTriggerCVA = cva(
-  'menuSubmenuTrigger flex cursor-pointer items-center justify-between gap-2 outline-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-70',
+  'flex cursor-pointer items-center justify-between gap-2 outline-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-70',
   {
     variants: {
       intent: {
@@ -26,7 +26,7 @@ const menuSubmenuTriggerCVA = cva(
     },
   },
 )
-const menuSubmenuContentCVA = cva('menuSubmenuContent border', {
+const menuSubmenuContentCVA = cva('', {
   variants: {
     intent: {
       neutral: 'border-neutral-border-subtle bg-neutral-fill-subtle',
@@ -35,7 +35,7 @@ const menuSubmenuContentCVA = cva('menuSubmenuContent border', {
       accent: 'border-accent-border-subtle bg-accent-fill-subtle',
     },
     size: {
-      md: 'txt-label p-1',
+      md: 'txt-label border p-1',
     },
   },
 })

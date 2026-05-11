@@ -12,9 +12,34 @@
       "persistent": true,
       "cache": false
     },
+    "format": {
+      "cache": false,
+      "inputs": [
+        "**/*.{ts,vue,js,mjs,cjs,json,md,yaml,yml}",
+        ".oxfmtrc.json",
+        "packages/config/oxlint/base.oxlintrc.json",
+        "packages/config/oxlint/tailwind.oxlintrc.json"
+      ]
+    },
+    "format:check": {
+      "cache": false,
+      "inputs": [
+        "**/*.{ts,vue,js,mjs,cjs,json,md,yaml,yml}",
+        ".oxfmtrc.json",
+        "packages/config/oxlint/base.oxlintrc.json",
+        "packages/config/oxlint/tailwind.oxlintrc.json"
+      ]
+    },
     "lint": {
       "dependsOn": ["^lint"],
-      "inputs": ["**/*.{ts,vue,js,json,yaml,yml,md}", "eslint.config.ts", ".oxlintrc.json"]
+      "inputs": [
+        "**/*.{ts,vue,js,json,yaml,yml,md}",
+        "eslint.config.ts",
+        ".oxlintrc.json",
+        "**/.oxlintrc.json",
+        "packages/config/oxlint/base.oxlintrc.json",
+        "packages/config/oxlint/tailwind.oxlintrc.json"
+      ]
     },
     "lint:eslint": {
       "dependsOn": ["^lint:eslint"],
@@ -22,7 +47,13 @@
     },
     "lint:oxlint": {
       "dependsOn": ["^lint:oxlint"],
-      "inputs": ["**/*.{ts,vue,js}", ".oxlintrc.json"]
+      "inputs": [
+        "**/*.{ts,vue,js}",
+        ".oxlintrc.json",
+        "**/.oxlintrc.json",
+        "packages/config/oxlint/base.oxlintrc.json",
+        "packages/config/oxlint/tailwind.oxlintrc.json"
+      ]
     },
     "test": {
       "dependsOn": [],

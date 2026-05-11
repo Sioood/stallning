@@ -5,7 +5,7 @@ import type { AccordionIntent, AccordionSize } from './context'
 export const accordionRootCVA = cva(
   [
     'accordionRoot flex w-full',
-    'data-[orientation=vertical]:flex-col data-[orientation=horizontal]:flex-row',
+    'data-[orientation=horizontal]:flex-row data-[orientation=vertical]:flex-col',
   ],
   {
     variants: {
@@ -30,7 +30,7 @@ export const accordionItemCVA = cva(
   [
     'accordionItem',
     'overflow-hidden',
-    'w-full data-[orientation=horizontal]:w-fit flex data-[orientation=vertical]:flex-col items-center',
+    'flex w-full items-center data-[orientation=horizontal]:w-fit data-[orientation=vertical]:flex-col',
   ],
   {
     variants: {
@@ -41,7 +41,7 @@ export const accordionItemCVA = cva(
         accent: 'border-accent-border-subtle',
       } satisfies Record<AccordionIntent, string>,
       size: {
-        md: 'gap-3 p-1 txt-h6 data-[orientation=vertical]:border-b data-[orientation=horizontal]:border-r',
+        md: 'txt-h6 gap-3 p-1 data-[orientation=horizontal]:border-r data-[orientation=vertical]:border-b',
       } satisfies Record<AccordionSize, string>,
     },
     defaultVariants: {
@@ -54,7 +54,7 @@ export const accordionItemCVA = cva(
 export const accordionItemTriggerCVA = cva(
   [
     'accordionItemTrigger',
-    'w-full data-[orientation=horizontal]:w-fit flex data-[orientation=horizontal]:flex-col items-center justify-between text-left',
+    'flex w-full items-center justify-between text-left data-[orientation=horizontal]:w-fit data-[orientation=horizontal]:flex-col',
     'not-disabled:cursor-pointer disabled:pointer-events-none',
     'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
   ],
@@ -67,7 +67,7 @@ export const accordionItemTriggerCVA = cva(
         accent: 'text-accent-text-default',
       } satisfies Record<AccordionIntent, string>,
       size: {
-        md: 'gap-3 p-1 txt-h6',
+        md: 'txt-h6 gap-3 p-1',
       } satisfies Record<AccordionSize, string>,
     },
     defaultVariants: {
@@ -88,13 +88,13 @@ export const accordionItemContentCVA = cva(
   {
     variants: {
       intent: {
-        neutral: 'text-neutral-text-default border-neutral-border-subtle',
-        primary: 'text-primary-text-default border-primary-border-subtle',
-        secondary: 'text-secondary-text-default border-secondary-border-subtle',
-        accent: 'text-accent-text-default border-accent-border-subtle',
+        neutral: 'border-neutral-border-subtle text-neutral-text-default',
+        primary: 'border-primary-border-subtle text-primary-text-default',
+        secondary: 'border-secondary-border-subtle text-secondary-text-default',
+        accent: 'border-accent-border-subtle text-accent-text-default',
       } satisfies Record<AccordionIntent, string>,
       size: {
-        md: 'data-[orientation=vertical]:py-4 data-[orientation=horizontal]:px-4 txt-base data-[orientation=vertical]:border-t data-[orientation=horizontal]:border-l',
+        md: 'txt-base data-[orientation=horizontal]:border-l data-[orientation=horizontal]:px-4 data-[orientation=vertical]:border-t data-[orientation=vertical]:py-4',
       } satisfies Record<AccordionSize, string>,
     },
     defaultVariants: {

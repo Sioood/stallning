@@ -1,10 +1,10 @@
 import { page } from '@vitest/browser/context'
 import { test, afterEach } from 'vitest'
 
+import Button from '~ui/app/components/Button.vue'
+
 import { mountForVisual } from './mount'
 import { expectPngSnapshot } from './png-snapshot'
-
-import Button from '~ui/app/components/Button.vue'
 
 const specFolder = 'button.visual.test.ts'
 const screenshotDir = `./__screenshots__/${specFolder}`

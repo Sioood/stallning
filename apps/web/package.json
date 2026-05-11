@@ -9,9 +9,9 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
-    "lint:oxlint": "pnpm exec oxlint",
+    "lint:oxlint": "pnpm exec oxlint -c .oxlintrc.json .",
     "lint:eslint": "pnpm exec eslint .",
-    "format": "pnpm exec oxfmt",
+    "format": "pnpm exec oxfmt --write .",
     "format:check": "pnpm exec oxfmt --check .",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
@@ -26,6 +26,11 @@
   },
   "devDependencies": {
     "@playwright/test": "catalog:",
-    "@stallning/nuxt-essentials": "workspace:*"
+    "@stallning/eslint": "workspace:^",
+    "@stallning/nuxt-essentials": "workspace:*",
+    "eslint": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "oxlint-tailwindcss": "catalog:"
   }
 }

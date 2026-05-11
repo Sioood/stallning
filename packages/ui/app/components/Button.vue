@@ -18,7 +18,7 @@ defineOptions({ inheritAttrs: false })
 
 type ButtonCVAProps = VariantProps<typeof button>
 
-const buttonIconCVA = cva('buttonIcon shrink-0', {
+const buttonIconCVA = cva('shrink-0', {
   variants: {
     size: {
       sm: 'size-2.5',
@@ -147,10 +147,10 @@ extendCompodiumMeta<typeof props>({
         to
           ? { ...linkProps, disabled }
           : {
-            type,
-            disabled: props.disabled || effectiveState === 'loading',
-            onClick: handleClick,
-          },
+              type,
+              disabled: props.disabled || effectiveState === 'loading',
+              onClick: handleClick,
+            },
       )
     "
     :class="

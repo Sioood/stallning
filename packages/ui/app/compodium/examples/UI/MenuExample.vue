@@ -268,7 +268,7 @@ function getMultipleTriggerItems(triggerValue: string | null): MenuListEntry[] {
       <template #context-trigger="{ contextTrigger: ContextTrigger }">
         <component
           :is="ContextTrigger"
-          class="menuContextTrigger rounded-none border border-dashed border-neutral-border-subtle px-3 py-2 txt-caption"
+          class="menuContextTrigger txt-caption rounded-none border border-dashed border-neutral-border-subtle px-3 py-2"
         >
           Right click here
         </component>
@@ -308,7 +308,7 @@ function getMultipleTriggerItems(triggerValue: string | null): MenuListEntry[] {
       @select="onMultipleTriggerMenuSelect"
     >
       <template #triggers="{ trigger: Trigger }">
-        <div class="flex join">
+        <div class="join flex">
           <component
             :is="Trigger"
             v-for="id in ['msg-1', 'msg-2', 'msg-3']"
@@ -317,7 +317,7 @@ function getMultipleTriggerItems(triggerValue: string | null): MenuListEntry[] {
             class="join-item"
           >
             <span
-              class="inline-flex h-8 min-w-16 items-center justify-center border border-neutral-border-subtle bg-neutral-fill-subtle px-2 txt-caption text-neutral-text-default"
+              class="txt-caption inline-flex h-8 min-w-16 items-center justify-center border border-neutral-border-subtle bg-neutral-fill-subtle px-2 text-neutral-text-default"
             >
               {{ id }}
             </span>
@@ -353,7 +353,7 @@ function getMultipleTriggerItems(triggerValue: string | null): MenuListEntry[] {
             <component :is="Positioner">
               <component
                 :is="ContentPart"
-                class="menuContent border border-neutral-border-subtle bg-neutral-fill-subtle p-1 txt-label"
+                class="menuContent txt-label border border-neutral-border-subtle bg-neutral-fill-subtle p-1"
               >
                 <component
                   :is="Item"

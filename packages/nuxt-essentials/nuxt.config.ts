@@ -2,6 +2,8 @@ import ViteYaml from '@modyfi/vite-plugin-yaml'
 import { createResolver } from '@nuxt/kit'
 const { resolve } = createResolver(import.meta.url)
 
+const isDev = process.env.NODE_ENV !== 'production'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
@@ -72,6 +74,65 @@ export default defineNuxtConfig({
     defaultLocale: 'fr-FR',
     // ISO 639-1 + ISO 3166-1
     locales: [{ code: 'fr-FR', language: 'fr-FR', name: 'Français', file: 'fr-FR/index.ts' }],
+  },
+  security: {
+    enabled: !isDev,
+    strict: true,
+    nonce: true,
+    sri: true,
+    hidePoweredBy: true,
+    headers: {
+      contentSecurityPolicy: {
+        'base-uri': ["'none'"],
+        'font-src': ["'self'", 'https:', 'data:'],
+        'form-action': ["'self'"],
+        'frame-ancestors': ["'self'"],
+        'img-src': ["'self'", 'data:', 'https:'],
+        'object-src': ["'none'"],
+        'script-src-attr': ["'none'"],
+        'style-src': ["'self'", "'unsafe-inline'"],
+        'script-src': ["'self'", "'strict-dynamic'", "'nonce-{{nonce}}'"],
+        'upgrade-insecure-requests': true,
+        'connect-src': ["'self'"],
+        'worker-src': ["'self'"],
+        'manifest-src': ["'self'"],
+      },
+      crossOriginOpenerPolicy: 'same-origin',
+      crossOriginResourcePolicy: 'same-origin',
+      crossOriginEmbedderPolicy: 'credentialless',
+      referrerPolicy: 'strict-origin-when-cross-origin',
+      strictTransportSecurity: {
+        maxAge: 31536000,
+        includeSubdomains: true,
+        preload: true,
+      },
+      xContentTypeOptions: 'nosniff',
+      xFrameOptions: 'DENY',
+      permissionsPolicy: {
+        camera: [],
+        'display-capture': [],
+        fullscreen: ['self'],
+        geolocation: [],
+        microphone: [],
+      },
+    },
+    corsHandler: {
+      origin: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+      methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+      credentials: true,
+      preflight: { statusCode: 204 },
+    },
+    rateLimiter: {
+      tokensPerInterval: 100,
+      interval: 300000,
+      headers: true,
+      throwError: true,
+    },
+    requestSizeLimiter: {
+      maxRequestSizeInBytes: 2_000_000,
+      maxUploadFileRequestInBytes: 8_000_000,
+      throwError: true,
+    },
   },
   site: {
     url: 'https://nuxt-essentials.com',

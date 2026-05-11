@@ -1,5 +1,7 @@
 import { computed, toValue, type MaybeRefOrGetter } from 'vue'
 
+import { assertNever } from '~nuxt-essentials/app/utils/assert-never'
+
 export type ComponentState = 'default' | 'loading' | 'success' | 'warning' | 'error' | 'info'
 
 export type IconMode = 'leadingAndTrailing' | 'single'
@@ -49,13 +51,23 @@ export function useComponentIcons(componentProps: MaybeRefOrGetter<UseComponentI
         !!props.value.trailingIcon),
   )
 
-  const getStateIcon = (state: ComponentState) => {
-    if (state === 'loading') return props.value.loadingIcon || useSemanticIcons.loading
-    if (state === 'success') return props.value.successIcon || useSemanticIcons.success
-    if (state === 'warning') return props.value.warningIcon || useSemanticIcons.warning
-    if (state === 'error') return props.value.errorIcon || useSemanticIcons.error
-    if (state === 'info') return props.value.infoIcon || useSemanticIcons.info
-    return ''
+  const getStateIcon = (state: ComponentState): string => {
+    switch (state) {
+      case 'loading':
+        return props.value.loadingIcon || useSemanticIcons.loading
+      case 'success':
+        return props.value.successIcon || useSemanticIcons.success
+      case 'warning':
+        return props.value.warningIcon || useSemanticIcons.warning
+      case 'error':
+        return props.value.errorIcon || useSemanticIcons.error
+      case 'info':
+        return props.value.infoIcon || useSemanticIcons.info
+      case 'default':
+        return ''
+      default:
+        assertNever(state)
+    }
   }
 
   const leadingIconName = computed(() => {

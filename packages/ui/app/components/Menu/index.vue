@@ -2,8 +2,6 @@
 import { Menu as ArkMenu, type MenuRootBaseProps as ArkMenuRootBaseProps } from '@ark-ui/vue/menu'
 import { cva } from 'class-variance-authority'
 
-import { buttonVariants } from '~ui/app/utils/button-variants'
-
 import type { ClassValue } from 'vue'
 
 defineOptions({ inheritAttrs: false })
@@ -22,7 +20,8 @@ const menuContentCVA = cva(
       intent: {
         neutral: 'border-neutral-border-subtle bg-neutral-fill-subtle text-neutral-text-default',
         primary: 'border-primary-border-subtle bg-primary-fill-subtle text-primary-text-default',
-        secondary: 'border-secondary-border-subtle bg-secondary-fill-subtle text-secondary-text-default',
+        secondary:
+          'border-secondary-border-subtle bg-secondary-fill-subtle text-secondary-text-default',
         accent: 'border-accent-border-subtle bg-accent-fill-subtle text-accent-text-default',
       },
       size: {
@@ -72,6 +71,7 @@ interface MenuBaseItem {
 }
 
 export interface MenuItemEntry extends MenuBaseItem {
+  /** Explicit `'item'` or omitted (defaults to `'item'` at runtime). */
   type?: 'item'
   label: string
   value: string
@@ -81,6 +81,18 @@ export interface MenuItemEntry extends MenuBaseItem {
   href?: string
   target?: string
 }
+
+/**
+ * Narrowed variant requiring a literal `type` discriminant.
+ * Use in switch/if-chains that need exhaustive checking via `assertNever`.
+ */
+export type MenuListEntryStrict =
+  | (MenuItemEntry & { type: 'item' })
+  | MenuCheckboxEntry
+  | MenuRadioGroupEntry
+  | MenuGroupEntry
+  | MenuSubmenuEntry
+  | MenuSeparatorEntry
 
 export interface MenuCheckboxEntry extends MenuBaseItem {
   type: 'checkbox'
@@ -280,7 +292,9 @@ extendCompodiumMeta<MenuProps>({
               :item-indicator="ArkMenu.ItemIndicator"
               :item-text="ArkMenu.ItemText"
               :context-trigger="ArkMenu.ContextTrigger"
-              :trigger-value="(menu as unknown as { triggerValue?: string | null }).triggerValue ?? null"
+              :trigger-value="
+                (menu as unknown as { triggerValue?: string | null }).triggerValue ?? null
+              "
             >
               <UIMenuEntryRenderer
                 :items="items"
@@ -313,7 +327,9 @@ extendCompodiumMeta<MenuProps>({
             :item-indicator="ArkMenu.ItemIndicator"
             :item-text="ArkMenu.ItemText"
             :context-trigger="ArkMenu.ContextTrigger"
-            :trigger-value="(menu as unknown as { triggerValue?: string | null }).triggerValue ?? null"
+            :trigger-value="
+              (menu as unknown as { triggerValue?: string | null }).triggerValue ?? null
+            "
           >
             <UIMenuEntryRenderer
               :items="items"

@@ -268,7 +268,7 @@ describe('renderTreeStructure', () => {
     ['fr-FR', []],
   ]
 
-  it('adds green styling for percentage >= 90', () => {
+  it('includes percentage in output for high coverage locale', () => {
     const lines = renderTreeStructure({
       tree: sampleTree,
       data: {
@@ -278,10 +278,10 @@ describe('renderTreeStructure', () => {
         },
       },
     })
-    expect(lines.some((l) => l.includes('92'))).toBe(true)
+    expect(lines.some((l) => l.includes('92%'))).toBe(true)
   })
 
-  it('adds yellow styling for percentage between 50 and 89', () => {
+  it('includes percentage and missing count for partial coverage locale', () => {
     const lines = renderTreeStructure({
       tree: [['en-US', []]],
       data: {
@@ -291,10 +291,11 @@ describe('renderTreeStructure', () => {
         },
       },
     })
-    expect(lines.some((l) => l.includes('75'))).toBe(true)
+    expect(lines.some((l) => l.includes('75%'))).toBe(true)
+    expect(lines.some((l) => l.includes('missing:'))).toBe(true)
   })
 
-  it('adds red styling for percentage below 50', () => {
+  it('includes percentage for low coverage locale', () => {
     const lines = renderTreeStructure({
       tree: [['en-US', []]],
       data: {
@@ -304,7 +305,7 @@ describe('renderTreeStructure', () => {
         },
       },
     })
-    expect(lines.some((l) => l.includes('30'))).toBe(true)
+    expect(lines.some((l) => l.includes('30%'))).toBe(true)
   })
 
   it('prints missing keys when showKeys is true', () => {

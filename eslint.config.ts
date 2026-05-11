@@ -11,8 +11,19 @@ export default eslint({
   tsconfigRootDir: __dirname,
   typescript: true,
   vue: true,
-}).append({
-  rules: {
-    'import-x/no-unresolved': ['error', { ignore: ['^~ui/', '^~nuxt-essentials/'] }],
+}).append(
+  {
+    rules: {
+      'import-x/no-unresolved': ['error', { ignore: ['^~ui/', '^~nuxt-essentials/'] }],
+    },
   },
-})
+  {
+    files: ['packages/ui/test/**/*.ts', '**/*.component.test.ts'],
+    rules: {
+      'vue/multi-word-component-names': 'off',
+      'vue/no-reserved-component-names': 'off',
+      'vue/require-default-prop': 'off',
+      'vue/one-component-per-file': 'off',
+    },
+  },
+)

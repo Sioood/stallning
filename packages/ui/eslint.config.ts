@@ -8,7 +8,7 @@ import { withNuxt } from './.nuxt/eslint.config.mjs'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
 export default withNuxt(
-  eslint({
+  await eslint({
     oxlint: resolve(__dirname, '../../.oxlintrc.json'),
     tsconfigRootDir: __dirname,
     typescript: true,

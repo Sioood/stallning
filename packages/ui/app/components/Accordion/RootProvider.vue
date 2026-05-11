@@ -41,7 +41,7 @@ const providerProps = computed(() =>
 
 const providerAttrs = computed(() => {
   const { ui: _ui, ...rest } = attrs as Record<string, unknown> & {
-    ui?: UIAccordionRootProviderSlots
+    ui?: Partial<UIAccordionRootProviderSlots>
   }
   return rest
 })

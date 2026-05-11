@@ -7,25 +7,27 @@ import {
 import { createReusableTemplate } from '@vueuse/core'
 import { cva, type VariantProps } from 'class-variance-authority'
 
-import type { ClassValue } from 'vue'
+import type { FormFieldIntent, FormFieldSize, UICheckboxSlots } from './context'
 import type { FieldProps } from '~ui/app/components/Form/Field.vue'
+
+export type { UICheckboxSlots } from './context'
 
 const checkboxRootCVA = cva('checkboxRoot group inline-flex items-center gap-2', {
   variants: {
     intent: {
       primary: '',
-    },
+    } satisfies Record<FormFieldIntent, string>,
     size: {
       md: '',
-    },
+    } satisfies Record<FormFieldSize, string>,
     disabled: {
       true: 'cursor-not-allowed',
       false: 'cursor-pointer',
-    },
+    } satisfies Record<'false' | 'true', string>,
     invalid: {
       true: '',
       false: '',
-    },
+    } satisfies Record<'false' | 'true', string>,
   },
 })
 
@@ -36,24 +38,24 @@ const checkboxControlCVA = cva('checkboxControl size-4 border', {
     intent: {
       primary:
         'border-primary-border-default data-hover:border-primary-border-default-hover data-[disabled]:border-primary-border-subtle data-[invalid]:border-error-border-default',
-    },
+    } satisfies Record<FormFieldIntent, string>,
     size: {
       md: '',
-    },
+    } satisfies Record<FormFieldSize, string>,
     disabled: {
       true: '',
       false: '',
-    },
+    } satisfies Record<'false' | 'true', string>,
     invalid: {
       true: '',
       false: '',
-    },
+    } satisfies Record<'false' | 'true', string>,
   },
 })
 
 const checkboxIndicatorCVA = cva(
   [
-    'checkboxIndicator size-full flex items-center justify-center',
+    'checkboxIndicator flex size-full items-center justify-center',
     'bg-primary-fill-subtle text-primary-text-default',
     'group-data-[state=checked]:bg-primary-fill-default group-data-[state=checked]:text-primary-fill-inverse',
     'group-data-[state=indeterminate]:bg-primary-fill-default group-data-[state=indeterminate]:text-primary-fill-inverse',
@@ -62,18 +64,18 @@ const checkboxIndicatorCVA = cva(
     variants: {
       intent: {
         primary: '',
-      },
+      } satisfies Record<FormFieldIntent, string>,
       size: {
         md: '',
-      },
+      } satisfies Record<FormFieldSize, string>,
       disabled: {
         true: '',
         false: '',
-      },
+      } satisfies Record<'false' | 'true', string>,
       invalid: {
         true: '',
         false: '',
-      },
+      } satisfies Record<'false' | 'true', string>,
     },
   },
 )
@@ -82,20 +84,12 @@ const fieldLabelCVA = cva('fieldLabel', {
   variants: {
     intent: {
       primary: 'text-primary-text-default data-[disabled]:text-primary-text-default-disabled',
-    },
+    } satisfies Record<FormFieldIntent, string>,
     size: {
       md: 'txt-label',
-    },
+    } satisfies Record<FormFieldSize, string>,
   },
 })
-
-interface UICheckboxSlots {
-  root?: ClassValue
-  control?: ClassValue
-  indicator?: ClassValue
-  label?: ClassValue
-  hiddenInput?: ClassValue
-}
 
 interface CheckboxProps extends ArkCheckboxRootBaseProps, Omit<FieldProps, 'ids'> {
   /**
@@ -105,7 +99,7 @@ interface CheckboxProps extends ArkCheckboxRootBaseProps, Omit<FieldProps, 'ids'
   inGroup?: boolean
   intent?: CheckboxRootVariants['intent']
   size?: CheckboxRootVariants['size']
-  ui?: UICheckboxSlots
+  ui?: Partial<UICheckboxSlots>
 }
 
 const emit = defineEmits<{

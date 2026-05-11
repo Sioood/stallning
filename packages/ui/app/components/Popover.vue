@@ -7,6 +7,9 @@ import { cva, type VariantProps } from 'class-variance-authority'
 
 import type { ClassValue } from 'vue'
 
+type PopoverIntent = 'neutral'
+type PopoverSize = 'md'
+
 type PopoverTriggerValueSource = { triggerValue?: string | null }
 
 function popoverTriggerValue(popover: unknown): string | null {
@@ -25,10 +28,10 @@ const popoverContentCVA = cva(
     variants: {
       intent: {
         neutral: 'bg-neutral-surface-default text-neutral-text-default',
-      },
+      } satisfies Record<PopoverIntent, string>,
       size: {
-        md: 'p-2 flex flex-col gap-2 txt-caption',
-      },
+        md: 'txt-caption flex flex-col gap-2 p-2',
+      } satisfies Record<PopoverSize, string>,
     },
   },
 )
@@ -37,10 +40,10 @@ const popoverArrowCVA = cva(['popoverArrow', 'flex items-center justify-center']
   variants: {
     intent: {
       neutral: '[--arrow-background:var(--color-neutral-surface-default)]',
-    },
+    } satisfies Record<PopoverIntent, string>,
     size: {
       md: '[--arrow-size:calc(var(--spacing)*2)]',
-    },
+    } satisfies Record<PopoverSize, string>,
   },
 })
 
@@ -49,23 +52,23 @@ const popoverTitleCVA = cva('popoverTitle', {
   variants: {
     intent: {
       neutral: 'text-neutral-text-default',
-    },
+    } satisfies Record<PopoverIntent, string>,
     size: {
       md: 'txt-label',
-    },
+    } satisfies Record<PopoverSize, string>,
   },
 })
 const popoverDescriptionCVA = cva('popoverDescription', {
   variants: {
     intent: {
       neutral: 'text-neutral-text-subtle',
-    },
+    } satisfies Record<PopoverIntent, string>,
     size: {
       md: 'txt-caption',
-    },
+    } satisfies Record<PopoverSize, string>,
   },
 })
-const popoverCloseCVA = cva('absolute right-1 top-1')
+const popoverCloseCVA = cva('absolute top-1 right-1')
 
 type PopoverCVAProps = VariantProps<typeof popoverContentCVA>
 
@@ -84,7 +87,7 @@ interface PopoverProps extends ArkPopoverRootBaseProps {
   intent?: PopoverCVAProps['intent']
   showCloseTrigger?: boolean
   size?: PopoverCVAProps['size']
-  ui?: UIPopoverSlots
+  ui?: Partial<UIPopoverSlots>
 }
 
 const open = defineModel<boolean>('open', { default: false })
@@ -149,7 +152,7 @@ const rootProps = computed(() =>
         </ArkPopover.Trigger>
       </slot>
 
-      <ArkPopover.Positioner class="[--z-index:9999] origin-(--transform-origin)">
+      <ArkPopover.Positioner class="origin-(--transform-origin) [--z-index:9999]">
         <ArkPopover.Content :class="cn(popoverContentCVA({ intent, size }), ui?.content)">
           <ArkPopover.Title v-if="title" :class="cn(popoverTitleCVA({ intent, size }), ui?.title)">
             {{ title }}

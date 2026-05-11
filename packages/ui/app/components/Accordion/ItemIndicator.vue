@@ -38,7 +38,7 @@ const indicatorProps = computed(() => pick(props, ['asChild'] as const))
 
 const indicatorAttrs = computed(() => {
   const { ui: _ui, ...rest } = attrs as Record<string, unknown> & {
-    ui?: UIAccordionItemIndicatorSlots
+    ui?: Partial<UIAccordionItemIndicatorSlots>
   }
   return rest
 })

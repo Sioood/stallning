@@ -6,7 +6,10 @@ import {
 import { Fieldset as ArkFieldset } from '@ark-ui/vue/fieldset'
 import { cva, type VariantProps } from 'class-variance-authority'
 
-import type { ClassValue, Component } from 'vue'
+import type { FormFieldIntent, FormFieldSize, UIFieldSlots } from './context'
+import type { Component } from 'vue'
+
+export type { UIFieldSlots } from './context'
 
 defineOptions({ inheritAttrs: false })
 
@@ -14,10 +17,10 @@ const fieldRootCVA = cva('fieldRoot flex flex-col gap-1', {
   variants: {
     intent: {
       primary: '',
-    },
+    } satisfies Record<FormFieldIntent, string>,
     size: {
       md: '',
-    },
+    } satisfies Record<FormFieldSize, string>,
     invalid: {
       true: '',
     },
@@ -30,10 +33,10 @@ const fieldLabelCVA = cva('fieldLabel', {
   variants: {
     intent: {
       primary: 'text-primary-text-default',
-    },
+    } satisfies Record<FormFieldIntent, string>,
     size: {
       md: 'txt-label',
-    },
+    } satisfies Record<FormFieldSize, string>,
   },
 })
 
@@ -41,20 +44,12 @@ const fieldHelperTextCVA = cva('fieldHelperText', {
   variants: {
     intent: {
       primary: 'text-primary-text-subtle',
-    },
+    } satisfies Record<FormFieldIntent, string>,
     size: {
       md: 'txt-caption',
-    },
+    } satisfies Record<FormFieldSize, string>,
   },
 })
-
-export interface UIFieldSlots {
-  root?: ClassValue
-  label?: ClassValue
-  helperText?: ClassValue
-  error?: ClassValue
-  requiredIndicator?: ClassValue
-}
 
 export interface FieldProps extends ArkFieldRootBaseProps {
   /**
@@ -77,7 +72,7 @@ export interface FieldProps extends ArkFieldRootBaseProps {
   labelAssociatesControl?: boolean
   /** Prefer setting on the field so Ark can wire label and control ids. */
   size?: FieldCVAProps['size']
-  ui?: UIFieldSlots
+  ui?: Partial<UIFieldSlots>
 }
 
 const props = withDefaults(defineProps<FieldProps>(), {
@@ -96,7 +91,7 @@ const slots = useSlots()
 const attrs = useAttrs()
 
 const fieldRootAttrs = computed(() => {
-  const { ui: _ui, ...rest } = attrs as Record<string, unknown> & { ui?: UIFieldSlots }
+  const { ui: _ui, ...rest } = attrs as Record<string, unknown> & { ui?: Partial<UIFieldSlots> }
   return rest
 })
 

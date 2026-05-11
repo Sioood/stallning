@@ -5,6 +5,25 @@ import {
 } from '@ark-ui/vue/tooltip'
 import { cva, type VariantProps } from 'class-variance-authority'
 
+import type { ClassValue } from 'vue'
+
+type TooltipIntent =
+  | 'neutral'
+  | 'primary'
+  | 'secondary'
+  | 'accent'
+  | 'info'
+  | 'success'
+  | 'warning'
+  | 'error'
+type TooltipSize = 'md'
+
+interface UITooltipSlots {
+  content?: ClassValue
+  arrow?: ClassValue
+  arrowTip?: ClassValue
+}
+
 type TooltipTriggerValueSource = { triggerValue?: string | null }
 
 function tooltipTriggerValue(tooltip: unknown): string | null {
@@ -30,10 +49,10 @@ const tooltipContentCVA = cva(
         success: 'bg-success-surface-default text-success-text-default',
         warning: 'bg-warning-surface-default text-warning-text-default',
         error: 'bg-error-surface-default text-error-text-default',
-      },
+      } satisfies Record<TooltipIntent, string>,
       size: {
         md: 'txt-caption px-2 py-1',
-      },
+      } satisfies Record<TooltipSize, string>,
     },
   },
 )
@@ -49,10 +68,10 @@ const tooltipArrowCVA = cva(['tooltipArrow', 'flex items-center justify-center']
       success: '[--arrow-background:var(--color-success-surface-default)]',
       warning: '[--arrow-background:var(--color-warning-surface-default)]',
       error: '[--arrow-background:var(--color-error-surface-default)]',
-    },
+    } satisfies Record<TooltipIntent, string>,
     size: {
       md: '[--arrow-size:calc(var(--spacing)*2)]',
-    },
+    } satisfies Record<TooltipSize, string>,
   },
 })
 const tooltipArrowTipCVA = cva(['tooltipArrowTip', 'size-full'])
@@ -64,11 +83,7 @@ interface TooltipProps extends ArkTooltipRootBaseProps {
   followCursor?: boolean
   intent?: TooltipCVAProps['intent']
   size?: TooltipCVAProps['size']
-  ui?: {
-    content?: string
-    arrow?: string
-    arrowTip?: string
-  }
+  ui?: Partial<UITooltipSlots>
 }
 
 const open = defineModel<boolean>('open', { default: false })
@@ -138,7 +153,7 @@ function handleTriggerPointerMove(
           </slot>
         </ArkTooltip.Trigger>
       </slot>
-      <ArkTooltip.Positioner class="[--z-index:9999] origin-(--transform-origin)">
+      <ArkTooltip.Positioner class="origin-(--transform-origin) [--z-index:9999]">
         <ArkTooltip.Content :class="cn(tooltipContentCVA({ intent, size }), ui?.content)">
           <slot name="content" :tooltip="tooltip" :trigger-value="tooltipTriggerValue(tooltip)">
             {{ content }}

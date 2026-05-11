@@ -5,13 +5,15 @@ import {
 } from '@ark-ui/vue/field'
 import { cva, type VariantProps } from 'class-variance-authority'
 
+import type { FormFieldIntent, FormFieldSize, UIInputSlots } from './context'
+import type { FieldProps } from '~ui/app/components/Form/Field.vue'
+
 import {
   useComponentIcons,
   type UseComponentIconsProps,
 } from '~ui/app/composables/useComponentIcons'
 
-import type { ClassValue } from 'vue'
-import type { FieldProps, UIFieldSlots } from '~ui/app/components/Form/Field.vue'
+export type { UIInputSlots } from './context'
 
 defineOptions({ inheritAttrs: false })
 
@@ -21,10 +23,10 @@ const controlShellCVA = cva(
     variants: {
       intent: {
         primary: '',
-      },
+      } satisfies Record<FormFieldIntent, string>,
       size: {
         md: 'border focus-within:outline',
-      },
+      } satisfies Record<FormFieldSize, string>,
       invalid: {
         true: 'border-error-border-default! focus-within:border-error-border-strong!',
       },
@@ -37,28 +39,28 @@ const controlShellCVA = cva(
         intent: 'primary',
         disabled: false,
         class:
-          'bg-primary-fill-subtle border-primary-border-default text-primary-text-default focus-within:outline-primary-border-default focus-within:border-primary-border-strong',
+          'border-primary-border-default bg-primary-fill-subtle text-primary-text-default focus-within:border-primary-border-strong focus-within:outline-primary-border-default',
       },
       {
         intent: 'primary',
         disabled: true,
         class:
-          'bg-primary-fill-subtle-disabled border-primary-border-default-disabled text-primary-text-default-disabled focus-within:outline-primary-border-default focus-within:border-primary-border-strong',
+          'border-primary-border-default-disabled bg-primary-fill-subtle-disabled text-primary-text-default-disabled focus-within:border-primary-border-strong focus-within:outline-primary-border-default',
       },
     ],
   },
 )
 
 const fieldInputCVA = cva(
-  'fieldInput min-w-0 flex-1 border-0 txt-base outline-none read-only:cursor-default',
+  'fieldInput txt-base min-w-0 flex-1 border-0 outline-none read-only:cursor-default',
   {
     variants: {
       size: {
         md: 'px-2 py-1',
-      },
+      } satisfies Record<FormFieldSize, string>,
       intent: {
         primary: '',
-      },
+      } satisfies Record<FormFieldIntent, string>,
       disabled: {
         true: 'disabled:cursor-not-allowed',
       },
@@ -67,26 +69,18 @@ const fieldInputCVA = cva(
       {
         intent: 'primary',
         disabled: false,
-        class: 'placeholder:text-primary-text-subtle text-primary-text-default',
+        class: 'text-primary-text-default placeholder:text-primary-text-subtle',
       },
       {
         intent: 'primary',
         disabled: true,
-        class: 'placeholder:text-primary-text-subtle-disabled text-primary-text-default-disabled',
+        class: 'text-primary-text-default-disabled placeholder:text-primary-text-subtle-disabled',
       },
     ],
   },
 )
 
 type ShellVariants = VariantProps<typeof controlShellCVA>
-
-/** Field slots plus control-specific parts for `UIFormInput`. */
-export interface UIInputSlots extends UIFieldSlots {
-  shell?: ClassValue
-  input?: ClassValue
-  leadingIcon?: ClassValue
-  trailingIcon?: ClassValue
-}
 
 interface InputProps
   extends Omit<FieldProps, 'ui'>, ArkFieldInputBaseProps, UseComponentIconsProps {
@@ -95,7 +89,7 @@ interface InputProps
   placeholder?: string
   size?: ShellVariants['size']
   type?: string
-  ui?: UIInputSlots
+  ui?: Partial<UIInputSlots>
 }
 
 const emit = defineEmits<{
@@ -185,7 +179,7 @@ const { isLeading, isTrailing, leadingIconName, trailingIconName, shouldAnimate 
 const attrs = useAttrs()
 
 const inputFallthroughAttrs = computed(() => {
-  const { ui: _ui, ...rest } = attrs as Record<string, unknown> & { ui?: UIInputSlots }
+  const { ui: _ui, ...rest } = attrs as Record<string, unknown> & { ui?: Partial<UIInputSlots> }
   return rest
 })
 

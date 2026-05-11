@@ -50,7 +50,7 @@ const rootProps = computed(() =>
 )
 
 const rootAttrs = computed(() => {
-  const { ui: _ui, ...rest } = attrs as Record<string, unknown> & { ui?: UIAccordionSlots }
+  const { ui: _ui, ...rest } = attrs as Record<string, unknown> & { ui?: Partial<UIAccordionSlots> }
   return rest
 })
 

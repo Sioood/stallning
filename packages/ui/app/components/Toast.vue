@@ -2,38 +2,49 @@
 import { Toast as ArkToast, Toaster as ArkToaster, type ToasterBaseProps } from '@ark-ui/vue/toast'
 import { cva, type VariantProps } from 'class-variance-authority'
 
+import type { ClassValue } from 'vue'
+
 import {
   useComponentIcons,
   type ComponentState,
   type UseComponentIconsProps,
 } from '~ui/app/composables/useComponentIcons'
 
-import type { ClassValue } from 'vue'
+type ToastIntent =
+  | 'neutral'
+  | 'primary'
+  | 'secondary'
+  | 'accent'
+  | 'info'
+  | 'warning'
+  | 'error'
+  | 'success'
+type ToastSize = 'md'
 
 const toaster = useToast()
 
 const toastRootCVA = cva(
-  'toastRoot border relative overflow-hidden z-index-[var(--z-index)] will-change-transform-opacity h-[var(--height)] translate-x-[var(--x)] translate-y-[var(--y)] scale-[var(--scale)] flex-col opacity-[var(--opacity)] transition-all duration-300 ease-in-out',
+  'toastRoot z-index-(--z-index) relative h-(--height) translate-x-(--x) translate-y-(--y) scale-(--scale) flex-col overflow-hidden border opacity-(--opacity) transition-all duration-300 ease-in-out will-change-[transform,opacity]',
   {
     variants: {
       intent: {
         neutral:
-          'bg-neutral-surface-default border-neutral-border-default text-neutral-text-default',
+          'border-neutral-border-default bg-neutral-surface-default text-neutral-text-default',
         primary:
-          'bg-primary-surface-default border-primary-border-default text-primary-text-default',
+          'border-primary-border-default bg-primary-surface-default text-primary-text-default',
         secondary:
-          'bg-secondary-surface-default border-secondary-border-default text-secondary-text-default',
-        accent: 'bg-accent-surface-default border-accent-border-default text-accent-text-default',
-        info: 'bg-info-surface-default border-info-border-default text-info-text-default',
+          'border-secondary-border-default bg-secondary-surface-default text-secondary-text-default',
+        accent: 'border-accent-border-default bg-accent-surface-default text-accent-text-default',
+        info: 'border-info-border-default bg-info-surface-default text-info-text-default',
         warning:
-          'bg-warning-surface-default border-warning-border-default text-warning-text-default',
-        error: 'bg-error-surface-default border-error-border-default text-error-text-default',
+          'border-warning-border-default bg-warning-surface-default text-warning-text-default',
+        error: 'border-error-border-default bg-error-surface-default text-error-text-default',
         success:
-          'bg-success-surface-default border-success-border-default text-success-text-default',
-      },
+          'border-success-border-default bg-success-surface-default text-success-text-default',
+      } satisfies Record<ToastIntent, string>,
       size: {
         md: 'min-w-64 p-2 pr-12',
-      },
+      } satisfies Record<ToastSize, string>,
     },
   },
 )
@@ -44,7 +55,7 @@ const toastTitleCVA = cva('toastTitle inline-flex gap-2', {
   variants: {
     size: {
       md: 'txt-base',
-    },
+    } satisfies Record<ToastSize, string>,
   },
 })
 
@@ -59,10 +70,10 @@ const toastDescriptionCVA = cva('toastDescription', {
       warning: 'text-warning-text-subtle',
       error: 'text-error-text-subtle',
       success: 'text-success-text-subtle',
-    },
+    } satisfies Record<ToastIntent, string>,
     size: {
       md: 'txt-caption',
-    },
+    } satisfies Record<ToastSize, string>,
   },
 })
 
@@ -70,7 +81,7 @@ const toastErrorCVA = cva('toastError', {
   variants: {
     size: {
       md: 'absolute top-2 right-2',
-    },
+    } satisfies Record<ToastSize, string>,
   },
 })
 
@@ -78,7 +89,7 @@ const toastActionCVA = cva('toastAction', {
   variants: {
     size: {
       md: 'mt-2',
-    },
+    } satisfies Record<ToastSize, string>,
   },
 })
 
@@ -91,7 +102,7 @@ interface UIToastSlots {
 }
 export interface ToastProps extends Omit<ToasterBaseProps, 'toaster'>, UseComponentIconsProps {
   size?: ToastRootCVAProps['size']
-  ui?: UIToastSlots
+  ui?: Partial<UIToastSlots>
 }
 
 const props = withDefaults(defineProps<ToastProps>(), {

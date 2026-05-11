@@ -38,7 +38,7 @@ const contentProps = computed(() => pick(props, ['asChild'] as const))
 
 const contentAttrs = computed(() => {
   const { ui: _ui, ...rest } = attrs as Record<string, unknown> & {
-    ui?: UIAccordionItemContentSlots
+    ui?: Partial<UIAccordionItemContentSlots>
   }
   return rest
 })

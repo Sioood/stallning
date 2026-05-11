@@ -5,15 +5,11 @@ import {
   type ToggleRootBaseProps as ArkToggleRootBaseProps,
 } from '@ark-ui/vue/toggle'
 
-import type { ClassValue } from 'vue'
-import type { ButtonVariants } from '~ui/app/utils/button-variants'
+import type { ToggleIntent, ToggleSize, ToggleVariant, UIToggleSlots } from './context'
+
+export type { UIToggleSlots } from './context'
 
 defineOptions({ inheritAttrs: false })
-
-export interface UIToggleSlots {
-  root?: ClassValue
-  indicator?: ClassValue
-}
 
 /** `pressed` is provided via `v-model:pressed`, not as a static root prop. */
 export interface ToggleProps extends Omit<ArkToggleRootBaseProps, 'pressed'> {
@@ -21,10 +17,10 @@ export interface ToggleProps extends Omit<ArkToggleRootBaseProps, 'pressed'> {
   activeBackground?: boolean
   /** Compact square padding for icon-only toggles (e.g. password visibility). */
   iconOnly?: boolean
-  intent?: ButtonVariants['intent']
-  size?: ButtonVariants['size']
-  variant?: ButtonVariants['variant']
-  ui?: UIToggleSlots
+  intent?: ToggleIntent
+  size?: ToggleSize
+  variant?: ToggleVariant
+  ui?: Partial<UIToggleSlots>
   indicatorAnimation?: 'fade' | 'flip' | 'scale' | 'rotate'
 }
 
@@ -47,7 +43,7 @@ const rootProps = computed(() => ({
 }))
 
 const rootAttrs = computed(() => {
-  const { ui: _ui, ...rest } = attrs as Record<string, unknown> & { ui?: UIToggleSlots }
+  const { ui: _ui, ...rest } = attrs as Record<string, unknown> & { ui?: Partial<UIToggleSlots> }
   return rest
 })
 </script>

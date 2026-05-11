@@ -8,7 +8,10 @@ import { cva, type VariantProps } from 'class-variance-authority'
 
 import type { ClassValue } from 'vue'
 
-const qrCodeRootCVA = cva(['qrCodeRoot', 'size-full flex flex-col items-center justify-center'], {
+type QrCodeIntent = 'neutral' | 'primary' | 'secondary' | 'accent' | 'blackAndWhite'
+type QrCodeSize = 'md'
+
+const qrCodeRootCVA = cva(['qrCodeRoot', 'flex size-full flex-col items-center justify-center'], {
   variants: {
     intent: {
       neutral: 'text-neutral-surface-default',
@@ -16,10 +19,10 @@ const qrCodeRootCVA = cva(['qrCodeRoot', 'size-full flex flex-col items-center j
       secondary: 'text-secondary-surface-default',
       accent: 'text-accent-surface-default',
       blackAndWhite: 'text-black',
-    },
+    } satisfies Record<QrCodeIntent, string>,
     size: {
       md: 'gap-2',
-    },
+    } satisfies Record<QrCodeSize, string>,
   },
 })
 
@@ -33,16 +36,16 @@ const qrCodeFrameCVA = cva(['qrCodeFrame', 'size-full'], {
       secondary: 'bg-secondary-fill-subtle fill-secondary-surface-strong',
       accent: 'bg-accent-fill-subtle fill-accent-surface-strong',
       blackAndWhite: 'bg-white fill-black',
-    },
+    } satisfies Record<QrCodeIntent, string>,
   },
 })
 
 interface UIQrCodeSlots {
-  root: ClassValue
-  frame: ClassValue
-  pattern: ClassValue
-  overlay: ClassValue
-  downloadTrigger: ClassValue
+  root?: ClassValue
+  frame?: ClassValue
+  pattern?: ClassValue
+  overlay?: ClassValue
+  downloadTrigger?: ClassValue
 }
 
 interface QrCodeProps extends ArkQrCodeRootProps, ArkQrCodeDownloadTriggerProps {
@@ -50,7 +53,7 @@ interface QrCodeProps extends ArkQrCodeRootProps, ArkQrCodeDownloadTriggerProps 
   downloadLabel?: string
   intent?: QrCodeRootCVAProps['intent']
   size?: QrCodeRootCVAProps['size']
-  ui?: UIQrCodeSlots
+  ui?: Partial<UIQrCodeSlots>
 }
 
 const modelValue = defineModel<string>({ default: 'https://theodupont.fr' })
@@ -83,12 +86,12 @@ const downloadTriggerProps = computed(() => ({
     v-model:value="modelValue"
     :class="cn(qrCodeRootCVA({ intent, size }), ui?.root)"
   >
-    <div class="size-full relative">
+    <div class="relative size-full">
       <ArkQrCode.Frame :class="cn(qrCodeFrameCVA({ intent }), ui?.frame)">
         <ArkQrCode.Pattern :class="cn(ui?.pattern)" />
       </ArkQrCode.Frame>
       <ArkQrCode.Overlay
-        :class="cn('overflow-hidden size-full flex items-center justify-center', ui?.overlay)"
+        :class="cn('flex size-full items-center justify-center overflow-hidden', ui?.overlay)"
       >
         <slot name="overlay" />
       </ArkQrCode.Overlay>

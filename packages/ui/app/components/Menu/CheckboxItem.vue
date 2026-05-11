@@ -2,7 +2,7 @@
 import { Menu as ArkMenu } from '@ark-ui/vue/menu'
 import { cva } from 'class-variance-authority'
 
-import type { MenuIntent } from './index.vue'
+import type { MenuIntent } from './context'
 import type { ClassValue } from 'vue'
 
 const menuItemCVA = cva(
@@ -11,16 +11,16 @@ const menuItemCVA = cva(
     variants: {
       intent: {
         neutral:
-          'text-neutral-text-default data-[highlighted]:bg-neutral-fill-subtle-hover data-[disabled]:text-neutral-text-subtle',
+          'text-neutral-text-default data-[disabled]:text-neutral-text-subtle data-[highlighted]:bg-neutral-fill-subtle-hover',
         primary:
-          'text-primary-text-default data-[highlighted]:bg-primary-fill-subtle-hover data-[disabled]:text-primary-text-subtle',
+          'text-primary-text-default data-[disabled]:text-primary-text-subtle data-[highlighted]:bg-primary-fill-subtle-hover',
         secondary:
-          'text-secondary-text-default data-[highlighted]:bg-secondary-fill-subtle-hover data-[disabled]:text-secondary-text-subtle',
+          'text-secondary-text-default data-[disabled]:text-secondary-text-subtle data-[highlighted]:bg-secondary-fill-subtle-hover',
         accent:
-          'text-accent-text-default data-[highlighted]:bg-accent-fill-subtle-hover data-[disabled]:text-accent-text-subtle',
+          'text-accent-text-default data-[disabled]:text-accent-text-subtle data-[highlighted]:bg-accent-fill-subtle-hover',
       },
       size: {
-        md: 'px-2 py-1.5 txt-caption',
+        md: 'txt-caption px-2 py-1.5',
       },
     },
   },

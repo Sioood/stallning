@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { Checkbox as ArkCheckbox } from '@ark-ui/vue/checkbox'
 
-import type { ClassValue } from 'vue'
+import type { UIFieldSlots } from './context'
 import type { FieldProps } from '~ui/app/components/Form/Field.vue'
+
+export type { UICheckboxGroupSlots } from './context'
 
 defineOptions({ inheritAttrs: false })
 
@@ -10,10 +12,6 @@ export interface CheckboxGroupItem {
   disabled?: boolean
   label: string
   value: string
-}
-
-export interface UICheckboxGroupSlots {
-  root?: ClassValue
 }
 
 export interface CheckboxGroupProps extends FieldProps {
@@ -71,7 +69,7 @@ const groupProps = computed(() => ({
 }))
 
 const passthroughAttrs = computed(() => {
-  const { ui: _ui, ...rest } = attrs as Record<string, unknown> & { ui?: UICheckboxGroupSlots }
+  const { ui: _ui, ...rest } = attrs as Record<string, unknown> & { ui?: Partial<UIFieldSlots> }
   return rest
 })
 </script>

@@ -38,7 +38,7 @@ const triggerProps = computed(() => pick(props, ['asChild'] as const))
 
 const triggerAttrs = computed(() => {
   const { ui: _ui, ...rest } = attrs as Record<string, unknown> & {
-    ui?: UIAccordionItemTriggerSlots
+    ui?: Partial<UIAccordionItemTriggerSlots>
   }
   return rest
 })

@@ -1,8 +1,19 @@
 <script setup lang="ts">
 import { Menu as ArkMenu, type MenuRootBaseProps as ArkMenuRootBaseProps } from '@ark-ui/vue/menu'
-import { cva } from 'class-variance-authority'
 
+import {
+  menuArrowCVA,
+  menuArrowTipCVA,
+  menuContentCVA,
+  menuContextTriggerCVA,
+  menuIndicatorCVA,
+  menuPositionerCVA,
+} from './variants'
+
+import type { MenuIntent, MenuSize, UIMenuSlots } from './context'
 import type { ClassValue } from 'vue'
+
+export type { MenuIntent, MenuSize, UIMenuSlots } from './context'
 
 type MenuTriggerValueSource = { triggerValue?: string | null }
 
@@ -12,64 +23,6 @@ function menuTriggerValue(menu: unknown): string | null {
 
 defineOptions({ inheritAttrs: false })
 const slots = useSlots()
-
-const menuIndicatorCVA = cva('menuIndicator inline-flex items-center')
-const menuPositionerCVA = cva('[--z-index:9999] origin-(--transform-origin)')
-const menuContentCVA = cva(
-  [
-    'menuContent border',
-    'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0',
-    'min-w-48 p-1',
-  ],
-  {
-    variants: {
-      intent: {
-        neutral: 'border-neutral-border-subtle bg-neutral-fill-subtle text-neutral-text-default',
-        primary: 'border-primary-border-subtle bg-primary-fill-subtle text-primary-text-default',
-        secondary:
-          'border-secondary-border-subtle bg-secondary-fill-subtle text-secondary-text-default',
-        accent: 'border-accent-border-subtle bg-accent-fill-subtle text-accent-text-default',
-      },
-      size: {
-        md: 'txt-label',
-      },
-    },
-  },
-)
-const menuArrowCVA = cva('menuArrow', {
-  variants: {
-    intent: {
-      neutral: '[--arrow-background:var(--color-neutral-fill-subtle)]',
-      primary: '[--arrow-background:var(--color-primary-fill-subtle)]',
-      secondary: '[--arrow-background:var(--color-secondary-fill-subtle)]',
-      accent: '[--arrow-background:var(--color-accent-fill-subtle)]',
-    },
-    size: {
-      md: '[--arrow-size:calc(var(--spacing)*2)]',
-    },
-  },
-})
-const menuArrowTipCVA = cva('menuArrowTip size-full')
-const menuContextTriggerCVA = cva('menuContextTrigger')
-
-export interface UIMenuSlots {
-  trigger?: ClassValue
-  indicator?: ClassValue
-  positioner?: ClassValue
-  content?: ClassValue
-  arrow?: ClassValue
-  arrowTip?: ClassValue
-  item?: ClassValue
-  itemGroup?: ClassValue
-  itemGroupLabel?: ClassValue
-  separator?: ClassValue
-  itemIndicator?: ClassValue
-  itemText?: ClassValue
-  triggerItem?: ClassValue
-  contextTrigger?: ClassValue
-}
-
-export type MenuIntent = 'neutral' | 'primary' | 'secondary' | 'accent'
 
 interface MenuBaseItem {
   disabled?: boolean
@@ -153,14 +106,14 @@ export interface MenuProps extends ArkMenuRootBaseProps {
   triggerText?: string
   contextTriggerText?: string
   intent?: MenuIntent
-  size?: 'md'
+  size?: MenuSize
   showIndicator?: boolean
   showArrow?: boolean
   portalled?: boolean
   teleportTo?: string
   indicatorIcon?: string
   items?: MenuListEntry[]
-  ui?: UIMenuSlots
+  ui?: Partial<UIMenuSlots>
 }
 
 const open = defineModel<boolean>('open', { default: false })

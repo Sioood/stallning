@@ -5,21 +5,24 @@ import {
 } from '@ark-ui/vue/toggle-group'
 import { cva } from 'class-variance-authority'
 
-import type { ClassValue } from 'vue'
+import type {
+  ToggleGroupOrientation,
+  ToggleIntent,
+  ToggleSize,
+  ToggleVariant,
+  UIToggleGroupSlots,
+} from './context'
+
+export type { UIToggleGroupSlots } from './context'
 
 const groupRootCVA = cva('groupRoot join', {
   variants: {
     orientation: {
       horizontal: 'join-horizontal',
       vertical: 'join-vertical',
-    },
+    } satisfies Record<ToggleGroupOrientation, string>,
   },
 })
-
-export interface UIToggleGroupSlots {
-  root?: ClassValue
-  item?: ClassValue
-}
 
 export interface ToggleGroupOption {
   disabled?: boolean
@@ -31,11 +34,11 @@ export interface ToggleGroupOption {
 interface ToggleGroupProps extends ArkToggleGroupRootBaseProps {
   activeBackground?: boolean
   iconOnly?: boolean
-  intent?: ButtonVariants['intent']
+  intent?: ToggleIntent
   options?: ToggleGroupOption[]
-  size?: ButtonVariants['size']
+  size?: ToggleSize
   ui?: Partial<UIToggleGroupSlots>
-  variant?: ButtonVariants['variant']
+  variant?: ToggleVariant
 }
 
 const modelValue = defineModel<string[]>({ default: [] })

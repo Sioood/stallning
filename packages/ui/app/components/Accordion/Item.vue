@@ -35,7 +35,9 @@ const size = computed<AccordionSize>(() => props.size ?? chrome?.size.value ?? '
 const itemProps = computed(() => pick(props, ['asChild', 'disabled', 'value'] as const))
 
 const itemAttrs = computed(() => {
-  const { ui: _ui, ...rest } = attrs as Record<string, unknown> & { ui?: UIAccordionItemSlots }
+  const { ui: _ui, ...rest } = attrs as Record<string, unknown> & {
+    ui?: Partial<UIAccordionItemSlots>
+  }
   return rest
 })
 

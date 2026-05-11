@@ -9,16 +9,19 @@ import type { ClassValue } from 'vue'
 
 defineOptions({ inheritAttrs: false })
 
+type CollapsibleIntent = 'neutral'
+type CollapsibleSize = 'md'
+
 const collapsibleTriggerCVA = cva(
   'collapsibleTrigger flex w-full items-center justify-between border-b text-left',
   {
     variants: {
       intent: {
         neutral: 'border-neutral-border-default text-neutral-text-default',
-      },
+      } satisfies Record<CollapsibleIntent, string>,
       size: {
-        md: 'gap-3 p-1 txt-h6',
-      },
+        md: 'txt-h6 gap-3 p-1',
+      } satisfies Record<CollapsibleSize, string>,
       disabled: {
         true: 'cursor-not-allowed',
         false: 'cursor-pointer',
@@ -31,7 +34,7 @@ const collapsibleTitleCVA = cva('collapsibleTitle', {
   variants: {
     size: {
       md: 'txt-h6',
-    },
+    } satisfies Record<CollapsibleSize, string>,
   },
 })
 
@@ -41,7 +44,7 @@ const collapsibleIndicatorCVA = cva(
     variants: {
       size: {
         md: 'size-5',
-      },
+      } satisfies Record<CollapsibleSize, string>,
     },
   },
 )
@@ -50,7 +53,7 @@ const collapsibleIconCVA = cva('collapsibleIcon shrink-0', {
   variants: {
     size: {
       md: 'size-4',
-    },
+    } satisfies Record<CollapsibleSize, string>,
   },
 })
 
@@ -58,7 +61,7 @@ const collapsibleContentCVA = cva('collapsibleContent overflow-hidden', {
   variants: {
     size: {
       md: 'pt-2',
-    },
+    } satisfies Record<CollapsibleSize, string>,
     animated: {
       true: '',
       false: 'collapsibleContent--static',
@@ -82,7 +85,7 @@ export interface CollapsibleProps extends ArkCollapsibleRootBaseProps {
   /** Shown when the `#title` slot is empty. */
   heading?: string
   intent?: CollapsibleTriggerVariants['intent']
-  ui?: UICollapsibleSlots
+  ui?: Partial<UICollapsibleSlots>
   size?: CollapsibleTriggerVariants['size']
 }
 

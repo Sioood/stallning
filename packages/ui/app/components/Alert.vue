@@ -5,18 +5,21 @@ import type { ButtonProps } from './Button.vue'
 import type { UseComponentIconsProps } from '@/composables/useComponentIcons'
 import type { ClassValue } from 'vue'
 
+type AlertIntent = 'neutral' | 'success' | 'warning' | 'error' | 'info'
+type AlertSize = 'md'
+
 const alertRootCVA = cva(['alertRoot', 'relative'], {
   variants: {
     intent: {
-      neutral: 'bg-neutral-surface-subtle border-neutral-border-default',
-      success: 'bg-success-surface-subtle border-success-border-default',
-      warning: 'bg-warning-surface-subtle border-warning-border-default',
-      error: 'bg-error-surface-subtle border-error-border-default',
-      info: 'bg-info-surface-subtle border-info-border-default',
-    },
+      neutral: 'border-neutral-border-default bg-neutral-surface-subtle',
+      success: 'border-success-border-default bg-success-surface-subtle',
+      warning: 'border-warning-border-default bg-warning-surface-subtle',
+      error: 'border-error-border-default bg-error-surface-subtle',
+      info: 'border-info-border-default bg-info-surface-subtle',
+    } satisfies Record<AlertIntent, string>,
     size: {
-      md: 'p-4 flex gap-8 justify-between border',
-    },
+      md: 'flex justify-between gap-8 border p-4',
+    } satisfies Record<AlertSize, string>,
   },
 })
 
@@ -30,10 +33,10 @@ const alertContentCVA = cva(['alertContent', 'group/alertContent'], {
       warning: 'text-warning-text-default',
       error: 'text-error-text-default',
       info: 'text-info-text-default',
-    },
+    } satisfies Record<AlertIntent, string>,
     size: {
-      md: 'grid has-[>svg]:grid-cols-[auto_1fr] not-has-[>svg]:grid-rows-[auto_1fr] gap-4',
-    },
+      md: 'grid gap-4 not-has-[>svg]:grid-rows-[auto_1fr] has-[>svg]:grid-cols-[auto_1fr]',
+    } satisfies Record<AlertSize, string>,
   },
 })
 
@@ -41,7 +44,7 @@ const alertContentIconCVA = cva(['alertContentIcon'], {
   variants: {
     size: {
       md: 'size-4',
-    },
+    } satisfies Record<AlertSize, string>,
   },
 })
 
@@ -53,10 +56,10 @@ const alertTitleCVA = cva(['alertTitle'], {
       warning: 'text-warning-text-default',
       error: 'text-error-text-default',
       info: 'text-info-text-default',
-    },
+    } satisfies Record<AlertIntent, string>,
     size: {
       md: 'txt-label',
-    },
+    } satisfies Record<AlertSize, string>,
   },
 })
 
@@ -68,10 +71,10 @@ const alertDescriptionCVA = cva(['alertDescription'], {
       warning: 'text-warning-text-subtle',
       error: 'text-error-text-subtle',
       info: 'text-info-text-subtle',
-    },
+    } satisfies Record<AlertIntent, string>,
     size: {
       md: 'txt-caption group-has-[>svg]/alertContent:col-start-2',
-    },
+    } satisfies Record<AlertSize, string>,
   },
 })
 
@@ -79,15 +82,15 @@ const alertSlotContentWrapperCVA = cva(['alertSlotContentWrapper'], {
   variants: {
     size: {
       md: 'group-has-[>svg]/alertContent:col-start-2',
-    },
+    } satisfies Record<AlertSize, string>,
   },
 })
 
 const alertActionsCVA = cva(['alertActions'], {
   variants: {
     size: {
-      md: 'pt-5 flex flex-col items-end gap-2',
-    },
+      md: 'flex flex-col items-end gap-2 pt-5',
+    } satisfies Record<AlertSize, string>,
   },
 })
 
@@ -112,7 +115,7 @@ interface AlertProps extends UseComponentIconsProps {
   title: string
   type?: 'info' | 'success' | 'warning' | 'error' | 'neutral'
   size?: AlertRootCVAProps['size']
-  ui?: UIAlertSlots
+  ui?: Partial<UIAlertSlots>
 }
 
 const visible = defineModel<boolean>('visible', { default: true })

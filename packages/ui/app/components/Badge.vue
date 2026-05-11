@@ -4,31 +4,50 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import type { UseComponentIconsProps } from '@/composables/useComponentIcons'
 import type { ClassValue } from 'vue'
 
+type BadgeIntent =
+  | 'neutral'
+  | 'primary'
+  | 'secondary'
+  | 'accent'
+  | 'info'
+  | 'success'
+  | 'warning'
+  | 'error'
+  | 'red'
+  | 'orange'
+  | 'yellow'
+  | 'green'
+  | 'blue'
+  | 'purple'
+  | 'pink'
+  | 'gray'
+type BadgeSize = 'sm' | 'md' | 'lg'
+
 const badgeCVA = cva(['badge', 'flex items-center justify-center', 'border'], {
   variants: {
     intent: {
-      neutral: 'bg-neutral-surface-default border-neutral-border-default',
-      primary: 'bg-primary-surface-default border-primary-border-default',
-      secondary: 'bg-secondary-surface-default border-secondary-border-default',
-      accent: 'bg-accent-surface-default border-accent-border-default',
-      info: 'bg-info-surface-default border-info-border-default',
-      success: 'bg-success-surface-default border-success-border-default',
-      warning: 'bg-warning-surface-default border-warning-border-default',
-      error: 'bg-error-surface-default border-error-border-default',
-      red: 'bg-red-surface-default border-red-border-default',
-      orange: 'bg-orange-surface-default border-orange-border-default',
-      yellow: 'bg-yellow-surface-default border-yellow-border-default',
-      green: 'bg-green-surface-default border-green-border-default',
-      blue: 'bg-blue-surface-default border-blue-border-default',
-      purple: 'bg-purple-surface-default border-purple-border-default',
-      pink: 'bg-pink-surface-default border-pink-border-default',
-      gray: 'bg-gray-surface-default border-gray-border-default',
-    },
+      neutral: 'border-neutral-border-default bg-neutral-surface-default',
+      primary: 'border-primary-border-default bg-primary-surface-default',
+      secondary: 'border-secondary-border-default bg-secondary-surface-default',
+      accent: 'border-accent-border-default bg-accent-surface-default',
+      info: 'border-info-border-default bg-info-surface-default',
+      success: 'border-success-border-default bg-success-surface-default',
+      warning: 'border-warning-border-default bg-warning-surface-default',
+      error: 'border-error-border-default bg-error-surface-default',
+      red: 'border-red-border-default bg-red-surface-default',
+      orange: 'border-orange-border-default bg-orange-surface-default',
+      yellow: 'border-yellow-border-default bg-yellow-surface-default',
+      green: 'border-green-border-default bg-green-surface-default',
+      blue: 'border-blue-border-default bg-blue-surface-default',
+      purple: 'border-purple-border-default bg-purple-surface-default',
+      pink: 'border-pink-border-default bg-pink-surface-default',
+      gray: 'border-gray-border-default bg-gray-surface-default',
+    } satisfies Record<BadgeIntent, string>,
     size: {
-      sm: 'p-0.5 gap-0.5',
-      md: 'p-1 gap-1',
-      lg: 'p-1.5 gap-1.5',
-    },
+      sm: 'gap-0.5 p-0.5',
+      md: 'gap-1 p-1',
+      lg: 'gap-1.5 p-1.5',
+    } satisfies Record<BadgeSize, string>,
   },
 })
 
@@ -53,12 +72,12 @@ const badgeIconCVA = cva('badgeIcon', {
       purple: 'text-purple-icon-default',
       pink: 'text-pink-icon-default',
       gray: 'text-gray-icon-default',
-    },
+    } satisfies Record<BadgeIntent, string>,
     size: {
       sm: 'size-2.5',
       md: 'size-3',
       lg: 'size-4',
-    },
+    } satisfies Record<BadgeSize, string>,
   },
 })
 
@@ -81,12 +100,12 @@ const badgeLabelCVA = cva('badgeLabel', {
       purple: 'text-purple-text-default',
       pink: 'text-pink-text-default',
       gray: 'text-gray-text-default',
-    },
+    } satisfies Record<BadgeIntent, string>,
     size: {
       sm: 'txt-small',
       md: 'txt-caption',
       lg: 'txt-base',
-    },
+    } satisfies Record<BadgeSize, string>,
   },
 })
 
@@ -100,7 +119,7 @@ interface BadgeProps {
   intent?: BadgeCVAProps['intent']
   label?: string
   size?: BadgeCVAProps['size']
-  ui?: UIBadgeSlots
+  ui?: Partial<UIBadgeSlots>
 }
 
 const props = withDefaults(defineProps<BadgeProps & UseComponentIconsProps>(), {

@@ -4,41 +4,60 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import type { UseComponentIconsProps } from '@/composables/useComponentIcons'
 import type { ClassValue } from 'vue'
 
+type ChipIntent =
+  | 'neutral'
+  | 'primary'
+  | 'secondary'
+  | 'accent'
+  | 'info'
+  | 'success'
+  | 'warning'
+  | 'error'
+  | 'red'
+  | 'orange'
+  | 'yellow'
+  | 'green'
+  | 'blue'
+  | 'purple'
+  | 'pink'
+  | 'gray'
+type ChipSize = 'sm' | 'md' | 'lg'
+
 const chipCVA = cva(['chip', 'flex items-center justify-center', 'border', 'group'], {
   variants: {
     intent: {
-      neutral: 'bg-neutral-fill-default border-neutral-border-default',
+      neutral: 'border-neutral-border-default bg-neutral-fill-default',
       primary:
-        'bg-primary-fill-default border-primary-border-default hover:bg-primary-fill-default-hover hover:border-primary-border-default-hover active:bg-primary-fill-default-active active:border-primary-border-default-active',
+        'border-primary-border-default bg-primary-fill-default hover:border-primary-border-default-hover hover:bg-primary-fill-default-hover active:border-primary-border-default-active active:bg-primary-fill-default-active',
       secondary:
-        'bg-secondary-fill-default border-secondary-border-default hover:bg-secondary-fill-default-hover hover:border-secondary-border-default-hover active:bg-secondary-fill-default-active active:border-secondary-border-default-active',
+        'border-secondary-border-default bg-secondary-fill-default hover:border-secondary-border-default-hover hover:bg-secondary-fill-default-hover active:border-secondary-border-default-active active:bg-secondary-fill-default-active',
       accent:
-        'bg-accent-fill-default border-accent-border-default hover:bg-accent-fill-default-hover hover:border-accent-border-default-hover active:bg-accent-fill-default-active active:border-accent-border-default-active',
-      info: 'bg-info-fill-default border-info-border-default hover:bg-info-fill-default-hover hover:border-info-border-default-hover active:bg-info-fill-default-active active:border-info-border-default-active',
+        'border-accent-border-default bg-accent-fill-default hover:border-accent-border-default-hover hover:bg-accent-fill-default-hover active:border-accent-border-default-active active:bg-accent-fill-default-active',
+      info: 'border-info-border-default bg-info-fill-default hover:border-info-border-default-hover hover:bg-info-fill-default-hover active:border-info-border-default-active active:bg-info-fill-default-active',
       success:
-        'bg-success-fill-default border-success-border-default hover:bg-success-fill-default-hover hover:border-success-border-default-hover active:bg-success-fill-default-active active:border-success-border-default-active',
+        'border-success-border-default bg-success-fill-default hover:border-success-border-default-hover hover:bg-success-fill-default-hover active:border-success-border-default-active active:bg-success-fill-default-active',
       warning:
-        'bg-warning-fill-default border-warning-border-default hover:bg-warning-fill-default-hover hover:border-warning-border-default-hover active:bg-warning-fill-default-active active:border-warning-border-default-active',
+        'border-warning-border-default bg-warning-fill-default hover:border-warning-border-default-hover hover:bg-warning-fill-default-hover active:border-warning-border-default-active active:bg-warning-fill-default-active',
       error:
-        'bg-error-fill-default border-error-border-default hover:bg-error-fill-default-hover hover:border-error-border-default-hover active:bg-error-fill-default-active active:border-error-border-default-active',
-      red: 'bg-red-fill-default border-red-border-default hover:bg-red-fill-default-hover hover:border-red-border-default-hover active:bg-red-fill-default-active active:border-red-border-default-active',
+        'border-error-border-default bg-error-fill-default hover:border-error-border-default-hover hover:bg-error-fill-default-hover active:border-error-border-default-active active:bg-error-fill-default-active',
+      red: 'border-red-border-default bg-red-fill-default hover:border-red-border-default-hover hover:bg-red-fill-default-hover active:border-red-border-default-active active:bg-red-fill-default-active',
       orange:
-        'bg-orange-fill-default border-orange-border-default hover:bg-orange-fill-default-hover hover:border-orange-border-default-hover active:bg-orange-fill-default-active active:border-orange-border-default-active',
+        'border-orange-border-default bg-orange-fill-default hover:border-orange-border-default-hover hover:bg-orange-fill-default-hover active:border-orange-border-default-active active:bg-orange-fill-default-active',
       yellow:
-        'bg-yellow-fill-default border-yellow-border-default hover:bg-yellow-fill-default-hover hover:border-yellow-border-default-hover active:bg-yellow-fill-default-active active:border-yellow-border-default-active',
+        'border-yellow-border-default bg-yellow-fill-default hover:border-yellow-border-default-hover hover:bg-yellow-fill-default-hover active:border-yellow-border-default-active active:bg-yellow-fill-default-active',
       green:
-        'bg-green-fill-default border-green-border-default hover:bg-green-fill-default-hover hover:border-green-border-default-hover active:bg-green-fill-default-active active:border-green-border-default-active',
-      blue: 'bg-blue-fill-default border-blue-border-default hover:bg-blue-fill-default-hover hover:border-blue-border-default-hover active:bg-blue-fill-default-active active:border-blue-border-default-active',
+        'border-green-border-default bg-green-fill-default hover:border-green-border-default-hover hover:bg-green-fill-default-hover active:border-green-border-default-active active:bg-green-fill-default-active',
+      blue: 'border-blue-border-default bg-blue-fill-default hover:border-blue-border-default-hover hover:bg-blue-fill-default-hover active:border-blue-border-default-active active:bg-blue-fill-default-active',
       purple:
-        'bg-purple-fill-default border-purple-border-default hover:bg-purple-fill-default-hover hover:border-purple-border-default-hover active:bg-purple-fill-default-active active:border-purple-border-default-active',
-      pink: 'bg-pink-fill-default border-pink-border-default hover:bg-pink-fill-default-hover hover:border-pink-border-default-hover active:bg-pink-fill-default-active active:border-pink-border-default-active',
-      gray: 'bg-gray-fill-default border-gray-border-default hover:bg-gray-fill-default-hover hover:border-gray-border-default-hover active:bg-gray-fill-default-active active:border-gray-border-default-active',
-    },
+        'border-purple-border-default bg-purple-fill-default hover:border-purple-border-default-hover hover:bg-purple-fill-default-hover active:border-purple-border-default-active active:bg-purple-fill-default-active',
+      pink: 'border-pink-border-default bg-pink-fill-default hover:border-pink-border-default-hover hover:bg-pink-fill-default-hover active:border-pink-border-default-active active:bg-pink-fill-default-active',
+      gray: 'border-gray-border-default bg-gray-fill-default hover:border-gray-border-default-hover hover:bg-gray-fill-default-hover active:border-gray-border-default-active active:bg-gray-fill-default-active',
+    } satisfies Record<ChipIntent, string>,
     size: {
-      sm: 'p-0.5 gap-0.5',
-      md: 'p-1 gap-1',
-      lg: 'p-1.5 gap-1.5',
-    },
+      sm: 'gap-0.5 p-0.5',
+      md: 'gap-1 p-1',
+      lg: 'gap-1.5 p-1.5',
+    } satisfies Record<ChipSize, string>,
     disabled: {
       false: '',
       true: '',
@@ -88,18 +107,18 @@ const chipIconCVA = cva('chipIcon', {
       yellow:
         'text-yellow-icon-inverse group-hover:text-yellow-icon-inverse-hover group-active:text-yellow-icon-inverse-active',
       green:
-        'text-green-icon-inverse group-hover:text-green-icon-inverse-hover group-active:text-green-icon-active',
+        'group-active:text-green-icon-active text-green-icon-inverse group-hover:text-green-icon-inverse-hover',
       blue: 'text-blue-icon-inverse group-hover:text-blue-icon-inverse-hover group-active:text-blue-icon-inverse-active',
       purple:
         'text-purple-icon-inverse group-hover:text-purple-icon-inverse-hover group-active:text-purple-icon-inverse-active',
       pink: 'text-pink-icon-inverse group-hover:text-pink-icon-inverse-hover group-active:text-pink-icon-inverse-active',
       gray: 'text-gray-icon-inverse group-hover:text-gray-icon-inverse-hover group-active:text-gray-icon-inverse-active',
-    },
+    } satisfies Record<ChipIntent, string>,
     size: {
       sm: 'size-2.5',
       md: 'size-3',
       lg: 'size-4',
-    },
+    } satisfies Record<ChipSize, string>,
   },
 })
 
@@ -152,18 +171,18 @@ const chipLabelCVA = cva(['chipLabel', 'select-none'], {
       yellow:
         'text-yellow-text-inverse group-hover:text-yellow-text-inverse-hover group-active:text-yellow-text-inverse-active',
       green:
-        'text-green-text-inverse group-hover:text-green-text-hover group-active:text-green-text-active',
+        'group-hover:text-green-text-hover group-active:text-green-text-active text-green-text-inverse',
       blue: 'text-blue-text-inverse group-hover:text-blue-text-inverse-hover group-active:text-blue-text-inverse-active',
       purple:
         'text-purple-text-inverse group-hover:text-purple-text-inverse-hover group-active:text-purple-text-inverse-active',
       pink: 'text-pink-text-inverse group-hover:text-pink-text-inverse-hover group-active:text-pink-text-inverse-active',
       gray: 'text-gray-text-inverse group-hover:text-gray-text-inverse-hover group-active:text-gray-text-inverse-active',
-    },
+    } satisfies Record<ChipIntent, string>,
     size: {
       sm: 'txt-small',
       md: 'txt-caption',
       lg: 'txt-base',
-    },
+    } satisfies Record<ChipSize, string>,
   },
 })
 
@@ -182,7 +201,7 @@ interface ChipProps extends UseComponentIconsProps {
   onClick?: () => Promise<void> | void
   onIconAction?: boolean
   size?: ChipCVAProps['size']
-  ui?: UIChipSlots
+  ui?: Partial<UIChipSlots>
 }
 
 const props = withDefaults(defineProps<ChipProps>(), {

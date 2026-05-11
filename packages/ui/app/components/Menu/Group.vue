@@ -3,7 +3,8 @@ import { Menu as ArkMenu } from '@ark-ui/vue/menu'
 import { cva } from 'class-variance-authority'
 
 import type { MenuCheckboxItemProps } from './CheckboxItem.vue'
-import type { MenuIntent, MenuListEntry } from './index.vue'
+import type { MenuIntent } from './context'
+import type { MenuListEntry } from './index.vue'
 import type { MenuItemProps } from './Item.vue'
 import type { MenuRadioGroupProps } from './RadioGroup.vue'
 import type { MenuSubmenuProps } from './Submenu.vue'
@@ -19,7 +20,7 @@ const menuItemGroupLabelCVA = cva('menuItemGroupLabel', {
       accent: 'text-accent-text-subtle',
     },
     size: {
-      md: 'px-2 py-1 txt-caption',
+      md: 'txt-caption px-2 py-1',
     },
   },
 })

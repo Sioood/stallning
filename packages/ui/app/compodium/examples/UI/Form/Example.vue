@@ -3,6 +3,7 @@ import { z } from 'zod'
 
 import UIFormCheckbox from '~ui/app/components/Form/Checkbox.vue'
 import UIFormInput from '~ui/app/components/Form/Input.vue'
+import UIFormRadioGroup from '~ui/app/components/Form/RadioGroup.vue'
 import UISwitch from '~ui/app/components/Switch.vue'
 
 import type {
@@ -17,6 +18,7 @@ const schema = z.object({
   email: z.string().trim().optional(),
   checkbox: z.union([z.literal(true), z.literal(false), z.literal('indeterminate')]),
   switch: z.boolean(),
+  framework: z.string().nullable().optional(),
 })
 
 type FormValues = InferSchemaValues<typeof schema>
@@ -27,6 +29,7 @@ const defaultValues: FormValues = {
   email: '',
   checkbox: false,
   switch: false,
+  framework: null,
 }
 
 const fields: SchemaFieldsMap<FormValues> = {
@@ -73,6 +76,19 @@ const fields: SchemaFieldsMap<FormValues> = {
       helperText: 'Accept terms and conditions',
     },
   },
+  framework: {
+    as: UIFormRadioGroup,
+    props: {
+      label: 'Framework',
+      helperText: 'Choose your preferred framework',
+      orientation: 'horizontal',
+      items: [
+        { label: 'React', value: 'react' },
+        { label: 'Solid', value: 'solid' },
+        { label: 'Vue', value: 'vue' },
+      ],
+    },
+  },
 }
 
 const layout: SchemaFormLayout<keyof FormValues & string>[] = [
@@ -80,6 +96,7 @@ const layout: SchemaFormLayout<keyof FormValues & string>[] = [
   'email',
   'checkbox',
   'switch',
+  'framework',
 ]
 
 const submitted = ref('')

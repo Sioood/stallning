@@ -2064,9 +2064,9 @@ body {
 }
 
 *:focus-visible {
-  @apply outline-1;
-  @apply outline-primary-border-strong;
-  @apply outline-offset-1;
+  @apply outline-1!;
+  @apply outline-primary-border-strong!;
+  @apply outline-offset-1!;
 }
 
 .join {

@@ -115,14 +115,14 @@ interface UIBadgeSlots {
   icon?: ClassValue
 }
 
-interface BadgeProps {
+interface BadgeProps extends UseComponentIconsProps {
   intent?: BadgeCVAProps['intent']
   label?: string
   size?: BadgeCVAProps['size']
   ui?: Partial<UIBadgeSlots>
 }
 
-const props = withDefaults(defineProps<BadgeProps & UseComponentIconsProps>(), {
+const props = withDefaults(defineProps<BadgeProps>(), {
   intent: 'primary',
   label: '',
   size: 'md',

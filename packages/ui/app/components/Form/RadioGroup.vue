@@ -18,6 +18,15 @@ export interface UIRadioGroupSlots {
 
 defineOptions({ inheritAttrs: false })
 
+const radioGroupCVA = cva('', {
+  variants: {
+    orientation: {
+      horizontal: 'flex flex-row flex-wrap gap-4',
+      vertical: 'flex flex-col gap-2',
+    },
+  },
+})
+
 const radioItemCVA = cva(
   'inline-flex items-center not-data-[disabled]:cursor-pointer data-[disabled]:cursor-not-allowed',
   {
@@ -150,13 +159,7 @@ extendCompodiumMeta<typeof props & { modelValue?: string | null }>({
     <ArkRadioGroup.Root
       v-model="modelValue"
       v-bind="groupProps"
-      :class="
-        cn(
-          'relative',
-          orientation === 'horizontal' ? 'flex flex-row flex-wrap gap-4' : 'flex flex-col gap-2',
-          ui?.group,
-        )
-      "
+      :class="cn('relative', radioGroupCVA({ orientation }), ui?.group)"
     >
       <ArkRadioGroup.Indicator :class="cn('absolute w-fit transition-none!', ui?.indicator)">
         <span :class="cn(radioIndicatorCVA({ intent, size }), ui?.indicator)" />

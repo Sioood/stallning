@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Checkbox as ArkCheckbox } from '@ark-ui/vue/checkbox'
+import { cva } from 'class-variance-authority'
 
 import type { UIFieldSlots } from './context'
 import type { FieldProps } from '~ui/app/components/Form/Field.vue'
@@ -7,6 +8,15 @@ import type { FieldProps } from '~ui/app/components/Form/Field.vue'
 export type { UICheckboxGroupSlots } from './context'
 
 defineOptions({ inheritAttrs: false })
+
+const checkboxGroupCVA = cva('', {
+  variants: {
+    orientation: {
+      horizontal: 'flex flex-row gap-2 flex-wrap',
+      vertical: 'flex flex-col gap-2',
+    },
+  },
+})
 
 export interface CheckboxGroupItem {
   disabled?: boolean
@@ -20,6 +30,7 @@ export interface CheckboxGroupProps extends FieldProps {
   name?: string
   /** Passed to `Checkbox.Group`. */
   maxSelectedValues?: number
+  orientation?: 'horizontal' | 'vertical'
 }
 
 const props = withDefaults(defineProps<CheckboxGroupProps>(), {
@@ -33,6 +44,7 @@ const props = withDefaults(defineProps<CheckboxGroupProps>(), {
   required: undefined,
   size: 'md',
   ui: undefined,
+  orientation: 'vertical',
 })
 
 const attrs = useAttrs()
@@ -76,7 +88,11 @@ const passthroughAttrs = computed(() => {
 
 <template>
   <UIFormField v-bind="{ ...fieldProps, ...passthroughAttrs }" :class="cn(ui?.root)">
-    <ArkCheckbox.Group v-model="modelValue" v-bind="groupProps" class="flex flex-col gap-2">
+    <ArkCheckbox.Group
+      v-model="modelValue"
+      v-bind="groupProps"
+      :class="cn(checkboxGroupCVA({ orientation }))"
+    >
       <UIFormCheckbox
         v-for="item in items"
         :key="item.value"

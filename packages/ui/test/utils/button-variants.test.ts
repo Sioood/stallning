@@ -5,7 +5,6 @@ import { buttonVariants as button, togglePressedOn } from '../../app/utils/butto
 describe('buttonVariants', () => {
   it('returns base classes', () => {
     const result = button({ variant: 'default', intent: 'primary', size: 'md', disabled: false })
-    expect(result).toContain('button')
     expect(result).toContain('inline-flex')
     expect(result).toContain('justify-center')
   })

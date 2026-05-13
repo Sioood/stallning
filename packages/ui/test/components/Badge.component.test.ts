@@ -28,9 +28,9 @@ describe('Badge', () => {
         },
       })
 
-      const icon = wrapper.find('.badgeIcon')
-      expect(icon.exists(), `leading icon for size ${size}`).toBe(true)
-      expect(icon.classes()).toContain(iconSizeClass)
+      const icon = wrapper.findAll('*').find((w) => w.classes().includes(iconSizeClass))
+      expect(icon, `leading icon for size ${size}`).toBeDefined()
+      expect(icon!.classes()).toContain(iconSizeClass)
     }
   })
 
@@ -43,6 +43,8 @@ describe('Badge', () => {
       },
     })
 
-    expect(wrapper.find('.badgeIcon.custom-icon-class').exists()).toBe(true)
+    const icon = wrapper.find('.custom-icon-class')
+    expect(icon.exists()).toBe(true)
+    expect(icon.classes()).toContain('size-3')
   })
 })

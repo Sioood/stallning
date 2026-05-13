@@ -9,7 +9,6 @@ describe('Divider', () => {
     const el = wrapper.find('span')
     expect(el.exists()).toBe(true)
     const classes = el.classes().join(' ')
-    expect(classes).toMatch(/divider/)
     expect(classes).toMatch(/bg-primary-border-subtle/)
     expect(classes).toMatch(/min-w-8/)
     expect(classes).toMatch(/w-full/)

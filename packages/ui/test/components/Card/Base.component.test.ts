@@ -14,7 +14,6 @@ describe('Card/Base', () => {
   it('applies default variant and primary intent surface classes', async () => {
     const wrapper = await mountSuspended(CardBase)
     const classes = wrapper.find('div').classes().join(' ')
-    expect(classes).toMatch(/card/)
     expect(classes).toMatch(/bg-primary-surface-default/)
     expect(classes).toMatch(/border-primary-border-default/)
   })

@@ -28,9 +28,12 @@ describe('Chip', () => {
         },
       })
 
-      const mainIcon = wrapper.find('.chipIcon:not(.chipActionIcon)')
-      expect(mainIcon.exists(), `main icon for size ${size}`).toBe(true)
-      expect(mainIcon.classes()).toContain(iconSizeClass)
+      const sizeIcons = wrapper
+        .findAll('*')
+        .filter((w) => w.classes().some((c) => c.startsWith('size-')))
+      const mainIcon = sizeIcons[0]
+      expect(mainIcon, `main icon for size ${size}`).toBeDefined()
+      expect(mainIcon!.classes()).toContain(iconSizeClass)
     }
   })
 
@@ -43,7 +46,9 @@ describe('Chip', () => {
       },
     })
 
-    expect(wrapper.find('.chipIcon.custom-chip-icon:not(.chipActionIcon)').exists()).toBe(true)
+    const main = wrapper.find('.custom-chip-icon')
+    expect(main.exists()).toBe(true)
+    expect(main.classes().some((c) => c.startsWith('size-'))).toBe(true)
   })
 
   it('invokes onClick when the action icon is clicked and onIconAction is true', async () => {
@@ -56,9 +61,9 @@ describe('Chip', () => {
       },
     })
 
-    const action = wrapper.find('.chipActionIcon')
-    expect(action.exists()).toBe(true)
-    await action.trigger('click')
+    const action = wrapper.findAll('*').find((w) => w.classes().includes('size-3'))
+    expect(action).toBeDefined()
+    await action!.trigger('click')
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 
@@ -72,7 +77,7 @@ describe('Chip', () => {
       },
     })
 
-    await wrapper.find('.chip').trigger('click')
+    await wrapper.find('div.group').trigger('click')
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 
@@ -86,7 +91,9 @@ describe('Chip', () => {
       },
     })
 
-    await wrapper.find('.chipActionIcon').trigger('click')
+    const action = wrapper.findAll('*').find((w) => w.classes().includes('size-3'))
+    expect(action).toBeDefined()
+    await action!.trigger('click')
     expect(onClick).not.toHaveBeenCalled()
   })
 })

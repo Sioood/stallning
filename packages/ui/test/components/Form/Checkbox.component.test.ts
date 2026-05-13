@@ -28,7 +28,9 @@ describe('UIFormCheckbox', () => {
       },
     })
 
-    expect(wrapperChecked.find('.checkboxRoot').attributes('data-state')).toBe('checked')
+    expect(
+      wrapperChecked.find('[data-scope="checkbox"][data-part="root"]').attributes('data-state'),
+    ).toBe('checked')
 
     const wrapperUnchecked = await mountSuspended(Checkbox, {
       props: {
@@ -38,7 +40,9 @@ describe('UIFormCheckbox', () => {
       },
     })
 
-    expect(wrapperUnchecked.find('.checkboxRoot').attributes('data-state')).toBe('unchecked')
+    expect(
+      wrapperUnchecked.find('[data-scope="checkbox"][data-part="root"]').attributes('data-state'),
+    ).toBe('unchecked')
   })
 
   it('emits update:modelValue when toggled', async () => {

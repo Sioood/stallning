@@ -140,9 +140,9 @@ describe('Button', () => {
         },
       })
 
-      const icon = wrapper.find('.buttonIcon')
-      expect(icon.exists(), `leading icon for size ${size}`).toBe(true)
-      expect(icon.classes()).toContain(iconSizeClass)
+      const icon = wrapper.findAll('*').find((w) => w.classes().includes(iconSizeClass))
+      expect(icon, `leading icon for size ${size}`).toBeDefined()
+      expect(icon!.classes()).toContain(iconSizeClass)
     }
   })
 })

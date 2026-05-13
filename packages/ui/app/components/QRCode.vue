@@ -83,7 +83,7 @@ const downloadTriggerProps = computed(() => ({
 <template>
   <ArkQrCode.Root
     v-bind="rootProps"
-    v-model:value="modelValue"
+    v-model:model-value="modelValue"
     :class="cn(qrCodeRootCVA({ intent, size }), ui?.root)"
   >
     <div class="relative size-full">

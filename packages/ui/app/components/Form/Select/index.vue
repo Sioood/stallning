@@ -137,7 +137,7 @@ const rootProps = computed(() => ({
     @value-change="handleValueChange"
   >
     <ArkSelect.Label v-if="label" :class="cn(selectLabelCVA({ intent, size }), ui?.label)">
-      {{ label }}
+      {{ $te(label) ? $t(label) : label }}
     </ArkSelect.Label>
 
     <ArkSelect.Control :class="cn('flex items-center gap-1', ui?.control)">
@@ -156,7 +156,7 @@ const rootProps = computed(() => ({
         "
       >
         <ArkSelect.ValueText
-          :placeholder="$t(placeholder)"
+          :placeholder="$te(placeholder) ? $t(placeholder) : placeholder"
           :class="cn('flex-1 truncate text-left', ui?.valueText)"
         />
 
@@ -190,13 +190,13 @@ const rootProps = computed(() => ({
       <ArkSelect.Positioner :class="cn(selectPositionerCVA(), ui?.positioner)">
         <ArkSelect.Content :class="cn(selectContentCVA({ intent, size }), ui?.content)">
           <slot name="content" :collection :loading :is-grouped>
-            <UISelectContent
+            <UIFormSelectContent
               :collection
               :intent
               :size
               :loading
-              :loading-text="$t(loadingText)"
-              :empty-text="$t(emptyText)"
+              :loading-text="$te(loadingText) ? $t(loadingText) : loadingText"
+              :empty-text="$te(emptyText) ? $t(emptyText) : emptyText"
               :allow-select-all="allowSelectAll && multiple"
               :is-grouped
               :ui
@@ -205,7 +205,6 @@ const rootProps = computed(() => ({
         </ArkSelect.Content>
       </ArkSelect.Positioner>
     </Teleport>
-
     <ArkSelect.HiddenSelect />
   </ArkSelect.Root>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SelectItem } from '@/components/Select/index.vue'
+import type { SelectItem } from '~/components/Form/Select/index.vue'
 
 // ── Basic ──────────────────────────────────────────────────────────────────
 const basicValue = ref<string[]>([])
@@ -94,7 +94,7 @@ const deselectableValue = ref<string[]>([])
     <!-- Basic single select -->
     <section class="flex flex-col gap-2">
       <p class="txt-label text-neutral-text-default">Basic</p>
-      <UISelect
+      <UIFormSelect
         v-model="basicValue"
         :items="frameworks"
         placeholder="Select a framework"
@@ -106,7 +106,7 @@ const deselectableValue = ref<string[]>([])
     <!-- Multiple selection -->
     <section class="flex flex-col gap-2">
       <p class="txt-label text-neutral-text-default">Multiple</p>
-      <UISelect
+      <UIFormSelect
         v-model="multipleValue"
         :items="frameworks"
         placeholder="Select frameworks"
@@ -121,7 +121,7 @@ const deselectableValue = ref<string[]>([])
     <!-- Grouping -->
     <section class="flex flex-col gap-2">
       <p class="txt-label text-neutral-text-default">Grouping</p>
-      <UISelect
+      <UIFormSelect
         v-model="groupValue"
         :items="groupedItems"
         placeholder="Select a tool"
@@ -133,7 +133,7 @@ const deselectableValue = ref<string[]>([])
     <!-- Max selection -->
     <section class="flex flex-col gap-2">
       <p class="txt-label text-neutral-text-default">Max selection ({{ MAX }})</p>
-      <UISelect
+      <UIFormSelect
         v-model="maxValue"
         :items="frameworks"
         placeholder="Select up to 2"
@@ -149,7 +149,7 @@ const deselectableValue = ref<string[]>([])
     <!-- Select All -->
     <section class="flex flex-col gap-2">
       <p class="txt-label text-neutral-text-default">Select All</p>
-      <UISelect
+      <UIFormSelect
         v-model="selectAllValue"
         :items="frameworks"
         placeholder="Select frameworks"
@@ -165,7 +165,7 @@ const deselectableValue = ref<string[]>([])
     <!-- Async loading -->
     <section class="flex flex-col gap-2">
       <p class="txt-label text-neutral-text-default">Async loading</p>
-      <UISelect
+      <UIFormSelect
         v-model="asyncValue"
         v-model:open="asyncOpen"
         :items="asyncItems"
@@ -181,7 +181,7 @@ const deselectableValue = ref<string[]>([])
     <section class="flex flex-col gap-2">
       <p class="txt-label text-neutral-text-default">Form usage</p>
       <form class="flex flex-col gap-3" @submit="handleFormSubmit">
-        <UISelect
+        <UIFormSelect
           v-model="formValue"
           :items="frameworks"
           placeholder="Select a framework"
@@ -208,7 +208,7 @@ const deselectableValue = ref<string[]>([])
           @click="controlledOpen = !controlledOpen"
         />
       </div>
-      <UISelect
+      <UIFormSelect
         v-model="controlledValue"
         v-model:open="controlledOpen"
         :items="frameworks"
@@ -219,7 +219,7 @@ const deselectableValue = ref<string[]>([])
     <!-- Deselectable single select -->
     <section class="flex flex-col gap-2">
       <p class="txt-label text-neutral-text-default">Deselectable (single)</p>
-      <UISelect
+      <UIFormSelect
         v-model="deselectableValue"
         :items="frameworks"
         placeholder="Select, then click again to deselect"
@@ -235,7 +235,7 @@ const deselectableValue = ref<string[]>([])
     <section class="flex flex-col gap-2">
       <p class="txt-label text-neutral-text-default">Intents</p>
       <div class="grid grid-cols-2 gap-2">
-        <UISelect
+        <UIFormSelect
           v-for="intent in ['neutral', 'primary', 'secondary', 'accent'] as const"
           :key="intent"
           v-model="intentValue"
@@ -250,7 +250,7 @@ const deselectableValue = ref<string[]>([])
     <!-- Sizes -->
     <section class="flex flex-col gap-2">
       <p class="txt-label text-neutral-text-default">Sizes</p>
-      <UISelect
+      <UIFormSelect
         v-for="size in ['sm', 'md', 'lg'] as const"
         :key="size"
         v-model="sizeValue"
@@ -263,9 +263,14 @@ const deselectableValue = ref<string[]>([])
     <!-- Disabled / invalid / read-only -->
     <section class="flex flex-col gap-2">
       <p class="txt-label text-neutral-text-default">States</p>
-      <UISelect v-model="basicValue" :items="frameworks" placeholder="Disabled" disabled />
-      <UISelect v-model="basicValue" :items="frameworks" placeholder="Invalid" invalid />
-      <UISelect :items="frameworks" placeholder="Read-only" read-only :model-value="['react']" />
+      <UIFormSelect v-model="basicValue" :items="frameworks" placeholder="Disabled" disabled />
+      <UIFormSelect v-model="basicValue" :items="frameworks" placeholder="Invalid" invalid />
+      <UIFormSelect
+        :items="frameworks"
+        placeholder="Read-only"
+        read-only
+        :model-value="['react']"
+      />
     </section>
   </div>
 </template>

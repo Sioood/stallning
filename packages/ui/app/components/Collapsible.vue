@@ -166,23 +166,23 @@ extendCompodiumMeta<CollapsibleProps>({
   }
 }
 
-:deep(.collapsibleContent[data-state='open']) {
+:deep([data-part='content'][data-state='open']) {
   animation: collapsible-expand 150ms ease-out;
 }
 
-:deep(.collapsibleContent[data-state='closed']) {
+:deep([data-part='content'][data-state='closed']) {
   animation: collapsible-collapse 100ms ease-out;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :deep(.collapsibleContent[data-state='open']),
-  :deep(.collapsibleContent[data-state='closed']) {
+  :deep([data-part='content'][data-state='open']),
+  :deep([data-part='content'][data-state='closed']) {
     animation: none;
   }
 }
 
-:deep(.collapsibleContent--static[data-state='open']),
-:deep(.collapsibleContent--static[data-state='closed']) {
+:deep([data-part='content']--static[data-state='open']),
+:deep([data-part='content']--static[data-state='closed']) {
   animation: none;
 }
 </style>

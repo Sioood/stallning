@@ -208,3 +208,35 @@ const rootProps = computed(() => ({
     <ArkSelect.HiddenSelect />
   </ArkSelect.Root>
 </template>
+
+<style scoped>
+:deep([data-part='content'][data-state='open']) {
+  animation: scale-fade-in 100ms ease-out;
+}
+
+:deep([data-part='content'][data-state='closed']) {
+  animation: scale-fade-out 50ms ease-in;
+}
+
+@keyframes scale-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scale-fade-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+</style>

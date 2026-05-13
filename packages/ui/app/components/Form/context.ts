@@ -4,6 +4,8 @@ export type FormFieldIntent = 'primary'
 
 export type FormFieldSize = 'md'
 
+export type FormFieldOrientation = 'horizontal' | 'vertical'
+
 export interface UIFieldSlots {
   root?: ClassValue
   label?: ClassValue

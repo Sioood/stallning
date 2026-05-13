@@ -50,7 +50,7 @@ const progressTrackCVA = cva('overflow-hidden', {
     orientation: {
       horizontal: '',
       vertical: 'h-50 w-1.5',
-    },
+    } satisfies Record<'horizontal' | 'vertical', string>,
   },
 })
 

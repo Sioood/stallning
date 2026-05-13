@@ -2,7 +2,7 @@
 import { RadioGroup as ArkRadioGroup } from '@ark-ui/vue/radio-group'
 import { cva } from 'class-variance-authority'
 
-import type { FormFieldIntent, FormFieldSize } from './context'
+import type { FormFieldIntent, FormFieldOrientation, FormFieldSize } from './context'
 import type { ClassValue } from 'vue'
 import type { FieldProps } from '~ui/app/components/Form/Field.vue'
 
@@ -23,7 +23,7 @@ const radioGroupCVA = cva('', {
     orientation: {
       horizontal: 'flex flex-row flex-wrap gap-4',
       vertical: 'flex flex-col gap-2',
-    },
+    } satisfies Record<FormFieldOrientation, string>,
   },
 })
 
@@ -86,7 +86,7 @@ export interface RadioGroupProps extends FieldProps {
   /** Passed to `RadioGroup.Root` for form submission. */
   name?: string
   /** Layout direction. Defaults to `vertical`. */
-  orientation?: 'horizontal' | 'vertical'
+  orientation?: FormFieldOrientation
   ui?: Partial<UIRadioGroupSlots>
 }
 

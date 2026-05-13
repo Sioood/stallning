@@ -2,7 +2,7 @@
 import { Checkbox as ArkCheckbox } from '@ark-ui/vue/checkbox'
 import { cva } from 'class-variance-authority'
 
-import type { UIFieldSlots } from './context'
+import type { FormFieldOrientation, UIFieldSlots } from './context'
 import type { FieldProps } from '~ui/app/components/Form/Field.vue'
 
 export type { UICheckboxGroupSlots } from './context'
@@ -14,7 +14,7 @@ const checkboxGroupCVA = cva('', {
     orientation: {
       horizontal: 'flex flex-row gap-2 flex-wrap',
       vertical: 'flex flex-col gap-2',
-    },
+    } satisfies Record<FormFieldOrientation, string>,
   },
 })
 
@@ -30,7 +30,7 @@ export interface CheckboxGroupProps extends FieldProps {
   name?: string
   /** Passed to `Checkbox.Group`. */
   maxSelectedValues?: number
-  orientation?: 'horizontal' | 'vertical'
+  orientation?: FormFieldOrientation
 }
 
 const props = withDefaults(defineProps<CheckboxGroupProps>(), {

@@ -6,7 +6,7 @@ import type { MenuIntent } from './context'
 import type { ClassValue } from 'vue'
 
 const menuItemCVA = cva(
-  'flex cursor-pointer items-center gap-2 outline-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-70',
+  'flex cursor-pointer items-center justify-between outline-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-70',
   {
     variants: {
       intent: {
@@ -20,7 +20,7 @@ const menuItemCVA = cva(
           'text-accent-text-default data-[disabled]:text-accent-text-subtle data-[highlighted]:bg-accent-fill-subtle-hover',
       },
       size: {
-        md: 'txt-caption px-2 py-1.5',
+        md: 'txt-caption gap-2 px-2 py-1.5',
       },
     },
   },
@@ -133,6 +133,9 @@ function handleValueChange(value: string) {
       :value="radioItem.value"
       :disabled="radioItem.disabled"
     >
+      <ArkMenu.ItemText :class="cn(menuItemTextCVA({ intent, size }), itemText)">
+        {{ radioItem.label }}
+      </ArkMenu.ItemText>
       <span :class="menuItemIndicatorSlotCVA({ size })">
         <span
           aria-hidden="true"
@@ -149,9 +152,6 @@ function handleValueChange(value: string) {
           </ClientOnly>
         </span>
       </span>
-      <ArkMenu.ItemText :class="cn(menuItemTextCVA({ intent, size }), itemText)">
-        {{ radioItem.label }}
-      </ArkMenu.ItemText>
     </ArkMenu.RadioItem>
   </ArkMenu.RadioItemGroup>
 </template>

@@ -92,6 +92,8 @@ interface PopoverProps extends ArkPopoverRootBaseProps {
 const open = defineModel<boolean>('open', { default: false })
 
 const props = withDefaults(defineProps<PopoverProps>(), {
+  closeOnEscape: true,
+  closeOnInteractOutside: true,
   content: '',
   description: '',
   intent: 'neutral',

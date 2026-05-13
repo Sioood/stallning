@@ -13,12 +13,15 @@ Guide for creating UI components in `@stallning/ui`. Follows Ark UI + CVA + desi
 
 ```vue
 <script setup lang="ts">
-import { cva, type VariantProps } from 'class-variance-authority'
+import { cva } from 'class-variance-authority'
 
 import type { ClassValue } from 'vue'
 
 // If using Ark UI primitives:
 // import { Dialog as ArkDialog } from '@ark-ui/vue/dialog'
+
+type MyComponentIntent = 'neutral' | 'success' | 'warning' | 'error' | 'info'
+type MyComponentSize = 'sm' | 'md' | 'lg'
 
 const myComponentCVA = cva('base-classes', {
   variants: {
@@ -27,24 +30,22 @@ const myComponentCVA = cva('base-classes', {
       primary: 'text-primary-text-default bg-primary-fill-subtle',
       secondary: 'text-secondary-text-default bg-secondary-fill-subtle',
       accent: 'text-accent-text-default bg-accent-fill-subtle',
-    },
+    } satisfies Record<MyComponentIntent, string>,
     size: {
       sm: 'px-2 py-1 txt-caption',
       md: 'px-3 py-1.5 txt-label',
       lg: 'px-4 py-2 txt-base',
-    },
+    } satisfies Record<MyComponentSize, string>,
   },
 })
-
-type MyCVAProps = VariantProps<typeof myComponentCVA>
 
 export interface UIMyComponentSlots {
   root?: ClassValue
 }
 
 export interface MyComponentProps {
-  intent?: MyCVAProps['intent']
-  size?: MyCVAProps['size']
+  intent?: MyComponentIntent
+  size?: MyComponentSize
   ui?: Partial<UIMyComponentSlots>
 }
 
@@ -54,6 +55,7 @@ withDefaults(defineProps<MyComponentProps>(), {
   ui: undefined,
 })
 
+// Optional: extend compodium meta for default props if no compodium example file is provided
 extendCompodiumMeta<MyComponentProps>({
   defaultProps: {
     intent: 'neutral',

@@ -1,23 +1,83 @@
-<template>
-  <div class="flex flex-wrap gap-2">
-    <UIToggle>
-      <template #on>
-        <Icon name="tabler:eye-off" class="size-4 shrink-0" />
-      </template>
-      <template #off>
-        <Icon name="tabler:eye" class="size-4 shrink-0" />
-      </template>
-    </UIToggle>
+<script setup lang="ts">
+const intents = ['neutral', 'primary', 'secondary', 'accent'] as const
+const sizes = ['sm', 'md', 'lg'] as const
+</script>
 
-    <div class="join">
-      <UIToggle v-for="i in 3" :key="i" class="join-item" active-background>
-        <template #on>
-          <Icon name="tabler:eye-off" class="size-4 shrink-0" />
-        </template>
-        <template #off>
-          <Icon name="tabler:eye" class="size-4 shrink-0" />
-        </template>
-      </UIToggle>
-    </div>
+<template>
+  <div class="flex flex-col gap-10 p-4">
+    <section class="flex flex-col gap-4">
+      <h3 class="text-lg font-bold">Intents (Active Background)</h3>
+      <div class="flex flex-wrap gap-4">
+        <UIToggle v-for="intent in intents" :key="intent" :intent="intent" active-background>
+          <template #on>
+            <Icon name="tabler:bell-filled" class="size-4" />
+          </template>
+          <template #off>
+            <Icon name="tabler:bell" class="size-4" />
+          </template>
+        </UIToggle>
+      </div>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h3 class="text-lg font-bold">Sizes</h3>
+      <div class="flex flex-wrap items-center gap-4">
+        <UIToggle v-for="size in sizes" :key="size" :size="size" active-background intent="primary">
+          <template #on>
+            <Icon name="tabler:star-filled" class="size-full" />
+          </template>
+          <template #off>
+            <Icon name="tabler:star" class="size-full" />
+          </template>
+        </UIToggle>
+      </div>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h3 class="text-lg font-bold">States & Variations</h3>
+      <div class="flex flex-wrap gap-6">
+        <div class="flex flex-col gap-1">
+          <span class="txt-caption text-neutral-text-subtle">Default (No background)</span>
+          <UIToggle>
+            <template #on><Icon name="tabler:eye-off" class="size-5" /></template>
+            <template #off><Icon name="tabler:eye" class="size-5" /></template>
+          </UIToggle>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <span class="txt-caption text-neutral-text-subtle">Disabled</span>
+          <UIToggle disabled :model-value="true">
+            <template #on><Icon name="tabler:lock" class="size-5" /></template>
+            <template #off><Icon name="tabler:lock-open" class="size-5" /></template>
+          </UIToggle>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <span class="txt-caption text-neutral-text-subtle">With Text</span>
+          <UIToggle active-background intent="secondary" class="px-3">
+            <template #on>Muted</template>
+            <template #off>Unmuted</template>
+          </UIToggle>
+        </div>
+      </div>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h3 class="text-lg font-bold">Join Group</h3>
+      <div class="join">
+        <UIToggle class="join-item" active-background>
+          <template #on><Icon name="tabler:bold" class="size-4" /></template>
+          <template #off><Icon name="tabler:bold" class="size-4" /></template>
+        </UIToggle>
+        <UIToggle class="join-item" active-background>
+          <template #on><Icon name="tabler:italic" class="size-4" /></template>
+          <template #off><Icon name="tabler:italic" class="size-4" /></template>
+        </UIToggle>
+        <UIToggle class="join-item" active-background>
+          <template #on><Icon name="tabler:underline" class="size-4" /></template>
+          <template #off><Icon name="tabler:underline" class="size-4" /></template>
+        </UIToggle>
+      </div>
+    </section>
   </div>
 </template>

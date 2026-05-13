@@ -1,212 +1,138 @@
 <script setup lang="ts">
-import { useAccordion } from '@ark-ui/vue/accordion'
-
-const programmatic = useAccordion({
-  multiple: true,
-  collapsible: true,
-  defaultValue: ['pg-a'],
-})
-
 const controlled = ref<string[]>([])
+
+const faqItems = [
+  {
+    value: 'what',
+    trigger: 'What is this UI library?',
+    content:
+      'A high-performance, accessible component library built on top of Ark UI and Tailwind CSS, specifically designed for Nuxt 4.',
+  },
+  {
+    value: 'why',
+    trigger: 'Why choose this over others?',
+    content:
+      'It focuses on extreme type safety, modularity via Nuxt layers, and providing a cohesive design system that is easy to extend.',
+  },
+  {
+    value: 'how',
+    trigger: 'How do I get started?',
+    content:
+      'Simply install the package, add it to your nuxt.config.ts layers, and start using the prefixed UI components.',
+  },
+]
 </script>
 
 <template>
-  <div class="flex flex-col gap-10 p-4">
-    <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-subtle">Default · neutral · vertical</p>
-      <UIAccordion collapsible :default-value="['faq-1']" intent="neutral" size="md">
-        <UIAccordionItem value="faq-1">
-          <UIAccordionItemTrigger>
-            What is Stallning?
-            <UIAccordionItemIndicator />
-          </UIAccordionItemTrigger>
-          <UIAccordionItemContent>
-            A Nuxt 4 monorepo template with layered UI and shared tooling.
-          </UIAccordionItemContent>
-        </UIAccordionItem>
-        <UIAccordionItem value="faq-2">
-          <UIAccordionItemTrigger>
-            Where do components live?
-            <UIAccordionItemIndicator />
-          </UIAccordionItemTrigger>
-          <UIAccordionItemContent>
-            In <code class="txt-caption">packages/ui</code> as a Nuxt layer.
-          </UIAccordionItemContent>
-        </UIAccordionItem>
-      </UIAccordion>
-    </section>
-
-    <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-subtle">Multiple · primary · lazy mount</p>
-      <UIAccordion collapsible intent="primary" lazy-mount multiple :default-value="['m-1']">
-        <UIAccordionItem value="m-1">
-          <UIAccordionItemTrigger>
-            First
-            <UIAccordionItemIndicator />
-          </UIAccordionItemTrigger>
-          <UIAccordionItemContent>Content for the first panel.</UIAccordionItemContent>
-        </UIAccordionItem>
-        <UIAccordionItem value="m-2">
-          <UIAccordionItemTrigger>
-            Second
-            <UIAccordionItemIndicator />
-          </UIAccordionItemTrigger>
-          <UIAccordionItemContent>Content for the second panel.</UIAccordionItemContent>
-        </UIAccordionItem>
-      </UIAccordion>
-    </section>
-
-    <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-subtle">Horizontal orientation · accent</p>
-      <UIAccordion
-        class="max-w-full"
-        collapsible
-        intent="accent"
-        orientation="horizontal"
-        size="md"
-      >
-        <UIAccordionItem value="h-1">
-          <UIAccordionItemTrigger>
-            A
-            <UIAccordionItemIndicator />
-          </UIAccordionItemTrigger>
-          <UIAccordionItemContent>Panel A body.</UIAccordionItemContent>
-        </UIAccordionItem>
-        <UIAccordionItem value="h-2">
-          <UIAccordionItemTrigger>
-            B
-            <UIAccordionItemIndicator />
-          </UIAccordionItemTrigger>
-          <UIAccordionItemContent>Panel B body.</UIAccordionItemContent>
-        </UIAccordionItem>
-      </UIAccordion>
-    </section>
-
-    <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-subtle">Disabled root</p>
-      <UIAccordion disabled intent="secondary" :default-value="['d-1']">
-        <UIAccordionItem value="d-1">
-          <UIAccordionItemTrigger>
-            Locked
-            <UIAccordionItemIndicator />
-          </UIAccordionItemTrigger>
-          <UIAccordionItemContent>
-            Not interactive when the root is disabled.
-          </UIAccordionItemContent>
-        </UIAccordionItem>
-      </UIAccordion>
-    </section>
-
-    <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-subtle">Item disabled · ItemContext slot</p>
-      <UIAccordion collapsible intent="neutral" size="md">
-        <UIAccordionItem value="ok">
-          <UIAccordionItemTrigger>
-            Available
-            <UIAccordionItemIndicator />
-          </UIAccordionItemTrigger>
-          <UIAccordionItemContent>Open me anytime.</UIAccordionItemContent>
-        </UIAccordionItem>
-        <UIAccordionItem disabled value="blocked">
-          <UIAccordionItemContext v-slot="{ expanded, disabled }">
-            <UIAccordionItemTrigger>
-              <span class="flex flex-1 items-center justify-between gap-2">
-                <span>
-                  Unavailable ({{ expanded ? 'open' : 'closed' }}, disabled: {{ disabled }})
-                </span>
-                <UIAccordionItemIndicator />
-              </span>
-            </UIAccordionItemTrigger>
-          </UIAccordionItemContext>
-          <UIAccordionItemContent>Should not receive focus.</UIAccordionItemContent>
-        </UIAccordionItem>
-      </UIAccordion>
-    </section>
-
-    <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-subtle">Controlled · v-model</p>
-      <UIAccordion v-model="controlled" collapsible multiple>
-        <UIAccordionItem value="c-1">
-          <UIAccordionItemTrigger>
-            One
-            <UIAccordionItemIndicator />
-          </UIAccordionItemTrigger>
-          <UIAccordionItemContent>Controlled panel one.</UIAccordionItemContent>
-        </UIAccordionItem>
-        <UIAccordionItem value="c-2">
-          <UIAccordionItemTrigger>
-            Two
-            <UIAccordionItemIndicator />
-          </UIAccordionItemTrigger>
-          <UIAccordionItemContent>Controlled panel two.</UIAccordionItemContent>
-        </UIAccordionItem>
-      </UIAccordion>
-      <p class="txt-caption text-neutral-text-subtle">
-        model: {{ controlled.join(', ') || '(empty)' }}
-      </p>
-      <div class="flex gap-2">
-        <UIButton
-          size="sm"
-          text="Open both"
-          variant="subtle"
-          @click="controlled = ['c-1', 'c-2']"
-        />
-        <UIButton size="sm" text="Clear" variant="subtle" @click="controlled = []" />
+  <div class="mx-auto flex max-w-3xl flex-col gap-12 p-6">
+    <section class="flex flex-col gap-4">
+      <div class="flex flex-col gap-1">
+        <h2 class="text-xl font-bold">Standard FAQ</h2>
+        <p class="text-sm text-neutral-text-subtle">
+          Clean, neutral accordion for documentation and FAQs.
+        </p>
       </div>
-    </section>
-
-    <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-subtle">useAccordion + UIAccordionRootProvider</p>
-      <UIAccordionRootProvider
-        :value="programmatic"
-        class="max-w-lg"
-        collapsible
-        intent="neutral"
-        lazy-mount
-        multiple
-        unmount-on-exit
-      >
-        <UIAccordionItem value="pg-a">
+      <UIAccordion collapsible :default-value="['what']">
+        <UIAccordionItem v-for="item in faqItems" :key="item.value" :value="item.value">
           <UIAccordionItemTrigger>
-            Programmatic A
-            <UIAccordionItemIndicator />
-          </UIAccordionItemTrigger>
-          <UIAccordionItemContent>Mounted via RootProvider.</UIAccordionItemContent>
-        </UIAccordionItem>
-        <UIAccordionItem value="pg-b">
-          <UIAccordionItemTrigger>
-            Programmatic B
+            <span class="font-medium">{{ item.trigger }}</span>
             <UIAccordionItemIndicator />
           </UIAccordionItemTrigger>
           <UIAccordionItemContent>
-            Shares the same chrome tokens as UIAccordion.
+            {{ item.content }}
           </UIAccordionItemContent>
-        </UIAccordionItem>
-      </UIAccordionRootProvider>
-    </section>
-
-    <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-subtle">Custom indicator (slot) · ui overrides</p>
-      <UIAccordion collapsible intent="primary">
-        <UIAccordionItem value="x-1" :ui="{ root: 'ring-1 ring-primary-border-subtle' }">
-          <UIAccordionItemTrigger :ui="{ root: 'justify-start gap-3' }">
-            Custom chevron
-            <UIAccordionItemIndicator>
-              <Icon class="size-full" name="tabler:plus" />
-            </UIAccordionItemIndicator>
-          </UIAccordionItemTrigger>
-          <UIAccordionItemContent>Slot replaces the default Tabler chevron.</UIAccordionItemContent>
         </UIAccordionItem>
       </UIAccordion>
     </section>
 
-    <section class="txt-caption text-neutral-text-subtle">
-      <p>
-        Raw Ark primitives (<code>Accordion.Root</code>, <code>Accordion.Item</code>, …) are
-        available from
-        <code>@ark-ui/vue/accordion</code>
-        for fully custom markup.
-      </p>
+    <div class="grid grid-cols-1 gap-12 md:grid-cols-2">
+      <section class="flex flex-col gap-4">
+        <div class="flex flex-col gap-1">
+          <h2 class="text-xl font-bold">Colored Variants</h2>
+          <p class="text-sm text-neutral-text-subtle">Primary and Accent intents.</p>
+        </div>
+        <UIAccordion intent="primary" collapsible class="flex flex-col gap-2">
+          <UIAccordionItem value="p1" class="rounded-md border border-primary-border-subtle">
+            <UIAccordionItemTrigger class="px-3 py-2">
+              System Health
+              <UIAccordionItemIndicator />
+            </UIAccordionItemTrigger>
+            <UIAccordionItemContent class="p-3 text-sm">
+              All systems operational. 99.9% uptime reported.
+            </UIAccordionItemContent>
+          </UIAccordionItem>
+          <UIAccordionItem value="p2" class="rounded-md border border-primary-border-subtle">
+            <UIAccordionItemTrigger class="px-3 py-2">
+              Security Audit
+              <UIAccordionItemIndicator />
+            </UIAccordionItemTrigger>
+            <UIAccordionItemContent class="p-3 text-sm">
+              Last audit performed 2 days ago. No vulnerabilities found.
+            </UIAccordionItemContent>
+          </UIAccordionItem>
+        </UIAccordion>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <div class="flex flex-col gap-1">
+          <h2 class="text-xl font-bold">Horizontal</h2>
+          <p class="text-sm text-neutral-text-subtle">For side-by-side content switching.</p>
+        </div>
+        <UIAccordion
+          orientation="horizontal"
+          collapsible
+          intent="accent"
+          class="h-40 overflow-hidden rounded-lg border border-accent-border-subtle"
+        >
+          <UIAccordionItem value="h1" class="border-r border-accent-border-subtle">
+            <UIAccordionItemTrigger class="flex h-full items-center justify-center px-4">
+              <span class="vertical-text">Profile</span>
+              <UIAccordionItemIndicator class="mt-2 rotate-90 data-[state=open]:-rotate-90" />
+            </UIAccordionItemTrigger>
+            <UIAccordionItemContent class="min-w-[200px] p-4">
+              User settings and preferences.
+            </UIAccordionItemContent>
+          </UIAccordionItem>
+          <UIAccordionItem value="h2">
+            <UIAccordionItemTrigger class="flex h-full items-center justify-center px-4">
+              <span class="vertical-text">Stats</span>
+              <UIAccordionItemIndicator class="mt-2 rotate-90 data-[state=open]:-rotate-90" />
+            </UIAccordionItemTrigger>
+            <UIAccordionItemContent class="min-w-[200px] p-4">
+              Usage statistics and analytics.
+            </UIAccordionItemContent>
+          </UIAccordionItem>
+        </UIAccordion>
+      </section>
+    </div>
+
+    <section class="flex flex-col gap-4">
+      <div class="flex flex-col gap-1">
+        <h2 class="text-xl font-bold">Controlled State</h2>
+        <p class="text-sm text-neutral-text-subtle">Manage expansion from outside the component.</p>
+      </div>
+      <div class="mb-2 flex gap-2">
+        <UIButton size="sm" variant="subtle" @click="controlled = ['c1']">Open 1</UIButton>
+        <UIButton size="sm" variant="subtle" @click="controlled = ['c1', 'c2']">Open All</UIButton>
+        <UIButton size="sm" variant="subtle" @click="controlled = []">Close All</UIButton>
+      </div>
+      <UIAccordion v-model="controlled" multiple collapsible intent="secondary">
+        <UIAccordionItem value="c1">
+          <UIAccordionItemTrigger>Panel One <UIAccordionItemIndicator /></UIAccordionItemTrigger>
+          <UIAccordionItemContent>Dynamic content for panel one.</UIAccordionItemContent>
+        </UIAccordionItem>
+        <UIAccordionItem value="c2">
+          <UIAccordionItemTrigger>Panel Two <UIAccordionItemIndicator /></UIAccordionItemTrigger>
+          <UIAccordionItemContent>Dynamic content for panel two.</UIAccordionItemContent>
+        </UIAccordionItem>
+      </UIAccordion>
     </section>
   </div>
 </template>
+
+<style scoped>
+.vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+</style>

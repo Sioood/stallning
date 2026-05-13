@@ -1,52 +1,96 @@
 <script setup lang="ts">
-const checkedBasic = ref(false)
-const checkedControlled = ref(true)
-const checkedDisabled = ref(true)
+const settings = ref({
+  notifications: true,
+  darkMode: false,
+  autoUpdate: true,
+  biometrics: false,
+})
+
+const sizes = ['sm', 'md', 'lg'] as const
 </script>
 
 <template>
-  <div class="flex flex-col gap-6 p-4">
-    <div class="flex flex-col gap-4">
-      <h3 class="txt-h6">Basic Switch</h3>
-      <div class="flex items-center gap-4">
-        <UISwitch v-model:checked="checkedBasic" label="Enable notifications" />
-        <span class="txt-caption text-neutral-text-subtle">
-          {{ checkedBasic ? 'Enabled' : 'Disabled' }}
-        </span>
-      </div>
-    </div>
+  <div class="flex flex-col gap-12 p-6 max-w-2xl mx-auto">
+    <section class="flex flex-col gap-6">
+      <h2 class="text-xl font-bold">App Settings</h2>
+      <div
+        class="flex flex-col border border-neutral-border-subtle rounded-xl overflow-hidden bg-neutral-fill-subtle/5"
+      >
+        <div
+          class="flex items-center justify-between p-4 border-b border-neutral-border-subtle hover:bg-neutral-fill-subtle/20 transition-colors"
+        >
+          <div class="flex flex-col">
+            <span class="font-medium text-neutral-text-default">Enable Notifications</span>
+            <span class="text-xs text-neutral-text-subtle"
+              >Receive real-time alerts on your device.</span
+            >
+          </div>
+          <UISwitch v-model:checked="settings.notifications" intent="primary" />
+        </div>
 
-    <div class="flex flex-col gap-4">
-      <h3 class="txt-h6">Intents</h3>
-      <div class="flex flex-col gap-3">
-        <UISwitch v-model:checked="checkedControlled" intent="neutral" label="Neutral switch" />
-        <UISwitch v-model:checked="checkedControlled" intent="primary" label="Primary switch" />
-        <UISwitch v-model:checked="checkedControlled" intent="secondary" label="Secondary switch" />
-        <UISwitch v-model:checked="checkedControlled" intent="accent" label="Accent switch" />
-      </div>
-    </div>
+        <div
+          class="flex items-center justify-between p-4 border-b border-neutral-border-subtle hover:bg-neutral-fill-subtle/20 transition-colors"
+        >
+          <div class="flex flex-col">
+            <span class="font-medium text-neutral-text-default">Dark Mode</span>
+            <span class="text-xs text-neutral-text-subtle">Switch to a darker color palette.</span>
+          </div>
+          <UISwitch v-model:checked="settings.darkMode" intent="neutral" />
+        </div>
 
-    <div class="flex flex-col gap-4">
-      <h3 class="txt-h6">Sizes</h3>
-      <div class="flex flex-col gap-3">
-        <UISwitch v-model:checked="checkedControlled" size="sm" label="Small switch" />
-        <UISwitch v-model:checked="checkedControlled" size="md" label="Medium switch" />
-        <UISwitch v-model:checked="checkedControlled" size="lg" label="Large switch" />
-      </div>
-    </div>
+        <div
+          class="flex items-center justify-between p-4 border-b border-neutral-border-subtle hover:bg-neutral-fill-subtle/20 transition-colors"
+        >
+          <div class="flex flex-col">
+            <span class="font-medium text-neutral-text-default">Auto-Update</span>
+            <span class="text-xs text-neutral-text-subtle"
+              >Keep the application up to date automatically.</span
+            >
+          </div>
+          <UISwitch v-model:checked="settings.autoUpdate" intent="secondary" />
+        </div>
 
-    <div class="flex flex-col gap-4">
-      <h3 class="txt-h6">States</h3>
-      <div class="flex flex-col gap-3">
-        <UISwitch
-          v-model:checked="checkedControlled"
-          label="Normal switch"
-          required
-          helper-text="This is a helper text"
-          error="This is an error"
-        />
-        <UISwitch v-model:checked="checkedDisabled" disabled label="Disabled switch" />
+        <div
+          class="flex items-center justify-between p-4 hover:bg-neutral-fill-subtle/20 transition-colors"
+        >
+          <div class="flex flex-col">
+            <span class="font-medium text-neutral-text-default">Biometric Login</span>
+            <span class="text-xs text-neutral-text-subtle"
+              >Use FaceID or Fingerprint to unlock.</span
+            >
+          </div>
+          <UISwitch v-model:checked="settings.biometrics" intent="accent" />
+        </div>
       </div>
+    </section>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <section class="flex flex-col gap-4">
+        <h3 class="text-lg font-bold">Sizes</h3>
+        <div
+          class="flex flex-col gap-4 p-6 bg-neutral-fill-subtle/10 rounded-xl border border-neutral-border-subtle items-start"
+        >
+          <UISwitch
+            v-for="size in sizes"
+            :key="size"
+            :size="size"
+            :label="`Size ${size}`"
+            :model-value="true"
+          />
+        </div>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h3 class="text-lg font-bold">States</h3>
+        <div
+          class="flex flex-col gap-4 p-6 bg-neutral-fill-subtle/10 rounded-xl border border-neutral-border-subtle items-start"
+        >
+          <UISwitch label="Required" required :model-value="false" />
+          <UISwitch label="Disabled" disabled :model-value="true" />
+          <UISwitch label="Disabled Off" disabled :model-value="false" />
+          <UISwitch label="Invalid State" invalid error="This option is mandatory" />
+        </div>
+      </section>
     </div>
   </div>
 </template>

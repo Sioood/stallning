@@ -1,2 +1,7 @@
 hell: 'Monde (UI)'
 downloadQRCode: 'Télécharger le QR code'
+select:
+  select: 'Sélectionner'
+  loading: 'Chargement'
+  noOptions: 'Aucune option'
+  selectAll: 'Tout sélectionner'

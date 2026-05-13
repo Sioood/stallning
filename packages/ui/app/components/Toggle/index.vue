@@ -70,7 +70,7 @@ const rootAttrs = computed(() => {
     "
   >
     <Swap.Root :swap="pressed">
-      <ArkToggle.Indicator :class="cn(ui?.indicator)">
+      <ArkToggle.Indicator :class="cn('flex items-center justify-center', ui?.indicator)">
         <Swap.Indicator type="on" :class="indicatorAnimation">
           <slot name="on" />
         </Swap.Indicator>

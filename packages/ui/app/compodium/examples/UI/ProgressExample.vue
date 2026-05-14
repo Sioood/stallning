@@ -35,7 +35,7 @@ watchEffect(() => {
           <UIProgress
             v-for="size in sizes"
             :key="size"
-            v-model:model-value="value"
+            v-model="value"
             :label="`Loading (${size})`"
             :intent="intent"
             :size="size"
@@ -51,7 +51,7 @@ watchEffect(() => {
         <UIProgress
           v-for="intent in intents"
           :key="intent"
-          v-model:model-value="value"
+          v-model="value"
           label="Vertical"
           :intent="intent"
           orientation="vertical"
@@ -71,7 +71,7 @@ watchEffect(() => {
           <UIProgressCircular
             v-for="size in circularSizes"
             :key="size"
-            v-model:model-value="value"
+            v-model="value"
             :label="size"
             :intent="intent"
             :size="size"

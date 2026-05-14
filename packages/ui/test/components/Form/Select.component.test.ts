@@ -69,6 +69,7 @@ describe('UIFormSelect', () => {
         multiple: true,
         portalled: false,
         modelValue: ['1'],
+        defaultValue: ['1'],
         'onUpdate:modelValue': onUpdateModelValue,
       },
     })
@@ -119,6 +120,7 @@ describe('UIFormSelect', () => {
       props: {
         items,
         modelValue: ['1'],
+        defaultValue: ['1'],
         showClear: true,
         'onUpdate:modelValue': onUpdateModelValue,
       },

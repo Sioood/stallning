@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { cva, type VariantProps } from 'class-variance-authority'
-import { mergeProps, type ClassValue } from 'vue'
+import { mergeProps, type ClassValue, type ComponentPublicInstance } from 'vue'
 
 import {
   useComponentIcons,
@@ -47,10 +47,16 @@ export interface ButtonProps extends NuxtLinkProps, UseComponentIconsProps {
   size?: ButtonCVAProps['size']
   handleLoadingState?: boolean
   state?: ComponentState
-  onClick?: () => Promise<void> | void
+  /** Receives the DOM click event when provided (Ark/Radix triggers pass `MouseEvent`). */
+  onClick?: (event?: MouseEvent) => void | Promise<void>
   autoResetDelay?: number
   onStateChange?: (state: ComponentState) => void
   ui?: Partial<UIButtonSlots>
+}
+
+export interface UIButtonExpose {
+  getControlElement: () => HTMLElement | null
+  focus: () => void
 }
 
 const props = withDefaults(defineProps<ButtonProps>(), {
@@ -91,15 +97,18 @@ const buttonRootAttrs = computed(() => {
   return rest
 })
 
-const handleClick = async () => {
+const handleClick = async (event: MouseEvent) => {
   if (!props.onClick || props.to || internalState.value !== 'default' || props.disabled) return
 
-  if (!props.handleLoadingState) return props.onClick()
+  if (!props.handleLoadingState) {
+    await Promise.resolve(props.onClick(event))
+    return
+  }
 
   internalState.value = 'loading'
   props.onStateChange?.('loading')
   try {
-    await props.onClick()
+    await props.onClick(event)
 
     internalState.value = 'success'
     props.onStateChange?.('success')
@@ -118,6 +127,23 @@ const handleClick = async () => {
     }, props.autoResetDelay)
   }
 }
+
+const rootRef = ref<ComponentPublicInstance | HTMLElement | null>(null)
+
+const controlElement = computed((): HTMLElement | null => {
+  const r = rootRef.value
+  if (!r) return null
+  if (r instanceof HTMLElement) return r
+  const el = (r as ComponentPublicInstance).$el
+  return el instanceof HTMLElement ? el : null
+})
+
+defineExpose({
+  getControlElement: (): HTMLElement | null => controlElement.value,
+  focus: (): void => {
+    controlElement.value?.focus()
+  },
+} satisfies UIButtonExpose)
 
 extendCompodiumMeta<typeof props>({
   defaultProps: {
@@ -141,6 +167,7 @@ extendCompodiumMeta<typeof props>({
 <template>
   <component
     :is="to ? Link : 'button'"
+    ref="rootRef"
     v-bind="
       mergeProps(
         buttonRootAttrs,

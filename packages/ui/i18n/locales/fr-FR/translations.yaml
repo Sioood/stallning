@@ -5,3 +5,4 @@ select:
   loading: 'Chargement'
   noOptions: 'Aucune option'
   selectAll: 'Tout sélectionner'
+open: 'Ouvrir'

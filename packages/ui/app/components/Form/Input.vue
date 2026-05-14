@@ -11,9 +11,16 @@ import {
 } from '~ui/app/composables/useComponentIcons'
 
 import type { FormFieldIntent, FormFieldSize, UIInputSlots } from './componentContext'
+import type { ComponentPublicInstance } from 'vue'
 import type { FieldProps } from '~ui/app/components/Form/Field.vue'
 
 export type { UIInputSlots } from './componentContext'
+
+/** Public API for imperative focus (e.g. dialog `initialFocusEl`). */
+export interface UIFormInputExpose {
+  getControlElement: () => HTMLInputElement | null
+  focus: () => void
+}
 
 defineOptions({ inheritAttrs: false })
 
@@ -183,6 +190,22 @@ const inputFallthroughAttrs = computed(() => {
   return rest
 })
 
+const arkInputRef = ref<ComponentPublicInstance | null>(null)
+
+const controlElement = computed((): HTMLInputElement | null => {
+  const inst = arkInputRef.value
+  if (!inst) return null
+  const el = inst.$el
+  return el instanceof HTMLInputElement ? el : null
+})
+
+defineExpose({
+  getControlElement: (): HTMLInputElement | null => controlElement.value,
+  focus: (): void => {
+    controlElement.value?.focus()
+  },
+} satisfies UIFormInputExpose)
+
 extendCompodiumMeta<typeof props & { modelValue?: string }>({
   defaultProps: {
     modelValue: '',
@@ -226,6 +249,7 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
       </span>
 
       <ArkField.Input
+        ref="arkInputRef"
         v-bind="{ ...inputProps, ...inputFallthroughAttrs }"
         v-model="modelValue"
         :type="resolvedInputType"

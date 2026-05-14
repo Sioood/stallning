@@ -2,7 +2,7 @@
 import { Menu as ArkMenu } from '@ark-ui/vue/menu'
 import { cva } from 'class-variance-authority'
 
-import type { MenuIntent } from './context'
+import type { MenuIntent } from './componentContext'
 import type { MenuListEntry } from './index.vue'
 import type { ClassValue } from 'vue'
 

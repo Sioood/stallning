@@ -2,6 +2,8 @@
 import {
   Collapsible,
   type CollapsibleRootBaseProps as ArkCollapsibleRootBaseProps,
+  type CollapsibleRootProviderBaseProps as ArkCollapsibleRootProviderBaseProps,
+  type UseCollapsibleReturn,
 } from '@ark-ui/vue/collapsible'
 import { cva, type VariantProps } from 'class-variance-authority'
 
@@ -76,7 +78,14 @@ interface UICollapsibleSlots {
   trigger?: ClassValue
 }
 
-export interface CollapsibleProps extends ArkCollapsibleRootBaseProps {
+export interface CollapsibleProps
+  extends ArkCollapsibleRootBaseProps, Omit<ArkCollapsibleRootProviderBaseProps, 'value'> {
+  /**
+   * Pass the return value of `useCollapsible()` to enable **RootProvider** mode —
+   * the component will be controlled entirely from outside via the Ark API object.
+   * Omit (or leave `undefined`) to use the default **Root** mode with `v-model`.
+   */
+  value?: UseCollapsibleReturn['value']
   /** When false, panel height open/close animation is off (same effect as prefers-reduced-motion for content). */
   contentAnimated?: boolean
   /** Shown when the `#title` slot is empty. */
@@ -96,11 +105,21 @@ const props = withDefaults(defineProps<CollapsibleProps>(), {
   heading: '',
   intent: 'neutral',
   size: 'md',
+  value: undefined,
   ui: undefined,
 })
 
-const rootProps = computed(() => ({
-  ...pick(props, [
+const isProvider = computed(() => props.value !== undefined)
+
+const rootComponent = computed(() =>
+  isProvider.value ? Collapsible.RootProvider : Collapsible.Root,
+)
+
+const rootProps = computed(() => {
+  if (isProvider.value) {
+    return pick(props, ['asChild', 'lazyMount', 'unmountOnExit', 'value'] as const)
+  }
+  return pick(props, [
     'asChild',
     'collapsedHeight',
     'collapsedWidth',
@@ -110,8 +129,8 @@ const rootProps = computed(() => ({
     'ids',
     'lazyMount',
     'unmountOnExit',
-  ] as const),
-}))
+  ] as const)
+})
 
 extendCompodiumMeta<CollapsibleProps>({
   defaultProps: {
@@ -123,7 +142,19 @@ extendCompodiumMeta<CollapsibleProps>({
 </script>
 
 <template>
-  <Collapsible.Root v-bind="{ ...rootProps, ...$attrs }" v-model:open="modelValue">
+  <component
+    :is="rootComponent"
+    v-bind="
+      isProvider
+        ? { ...rootProps, ...$attrs }
+        : {
+            ...rootProps,
+            ...$attrs,
+            open: modelValue,
+            'onUpdate:open': (v: boolean) => (modelValue = v),
+          }
+    "
+  >
     <Collapsible.Trigger
       type="button"
       :class="cn(collapsibleTriggerCVA({ intent, size, disabled }), ui?.trigger)"
@@ -141,7 +172,7 @@ extendCompodiumMeta<CollapsibleProps>({
     >
       <slot />
     </Collapsible.Content>
-  </Collapsible.Root>
+  </component>
 </template>
 
 <style scoped>

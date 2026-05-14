@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Accordion as ArkAccordion, type AccordionItemBaseProps } from '@ark-ui/vue/accordion'
 
-import { accordionChromeKey, type AccordionIntent, type AccordionSize } from './context'
+import { accordionChromeKey, type AccordionIntent, type AccordionSize } from './componentContext'
 import { accordionItemCVA } from './variants'
 
 import type { ClassValue } from 'vue'

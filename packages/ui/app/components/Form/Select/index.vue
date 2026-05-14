@@ -3,6 +3,8 @@ import {
   Select as ArkSelect,
   createListCollection,
   type SelectRootBaseProps as ArkSelectRootProps,
+  type SelectRootProviderBaseProps as ArkSelectRootProviderBaseProps,
+  type UseSelectReturn,
 } from '@ark-ui/vue/select'
 
 import { buttonVariants } from '~ui/app/utils/button-variants'
@@ -14,9 +16,18 @@ import {
   selectPositionerCVA,
 } from './variants'
 
-import type { SelectIntent, SelectSize, SelectItem, UISelectSlots } from './context'
+import type { SelectIntent, SelectSize, SelectItem, UISelectSlots } from './componentContext'
 
-export interface SelectProps extends Omit<ArkSelectRootProps<SelectItem[]>, 'collection'> {
+export interface SelectProps
+  extends
+    Omit<ArkSelectRootProps<SelectItem[]>, 'collection'>,
+    Omit<ArkSelectRootProviderBaseProps, 'value'> {
+  /**
+   * Pass the return value of `useSelect()` to enable **RootProvider** mode —
+   * the component will be controlled entirely from outside via the Ark API object.
+   * Omit (or leave `undefined`) to use the default **Root** mode with `v-model`.
+   */
+  value?: UseSelectReturn
   /** Items to display. Pass `null` to indicate items have not been loaded yet (async). */
   items?: SelectItem[] | null
   placeholder?: string
@@ -61,6 +72,7 @@ const props = withDefaults(defineProps<SelectProps>(), {
   intent: 'neutral',
   size: 'md',
   showClear: true,
+  value: undefined,
   ui: undefined,
 })
 
@@ -98,41 +110,51 @@ function handleValueChange(details: { value: string[] }) {
 
 const iconClass = computed(() => cn(selectIconSizeCVA({ size: props.size })))
 
-const rootProps = computed(() => ({
-  ...pick(props, [
-    'asChild',
-    'autoComplete',
-    'closeOnSelect',
-    'composite',
-    'defaultHighlightedValue',
-    'defaultOpen',
-    'defaultValue',
-    'deselectable',
-    'disabled',
-    'form',
-    'highlightedValue',
-    'id',
-    'ids',
-    'invalid',
-    'lazyMount',
-    'loopFocus',
-    'modelValue',
-    'multiple',
-    'name',
-    'positioning',
-    'readOnly',
-    'required',
-    'scrollToIndexFn',
-    'unmountOnExit',
-  ]),
-  collection: collection.value,
-}))
+const isProvider = computed(() => props.value !== undefined)
+
+const rootComponent = computed(() => (isProvider.value ? ArkSelect.RootProvider : ArkSelect.Root))
+
+const rootProps = computed(() => {
+  if (isProvider.value) {
+    return { value: props.value, collection: collection.value }
+  }
+  return {
+    ...pick(props, [
+      'asChild',
+      'autoComplete',
+      'closeOnSelect',
+      'composite',
+      'defaultHighlightedValue',
+      'defaultOpen',
+      'defaultValue',
+      'deselectable',
+      'disabled',
+      'form',
+      'highlightedValue',
+      'id',
+      'ids',
+      'invalid',
+      'lazyMount',
+      'loopFocus',
+      'multiple',
+      'name',
+      'positioning',
+      'readOnly',
+      'required',
+      'scrollToIndexFn',
+      'unmountOnExit',
+    ] as const),
+    collection: collection.value,
+  }
+})
 </script>
 
 <template>
-  <ArkSelect.Root
-    v-model:open="open"
-    v-bind="rootProps"
+  <component
+    :is="rootComponent"
+    v-bind="
+      isProvider ? rootProps : { ...rootProps, open, 'onUpdate:open': (v: boolean) => (open = v) }
+    "
     :class="cn('w-full', ui?.root)"
     @value-change="handleValueChange"
   >
@@ -206,7 +228,7 @@ const rootProps = computed(() => ({
       </ArkSelect.Positioner>
     </Teleport>
     <ArkSelect.HiddenSelect />
-  </ArkSelect.Root>
+  </component>
 </template>
 
 <style scoped>

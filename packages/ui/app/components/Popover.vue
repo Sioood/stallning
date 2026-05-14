@@ -2,6 +2,8 @@
 import {
   Popover as ArkPopover,
   type PopoverRootBaseProps as ArkPopoverRootBaseProps,
+  type PopoverRootProviderBaseProps as ArkPopoverRootProviderBaseProps,
+  type UsePopoverReturn,
 } from '@ark-ui/vue/popover'
 import { cva, type VariantProps } from 'class-variance-authority'
 
@@ -79,7 +81,15 @@ interface UIPopoverSlots {
   arrow?: ClassValue
   arrowTip?: ClassValue
 }
-interface PopoverProps extends ArkPopoverRootBaseProps {
+
+interface PopoverProps
+  extends Omit<ArkPopoverRootBaseProps, 'open'>, Omit<ArkPopoverRootProviderBaseProps, 'value'> {
+  /**
+   * Pass the return value of `usePopover()` to enable **RootProvider** mode —
+   * the component will be controlled entirely from outside via the Ark API object.
+   * Omit (or leave `undefined`) to use the default **Root** mode with `v-model:open`.
+   */
+  value?: UsePopoverReturn['value']
   title?: string
   content?: string
   description?: string
@@ -101,44 +111,49 @@ const props = withDefaults(defineProps<PopoverProps>(), {
   showCloseTrigger: false,
   size: 'md',
   title: '',
+  value: undefined,
   ui: undefined,
 })
 
-const rootProps = computed(() =>
-  pick(props, [
-    'autoFocus',
-    'closeOnEscape',
-    'closeOnInteractOutside',
-    'defaultOpen',
-    'defaultTriggerValue',
-    'finalFocusEl',
-    'id',
-    'ids',
-    'initialFocusEl',
-    'lazyMount',
-    'modal',
-    // 'onEscapeKeyDown',
-    // 'onExitComplete',
-    // 'onFocusOutside',
-    // 'onInteractOutside',
-    // 'onOpenChange',
-    // 'onPointerDownOutside',
-    // 'onRequestDismiss',
-    // 'onTriggerValueChange',
-    'open',
-    'persistentElements',
-    'portalled',
-    'positioning',
-    'restoreFocus',
-    'translations',
-    'triggerValue',
-    'unmountOnExit',
-  ]),
-)
+const isProvider = computed(() => props.value !== undefined)
+
+const rootComponent = computed(() => (isProvider.value ? ArkPopover.RootProvider : ArkPopover.Root))
+
+const rootProps = computed(() => {
+  if (isProvider.value) {
+    return pick(props, ['asChild', 'lazyMount', 'unmountOnExit', 'value'] as const)
+  }
+  return {
+    ...pick(props, [
+      'autoFocus',
+      'closeOnEscape',
+      'closeOnInteractOutside',
+      'defaultOpen',
+      'defaultTriggerValue',
+      'finalFocusEl',
+      'id',
+      'ids',
+      'initialFocusEl',
+      'lazyMount',
+      'modal',
+      'persistentElements',
+      'portalled',
+      'positioning',
+      'restoreFocus',
+      'translations',
+      'triggerValue',
+      'unmountOnExit',
+    ] as const),
+    'onUpdate:open': (val: boolean) => {
+      open.value = val
+    },
+    open: open.value,
+  }
+})
 </script>
 
 <template>
-  <ArkPopover.Root v-bind="rootProps" v-model:open="open">
+  <component :is="rootComponent" v-bind="rootProps">
     <ArkPopover.Context v-slot="popover">
       <slot
         name="triggers"
@@ -184,5 +199,5 @@ const rootProps = computed(() =>
         </ArkPopover.Content>
       </ArkPopover.Positioner>
     </ArkPopover.Context>
-  </ArkPopover.Root>
+  </component>
 </template>

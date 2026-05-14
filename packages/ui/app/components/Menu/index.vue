@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { Menu as ArkMenu, type MenuRootBaseProps as ArkMenuRootBaseProps } from '@ark-ui/vue/menu'
+import {
+  Menu as ArkMenu,
+  type MenuRootBaseProps as ArkMenuRootBaseProps,
+  type MenuRootProviderBaseProps as ArkMenuRootProviderBaseProps,
+  type UseMenuReturn,
+} from '@ark-ui/vue/menu'
 
 import {
   menuArrowCVA,
@@ -9,10 +14,10 @@ import {
   menuPositionerCVA,
 } from './variants'
 
-import type { MenuIntent, MenuSize, UIMenuSlots } from './context'
+import type { MenuIntent, MenuSize, UIMenuSlots } from './componentContext'
 import type { ClassValue } from 'vue'
 
-export type { MenuIntent, MenuSize, UIMenuSlots } from './context'
+export type { MenuIntent, MenuSize, UIMenuSlots } from './componentContext'
 
 type MenuTriggerValueSource = { triggerValue?: string | null }
 
@@ -101,7 +106,14 @@ export type MenuListEntry =
   | MenuSubmenuEntry
   | MenuSeparatorEntry
 
-export interface MenuProps extends ArkMenuRootBaseProps {
+export interface MenuProps
+  extends ArkMenuRootBaseProps, Omit<ArkMenuRootProviderBaseProps, 'value'> {
+  /**
+   * Pass the return value of `useMenu()` to enable **RootProvider** mode —
+   * the component will be controlled entirely from outside via the Ark API object.
+   * Omit (or leave `undefined`) to use the default **Root** mode with `v-model:open`.
+   */
+  value?: UseMenuReturn
   triggerText?: string
   contextTriggerText?: string
   intent?: MenuIntent
@@ -128,30 +140,43 @@ const props = withDefaults(defineProps<MenuProps>(), {
   size: 'md',
   teleportTo: 'body',
   triggerText: 'Actions',
+  value: undefined,
   ui: undefined,
 })
 
-const rootProps = computed(() =>
-  pick(props, [
-    'anchorPoint',
-    'aria-label',
-    'asChild',
-    'closeOnSelect',
-    'composite',
-    'defaultHighlightedValue',
-    'defaultOpen',
-    'highlightedValue',
-    'id',
-    'ids',
-    'lazyMount',
-    'loopFocus',
-    'navigate',
-    'open',
-    'positioning',
-    'typeahead',
-    'unmountOnExit',
-  ]),
-)
+const isProvider = computed(() => props.value !== undefined)
+
+const rootComponent = computed(() => (isProvider.value ? ArkMenu.RootProvider : ArkMenu.Root))
+
+const rootProps = computed(() => {
+  if (isProvider.value) {
+    return pick(props, ['asChild', 'lazyMount', 'unmountOnExit', 'value'] as const)
+  }
+  return {
+    ...pick(props, [
+      'anchorPoint',
+      'aria-label',
+      'asChild',
+      'closeOnSelect',
+      'composite',
+      'defaultHighlightedValue',
+      'defaultOpen',
+      'highlightedValue',
+      'id',
+      'ids',
+      'lazyMount',
+      'loopFocus',
+      'navigate',
+      'positioning',
+      'typeahead',
+      'unmountOnExit',
+    ] as const),
+    open: open.value,
+    'onUpdate:open': (v: boolean) => {
+      open.value = v
+    },
+  }
+})
 
 const itemUiProps = computed(() => ({
   item: props.ui?.item,
@@ -193,7 +218,7 @@ extendCompodiumMeta<MenuProps>({
 </script>
 
 <template>
-  <ArkMenu.Root v-bind="{ ...rootProps, ...$attrs }" v-model:open="open">
+  <component :is="rootComponent" v-bind="{ ...rootProps, ...$attrs }">
     <ArkMenu.Context v-slot="menu">
       <slot
         name="context-trigger"
@@ -222,7 +247,7 @@ extendCompodiumMeta<MenuProps>({
         </ArkMenu.Trigger>
       </slot>
 
-      <Teleport v-if="portalled" :to="teleportTo" :disabled="!portalled">
+      <Teleport :to="teleportTo" :disabled="!portalled">
         <ArkMenu.Positioner :class="cn(menuPositionerCVA(), ui?.positioner)">
           <ArkMenu.Content :class="cn(menuContentCVA({ intent, size }), ui?.content)">
             <ArkMenu.Arrow v-if="showArrow" :class="cn(menuArrowCVA({ intent, size }), ui?.arrow)">
@@ -259,40 +284,8 @@ extendCompodiumMeta<MenuProps>({
           </ArkMenu.Content>
         </ArkMenu.Positioner>
       </Teleport>
-
-      <ArkMenu.Positioner v-else :class="cn(menuPositionerCVA(), ui?.positioner)">
-        <ArkMenu.Content :class="cn(menuContentCVA({ intent, size }), ui?.content)">
-          <slot
-            name="content"
-            :menu="menu"
-            :root="ArkMenu.Root"
-            :trigger="ArkMenu.Trigger"
-            :trigger-item="ArkMenu.TriggerItem"
-            :positioner="ArkMenu.Positioner"
-            :content-part="ArkMenu.Content"
-            :item="ArkMenu.Item"
-            :checkbox-item="ArkMenu.CheckboxItem"
-            :radio-item-group="ArkMenu.RadioItemGroup"
-            :radio-item="ArkMenu.RadioItem"
-            :item-group="ArkMenu.ItemGroup"
-            :item-group-label="ArkMenu.ItemGroupLabel"
-            :separator="ArkMenu.Separator"
-            :item-indicator="ArkMenu.ItemIndicator"
-            :item-text="ArkMenu.ItemText"
-            :context-trigger="ArkMenu.ContextTrigger"
-            :trigger-value="menuTriggerValue(menu)"
-          >
-            <UIMenuEntryRenderer
-              :items="items"
-              :intent="intent"
-              :size="size"
-              v-bind="itemUiProps"
-            />
-          </slot>
-        </ArkMenu.Content>
-      </ArkMenu.Positioner>
     </ArkMenu.Context>
-  </ArkMenu.Root>
+  </component>
 </template>
 
 <style scoped>

@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { Switch as ArkSwitch, type SwitchRootProps as ArkSwitchRootProps } from '@ark-ui/vue/switch'
+import {
+  Switch as ArkSwitch,
+  type SwitchRootBaseProps as ArkSwitchRootBaseProps,
+  type SwitchRootProviderBaseProps as ArkSwitchRootProviderBaseProps,
+  type UseSwitchReturn,
+} from '@ark-ui/vue/switch'
 import { cva } from 'class-variance-authority'
 
 import type { ClassValue } from 'vue'
@@ -21,7 +26,7 @@ const switchControlCVA = cva(
   [
     'relative inline-flex shrink-0 items-center transition-colors duration-200',
     'not-data-[disabled]:cursor-pointer data-[disabled]:cursor-not-allowed',
-    'data-[invalid]:outline-error-border-default data-[invalid]:outline',
+    'data-[invalid]:outline data-[invalid]:outline-error-border-default',
   ],
   {
     variants: {
@@ -87,7 +92,16 @@ const switchLabelCVA = cva('', {
 })
 
 export interface SwitchProps
-  extends Omit<ArkSwitchRootProps, 'checked'>, Omit<FieldProps, 'ids' | 'intent' | 'size'> {
+  extends
+    Omit<ArkSwitchRootBaseProps, 'value' | 'checked'>,
+    Omit<ArkSwitchRootProviderBaseProps, 'value'>,
+    Omit<FieldProps, 'ids' | 'intent' | 'size'> {
+  /**
+   * Pass the return value of `useSwitch()` to enable **RootProvider** mode —
+   * the component will be controlled entirely from outside via the Ark API object.
+   * Omit (or leave `undefined`) to use the default **Root** mode with `v-model`.
+   */
+  value?: UseSwitchReturn['value']
   intent?: SwitchIntent
   size?: SwitchSize
   ui?: Partial<UISwitchSlots>
@@ -96,6 +110,7 @@ export interface SwitchProps
 const props = withDefaults(defineProps<SwitchProps>(), {
   intent: 'primary',
   size: 'md',
+  value: undefined,
   ui: undefined,
 })
 
@@ -107,17 +122,16 @@ const invalid = computed(() =>
 
 const attrs = useAttrs()
 
-const rootProps = computed(() => ({
-  ...pick(props, [
-    'asChild',
-    'defaultChecked',
-    'disabled',
-    'id',
-    'name',
-    'required',
-    'value',
-  ] as const),
-}))
+const isProvider = computed(() => props.value !== undefined)
+
+const rootComponent = computed(() => (isProvider.value ? ArkSwitch.RootProvider : ArkSwitch.Root))
+
+const rootProps = computed(() => {
+  if (isProvider.value) {
+    return pick(props, ['asChild', 'value'] as const)
+  }
+  return pick(props, ['asChild', 'defaultChecked', 'disabled', 'id', 'name', 'required'] as const)
+})
 
 const fieldProps = computed(() => ({
   ...pick(props, [
@@ -139,10 +153,7 @@ const fieldProps = computed(() => ({
   invalid: invalid.value,
 }))
 
-const rootAttrs = computed(() => {
-  const { ui: _ui, ...rest } = attrs as Record<string, unknown> & { ui?: Partial<UISwitchSlots> }
-  return rest
-})
+const rootAttrs = computed(() => splitArkAttrs(attrs))
 
 extendCompodiumMeta<typeof props>({
   defaultProps: {
@@ -155,8 +166,9 @@ extendCompodiumMeta<typeof props>({
 
 <template>
   <UIFormField v-bind="fieldProps as FieldProps">
-    <ArkSwitch.Root
-      v-bind="{ ...rootProps, ...rootAttrs }"
+    <component
+      :is="rootComponent"
+      v-bind="{ ...(rootProps as ArkSwitchRootBaseProps), ...rootAttrs }"
       v-model:checked="modelValue"
       :class="cn('inline-flex items-center gap-2', ui?.root)"
     >
@@ -191,6 +203,6 @@ extendCompodiumMeta<typeof props>({
         </span>
       </ArkSwitch.Label>
       <ArkSwitch.HiddenInput />
-    </ArkSwitch.Root>
+    </component>
   </UIFormField>
 </template>

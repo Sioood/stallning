@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import { useMenu, type MenuOpenChangeDetails, type MenuSelectionDetails } from '@ark-ui/vue/menu'
+
 import type { MenuListEntry } from '@/components/Menu/index.vue'
+
+const externalMenu = useMenu({ defaultOpen: false })
 
 const toolbarVisible = ref(true)
 const statusBarVisible = ref(false)
@@ -418,6 +422,24 @@ function getMultipleTriggerItems(triggerValue: string | null): MenuListEntry[] {
         </component>
       </template>
     </UIMenu>
+
+    <!-- RootProvider mode -->
+    <UIMenu
+      :value="externalMenu"
+      :items="actionItems"
+      trigger-text="RootProvider Menu"
+      @select="(e: MenuSelectionDetails) => console.log('select', e)"
+      @open-change="(d: MenuOpenChangeDetails) => console.log('openChange', d)"
+      @escape-key-down="(d: KeyboardEvent) => console.log('escapeKeyDown', d)"
+    />
+    <div class="flex items-center gap-2">
+      <UIButton size="sm" variant="subtle" @click="externalMenu.api.value.setOpen(true)">
+        Force open
+      </UIButton>
+      <UIButton size="sm" variant="subtle" @click="externalMenu.api.value.setOpen(false)">
+        Force close
+      </UIButton>
+    </div>
 
     <p class="txt-caption text-neutral-text-subtle">
       Selected: {{ selectedAction ?? 'none' }} | toolbar={{ toolbarVisible }} | statusBar={{

@@ -20,20 +20,47 @@ Every component follows this structure:
 
 ```text
 <script setup lang="ts">
-// 1. Ark UI headless import
+// 1. Ark UI headless import (Root + RootProvider + UseXxxReturn)
 // 2. CVA variant definitions (inline, not external file unless shared)
 // 3. UI slots interface (for class customization)
-// 4. Props interface (extends Ark base props)
+// 4. Props interface (extends Ark RootBaseProps + RootProviderBaseProps)
+//    - includes optional `value?: UseXxxReturn` for RootProvider mode
 // 5. defineModel for two-way bindings
 // 6. withDefaults(defineProps<...>())
-// 7. Computed logic
-// 8. extendCompodiumMeta (playground defaults)
+// 7. isProvider + rootComponent computed
+// 8. rootProps computed (switches between Root and RootProvider props)
+// 9. extendCompodiumMeta (playground defaults)
 </script>
 
 <template>
+  <!-- <component :is="rootComponent"> switches between Root and RootProvider -->
   <!-- Ark primitives with cn() for class merging -->
 </template>
 ```
+
+### Root vs RootProvider
+
+Every Ark-based component accepts an optional `:value` prop (the return of `useXxx()`). When present, the component uses `Ark.RootProvider`; otherwise it uses `Ark.Root`.
+
+| Mode           | When to use                                                                                            |
+| -------------- | ------------------------------------------------------------------------------------------------------ |
+| Root (default) | Component owns its state; use `v-model`                                                                |
+| RootProvider   | You need imperative control (`api.open()`, `api.setValue()`), cross-component sync, or full API access |
+
+```vue
+<!-- Root mode — simple and self-contained -->
+<UIAccordion v-model="expanded" collapsible />
+
+<!-- RootProvider mode — external control -->
+<script setup lang="ts">
+const accordion = useAccordion({ multiple: true })
+</script>
+<UIButton @click="accordion.setValue(['panel-1', 'panel-2'])">Expand All</UIButton>
+<UIAccordion :value="accordion" />
+```
+
+Components supporting RootProvider: `UIAccordion`, `UICollapsible`, `UIPopover`, `UISwitch`, `UITooltip`, `UIMenu`, `UIToggleGroup`, `UIProgress`, `UIProgressCircular`, `UIQRCode`, `UIFormSelect`.
+Not supported (no Ark hook): `UIToggle`, `UIToast`.
 
 ### Key Directories
 
@@ -55,6 +82,7 @@ app/
 │   └── useToast.ts           -- Toast notification system
 ├── plugins/               -- Nuxt plugins
 ├── utils/                 -- Pure utility functions
+│   ├── ark.ts             -- splitArkAttrs: strips ui/custom keys before forwarding to Ark
 │   ├── assert-never.ts    -- Exhaustive switch guard for discriminated unions
 │   ├── cn.ts              -- tailwind-merge + Vue normalizeClass
 │   ├── button-variants.ts -- Shared CVA variants for Button/Toggle/Menu trigger
@@ -119,10 +147,35 @@ Follow Tailwind's spacing scale. Components use consistent sizes:
 
 ### Props Pattern
 
-- Extend Ark UI base props: `interface XxxProps extends ArkXxxRootBaseProps { ... }`
+- Extend Ark UI base props: `interface XxxProps extends ArkXxxRootBaseProps, Omit<ArkXxxRootProviderBaseProps, 'value'> { ... }`
+- Include `value?: UseXxxReturn` for RootProvider mode (default `undefined`)
 - Use `defineModel` for open/pressed/checked/value state
-- Use `withDefaults` for all optional props
+- Use `withDefaults` for all optional props (always include `value: undefined`)
 - Type class overrides as `ClassValue` (from Vue)
+
+### Transparent Emit Forwarding
+
+Wrappers do NOT declare Ark emits. Events flow through `$attrs` to the inner root:
+
+```vue
+<UIAccordion
+  @value-change="(d) => console.log('valueChange', d)"
+  @focus-change="(d) => console.log('focusChange', d)"
+/>
+```
+
+This requires `defineOptions({ inheritAttrs: false })` + `v-bind="arkAttrs"` on the Ark root.
+Use `splitArkAttrs(useAttrs())` from `@/utils/ark` to strip `ui` before forwarding.
+
+### Context Hooks
+
+Three ways to read component state, in increasing "reach":
+
+| Mechanism                | How                                                           | When                                                               |
+| ------------------------ | ------------------------------------------------------------- | ------------------------------------------------------------------ |
+| Slot props               | `#content="{ popover }"`                                      | Inline inside a named slot of `UIPopover` / `UITooltip` / `UIMenu` |
+| `UIXxxContext` component | `<UIAccordionContext v-slot="ctx">`                           | Inline inside `UIAccordion` default slot                           |
+| `useXxxContext()`        | `import { useAccordionContext } from '@ark-ui/vue/accordion'` | Descendant _component_ that can't use slot props                   |
 
 ### Type Safety
 

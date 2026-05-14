@@ -5,9 +5,9 @@ import {
   type ToggleRootBaseProps as ArkToggleRootBaseProps,
 } from '@ark-ui/vue/toggle'
 
-import type { ToggleIntent, ToggleSize, ToggleVariant, UIToggleSlots } from './context'
+import type { ToggleIntent, ToggleSize, ToggleVariant, UIToggleSlots } from './componentContext'
 
-export type { UIToggleSlots } from './context'
+export type { UIToggleSlots } from './componentContext'
 
 defineOptions({ inheritAttrs: false })
 

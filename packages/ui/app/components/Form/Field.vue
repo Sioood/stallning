@@ -6,10 +6,10 @@ import {
 import { Fieldset as ArkFieldset } from '@ark-ui/vue/fieldset'
 import { cva, type VariantProps } from 'class-variance-authority'
 
-import type { FormFieldIntent, FormFieldSize, UIFieldSlots } from './context'
+import type { FormFieldIntent, FormFieldSize, UIFieldSlots } from './componentContext'
 import type { Component } from 'vue'
 
-export type { UIFieldSlots } from './context'
+export type { UIFieldSlots } from './componentContext'
 
 defineOptions({ inheritAttrs: false })
 

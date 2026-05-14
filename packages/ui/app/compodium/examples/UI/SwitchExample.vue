@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useSwitch, type SwitchCheckedChangeDetails } from '@ark-ui/vue/switch'
+
 const settings = ref({
   notifications: true,
   darkMode: false,
@@ -6,69 +8,65 @@ const settings = ref({
   biometrics: false,
 })
 
+const externalSwitch = useSwitch({ defaultChecked: false })
+
 const sizes = ['sm', 'md', 'lg'] as const
+const intents = ['neutral', 'primary', 'secondary', 'accent'] as const
 </script>
 
 <template>
-  <div class="flex flex-col gap-12 p-6 max-w-2xl mx-auto">
+  <div class="mx-auto flex max-w-2xl flex-col gap-12 p-6">
+    <!-- App settings showcase -->
     <section class="flex flex-col gap-6">
       <h2 class="text-xl font-bold">App Settings</h2>
       <div
-        class="flex flex-col border border-neutral-border-subtle rounded-xl overflow-hidden bg-neutral-fill-subtle/5"
+        class="flex flex-col overflow-hidden rounded-xl border border-neutral-border-subtle bg-neutral-fill-subtle/5"
       >
         <div
-          class="flex items-center justify-between p-4 border-b border-neutral-border-subtle hover:bg-neutral-fill-subtle/20 transition-colors"
+          v-for="(key, i) in ['notifications', 'darkMode', 'autoUpdate', 'biometrics'] as const"
+          :key="key"
+          :class="[
+            'flex items-center justify-between p-4 transition-colors hover:bg-neutral-fill-subtle/20',
+            i < 3 ? 'border-b border-neutral-border-subtle' : '',
+          ]"
         >
           <div class="flex flex-col">
-            <span class="font-medium text-neutral-text-default">Enable Notifications</span>
-            <span class="text-xs text-neutral-text-subtle"
-              >Receive real-time alerts on your device.</span
-            >
+            <span class="font-medium text-neutral-text-default capitalize">{{ key }}</span>
+            <span class="text-xs text-neutral-text-subtle">Toggle {{ key }} setting</span>
           </div>
-          <UISwitch v-model:checked="settings.notifications" intent="primary" />
-        </div>
-
-        <div
-          class="flex items-center justify-between p-4 border-b border-neutral-border-subtle hover:bg-neutral-fill-subtle/20 transition-colors"
-        >
-          <div class="flex flex-col">
-            <span class="font-medium text-neutral-text-default">Dark Mode</span>
-            <span class="text-xs text-neutral-text-subtle">Switch to a darker color palette.</span>
-          </div>
-          <UISwitch v-model:checked="settings.darkMode" intent="neutral" />
-        </div>
-
-        <div
-          class="flex items-center justify-between p-4 border-b border-neutral-border-subtle hover:bg-neutral-fill-subtle/20 transition-colors"
-        >
-          <div class="flex flex-col">
-            <span class="font-medium text-neutral-text-default">Auto-Update</span>
-            <span class="text-xs text-neutral-text-subtle"
-              >Keep the application up to date automatically.</span
-            >
-          </div>
-          <UISwitch v-model:checked="settings.autoUpdate" intent="secondary" />
-        </div>
-
-        <div
-          class="flex items-center justify-between p-4 hover:bg-neutral-fill-subtle/20 transition-colors"
-        >
-          <div class="flex flex-col">
-            <span class="font-medium text-neutral-text-default">Biometric Login</span>
-            <span class="text-xs text-neutral-text-subtle"
-              >Use FaceID or Fingerprint to unlock.</span
-            >
-          </div>
-          <UISwitch v-model:checked="settings.biometrics" intent="accent" />
+          <UISwitch
+            v-model:checked="settings[key]"
+            :intent="intents[i]"
+            @checked-change="
+              (d: SwitchCheckedChangeDetails) => console.log('checkedChange', key, d)
+            "
+          />
         </div>
       </div>
     </section>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+    <!-- Intents -->
+    <section class="flex flex-col gap-4">
+      <h2 class="text-xl font-bold">Intents</h2>
+      <div
+        class="flex flex-col items-start gap-4 rounded-xl border border-neutral-border-subtle bg-neutral-fill-subtle/10 p-6"
+      >
+        <UISwitch
+          v-for="intent in intents"
+          :key="intent"
+          :intent="intent"
+          :label="`Intent: ${intent}`"
+          :model-value="true"
+        />
+      </div>
+    </section>
+
+    <!-- Sizes -->
+    <div class="grid grid-cols-1 gap-12 md:grid-cols-2">
       <section class="flex flex-col gap-4">
         <h3 class="text-lg font-bold">Sizes</h3>
         <div
-          class="flex flex-col gap-4 p-6 bg-neutral-fill-subtle/10 rounded-xl border border-neutral-border-subtle items-start"
+          class="flex flex-col items-start gap-4 rounded-xl border border-neutral-border-subtle bg-neutral-fill-subtle/10 p-6"
         >
           <UISwitch
             v-for="size in sizes"
@@ -83,14 +81,37 @@ const sizes = ['sm', 'md', 'lg'] as const
       <section class="flex flex-col gap-4">
         <h3 class="text-lg font-bold">States</h3>
         <div
-          class="flex flex-col gap-4 p-6 bg-neutral-fill-subtle/10 rounded-xl border border-neutral-border-subtle items-start"
+          class="flex flex-col items-start gap-4 rounded-xl border border-neutral-border-subtle bg-neutral-fill-subtle/10 p-6"
         >
           <UISwitch label="Required" required :model-value="false" />
-          <UISwitch label="Disabled" disabled :model-value="true" />
-          <UISwitch label="Disabled Off" disabled :model-value="false" />
+          <UISwitch label="Disabled (on)" disabled :model-value="true" />
+          <UISwitch label="Disabled (off)" disabled :model-value="false" />
           <UISwitch label="Invalid State" invalid error="This option is mandatory" />
         </div>
       </section>
     </div>
+
+    <!-- RootProvider mode -->
+    <section class="flex flex-col gap-4">
+      <h2 class="text-xl font-bold">RootProvider mode (external API)</h2>
+      <p class="text-sm text-neutral-text-subtle">
+        Created via <code>useSwitch()</code> — call
+        <code>externalSwitch.value.setChecked()</code> from outside.
+      </p>
+      <div class="flex gap-2">
+        <UIButton size="sm" variant="subtle" @click="externalSwitch.setChecked(true)">
+          Force On
+        </UIButton>
+        <UIButton size="sm" variant="subtle" @click="externalSwitch.setChecked(false)">
+          Force Off
+        </UIButton>
+      </div>
+      <UISwitch
+        :value="externalSwitch"
+        label="Externally controlled"
+        intent="accent"
+        @checked-change="(d: SwitchCheckedChangeDetails) => console.log('checkedChange', d)"
+      />
+    </section>
   </div>
 </template>

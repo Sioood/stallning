@@ -4,7 +4,7 @@ import {
   type AccordionItemIndicatorBaseProps,
 } from '@ark-ui/vue/accordion'
 
-import { accordionChromeKey, type AccordionIntent, type AccordionSize } from './context'
+import { accordionChromeKey, type AccordionIntent, type AccordionSize } from './componentContext'
 import { accordionItemIndicatorCVA } from './variants'
 
 import type { ClassValue } from 'vue'

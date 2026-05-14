@@ -2,6 +2,8 @@
 import {
   ToggleGroup as ArkToggleGroup,
   type ToggleGroupRootBaseProps as ArkToggleGroupRootBaseProps,
+  type ToggleGroupRootProviderBaseProps as ArkToggleGroupRootProviderBaseProps,
+  type UseToggleGroupReturn,
 } from '@ark-ui/vue/toggle-group'
 import { cva } from 'class-variance-authority'
 
@@ -11,9 +13,9 @@ import type {
   ToggleSize,
   ToggleVariant,
   UIToggleGroupSlots,
-} from './context'
+} from './componentContext'
 
-export type { UIToggleGroupSlots } from './context'
+export type { UIToggleGroupSlots } from './componentContext'
 
 const groupRootCVA = cva('join', {
   variants: {
@@ -31,7 +33,14 @@ export interface ToggleGroupOption {
   value: string
 }
 
-interface ToggleGroupProps extends ArkToggleGroupRootBaseProps {
+interface ToggleGroupProps
+  extends ArkToggleGroupRootBaseProps, Omit<ArkToggleGroupRootProviderBaseProps, 'value'> {
+  /**
+   * Pass the return value of `useToggleGroup()` to enable **RootProvider** mode —
+   * the component will be controlled entirely from outside via the Ark API object.
+   * Omit (or leave `undefined`) to use the default **Root** mode with `v-model`.
+   */
+  value?: UseToggleGroupReturn['value']
   activeBackground?: boolean
   iconOnly?: boolean
   intent?: ToggleIntent
@@ -50,12 +59,22 @@ const props = withDefaults(defineProps<ToggleGroupProps>(), {
   intent: 'primary',
   options: () => [],
   size: 'sm',
+  value: undefined,
   ui: undefined,
   variant: 'default',
 })
 
-const rootProps = computed(() => ({
-  ...pick(props, [
+const isProvider = computed(() => props.value !== undefined)
+
+const rootComponent = computed(() =>
+  isProvider.value ? ArkToggleGroup.RootProvider : ArkToggleGroup.Root,
+)
+
+const rootProps = computed(() => {
+  if (isProvider.value) {
+    return pick(props, ['asChild', 'value'] as const)
+  }
+  return pick(props, [
     'asChild',
     'defaultValue',
     'deselectable',
@@ -66,8 +85,8 @@ const rootProps = computed(() => ({
     'multiple',
     'orientation',
     'rovingFocus',
-  ]),
-}))
+  ] as const)
+})
 
 watchEffect(() => {
   for (const option of props.options) {
@@ -77,9 +96,17 @@ watchEffect(() => {
 </script>
 
 <template>
-  <ArkToggleGroup.Root
-    v-bind="rootProps"
-    v-model:model-value="modelValue"
+  <component
+    :is="rootComponent"
+    v-bind="
+      isProvider
+        ? rootProps
+        : {
+            ...rootProps,
+            modelValue: modelValue,
+            'onUpdate:modelValue': (v: string[]) => (modelValue = v),
+          }
+    "
     :class="cn(groupRootCVA({ orientation }), ui?.root)"
   >
     <ArkToggleGroup.Item
@@ -113,5 +140,5 @@ watchEffect(() => {
         </template>
       </UIToggle>
     </ArkToggleGroup.Item>
-  </ArkToggleGroup.Root>
+  </component>
 </template>

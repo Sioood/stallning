@@ -36,4 +36,10 @@ export default withNuxt(
       'vue/one-component-per-file': 'off',
     },
   },
+  {
+    files: ['**/*.md', '**/*.md/**'],
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'off',
+    },
+  },
 )

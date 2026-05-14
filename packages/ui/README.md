@@ -1,10 +1,10 @@
 # @stallning/ui
 
-The design system and UI component library for Stallning. Provides accessible, themed components built on Ark UI + Tailwind CSS v4.
+Design system and UI component library for Stallning. A Nuxt 4 layer built on [Ark UI](https://ark-ui.com), [Tailwind CSS v4](https://tailwindcss.com), and [CVA](https://cva.style).
 
 ## Usage
 
-Extend this package in your Nuxt app:
+Add the layer to your Nuxt app:
 
 ```ts
 // nuxt.config.ts
@@ -13,170 +13,203 @@ export default defineNuxtConfig({
 })
 ```
 
-All components are auto-imported with the `UI` prefix.
-
-## Scripts
-
-| Script                | Description                            |
-| --------------------- | -------------------------------------- |
-| `pnpm dev`            | Start component playground (Compodium) |
-| `pnpm test`           | Run unit + component tests             |
-| `pnpm test:unit`      | Unit tests only (Node)                 |
-| `pnpm test:component` | Component tests (Nuxt env)             |
-| `pnpm test:visual`    | Visual regression tests (Playwright)   |
-| `pnpm test:coverage`  | Tests with coverage report             |
-| `pnpm mutation`       | Mutation testing (Stryker incremental) |
-| `pnpm mutation:open`  | Mutation testing + open HTML report    |
-
-## Components
-
-All components use Ark UI for accessibility and CVA for styling variants.
-
-### Basic Usage
+All `UI*` components are auto-imported:
 
 ```vue
-<template>
-  <UIButton intent="primary" size="md">Click me</UIButton>
-  <UIAlert type="success" title="Done!" description="Operation completed." />
-  <UIToggle v-model:pressed="isActive">Toggle</UIToggle>
-</template>
+<UIButton intent="primary">Click me</UIButton>
+<UIAccordion collapsible :default-value="['one']">
+  <UIAccordionItem value="one">
+    <UIAccordionItemTrigger>Title <UIAccordionItemIndicator /></UIAccordionItemTrigger>
+    <UIAccordionItemContent>Content</UIAccordionItemContent>
+  </UIAccordionItem>
+</UIAccordion>
 ```
 
-### Menu (Declarative API)
+---
+
+## Root vs RootProvider
+
+All Ark UI components support two modes. Choose based on how much external control you need.
+
+### Root mode (default)
+
+The component owns its state. Use `v-model` to sync a value.
 
 ```vue
-<template>
-  <UIMenu
-    trigger-text="Actions"
-    intent="neutral"
-    :items="[
-      { type: 'item', value: 'edit', label: 'Edit' },
-      { type: 'item', value: 'delete', label: 'Delete', disabled: true },
-      { type: 'separator' },
-      { type: 'checkbox', value: 'notify', label: 'Notify me', checked: true },
-    ]"
-  />
-</template>
+<!-- Uncontrolled -->
+<UIPopover title="Info" :default-open="false" />
+
+<!-- Controlled with v-model -->
+<UIAccordion v-model="expanded" collapsible />
+<UITooltip v-model:open="tooltipVisible" content="Hello" />
 ```
 
-### Forms (Schema-first)
+**Use Root when:** The component is self-contained, `v-model` is all you need, and there is no cross-component coordination.
+
+### RootProvider mode
+
+You create the Ark state machine externally via `useXxx()` and pass it via `:value`. The component becomes purely presentational — you hold the API.
 
 ```vue
 <script setup lang="ts">
-import { z } from 'zod'
+import { useAccordion } from '@ark-ui/vue/accordion'
+import { usePopover } from '@ark-ui/vue/popover'
 
-const schema = z.object({
-  email: z.email(),
-  password: z.string().min(8),
-})
+const accordion = useAccordion({ multiple: true, collapsible: true })
+const popover = usePopover()
 </script>
 
 <template>
-  <UIForm
-    :schema="schema"
-    :default-values="{ email: '', password: '' }"
-    :fields="{
-      email: { component: 'input', type: 'email' },
-      password: { component: 'input', type: 'password' },
-    }"
-    :layout="['email', 'password']"
-    @submit="handleSubmit"
-  />
+  <!-- Imperative control from outside -->
+  <UIButton @click="accordion.setValue(['panel-1', 'panel-2'])">Expand All</UIButton>
+  <UIButton @click="accordion.setValue([])">Collapse All</UIButton>
+
+  <UIAccordion :value="accordion">
+    <UIAccordionItem value="panel-1">
+      <UIAccordionItemTrigger>Panel 1 <UIAccordionItemIndicator /></UIAccordionItemTrigger>
+      <UIAccordionItemContent>Content 1</UIAccordionItemContent>
+    </UIAccordionItem>
+    <UIAccordionItem value="panel-2">
+      <UIAccordionItemTrigger>Panel 2 <UIAccordionItemIndicator /></UIAccordionItemTrigger>
+      <UIAccordionItemContent>Content 2</UIAccordionItemContent>
+    </UIAccordionItem>
+  </UIAccordion>
+
+  <!-- Open/close a popover from a sibling component -->
+  <UIButton @click="popover.open()">Open from outside</UIButton>
+  <UIPopover :value="popover" title="Externally controlled" content="Opened programmatically." />
 </template>
 ```
 
-## Visual Regression Testing
+**Use RootProvider when:**
 
-```bash
-# Run visual tests
-pnpm test:visual
+- You need `api.setValue(...)`, `api.open()`, `api.close()`, `api.getItemState()`, etc.
+- Multiple components need to share one state machine
+- You need to react to state changes beyond a single `v-model`
 
-# Update baselines after intentional UI changes
-pnpm test:visual -- --update
-```
+### Supported components
 
-Write visual tests in `test/visual/*.visual.test.ts`:
+| Component                           | Hook                                               |
+| ----------------------------------- | -------------------------------------------------- |
+| `UIAccordion`                       | `useAccordion()` from `@ark-ui/vue/accordion`      |
+| `UICollapsible`                     | `useCollapsible()` from `@ark-ui/vue/collapsible`  |
+| `UIPopover`                         | `usePopover()` from `@ark-ui/vue/popover`          |
+| `UISwitch`                          | `useSwitch()` from `@ark-ui/vue/switch`            |
+| `UITooltip`                         | `useTooltip()` from `@ark-ui/vue/tooltip`          |
+| `UIMenu`                            | `useMenu()` from `@ark-ui/vue/menu`                |
+| `UIToggleGroup`                     | `useToggleGroup()` from `@ark-ui/vue/toggle-group` |
+| `UIProgress` / `UIProgressCircular` | `useProgress()` from `@ark-ui/vue/progress`        |
+| `UIQRCode`                          | `useQrCode()` from `@ark-ui/vue/qr-code`           |
+| `UIFormSelect`                      | `useSelect()` from `@ark-ui/vue/select`            |
 
-```ts
-import { page } from '@vitest/browser/context'
-import { expect, test } from 'vitest'
+---
 
-test('my component looks correct', async () => {
-  document.body.innerHTML = `<div data-testid="target">...</div>`
-  await expect(page.getByTestId('target')).toMatchScreenshot('my-component', {
-    threshold: 0.1,
-    maxDiffPixelRatio: 0.01,
-  })
-})
-```
+## Accessing Component State
 
-## Mutation Testing
+### Slot props (Popover, Tooltip, Menu)
 
-Validates that your tests actually catch bugs:
-
-```bash
-pnpm mutation        # Incremental (fast, uses cache)
-pnpm mutation:open   # Same + opens HTML report
-```
-
-Only mutates `app/utils/` and `app/composables/` — not components or test files.
-
-## Type Safety: `assertNever`
-
-Use for exhaustive switch statements over discriminated unions:
-
-```ts
-import { assertNever } from '~nuxt-essentials/app/utils/assert-never'
-
-type Action = { type: 'create'; name: string } | { type: 'delete'; id: string }
-
-function handle(action: Action) {
-  switch (action.type) {
-    case 'create':
-      return create(action.name)
-    case 'delete':
-      return remove(action.id)
-    default:
-      assertNever(action) // TS error if union grows
-  }
-}
-```
-
-## Image Optimization
-
-Use `<NuxtImg>` for automatic format conversion and responsive images:
+Single-file components expose the full Ark API through named slot props:
 
 ```vue
-<template>
-  <NuxtImg
-    src="/images/hero.jpg"
-    width="1280"
-    height="720"
-    sizes="sm:640px md:768px lg:1024px xl:1280px"
-    placeholder
-  />
-</template>
+<UIPopover>
+  <template #triggers="{ trigger: Trigger, popover }">
+    <!-- popover.open, popover.close(), etc. -->
+    <component :is="Trigger">
+      {{ popover.open ? 'Close' : 'Open' }}
+    </component>
+  </template>
+  <template #content="{ popover }">
+    <UIButton @click="popover.close()">Dismiss</UIButton>
+  </template>
+</UIPopover>
 ```
 
-Configuration (auto-applied via layer):
+### UIXxxContext (Accordion)
 
-- Formats: AVIF → WebP → original
-- Quality: 80%
-- Densities: 1x, 2x
-- Breakpoints: 320, 640, 768, 1024, 1280, 1536
-
-## Customizing Component Styles
-
-Every component accepts a `ui` prop for slot-level class overrides:
+Access root or item state inline inside the compound component's slot:
 
 ```vue
-<template>
-  <UIMenu
-    :ui="{
-      trigger: 'bg-red-500',
-      content: 'rounded-xl shadow-2xl',
-      item: 'px-4 py-2',
-    }"
-  />
-</template>
+<UIAccordion v-model="expanded">
+  <UIAccordionContext v-slot="ctx">
+    <p>Open: {{ ctx.value }}</p>
+  </UIAccordionContext>
+
+  <UIAccordionItem value="one">
+    <UIAccordionItemContext v-slot="item">
+      <span>{{ item.expanded ? '▲' : '▼' }}</span>
+    </UIAccordionItemContext>
+    ...
+  </UIAccordionItem>
+</UIAccordion>
 ```
+
+### useXxxContext() (descendant components)
+
+Import context hooks directly from `@ark-ui/vue` inside descendant components:
+
+```vue
+<!-- MyCustomItem.vue -->
+<script setup lang="ts">
+import { useAccordionItemContext } from '@ark-ui/vue/accordion'
+const item = useAccordionItemContext()
+</script>
+```
+
+---
+
+## Listening to Events
+
+All Ark events are forwarded transparently via `$attrs`. Bind any Ark event directly on the wrapper:
+
+```vue
+<UIAccordion
+  @value-change="(d) => console.log('valueChange', d)"
+  @focus-change="(d) => console.log('focusChange', d)"
+/>
+
+<UIPopover
+  @open-change="(d) => console.log('openChange', d)"
+  @escape-key-down="(d) => console.log('escapeKeyDown', d)"
+/>
+
+<UIMenu
+  @select="(d) => console.log('select', d)"
+  @open-change="(d) => console.log('openChange', d)"
+/>
+
+<UISwitch @checked-change="(d) => console.log('checkedChange', d)" />
+```
+
+---
+
+## Design System
+
+### Intents
+
+Every interactive component supports these intent variants:
+
+| Intent      | Use case                      |
+| ----------- | ----------------------------- |
+| `neutral`   | Default UI, secondary actions |
+| `primary`   | Call-to-action, primary flows |
+| `secondary` | Alternative actions           |
+| `accent`    | Highlights, special callouts  |
+
+### Color tokens
+
+Use semantic tokens, never raw values:
+
+```
+primary-fill-default       primary-text-default       primary-border-subtle
+neutral-fill-subtle        neutral-text-subtle         neutral-border-default
+secondary-fill-default-hover
+accent-text-default
+error-text-default         success-icon-default        warning-border-subtle
+```
+
+---
+
+## Further Reading
+
+- [Component Development Guide](../../docs/ai/component-development.md) — implementation patterns, Root/RootProvider, context hooks, emit forwarding
+- [AGENTS.md](./AGENTS.md) — conventions for AI-assisted development

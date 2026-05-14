@@ -38,18 +38,18 @@ const showActionToast = () => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-10 p-6 max-w-2xl mx-auto">
+  <div class="mx-auto flex max-w-2xl flex-col gap-10 p-6">
     <section class="flex flex-col gap-4">
       <h3 class="text-xl font-bold">Standard Notifications</h3>
       <div
-        class="flex flex-wrap gap-3 p-6 bg-neutral-fill-subtle/10 rounded-xl border border-neutral-border-subtle"
+        class="flex flex-wrap gap-3 rounded-xl border border-neutral-border-subtle bg-neutral-fill-subtle/10 p-6"
       >
         <UIButton
           v-for="type in ['info', 'success', 'warning', 'error'] as const"
           :key="type"
           :intent="type"
           variant="subtle"
-          class="capitalize min-w-[120px]"
+          class="min-w-[120px] capitalize"
           @click="
             toaster?.[type]({
               title: `${type.charAt(0).toUpperCase() + type.slice(1)} Notification`,
@@ -75,7 +75,7 @@ const showActionToast = () => {
       </div>
     </section>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
       <section class="flex flex-col gap-4">
         <h3 class="text-xl font-bold">Promise Tracking</h3>
         <p class="text-sm text-neutral-text-subtle">

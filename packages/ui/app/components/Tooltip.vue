@@ -2,6 +2,8 @@
 import {
   Tooltip as ArkTooltip,
   type TooltipRootBaseProps as ArkTooltipRootBaseProps,
+  type TooltipRootProviderBaseProps as ArkTooltipRootProviderBaseProps,
+  type UseTooltipReturn,
 } from '@ark-ui/vue/tooltip'
 import { cva, type VariantProps } from 'class-variance-authority'
 
@@ -78,7 +80,14 @@ const tooltipArrowTipCVA = cva(['tooltipArrowTip', 'size-full'])
 
 type TooltipCVAProps = VariantProps<typeof tooltipContentCVA>
 
-interface TooltipProps extends ArkTooltipRootBaseProps {
+interface TooltipProps
+  extends Omit<ArkTooltipRootBaseProps, 'open'>, Omit<ArkTooltipRootProviderBaseProps, 'value'> {
+  /**
+   * Pass the return value of `useTooltip()` to enable **RootProvider** mode —
+   * the component will be controlled entirely from outside via the Ark API object.
+   * Omit (or leave `undefined`) to use the default **Root** mode with `v-model:open`.
+   */
+  value?: UseTooltipReturn['value']
   content?: string
   followCursor?: boolean
   intent?: TooltipCVAProps['intent']
@@ -95,12 +104,21 @@ const props = withDefaults(defineProps<TooltipProps>(), {
   intent: 'neutral',
   openDelay: 300,
   size: 'md',
+  value: undefined,
   ui: undefined,
 })
 
 const anchorRect = ref<DOMRect | null>(null)
 
+const isProvider = computed(() => props.value !== undefined)
+
+const rootComponent = computed(() => (isProvider.value ? ArkTooltip.RootProvider : ArkTooltip.Root))
+
 const rootProps = computed(() => {
+  if (isProvider.value) {
+    return pick(props, ['asChild', 'value'] as const)
+  }
+
   const basePositioning = props.positioning ?? {}
   const positioning = props.followCursor
     ? {
@@ -138,7 +156,12 @@ function handleTriggerPointerMove(
 </script>
 
 <template>
-  <ArkTooltip.Root v-bind="rootProps" v-model:open="open">
+  <component
+    :is="rootComponent"
+    v-bind="
+      isProvider ? rootProps : { ...rootProps, open, 'onUpdate:open': (v: boolean) => (open = v) }
+    "
+  >
     <ArkTooltip.Context v-slot="tooltip">
       <slot
         name="triggers"
@@ -164,5 +187,5 @@ function handleTriggerPointerMove(
         </ArkTooltip.Content>
       </ArkTooltip.Positioner>
     </ArkTooltip.Context>
-  </ArkTooltip.Root>
+  </component>
 </template>

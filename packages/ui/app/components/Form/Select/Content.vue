@@ -7,7 +7,7 @@ import {
 
 import { selectItemCVA, selectItemGroupLabelCVA, selectIconSizeCVA } from './variants'
 
-import type { SelectIntent, SelectSize, SelectItem, UISelectSlots } from './context'
+import type { SelectIntent, SelectSize, SelectItem, UISelectSlots } from './componentContext'
 
 interface ContentProps extends ArkSelectContentProps {
   collection: ListCollection<SelectItem>

@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority'
 
-import type { SelectIntent, SelectSize } from './context'
+import type { SelectIntent, SelectSize } from './componentContext'
 
 export const selectPositionerCVA = cva('z-9999 origin-(--transform-origin)')
 

@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority'
 
-import type { AccordionIntent, AccordionSize } from './context'
+import type { AccordionIntent, AccordionSize } from './componentContext'
 
 export const accordionRootCVA = cva(
   [

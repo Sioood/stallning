@@ -32,6 +32,7 @@ export default eslint({
     files: ['**/*.md', '**/*.md/**'],
     rules: {
       'import-x/no-unresolved': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
     },
   },
 )

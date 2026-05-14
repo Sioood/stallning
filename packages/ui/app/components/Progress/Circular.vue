@@ -2,10 +2,12 @@
 import {
   Progress as ArkProgress,
   type ProgressRootBaseProps as ArkProgressRootBaseProps,
+  type ProgressRootProviderBaseProps as ArkProgressRootProviderBaseProps,
+  type UseProgressReturn,
 } from '@ark-ui/vue/progress'
 import { cva } from 'class-variance-authority'
 
-import type { ProgressCircularSize, ProgressIntent } from './context'
+import type { ProgressCircularSize, ProgressIntent } from './componentContext'
 import type { ClassValue } from 'vue'
 
 const progressCircleRootCVA = cva('', {
@@ -109,7 +111,14 @@ interface UIProgressCircularSlots {
   valueText?: ClassValue
 }
 
-interface UIProgressCircularProps extends ArkProgressRootBaseProps {
+interface UIProgressCircularProps
+  extends ArkProgressRootBaseProps, Omit<ArkProgressRootProviderBaseProps, 'value'> {
+  /**
+   * Pass the return value of `useProgress()` to enable **RootProvider** mode —
+   * the component will be controlled entirely from outside via the Ark API object.
+   * Omit (or leave `undefined`) to use the default **Root** mode with `v-model`.
+   */
+  value?: UseProgressReturn['value']
   label?: string
   intent?: ProgressIntent
   size?: ProgressCircularSize
@@ -122,25 +131,37 @@ const props = withDefaults(defineProps<UIProgressCircularProps>(), {
   label: '',
   intent: 'neutral',
   size: 'md',
+  value: undefined,
   ui: undefined,
 })
 
 const { locale } = useI18n()
 
-const rootProps = computed(() => ({
-  ...pick(props, [
-    'asChild',
-    'defaultValue',
-    'formatOptions',
-    'id',
-    'ids',
-    'max',
-    'min',
-    'orientation',
-    'translations',
-  ]),
-  locale: locale.value,
-}))
+const isProvider = computed(() => props.value !== undefined)
+
+const rootComponent = computed(() =>
+  isProvider.value ? ArkProgress.RootProvider : ArkProgress.Root,
+)
+
+const rootProps = computed(() => {
+  if (isProvider.value) {
+    return pick(props, ['asChild', 'value'] as const)
+  }
+  return {
+    ...pick(props, [
+      'asChild',
+      'defaultValue',
+      'formatOptions',
+      'id',
+      'ids',
+      'max',
+      'min',
+      'orientation',
+      'translations',
+    ] as const),
+    locale: locale.value,
+  }
+})
 
 extendCompodiumMeta({
   defaultProps: {
@@ -150,9 +171,17 @@ extendCompodiumMeta({
 </script>
 
 <template>
-  <ArkProgress.Root
-    v-bind="rootProps"
-    v-model:model-value="modelValue"
+  <component
+    :is="rootComponent"
+    v-bind="
+      isProvider
+        ? rootProps
+        : {
+            ...rootProps,
+            modelValue: modelValue,
+            'onUpdate:modelValue': (v: number) => (modelValue = v),
+          }
+    "
     :class="cn(progressCircleRootCVA({ intent, size }), ui?.root)"
   >
     <ArkProgress.Label :class="cn(progressCircleLabelCVA({ intent, size }), ui?.label)">
@@ -168,7 +197,7 @@ extendCompodiumMeta({
         :class="cn(progressCircleValueTextCVA({ intent, size }), ui?.valueText)"
       />
     </div>
-  </ArkProgress.Root>
+  </component>
 </template>
 
 <style scoped>

@@ -3,6 +3,8 @@ import {
   QrCode as ArkQrCode,
   type QrCodeRootProps as ArkQrCodeRootProps,
   type QrCodeDownloadTriggerProps as ArkQrCodeDownloadTriggerProps,
+  type QrCodeRootProviderBaseProps as ArkQrCodeRootProviderBaseProps,
+  type UseQrCodeReturn,
 } from '@ark-ui/vue/qr-code'
 import { cva, type VariantProps } from 'class-variance-authority'
 
@@ -48,12 +50,24 @@ interface UIQrCodeSlots {
   downloadTrigger?: ClassValue
 }
 
-interface QrCodeProps extends ArkQrCodeRootProps, ArkQrCodeDownloadTriggerProps {
+interface QrCodeProps
+  extends
+    ArkQrCodeRootProps,
+    Omit<ArkQrCodeDownloadTriggerProps, 'value' | 'mimeType' | 'fileName'>,
+    Omit<ArkQrCodeRootProviderBaseProps, 'value'> {
+  /**
+   * Pass the return value of `useQrCode()` to enable **RootProvider** mode —
+   * the component will be controlled entirely from outside via the Ark API object.
+   * Omit (or leave `undefined`) to use the default **Root** mode with `v-model`.
+   */
+  value?: UseQrCodeReturn['value']
   downloadable?: boolean
   downloadLabel?: string
   intent?: QrCodeRootCVAProps['intent']
   size?: QrCodeRootCVAProps['size']
   ui?: Partial<UIQrCodeSlots>
+  mimeType?: ArkQrCodeDownloadTriggerProps['mimeType']
+  fileName?: ArkQrCodeDownloadTriggerProps['fileName']
 }
 
 const modelValue = defineModel<string>({ default: 'https://theodupont.fr' })
@@ -68,12 +82,26 @@ const props = withDefaults(defineProps<QrCodeProps>(), {
   quality: 1,
   intent: 'neutral',
   size: 'md',
+  value: undefined,
   ui: undefined,
 })
 
-const rootProps = computed(() => ({
-  ...pick(props, ['asChild', 'defaultValue', 'encoding', 'id', 'ids', 'pixelSize']),
-}))
+const isProvider = computed(() => props.value !== undefined)
+
+const rootComponent = computed(() => (isProvider.value ? ArkQrCode.RootProvider : ArkQrCode.Root))
+
+const rootProps = computed(() => {
+  if (isProvider.value) {
+    return pick(props, ['asChild', 'value'] as const)
+  }
+  return {
+    ...pick(props, ['asChild', 'defaultValue', 'encoding', 'id', 'ids', 'pixelSize'] as const),
+    modelValue: modelValue.value,
+    'onUpdate:modelValue': (v: string) => {
+      modelValue.value = v
+    },
+  }
+})
 
 const downloadTriggerProps = computed(() => ({
   ...pick(props, ['fileName', 'mimeType', 'quality']),
@@ -81,9 +109,9 @@ const downloadTriggerProps = computed(() => ({
 </script>
 
 <template>
-  <ArkQrCode.Root
+  <component
+    :is="rootComponent"
     v-bind="rootProps"
-    v-model:model-value="modelValue"
     :class="cn(qrCodeRootCVA({ intent, size }), ui?.root)"
   >
     <div class="relative size-full">
@@ -108,5 +136,5 @@ const downloadTriggerProps = computed(() => ({
         </UIButton>
       </slot>
     </ArkQrCode.DownloadTrigger>
-  </ArkQrCode.Root>
+  </component>
 </template>

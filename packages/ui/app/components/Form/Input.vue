@@ -10,10 +10,10 @@ import {
   type UseComponentIconsProps,
 } from '~ui/app/composables/useComponentIcons'
 
-import type { FormFieldIntent, FormFieldSize, UIInputSlots } from './context'
+import type { FormFieldIntent, FormFieldSize, UIInputSlots } from './componentContext'
 import type { FieldProps } from '~ui/app/components/Form/Field.vue'
 
-export type { UIInputSlots } from './context'
+export type { UIInputSlots } from './componentContext'
 
 defineOptions({ inheritAttrs: false })
 

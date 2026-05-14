@@ -32,3 +32,14 @@ export interface UICheckboxSlots {
 export interface UICheckboxGroupSlots {
   root?: ClassValue
 }
+
+export interface UISliderSlots extends UIFieldSlots {
+  valueText?: ClassValue
+  control?: ClassValue
+  track?: ClassValue
+  range?: ClassValue
+  thumb?: ClassValue
+  draggingIndicator?: ClassValue
+  markerGroup?: ClassValue
+  marker?: ClassValue
+}

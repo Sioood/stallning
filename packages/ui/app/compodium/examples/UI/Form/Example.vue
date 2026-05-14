@@ -4,6 +4,7 @@ import { z } from 'zod'
 import UIFormCheckbox from '~ui/app/components/Form/Checkbox.vue'
 import UIFormInput from '~ui/app/components/Form/Input.vue'
 import UIFormRadioGroup from '~ui/app/components/Form/RadioGroup.vue'
+import UIFormSlider from '~ui/app/components/Form/Slider/index.vue'
 import UISwitch from '~ui/app/components/Switch.vue'
 
 import type {
@@ -19,6 +20,7 @@ const schema = z.object({
   checkbox: z.union([z.literal(true), z.literal(false), z.literal('indeterminate')]),
   switch: z.boolean(),
   framework: z.string().nullable().optional(),
+  volume: z.array(z.number()).min(1).max(2).default([50]),
 })
 
 type FormValues = InferSchemaValues<typeof schema>
@@ -30,6 +32,7 @@ const defaultValues: FormValues = {
   checkbox: false,
   switch: false,
   framework: null,
+  volume: [50],
 }
 
 const fields: SchemaFieldsMap<FormValues> = {
@@ -89,6 +92,17 @@ const fields: SchemaFieldsMap<FormValues> = {
       ],
     },
   },
+  volume: {
+    as: UIFormSlider,
+    props: {
+      label: 'Volume',
+      helperText: 'Adjust the volume range',
+      min: 0,
+      max: 100,
+      step: 1,
+      intent: 'primary',
+    },
+  },
 }
 
 const layout: SchemaFormLayout<keyof FormValues & string>[] = [
@@ -97,6 +111,7 @@ const layout: SchemaFormLayout<keyof FormValues & string>[] = [
   'checkbox',
   'switch',
   'framework',
+  'volume',
 ]
 
 const submitted = ref('')

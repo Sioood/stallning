@@ -32,6 +32,7 @@ const chrome = inject(tabsChromeKey, null)
 const intent = computed<TabsIntent>(() => props.intent ?? chrome?.intent.value ?? 'primary')
 const size = computed<TabsSize>(() => props.size ?? chrome?.size.value ?? 'md')
 const orientation = computed(() => chrome?.orientation.value ?? 'horizontal')
+const variant = computed(() => chrome?.variant.value ?? 'default')
 const isDisabled = computed(() => props.disabled ?? false)
 
 const triggerProps = computed(() => pick(props, ['asChild', 'disabled', 'value'] as const))
@@ -47,7 +48,9 @@ extendCompodiumMeta<TabsTriggerProps>({
 <template>
   <TabTrigger
     v-bind="{ ...triggerProps, ...triggerAttrs }"
-    :class="cn(segmentedItemCVA({ intent, size, orientation, disabled: isDisabled }), ui?.root)"
+    :class="
+      cn(segmentedItemCVA({ variant, intent, size, orientation, disabled: isDisabled }), ui?.root)
+    "
   >
     <slot />
   </TabTrigger>

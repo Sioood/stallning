@@ -67,6 +67,13 @@ function onValueChange(d: SegmentGroupValueChangeDetails) {
         <div v-for="size in sizes" :key="size" class="flex flex-col gap-2">
           <p class="text-sm font-medium text-neutral-text-subtle capitalize">{{ size }}</p>
           <UISegmentGroup :options :size :model-value="options[0]?.value" />
+          <UISegmentGroup
+            :options
+            :size
+            variant="subtle"
+            :model-value="options[0]?.value"
+            :ui="{ root: 'w-full' }"
+          />
         </div>
       </div>
     </section>
@@ -82,6 +89,29 @@ function onValueChange(d: SegmentGroupValueChangeDetails) {
         <div class="flex flex-col gap-2">
           <p class="text-sm font-medium text-neutral-text-subtle">Vertical</p>
           <UISegmentGroup :options :model-value="options[0]?.value" orientation="vertical" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Subtle Variant -->
+    <section class="flex flex-col gap-4">
+      <h2 class="text-xl font-bold">Subtle Variant</h2>
+      <p class="text-sm text-neutral-text-subtle">
+        Underline-style segment group without container background.
+      </p>
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div class="flex flex-col gap-2">
+          <p class="text-sm font-medium text-neutral-text-subtle">Horizontal subtle</p>
+          <UISegmentGroup v-model="selected" :options variant="subtle" />
+        </div>
+        <div class="flex flex-col gap-2">
+          <p class="text-sm font-medium text-neutral-text-subtle">Vertical subtle</p>
+          <UISegmentGroup
+            :options
+            :model-value="options[0]?.value"
+            variant="subtle"
+            orientation="vertical"
+          />
         </div>
       </div>
     </section>

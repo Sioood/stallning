@@ -26,6 +26,8 @@ const attrs = useAttrs()
 
 const chrome = inject(tabsChromeKey, null)
 const intent = computed<TabsIntent>(() => props.intent ?? chrome?.intent.value ?? 'primary')
+const variant = computed(() => chrome?.variant.value ?? 'default')
+const orientation = computed(() => chrome?.orientation.value ?? 'horizontal')
 
 const indicatorProps = computed(() => pick(props, ['asChild'] as const))
 const indicatorAttrs = computed(() => splitArkAttrs(attrs))
@@ -34,6 +36,7 @@ const indicatorAttrs = computed(() => splitArkAttrs(attrs))
 <template>
   <TabIndicator
     v-bind="{ ...indicatorProps, ...indicatorAttrs }"
-    :class="cn(segmentedIndicatorCVA({ intent }), ui?.root)"
+    :data-variant="variant"
+    :class="cn(segmentedIndicatorCVA({ variant, intent, orientation }), ui?.root)"
   />
 </template>

@@ -32,6 +32,7 @@ const chrome = inject(tabsChromeKey, null)
 const intent = computed<TabsIntent>(() => props.intent ?? chrome?.intent.value ?? 'primary')
 const size = computed<TabsSize>(() => props.size ?? chrome?.size.value ?? 'md')
 const orientation = computed(() => chrome?.orientation.value ?? 'horizontal')
+const variant = computed(() => chrome?.variant.value ?? 'default')
 
 const listProps = computed(() => pick(props, ['asChild'] as const))
 const listAttrs = computed(() => splitArkAttrs(attrs))
@@ -44,7 +45,7 @@ extendCompodiumMeta<TabsListProps>({
 <template>
   <TabList
     v-bind="{ ...listProps, ...listAttrs }"
-    :class="cn(segmentedRootCVA({ intent, size, orientation }), ui?.root)"
+    :class="cn(segmentedRootCVA({ variant, intent, size, orientation }), ui?.root)"
   >
     <slot />
   </TabList>

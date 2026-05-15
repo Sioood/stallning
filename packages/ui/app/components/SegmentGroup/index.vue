@@ -6,7 +6,11 @@ import {
   type UseSegmentGroupReturn,
 } from '@ark-ui/vue/segment-group'
 
-import { segmentedRootCVA, type SegmentedOrientation } from '~/utils/Components/Segmented/variants'
+import {
+  segmentedRootCVA,
+  type SegmentedOrientation,
+  type SegmentedVariant,
+} from '~/utils/Components/Segmented/variants'
 import {
   segmentGroupChromeKey,
   type SegmentGroupIntent,
@@ -38,6 +42,8 @@ export interface SegmentGroupProps
    * Omit (or leave `undefined`) to use the default **Root** mode with `v-model`.
    */
   value?: UseSegmentGroupReturn['value']
+  /** Visual style variant. @default 'default' */
+  variant?: SegmentedVariant
   /** Visual intent for the group. @default 'primary' */
   intent?: SegmentGroupIntent
   /** Visual size for the items. @default 'md' */
@@ -60,6 +66,7 @@ const props = withDefaults(defineProps<SegmentGroupProps>(), {
   size: 'md',
   ui: undefined,
   value: undefined,
+  variant: 'default',
 })
 
 const attrs = useAttrs()
@@ -68,6 +75,7 @@ provide(segmentGroupChromeKey, {
   intent: computed(() => props.intent),
   size: computed(() => props.size),
   orientation: computed(() => props.orientation),
+  variant: computed(() => props.variant),
 })
 
 const isProvider = computed(() => props.value !== undefined)
@@ -92,7 +100,12 @@ const rootBindings = computed(() => {
     ...rootProps.value,
     ...arkAttrs.value,
     class: cn(
-      segmentedRootCVA({ intent: props.intent, size: props.size, orientation: props.orientation }),
+      segmentedRootCVA({
+        variant: props.variant,
+        intent: props.intent,
+        size: props.size,
+        orientation: props.orientation,
+      }),
       arkAttrs.value.class as string,
       props.ui?.root,
     ),
@@ -109,6 +122,7 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
     intent: 'primary',
     orientation: 'horizontal',
     size: 'md',
+    variant: 'default',
     options: [
       { value: 'react', label: 'React' },
       { value: 'solid', label: 'Solid' },
@@ -127,21 +141,18 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
         :key="option.value"
         :value="option.value"
         :disabled="props.disabled || option.disabled"
+        :ui="{ root: ui?.item }"
       >
-        <UISegmentGroupItemText>{{ option.label ?? option.value }}</UISegmentGroupItemText>
-        <UISegmentGroupItemControl />
-        <UISegmentGroupItemHiddenInput />
+        <UISegmentGroupItemText :ui="{ root: ui?.itemText }">
+          {{ option.label ?? option.value }}
+        </UISegmentGroupItemText>
+        <UISegmentGroupItemControl :ui="{ root: ui?.itemControl }" />
       </UISegmentGroupItem>
     </template>
-
-    <slot />
-
-    <UISegmentGroupIndicator />
   </component>
 </template>
 
 <style scoped>
-/* Indicators need to be able to access the CSS variables set by Ark. */
 :deep([data-part='indicator']) {
   left: var(--left);
   top: var(--top);

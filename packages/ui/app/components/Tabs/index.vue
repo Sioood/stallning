@@ -8,7 +8,12 @@ import {
 } from '@ark-ui/vue/tabs'
 import { cva } from 'class-variance-authority'
 
-import { tabsChromeKey, type TabsIntent, type TabsSize } from '~/utils/Components/Tabs/context'
+import {
+  tabsChromeKey,
+  type TabsIntent,
+  type TabsSize,
+  type TabsVariant,
+} from '~/utils/Components/Tabs/context'
 
 import type { ClassValue } from 'vue'
 
@@ -35,6 +40,8 @@ export interface TabsProps
    * Omit (or leave `undefined`) to use the default **Root** mode with `v-model`.
    */
   value?: UseTabsReturn['value']
+  /** Visual style variant. @default 'default' */
+  variant?: TabsVariant
   /** Visual intent for the tabs. @default 'primary' */
   intent?: TabsIntent
   /** Visual size for the items. @default 'md' */
@@ -47,12 +54,17 @@ export interface TabsProps
 
 const tabsRootCVA = cva('w-fit', {
   variants: {
+    variant: {
+      default: '',
+      subtle: '',
+    },
     orientation: {
       horizontal: 'flex flex-col',
       vertical: 'flex',
     },
   },
   defaultVariants: {
+    variant: 'default',
     orientation: 'horizontal',
   },
 })
@@ -66,6 +78,7 @@ const props = withDefaults(defineProps<TabsProps>(), {
   size: 'md',
   ui: undefined,
   value: undefined,
+  variant: 'default',
 })
 
 const attrs = useAttrs()
@@ -74,6 +87,7 @@ provide(tabsChromeKey, {
   intent: computed(() => props.intent),
   size: computed(() => props.size),
   orientation: computed(() => props.orientation),
+  variant: computed(() => props.variant),
 })
 
 const isProvider = computed(() => props.value !== undefined)
@@ -109,7 +123,7 @@ const rootBindings = computed(() => {
     ...rootProps.value,
     ...arkAttrs.value,
     class: cn(
-      tabsRootCVA({ orientation: props.orientation }),
+      tabsRootCVA({ variant: props.variant, orientation: props.orientation }),
       arkAttrs.value.class as string,
       props.ui?.root,
     ),
@@ -131,6 +145,7 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
     intent: 'primary',
     orientation: 'horizontal',
     size: 'md',
+    variant: 'default',
     options: [
       { value: 'react', label: 'React' },
       { value: 'solid', label: 'Solid' },
@@ -143,13 +158,14 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
 
 <template>
   <component :is="rootComponent" v-bind="rootBindings">
-    <UITabsList :class="ui?.list">
+    <UITabsList :ui="{ root: ui?.list }">
       <template v-if="resolvedOptions.length > 0">
         <UITabsTrigger
           v-for="option in resolvedOptions"
           :key="option.value"
           :value="option.value"
           :disabled="option.disabled"
+          :ui="{ root: ui?.trigger }"
         >
           {{ option.label ?? option.value }}
         </UITabsTrigger>
@@ -157,11 +173,16 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
 
       <slot name="list" />
 
-      <UITabsIndicator />
+      <UITabsIndicator :ui="{ root: ui?.indicator }" />
     </UITabsList>
 
     <template v-if="resolvedOptions.length > 0">
-      <UITabsContent v-for="option in resolvedOptions" :key="option.value" :value="option.value">
+      <UITabsContent
+        v-for="option in resolvedOptions"
+        :key="option.value"
+        :value="option.value"
+        :ui="{ root: ui?.content }"
+      >
         <slot :name="`content-${option.value}`">
           Content for {{ option.label ?? option.value }}
         </slot>
@@ -173,7 +194,6 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
 </template>
 
 <style scoped>
-/* Indicators need to be able to access the CSS variables set by Ark. */
 :deep([data-part='indicator']) {
   left: var(--left);
   top: var(--top);

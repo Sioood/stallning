@@ -18,6 +18,8 @@ const attrs = useAttrs()
 
 const chrome = inject(segmentGroupChromeKey, null)
 const intent = computed<SegmentGroupIntent>(() => props.intent ?? chrome?.intent.value ?? 'primary')
+const variant = computed(() => chrome?.variant.value ?? 'default')
+const orientation = computed(() => chrome?.orientation.value ?? 'horizontal')
 
 const arkAttrs = computed(() => splitArkAttrs(attrs))
 </script>
@@ -25,6 +27,7 @@ const arkAttrs = computed(() => splitArkAttrs(attrs))
 <template>
   <ArkSegmentGroup.Indicator
     v-bind="arkAttrs"
-    :class="cn(segmentedIndicatorCVA({ intent }), $attrs.class as string)"
+    :data-variant="variant"
+    :class="cn(segmentedIndicatorCVA({ variant, intent, orientation }), $attrs.class as string)"
   />
 </template>

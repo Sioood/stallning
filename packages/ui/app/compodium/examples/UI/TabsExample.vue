@@ -64,7 +64,19 @@ function onValueChange(d: TabsValueChangeDetails) {
       <div class="flex flex-col gap-6">
         <div v-for="size in sizes" :key="size" class="flex flex-col gap-2">
           <p class="text-sm font-medium text-neutral-text-subtle capitalize">{{ size }}</p>
-          <UITabs :options :size :model-value="options[0]?.value" />
+          <UITabs
+            :options
+            :size
+            :model-value="options[0]?.value"
+            :ui="{ root: 'w-full', list: 'w-full' }"
+          />
+          <UITabs
+            :options
+            :size
+            variant="subtle"
+            :model-value="options[0]?.value"
+            :ui="{ root: 'w-full', list: 'w-full' }"
+          />
         </div>
       </div>
     </section>
@@ -84,6 +96,29 @@ function onValueChange(d: TabsValueChangeDetails) {
       </div>
     </section>
 
+    <!-- Subtle Variant -->
+    <section class="flex flex-col gap-4">
+      <h2 class="text-xl font-bold">Subtle Variant</h2>
+      <p class="text-sm text-neutral-text-subtle">
+        Underline-style tabs without container background.
+      </p>
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div class="flex flex-col gap-2">
+          <p class="text-sm font-medium text-neutral-text-subtle">Horizontal subtle</p>
+          <UITabs v-model="selected" :options variant="subtle" />
+        </div>
+        <div class="flex flex-col gap-2">
+          <p class="text-sm font-medium text-neutral-text-subtle">Vertical subtle</p>
+          <UITabs
+            :options
+            :model-value="options[0]?.value"
+            variant="subtle"
+            orientation="vertical"
+          />
+        </div>
+      </div>
+    </section>
+
     <!-- Vertical Dashboard Layout -->
     <section class="flex flex-col gap-4">
       <h2 class="text-xl font-bold">Vertical Dashboard Layout</h2>
@@ -92,6 +127,7 @@ function onValueChange(d: TabsValueChangeDetails) {
       </p>
       <UITabs
         v-model="selected"
+        variant="subtle"
         :options="[
           { value: 'overview', label: 'Overview' },
           { value: 'analytics', label: 'Analytics' },

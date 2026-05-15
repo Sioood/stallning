@@ -71,6 +71,21 @@ function onValueChange(d: SegmentGroupValueChangeDetails) {
       </div>
     </section>
 
+    <!-- Orientation -->
+    <section class="flex flex-col gap-4">
+      <h2 class="text-xl font-bold">Orientation</h2>
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div class="flex flex-col gap-2">
+          <p class="text-sm font-medium text-neutral-text-subtle">Horizontal (default)</p>
+          <UISegmentGroup :options :model-value="options[0]?.value" orientation="horizontal" />
+        </div>
+        <div class="flex flex-col gap-2">
+          <p class="text-sm font-medium text-neutral-text-subtle">Vertical</p>
+          <UISegmentGroup :options :model-value="options[0]?.value" orientation="vertical" />
+        </div>
+      </div>
+    </section>
+
     <!-- Disabled -->
     <section class="flex flex-col gap-4">
       <h2 class="text-xl font-bold">Disabled</h2>

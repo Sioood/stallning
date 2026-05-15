@@ -5,8 +5,8 @@ import {
   type SegmentGroupRootProviderBaseProps as ArkSegmentGroupRootProviderBaseProps,
   type UseSegmentGroupReturn,
 } from '@ark-ui/vue/segment-group'
-import { cva } from 'class-variance-authority'
 
+import { segmentedRootCVA, type SegmentedOrientation } from '~/utils/Components/Segmented/variants'
 import {
   segmentGroupChromeKey,
   type SegmentGroupIntent,
@@ -42,45 +42,13 @@ export interface SegmentGroupProps
   intent?: SegmentGroupIntent
   /** Visual size for the items. @default 'md' */
   size?: SegmentGroupSize
+  /** Layout orientation. @default 'horizontal' */
+  orientation?: SegmentedOrientation
   /** Predefined options to render. */
   options?: SegmentGroupOption[]
   /** Slot-level class overrides. */
   ui?: Partial<UISegmentGroupSlots>
 }
-
-const segmentGroupRootCVA = cva('w-fit relative inline-flex items-center gap-0.5 border p-0.5', {
-  variants: {
-    intent: {
-      neutral: '',
-      primary: '',
-      secondary: '',
-      accent: '',
-    } satisfies Record<SegmentGroupIntent, string>,
-    size: {
-      sm: 'gap-0.5 p-0.5',
-      md: 'gap-1 p-1',
-      lg: 'gap-1.5 p-1.5',
-    } satisfies Record<SegmentGroupSize, string>,
-  },
-  compoundVariants: [
-    {
-      intent: 'neutral',
-      class: 'border-neutral-border-default bg-neutral-fill-subtle',
-    },
-    {
-      intent: 'primary',
-      class: 'border-primary-border-default bg-primary-fill-subtle',
-    },
-    {
-      intent: 'secondary',
-      class: 'border-secondary-border-default bg-secondary-fill-subtle',
-    },
-    {
-      intent: 'accent',
-      class: 'border-accent-border-default bg-accent-fill-subtle',
-    },
-  ],
-})
 
 const modelValue = defineModel<string>()
 
@@ -88,6 +56,7 @@ const props = withDefaults(defineProps<SegmentGroupProps>(), {
   disabled: false,
   intent: 'primary',
   options: () => [],
+  orientation: 'horizontal',
   size: 'md',
   ui: undefined,
   value: undefined,
@@ -95,10 +64,11 @@ const props = withDefaults(defineProps<SegmentGroupProps>(), {
 
 const attrs = useAttrs()
 
-const intent = toRef(props, 'intent')
-const size = toRef(props, 'size')
-
-provide(segmentGroupChromeKey, { intent, size })
+provide(segmentGroupChromeKey, {
+  intent: computed(() => props.intent),
+  size: computed(() => props.size),
+  orientation: computed(() => props.orientation),
+})
 
 const isProvider = computed(() => props.value !== undefined)
 
@@ -121,7 +91,11 @@ const rootBindings = computed(() => {
   const base: Record<string, unknown> = {
     ...rootProps.value,
     ...arkAttrs.value,
-    class: cn(segmentGroupRootCVA({ intent: intent.value, size: size.value }), props.ui?.root),
+    class: cn(
+      segmentedRootCVA({ intent: props.intent, size: props.size, orientation: props.orientation }),
+      arkAttrs.value.class as string,
+      props.ui?.root,
+    ),
   }
 
   if (!isProvider.value) base.defaultValue = modelValue.value
@@ -133,6 +107,7 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
   defaultProps: {
     modelValue: 'react',
     intent: 'primary',
+    orientation: 'horizontal',
     size: 'md',
     options: [
       { value: 'react', label: 'React' },
@@ -151,7 +126,7 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
         v-for="option in resolvedOptions"
         :key="option.value"
         :value="option.value"
-        :disabled="disabled || option.disabled"
+        :disabled="props.disabled || option.disabled"
       >
         <UISegmentGroupItemText>{{ option.label ?? option.value }}</UISegmentGroupItemText>
         <UISegmentGroupItemControl />

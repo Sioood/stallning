@@ -1,9 +1,16 @@
 import type { ClassValue } from 'vue'
 
-export type FormFieldIntent = 'primary'
+export type FormFieldIntent =
+  | 'neutral'
+  | 'primary'
+  | 'secondary'
+  | 'accent'
+  | 'info'
+  | 'warning'
+  | 'error'
+  | 'success'
 
-export type FormFieldSize = 'md'
-
+export type FormFieldSize = 'sm' | 'md' | 'lg'
 export type FormFieldOrientation = 'horizontal' | 'vertical'
 
 export interface UIFieldSlots {
@@ -42,4 +49,22 @@ export interface UISliderSlots extends UIFieldSlots {
   draggingIndicator?: ClassValue
   markerGroup?: ClassValue
   marker?: ClassValue
+}
+
+export interface UINumberInputSlots extends UIFieldSlots {
+  shell?: ClassValue
+  input?: ClassValue
+  leadingIcon?: ClassValue
+  trailingIcon?: ClassValue
+  incrementTrigger?: ClassValue
+  decrementTrigger?: ClassValue
+  stepperGroup?: ClassValue
+  scrubber?: ClassValue
+}
+
+export interface UITextareaSlots extends UIFieldSlots {
+  shell?: ClassValue
+  input?: ClassValue
+  leadingIcon?: ClassValue
+  trailingIcon?: ClassValue
 }

@@ -183,22 +183,22 @@ extendCompodiumMeta<typeof props>({
     :class="
       cn(
         button({
-          variant: props.variant,
+          variant,
           intent: ['success', 'error'].includes(effectiveState)
             ? (effectiveState as 'success' | 'error')
-            : props.intent,
-          size: props.size,
-          disabled: props.disabled || effectiveState !== 'default',
+            : intent,
+          size,
+          disabled: disabled || effectiveState !== 'default',
         }),
         attrs.class,
-        props.ui?.root,
+        ui?.root,
       )
     "
   >
-    <Icon v-if="isLeading" :name="leadingIconName" :class="iconClass(props.ui?.leadingIcon)" />
+    <Icon v-if="isLeading" :name="leadingIconName" :class="iconClass(ui?.leadingIcon)" />
     <slot>
       {{ text }}
     </slot>
-    <Icon v-if="isTrailing" :name="trailingIconName" :class="iconClass(props.ui?.trailingIcon)" />
+    <Icon v-if="isTrailing" :name="trailingIconName" :class="iconClass(ui?.trailingIcon)" />
   </component>
 </template>

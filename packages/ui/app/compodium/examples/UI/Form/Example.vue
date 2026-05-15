@@ -3,8 +3,10 @@ import { z } from 'zod'
 
 import UIFormCheckbox from '~ui/app/components/Form/Checkbox.vue'
 import UIFormInput from '~ui/app/components/Form/Input.vue'
+import UIFormNumberInput from '~ui/app/components/Form/NumberInput.vue'
 import UIFormRadioGroup from '~ui/app/components/Form/RadioGroup.vue'
 import UIFormSlider from '~ui/app/components/Form/Slider/index.vue'
+import UIFormTextarea from '~ui/app/components/Form/Textarea.vue'
 import UISwitch from '~ui/app/components/Switch.vue'
 
 import type {
@@ -17,6 +19,8 @@ const schema = z.object({
   firstName: z.string().trim().min(2),
   lastName: z.string().trim().min(2),
   email: z.string().trim().optional(),
+  bio: z.string().trim().optional(),
+  age: z.string().trim().min(1).optional(),
   checkbox: z.union([z.literal(true), z.literal(false), z.literal('indeterminate')]),
   switch: z.boolean(),
   framework: z.string().nullable().optional(),
@@ -29,6 +33,8 @@ const defaultValues: FormValues = {
   firstName: '',
   lastName: '',
   email: '',
+  bio: '',
+  age: '18',
   checkbox: false,
   switch: false,
   framework: null,
@@ -64,6 +70,24 @@ const fields: SchemaFieldsMap<FormValues> = {
       label: 'Email',
       placeholder: 'you@example.com',
       type: 'email',
+    },
+  },
+  bio: {
+    as: UIFormTextarea,
+    props: {
+      label: 'Bio',
+      placeholder: 'Tell us about yourself…',
+      autoresize: true,
+    },
+  },
+  age: {
+    as: UIFormNumberInput,
+    props: {
+      label: 'Age',
+      placeholder: '18',
+      min: 0,
+      max: 150,
+      step: 1,
     },
   },
   checkbox: {
@@ -108,6 +132,8 @@ const fields: SchemaFieldsMap<FormValues> = {
 const layout: SchemaFormLayout<keyof FormValues & string>[] = [
   ['firstName', 'lastName'],
   'email',
+  'age',
+  'bio',
   'checkbox',
   'switch',
   'framework',

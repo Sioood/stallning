@@ -3,16 +3,11 @@ import {
   Field as ArkField,
   type FieldInputBaseProps as ArkFieldInputBaseProps,
 } from '@ark-ui/vue/field'
-import { cva, type VariantProps } from 'class-variance-authority'
 
-import {
-  useComponentIcons,
-  type UseComponentIconsProps,
-} from '~ui/app/composables/useComponentIcons'
+import { fieldInputCVA } from '~ui/app/utils/Form/variants'
 
-import type { ComponentPublicInstance } from 'vue'
-import type { FieldProps } from '~ui/app/components/Form/Field.vue'
-import type { FormFieldIntent, FormFieldSize, UIInputSlots } from '~ui/app/utils/Form/context'
+import type { FormControlShellProps } from '~ui/app/components/Form/FormControlShell.vue'
+import type { UIInputSlots } from '~ui/app/utils/Form/context'
 
 export type { UIInputSlots } from '~ui/app/utils/Form/context'
 
@@ -24,77 +19,9 @@ export interface UIFormInputExpose {
 
 defineOptions({ inheritAttrs: false })
 
-const controlShellCVA = cva(
-  'flex w-full min-w-0 items-center gap-0.5 transition-[box-shadow,border-color]',
-  {
-    variants: {
-      intent: {
-        primary: '',
-      } satisfies Record<FormFieldIntent, string>,
-      size: {
-        md: 'border focus-within:outline',
-      } satisfies Record<FormFieldSize, string>,
-      invalid: {
-        true: 'border-error-border-default! focus-within:border-error-border-strong!',
-      },
-      disabled: {
-        true: 'cursor-not-allowed',
-      },
-    },
-    compoundVariants: [
-      {
-        intent: 'primary',
-        disabled: false,
-        class:
-          'border-primary-border-default bg-primary-fill-subtle text-primary-text-default focus-within:border-primary-border-strong focus-within:outline-primary-border-default',
-      },
-      {
-        intent: 'primary',
-        disabled: true,
-        class:
-          'border-primary-border-default-disabled bg-primary-fill-subtle-disabled text-primary-text-default-disabled focus-within:border-primary-border-strong focus-within:outline-primary-border-default',
-      },
-    ],
-  },
-)
-
-const fieldInputCVA = cva(
-  'txt-base min-w-0 flex-1 border-0 outline-none read-only:cursor-default',
-  {
-    variants: {
-      size: {
-        md: 'px-2 py-1',
-      } satisfies Record<FormFieldSize, string>,
-      intent: {
-        primary: '',
-      } satisfies Record<FormFieldIntent, string>,
-      disabled: {
-        true: 'disabled:cursor-not-allowed',
-      },
-    },
-    compoundVariants: [
-      {
-        intent: 'primary',
-        disabled: false,
-        class: 'text-primary-text-default placeholder:text-primary-text-subtle',
-      },
-      {
-        intent: 'primary',
-        disabled: true,
-        class: 'text-primary-text-default-disabled placeholder:text-primary-text-subtle-disabled',
-      },
-    ],
-  },
-)
-
-type ShellVariants = VariantProps<typeof controlShellCVA>
-
-interface InputProps
-  extends Omit<FieldProps, 'ui'>, ArkFieldInputBaseProps, UseComponentIconsProps {
-  intent?: ShellVariants['intent']
+interface InputProps extends Omit<FormControlShellProps, 'ui'>, ArkFieldInputBaseProps {
   name?: string
   placeholder?: string
-  size?: ShellVariants['size']
   type?: string
   ui?: Partial<UIInputSlots>
 }
@@ -129,40 +56,31 @@ const props = withDefaults(defineProps<InputProps>(), {
   ui: undefined,
 })
 
-const fieldProps = computed(() => ({
+const shellProps = computed<FormControlShellProps>(() => ({
   ...pick(props, [
-    'asChild',
     'disabled',
     'error',
     'helperText',
-    'hideLabel',
-    'id',
-    'ids',
-    'intent',
-    'label',
-    'labelAssociatesControl',
-    'readOnly',
-    'required',
-    'size',
-    'ui',
-  ] as const),
-  invalid: props.invalid || String(props.error ?? '').length > 0,
-}))
-
-const iconProps = computed<UseComponentIconsProps>(() => ({
-  ...pick(props, [
-    'errorIcon',
     'icon',
     'infoIcon',
+    'intent',
+    'label',
     'leading',
     'leadingIcon',
     'loadingIcon',
+    'mode',
+    'readOnly',
+    'required',
+    'size',
     'state',
     'successIcon',
     'warningIcon',
   ] as const),
+  errorIcon: props.errorIcon,
   trailing: isPasswordField.value ? false : props.trailing,
   trailingIcon: isPasswordField.value ? undefined : props.trailingIcon,
+  invalid: props.invalid || String(props.error ?? '').length > 0,
+  ui: props.ui,
 }))
 
 const resolvedInputType = computed(() =>
@@ -177,11 +95,7 @@ const inputProps = computed(() => ({
 
 const isPasswordField = computed(() => props.type === 'password')
 const showPassword = ref(false)
-// TODO: i18n
 const passwordToggleLabel = computed(() => (showPassword.value ? 'Hide password' : 'Show password'))
-
-const { isLeading, isTrailing, leadingIconName, trailingIconName, shouldAnimate } =
-  useComponentIcons(iconProps)
 
 const attrs = useAttrs()
 
@@ -190,12 +104,12 @@ const inputFallthroughAttrs = computed(() => {
   return rest
 })
 
-const arkInputRef = ref<ComponentPublicInstance | null>(null)
+const arkInputRef = ref<InstanceType<typeof ArkField.Input> | null>(null)
 
 const controlElement = computed((): HTMLInputElement | null => {
   const inst = arkInputRef.value
   if (!inst) return null
-  const el = inst.$el
+  const el = (inst as { $el?: unknown }).$el
   return el instanceof HTMLInputElement ? el : null
 })
 
@@ -222,43 +136,18 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
 </script>
 
 <template>
-  <UIFormField v-bind="fieldProps">
-    <div
-      :class="
-        cn(
-          controlShellCVA({
-            intent,
-            size,
-            invalid,
-            disabled,
-          }),
-          ui?.shell,
-        )
-      "
-    >
-      <span
-        v-if="isLeading && leadingIconName"
-        :class="cn('flex shrink-0 items-center pl-2 text-primary-icon-subtle', ui?.leadingIcon)"
-        aria-hidden="true"
-      >
-        <Icon
-          :name="leadingIconName"
-          class="size-4 shrink-0"
-          :class="{ 'animate-spin': shouldAnimate }"
-        />
-      </span>
+  <UIFormControlShell v-bind="shellProps">
+    <ArkField.Input
+      ref="arkInputRef"
+      v-bind="{ ...inputProps, ...inputFallthroughAttrs }"
+      v-model="modelValue"
+      :type="resolvedInputType"
+      :class="cn(fieldInputCVA({ size, intent, disabled }), ui?.input)"
+      @blur="emit('blur', $event)"
+    />
 
-      <ArkField.Input
-        ref="arkInputRef"
-        v-bind="{ ...inputProps, ...inputFallthroughAttrs }"
-        v-model="modelValue"
-        :type="resolvedInputType"
-        :class="cn(fieldInputCVA({ size, intent, disabled }), ui?.input)"
-        @blur="emit('blur', $event)"
-      />
-
+    <template v-if="isPasswordField" #trailing>
       <UIToggle
-        v-if="isPasswordField"
         v-model:pressed="showPassword"
         variant="ghost"
         intent="primary"
@@ -274,18 +163,6 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
           <Icon name="tabler:eye" class="size-4 shrink-0" />
         </template>
       </UIToggle>
-
-      <span
-        v-else-if="isTrailing && trailingIconName"
-        :class="cn('flex shrink-0 items-center pr-2 text-primary-icon-subtle', ui?.trailingIcon)"
-        aria-hidden="true"
-      >
-        <Icon
-          :name="trailingIconName"
-          class="size-4 shrink-0"
-          :class="{ 'animate-spin': shouldAnimate }"
-        />
-      </span>
-    </div>
-  </UIFormField>
+    </template>
+  </UIFormControlShell>
 </template>

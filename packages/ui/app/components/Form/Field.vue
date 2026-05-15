@@ -16,10 +16,19 @@ defineOptions({ inheritAttrs: false })
 const fieldRootCVA = cva('flex flex-col gap-1', {
   variants: {
     intent: {
+      neutral: '',
       primary: '',
+      secondary: '',
+      accent: '',
+      info: '',
+      warning: '',
+      error: '',
+      success: '',
     } satisfies Record<FormFieldIntent, string>,
     size: {
+      sm: '',
       md: '',
+      lg: '',
     } satisfies Record<FormFieldSize, string>,
     invalid: {
       true: '',
@@ -32,10 +41,19 @@ type FieldCVAProps = VariantProps<typeof fieldRootCVA>
 const fieldLabelCVA = cva('', {
   variants: {
     intent: {
+      neutral: 'text-neutral-text-default',
       primary: 'text-primary-text-default',
+      secondary: 'text-secondary-text-default',
+      accent: 'text-accent-text-default',
+      info: 'text-info-text-default',
+      warning: 'text-warning-text-default',
+      error: 'text-error-text-default',
+      success: 'text-success-text-default',
     } satisfies Record<FormFieldIntent, string>,
     size: {
+      sm: 'txt-caption',
       md: 'txt-label',
+      lg: 'txt-h6',
     } satisfies Record<FormFieldSize, string>,
   },
 })
@@ -43,10 +61,19 @@ const fieldLabelCVA = cva('', {
 const fieldHelperTextCVA = cva('', {
   variants: {
     intent: {
+      neutral: 'text-neutral-text-subtle',
       primary: 'text-primary-text-subtle',
+      secondary: 'text-secondary-text-subtle',
+      accent: 'text-accent-text-subtle',
+      info: 'text-info-text-subtle',
+      warning: 'text-warning-text-subtle',
+      error: 'text-error-text-subtle',
+      success: 'text-success-text-subtle',
     } satisfies Record<FormFieldIntent, string>,
     size: {
+      sm: 'txt-legal',
       md: 'txt-caption',
+      lg: 'txt-body',
     } satisfies Record<FormFieldSize, string>,
   },
 })

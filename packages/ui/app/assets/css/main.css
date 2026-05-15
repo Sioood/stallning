@@ -2064,7 +2064,7 @@ body {
 }
 
 @utility focus-ring {
-  @apply ring ring-primary-border-strong ring-offset-1 ring-offset-primary-bg-default outline-none transition-[box-shadow,border-color] duration-100 ease-in-out;
+  @apply ring ring-primary-border-strong ring-offset-1 ring-offset-primary-bg-default transition-[box-shadow,border-color] duration-100 ease-in-out outline-none;
 }
 
 *:focus-visible:not(input, textarea, select) {

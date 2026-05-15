@@ -86,7 +86,7 @@ export const stepsContentCVA = cva('w-full', {
 })
 
 export const stepsIndicatorCVA = cva(
-  ['inline-flex items-center justify-center shrink-0', 'transition-colors duration-150'],
+  ['inline-flex shrink-0 items-center justify-center', 'transition-colors duration-150'],
   {
     variants: {
       intent: {
@@ -101,9 +101,9 @@ export const stepsIndicatorCVA = cva(
         completed: '',
       },
       size: {
-        sm: 'size-6 txt-caption border',
-        md: 'size-8 txt-label border',
-        lg: 'size-10 txt-base border',
+        sm: 'txt-caption size-6 border',
+        md: 'txt-label size-8 border',
+        lg: 'txt-base size-10 border',
       } satisfies Record<StepsSize, string>,
     },
     compoundVariants: [
@@ -111,47 +111,47 @@ export const stepsIndicatorCVA = cva(
       {
         status: 'pending',
         intent: 'neutral',
-        className: 'text-neutral-text-subtle bg-neutral-fill-subtle border-neutral-border-subtle',
+        className: 'border-neutral-border-subtle bg-neutral-fill-subtle text-neutral-text-subtle',
       },
       {
         status: 'pending',
         intent: 'primary',
-        className: 'text-primary-text-subtle bg-primary-fill-subtle border-primary-border-subtle',
+        className: 'border-primary-border-subtle bg-primary-fill-subtle text-primary-text-subtle',
       },
       {
         status: 'pending',
         intent: 'secondary',
         className:
-          'text-secondary-text-subtle bg-secondary-fill-subtle border-secondary-border-subtle',
+          'border-secondary-border-subtle bg-secondary-fill-subtle text-secondary-text-subtle',
       },
       {
         status: 'pending',
         intent: 'accent',
-        className: 'text-accent-text-subtle bg-accent-fill-subtle border-accent-border-subtle',
+        className: 'border-accent-border-subtle bg-accent-fill-subtle text-accent-text-subtle',
       },
       // Current
       {
         status: ['current', 'completed'],
         intent: 'neutral',
         className:
-          'text-neutral-text-inverse bg-neutral-fill-default border-neutral-border-default',
+          'border-neutral-border-default bg-neutral-fill-default text-neutral-text-inverse',
       },
       {
         status: ['current', 'completed'],
         intent: 'primary',
         className:
-          'text-primary-text-inverse bg-primary-fill-default border-primary-border-default',
+          'border-primary-border-default bg-primary-fill-default text-primary-text-inverse',
       },
       {
         status: ['current', 'completed'],
         intent: 'secondary',
         className:
-          'text-secondary-text-inverse bg-secondary-fill-default border-secondary-border-default',
+          'border-secondary-border-default bg-secondary-fill-default text-secondary-text-inverse',
       },
       {
         status: ['current', 'completed'],
         intent: 'accent',
-        className: 'text-accent-text-inverse bg-accent-fill-default border-accent-border-default',
+        className: 'border-accent-border-default bg-accent-fill-default text-accent-text-inverse',
       },
     ],
     defaultVariants: {
@@ -162,7 +162,7 @@ export const stepsIndicatorCVA = cva(
   },
 )
 
-export const stepsSeparatorCVA = cva(['shrink-0 flex-1 transition-colors duration-150'], {
+export const stepsSeparatorCVA = cva(['flex-1 shrink-0 transition-colors duration-150'], {
   variants: {
     intent: {
       neutral: 'bg-neutral-border-subtle',
@@ -176,7 +176,7 @@ export const stepsSeparatorCVA = cva(['shrink-0 flex-1 transition-colors duratio
     },
     orientation: {
       horizontal: 'h-px self-center',
-      vertical: 'w-0.5 self-stretch mx-auto my-1 flex-none',
+      vertical: 'mx-auto my-1 w-0.5 flex-none self-stretch',
     },
     size: {
       sm: '',
@@ -234,7 +234,7 @@ export const stepsCompletedContentCVA = cva('w-full', {
   },
 })
 
-export const stepsProgressCVA = cva('w-full h-1 overflow-hidden', {
+export const stepsProgressCVA = cva('h-1 w-full overflow-hidden', {
   variants: {
     intent: {
       neutral: 'bg-neutral-fill-default',

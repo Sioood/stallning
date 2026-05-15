@@ -31,7 +31,7 @@ export const controlShellCVA = cva('flex w-full min-w-0 items-center gap-0.5', {
       intent: 'neutral',
       disabled: false,
       class:
-        'focus-within:focus-ring border-neutral-border-default bg-neutral-fill-subtle text-neutral-text-default focus-within:border-neutral-border-strong focus-within:ring-neutral-border-default',
+        'border-neutral-border-default bg-neutral-fill-subtle text-neutral-text-default focus-within:border-neutral-border-strong focus-within:focus-ring',
     },
     {
       intent: 'neutral',
@@ -43,7 +43,7 @@ export const controlShellCVA = cva('flex w-full min-w-0 items-center gap-0.5', {
       intent: 'primary',
       disabled: false,
       class:
-        'focus-within:focus-ring border-primary-border-default bg-primary-fill-subtle text-primary-text-default focus-within:border-primary-border-strong focus-within:ring-primary-border-default',
+        'border-primary-border-default bg-primary-fill-subtle text-primary-text-default focus-within:border-primary-border-strong focus-within:focus-ring',
     },
     {
       intent: 'primary',
@@ -55,7 +55,7 @@ export const controlShellCVA = cva('flex w-full min-w-0 items-center gap-0.5', {
       intent: 'secondary',
       disabled: false,
       class:
-        'focus-within:focus-ring border-secondary-border-default bg-secondary-fill-subtle text-secondary-text-default focus-within:border-secondary-border-strong focus-within:ring-secondary-border-default',
+        'border-secondary-border-default bg-secondary-fill-subtle text-secondary-text-default focus-within:border-secondary-border-strong focus-within:focus-ring',
     },
     {
       intent: 'secondary',
@@ -67,7 +67,7 @@ export const controlShellCVA = cva('flex w-full min-w-0 items-center gap-0.5', {
       intent: 'accent',
       disabled: false,
       class:
-        'focus-within:focus-ring border-accent-border-default bg-accent-fill-subtle text-accent-text-default focus-within:border-accent-border-strong focus-within:ring-accent-border-default',
+        'border-accent-border-default bg-accent-fill-subtle text-accent-text-default focus-within:border-accent-border-strong focus-within:focus-ring',
     },
     {
       intent: 'accent',
@@ -92,7 +92,7 @@ export const pinSlotCVA = cva(
         lg: 'txt-h5 size-12',
       } satisfies Record<FormFieldSize, string>,
       invalid: {
-        true: 'focus:focus-ring border-error-border-default! focus:border-error-border-strong! focus:ring-error-border-default!',
+        true: 'border-error-border-default! focus:border-error-border-strong! focus:focus-ring',
       },
     },
   },
@@ -136,7 +136,7 @@ export const fieldInputCVA = cva('txt-base min-w-0 flex-1 read-only:cursor-defau
       intent: 'neutral',
       disabled: false,
       class:
-        'focus:focus-ring border-neutral-border-default bg-neutral-fill-subtle focus:border-neutral-border-strong focus:ring-neutral-border-default',
+        'border-neutral-border-default bg-neutral-fill-subtle focus:border-neutral-border-strong focus:focus-ring',
     },
     {
       standalone: true,
@@ -149,7 +149,7 @@ export const fieldInputCVA = cva('txt-base min-w-0 flex-1 read-only:cursor-defau
       intent: 'primary',
       disabled: false,
       class:
-        'focus:focus-ring border-primary-border-default bg-primary-fill-subtle focus:border-primary-border-strong focus:ring-primary-border-default',
+        'border-primary-border-default bg-primary-fill-subtle focus:border-primary-border-strong focus:focus-ring',
     },
     {
       standalone: true,
@@ -162,7 +162,7 @@ export const fieldInputCVA = cva('txt-base min-w-0 flex-1 read-only:cursor-defau
       intent: 'secondary',
       disabled: false,
       class:
-        'focus:focus-ring border-secondary-border-default bg-secondary-fill-subtle focus:border-secondary-border-strong focus:ring-secondary-border-default',
+        'border-secondary-border-default bg-secondary-fill-subtle focus:border-secondary-border-strong focus:focus-ring',
     },
     {
       standalone: true,
@@ -175,7 +175,7 @@ export const fieldInputCVA = cva('txt-base min-w-0 flex-1 read-only:cursor-defau
       intent: 'accent',
       disabled: false,
       class:
-        'focus:focus-ring border-accent-border-default bg-accent-fill-subtle focus:border-accent-border-strong focus:ring-accent-border-default',
+        'border-accent-border-default bg-accent-fill-subtle focus:border-accent-border-strong focus:focus-ring',
     },
     {
       standalone: true,

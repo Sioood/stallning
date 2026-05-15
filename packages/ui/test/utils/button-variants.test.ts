@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { buttonCVA as button, toggleCVA } from '../../app/utils/Button/variants'
+import { buttonCVA as button, toggleCVA } from '../../app/utils/Components/Button/variants'
 
 describe('buttonVariants', () => {
   it('returns base classes', () => {

@@ -1,4 +1,5 @@
 import type { ClassValue } from 'vue'
+import type { ComponentIntent, ComponentSize } from '~/utils/Components/contextBase'
 
 export interface UIMenuSlots {
   trigger?: ClassValue
@@ -17,6 +18,8 @@ export interface UIMenuSlots {
   contextTrigger?: ClassValue
 }
 
-export type MenuIntent = 'neutral' | 'primary' | 'secondary' | 'accent'
+export type MenuIntent = NonNullable<
+  Extract<ComponentIntent, 'neutral' | 'primary' | 'secondary' | 'accent'>
+>
 
-export type MenuSize = 'md'
+export type MenuSize = NonNullable<Extract<ComponentSize, 'md'>>

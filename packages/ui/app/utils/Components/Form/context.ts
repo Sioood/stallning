@@ -1,17 +1,16 @@
 import type { ClassValue } from 'vue'
+import type {
+  ComponentIntent,
+  ComponentSize,
+  ComponentOrientation,
+} from '~/utils/Components/contextBase'
 
-export type FormFieldIntent =
-  | 'neutral'
-  | 'primary'
-  | 'secondary'
-  | 'accent'
-  | 'info'
-  | 'warning'
-  | 'error'
-  | 'success'
+export type FormFieldIntent = NonNullable<
+  Extract<ComponentIntent, 'neutral' | 'primary' | 'secondary' | 'accent'>
+>
 
-export type FormFieldSize = 'sm' | 'md' | 'lg'
-export type FormFieldOrientation = 'horizontal' | 'vertical'
+export type FormFieldSize = NonNullable<ComponentSize>
+export type FormFieldOrientation = NonNullable<ComponentOrientation>
 
 export interface UIFieldSlots {
   root?: ClassValue

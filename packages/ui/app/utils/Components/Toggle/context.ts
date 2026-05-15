@@ -1,11 +1,14 @@
 import type { ClassValue } from 'vue'
-import type { ButtonVariants } from '~/utils/Components/Button/variants'
+import type { ButtonIntent, ButtonSize, ButtonVariant } from '~/utils/Components/Button/context'
+import type { ComponentOrientation } from '~/utils/Components/contextBase'
 
-export type ToggleIntent = NonNullable<ButtonVariants['intent']>
-export type ToggleSize = NonNullable<ButtonVariants['size']>
-export type ToggleVariant = NonNullable<ButtonVariants['variant']>
+export type ToggleIntent = NonNullable<ButtonIntent>
+export type ToggleSize = NonNullable<ButtonSize>
+export type ToggleVariant = NonNullable<ButtonVariant>
 
-export type ToggleGroupOrientation = 'horizontal' | 'vertical'
+export type ToggleGroupOrientation = NonNullable<
+  Extract<ComponentOrientation, 'horizontal' | 'vertical'>
+>
 
 export interface UIToggleSlots {
   root?: ClassValue

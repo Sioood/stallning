@@ -1,7 +1,10 @@
 import type { ClassValue } from 'vue'
+import type { ComponentIntent, ComponentSize } from '~/utils/Components/contextBase'
 
-export type SelectIntent = 'neutral' | 'primary' | 'secondary' | 'accent'
-export type SelectSize = 'sm' | 'md' | 'lg'
+export type SelectIntent = NonNullable<
+  Extract<ComponentIntent, 'neutral' | 'primary' | 'secondary' | 'accent'>
+>
+export type SelectSize = NonNullable<ComponentSize>
 
 export interface SelectItem {
   label: string

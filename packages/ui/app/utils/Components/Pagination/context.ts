@@ -1,11 +1,10 @@
 import type { InjectionKey, Ref } from 'vue'
-import type { ButtonVariants } from '~/utils/Components/Button/variants'
-
+import type { ButtonIntent, ButtonSize, ButtonVariant } from '~/utils/Components/Button/context'
 export type PaginationIntent = NonNullable<
-  Exclude<ButtonVariants['intent'], 'info' | 'success' | 'warning' | 'error'>
+  Extract<ButtonIntent, 'neutral' | 'primary' | 'secondary' | 'accent'>
 >
-export type PaginationSize = NonNullable<ButtonVariants['size']>
-export type PaginationVariant = NonNullable<ButtonVariants['variant']>
+export type PaginationSize = NonNullable<ButtonSize>
+export type PaginationVariant = NonNullable<ButtonVariant>
 
 export interface PaginationChromeContext {
   intent: Ref<PaginationIntent>

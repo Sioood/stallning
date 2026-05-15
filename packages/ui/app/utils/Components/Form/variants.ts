@@ -15,10 +15,6 @@ export const controlShellCVA = cva(
         primary: '',
         secondary: '',
         accent: '',
-        info: '',
-        warning: '',
-        error: '',
-        success: '',
       } satisfies Record<FormFieldIntent, string>,
       size: {
         sm: 'border',
@@ -81,54 +77,6 @@ export const controlShellCVA = cva(
         class:
           'border-accent-border-default-disabled bg-accent-fill-subtle-disabled text-accent-text-default-disabled',
       },
-      {
-        intent: 'info',
-        disabled: false,
-        class:
-          'border-info-border-default bg-info-fill-subtle text-info-text-default focus-within:border-info-border-strong focus-within:outline-info-border-default',
-      },
-      {
-        intent: 'info',
-        disabled: true,
-        class:
-          'border-info-border-default-disabled bg-info-fill-subtle-disabled text-info-text-default-disabled',
-      },
-      {
-        intent: 'warning',
-        disabled: false,
-        class:
-          'border-warning-border-default bg-warning-fill-subtle text-warning-text-default focus-within:border-warning-border-strong focus-within:outline-warning-border-default',
-      },
-      {
-        intent: 'warning',
-        disabled: true,
-        class:
-          'border-warning-border-default-disabled bg-warning-fill-subtle-disabled text-warning-text-default-disabled',
-      },
-      {
-        intent: 'error',
-        disabled: false,
-        class:
-          'border-error-border-default bg-error-fill-subtle text-error-text-default focus-within:border-error-border-strong focus-within:outline-error-border-default',
-      },
-      {
-        intent: 'error',
-        disabled: true,
-        class:
-          'border-error-border-default-disabled bg-error-fill-subtle-disabled text-error-text-default-disabled',
-      },
-      {
-        intent: 'success',
-        disabled: false,
-        class:
-          'border-success-border-default bg-success-fill-subtle text-success-text-default focus-within:border-success-border-strong focus-within:outline-success-border-default',
-      },
-      {
-        intent: 'success',
-        disabled: true,
-        class:
-          'border-success-border-default-disabled bg-success-fill-subtle-disabled text-success-text-default-disabled',
-      },
     ],
   },
 )
@@ -155,13 +103,6 @@ export const fieldInputCVA = cva(
           'text-secondary-text-default placeholder:text-secondary-text-subtle disabled:text-secondary-text-default-disabled',
         accent:
           'text-accent-text-default placeholder:text-accent-text-subtle disabled:text-accent-text-default-disabled',
-        info: 'text-info-text-default placeholder:text-info-text-subtle disabled:text-info-text-default-disabled',
-        warning:
-          'text-warning-text-default placeholder:text-warning-text-subtle disabled:text-warning-text-default-disabled',
-        error:
-          'text-error-text-default placeholder:text-error-text-subtle disabled:text-error-text-default-disabled',
-        success:
-          'text-success-text-default placeholder:text-success-text-subtle disabled:text-success-text-default-disabled',
       } satisfies Record<FormFieldIntent, string>,
       disabled: {
         true: 'disabled:cursor-not-allowed',

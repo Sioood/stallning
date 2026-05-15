@@ -2,7 +2,7 @@ import { cva } from 'class-variance-authority'
 
 import type { PaginationIntent, PaginationSize } from './context'
 
-export const paginationRootCVA = cva('paginationRoot flex items-stretch', {
+export const paginationRootCVA = cva('flex items-stretch', {
   variants: {
     intent: {
       neutral: '',

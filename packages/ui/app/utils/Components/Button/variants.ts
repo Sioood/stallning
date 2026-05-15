@@ -1,4 +1,6 @@
-import { cva, type VariantProps } from 'class-variance-authority'
+import { cva } from 'class-variance-authority'
+
+import type { ButtonIntent, ButtonSize, ButtonVariant } from '~/utils/Components/Button/context'
 
 export const buttonCVA = cva('inline-flex items-center justify-center', {
   variants: {
@@ -7,7 +9,7 @@ export const buttonCVA = cva('inline-flex items-center justify-center', {
       subtle: 'border',
       ghost:
         'border border-transparent hover:border-inherit active:border-inherit disabled:border-inherit',
-    },
+    } satisfies Record<ButtonVariant, string>,
     intent: {
       neutral: '',
       primary: '',
@@ -17,12 +19,12 @@ export const buttonCVA = cva('inline-flex items-center justify-center', {
       warning: '',
       error: '',
       success: '',
-    },
+    } satisfies Record<ButtonIntent, string>,
     size: {
       sm: 'txt-caption gap-1.5 px-2 py-1',
       md: 'txt-base gap-3 px-4 py-2',
       lg: 'txt-h6 gap-4 px-5 py-3',
-    },
+    } satisfies Record<ButtonSize, string>,
     disabled: {
       true: 'cursor-not-allowed',
       false: 'cursor-pointer active:scale-97',
@@ -182,7 +184,7 @@ export const toggleCVA = cva('', {
       default: '',
       subtle: '',
       ghost: '',
-    },
+    } satisfies Record<ButtonVariant, string>,
     intent: {
       neutral: '',
       primary: '',
@@ -192,7 +194,7 @@ export const toggleCVA = cva('', {
       warning: '',
       error: '',
       success: '',
-    },
+    } satisfies Record<ButtonIntent, string>,
   },
   compoundVariants: [
     {
@@ -341,5 +343,3 @@ export const toggleCVA = cva('', {
     },
   ],
 })
-
-export type ButtonVariants = VariantProps<typeof buttonCVA>

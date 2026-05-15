@@ -1,7 +1,10 @@
 import type { InjectionKey, Ref } from 'vue'
+import type { ComponentIntent, ComponentSize } from '~/utils/Components/contextBase'
 
-export type AccordionIntent = 'neutral' | 'primary' | 'secondary' | 'accent'
-export type AccordionSize = 'md'
+export type AccordionIntent = NonNullable<
+  Extract<ComponentIntent, 'neutral' | 'primary' | 'secondary' | 'accent'>
+>
+export type AccordionSize = NonNullable<Extract<ComponentSize, 'md'>>
 
 export interface AccordionChromeContext {
   intent: Ref<AccordionIntent>

@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from 'class-variance-authority'
 
-export const buttonVariants = cva('inline-flex items-center justify-center', {
+export const buttonCVA = cva('inline-flex items-center justify-center', {
   variants: {
     variant: {
       default: 'border',
@@ -176,7 +176,7 @@ export const buttonVariants = cva('inline-flex items-center justify-center', {
   ],
 })
 
-export const togglePressedOn = cva('', {
+export const toggleCVA = cva('', {
   variants: {
     variant: {
       default: '',
@@ -342,4 +342,4 @@ export const togglePressedOn = cva('', {
   ],
 })
 
-export type ButtonVariants = VariantProps<typeof buttonVariants>
+export type ButtonVariants = VariantProps<typeof buttonCVA>

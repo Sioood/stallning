@@ -1,5 +1,5 @@
 import type { InjectionKey, Ref } from 'vue'
-import type { ButtonVariants } from '~ui/app/utils/button-variants'
+import type { ButtonVariants } from '~ui/app/utils/Button/variants'
 
 export type PaginationIntent = NonNullable<
   Exclude<ButtonVariants['intent'], 'info' | 'success' | 'warning' | 'error'>

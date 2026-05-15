@@ -2,9 +2,13 @@
 import { RadioGroup as ArkRadioGroup } from '@ark-ui/vue/radio-group'
 import { cva } from 'class-variance-authority'
 
-import type { FormFieldIntent, FormFieldOrientation, FormFieldSize } from './componentContext'
 import type { ClassValue } from 'vue'
 import type { FieldProps } from '~ui/app/components/Form/Field.vue'
+import type {
+  FormFieldIntent,
+  FormFieldOrientation,
+  FormFieldSize,
+} from '~ui/app/utils/Form/context'
 
 export interface UIRadioGroupSlots {
   root?: ClassValue

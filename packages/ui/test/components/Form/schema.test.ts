@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { layoutRowKeys } from '../../../app/components/Form/schema'
+import { layoutRowKeys } from '~ui/app/utils/Form/schema'
 
 describe('layoutRowKeys', () => {
   it('wraps a single string key', () => {

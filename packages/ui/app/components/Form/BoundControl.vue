@@ -1,8 +1,8 @@
 <script setup lang="ts" generic="TValues extends Record<string, unknown>">
 import { formatFieldErrors } from '~ui/app/utils/form-field-errors'
 
-import type { SchemaFieldConfig } from './schema'
 import type { DeepValue, Updater } from '@tanstack/form-core'
+import type { SchemaFieldConfig } from '~ui/app/utils/Form/schema'
 
 type TFieldName = keyof TValues & string
 

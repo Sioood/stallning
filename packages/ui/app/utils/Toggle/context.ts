@@ -1,5 +1,5 @@
 import type { ClassValue } from 'vue'
-import type { ButtonVariants } from '~ui/app/utils/button-variants'
+import type { ButtonVariants } from '~ui/app/utils/Button/variants'
 
 export type ToggleIntent = NonNullable<ButtonVariants['intent']>
 export type ToggleSize = NonNullable<ButtonVariants['size']>

@@ -5,7 +5,7 @@ import {
 } from '@ark-ui/vue/pagination'
 import { cva } from 'class-variance-authority'
 
-import { paginationChromeKey, type PaginationSize } from './componentContext'
+import { paginationChromeKey, type PaginationSize } from '~ui/app/utils/Pagination/context'
 
 import type { ClassValue } from 'vue'
 

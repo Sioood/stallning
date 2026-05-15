@@ -5,9 +5,15 @@ import {
   type ToggleRootBaseProps as ArkToggleRootBaseProps,
 } from '@ark-ui/vue/toggle'
 
-import type { ToggleIntent, ToggleSize, ToggleVariant, UIToggleSlots } from './componentContext'
+import { buttonCVA, toggleCVA } from '~ui/app/utils/Button/variants'
 
-export type { UIToggleSlots } from './componentContext'
+import type {
+  ToggleIntent,
+  ToggleSize,
+  ToggleVariant,
+  UIToggleSlots,
+} from '~ui/app/utils/Toggle/context'
+export type { UIToggleSlots } from '~ui/app/utils/Toggle/context'
 
 defineOptions({ inheritAttrs: false })
 
@@ -55,15 +61,13 @@ const rootAttrs = computed(() => {
     type="button"
     :class="
       cn(
-        buttonVariants({
+        buttonCVA({
           disabled: props.disabled,
           intent: props.intent,
           size: props.size,
           variant: props.variant,
         }),
-        props.activeBackground
-          ? togglePressedOn({ intent: props.intent, variant: props.variant })
-          : null,
+        props.activeBackground ? toggleCVA({ intent: props.intent, variant: props.variant }) : null,
         props.iconOnly ? 'min-w-0 shrink-0 gap-0 px-1.5 py-1.5' : null,
         props.ui?.root,
       )

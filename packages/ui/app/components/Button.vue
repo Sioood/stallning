@@ -7,7 +7,7 @@ import {
   type UseComponentIconsProps,
   type ComponentState,
 } from '~ui/app/composables/useComponentIcons'
-import { buttonVariants as button } from '~ui/app/utils/button-variants'
+import { buttonCVA as button } from '~ui/app/utils/Button/variants'
 import { cn } from '~ui/app/utils/cn'
 
 import Link from './Link.vue'

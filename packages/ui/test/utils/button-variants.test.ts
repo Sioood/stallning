@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { buttonVariants as button, togglePressedOn } from '../../app/utils/button-variants'
+import { buttonCVA as button, toggleCVA } from '../../app/utils/Button/variants'
 
 describe('buttonVariants', () => {
   it('returns base classes', () => {
@@ -57,15 +57,15 @@ describe('buttonVariants', () => {
   })
 })
 
-describe('togglePressedOn', () => {
+describe('toggleCVA', () => {
   it('applies pressed state classes for default + primary', () => {
-    const result = togglePressedOn({ variant: 'default', intent: 'primary' })
+    const result = toggleCVA({ variant: 'default', intent: 'primary' })
     expect(result).toContain('data-[state=on]:bg-primary-fill-default-active')
     expect(result).toContain('data-[state=on]:border-primary-border-default-active')
   })
 
   it('applies pressed state classes for ghost + success', () => {
-    const result = togglePressedOn({ variant: 'ghost', intent: 'success' })
+    const result = toggleCVA({ variant: 'ghost', intent: 'success' })
     expect(result).toContain('data-[state=on]:bg-success-fill-subtle-active')
   })
 })

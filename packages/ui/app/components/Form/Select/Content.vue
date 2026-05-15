@@ -5,9 +5,18 @@ import {
   type ListCollection,
 } from '@ark-ui/vue/select'
 
-import { selectItemCVA, selectItemGroupLabelCVA, selectIconSizeCVA } from './variants'
+import {
+  selectItemCVA,
+  selectItemGroupLabelCVA,
+  selectIconSizeCVA,
+} from '~ui/app/utils/Form/Select/variants'
 
-import type { SelectIntent, SelectSize, SelectItem, UISelectSlots } from './componentContext'
+import type {
+  SelectIntent,
+  SelectSize,
+  SelectItem,
+  UISelectSlots,
+} from '~ui/app/utils/Form/Select/context'
 
 interface ContentProps extends ArkSelectContentProps {
   collection: ListCollection<SelectItem>

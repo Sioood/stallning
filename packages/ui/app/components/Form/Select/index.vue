@@ -7,16 +7,20 @@ import {
   type UseSelectReturn,
 } from '@ark-ui/vue/select'
 
-import { buttonVariants } from '~ui/app/utils/button-variants'
-
+import { buttonCVA } from '~ui/app/utils/Button/variants'
 import {
   selectContentCVA,
   selectIconSizeCVA,
   selectLabelCVA,
   selectPositionerCVA,
-} from './variants'
+} from '~ui/app/utils/Form/Select/variants'
 
-import type { SelectIntent, SelectSize, SelectItem, UISelectSlots } from './componentContext'
+import type {
+  SelectIntent,
+  SelectSize,
+  SelectItem,
+  UISelectSlots,
+} from '~ui/app/utils/Form/Select/context'
 
 export interface SelectProps
   extends
@@ -166,7 +170,7 @@ const rootProps = computed(() => {
       <ArkSelect.Trigger
         :class="
           cn(
-            buttonVariants({
+            buttonCVA({
               variant: 'subtle',
               intent,
               size,

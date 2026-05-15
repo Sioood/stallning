@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import type { PaginationIntent, PaginationSize, PaginationVariant } from './componentContext'
 import type {
   PaginationRootBaseProps,
   PaginationRootProviderBaseProps,
   UsePaginationReturn,
 } from '@ark-ui/vue/pagination'
 import type { ClassValue } from 'vue'
+import type {
+  PaginationIntent,
+  PaginationSize,
+  PaginationVariant,
+} from '~ui/app/utils/Pagination/context'
 
 defineOptions({ inheritAttrs: false })
 

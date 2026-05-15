@@ -1,11 +1,11 @@
 <script setup lang="ts" generic="TValues extends Record<string, unknown>">
+import { useSchemaForm, type SchemaFormValidationMode } from '~ui/app/composables/useSchemaForm'
 import {
   layoutRowKeys,
   type SchemaFieldConfig,
   type SchemaFieldsMap,
   type SchemaFormLayout,
-} from '~ui/app/components/Form/schema'
-import { useSchemaForm, type SchemaFormValidationMode } from '~ui/app/composables/useSchemaForm'
+} from '~ui/app/utils/Form/schema'
 import { formatFieldErrors } from '~ui/app/utils/form-field-errors'
 
 import type { z } from 'zod'

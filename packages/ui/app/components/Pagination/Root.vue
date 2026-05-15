@@ -12,7 +12,7 @@ import {
   type PaginationIntent,
   type PaginationSize,
   type PaginationVariant,
-} from './componentContext'
+} from '~ui/app/utils/Pagination/context'
 
 import type { ClassValue } from 'vue'
 

@@ -4,7 +4,11 @@ import {
   type PaginationLastTriggerBaseProps,
 } from '@ark-ui/vue/pagination'
 
-import { paginationChromeKey, type PaginationIntent, type PaginationSize } from './componentContext'
+import {
+  paginationChromeKey,
+  type PaginationIntent,
+  type PaginationSize,
+} from '~ui/app/utils/Pagination/context'
 
 import type { ClassValue } from 'vue'
 

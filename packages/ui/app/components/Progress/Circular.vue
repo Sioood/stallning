@@ -7,8 +7,8 @@ import {
 } from '@ark-ui/vue/progress'
 import { cva } from 'class-variance-authority'
 
-import type { ProgressCircularSize, ProgressIntent } from './componentContext'
 import type { ClassValue } from 'vue'
+import type { ProgressCircularSize, ProgressIntent } from '~ui/app/utils/Progress/context'
 
 const progressCircleRootCVA = cva('', {
   variants: {

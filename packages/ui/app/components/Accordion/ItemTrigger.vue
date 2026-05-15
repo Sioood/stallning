@@ -4,8 +4,12 @@ import {
   type AccordionItemTriggerBaseProps,
 } from '@ark-ui/vue/accordion'
 
-import { accordionChromeKey, type AccordionIntent, type AccordionSize } from './componentContext'
-import { accordionItemTriggerCVA } from './variants'
+import {
+  accordionChromeKey,
+  type AccordionIntent,
+  type AccordionSize,
+} from '~ui/app/utils/Accordion/context'
+import { accordionItemTriggerCVA } from '~ui/app/utils/Accordion/variants'
 
 import type { ClassValue } from 'vue'
 

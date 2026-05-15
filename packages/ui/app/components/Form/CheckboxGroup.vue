@@ -2,10 +2,10 @@
 import { Checkbox as ArkCheckbox } from '@ark-ui/vue/checkbox'
 import { cva } from 'class-variance-authority'
 
-import type { FormFieldOrientation, UIFieldSlots } from './componentContext'
 import type { FieldProps } from '~ui/app/components/Form/Field.vue'
+import type { FormFieldOrientation, UIFieldSlots } from '~ui/app/utils/Form/context'
 
-export type { UICheckboxGroupSlots } from './componentContext'
+export type { UICheckboxGroupSlots } from '~ui/app/utils/Form/context'
 
 defineOptions({ inheritAttrs: false })
 

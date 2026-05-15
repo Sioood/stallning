@@ -10,11 +10,11 @@ import {
   type UseComponentIconsProps,
 } from '~ui/app/composables/useComponentIcons'
 
-import type { FormFieldIntent, FormFieldSize, UIInputSlots } from './componentContext'
 import type { ComponentPublicInstance } from 'vue'
 import type { FieldProps } from '~ui/app/components/Form/Field.vue'
+import type { FormFieldIntent, FormFieldSize, UIInputSlots } from '~ui/app/utils/Form/context'
 
-export type { UIInputSlots } from './componentContext'
+export type { UIInputSlots } from '~ui/app/utils/Form/context'
 
 /** Public API for imperative focus (e.g. dialog `initialFocusEl`). */
 export interface UIFormInputExpose {

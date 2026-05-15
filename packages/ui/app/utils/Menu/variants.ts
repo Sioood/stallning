@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority'
 
-import type { MenuIntent, MenuSize } from './componentContext'
+import type { MenuIntent, MenuSize } from './context'
 
 export const menuIndicatorCVA = cva('inline-flex items-center')
 export const menuPositionerCVA = cva('origin-(--transform-origin) [--z-index:9999]')

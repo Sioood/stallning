@@ -2,8 +2,8 @@
 import { Menu as ArkMenu } from '@ark-ui/vue/menu'
 import { cva } from 'class-variance-authority'
 
-import type { MenuIntent } from './componentContext'
 import type { ClassValue } from 'vue'
+import type { MenuIntent } from '~ui/app/utils/Menu/context'
 
 const menuItemCVA = cva(
   'flex cursor-pointer items-center gap-2 outline-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-70',

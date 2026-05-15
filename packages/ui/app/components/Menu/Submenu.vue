@@ -2,9 +2,9 @@
 import { Menu as ArkMenu } from '@ark-ui/vue/menu'
 import { cva } from 'class-variance-authority'
 
-import type { MenuIntent } from './componentContext'
 import type { MenuListEntry } from './index.vue'
 import type { ClassValue } from 'vue'
+import type { MenuIntent } from '~ui/app/utils/Menu/context'
 
 const menuSubmenuTriggerCVA = cva(
   'flex cursor-pointer items-center justify-between gap-2 outline-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-70',

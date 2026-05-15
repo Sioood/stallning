@@ -164,7 +164,7 @@ describe('UIPagination (assembled)', () => {
       }),
     )
 
-    const ellipsisElements = wrapper.findAll('.paginationEllipsis')
+    const ellipsisElements = wrapper.findAll('[data-part="ellipsis"]')
     expect(ellipsisElements.length).toBeGreaterThan(0)
   })
 
@@ -323,7 +323,7 @@ describe('UIPaginationRoot (manual composition)', () => {
 
     const wrapper = await mountSuspended(Provider)
 
-    expect(wrapper.find('.paginationRoot').exists()).toBe(true)
+    expect(wrapper.find('[data-part="root"]').exists()).toBe(true)
     const buttons = wrapper.findAll('button')
     expect(buttons.length).toBeGreaterThan(2)
   })

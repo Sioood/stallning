@@ -9,14 +9,14 @@ import {
   selectItemCVA,
   selectItemGroupLabelCVA,
   selectIconSizeCVA,
-} from '~ui/app/utils/Form/Select/variants'
+} from '~/utils/Components/Form/Select/variants'
 
 import type {
   SelectIntent,
   SelectSize,
   SelectItem,
   UISelectSlots,
-} from '~ui/app/utils/Form/Select/context'
+} from '~/utils/Components/Form/Select/context'
 
 interface ContentProps extends ArkSelectContentProps {
   collection: ListCollection<SelectItem>

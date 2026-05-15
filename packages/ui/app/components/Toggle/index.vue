@@ -5,15 +5,15 @@ import {
   type ToggleRootBaseProps as ArkToggleRootBaseProps,
 } from '@ark-ui/vue/toggle'
 
-import { buttonCVA, toggleCVA } from '~ui/app/utils/Button/variants'
+import { buttonCVA, toggleCVA } from '~/utils/Components/Button/variants'
 
 import type {
   ToggleIntent,
   ToggleSize,
   ToggleVariant,
   UIToggleSlots,
-} from '~ui/app/utils/Toggle/context'
-export type { UIToggleSlots } from '~ui/app/utils/Toggle/context'
+} from '~/utils/Components/Toggle/context'
+export type { UIToggleSlots } from '~/utils/Components/Toggle/context'
 
 defineOptions({ inheritAttrs: false })
 

@@ -6,19 +6,19 @@ import {
   type UseMenuReturn,
 } from '@ark-ui/vue/menu'
 
-import { buttonCVA } from '~ui/app/utils/Button/variants'
+import { buttonCVA } from '~/utils/Components/Button/variants'
 import {
   menuArrowCVA,
   menuArrowTipCVA,
   menuContentCVA,
   menuIndicatorCVA,
   menuPositionerCVA,
-} from '~ui/app/utils/Menu/variants'
+} from '~/utils/Components/Menu/variants'
 
 import type { ClassValue } from 'vue'
-import type { MenuIntent, MenuSize, UIMenuSlots } from '~ui/app/utils/Menu/context'
+import type { MenuIntent, MenuSize, UIMenuSlots } from '~/utils/Components/Menu/context'
 
-export type { MenuIntent, MenuSize, UIMenuSlots } from '~ui/app/utils/Menu/context'
+export type { MenuIntent, MenuSize, UIMenuSlots } from '~/utils/Components/Menu/context'
 
 type MenuTriggerValueSource = { triggerValue?: string | null }
 

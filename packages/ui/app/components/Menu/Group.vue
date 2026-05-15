@@ -8,7 +8,7 @@ import type { MenuItemProps } from './Item.vue'
 import type { MenuRadioGroupProps } from './RadioGroup.vue'
 import type { MenuSubmenuProps } from './Submenu.vue'
 import type { ClassValue } from 'vue'
-import type { MenuIntent } from '~ui/app/utils/Menu/context'
+import type { MenuIntent } from '~/utils/Components/Menu/context'
 
 const menuItemGroupLabelCVA = cva('', {
   variants: {

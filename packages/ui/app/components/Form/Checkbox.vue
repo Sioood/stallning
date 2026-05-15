@@ -7,10 +7,14 @@ import {
 import { createReusableTemplate } from '@vueuse/core'
 import { cva, type VariantProps } from 'class-variance-authority'
 
+import type {
+  FormFieldIntent,
+  FormFieldSize,
+  UICheckboxSlots,
+} from '~/utils/Components/Form/context'
 import type { FieldProps } from '~ui/app/components/Form/Field.vue'
-import type { FormFieldIntent, FormFieldSize, UICheckboxSlots } from '~ui/app/utils/Form/context'
 
-export type { UICheckboxSlots } from '~ui/app/utils/Form/context'
+export type { UICheckboxSlots } from '~/utils/Components/Form/context'
 
 const checkboxRootCVA = cva('group inline-flex items-center gap-2', {
   variants: {

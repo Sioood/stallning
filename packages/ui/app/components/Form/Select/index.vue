@@ -7,20 +7,20 @@ import {
   type UseSelectReturn,
 } from '@ark-ui/vue/select'
 
-import { buttonCVA } from '~ui/app/utils/Button/variants'
+import { buttonCVA } from '~/utils/Components/Button/variants'
 import {
   selectContentCVA,
   selectIconSizeCVA,
   selectLabelCVA,
   selectPositionerCVA,
-} from '~ui/app/utils/Form/Select/variants'
+} from '~/utils/Components/Form/Select/variants'
 
 import type {
   SelectIntent,
   SelectSize,
   SelectItem,
   UISelectSlots,
-} from '~ui/app/utils/Form/Select/context'
+} from '~/utils/Components/Form/Select/context'
 
 export interface SelectProps
   extends

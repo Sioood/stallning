@@ -2,12 +2,12 @@
 import { cva, type VariantProps } from 'class-variance-authority'
 import { mergeProps, type ClassValue, type ComponentPublicInstance } from 'vue'
 
+import { buttonCVA as button } from '~/utils/Components/Button/variants'
 import {
   useComponentIcons,
   type UseComponentIconsProps,
   type ComponentState,
 } from '~ui/app/composables/useComponentIcons'
-import { buttonCVA as button } from '~ui/app/utils/Button/variants'
 import { cn } from '~ui/app/utils/cn'
 
 import Link from './Link.vue'

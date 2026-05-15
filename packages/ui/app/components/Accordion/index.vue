@@ -10,8 +10,8 @@ import {
   accordionChromeKey,
   type AccordionIntent,
   type AccordionSize,
-} from '~ui/app/utils/Accordion/context'
-import { accordionRootCVA } from '~ui/app/utils/Accordion/variants'
+} from '~/utils/Components/Accordion/context'
+import { accordionRootCVA } from '~/utils/Components/Accordion/variants'
 
 import type { ClassValue } from 'vue'
 

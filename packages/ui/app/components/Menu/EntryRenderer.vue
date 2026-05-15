@@ -8,7 +8,7 @@ import type { MenuItemProps } from '@/components/Menu/Item.vue'
 import type { MenuRadioGroupProps } from '@/components/Menu/RadioGroup.vue'
 import type { MenuSubmenuProps } from '@/components/Menu/Submenu.vue'
 import type { ClassValue } from 'vue'
-import type { MenuIntent } from '~ui/app/utils/Menu/context'
+import type { MenuIntent } from '~/utils/Components/Menu/context'
 
 const menuSeparatorCVA = cva('block w-full', {
   variants: {

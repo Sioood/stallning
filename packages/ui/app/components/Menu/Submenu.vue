@@ -4,7 +4,7 @@ import { cva } from 'class-variance-authority'
 
 import type { MenuListEntry } from './index.vue'
 import type { ClassValue } from 'vue'
-import type { MenuIntent } from '~ui/app/utils/Menu/context'
+import type { MenuIntent } from '~/utils/Components/Menu/context'
 
 const menuSubmenuTriggerCVA = cva(
   'flex cursor-pointer items-center justify-between gap-2 outline-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-70',

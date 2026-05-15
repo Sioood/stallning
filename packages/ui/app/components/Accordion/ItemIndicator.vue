@@ -8,8 +8,8 @@ import {
   accordionChromeKey,
   type AccordionIntent,
   type AccordionSize,
-} from '~ui/app/utils/Accordion/context'
-import { accordionItemIndicatorCVA } from '~ui/app/utils/Accordion/variants'
+} from '~/utils/Components/Accordion/context'
+import { accordionItemIndicatorCVA } from '~/utils/Components/Accordion/variants'
 
 import type { ClassValue } from 'vue'
 

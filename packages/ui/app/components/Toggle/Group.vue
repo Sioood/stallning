@@ -13,9 +13,9 @@ import type {
   ToggleSize,
   ToggleVariant,
   UIToggleGroupSlots,
-} from '~ui/app/utils/Toggle/context'
+} from '~/utils/Components/Toggle/context'
 
-export type { UIToggleGroupSlots } from '~ui/app/utils/Toggle/context'
+export type { UIToggleGroupSlots } from '~/utils/Components/Toggle/context'
 
 const groupRootCVA = cva('join', {
   variants: {

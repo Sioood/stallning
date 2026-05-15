@@ -8,7 +8,7 @@ import {
 import { cva } from 'class-variance-authority'
 
 import type { ClassValue } from 'vue'
-import type { ProgressIntent, ProgressSize } from '~ui/app/utils/Progress/context'
+import type { ProgressIntent, ProgressSize } from '~/utils/Components/Progress/context'
 
 const progressRootCVA = cva('', {
   variants: {

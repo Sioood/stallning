@@ -9,7 +9,7 @@ import type {
   PaginationIntent,
   PaginationSize,
   PaginationVariant,
-} from '~ui/app/utils/Pagination/context'
+} from '~/utils/Components/Pagination/context'
 
 defineOptions({ inheritAttrs: false })
 

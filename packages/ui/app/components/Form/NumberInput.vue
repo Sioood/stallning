@@ -6,11 +6,11 @@ import {
   type UseNumberInputReturn,
 } from '@ark-ui/vue/number-input'
 
+import { controlShellCVA, fieldInputCVA } from '~/utils/Components/Form/variants'
 import { type UseComponentIconsProps } from '~ui/app/composables/useComponentIcons'
-import { controlShellCVA, fieldInputCVA } from '~ui/app/utils/Form/variants'
 
+import type { UINumberInputSlots } from '~/utils/Components/Form/context'
 import type { FormControlShellProps } from '~ui/app/components/Form/FormControlShell.vue'
-import type { UINumberInputSlots } from '~ui/app/utils/Form/context'
 
 export interface UIFormNumberInputExpose {
   getControlElement: () => HTMLInputElement | null

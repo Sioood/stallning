@@ -4,12 +4,12 @@ import {
   type FieldInputBaseProps as ArkFieldInputBaseProps,
 } from '@ark-ui/vue/field'
 
-import { fieldInputCVA } from '~ui/app/utils/Form/variants'
+import { fieldInputCVA } from '~/utils/Components/Form/variants'
 
+import type { UIInputSlots } from '~/utils/Components/Form/context'
 import type { FormControlShellProps } from '~ui/app/components/Form/FormControlShell.vue'
-import type { UIInputSlots } from '~ui/app/utils/Form/context'
 
-export type { UIInputSlots } from '~ui/app/utils/Form/context'
+export type { UIInputSlots } from '~/utils/Components/Form/context'
 
 /** Public API for imperative focus (e.g. dialog `initialFocusEl`). */
 export interface UIFormInputExpose {

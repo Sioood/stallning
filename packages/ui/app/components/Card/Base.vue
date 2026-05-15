@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import { cva, type VariantProps } from 'class-variance-authority'
 
-import type { CardIntent, CardSize, CardVariant, UICardSlots } from '~ui/app/utils/Card/context'
-export type { UICardSlots } from '~ui/app/utils/Card/context'
+import type {
+  CardIntent,
+  CardSize,
+  CardVariant,
+  UICardSlots,
+} from '~/utils/Components/Card/context'
+export type { UICardSlots } from '~/utils/Components/Card/context'
 
 const cardCVA = cva('', {
   variants: {

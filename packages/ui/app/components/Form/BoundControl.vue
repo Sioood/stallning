@@ -2,7 +2,7 @@
 import { formatFieldErrors } from '~ui/app/utils/form-field-errors'
 
 import type { DeepValue, Updater } from '@tanstack/form-core'
-import type { SchemaFieldConfig } from '~ui/app/utils/Form/schema'
+import type { SchemaFieldConfig } from '~/utils/Components/Form/schema'
 
 type TFieldName = keyof TValues & string
 

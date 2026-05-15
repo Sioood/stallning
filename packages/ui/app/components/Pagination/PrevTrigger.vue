@@ -8,7 +8,7 @@ import {
   paginationChromeKey,
   type PaginationIntent,
   type PaginationSize,
-} from '~ui/app/utils/Pagination/context'
+} from '~/utils/Components/Pagination/context'
 
 import type { ClassValue } from 'vue'
 

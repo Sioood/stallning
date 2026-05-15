@@ -1,12 +1,12 @@
 <script setup lang="ts">
+import { controlShellCVA } from '~/utils/Components/Form/variants'
 import {
   useComponentIcons,
   type UseComponentIconsProps,
 } from '~ui/app/composables/useComponentIcons'
-import { controlShellCVA } from '~ui/app/utils/Form/variants'
 
+import type { FormFieldIntent, FormFieldSize, UIInputSlots } from '~/utils/Components/Form/context'
 import type { FieldProps } from '~ui/app/components/Form/Field.vue'
-import type { FormFieldIntent, FormFieldSize, UIInputSlots } from '~ui/app/utils/Form/context'
 
 defineOptions({ inheritAttrs: false })
 

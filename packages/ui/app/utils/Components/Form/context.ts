@@ -67,3 +67,9 @@ export interface UITextareaSlots extends UIFieldSlots {
   leadingIcon?: ClassValue
   trailingIcon?: ClassValue
 }
+
+export interface UIPinInputSlots extends UIFieldSlots {
+  control?: ClassValue
+  input?: ClassValue
+  hiddenInput?: ClassValue
+}

@@ -4,6 +4,7 @@ import { z } from 'zod'
 import UIFormCheckbox from '~ui/app/components/Form/Checkbox.vue'
 import UIFormInput from '~ui/app/components/Form/Input.vue'
 import UIFormNumberInput from '~ui/app/components/Form/NumberInput.vue'
+import UIFormPinInput from '~ui/app/components/Form/PinInput.vue'
 import UIFormRadioGroup from '~ui/app/components/Form/RadioGroup.vue'
 import UIFormSlider from '~ui/app/components/Form/Slider/index.vue'
 import UIFormTextarea from '~ui/app/components/Form/Textarea.vue'
@@ -21,6 +22,7 @@ const schema = z.object({
   email: z.string().trim().optional(),
   bio: z.string().trim().optional(),
   age: z.string().trim().min(1).optional(),
+  code: z.string().trim().min(1).optional(),
   checkbox: z.union([z.literal(true), z.literal(false), z.literal('indeterminate')]),
   switch: z.boolean(),
   framework: z.string().nullable().optional(),
@@ -35,6 +37,7 @@ const defaultValues: FormValues = {
   email: '',
   bio: '',
   age: '18',
+  code: '',
   checkbox: false,
   switch: false,
   framework: null,
@@ -90,6 +93,14 @@ const fields: SchemaFieldsMap<FormValues> = {
       step: 1,
     },
   },
+  code: {
+    as: UIFormPinInput,
+    props: {
+      label: 'Verification code',
+      helperText: 'Enter the 5-digit code',
+      count: 5,
+    },
+  },
   checkbox: {
     as: UIFormCheckbox,
     props: {
@@ -134,6 +145,7 @@ const layout: SchemaFormLayout<keyof FormValues & string>[] = [
   'email',
   'age',
   'bio',
+  'code',
   'checkbox',
   'switch',
   'framework',

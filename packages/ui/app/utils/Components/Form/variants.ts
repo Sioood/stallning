@@ -82,31 +82,112 @@ export const controlShellCVA = cva(
 )
 
 /**
- * Shared styles for input and textarea elements.
- * Removes native borders/outline since they're handled by the shell.
+ * Pin slot geometry — fixed square, centered monospace text.
+ * Borders/intent colors come from `fieldInputCVA` applied alongside.
  */
-export const fieldInputCVA = cva(
-  'txt-base min-w-0 flex-1 border-0 outline-none read-only:cursor-default',
+export const pinSlotCVA = cva(
+  'flex flex-none items-center justify-center text-center font-mono leading-none transition-[box-shadow,border-color]',
   {
     variants: {
       size: {
-        sm: 'px-1.5 py-0.5',
-        md: 'px-2 py-1',
-        lg: 'px-3 py-1.5',
+        sm: 'txt-label size-8',
+        md: 'txt-base size-10',
+        lg: 'txt-h5 size-12',
       } satisfies Record<FormFieldSize, string>,
-      intent: {
-        neutral:
-          'text-neutral-text-default placeholder:text-neutral-text-subtle disabled:text-neutral-text-default-disabled',
-        primary:
-          'text-primary-text-default placeholder:text-primary-text-subtle disabled:text-primary-text-default-disabled',
-        secondary:
-          'text-secondary-text-default placeholder:text-secondary-text-subtle disabled:text-secondary-text-default-disabled',
-        accent:
-          'text-accent-text-default placeholder:text-accent-text-subtle disabled:text-accent-text-default-disabled',
-      } satisfies Record<FormFieldIntent, string>,
-      disabled: {
-        true: 'disabled:cursor-not-allowed',
+      invalid: {
+        true: 'border-error-border-default! focus:border-error-border-strong! focus:outline-error-border-default!',
       },
     },
   },
 )
+
+/**
+ * Shared styles for input and textarea elements.
+ * Text colors, placeholder, and disabled states follow intent.
+ * When `standalone: true`, the element renders its own border/focus ring
+ * (used by PinInput slots). When `false` (default), borders are handled
+ * by a parent `controlShellCVA` wrapper.
+ */
+export const fieldInputCVA = cva('txt-base min-w-0 flex-1 outline-none read-only:cursor-default', {
+  variants: {
+    size: {
+      sm: 'px-1.5 py-0.5',
+      md: 'px-2 py-1',
+      lg: 'px-3 py-1.5',
+    } satisfies Record<FormFieldSize, string>,
+    intent: {
+      neutral:
+        'text-neutral-text-default placeholder:text-neutral-text-subtle disabled:text-neutral-text-default-disabled',
+      primary:
+        'text-primary-text-default placeholder:text-primary-text-subtle disabled:text-primary-text-default-disabled',
+      secondary:
+        'text-secondary-text-default placeholder:text-secondary-text-subtle disabled:text-secondary-text-default-disabled',
+      accent:
+        'text-accent-text-default placeholder:text-accent-text-subtle disabled:text-accent-text-default-disabled',
+    } satisfies Record<FormFieldIntent, string>,
+    disabled: {
+      true: 'disabled:cursor-not-allowed',
+    },
+    standalone: {
+      true: 'border',
+      false: 'border-0',
+    },
+  },
+  compoundVariants: [
+    {
+      standalone: true,
+      intent: 'neutral',
+      disabled: false,
+      class:
+        'border-neutral-border-default bg-neutral-fill-subtle focus:border-neutral-border-strong focus:outline-neutral-border-default',
+    },
+    {
+      standalone: true,
+      intent: 'neutral',
+      disabled: true,
+      class: 'border-neutral-border-default-disabled bg-neutral-fill-subtle-disabled',
+    },
+    {
+      standalone: true,
+      intent: 'primary',
+      disabled: false,
+      class:
+        'border-primary-border-default bg-primary-fill-subtle focus:border-primary-border-strong focus:outline-primary-border-default',
+    },
+    {
+      standalone: true,
+      intent: 'primary',
+      disabled: true,
+      class: 'border-primary-border-default-disabled bg-primary-fill-subtle-disabled',
+    },
+    {
+      standalone: true,
+      intent: 'secondary',
+      disabled: false,
+      class:
+        'border-secondary-border-default bg-secondary-fill-subtle focus:border-secondary-border-strong focus:outline-secondary-border-default',
+    },
+    {
+      standalone: true,
+      intent: 'secondary',
+      disabled: true,
+      class: 'border-secondary-border-default-disabled bg-secondary-fill-subtle-disabled',
+    },
+    {
+      standalone: true,
+      intent: 'accent',
+      disabled: false,
+      class:
+        'border-accent-border-default bg-accent-fill-subtle focus:border-accent-border-strong focus:outline-accent-border-default',
+    },
+    {
+      standalone: true,
+      intent: 'accent',
+      disabled: true,
+      class: 'border-accent-border-default-disabled bg-accent-fill-subtle-disabled',
+    },
+  ],
+  defaultVariants: {
+    standalone: false,
+  },
+})

@@ -2063,10 +2063,18 @@ body {
   @apply overscroll-y-none;
 }
 
-*:focus-visible {
-  @apply outline-1!;
-  @apply outline-primary-border-strong!;
-  @apply outline-offset-1!;
+@utility focus-ring {
+  @apply ring ring-primary-border-strong ring-offset-1 ring-offset-primary-bg-default outline-none transition-[box-shadow,border-color] duration-100 ease-in-out;
+}
+
+*:focus-visible:not(input, textarea, select) {
+  @apply focus-ring!;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  @apply outline-none!;
 }
 
 .join {

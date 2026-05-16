@@ -112,7 +112,8 @@ Conventional commits enforced by commitlint:
 
 Detailed implementation guides for common workflows:
 
-- [Component Development](docs/ai/component-development.md) — creating UI components (Ark UI + CVA + design system)
+- [Component Development](docs/ai/component-development.md) — plain Vue + CVA components (no Ark UI)
+- [Ark UI Components](docs/ai/ark-ui-components.md) — interactive components built on Ark UI (Root/RootProvider pattern, controlled state, attr forwarding, pitfalls)
 - [Testing](docs/ai/testing.md) — unit, component, visual regression, and mutation testing
 
 ## Common Pitfalls

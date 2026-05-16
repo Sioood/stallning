@@ -2063,6 +2063,60 @@ body {
   @apply overscroll-y-none;
 }
 
+/* ─── Drawer keyframes ──────────────────────────────────────────────────── */
+/*
+ * Two separate keyframe sets on two separate elements:
+ *
+ * 1. CLOSE  (ui-drawer-slide-out-*)   → applied to ArkDrawer.Content (outer).
+ *    Uses `transform` with CSS variables in `from` so the animation always
+ *    starts from the actual current snap-point or drag offset. CSS Animations
+ *    override Ark's inline `transform` (cascade: Animations > Author normal),
+ *    and `animation-fill-mode: forwards` keeps the element off-screen even
+ *    after Ark's `clearResolvedActiveSnapPoint` resets the variables.
+ *
+ * 2. OPEN   (ui-drawer-body-slide-in-*)  → applied to the inner body div.
+ *    Uses the CSS `translate` property (CSS Transforms Level 2), which is
+ *    completely separate from `transform`. This avoids any conflict with
+ *    Ark's inline `transform` and the outer's `transition: transform` used
+ *    for snap-to-snap movements.
+ */
+
+/* Close — outer ArkDrawer.Content — `transform` with CSS-variable `from` */
+@keyframes ui-drawer-slide-out-down {
+  from { transform: translate3d(var(--drawer-translate-x, 0px), var(--drawer-translate-y, 0px), 0); }
+  to   { transform: translate3d(0, 100%, 0); }
+}
+@keyframes ui-drawer-slide-out-up {
+  from { transform: translate3d(var(--drawer-translate-x, 0px), var(--drawer-translate-y, 0px), 0); }
+  to   { transform: translate3d(0, -100%, 0); }
+}
+@keyframes ui-drawer-slide-out-start {
+  from { transform: translate3d(var(--drawer-translate-x, 0px), var(--drawer-translate-y, 0px), 0); }
+  to   { transform: translate3d(-100%, 0, 0); }
+}
+@keyframes ui-drawer-slide-out-end {
+  from { transform: translate3d(var(--drawer-translate-x, 0px), var(--drawer-translate-y, 0px), 0); }
+  to   { transform: translate3d(100%, 0, 0); }
+}
+
+/* Open — inner body div — `translate` property, independent of `transform` */
+@keyframes ui-drawer-body-slide-in-down {
+  from { translate: 0 100svh; }
+  to   { translate: 0 0; }
+}
+@keyframes ui-drawer-body-slide-in-up {
+  from { translate: 0 -100svh; }
+  to   { translate: 0 0; }
+}
+@keyframes ui-drawer-body-slide-in-start {
+  from { translate: -100vw 0; }
+  to   { translate: 0 0; }
+}
+@keyframes ui-drawer-body-slide-in-end {
+  from { translate: 100vw 0; }
+  to   { translate: 0 0; }
+}
+
 @utility focus-ring {
   @apply ring ring-primary-border-strong ring-offset-1 ring-offset-primary-bg-default transition-[box-shadow,border-color] duration-100 ease-in-out outline-none;
 }

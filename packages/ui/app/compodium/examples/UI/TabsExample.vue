@@ -73,7 +73,7 @@ function onValueChange(d: TabsValueChangeDetails) {
           <UITabs
             :options
             :size
-            variant="subtle"
+            variant="pill"
             :model-value="options[0]?.value"
             :ui="{ root: 'w-full', list: 'w-full' }"
           />
@@ -105,16 +105,11 @@ function onValueChange(d: TabsValueChangeDetails) {
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div class="flex flex-col gap-2">
           <p class="text-sm font-medium text-neutral-text-subtle">Horizontal subtle</p>
-          <UITabs v-model="selected" :options variant="subtle" />
+          <UITabs v-model="selected" :options variant="line" />
         </div>
         <div class="flex flex-col gap-2">
           <p class="text-sm font-medium text-neutral-text-subtle">Vertical subtle</p>
-          <UITabs
-            :options
-            :model-value="options[0]?.value"
-            variant="subtle"
-            orientation="vertical"
-          />
+          <UITabs :options :model-value="options[0]?.value" variant="line" orientation="vertical" />
         </div>
       </div>
     </section>
@@ -127,7 +122,7 @@ function onValueChange(d: TabsValueChangeDetails) {
       </p>
       <UITabs
         v-model="selected"
-        variant="subtle"
+        variant="line"
         :options="[
           { value: 'overview', label: 'Overview' },
           { value: 'analytics', label: 'Analytics' },

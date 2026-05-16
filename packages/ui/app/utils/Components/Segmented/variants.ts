@@ -203,33 +203,9 @@ export const segmentedIndicatorCVA = cva(
     },
     compoundVariants: [
       {
-        variant: 'pill',
+        variant: 'line',
         orientation: 'horizontal',
         class: 'translate-y-[1px] border-b-2',
-      },
-      {
-        variant: 'pill',
-        orientation: 'horizontal',
-        intent: 'neutral',
-        class: 'border-neutral-fill-default',
-      },
-      {
-        variant: 'pill',
-        orientation: 'horizontal',
-        intent: 'primary',
-        class: 'border-primary-fill-default',
-      },
-      {
-        variant: 'line',
-        orientation: 'horizontal',
-        intent: 'secondary',
-        class: 'border-secondary-fill-default',
-      },
-      {
-        variant: 'line',
-        orientation: 'horizontal',
-        intent: 'accent',
-        class: 'border-accent-fill-default',
       },
       {
         variant: 'line',
@@ -238,25 +214,21 @@ export const segmentedIndicatorCVA = cva(
       },
       {
         variant: 'line',
-        orientation: 'vertical',
         intent: 'neutral',
         class: 'border-neutral-fill-default',
       },
       {
         variant: 'line',
-        orientation: 'vertical',
         intent: 'primary',
         class: 'border-primary-fill-default',
       },
       {
         variant: 'line',
-        orientation: 'vertical',
         intent: 'secondary',
         class: 'border-secondary-fill-default',
       },
       {
         variant: 'line',
-        orientation: 'vertical',
         intent: 'accent',
         class: 'border-accent-fill-default',
       },

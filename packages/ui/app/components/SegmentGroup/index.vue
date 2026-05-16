@@ -148,6 +148,7 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
         </UISegmentGroupItemText>
         <UISegmentGroupItemControl :ui="{ root: ui?.itemControl }" />
       </UISegmentGroupItem>
+      <UISegmentGroupIndicator />
     </template>
   </component>
 </template>

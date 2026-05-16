@@ -70,7 +70,7 @@ function onValueChange(d: SegmentGroupValueChangeDetails) {
           <UISegmentGroup
             :options
             :size
-            variant="subtle"
+            variant="pill"
             :model-value="options[0]?.value"
             :ui="{ root: 'w-full' }"
           />
@@ -93,23 +93,23 @@ function onValueChange(d: SegmentGroupValueChangeDetails) {
       </div>
     </section>
 
-    <!-- Subtle Variant -->
+    <!-- Pill Variant -->
     <section class="flex flex-col gap-4">
-      <h2 class="text-xl font-bold">Subtle Variant</h2>
+      <h2 class="text-xl font-bold">Pill Variant</h2>
       <p class="text-sm text-neutral-text-subtle">
-        Underline-style segment group without container background.
+        Pill-style segment group without container background.
       </p>
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div class="flex flex-col gap-2">
-          <p class="text-sm font-medium text-neutral-text-subtle">Horizontal subtle</p>
-          <UISegmentGroup v-model="selected" :options variant="subtle" />
+          <p class="text-sm font-medium text-neutral-text-subtle">Horizontal pill</p>
+          <UISegmentGroup v-model="selected" :options variant="pill" />
         </div>
         <div class="flex flex-col gap-2">
-          <p class="text-sm font-medium text-neutral-text-subtle">Vertical subtle</p>
+          <p class="text-sm font-medium text-neutral-text-subtle">Vertical pill</p>
           <UISegmentGroup
             :options
             :model-value="options[0]?.value"
-            variant="subtle"
+            variant="pill"
             orientation="vertical"
           />
         </div>

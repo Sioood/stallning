@@ -111,7 +111,12 @@ const rootBindings = computed(() => {
     ),
   }
 
-  if (!isProvider.value) base.defaultValue = modelValue.value
+  if (!isProvider.value) {
+    base.modelValue = modelValue.value
+    base['onUpdate:modelValue'] = (next: string) => {
+      modelValue.value = next
+    }
+  }
 
   return base
 })
@@ -135,21 +140,19 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
 
 <template>
   <component :is="rootComponent" v-bind="rootBindings">
-    <template v-if="resolvedOptions.length > 0">
-      <UISegmentGroupItem
-        v-for="option in resolvedOptions"
-        :key="option.value"
-        :value="option.value"
-        :disabled="props.disabled || option.disabled"
-        :ui="{ root: ui?.item }"
-      >
-        <UISegmentGroupItemText :ui="{ root: ui?.itemText }">
-          {{ option.label ?? option.value }}
-        </UISegmentGroupItemText>
-        <UISegmentGroupItemControl :ui="{ root: ui?.itemControl }" />
-      </UISegmentGroupItem>
-      <UISegmentGroupIndicator />
-    </template>
+    <UISegmentGroupItem
+      v-for="option in resolvedOptions"
+      :key="option.value"
+      :value="option.value"
+      :disabled="props.disabled || option.disabled"
+      :ui="{ root: ui?.item }"
+    >
+      <UISegmentGroupItemText :ui="{ root: ui?.itemText }">
+        {{ option.label ?? option.value }}
+      </UISegmentGroupItemText>
+      <UISegmentGroupItemControl :ui="{ root: ui?.itemControl }" />
+    </UISegmentGroupItem>
+    <UISegmentGroupIndicator />
   </component>
 </template>
 

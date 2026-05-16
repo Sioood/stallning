@@ -155,6 +155,21 @@ const fieldProps = computed(() => ({
 
 const rootAttrs = computed(() => splitArkAttrs(attrs))
 
+const rootBindings = computed(() => {
+  const base: Record<string, unknown> = {
+    ...rootProps.value,
+    ...rootAttrs.value,
+    class: cn('inline-flex items-center gap-2', props.ui?.root),
+  }
+  if (!isProvider.value) {
+    base.checked = modelValue.value
+    base['onUpdate:checked'] = (next: boolean) => {
+      modelValue.value = next
+    }
+  }
+  return base
+})
+
 extendCompodiumMeta<typeof props>({
   defaultProps: {
     intent: 'primary',
@@ -166,12 +181,7 @@ extendCompodiumMeta<typeof props>({
 
 <template>
   <UIFormField v-bind="fieldProps as FieldProps">
-    <component
-      :is="rootComponent"
-      v-bind="{ ...(rootProps as ArkSwitchRootBaseProps), ...rootAttrs }"
-      v-model:checked="modelValue"
-      :class="cn('inline-flex items-center gap-2', ui?.root)"
-    >
+    <component :is="rootComponent" v-bind="rootBindings">
       <ArkSwitch.Control
         :class="
           cn(

@@ -96,7 +96,7 @@ const rootComponent = computed(() => (isProvider.value ? TabsRootProvider : Tabs
 
 const rootProps = computed(() => {
   if (isProvider.value) {
-    return pick(props, ['asChild', 'value'] as const)
+    return pick(props, ['asChild', 'lazyMount', 'unmountOnExit', 'value'] as const)
   }
   return pick(props, [
     'asChild',
@@ -109,8 +109,8 @@ const rootProps = computed(() => {
     'lazyMount',
     'loopFocus',
     'orientation',
+    'translations',
     'unmountOnExit',
-    'value',
   ] as const)
 })
 
@@ -129,10 +129,10 @@ const rootBindings = computed(() => {
     ),
   }
 
-  if (!isProvider.value) {
-    base.defaultValue = modelValue.value
-    base.onValueChange = (details: { value: string }) => {
-      modelValue.value = details.value
+  if (!isProvider.value && modelValue.value !== undefined) {
+    base.modelValue = modelValue.value
+    base['onUpdate:modelValue'] = (next: string) => {
+      modelValue.value = next
     }
   }
 

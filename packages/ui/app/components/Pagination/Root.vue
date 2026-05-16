@@ -108,7 +108,11 @@ const rootBindings = computed(() => {
   const base: Record<string, unknown> = {
     ...rootProps.value,
     ...arkAttrs.value,
-    class: cn(paginationRootCVA({ intent: intent.value, size: size.value }), props.ui?.root),
+    class: cn(
+      paginationRootCVA({ intent: intent.value, size: size.value }),
+      arkAttrs.value.class as ClassValue,
+      props.ui?.root,
+    ),
   }
   if (!isProvider.value) {
     if (page.value !== undefined) {

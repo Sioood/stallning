@@ -10,6 +10,8 @@ import { cva, type VariantProps } from 'class-variance-authority'
 
 import type { ClassValue } from 'vue'
 
+defineOptions({ inheritAttrs: false })
+
 type QrCodeIntent = 'neutral' | 'primary' | 'secondary' | 'accent' | 'blackAndWhite'
 type QrCodeSize = 'md'
 
@@ -103,6 +105,9 @@ const rootProps = computed(() => {
   }
 })
 
+const attrs = useAttrs()
+const arkAttrs = computed(() => splitArkAttrs(attrs))
+
 const downloadTriggerProps = computed(() => ({
   ...pick(props, ['fileName', 'mimeType', 'quality']),
 }))
@@ -111,7 +116,7 @@ const downloadTriggerProps = computed(() => ({
 <template>
   <component
     :is="rootComponent"
-    v-bind="rootProps"
+    v-bind="{ ...arkAttrs, ...rootProps }"
     :class="cn(qrCodeRootCVA({ intent, size }), ui?.root)"
   >
     <div class="relative size-full">

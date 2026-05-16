@@ -175,22 +175,6 @@ const isProvider = computed(() => props.value !== undefined)
 
 const rootComponent = computed(() => (isProvider.value ? ArkDialog.RootProvider : ArkDialog.Root))
 
-type DialogFocusElReturn = ReturnType<NonNullable<ArkDialogRootBaseProps['finalFocusEl']>>
-
-/**
- * Zag focus-trap treats `null` from `finalFocusEl` / `initialFocusEl` as invalid and throws.
- * Coerce `null` to `undefined` so "not ready yet" fallbacks behave like "use default".
- */
-function normalizeFocusElCallback(
-  fn: undefined | (() => DialogFocusElReturn),
-): undefined | (() => Exclude<DialogFocusElReturn, null> | undefined) {
-  if (fn === undefined) return undefined
-  return () => {
-    const el = fn()
-    return el === null ? undefined : el
-  }
-}
-
 const rootProps = computed(() => {
   if (isProvider.value) {
     return pick(props, ['lazyMount', 'unmountOnExit', 'value'] as const)
@@ -202,8 +186,10 @@ const rootProps = computed(() => {
       'closeOnInteractOutside',
       'defaultOpen',
       'defaultTriggerValue',
+      'finalFocusEl',
       'id',
       'ids',
+      'initialFocusEl',
       'lazyMount',
       'modal',
       'persistentElements',
@@ -214,8 +200,6 @@ const rootProps = computed(() => {
       'triggerValue',
       'unmountOnExit',
     ] as const),
-    finalFocusEl: normalizeFocusElCallback(props.finalFocusEl),
-    initialFocusEl: normalizeFocusElCallback(props.initialFocusEl),
     open: open.value,
     'onUpdate:open': (val: boolean) => {
       open.value = val

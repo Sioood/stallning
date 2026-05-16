@@ -115,6 +115,9 @@ const props = withDefaults(defineProps<PopoverProps>(), {
   ui: undefined,
 })
 
+const attrs = useAttrs()
+const arkAttrs = computed(() => splitArkAttrs(attrs))
+
 const isProvider = computed(() => props.value !== undefined)
 
 const rootComponent = computed(() => (isProvider.value ? ArkPopover.RootProvider : ArkPopover.Root))
@@ -153,7 +156,7 @@ const rootProps = computed(() => {
 </script>
 
 <template>
-  <component :is="rootComponent" v-bind="rootProps">
+  <component :is="rootComponent" v-bind="{ ...arkAttrs, ...rootProps }">
     <ArkPopover.Context v-slot="popover">
       <slot
         name="triggers"

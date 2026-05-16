@@ -132,6 +132,9 @@ const rootProps = computed(() => {
   ] as const)
 })
 
+const attrs = useAttrs()
+const arkAttrs = computed(() => splitArkAttrs(attrs))
+
 extendCompodiumMeta<CollapsibleProps>({
   defaultProps: {
     heading: 'Heading',
@@ -146,10 +149,10 @@ extendCompodiumMeta<CollapsibleProps>({
     :is="rootComponent"
     v-bind="
       isProvider
-        ? { ...rootProps, ...$attrs }
+        ? { ...arkAttrs, ...rootProps }
         : {
+            ...arkAttrs,
             ...rootProps,
-            ...$attrs,
             open: modelValue,
             'onUpdate:open': (v: boolean) => (modelValue = v),
           }

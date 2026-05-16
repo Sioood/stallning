@@ -179,6 +179,9 @@ const rootProps = computed(() => {
   }
 })
 
+const attrs = useAttrs()
+const arkAttrs = computed(() => splitArkAttrs(attrs))
+
 const itemUiProps = computed(() => ({
   item: props.ui?.item,
   itemGroup: props.ui?.itemGroup,
@@ -219,7 +222,7 @@ extendCompodiumMeta<MenuProps>({
 </script>
 
 <template>
-  <component :is="rootComponent" v-bind="{ ...rootProps, ...$attrs }">
+  <component :is="rootComponent" v-bind="{ ...arkAttrs, ...rootProps }">
     <ArkMenu.Context v-slot="menu">
       <slot
         name="context-trigger"

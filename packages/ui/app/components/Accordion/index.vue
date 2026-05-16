@@ -83,7 +83,11 @@ const rootBindings = computed(() => {
   const base: Record<string, unknown> = {
     ...rootProps.value,
     ...arkAttrs.value,
-    class: cn(accordionRootCVA({ intent: intent.value, size: size.value }), props.ui?.root),
+    class: cn(
+      accordionRootCVA({ intent: intent.value, size: size.value }),
+      arkAttrs.value.class as ClassValue,
+      props.ui?.root,
+    ),
   }
   if (!isProvider.value && modelValue.value !== undefined) {
     base.modelValue = modelValue.value

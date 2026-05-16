@@ -7,6 +7,7 @@ import {
 } from '@ark-ui/vue/toggle-group'
 import { cva } from 'class-variance-authority'
 
+import type { ClassValue } from 'vue'
 import type {
   ToggleGroupOrientation,
   ToggleIntent,
@@ -16,6 +17,8 @@ import type {
 } from '~/utils/Components/Toggle/context'
 
 export type { UIToggleGroupSlots } from '~/utils/Components/Toggle/context'
+
+defineOptions({ inheritAttrs: false })
 
 const groupRootCVA = cva('join', {
   variants: {
@@ -88,6 +91,9 @@ const rootProps = computed(() => {
   ] as const)
 })
 
+const attrs = useAttrs()
+const arkAttrs = computed(() => splitArkAttrs(attrs))
+
 watchEffect(() => {
   for (const option of props.options) {
     pressedByValue[option.value] = modelValue.value.includes(option.value)
@@ -100,14 +106,19 @@ watchEffect(() => {
     :is="rootComponent"
     v-bind="
       isProvider
-        ? rootProps
-        : {
+        ? {
+            ...arkAttrs,
             ...rootProps,
+            class: cn(groupRootCVA({ orientation }), arkAttrs.class as ClassValue, props.ui?.root),
+          }
+        : {
+            ...arkAttrs,
+            ...rootProps,
+            class: cn(groupRootCVA({ orientation }), arkAttrs.class as ClassValue, props.ui?.root),
             modelValue: modelValue,
             'onUpdate:modelValue': (v: string[]) => (modelValue = v),
           }
     "
-    :class="cn(groupRootCVA({ orientation }), ui?.root)"
   >
     <ArkToggleGroup.Item
       v-for="option in options"

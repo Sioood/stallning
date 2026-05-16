@@ -110,6 +110,9 @@ const props = withDefaults(defineProps<TooltipProps>(), {
 
 const anchorRect = ref<DOMRect | null>(null)
 
+const attrs = useAttrs()
+const arkAttrs = computed(() => splitArkAttrs(attrs))
+
 const isProvider = computed(() => props.value !== undefined)
 
 const rootComponent = computed(() => (isProvider.value ? ArkTooltip.RootProvider : ArkTooltip.Root))
@@ -159,7 +162,9 @@ function handleTriggerPointerMove(
   <component
     :is="rootComponent"
     v-bind="
-      isProvider ? rootProps : { ...rootProps, open, 'onUpdate:open': (v: boolean) => (open = v) }
+      isProvider
+        ? { ...arkAttrs, ...rootProps }
+        : { ...arkAttrs, ...rootProps, open, 'onUpdate:open': (v: boolean) => (open = v) }
     "
   >
     <ArkTooltip.Context v-slot="tooltip">

@@ -10,6 +10,8 @@ import { cva } from 'class-variance-authority'
 import type { ClassValue } from 'vue'
 import type { ProgressIntent, ProgressSize } from '~/utils/Components/Progress/context'
 
+defineOptions({ inheritAttrs: false })
+
 const progressRootCVA = cva('', {
   variants: {
     size: {
@@ -148,6 +150,9 @@ const rootProps = computed(() => {
   }
 })
 
+const attrs = useAttrs()
+const arkAttrs = computed(() => splitArkAttrs(attrs))
+
 extendCompodiumMeta({
   defaultProps: {
     label: 'Loading...',
@@ -160,14 +165,19 @@ extendCompodiumMeta({
     :is="rootComponent"
     v-bind="
       isProvider
-        ? rootProps
-        : {
+        ? {
+            ...arkAttrs,
             ...rootProps,
+            class: cn(progressRootCVA({ size }), arkAttrs.class as ClassValue, ui?.root),
+          }
+        : {
+            ...arkAttrs,
+            ...rootProps,
+            class: cn(progressRootCVA({ size }), arkAttrs.class as ClassValue, ui?.root),
             modelValue: modelValue,
             'onUpdate:modelValue': (v: number) => (modelValue = v),
           }
     "
-    :class="cn(progressRootCVA({ size }), ui?.root)"
   >
     <ArkProgress.Label :class="cn(progressLabelCVA({ intent, size }), ui?.label)">
       {{ $te(label) ? $t(label) : label }}

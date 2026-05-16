@@ -70,6 +70,7 @@ const rootProps = computed(() => {
     'count',
     'defaultStep',
     'id',
+    'ids',
     'isStepSkippable',
     'isStepValid',
     'linear',
@@ -83,7 +84,11 @@ const rootBindings = computed(() => {
   const base: Record<string, unknown> = {
     ...rootProps.value,
     ...arkAttrs.value,
-    class: cn(stepsRootCVA({ intent: intent.value, size: size.value }), props.ui?.root),
+    class: cn(
+      stepsRootCVA({ intent: intent.value, size: size.value }),
+      arkAttrs.value.class as ClassValue,
+      props.ui?.root,
+    ),
   }
   if (!isProvider.value && step.value !== undefined) {
     base.step = step.value

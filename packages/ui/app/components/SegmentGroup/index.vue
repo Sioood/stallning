@@ -66,7 +66,7 @@ const props = withDefaults(defineProps<SegmentGroupProps>(), {
   size: 'md',
   ui: undefined,
   value: undefined,
-  variant: 'default',
+  variant: 'line',
 })
 
 const attrs = useAttrs()
@@ -122,7 +122,7 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
     intent: 'primary',
     orientation: 'horizontal',
     size: 'md',
-    variant: 'default',
+    variant: 'line',
     options: [
       { value: 'react', label: 'React' },
       { value: 'solid', label: 'Solid' },

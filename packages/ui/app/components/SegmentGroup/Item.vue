@@ -39,7 +39,7 @@ const chrome = inject(segmentGroupChromeKey, null)
 const intent = computed<SegmentGroupIntent>(() => props.intent ?? chrome?.intent.value ?? 'primary')
 const size = computed<SegmentGroupSize>(() => props.size ?? chrome?.size.value ?? 'md')
 const orientation = computed(() => chrome?.orientation.value ?? 'horizontal')
-const variant = computed(() => chrome?.variant.value ?? 'default')
+const variant = computed(() => chrome?.variant.value ?? 'line')
 const isDisabled = computed(() => props.disabled ?? false)
 
 const itemProps = computed(() => pick(props, ['asChild', 'disabled', 'value'] as const))

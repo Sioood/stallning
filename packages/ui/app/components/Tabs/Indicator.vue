@@ -26,7 +26,7 @@ const attrs = useAttrs()
 
 const chrome = inject(tabsChromeKey, null)
 const intent = computed<TabsIntent>(() => props.intent ?? chrome?.intent.value ?? 'primary')
-const variant = computed(() => chrome?.variant.value ?? 'default')
+const variant = computed(() => chrome?.variant.value ?? 'line')
 const orientation = computed(() => chrome?.orientation.value ?? 'horizontal')
 
 const indicatorProps = computed(() => pick(props, ['asChild'] as const))

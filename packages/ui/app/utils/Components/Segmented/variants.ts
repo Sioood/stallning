@@ -205,7 +205,7 @@ export const segmentedIndicatorCVA = cva(
       {
         variant: 'pill',
         orientation: 'horizontal',
-        class: 'border-b-2 translate-y-[1px]',
+        class: 'translate-y-[1px] border-b-2',
       },
       {
         variant: 'pill',
@@ -234,7 +234,7 @@ export const segmentedIndicatorCVA = cva(
       {
         variant: 'line',
         orientation: 'vertical',
-        class: 'border-r-2 translate-x-[1px]',
+        class: 'translate-x-[1px] border-r-2',
       },
       {
         variant: 'line',

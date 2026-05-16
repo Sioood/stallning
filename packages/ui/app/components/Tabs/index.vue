@@ -55,8 +55,8 @@ export interface TabsProps
 const tabsRootCVA = cva('w-fit', {
   variants: {
     variant: {
-      default: '',
-      subtle: '',
+      line: '',
+      pill: '',
     },
     orientation: {
       horizontal: 'flex flex-col',
@@ -64,7 +64,7 @@ const tabsRootCVA = cva('w-fit', {
     },
   },
   defaultVariants: {
-    variant: 'default',
+    variant: 'line',
     orientation: 'horizontal',
   },
 })
@@ -78,7 +78,7 @@ const props = withDefaults(defineProps<TabsProps>(), {
   size: 'md',
   ui: undefined,
   value: undefined,
-  variant: 'default',
+  variant: 'line',
 })
 
 const attrs = useAttrs()
@@ -145,7 +145,7 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
     intent: 'primary',
     orientation: 'horizontal',
     size: 'md',
-    variant: 'default',
+    variant: 'line',
     options: [
       { value: 'react', label: 'React' },
       { value: 'solid', label: 'Solid' },

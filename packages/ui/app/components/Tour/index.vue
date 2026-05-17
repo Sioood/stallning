@@ -1,0 +1,409 @@
+<script setup lang="ts">
+import {
+  Tour as ArkTour,
+  type TourRootBaseProps as ArkTourRootBaseProps,
+  type TourStepDetails,
+  type UseTourReturn,
+} from '@ark-ui/vue/tour'
+import { cva } from 'class-variance-authority'
+
+import type { StepAction as TourStepAction } from '@zag-js/tour'
+import type { ClassValue } from 'vue'
+
+defineOptions({ inheritAttrs: false })
+
+export type { TourStepDetails, TourStepAction }
+
+type TourIntent = 'neutral' | 'primary' | 'secondary' | 'accent'
+
+const tourRootCVA = cva('flex flex-col', {
+  variants: {
+    intent: {
+      neutral: '',
+      primary: '',
+      secondary: '',
+      accent: '',
+    } satisfies Record<TourIntent, string>,
+  },
+  defaultVariants: {
+    intent: 'neutral',
+  },
+})
+
+const tourBackdropCVA = cva('fixed inset-0', {
+  variants: {
+    intent: {
+      neutral: 'bg-neutral-bg-inverse/80',
+      primary: 'bg-primary-bg-inverse/80',
+      secondary: 'bg-secondary-bg-inverse/80',
+      accent: 'bg-accent-bg-inverse/80',
+    } satisfies Record<TourIntent, string>,
+  },
+  defaultVariants: {
+    intent: 'neutral',
+  },
+})
+
+const tourSpotlightCVA = cva('')
+
+const tourPositionerCVA = cva('fixed', {
+  variants: {
+    intent: {
+      neutral: '',
+      primary: '',
+      secondary: '',
+      accent: '',
+    } satisfies Record<TourIntent, string>,
+  },
+  defaultVariants: {
+    intent: 'neutral',
+  },
+})
+
+const tourContentCVA = cva(
+  'relative flex flex-col gap-1 border bg-neutral-surface-default p-5 text-neutral-text-default shadow-lg outline-none',
+  {
+    variants: {
+      intent: {
+        neutral:
+          'border-neutral-border-default bg-neutral-surface-default text-neutral-text-default',
+        primary:
+          'border-primary-border-default bg-primary-surface-default text-primary-text-default',
+        secondary:
+          'border-secondary-border-default bg-secondary-surface-default text-secondary-text-default',
+        accent: 'border-accent-border-default bg-accent-surface-default text-accent-text-default',
+      } satisfies Record<TourIntent, string>,
+      size: {
+        sm: 'txt-caption w-64 p-3',
+        md: 'txt-label w-80 p-5',
+        lg: 'txt-base w-96 p-6',
+      } satisfies Record<TourSize, string>,
+    },
+    defaultVariants: {
+      intent: 'neutral',
+      size: 'md',
+    },
+  },
+)
+
+const tourArrowCVA = cva('')
+
+const tourArrowTipCVA = cva('border-t border-l border-neutral-border-default', {
+  variants: {
+    intent: {
+      neutral: 'border-neutral-border-default',
+      primary: 'border-primary-border-default',
+      secondary: 'border-secondary-border-default',
+      accent: 'border-accent-border-default',
+    } satisfies Record<TourIntent, string>,
+  },
+  defaultVariants: {
+    intent: 'neutral',
+  },
+})
+
+const tourCloseTriggerCVA = cva(
+  'absolute top-2 right-2 inline-flex size-6 cursor-pointer items-center justify-center border-none bg-transparent text-neutral-text-subtle transition-colors hover:bg-neutral-fill-subtle',
+  {
+    variants: {
+      intent: {
+        neutral: 'text-neutral-text-subtle hover:bg-neutral-fill-subtle',
+        primary: 'text-primary-text-subtle hover:bg-primary-fill-subtle',
+        secondary: 'text-secondary-text-subtle hover:bg-secondary-fill-subtle',
+        accent: 'text-accent-text-subtle hover:bg-accent-fill-subtle',
+      } satisfies Record<TourIntent, string>,
+    },
+    defaultVariants: {
+      intent: 'neutral',
+    },
+  },
+)
+
+const tourTitleCVA = cva('txt-h6 m-0 leading-tight font-semibold text-neutral-text-default', {
+  variants: {
+    intent: {
+      neutral: 'text-neutral-text-default',
+      primary: 'text-primary-text-default',
+      secondary: 'text-secondary-text-default',
+      accent: 'text-accent-text-default',
+    } satisfies Record<TourIntent, string>,
+  },
+  defaultVariants: {
+    intent: 'neutral',
+  },
+})
+
+const tourDescriptionCVA = cva('txt-caption m-0 leading-relaxed text-neutral-text-subtle', {
+  variants: {
+    intent: {
+      neutral: 'text-neutral-text-subtle',
+      primary: 'text-primary-text-subtle',
+      secondary: 'text-secondary-text-subtle',
+      accent: 'text-accent-text-subtle',
+    } satisfies Record<TourIntent, string>,
+  },
+  defaultVariants: {
+    intent: 'neutral',
+  },
+})
+
+const tourProgressTextCVA = cva('txt-caption text-neutral-text-subtle opacity-80', {
+  variants: {
+    intent: {
+      neutral: 'text-neutral-text-subtle',
+      primary: 'text-primary-text-subtle',
+      secondary: 'text-secondary-text-subtle',
+      accent: 'text-accent-text-subtle',
+    } satisfies Record<TourIntent, string>,
+  },
+  defaultVariants: {
+    intent: 'neutral',
+  },
+})
+
+const tourControlCVA = cva('mt-3 flex items-center gap-2')
+
+const tourActionTriggerCVA = cva(
+  'txt-caption inline-flex cursor-pointer items-center justify-center gap-1.5 border bg-transparent px-3.5 py-1.5 font-medium whitespace-nowrap text-neutral-text-default transition-colors select-none hover:bg-neutral-fill-subtle',
+  {
+    variants: {
+      intent: {
+        neutral:
+          'border-neutral-border-default bg-transparent text-neutral-text-default hover:bg-neutral-fill-subtle',
+        primary:
+          'border-primary-border-default bg-transparent text-primary-text-default hover:bg-primary-fill-subtle',
+        secondary:
+          'border-secondary-border-default bg-transparent text-secondary-text-default hover:bg-secondary-fill-subtle',
+        accent:
+          'border-accent-border-default bg-transparent text-accent-text-default hover:bg-accent-fill-subtle',
+      } satisfies Record<TourIntent, string>,
+      variant: {
+        default:
+          'border border-neutral-border-default bg-transparent text-neutral-text-default hover:bg-neutral-fill-subtle',
+        primary:
+          'border-primary-fill-default bg-primary-fill-default text-primary-text-inverse hover:bg-primary-fill-strong',
+      },
+    },
+    defaultVariants: {
+      intent: 'neutral',
+      variant: 'default',
+    },
+  },
+)
+
+export interface UITourSlots {
+  root?: ClassValue
+  backdrop?: ClassValue
+  spotlight?: ClassValue
+  positioner?: ClassValue
+  content?: ClassValue
+  arrow?: ClassValue
+  arrowTip?: ClassValue
+  closeTrigger?: ClassValue
+  title?: ClassValue
+  description?: ClassValue
+  progressText?: ClassValue
+  control?: ClassValue
+  actionTrigger?: ClassValue
+  primaryActionTrigger?: ClassValue
+  progressBar?: ClassValue
+}
+
+type TourSize = 'sm' | 'md' | 'lg'
+
+export interface UITourSlotProps {
+  currentStep: TourStepDetails | undefined
+  stepIndex: number
+  totalSteps: number
+  progressPercent: number
+  status: 'idle' | 'running' | 'paused' | 'complete'
+  goToNext: () => void
+  goToPrev: () => void
+  dismiss: () => void
+}
+
+export interface TourProps extends Omit<ArkTourRootBaseProps, 'tour'> {
+  /**
+   * Pass the return value of `useTour()` to control the tour —
+   * the component will be controlled entirely via the Ark API object.
+   */
+  tour: UseTourReturn['value']
+  intent?: TourIntent
+  size?: TourSize
+  /** Whether to show the backdrop overlay. */
+  showBackdrop?: boolean
+  /** Whether to show the spotlight highlight. */
+  showSpotlight?: boolean
+  /** Whether to show the close trigger button. */
+  showClose?: boolean
+  /** Whether to show the progress text (e.g. "Step 1 of 5"). */
+  showProgress?: boolean
+  /** Whether to show the progress bar at the bottom of the content. */
+  showProgressBar?: boolean
+  /** Whether to enable lazy mounting. */
+  lazyMount?: boolean
+  /** Whether to unmount on exit. */
+  unmountOnExit?: boolean
+  ui?: Partial<UITourSlots>
+}
+
+const props = withDefaults(defineProps<TourProps>(), {
+  showBackdrop: true,
+  showClose: true,
+  showProgress: true,
+  showProgressBar: false,
+  showSpotlight: true,
+  lazyMount: false,
+  unmountOnExit: false,
+  intent: 'neutral',
+  size: 'md',
+  ui: undefined,
+})
+
+const attrs = useAttrs()
+
+const rootProps = computed(() => ({
+  ...pick(props, ['lazyMount', 'unmountOnExit']),
+}))
+
+const arkAttrs = computed(() => splitArkAttrs(attrs))
+
+const rootBindings = computed(() => {
+  const base: Record<string, unknown> = {
+    ...rootProps.value,
+    ...arkAttrs.value,
+    class: cn(
+      tourRootCVA({ intent: props.intent }),
+      arkAttrs.value.class as ClassValue,
+      props.ui?.root,
+    ),
+  }
+  return base
+})
+
+function resolveActionVariant(
+  action: TourStepAction,
+  _actions: TourStepAction[],
+  index: number,
+): 'default' | 'primary' {
+  const isLast = index === _actions.length - 1
+  const isDismiss = action.action === 'dismiss'
+  const isNext = action.action === 'next'
+  if (isLast && (isDismiss || isNext)) return 'primary'
+  return 'default'
+}
+</script>
+
+<template>
+  <ArkTour.Root :tour="props.tour" v-bind="rootBindings">
+    <ArkTour.Context v-slot="ctx">
+      <slot name="backdrop" :ctx>
+        <ArkTour.Backdrop
+          v-if="showBackdrop"
+          :class="cn(tourBackdropCVA({ intent }), ui?.backdrop)"
+        />
+      </slot>
+
+      <slot name="spotlight" :ctx>
+        <ArkTour.Spotlight v-if="showSpotlight" :class="cn(tourSpotlightCVA(), ui?.spotlight)" />
+      </slot>
+
+      <slot name="positioner" :ctx>
+        <ArkTour.Positioner :class="cn(tourPositionerCVA({ intent }), ui?.positioner)">
+          <slot name="content" :ctx>
+            <ArkTour.Content :class="cn(tourContentCVA({ intent, size }), ui?.content)">
+              <slot name="arrow" :ctx>
+                <ArkTour.Arrow :class="cn(tourArrowCVA(), ui?.arrow)">
+                  <ArkTour.ArrowTip :class="cn(tourArrowTipCVA({ intent }), ui?.arrowTip)" />
+                </ArkTour.Arrow>
+              </slot>
+
+              <slot name="close-trigger" :ctx>
+                <ArkTour.CloseTrigger v-if="showClose" as-child>
+                  <button
+                    type="button"
+                    :class="cn(tourCloseTriggerCVA({ intent }), ui?.closeTrigger)"
+                  >
+                    <slot name="close-trigger-icon">
+                      <Icon name="tabler:x" class="size-4" />
+                    </slot>
+                  </button>
+                </ArkTour.CloseTrigger>
+              </slot>
+
+              <slot name="progress-text" :ctx>
+                <ArkTour.ProgressText
+                  v-if="showProgress"
+                  :class="cn(tourProgressTextCVA({ intent }), ui?.progressText)"
+                >
+                  {{
+                    $t('tour.progressText', {
+                      currentStep: ctx.stepIndex + 1,
+                      totalSteps: ctx.totalSteps,
+                    })
+                  }}
+                </ArkTour.ProgressText>
+              </slot>
+
+              <slot name="title" :ctx>
+                <ArkTour.Title :class="cn(tourTitleCVA({ intent }), ui?.title)" />
+              </slot>
+
+              <slot name="description" :ctx>
+                <ArkTour.Description :class="cn(tourDescriptionCVA({ intent }), ui?.description)" />
+              </slot>
+
+              <slot name="control" :ctx>
+                <ArkTour.Control :class="cn(tourControlCVA(), ui?.control)">
+                  <slot name="actions" :ctx>
+                    <ArkTour.Actions v-slot="actions">
+                      <ArkTour.ActionTrigger
+                        v-for="(action, index) in actions"
+                        :key="action.label"
+                        as-child
+                        :action="action"
+                      >
+                        <button
+                          type="button"
+                          :class="
+                            cn(
+                              tourActionTriggerCVA({
+                                intent,
+                                variant: resolveActionVariant(action, actions, index),
+                              }),
+                              ui?.actionTrigger,
+                            )
+                          "
+                        >
+                          <slot :name="`action-${action.action}`" :action>
+                            {{ action.label }}
+                          </slot>
+                        </button>
+                      </ArkTour.ActionTrigger>
+                    </ArkTour.Actions>
+                  </slot>
+                </ArkTour.Control>
+              </slot>
+
+              <slot name="progress-bar" :ctx>
+                <div
+                  v-if="showProgressBar"
+                  :class="cn('absolute right-0 bottom-0 left-0', ui?.progressBar)"
+                >
+                  <UIProgress
+                    :model-value="ctx.getProgressPercent()"
+                    size="sm"
+                    :intent
+                    :ui="{ valueText: 'pr-1' }"
+                  />
+                </div>
+              </slot>
+            </ArkTour.Content>
+          </slot>
+        </ArkTour.Positioner>
+      </slot>
+
+      <slot />
+    </ArkTour.Context>
+  </ArkTour.Root>
+</template>

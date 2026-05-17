@@ -7,6 +7,51 @@
  */
 import { afterEach, beforeEach } from 'vitest'
 
+/**
+ * Ark Tour (`@zag-js/tour`) reads `window.visualViewport` to track the layout
+ * viewport boundaries. Happy-dom does not expose it, so we provide a minimal
+ * stub that returns sensible defaults.
+ */
+function patchVisualViewport(): void {
+  if (typeof (globalThis as { visualViewport?: unknown }).visualViewport !== 'undefined') return
+
+  const stub = {
+    width: 1280,
+    height: 720,
+    offsetLeft: 0,
+    offsetTop: 0,
+    pageLeft: 0,
+    pageTop: 0,
+    scale: 1,
+    clientWidth: 1280,
+    clientHeight: 720,
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    dispatchEvent: () => false,
+    onresize: null,
+    onscroll: null,
+  }
+
+  Object.defineProperty(globalThis, 'visualViewport', {
+    value: stub,
+    writable: true,
+    configurable: true,
+  })
+
+  const hosts = [
+    globalThis as Record<string, unknown>,
+    (globalThis as { global?: Record<string, unknown> }).global,
+    (globalThis as { window?: Record<string, unknown> }).window,
+    (globalThis as { self?: Record<string, unknown> }).self,
+  ].filter((h): h is Record<string, unknown> => typeof h === 'object' && h !== null)
+
+  for (const host of hosts) {
+    if (!('visualViewport' in host)) {
+      host.visualViewport = stub
+    }
+  }
+}
+
 type RafHost = {
   requestAnimationFrame?: (cb: FrameRequestCallback) => number
   cancelAnimationFrame?: (id: number) => void
@@ -51,11 +96,14 @@ const caf = (id: number): void => {
 }
 
 patchRafHosts()
+patchVisualViewport()
 
 beforeEach(() => {
   patchRafHosts()
+  patchVisualViewport()
 })
 
 afterEach(() => {
   patchRafHosts()
+  patchVisualViewport()
 })

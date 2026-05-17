@@ -17,3 +17,5 @@ fileUpload:
     file_too_small: 'Fichier trop petit'
     file_invalid: 'Fichier invalide'
     file_exists: 'Le fichier existe déjà'
+tour:
+  progressText: '{currentStep} sur {totalSteps}'

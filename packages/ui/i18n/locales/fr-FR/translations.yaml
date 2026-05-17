@@ -6,3 +6,14 @@ select:
   noOptions: 'Aucune option'
   selectAll: 'Tout sélectionner'
 open: 'Ouvrir'
+fileUpload:
+  dropzoneText: 'Glissez & déposez des fichiers ici, ou cliquez pour parcourir'
+  clearText: 'Tout effacer'
+  triggerText: 'Choisir des fichier(s)'
+  errors:
+    too_many_files: 'Trop de fichiers sélectionnés'
+    file_invalid_type: 'Type de fichier invalide'
+    file_too_large: 'Fichier trop volumineux'
+    file_too_small: 'Fichier trop petit'
+    file_invalid: 'Fichier invalide'
+    file_exists: 'Le fichier existe déjà'

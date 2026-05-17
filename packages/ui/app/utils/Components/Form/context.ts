@@ -75,3 +75,18 @@ export interface UIPinInputSlots extends UIFieldSlots {
   input?: ClassValue
   hiddenInput?: ClassValue
 }
+
+export interface UIFileUploadSlots extends UIFieldSlots {
+  trigger?: ClassValue
+  dropzone?: ClassValue
+  dropzoneContent?: ClassValue
+  dropzoneIcon?: ClassValue
+  item?: ClassValue
+  itemName?: ClassValue
+  itemSizeText?: ClassValue
+  itemPreview?: ClassValue
+  itemDeleteTrigger?: ClassValue
+  clearTrigger?: ClassValue
+  rejectedItem?: ClassValue
+  hiddenInput?: ClassValue
+}

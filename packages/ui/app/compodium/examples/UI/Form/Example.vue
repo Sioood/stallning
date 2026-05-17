@@ -3,6 +3,7 @@ import { h } from 'vue'
 import { z } from 'zod'
 
 import UIButton from '~ui/app/components/Button.vue'
+import UIFileUpload from '~ui/app/components/FileUpload/index.vue'
 import UIFormCheckbox from '~ui/app/components/Form/Checkbox.vue'
 import UIFormInput from '~ui/app/components/Form/Input.vue'
 import UIFormNumberInput from '~ui/app/components/Form/NumberInput.vue'
@@ -35,6 +36,7 @@ const schema = z.object({
   switch: z.boolean(),
   framework: z.string().nullable().optional(),
   volume: z.array(z.number()).min(1).max(2).default([50]),
+  avatar: z.custom<File[]>(),
 })
 
 type FormValues = InferSchemaValues<typeof schema>
@@ -55,6 +57,7 @@ const defaultValues: FormValues = {
   switch: false,
   framework: null,
   volume: [50],
+  avatar: [],
 }
 
 const countryItems = [
@@ -242,6 +245,17 @@ const fields: SchemaFieldsMap<FormValues> = {
       intent: 'primary',
     },
   },
+  avatar: {
+    as: UIFileUpload,
+    props: {
+      label: 'Avatar',
+      helperText: 'Upload a profile picture (images only, max 5MB)',
+      accept: 'image/*',
+      maxFiles: 1,
+      maxFileSize: 5 * 1024 * 1024,
+      clearable: true,
+    },
+  },
 }
 
 const layout: SchemaFormLayout<keyof FormValues & string>[] = [
@@ -259,11 +273,13 @@ const layout: SchemaFormLayout<keyof FormValues & string>[] = [
   'switch',
   'framework',
   'volume',
+  'avatar',
 ]
 
 const submitted = ref('')
 
 function onSubmit(value: FormValues) {
+  console.info(value)
   submitted.value = JSON.stringify(value)
 }
 </script>

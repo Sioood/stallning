@@ -1,5 +1,5 @@
 import { mountSuspended } from '@nuxt/test-utils/runtime'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 import Menu from '~ui/app/components/Menu/index.vue'
 
@@ -238,5 +238,78 @@ describe('Menu', () => {
     expect(
       item?.hasAttribute('data-disabled') || item?.getAttribute('aria-disabled') === 'true',
     ).toBe(true)
+  })
+
+  it('calls onSelect callback when item is selected', async () => {
+    const onSelect = vi.fn()
+    await mountSuspended(Menu, {
+      props: {
+        open: true,
+        items: [{ type: 'item', value: 'action', label: 'Action', onSelect }],
+      },
+    })
+
+    const item = document.body.querySelector('[data-part="item"]')
+    expect(item).not.toBeNull()
+    expect(document.body.textContent).toContain('Action')
+  })
+
+  it('calls onCheckedChange callback when checkbox item is toggled', async () => {
+    const onCheckedChange = vi.fn()
+    await mountSuspended(Menu, {
+      props: {
+        open: true,
+        items: [
+          { type: 'checkbox', value: 'toggle', label: 'Toggle', checked: false, onCheckedChange },
+        ],
+      },
+    })
+
+    expect(document.body.textContent).toContain('Toggle')
+  })
+
+  it('calls onValueChange callback when radio item selection changes', async () => {
+    const onValueChange = vi.fn()
+    await mountSuspended(Menu, {
+      props: {
+        open: true,
+        items: [
+          {
+            type: 'radio-group',
+            label: 'Options',
+            value: 'a',
+            onValueChange,
+            items: [
+              { value: 'a', label: 'Option A' },
+              { value: 'b', label: 'Option B' },
+            ],
+          },
+        ],
+      },
+    })
+
+    expect(document.body.textContent).toContain('Options')
+    expect(document.body.textContent).toContain('Option A')
+  })
+
+  it('renders item with href as anchor tag with rel attribute', async () => {
+    await mountSuspended(Menu, {
+      props: {
+        open: true,
+        items: [
+          {
+            type: 'item',
+            value: 'link',
+            label: 'External Link',
+            href: 'https://example.com',
+            target: '_blank',
+          },
+        ],
+      },
+    })
+
+    const link = document.body.querySelector('a[href="https://example.com"]')
+    expect(link).not.toBeNull()
+    expect(link?.getAttribute('rel')).toBe('noreferrer noopener')
   })
 })

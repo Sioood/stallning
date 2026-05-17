@@ -139,6 +139,61 @@ describe('UIPagination (assembled)', () => {
     expect(page5Button!.attributes('data-selected')).toBe('')
   })
 
+  it('updates v-model:page when clicking a page button', async () => {
+    const page = ref<number>(1)
+
+    const Controlled = defineComponent({
+      name: 'VModelPageUpdateHarness',
+      setup() {
+        return () =>
+          h(UIPagination, {
+            count: 100,
+            'page-size': 10,
+            page: page.value,
+            'onUpdate:page': (v: number) => {
+              page.value = v
+            },
+          })
+      },
+    })
+
+    const wrapper = await mountSuspended(Controlled)
+
+    const page4Button = wrapper.findAll('button').find((b) => b.text().trim() === '4')
+    expect(page4Button).toBeDefined()
+    await page4Button!.trigger('click')
+    await nextTick()
+
+    expect(page.value).toBe(4)
+  })
+
+  it('supports v-model:pageSize', async () => {
+    const pageSize = ref<number>(10)
+
+    const Controlled = defineComponent({
+      name: 'VModelPageSizeHarness',
+      setup() {
+        return () =>
+          h(UIPagination, {
+            count: 100,
+            'page-size': pageSize.value,
+            'onUpdate:pageSize': (v: number) => {
+              pageSize.value = v
+            },
+          })
+      },
+    })
+
+    const wrapper = await mountSuspended(Controlled)
+    expect(wrapper.exists()).toBe(true)
+
+    pageSize.value = 20
+    await nextTick()
+    expect(pageSize.value).toBe(20)
+  })
+})
+
+describe('UIPagination (assembled)', () => {
   it('supports showFirstLast prop', async () => {
     const wrapper = await mountSuspended(
       defineComponent({
@@ -152,6 +207,14 @@ describe('UIPagination (assembled)', () => {
     const buttons = wrapper.findAll('button')
     // first, prev, pages, next, last — should have at least 5 buttons
     expect(buttons.length).toBeGreaterThanOrEqual(5)
+  })
+})
+
+describe('UIPaginationRoot (manual composition)', () => {
+  it('renders the root element', async () => {
+    const wrapper = await mountSuspended(paginationRootHarness())
+
+    expect(wrapper.find('[data-testid="pagination-root"]').exists()).toBe(true)
   })
 
   it('renders ellipsis for many pages', async () => {
@@ -419,5 +482,95 @@ describe('UIPaginationRoot (manual composition)', () => {
     expect(wrapper.find('[data-testid="ctx-range-end"]').text()).toBe('10')
     expect(wrapper.find('[data-testid="ctx-count"]').text()).toBe('43')
     expect(wrapper.find('[data-testid="ctx-pageSize"]').text()).toBe('10')
+  })
+})
+
+describe('UIPagination triggers with asChild', () => {
+  it('renders PrevTrigger with asChild=true', async () => {
+    const wrapper = await mountSuspended(
+      defineComponent({
+        name: 'PrevTriggerAsChildHarness',
+        components: { UIPaginationRoot, UIPaginationPrevTrigger },
+        setup() {
+          return () =>
+            h(
+              UIPaginationRoot,
+              { count: 100, 'page-size': 10 },
+              {
+                default: () => [h(UIPaginationPrevTrigger, { asChild: true })],
+              },
+            )
+        },
+      }),
+    )
+
+    const trigger = wrapper.find('[data-part="prev-trigger"]')
+    expect(trigger.exists()).toBe(true)
+  })
+
+  it('renders NextTrigger with asChild=true', async () => {
+    const wrapper = await mountSuspended(
+      defineComponent({
+        name: 'NextTriggerAsChildHarness',
+        components: { UIPaginationRoot, UIPaginationNextTrigger },
+        setup() {
+          return () =>
+            h(
+              UIPaginationRoot,
+              { count: 100, 'page-size': 10 },
+              {
+                default: () => [h(UIPaginationNextTrigger, { asChild: true })],
+              },
+            )
+        },
+      }),
+    )
+
+    const trigger = wrapper.find('[data-part="next-trigger"]')
+    expect(trigger.exists()).toBe(true)
+  })
+
+  it('renders FirstTrigger with asChild=true', async () => {
+    const wrapper = await mountSuspended(
+      defineComponent({
+        name: 'FirstTriggerAsChildHarness',
+        components: { UIPaginationRoot, UIPaginationFirstTrigger },
+        setup() {
+          return () =>
+            h(
+              UIPaginationRoot,
+              { count: 100, 'page-size': 10 },
+              {
+                default: () => [h(UIPaginationFirstTrigger, { asChild: true })],
+              },
+            )
+        },
+      }),
+    )
+
+    const trigger = wrapper.find('[data-part="first-trigger"]')
+    expect(trigger.exists()).toBe(true)
+  })
+
+  it('renders LastTrigger with asChild=true', async () => {
+    const wrapper = await mountSuspended(
+      defineComponent({
+        name: 'LastTriggerAsChildHarness',
+        components: { UIPaginationRoot, UIPaginationLastTrigger },
+        setup() {
+          return () =>
+            h(
+              UIPaginationRoot,
+              { count: 100, 'page-size': 10 },
+              {
+                default: () => [h(UIPaginationLastTrigger, { asChild: true })],
+              },
+            )
+        },
+      }),
+    )
+
+    const trigger = wrapper.find('[data-part="last-trigger"]')
+    expect(trigger.exists()).toBe(true)
   })
 })

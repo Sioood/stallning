@@ -1,3 +1,4 @@
+import { useAccordion } from '@ark-ui/vue/accordion'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { describe, expect, it } from 'vitest'
 import { defineComponent, h, nextTick, ref } from 'vue'
@@ -91,5 +92,93 @@ describe('UIAccordion', () => {
 
     const b = wrapper.findAll('button').find((btn) => btn.text().includes('Title B'))!
     expect(b.attributes('aria-expanded')).toBe('true')
+  })
+
+  it('uses RootProvider mode when value prop is provided', async () => {
+    const wrapper = await mountSuspended(
+      defineComponent({
+        name: 'AccordionProviderTest',
+        components: {
+          UIAccordion,
+          UIAccordionItem,
+          UIAccordionItemTrigger,
+          UIAccordionItemContent,
+        },
+        setup() {
+          const accordion = useAccordion({ collapsible: true })
+          return { accordion }
+        },
+        template: `
+          <UIAccordion :value="accordion" data-testid="accordion-root">
+            <UIAccordionItem value="a">
+              <UIAccordionItemTrigger>Title A</UIAccordionItemTrigger>
+              <UIAccordionItemContent>Body A</UIAccordionItemContent>
+            </UIAccordionItem>
+          </UIAccordion>
+        `,
+      }),
+    )
+
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.find('[data-testid="accordion-root"]').exists()).toBe(true)
+  })
+
+  it('forwards lazyMount and unmountOnExit in RootProvider mode', async () => {
+    const wrapper = await mountSuspended(
+      defineComponent({
+        name: 'AccordionProviderPropsTest',
+        components: {
+          UIAccordion,
+          UIAccordionItem,
+          UIAccordionItemTrigger,
+          UIAccordionItemContent,
+        },
+        setup() {
+          const accordion = useAccordion({ collapsible: true })
+          return { accordion }
+        },
+        template: `
+          <UIAccordion :value="accordion" :lazy-mount="true" :unmount-on-exit="true">
+            <UIAccordionItem value="a">
+              <UIAccordionItemTrigger>Title A</UIAccordionItemTrigger>
+              <UIAccordionItemContent>Body A</UIAccordionItemContent>
+            </UIAccordionItem>
+          </UIAccordion>
+        `,
+      }),
+    )
+
+    expect(wrapper.exists()).toBe(true)
+  })
+
+  it('updates v-model when accordion value changes internally', async () => {
+    const model = ref<string[]>([])
+
+    const Controlled = defineComponent({
+      name: 'AccordionVModelUpdateTest',
+      components: { UIAccordion, UIAccordionItem, UIAccordionItemTrigger, UIAccordionItemContent },
+      setup() {
+        return { model }
+      },
+      template: `
+        <UIAccordion v-model="model" collapsible data-testid="accordion-root">
+          <UIAccordionItem value="a">
+            <UIAccordionItemTrigger>Title A</UIAccordionItemTrigger>
+            <UIAccordionItemContent>Body A</UIAccordionItemContent>
+          </UIAccordionItem>
+        </UIAccordion>
+      `,
+    })
+
+    const wrapper = await mountSuspended(Controlled)
+
+    const trigger = wrapper.find('button')
+    expect(trigger.attributes('aria-expanded')).toBe('false')
+
+    await trigger.trigger('click')
+    await nextTick()
+    await nextTick()
+
+    expect(wrapper.text()).toContain('Body A')
   })
 })

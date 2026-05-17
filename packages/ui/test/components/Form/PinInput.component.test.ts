@@ -1,5 +1,6 @@
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { describe, expect, it } from 'vitest'
+import { defineComponent, ref } from 'vue'
 
 import UIFormPinInput from '~ui/app/components/Form/PinInput.vue'
 
@@ -149,5 +150,57 @@ describe('UIFormPinInput', () => {
     // Not disabled and not readonly → focusable
     expect(inputs[0]!.element.disabled).toBe(false)
     expect(inputs[0]!.element.readOnly).toBe(false)
+  })
+
+  it('exposes getControlElement via ref', async () => {
+    const componentRef = ref<InstanceType<typeof UIFormPinInput> | null>(null)
+
+    const wrapper = await mountSuspended(
+      defineComponent({
+        name: 'PinInputRefTest',
+        components: { UIFormPinInput },
+        setup() {
+          return { componentRef }
+        },
+        template: `
+          <UIFormPinInput ref="componentRef" :count="4" />
+        `,
+      }),
+    )
+
+    const vm = wrapper.vm as unknown as {
+      componentRef: { getControlElement: () => HTMLInputElement | null }
+    }
+    const el = vm.componentRef.getControlElement()
+    expect(el).toBeInstanceOf(HTMLInputElement)
+  })
+
+  it('exposes focus method via ref', async () => {
+    const componentRef = ref<InstanceType<typeof UIFormPinInput> | null>(null)
+
+    const wrapper = await mountSuspended(
+      defineComponent({
+        name: 'PinInputFocusTest',
+        components: { UIFormPinInput },
+        setup() {
+          return { componentRef }
+        },
+        template: `
+          <UIFormPinInput ref="componentRef" :count="4" />
+        `,
+      }),
+      { attachTo: document.body },
+    )
+
+    const vm = wrapper.vm as unknown as {
+      componentRef: { focus: () => void; getControlElement: () => HTMLInputElement | null }
+    }
+    const el = vm.componentRef.getControlElement()
+    expect(el).toBeInstanceOf(HTMLInputElement)
+
+    vm.componentRef.focus()
+    await wrapper.vm.$nextTick()
+
+    expect(document.activeElement?.tagName).toBe('INPUT')
   })
 })

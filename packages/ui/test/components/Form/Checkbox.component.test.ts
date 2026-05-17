@@ -73,4 +73,46 @@ describe('UIFormCheckbox', () => {
 
     expect(wrapper.text()).toContain('*')
   })
+
+  it('applies invalid styling when error prop is provided', async () => {
+    const wrapper = await mountSuspended(Checkbox, {
+      props: {
+        label: 'Error checkbox',
+        name: 'err',
+        error: 'This must be checked',
+      },
+    })
+
+    const root = wrapper.find('[data-scope="checkbox"][data-part="root"]')
+    expect(root.attributes('data-invalid')).toBe('')
+  })
+
+  it('emits blur event when hidden input loses focus', async () => {
+    const onBlur = vi.fn()
+    const wrapper = await mountSuspended(Checkbox, {
+      props: {
+        label: 'Blur test',
+        name: 'blur',
+        onBlur,
+      },
+    })
+
+    const hiddenInput = wrapper.find('input[type="checkbox"]')
+    await hiddenInput.trigger('blur')
+
+    expect(onBlur).toHaveBeenCalled()
+  })
+
+  it('renders only control when inGroup is true', async () => {
+    const wrapper = await mountSuspended(Checkbox, {
+      props: {
+        label: 'Group item',
+        name: 'group',
+        inGroup: true,
+      },
+    })
+
+    expect(wrapper.find('[data-scope="field"]').exists()).toBe(false)
+    expect(wrapper.find('[data-scope="checkbox"]').exists()).toBe(true)
+  })
 })

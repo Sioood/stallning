@@ -1,5 +1,6 @@
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { describe, expect, it } from 'vitest'
+import { defineComponent, ref } from 'vue'
 
 import NumberInput from '~ui/app/components/Form/NumberInput.vue'
 
@@ -132,5 +133,53 @@ describe('UIFormNumberInput', () => {
     // Input is focusable (not disabled or read-only)
     expect(input.attributes('disabled')).toBeUndefined()
     expect(input.attributes('readonly')).toBeUndefined()
+  })
+
+  it('exposes getControlElement via ref', async () => {
+    const componentRef = ref<InstanceType<typeof NumberInput> | null>(null)
+
+    const wrapper = await mountSuspended(
+      defineComponent({
+        name: 'NumberInputRefTest',
+        components: { NumberInput },
+        setup() {
+          return { componentRef }
+        },
+        template: `
+          <NumberInput ref="componentRef" label="Ref Test" />
+        `,
+      }),
+    )
+
+    const vm = wrapper.vm as unknown as {
+      componentRef: { getControlElement: () => HTMLInputElement | null }
+    }
+    const el = vm.componentRef.getControlElement()
+    expect(el).toBeInstanceOf(HTMLInputElement)
+  })
+
+  it('exposes focus method via ref', async () => {
+    const componentRef = ref<InstanceType<typeof NumberInput> | null>(null)
+
+    const wrapper = await mountSuspended(
+      defineComponent({
+        name: 'NumberInputFocusTest',
+        components: { NumberInput },
+        setup() {
+          return { componentRef }
+        },
+        template: `
+          <NumberInput ref="componentRef" label="Focus Test" />
+        `,
+      }),
+      { attachTo: document.body },
+    )
+
+    const vm = wrapper.vm as unknown as { componentRef: { focus: () => void } }
+    vm.componentRef.focus()
+    await wrapper.vm.$nextTick()
+
+    const el = vm.componentRef.getControlElement()
+    expect(document.activeElement).toBe(el)
   })
 })

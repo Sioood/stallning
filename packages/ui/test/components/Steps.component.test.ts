@@ -526,3 +526,75 @@ describe('UISteps (Automated)', () => {
     expect(wrapper.text()).not.toContain('Next')
   })
 })
+
+describe('UISteps triggers with asChild', () => {
+  it('renders NextTrigger with asChild=true', async () => {
+    const wrapper = await mountSuspended(
+      defineComponent({
+        name: 'NextTriggerAsChildHarness',
+        components: { UIStepsRoot, UIStepsNextTrigger },
+        setup() {
+          return () =>
+            h(
+              UIStepsRoot,
+              { count: 3 },
+              {
+                default: () => [h(UIStepsNextTrigger, { asChild: true })],
+              },
+            )
+        },
+      }),
+    )
+
+    const trigger = wrapper.find('[data-part="next-trigger"]')
+    expect(trigger.exists()).toBe(true)
+  })
+
+  it('renders PrevTrigger with asChild=true', async () => {
+    const wrapper = await mountSuspended(
+      defineComponent({
+        name: 'PrevTriggerAsChildHarness',
+        components: { UIStepsRoot, UIStepsPrevTrigger },
+        setup() {
+          return () =>
+            h(
+              UIStepsRoot,
+              { count: 3 },
+              {
+                default: () => [h(UIStepsPrevTrigger, { asChild: true })],
+              },
+            )
+        },
+      }),
+    )
+
+    const trigger = wrapper.find('[data-part="prev-trigger"]')
+    expect(trigger.exists()).toBe(true)
+  })
+
+  it('renders Trigger with asChild=true', async () => {
+    const wrapper = await mountSuspended(
+      defineComponent({
+        name: 'TriggerAsChildHarness',
+        components: { UIStepsRoot, UIStepsItem, UIStepsTrigger },
+        setup() {
+          return () =>
+            h(
+              UIStepsRoot,
+              { count: 3 },
+              {
+                default: () => [
+                  h(UIStepsItem, { index: 0 }, () => [
+                    h(UIStepsTrigger, { asChild: true }, () => 'Custom Step'),
+                  ]),
+                ],
+              },
+            )
+        },
+      }),
+    )
+
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.text()).toContain('Custom Step')
+  })
+})

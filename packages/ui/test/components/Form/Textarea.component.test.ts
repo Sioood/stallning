@@ -1,5 +1,6 @@
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { describe, expect, it } from 'vitest'
+import { defineComponent, ref } from 'vue'
 
 import Textarea from '~ui/app/components/Form/Textarea.vue'
 
@@ -117,5 +118,53 @@ describe('UIFormTextarea', () => {
     // Textarea is focusable (not disabled or read-only)
     expect(textarea.attributes('disabled')).toBeUndefined()
     expect(textarea.attributes('readonly')).toBeUndefined()
+  })
+
+  it('exposes getControlElement via ref', async () => {
+    const componentRef = ref<InstanceType<typeof Textarea> | null>(null)
+
+    const wrapper = await mountSuspended(
+      defineComponent({
+        name: 'TextareaRefTest',
+        components: { Textarea },
+        setup() {
+          return { componentRef }
+        },
+        template: `
+          <Textarea ref="componentRef" label="Ref Test" />
+        `,
+      }),
+    )
+
+    const vm = wrapper.vm as unknown as {
+      componentRef: { getControlElement: () => HTMLTextAreaElement | null }
+    }
+    const el = vm.componentRef.getControlElement()
+    expect(el).toBeInstanceOf(HTMLTextAreaElement)
+  })
+
+  it('exposes focus method via ref', async () => {
+    const componentRef = ref<InstanceType<typeof Textarea> | null>(null)
+
+    const wrapper = await mountSuspended(
+      defineComponent({
+        name: 'TextareaFocusTest',
+        components: { Textarea },
+        setup() {
+          return { componentRef }
+        },
+        template: `
+          <Textarea ref="componentRef" label="Focus Test" />
+        `,
+      }),
+      { attachTo: document.body },
+    )
+
+    const vm = wrapper.vm as unknown as { componentRef: { focus: () => void } }
+    vm.componentRef.focus()
+    await wrapper.vm.$nextTick()
+
+    const el = vm.componentRef.getControlElement()
+    expect(document.activeElement).toBe(el)
   })
 })

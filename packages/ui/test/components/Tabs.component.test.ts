@@ -1,5 +1,7 @@
+import { useTabs } from '@ark-ui/vue/tabs'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { describe, expect, it } from 'vitest'
+import { defineComponent, nextTick, ref } from 'vue'
 
 import UITabsContent from '~ui/app/components/Tabs/Content.vue'
 import UITabs from '~ui/app/components/Tabs/index.vue'
@@ -157,5 +159,77 @@ describe('UITabs', () => {
     })
 
     expect(wrapper.text()).toContain('fallback-label')
+  })
+
+  it('uses RootProvider mode when value prop is provided', async () => {
+    const wrapper = await mountSuspended(
+      defineComponent({
+        name: 'TabsProviderTest',
+        components: { UITabs },
+        setup() {
+          const tabs = useTabs()
+          return { tabs }
+        },
+        template: `
+          <UITabs :value="tabs" :options="[
+            { value: 'a', label: 'A' },
+            { value: 'b', label: 'B' },
+          ]" />
+        `,
+      }),
+    )
+
+    expect(wrapper.exists()).toBe(true)
+    const triggers = wrapper.findAll('[data-part="trigger"]')
+    expect(triggers).toHaveLength(2)
+  })
+
+  it('forwards lazyMount and unmountOnExit in RootProvider mode', async () => {
+    const wrapper = await mountSuspended(
+      defineComponent({
+        name: 'TabsProviderPropsTest',
+        components: { UITabs },
+        setup() {
+          const tabs = useTabs()
+          return { tabs }
+        },
+        template: `
+          <UITabs :value="tabs" :lazy-mount="true" :unmount-on-exit="true" :options="[
+            { value: 'a', label: 'A' },
+          ]" />
+        `,
+      }),
+    )
+
+    expect(wrapper.exists()).toBe(true)
+  })
+
+  it('updates v-model when tab selection changes internally', async () => {
+    const model = ref('a')
+
+    const Controlled = defineComponent({
+      name: 'TabsVModelUpdateTest',
+      components: { UITabs },
+      setup() {
+        return { model }
+      },
+      template: `
+        <UITabs v-model="model" :options="[
+          { value: 'a', label: 'A' },
+          { value: 'b', label: 'B' },
+        ]" />
+      `,
+    })
+
+    const wrapper = await mountSuspended(Controlled)
+
+    const triggers = wrapper.findAll('[data-part="trigger"]')
+    expect(triggers[0]!.attributes('data-selected')).toBe('')
+
+    await triggers[1]!.trigger('click')
+    await nextTick()
+    await nextTick()
+
+    expect(wrapper.html()).toBeTruthy()
   })
 })

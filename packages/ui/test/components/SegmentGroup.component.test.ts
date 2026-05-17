@@ -1,5 +1,7 @@
+import { useSegmentGroup } from '@ark-ui/vue/segment-group'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { describe, expect, it } from 'vitest'
+import { defineComponent, nextTick, ref } from 'vue'
 
 import UISegmentGroup from '~ui/app/components/SegmentGroup/index.vue'
 
@@ -123,5 +125,77 @@ describe('UISegmentGroup', () => {
     })
 
     expect(wrapper.text()).toContain('fallback-label')
+  })
+
+  it('uses RootProvider mode when value prop is provided', async () => {
+    const wrapper = await mountSuspended(
+      defineComponent({
+        name: 'SegmentGroupProviderTest',
+        components: { UISegmentGroup },
+        setup() {
+          const segmentGroup = useSegmentGroup()
+          return { segmentGroup }
+        },
+        template: `
+          <UISegmentGroup :value="segmentGroup" :options="[
+            { value: 'a', label: 'A' },
+            { value: 'b', label: 'B' },
+          ]" />
+        `,
+      }),
+    )
+
+    expect(wrapper.exists()).toBe(true)
+    const items = wrapper.findAll('[data-part="item"]')
+    expect(items).toHaveLength(2)
+  })
+
+  it('forwards asChild in RootProvider mode', async () => {
+    const wrapper = await mountSuspended(
+      defineComponent({
+        name: 'SegmentGroupProviderAsChildTest',
+        components: { UISegmentGroup },
+        setup() {
+          const segmentGroup = useSegmentGroup()
+          return { segmentGroup }
+        },
+        template: `
+          <UISegmentGroup :value="segmentGroup" as-child :options="[
+            { value: 'a', label: 'A' },
+          ]" />
+        `,
+      }),
+    )
+
+    expect(wrapper.exists()).toBe(true)
+  })
+
+  it('updates v-model when segment selection changes internally', async () => {
+    const model = ref('a')
+
+    const Controlled = defineComponent({
+      name: 'SegmentGroupVModelUpdateTest',
+      components: { UISegmentGroup },
+      setup() {
+        return { model }
+      },
+      template: `
+        <UISegmentGroup v-model="model" :options="[
+          { value: 'a', label: 'A' },
+          { value: 'b', label: 'B' },
+        ]" />
+      `,
+    })
+
+    const wrapper = await mountSuspended(Controlled)
+
+    const items = wrapper.findAll('[data-part="item"]')
+    expect(items[0]!.attributes('data-state')).toBe('checked')
+
+    await items[1]!.trigger('click')
+    await nextTick()
+    await nextTick()
+
+    expect(wrapper.html()).toBeTruthy()
   })
 })

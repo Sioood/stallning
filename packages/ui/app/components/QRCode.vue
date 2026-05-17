@@ -15,7 +15,7 @@ defineOptions({ inheritAttrs: false })
 type QrCodeIntent = 'neutral' | 'primary' | 'secondary' | 'accent' | 'blackAndWhite'
 type QrCodeSize = 'md'
 
-const qrCodeRootCVA = cva(['qrCodeRoot', 'flex size-full flex-col items-center justify-center'], {
+const qrCodeRootCVA = cva(['flex size-full flex-col items-center justify-center'], {
   variants: {
     intent: {
       neutral: 'text-neutral-surface-default',
@@ -32,7 +32,7 @@ const qrCodeRootCVA = cva(['qrCodeRoot', 'flex size-full flex-col items-center j
 
 type QrCodeRootCVAProps = VariantProps<typeof qrCodeRootCVA>
 
-const qrCodeFrameCVA = cva(['qrCodeFrame', 'size-full'], {
+const qrCodeFrameCVA = cva('size-full', {
   variants: {
     intent: {
       neutral: 'bg-neutral-fill-subtle fill-neutral-surface-strong',

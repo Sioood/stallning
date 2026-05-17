@@ -44,4 +44,34 @@ describe('UIFormCheckboxGroup', () => {
     const checkedControl = controls.find((c) => c.attributes('data-state') === 'checked')
     expect(checkedControl).toBeDefined()
   })
+
+  it('applies invalid styling when error prop is provided', async () => {
+    const wrapper = await mountSuspended(CheckboxGroup, {
+      props: {
+        modelValue: [],
+        'onUpdate:modelValue': () => {},
+        label: 'Required group',
+        items,
+        error: 'Select at least one',
+      },
+    })
+
+    expect(wrapper.text()).toContain('Select at least one')
+    expect(wrapper.text()).toContain('Required group')
+  })
+
+  it('forwards passthrough attrs to the group element', async () => {
+    const wrapper = await mountSuspended(CheckboxGroup, {
+      props: {
+        modelValue: [],
+        'onUpdate:modelValue': () => {},
+        label: 'Attrs test',
+        items,
+        'data-testid': 'my-checkbox-group',
+      },
+    })
+
+    const group = wrapper.find('[data-testid="my-checkbox-group"]')
+    expect(group.exists()).toBe(true)
+  })
 })

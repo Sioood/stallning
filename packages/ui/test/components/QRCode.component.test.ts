@@ -11,7 +11,9 @@ const downloadDefaults = {
 
 describe('QRCode', () => {
   it('renders root and SVG frame with layout classes', async () => {
-    const wrapper = await mountSuspended(QRCode, { props: { ...downloadDefaults } })
+    const wrapper = await mountSuspended(QRCode, {
+      props: { ...downloadDefaults, ui: { root: 'qrCodeRoot', frame: 'qrCodeFrame' } },
+    })
 
     const root = wrapper.find('.qrCodeRoot')
     expect(root.exists()).toBe(true)
@@ -25,7 +27,11 @@ describe('QRCode', () => {
 
   it('applies intent variants on root and frame', async () => {
     const wrapper = await mountSuspended(QRCode, {
-      props: { ...downloadDefaults, intent: 'primary' },
+      props: {
+        ...downloadDefaults,
+        intent: 'primary',
+        ui: { root: 'qrCodeRoot', frame: 'qrCodeFrame' },
+      },
     })
 
     expect(wrapper.find('.qrCodeRoot').classes().join(' ')).toMatch(/text-primary-surface-default/)
@@ -34,7 +40,11 @@ describe('QRCode', () => {
 
   it('renders a QR pattern path inside the frame', async () => {
     const wrapper = await mountSuspended(QRCode, {
-      props: { ...downloadDefaults, modelValue: 'https://example.com/test' },
+      props: {
+        ...downloadDefaults,
+        modelValue: 'https://example.com/test',
+        ui: { root: 'qrCodeRoot', frame: 'qrCodeFrame' },
+      },
     })
 
     const path = wrapper.find('.qrCodeFrame path')
@@ -71,7 +81,7 @@ describe('QRCode', () => {
       },
     })
 
-    expect(wrapper.find('.qrCodeRoot.custom-qr-root').exists()).toBe(true)
-    expect(wrapper.find('.qrCodeFrame.custom-qr-frame').exists()).toBe(true)
+    expect(wrapper.find('.custom-qr-root').exists()).toBe(true)
+    expect(wrapper.find('.custom-qr-frame').exists()).toBe(true)
   })
 })

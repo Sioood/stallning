@@ -7,12 +7,13 @@ import {
 } from '@ark-ui/vue/tour'
 import { cva } from 'class-variance-authority'
 
-import type { StepAction as TourStepAction } from '@zag-js/tour'
+import { resolveActionVariant } from '~ui/app/utils/Components/Tour/variants'
+
 import type { ClassValue } from 'vue'
 
 defineOptions({ inheritAttrs: false })
 
-export type { TourStepDetails, TourStepAction }
+export type { TourStepDetails }
 
 type TourIntent = 'neutral' | 'primary' | 'secondary' | 'accent'
 
@@ -280,18 +281,6 @@ const rootBindings = computed(() => {
   }
   return base
 })
-
-function resolveActionVariant(
-  action: TourStepAction,
-  _actions: TourStepAction[],
-  index: number,
-): 'default' | 'primary' {
-  const isLast = index === _actions.length - 1
-  const isDismiss = action.action === 'dismiss'
-  const isNext = action.action === 'next'
-  if (isLast && (isDismiss || isNext)) return 'primary'
-  return 'default'
-}
 </script>
 
 <template>

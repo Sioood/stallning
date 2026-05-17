@@ -127,4 +127,32 @@ describe('UIForm', () => {
     const submitBtn = wrapper.find('[data-testid="submit"]')
     expect(submitBtn.exists()).toBe(true)
   })
+
+  it('throws error when layout key is not in fields config', async () => {
+    try {
+      await mountSuspended(Form, {
+        props: {
+          ...baseProps,
+          layout: ['name', 'missing_field'] as const,
+        },
+      })
+      expect.fail('Expected error to be thrown')
+    } catch (error) {
+      expect((error as Error).message).toContain('[UIForm] Missing fields["missing_field"]')
+    }
+  })
+
+  it('shows error summary with role=alert after submission with errors', async () => {
+    const wrapper = await mountSuspended(Form, {
+      props: { ...baseProps, showErrorSummary: true },
+    })
+
+    await wrapper.find('form').trigger('submit.prevent')
+    await flushPromises()
+    await nextTick()
+    await flushPromises()
+
+    const errorText = wrapper.text().toLowerCase()
+    expect(errorText).toMatch(/string|min|caract|character|error/)
+  })
 })

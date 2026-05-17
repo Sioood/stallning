@@ -59,4 +59,33 @@ describe('UIFormRadioGroup', () => {
     const itemControls = wrapper.findAll('[data-part="item-control"]')
     expect(itemControls.length).toBe(2)
   })
+
+  it('applies invalid styling when error prop is provided', async () => {
+    const wrapper = await mountSuspended(RadioGroup, {
+      props: {
+        modelValue: null,
+        'onUpdate:modelValue': () => {},
+        label: 'Required radio',
+        items,
+        error: 'Please select an option',
+      },
+    })
+
+    expect(wrapper.text()).toContain('Please select an option')
+    expect(wrapper.text()).toContain('Required radio')
+  })
+
+  it('renders radio items with labels', async () => {
+    const wrapper = await mountSuspended(RadioGroup, {
+      props: {
+        modelValue: '1',
+        'onUpdate:modelValue': () => {},
+        label: 'Radio items test',
+        items,
+      },
+    })
+
+    expect(wrapper.text()).toContain('One')
+    expect(wrapper.text()).toContain('Two')
+  })
 })

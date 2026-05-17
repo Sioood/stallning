@@ -36,4 +36,64 @@ describe('UIFormInput', () => {
 
     expect(wrapper.find('input').attributes('type')).toBe('text')
   })
+
+  it('shows clear button when clearable is true and has value', async () => {
+    const wrapper = await mountSuspended(Input, {
+      props: {
+        label: 'Search',
+        name: 'search',
+        clearable: true,
+        modelValue: 'test value',
+      },
+    })
+
+    const buttons = wrapper.findAll('button')
+    const clearButton = buttons.find((b) => b.text().trim() === '')
+    expect(clearButton).toBeDefined()
+  })
+
+  it('hides clear button when clearable is true but value is empty', async () => {
+    const wrapper = await mountSuspended(Input, {
+      props: {
+        label: 'Search',
+        name: 'search',
+        clearable: true,
+        modelValue: '',
+      },
+    })
+
+    const buttons = wrapper.findAll('button')
+    const iconButtons = buttons.filter((b) => b.find('svg').exists())
+    expect(iconButtons.length).toBe(0)
+  })
+
+  it('renders clearable input with disabled state', async () => {
+    const wrapper = await mountSuspended(Input, {
+      props: {
+        label: 'Search',
+        name: 'search',
+        clearable: true,
+        modelValue: 'test',
+        disabled: true,
+      },
+    })
+
+    const input = wrapper.find('input')
+    expect(input.attributes('disabled')).toBeDefined()
+  })
+
+  it('renders clearable input with readOnly state', async () => {
+    const wrapper = await mountSuspended(Input, {
+      props: {
+        label: 'Search',
+        name: 'search',
+        clearable: true,
+        modelValue: 'test',
+        readOnly: true,
+      },
+    })
+
+    const input = wrapper.find('input')
+    expect(input.attributes('readonly')).toBeDefined()
+  })
 })

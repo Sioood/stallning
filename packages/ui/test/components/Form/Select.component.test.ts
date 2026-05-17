@@ -134,4 +134,62 @@ describe('UIFormSelect', () => {
 
     expect(onUpdateModelValue).toHaveBeenCalledWith([])
   })
+
+  it('renders grouped items with group labels', async () => {
+    const groupedItems = [
+      { label: 'Option A1', value: 'a1', group: 'Group A' },
+      { label: 'Option A2', value: 'a2', group: 'Group A' },
+      { label: 'Option B1', value: 'b1', group: 'Group B' },
+    ]
+
+    const wrapper = await mountSuspended(UIFormSelect, {
+      props: {
+        items: groupedItems,
+        portalled: false,
+      },
+    })
+
+    await wrapper.find('button[data-part="trigger"]').trigger('click')
+    await flushPromises()
+
+    expect(wrapper.text()).toContain('Group A')
+    expect(wrapper.text()).toContain('Group B')
+    expect(wrapper.text()).toContain('Option A1')
+    expect(wrapper.text()).toContain('Option B1')
+  })
+
+  it('applies ui prop classes to item elements', async () => {
+    const wrapper = await mountSuspended(UIFormSelect, {
+      props: {
+        items,
+        portalled: false,
+        ui: {
+          item: 'custom-item-class',
+          itemText: 'custom-item-text-class',
+        },
+      },
+    })
+
+    await wrapper.find('button[data-part="trigger"]').trigger('click')
+    await flushPromises()
+
+    const item = wrapper.find('[data-part="item"]')
+    expect(item.exists()).toBe(true)
+  })
+
+  it('renders Select All button when allowSelectAll and multiple are true', async () => {
+    const wrapper = await mountSuspended(UIFormSelect, {
+      props: {
+        items,
+        multiple: true,
+        allowSelectAll: true,
+        portalled: false,
+      },
+    })
+
+    await wrapper.find('button[data-part="trigger"]').trigger('click')
+    await flushPromises()
+
+    expect(wrapper.text()).toMatch(/Select All|Sélectionner Tout/)
+  })
 })

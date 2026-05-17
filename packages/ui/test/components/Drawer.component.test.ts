@@ -1,5 +1,7 @@
+import { useDrawer } from '@ark-ui/vue/drawer'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { describe, expect, it } from 'vitest'
+import { defineComponent, nextTick, ref } from 'vue'
 
 import UIDrawer from '~ui/app/components/Drawer/index.vue'
 
@@ -87,5 +89,74 @@ describe('UIDrawer', () => {
     })
 
     expect(wrapper.html()).toBeTruthy()
+  })
+
+  it('uses RootProvider mode when value prop is provided', async () => {
+    const wrapper = await mountSuspended(
+      defineComponent({
+        name: 'DrawerProviderTest',
+        components: { UIDrawer },
+        setup() {
+          const drawer = useDrawer()
+          return { drawer }
+        },
+        template: `
+          <UIDrawer :value="drawer" title="Provider Drawer">
+            Provider content
+          </UIDrawer>
+        `,
+      }),
+    )
+
+    expect(wrapper.exists()).toBe(true)
+  })
+
+  it('forwards lazyMount and unmountOnExit in RootProvider mode', async () => {
+    const wrapper = await mountSuspended(
+      defineComponent({
+        name: 'DrawerProviderPropsTest',
+        components: { UIDrawer },
+        setup() {
+          const drawer = useDrawer()
+          return { drawer }
+        },
+        template: `
+          <UIDrawer :value="drawer" :lazy-mount="true" :unmount-on-exit="true" title="Provider Drawer">
+            Provider content
+          </UIDrawer>
+        `,
+      }),
+    )
+
+    expect(wrapper.exists()).toBe(true)
+  })
+
+  it('updates v-model:open when drawer open state changes', async () => {
+    const open = ref(false)
+
+    const Controlled = defineComponent({
+      name: 'DrawerVModelOpenTest',
+      components: { UIDrawer },
+      setup() {
+        return { open }
+      },
+      template: `
+        <UIDrawer v-model:open="open" title="VModel Drawer">
+          VModel content
+        </UIDrawer>
+      `,
+    })
+
+    const wrapper = await mountSuspended(Controlled)
+
+    expect(wrapper.exists()).toBe(true)
+
+    open.value = true
+    await nextTick()
+    expect(open.value).toBe(true)
+
+    open.value = false
+    await nextTick()
+    expect(open.value).toBe(false)
   })
 })

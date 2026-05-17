@@ -145,4 +145,19 @@ describe('Button', () => {
       expect(icon!.classes()).toContain(iconSizeClass)
     }
   })
+
+  it('renders button with leading and trailing icons', async () => {
+    const wrapper = await mountSuspended(Button, {
+      props: {
+        text: 'Action',
+        leading: true,
+        leadingIcon: 'tabler:plus',
+        trailing: true,
+        trailingIcon: 'tabler:arrow-right',
+      },
+    })
+
+    const icons = wrapper.findAll('svg')
+    expect(icons.length).toBeGreaterThanOrEqual(2)
+  })
 })

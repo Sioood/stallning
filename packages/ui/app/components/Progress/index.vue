@@ -15,9 +15,9 @@ defineOptions({ inheritAttrs: false })
 const progressRootCVA = cva('', {
   variants: {
     size: {
-      sm: '',
+      sm: 'row-gap-2 grid w-full grid-cols-2 items-center gap-1',
       md: 'row-gap-2 grid w-full grid-cols-2 items-center gap-1',
-      lg: '',
+      lg: 'row-gap-2 grid w-full grid-cols-2 items-center gap-1',
     } satisfies Record<ProgressSize, string>,
   },
 })

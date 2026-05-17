@@ -134,6 +134,7 @@ export default defineConfig(async () => {
             alias: {
               '~ui': packageRoot,
               '~nuxt-essentials': resolvePath(packageRoot, '../nuxt-essentials'),
+              '~': resolvePath(packageRoot, 'app'),
               '#app': resolvePath(packageRoot, 'test/visual/stubs/nuxt-app.ts'),
             },
           },

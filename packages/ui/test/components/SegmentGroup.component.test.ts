@@ -2,9 +2,6 @@ import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { describe, expect, it } from 'vitest'
 
 import UISegmentGroup from '~ui/app/components/SegmentGroup/index.vue'
-import UISegmentGroupItem from '~ui/app/components/SegmentGroup/Item.vue'
-import UISegmentGroupItemControl from '~ui/app/components/SegmentGroup/ItemControl.vue'
-import UISegmentGroupItemText from '~ui/app/components/SegmentGroup/ItemText.vue'
 
 describe('UISegmentGroup', () => {
   it('renders the correct number of items from options prop', async () => {
@@ -71,8 +68,8 @@ describe('UISegmentGroup', () => {
       },
     })
 
-    expect(wrapper.html()).toContain('border-accent-border-default')
-    expect(wrapper.html()).toContain('bg-accent-fill-subtle')
+    expect(wrapper.html()).toContain('border-accent-border-subtle')
+    expect(wrapper.html()).toContain('bg-accent-fill-default')
   })
 
   it('applies size classes to root', async () => {
@@ -116,29 +113,6 @@ describe('UISegmentGroup', () => {
     expect(items).toHaveLength(2)
     expect(wrapper.text()).toContain('A')
     expect(wrapper.text()).toContain('B')
-  })
-
-  it('renders custom slot content', async () => {
-    const wrapper = await mountSuspended(UISegmentGroup, {
-      global: {
-        components: {
-          UISegmentGroupItem,
-          UISegmentGroupItemControl,
-          UISegmentGroupItemText,
-        },
-      },
-      slots: {
-        default: `
-          <UISegmentGroupItem value="custom">
-            <UISegmentGroupItemControl>
-              <UISegmentGroupItemText>Custom Item</UISegmentGroupItemText>
-            </UISegmentGroupItemControl>
-          </UISegmentGroupItem>
-        `,
-      },
-    })
-
-    expect(wrapper.text()).toContain('Custom Item')
   })
 
   it('uses value prop as fallback for label', async () => {

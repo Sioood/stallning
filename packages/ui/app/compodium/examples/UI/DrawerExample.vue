@@ -211,7 +211,7 @@ const drawer = useDrawer({
           <div
             v-for="i in 20"
             :key="i"
-            class="flex h-12 items-center justify-center rounded-lg border border-neutral-border-subtle bg-neutral-fill-subtle txt-label text-neutral-text-default"
+            class="txt-label flex h-12 items-center justify-center rounded-lg border border-neutral-border-subtle bg-neutral-fill-subtle text-neutral-text-default"
           >
             Item {{ i }}
           </div>
@@ -262,7 +262,7 @@ const drawer = useDrawer({
             data-no-drag
             type="text"
             placeholder="Type here — drag won't start inside"
-            class="w-full rounded-md border border-neutral-border-default bg-neutral-surface-default px-3 py-2 txt-base text-neutral-text-default outline-none focus:border-primary-border-default focus:ring-1 focus:ring-primary-border-default"
+            class="txt-base w-full rounded-md border border-neutral-border-default bg-neutral-surface-default px-3 py-2 text-neutral-text-default outline-none focus:border-primary-border-default focus:ring-1 focus:ring-primary-border-default"
           />
         </div>
       </UIDrawer>
@@ -291,7 +291,7 @@ const drawer = useDrawer({
               <UIButton variant="subtle">Help</UIButton>
             </component>
           </div>
-          <p v-if="drawerContext.triggerValue" class="txt-caption text-neutral-text-subtle mt-1">
+          <p v-if="drawerContext.triggerValue" class="txt-caption mt-1 text-neutral-text-subtle">
             Active trigger: <strong>{{ drawerContext.triggerValue }}</strong>
           </p>
         </template>

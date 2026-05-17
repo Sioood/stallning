@@ -5,7 +5,7 @@ import type {
   FieldValidateOrFn,
   FieldValidators,
 } from '@tanstack/form-core'
-import type { Component } from 'vue'
+import type { Component, VNode } from 'vue'
 import type { z } from 'zod'
 
 type FieldData<
@@ -34,6 +34,11 @@ export type SchemaFieldConfig<
 > = {
   as: Component
   props?: Record<string, unknown>
+  slots?: Record<string, () => VNode | string>
+  /** Prepended to the field value on submit (e.g. `https://`) */
+  prefix?: string
+  /** Appended to the field value on submit (e.g. `.com`) */
+  suffix?: string
   validators?: FieldValidators<
     TValues,
     TName,

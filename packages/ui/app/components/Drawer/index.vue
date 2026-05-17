@@ -28,8 +28,8 @@ const drawerBackdropCVA = cva([
   'fixed inset-0 z-9999 bg-black/50',
   'data-[state=open]:animate-in data-[state=closed]:animate-out',
   'data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0',
-  'data-[state=open]:duration-500 data-[state=closed]:duration-300',
-  'data-[state=open]:ease-[cubic-bezier(0.32,0.72,0,1)] data-[state=closed]:ease-[cubic-bezier(0.4,0,0.2,1)]',
+  'data-[state=closed]:duration-300 data-[state=open]:duration-500',
+  'data-[state=closed]:ease-[cubic-bezier(0.4,0,0.2,1)] data-[state=open]:ease-[cubic-bezier(0.32,0.72,0,1)]',
 ])
 
 /**
@@ -48,7 +48,7 @@ const drawerBackdropCVA = cva([
  */
 const drawerContentRootCVA = cva(
   [
-    'relative flex flex-col w-full outline-none group',
+    'group relative flex w-full flex-col outline-none',
     // Snap-to-snap transition — only while open (state=closed deactivates it,
     // so the close animation never competes with a running transition)
     'data-[state=open]:transition-[transform]',
@@ -67,11 +67,11 @@ const drawerContentRootCVA = cva(
           'h-auto data-[state=closed]:animate-[ui-drawer-slide-out-up_0.3s_cubic-bezier(0.4,0,0.2,1)_forwards]',
         ],
         start: [
-          'w-auto h-full max-h-none',
+          'h-full max-h-none w-auto',
           'data-[state=closed]:animate-[ui-drawer-slide-out-start_0.3s_cubic-bezier(0.4,0,0.2,1)_forwards]',
         ],
         end: [
-          'w-auto h-full max-h-none',
+          'h-full max-h-none w-auto',
           'data-[state=closed]:animate-[ui-drawer-slide-out-end_0.3s_cubic-bezier(0.4,0,0.2,1)_forwards]',
         ],
       } satisfies Record<DrawerSwipeDirection, string[]>,
@@ -100,7 +100,7 @@ const drawerContentRootCVA = cva(
  */
 const drawerBodyCVA = cva(
   [
-    'relative flex min-h-0 min-w-0 size-full shadow-xl',
+    'relative flex size-full min-h-0 min-w-0 shadow-xl',
     'group-data-[dragging]:[animation-play-state:paused]',
   ],
   {
@@ -113,19 +113,19 @@ const drawerBodyCVA = cva(
       } satisfies Record<DrawerIntent, string>,
       swipeDirection: {
         down: [
-          'flex-col drawer-bleed-down',
+          'drawer-bleed-down flex-col',
           'group-data-[state=open]:animate-[ui-drawer-body-slide-in-down_0.5s_cubic-bezier(0.32,0.72,0,1)_both]',
         ],
         up: [
-          'flex-col-reverse drawer-bleed-up',
+          'drawer-bleed-up flex-col-reverse',
           'group-data-[state=open]:animate-[ui-drawer-body-slide-in-up_0.5s_cubic-bezier(0.32,0.72,0,1)_both]',
         ],
         start: [
-          'flex-row-reverse drawer-bleed-start',
+          'drawer-bleed-start flex-row-reverse',
           'group-data-[state=open]:animate-[ui-drawer-body-slide-in-start_0.5s_cubic-bezier(0.32,0.72,0,1)_both]',
         ],
         end: [
-          'flex-row drawer-bleed-end',
+          'drawer-bleed-end flex-row',
           'group-data-[state=open]:animate-[ui-drawer-body-slide-in-end_0.5s_cubic-bezier(0.32,0.72,0,1)_both]',
         ],
       } satisfies Record<DrawerSwipeDirection, string[]>,
@@ -134,14 +134,14 @@ const drawerBodyCVA = cva(
 )
 
 const drawerGrabberCVA = cva(
-  'flex shrink-0 cursor-grab touch-none select-none items-center justify-center active:cursor-grabbing',
+  'flex shrink-0 cursor-grab touch-none items-center justify-center select-none active:cursor-grabbing',
   {
     variants: {
       swipeDirection: {
         down: 'w-full py-2',
         up: 'w-full py-2',
-        start: 'w-4 h-full px-1',
-        end: 'w-4 h-full px-1',
+        start: 'h-full w-4 px-1',
+        end: 'h-full w-4 px-1',
       } satisfies Record<DrawerSwipeDirection, string>,
     },
     defaultVariants: { swipeDirection: 'down' },

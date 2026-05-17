@@ -23,6 +23,8 @@ interface InputProps extends Omit<FormControlShellProps, 'ui'>, ArkFieldInputBas
   name?: string
   placeholder?: string
   type?: string
+  /** Show a clear button when the input has a value */
+  clearable?: boolean
   ui?: Partial<UIInputSlots>
 }
 
@@ -33,6 +35,7 @@ const emit = defineEmits<{
 const modelValue = defineModel<string>({ default: '' })
 
 const props = withDefaults(defineProps<InputProps>(), {
+  clearable: false,
   error: undefined,
   errorIcon: undefined,
   helperText: undefined,
@@ -137,6 +140,14 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
 
 <template>
   <UIFormControlShell v-bind="shellProps">
+    <template v-if="$slots.leading" #leading>
+      <slot name="leading" />
+    </template>
+
+    <template v-if="$slots['inner-leading']" #inner-leading>
+      <slot name="inner-leading" />
+    </template>
+
     <ArkField.Input
       ref="arkInputRef"
       v-bind="{ ...inputProps, ...inputFallthroughAttrs }"
@@ -146,8 +157,22 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
       @blur="emit('blur', $event)"
     />
 
-    <template v-if="isPasswordField" #trailing>
+    <template #inner-trailing>
+      <UIButton
+        v-if="clearable && modelValue"
+        size="sm"
+        variant="ghost"
+        intent="error"
+        icon-only
+        icon="tabler:x"
+        :disabled="disabled || readOnly"
+        :ui="{
+          root: 'h-full',
+        }"
+        @click="modelValue = ''"
+      />
       <UIToggle
+        v-if="isPasswordField"
         v-model:pressed="showPassword"
         variant="ghost"
         intent="primary"
@@ -163,6 +188,10 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
           <Icon name="tabler:eye" class="size-4 shrink-0" />
         </template>
       </UIToggle>
+    </template>
+
+    <template v-if="$slots.trailing" #trailing>
+      <slot name="trailing" />
     </template>
   </UIFormControlShell>
 </template>

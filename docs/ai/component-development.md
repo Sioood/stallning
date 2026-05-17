@@ -147,6 +147,84 @@ switch (entry.type) {
 
 ---
 
+## Form Input Patterns
+
+### Static Prefix/Suffix
+
+For fixed text prepended or appended to a field value, use the schema-level `prefix` and `suffix` options. These are applied **at submit time** — the user never sees them in the input, and `v-model` remains clean.
+
+```ts
+const fields: SchemaFieldsMap<FormValues> = {
+  website: {
+    as: UIFormInput,
+    props: { label: 'Website', placeholder: 'example.com' },
+    prefix: 'https://', // emitted as "https://example.com"
+    slots: { leading: () => h('span', {}, 'https://') },
+  },
+  domain: {
+    as: UIFormInput,
+    props: { label: 'Domain', placeholder: 'mywebsite' },
+    suffix: '.com', // emitted as "mywebsite.com"
+    slots: { trailing: () => h('span', {}, '.com') },
+  },
+}
+```
+
+### Dynamic Prefix/Suffix
+
+When the prefix or suffix depends on user selection (e.g. country code + phone number, currency symbol + amount), **create a dedicated component**. Slots alone cannot handle the two-way binding logic between interactive elements.
+
+**Why a dedicated component is needed:**
+
+1. It manages internal state for multiple sub-inputs (select + text input)
+2. It combines values reactively before emitting to the parent form
+3. Slots alone can't coordinate `v-model` sync between sibling controls
+
+**Pattern: wrap `UIFormInput` and inject via `#inner-leading`**
+
+```vue
+<!-- PhoneInput.vue -->
+<script setup lang="ts">
+const internalCountryCode = ref<string[]>([])
+const internalPhone = ref('')
+
+// Sync combined value to parent v-model
+watch([internalCountryCode, internalPhone], () => {
+  const code = internalCountryCode.value[0]
+  modelValue.value = code && internalPhone.value ? `${code} ${internalPhone.value}` : ''
+})
+</script>
+
+<template>
+  <UIFormInput v-model="internalPhone" type="tel">
+    <template #inner-leading>
+      <UIFormSelect
+        v-model="internalCountryCode"
+        :items="countryItems"
+        :ui="{
+          root: 'w-auto',
+          trigger:
+            'flex w-auto shrink-0 items-center rounded-l-md rounded-r-none border-0 bg-transparent',
+        }"
+      />
+    </template>
+  </UIFormInput>
+</template>
+```
+
+The `#inner-leading` slot places the select **inside** the shell border, sharing a single visual container. Use `rounded-l-md rounded-r-none border-0` on the select trigger and `rounded-l-none border-l-0` on the input side to create a seamless joined appearance.
+
+### Slot Placement Guide
+
+| Slot              | Position              | Use case                           |
+| ----------------- | --------------------- | ---------------------------------- |
+| `#leading`        | Outside shell (left)  | Icon, label, standalone addon      |
+| `#inner-leading`  | Inside shell (left)   | Prefix that shares border (select) |
+| `#inner-trailing` | Inside shell (right)  | Password toggle, suffix icon       |
+| `#trailing`       | Outside shell (right) | Button, standalone addon           |
+
+---
+
 ## Compodium Example Template
 
 Every example file should cover:

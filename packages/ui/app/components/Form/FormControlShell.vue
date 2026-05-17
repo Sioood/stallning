@@ -15,7 +15,12 @@ defineOptions({ inheritAttrs: false })
  * Renders UIFormField + visual shell (border, focus ring, icons) and
  * accepts the actual input element via the default slot.
  *
- * Additional trailing content (password toggle, etc.) goes in the `trailing` slot.
+ * Slots:
+ * - default: the input element
+ * - leading: prefix addon outside the shell (e.g. a button or select)
+ * - inner-leading: prefix content inside the shell (e.g. `$`, `@` indicator)
+ * - inner-trailing: suffix content inside the shell (e.g. password toggle)
+ * - trailing: suffix addon outside the shell (e.g. a button or `.com` text)
  */
 export interface FormControlShellProps extends Omit<FieldProps, 'ui'>, UseComponentIconsProps {
   intent?: FormFieldIntent
@@ -89,47 +94,60 @@ const disabled = computed(() => props.disabled ?? false)
 
 <template>
   <UIFormField v-bind="fieldProps">
-    <!-- TODO add slot for leading and trailing elements like having a select after or just having an indicator like .com see https://shadcnstudio.com/docs/components/input so maybe those can be used a prefix/suffix for the value -->
-    <div
-      :class="
-        cn(
-          controlShellCVA({
-            intent,
-            size,
-            invalid,
-            disabled,
-          }),
-          ui?.shell,
-        )
-      "
-    >
-      <span
-        v-if="isLeading && leadingIconName"
-        :class="cn('flex shrink-0 items-center pl-2 text-primary-icon-subtle', ui?.leadingIcon)"
-        aria-hidden="true"
-      >
-        <Icon
-          :name="leadingIconName"
-          class="size-4 shrink-0"
-          :class="{ 'animate-spin': shouldAnimate }"
-        />
-      </span>
+    <div class="flex w-full items-stretch gap-0">
+      <slot name="leading" />
 
-      <slot />
+      <div
+        :class="
+          cn(
+            controlShellCVA({
+              intent,
+              size,
+              invalid,
+              disabled,
+            }),
+            'min-w-0 flex-1',
+            ui?.shell,
+          )
+        "
+      >
+        <span
+          v-if="$slots['inner-leading']"
+          :class="cn('flex shrink-0 items-center pl-2 text-neutral-text-subtle', ui?.innerLeading)"
+        >
+          <slot name="inner-leading" />
+        </span>
+
+        <span
+          v-if="isLeading && leadingIconName"
+          :class="cn('flex shrink-0 items-center pl-2 text-primary-icon-subtle', ui?.leadingIcon)"
+          aria-hidden="true"
+        >
+          <Icon
+            :name="leadingIconName"
+            class="size-4 shrink-0"
+            :class="{ 'animate-spin': shouldAnimate }"
+          />
+        </span>
+
+        <slot />
+
+        <slot name="inner-trailing" />
+
+        <span
+          v-if="isTrailing && trailingIconName"
+          :class="cn('flex shrink-0 items-center pr-2 text-primary-icon-subtle', ui?.trailingIcon)"
+          aria-hidden="true"
+        >
+          <Icon
+            :name="trailingIconName"
+            class="size-4 shrink-0"
+            :class="{ 'animate-spin': shouldAnimate }"
+          />
+        </span>
+      </div>
 
       <slot name="trailing" />
-
-      <span
-        v-if="isTrailing && trailingIconName"
-        :class="cn('flex shrink-0 items-center pr-2 text-primary-icon-subtle', ui?.trailingIcon)"
-        aria-hidden="true"
-      >
-        <Icon
-          :name="trailingIconName"
-          class="size-4 shrink-0"
-          :class="{ 'animate-spin': shouldAnimate }"
-        />
-      </span>
     </div>
   </UIFormField>
 </template>

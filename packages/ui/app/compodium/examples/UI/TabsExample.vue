@@ -139,11 +139,11 @@ function onValueChange(d: TabsValueChangeDetails) {
               Dashboard overview with key metrics and recent activity.
             </p>
             <div class="mt-4 grid grid-cols-2 gap-4">
-              <div class="rounded-md bg-neutral-bg p-3">
+              <div class="bg-neutral-bg rounded-md p-3">
                 <p class="text-2xl font-bold text-primary-text-default">1,234</p>
                 <p class="text-xs text-neutral-text-subtle">Total Users</p>
               </div>
-              <div class="rounded-md bg-neutral-bg p-3">
+              <div class="bg-neutral-bg rounded-md p-3">
                 <p class="text-2xl font-bold text-accent-text-default">567</p>
                 <p class="text-xs text-neutral-text-subtle">Active Sessions</p>
               </div>

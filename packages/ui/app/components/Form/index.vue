@@ -34,7 +34,24 @@ const { form } = useSchemaForm<TValues>({
   schema: props.schema,
   defaultValues: props.defaultValues,
   validateSchemaOn: props.validateSchemaOn,
-  onSubmit: ({ value }) => emit('submit', value),
+  onSubmit: ({ value }) => {
+    const transformed = { ...value } as Record<string, unknown>
+    for (const row of props.layout) {
+      for (const k of layoutRowKeys(row)) {
+        const key = k as keyof TValues & string
+        const cfg = props.fields[key]
+        if (!cfg) continue
+        const raw = transformed[key]
+        if (typeof raw === 'string') {
+          let v = raw
+          if (cfg.prefix) v = `${cfg.prefix}${v}`
+          if (cfg.suffix) v = `${v}${cfg.suffix}`
+          transformed[key] = v
+        }
+      }
+    }
+    emit('submit', transformed as TValues)
+  },
 })
 
 const formSubmitting = form.useStore((s) => s.isSubmitting)

@@ -18,6 +18,12 @@ const props = defineProps<{
     meta: { errors: readonly unknown[] }
   }
 }>()
+
+const slotEntries = computed(() =>
+  props.config.slots
+    ? Object.entries(props.config.slots).map(([name, render]) => ({ name, render }))
+    : [],
+)
 </script>
 
 <template>
@@ -32,5 +38,9 @@ const props = defineProps<{
     }"
     @update:model-value="props.fieldApi.handleChange($event as DeepValue<TValues, TFieldName>)"
     @blur="props.fieldApi.handleBlur()"
-  />
+  >
+    <template v-for="{ name, render } in slotEntries" :key="name" #[name]>
+      <component :is="render()" />
+    </template>
+  </component>
 </template>

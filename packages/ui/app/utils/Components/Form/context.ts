@@ -25,6 +25,8 @@ export interface UIInputSlots extends UIFieldSlots {
   input?: ClassValue
   leadingIcon?: ClassValue
   trailingIcon?: ClassValue
+  leadingContent?: ClassValue
+  innerLeading?: ClassValue
 }
 
 export interface UICheckboxSlots {

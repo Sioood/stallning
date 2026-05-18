@@ -2052,6 +2052,7 @@
 
 :root {
   font-size: 16px;
+  overscroll-behavior: none;
 }
 
 html {

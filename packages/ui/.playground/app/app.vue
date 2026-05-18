@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <h1>Hello World from playground</h1>
-    <UIButton>Click me</UIButton>
-    <UIFormInput />
-  </div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>

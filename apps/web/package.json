@@ -19,7 +19,8 @@
     "i18n:coverage:namespace": "pnpm exec stallning-i18n-coverage -f ./i18n/locales --ns"
   },
   "dependencies": {
-    "@stallning/ui": "workspace:*",
+    "@stallning/nuxt-essentials": "workspace:^",
+    "@stallning/ui": "workspace:^",
     "nuxt": "catalog:",
     "vue": "catalog:",
     "vue-router": "catalog:"
@@ -27,7 +28,6 @@
   "devDependencies": {
     "@playwright/test": "catalog:",
     "@stallning/eslint": "workspace:^",
-    "@stallning/nuxt-essentials": "workspace:*",
     "eslint": "catalog:",
     "oxfmt": "catalog:",
     "oxlint": "catalog:",

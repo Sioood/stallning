@@ -2,6 +2,7 @@
 @import 'tailwindcss';
 
 @source '../../app/components';
+@source '../../app/utils/Components';
 @source '../../app/pages/*';
 @source '../../app/app.vue';
 @source '../../app/error.vue';

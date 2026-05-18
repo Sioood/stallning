@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   extends: [resolve('../../packages/ui')],
-  css: [resolve('./app/assets/main.css')],
+  css: [resolve('./app/assets/css/main.css')],
   i18n: {
     defaultLocale: 'fr-FR',
     // ISO 639-1 + ISO 3166-1

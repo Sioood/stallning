@@ -5,6 +5,7 @@ import { defineComponent, nextTick, ref } from 'vue'
 
 import UITabsContent from '~ui/app/components/Tabs/Content.vue'
 import UITabs from '~ui/app/components/Tabs/index.vue'
+import UITabsRoot from '~ui/app/components/Tabs/Root.vue'
 import UITabsTrigger from '~ui/app/components/Tabs/Trigger.vue'
 
 describe('UITabs', () => {
@@ -149,6 +150,41 @@ describe('UITabs', () => {
 
     expect(wrapper.text()).toContain('Custom Tab')
     expect(wrapper.text()).toContain('Custom Content')
+  })
+
+  it('renders UITabsRoot for manual composition', async () => {
+    const wrapper = await mountSuspended(UITabsRoot, {
+      props: { modelValue: 'a' },
+      global: {
+        components: { UITabsTrigger, UITabsContent },
+      },
+      slots: {
+        default: `
+          <UITabsTrigger value="a">A</UITabsTrigger>
+          <UITabsContent value="a">Panel A</UITabsContent>
+        `,
+      },
+    })
+
+    expect(wrapper.text()).toContain('A')
+    expect(wrapper.text()).toContain('Panel A')
+  })
+
+  it('renders option icons when provided', async () => {
+    const wrapper = await mountSuspended(UITabs, {
+      props: {
+        options: [
+          { value: 'home', label: 'Home', icon: 'tabler:home' },
+          { value: 'search', label: 'Search', icon: 'tabler:search' },
+        ],
+      },
+    })
+
+    const triggers = wrapper.findAll('[data-part="trigger"]')
+    expect(triggers).toHaveLength(2)
+    for (const trigger of triggers) {
+      expect(trigger.find('svg').exists()).toBe(true)
+    }
   })
 
   it('uses value prop as fallback for label', async () => {

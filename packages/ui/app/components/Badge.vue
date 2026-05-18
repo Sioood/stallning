@@ -23,7 +23,7 @@ type BadgeIntent =
   | 'gray'
 type BadgeSize = 'sm' | 'md' | 'lg'
 
-const badgeCVA = cva('flex items-center justify-center', {
+const badgeCVA = cva('w-fit flex items-center justify-center', {
   variants: {
     intent: {
       neutral: 'border-neutral-border-default bg-neutral-surface-default',

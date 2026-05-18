@@ -19,3 +19,11 @@ export interface TabsContext {
 }
 
 export const tabsChromeKey: InjectionKey<TabsContext> = Symbol('tabsChrome')
+
+export interface UITabOption {
+  disabled?: boolean
+  value: string
+  label?: string
+  /** Tabler icon name (e.g. `tabler:home`). Rendered before the label when using the `options` prop. */
+  icon?: string
+}

@@ -7,10 +7,10 @@ const externalApi = useTabs({
 })
 
 const options = [
-  { value: 'react', label: 'React' },
+  { value: 'react', label: 'React', icon: 'tabler:brand-react' },
   { value: 'solid', label: 'Solid' },
-  { value: 'svelte', label: 'Svelte' },
-  { value: 'vue', label: 'Vue' },
+  { value: 'svelte', label: 'Svelte', icon: 'tabler:brand-svelte' },
+  { value: 'vue', label: 'Vue', icon: 'tabler:brand-vue' },
 ]
 
 const intents = ['neutral', 'primary', 'secondary', 'accent'] as const
@@ -221,7 +221,7 @@ function onValueChange(d: TabsValueChangeDetails) {
       <p class="text-sm text-neutral-text-subtle">
         Use the default slot to render custom triggers and content.
       </p>
-      <UITabs v-model="selected" intent="primary">
+      <UITabsRoot v-model="selected" intent="primary">
         <UITabsList>
           <UITabsTrigger value="react">⚛️ React</UITabsTrigger>
           <UITabsTrigger value="vue">💚 Vue</UITabsTrigger>
@@ -232,7 +232,7 @@ function onValueChange(d: TabsValueChangeDetails) {
         <UITabsContent value="vue">
           <p>Vue content here</p>
         </UITabsContent>
-      </UITabs>
+      </UITabsRoot>
     </section>
   </div>
 </template>

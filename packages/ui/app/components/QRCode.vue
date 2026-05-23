@@ -35,10 +35,10 @@ type QrCodeRootCVAProps = VariantProps<typeof qrCodeRootCVA>
 const qrCodeFrameCVA = cva('size-full', {
   variants: {
     intent: {
-      neutral: 'bg-neutral-fill-subtle fill-neutral-surface-strong',
-      primary: 'bg-primary-fill-subtle fill-primary-surface-strong',
-      secondary: 'bg-secondary-fill-subtle fill-secondary-surface-strong',
-      accent: 'bg-accent-fill-subtle fill-accent-surface-strong',
+      neutral: 'bg-neutral-fill-subtle fill-neutral-fill-strong',
+      primary: 'bg-primary-fill-subtle fill-primary-fill-strong',
+      secondary: 'bg-secondary-fill-subtle fill-secondary-fill-strong',
+      accent: 'bg-accent-fill-subtle fill-accent-fill-strong',
       blackAndWhite: 'bg-white fill-black',
     } satisfies Record<QrCodeIntent, string>,
   },

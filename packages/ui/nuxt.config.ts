@@ -28,6 +28,7 @@ export default defineNuxtConfig({
     mode: 'svg',
   },
   image: {
+    domains: ['api.dicebear.com'],
     quality: 80,
     format: ['avif', 'webp'],
     screens: {

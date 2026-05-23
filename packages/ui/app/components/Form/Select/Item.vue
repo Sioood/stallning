@@ -6,19 +6,20 @@ import {
   type SelectIntent,
   type SelectSize,
 } from '~/utils/Components/Form/Select/context'
-import { selectContentCVA } from '~/utils/Components/Form/Select/variants'
+import { selectItemCVA } from '~/utils/Components/Form/Select/variants'
 
 import type { ClassValue } from 'vue'
 
 defineOptions({ inheritAttrs: false })
 
-export interface SelectContentProps {
+export interface SelectItemProps {
+  item: unknown
   intent?: SelectIntent
   size?: SelectSize
   ui?: ClassValue
 }
 
-const props = withDefaults(defineProps<SelectContentProps>(), {
+const props = withDefaults(defineProps<SelectItemProps>(), {
   intent: undefined,
   size: undefined,
   ui: undefined,
@@ -30,15 +31,17 @@ const attrs = useAttrs()
 const intent = computed(() => props.intent ?? chrome?.intent.value ?? 'primary')
 const size = computed(() => props.size ?? chrome?.size.value ?? 'md')
 
-const contentAttrs = computed(() => {
+const itemAttrs = computed(() => {
   const {
     intent: _intent,
     size: _size,
+    item: _item,
     ui: _ui,
     ...rest
   } = attrs as Record<string, unknown> & {
     intent?: SelectIntent
     size?: SelectSize
+    item?: unknown
     ui?: ClassValue
   }
   return rest
@@ -46,42 +49,11 @@ const contentAttrs = computed(() => {
 </script>
 
 <template>
-  <ArkSelect.Content
-    v-bind="contentAttrs"
-    :class="cn(selectContentCVA({ intent, size }), contentAttrs.class as ClassValue, ui)"
+  <ArkSelect.Item
+    :item="item"
+    v-bind="itemAttrs"
+    :class="cn(selectItemCVA({ intent, size }), itemAttrs.class as ClassValue, ui)"
   >
     <slot />
-  </ArkSelect.Content>
+  </ArkSelect.Item>
 </template>
-
-<style scoped>
-:deep([data-part='content'][data-state='open']) {
-  animation: scale-fade-in 100ms ease-out;
-}
-
-:deep([data-part='content'][data-state='closed']) {
-  animation: scale-fade-out 50ms ease-in;
-}
-
-@keyframes scale-fade-in {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes scale-fade-out {
-  from {
-    opacity: 1;
-    transform: scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-}
-</style>

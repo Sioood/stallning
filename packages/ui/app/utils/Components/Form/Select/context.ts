@@ -1,4 +1,4 @@
-import type { ClassValue } from 'vue'
+import type { InjectionKey, Ref, ClassValue } from 'vue'
 import type { ComponentIntent, ComponentSize } from '~/utils/Components/contextBase'
 
 export type SelectIntent = NonNullable<
@@ -12,6 +12,13 @@ export interface SelectItem {
   disabled: boolean
   group?: string
 }
+
+export interface SelectChromeContext {
+  intent: Ref<SelectIntent>
+  size: Ref<SelectSize>
+}
+
+export const selectChromeKey: InjectionKey<SelectChromeContext> = Symbol('selectChrome')
 
 export interface UISelectSlots {
   root?: ClassValue

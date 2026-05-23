@@ -2,6 +2,30 @@ import { cva } from 'class-variance-authority'
 
 import type { SelectIntent, SelectSize } from './context'
 
+export const selectRootCVA = cva('flex w-full flex-col gap-1')
+
+export const selectControlCVA = cva('flex items-center gap-1')
+
+export const selectTriggerCVA = cva('w-full justify-between active:scale-100', {
+  variants: {
+    intent: {
+      neutral: '',
+      primary: '',
+      secondary: '',
+      accent: '',
+    } satisfies Record<SelectIntent, string>,
+    size: {
+      sm: '',
+      md: '',
+      lg: '',
+    } satisfies Record<SelectSize, string>,
+  },
+})
+
+export const selectClearTriggerCVA = cva(
+  'cursor-pointer hover:text-error-text-default-hover data-[disabled=true]:cursor-not-allowed',
+)
+
 export const selectPositionerCVA = cva('z-9999 origin-(--transform-origin)')
 
 export const selectContentCVA = cva(

@@ -1,19 +1,10 @@
 <script setup lang="ts">
 import {
-  Select as ArkSelect,
   createListCollection,
   type SelectRootBaseProps as ArkSelectRootProps,
   type SelectRootProviderBaseProps as ArkSelectRootProviderBaseProps,
   type UseSelectReturn,
 } from '@ark-ui/vue/select'
-
-import { buttonCVA } from '~/utils/Components/Button/variants'
-import {
-  selectContentCVA,
-  selectIconSizeCVA,
-  selectLabelCVA,
-  selectPositionerCVA,
-} from '~/utils/Components/Form/Select/variants'
 
 import type {
   SelectIntent,
@@ -21,6 +12,10 @@ import type {
   SelectItem,
   UISelectSlots,
 } from '~/utils/Components/Form/Select/context'
+
+defineOptions({ inheritAttrs: false })
+
+export type { SelectItem } from '~/utils/Components/Form/Select/context'
 
 export interface SelectProps
   extends
@@ -80,6 +75,8 @@ const props = withDefaults(defineProps<SelectProps>(), {
   ui: undefined,
 })
 
+const attrs = useAttrs()
+
 const rawItems = computed(() => props.items ?? [])
 
 const hasMaxReached = computed(
@@ -107,116 +104,76 @@ const collection = computed(() => {
 
 const isGrouped = computed(() => rawItems.value.some((item) => item.group))
 
+const isProvider = computed(() => props.value !== undefined)
+
 function handleValueChange(details: { value: string[] }) {
   if (props.maxSelection !== undefined && details.value.length > props.maxSelection) return
   modelValue.value = details.value
 }
 
-const iconClass = computed(() => cn(selectIconSizeCVA({ size: props.size })))
+const rootPassthrough = computed(() => {
+  const {
+    allowSelectAll: _allowSelectAll,
+    emptyText: _emptyText,
+    items: _items,
+    label: _label,
+    loading: _loading,
+    loadingText: _loadingText,
+    maxSelection: _maxSelection,
+    placeholder: _placeholder,
+    portalled: _portalled,
+    showClear: _showClear,
+    teleportTo: _teleportTo,
+    ui: _ui,
+    ...rest
+  } = props
+  return rest
+})
 
-const isProvider = computed(() => props.value !== undefined)
-
-const rootComponent = computed(() => (isProvider.value ? ArkSelect.RootProvider : ArkSelect.Root))
-
-const rootProps = computed(() => {
-  if (isProvider.value) {
-    return { value: props.value, collection: collection.value }
-  }
-  return {
-    ...pick(props, [
-      'asChild',
-      'autoComplete',
-      'closeOnSelect',
-      'composite',
-      'defaultHighlightedValue',
-      'defaultOpen',
-      'defaultValue',
-      'deselectable',
-      'disabled',
-      'form',
-      'highlightedValue',
-      'id',
-      'ids',
-      'invalid',
-      'lazyMount',
-      'loopFocus',
-      'multiple',
-      'name',
-      'positioning',
-      'readOnly',
-      'required',
-      'scrollToIndexFn',
-      'unmountOnExit',
-    ] as const),
-    collection: collection.value,
-  }
+extendCompodiumMeta<typeof props & { modelValue?: string[] }>({
+  defaultProps: {
+    intent: 'primary',
+    label: 'Framework',
+    placeholder: 'select.select',
+    size: 'md',
+  },
 })
 </script>
 
 <template>
-  <component
-    :is="rootComponent"
-    v-bind="
-      isProvider ? rootProps : { ...rootProps, open, 'onUpdate:open': (v: boolean) => (open = v) }
-    "
-    :class="cn('w-full', ui?.root)"
+  <UIFormSelectRoot
+    v-bind="{ ...rootPassthrough, ...attrs }"
+    v-model="modelValue"
+    v-model:open="open"
+    :collection="isProvider ? undefined : collection"
+    :intent
+    :size
+    :ui="{ root: ui?.root }"
     @value-change="handleValueChange"
   >
-    <ArkSelect.Label v-if="label" :class="cn(selectLabelCVA({ intent, size }), ui?.label)">
+    <UIFormSelectLabel v-if="label" :ui="ui?.label">
       {{ $te(label) ? $t(label) : label }}
-    </ArkSelect.Label>
+    </UIFormSelectLabel>
 
-    <ArkSelect.Control :class="cn('flex items-center gap-1', ui?.control)">
-      <ArkSelect.Trigger
-        :class="
-          cn(
-            buttonCVA({
-              variant: 'subtle',
-              intent,
-              size,
-              disabled,
-            }),
-            'w-full justify-between active:scale-100',
-            ui?.trigger,
-          )
-        "
-      >
-        <ArkSelect.ValueText
+    <UIFormSelectControl :ui="ui?.control">
+      <UIFormSelectTrigger :disabled :ui="ui?.trigger">
+        <UIFormSelectValueText
           :placeholder="$te(placeholder) ? $t(placeholder) : placeholder"
-          :class="cn('flex-1 truncate text-left', ui?.valueText)"
+          :ui="ui?.valueText"
         />
-
-        <ArkSelect.ClearTrigger
+        <UIFormSelectClearTrigger
           v-if="showClear && modelValue.length > 0"
-          :class="
-            cn(
-              'cursor-pointer hover:text-error-text-default-hover data-[disabled=true]:cursor-not-allowed',
-              ui?.clearTrigger,
-            )
-          "
-          @click.prevent
-        >
-          <Icon name="tabler:x" :class="iconClass" />
-        </ArkSelect.ClearTrigger>
-
-        <ArkSelect.Indicator
-          :class="
-            cn(
-              'inline-flex items-center transition-transform data-[state=open]:rotate-180',
-              ui?.indicator,
-            )
-          "
-        >
-          <Icon name="tabler:chevron-down" :class="iconClass" />
-        </ArkSelect.Indicator>
-      </ArkSelect.Trigger>
-    </ArkSelect.Control>
+          :ui="ui?.clearTrigger"
+        />
+        <UIFormSelectIndicator :ui="ui?.indicator" />
+      </UIFormSelectTrigger>
+    </UIFormSelectControl>
 
     <Teleport :to="teleportTo" :disabled="!portalled">
-      <ArkSelect.Positioner :class="cn(selectPositionerCVA(), ui?.positioner)">
-        <ArkSelect.Content :class="cn(selectContentCVA({ intent, size }), ui?.content)">
+      <UIFormSelectPositioner :ui="ui?.positioner">
+        <UIFormSelectContent :ui="ui?.content">
           <slot name="content" :collection :loading :is-grouped>
-            <UIFormSelectContent
+            <UIFormSelectListContent
               :collection
               :intent
               :size
@@ -228,41 +185,12 @@ const rootProps = computed(() => {
               :ui
             />
           </slot>
-        </ArkSelect.Content>
-      </ArkSelect.Positioner>
+        </UIFormSelectContent>
+      </UIFormSelectPositioner>
     </Teleport>
-    <ArkSelect.HiddenSelect />
-  </component>
+
+    <UIFormSelectHiddenInput />
+
+    <slot />
+  </UIFormSelectRoot>
 </template>
-
-<style scoped>
-:deep([data-part='content'][data-state='open']) {
-  animation: scale-fade-in 100ms ease-out;
-}
-
-:deep([data-part='content'][data-state='closed']) {
-  animation: scale-fade-out 50ms ease-in;
-}
-
-@keyframes scale-fade-in {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes scale-fade-out {
-  from {
-    opacity: 1;
-    transform: scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-}
-</style>

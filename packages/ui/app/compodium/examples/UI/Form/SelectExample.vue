@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { createListCollection, useSelect } from '@ark-ui/vue/select'
+
 import type { SelectItem } from '~/components/Form/Select/index.vue'
 
 // ── Basic ──────────────────────────────────────────────────────────────────
@@ -87,6 +89,18 @@ const controlledValue = ref<string[]>([])
 
 // ── Deselectable (single) ──────────────────────────────────────────────────
 const deselectableValue = ref<string[]>([])
+
+const providerItems: SelectItem[] = [
+  { label: 'React', value: 'react' },
+  { label: 'Vue', value: 'vue' },
+  { label: 'Solid', value: 'solid' },
+]
+
+const providerCollection = computed(() => createListCollection({ items: providerItems }))
+
+const providerApi = useSelect({
+  collection: providerCollection.value,
+})
 </script>
 
 <template>
@@ -271,6 +285,40 @@ const deselectableValue = ref<string[]>([])
         read-only
         :model-value="['react']"
       />
+    </section>
+
+    <!-- RootProvider compound mode -->
+    <section class="flex flex-col gap-2">
+      <p class="txt-label text-neutral-text-default">RootProvider compound</p>
+      <UIButton size="sm" @click="providerApi.setValue(['react'])"
+        >Select React externally</UIButton
+      >
+      <UIFormSelectRoot :value="providerApi" intent="primary" size="md">
+        <UIFormSelectLabel>Provider mode</UIFormSelectLabel>
+        <UIFormSelectControl>
+          <UIFormSelectTrigger>
+            <UIFormSelectValueText placeholder="Provider select…" />
+            <UIFormSelectIndicator />
+          </UIFormSelectTrigger>
+        </UIFormSelectControl>
+        <Teleport to="body">
+          <UIFormSelectPositioner>
+            <UIFormSelectContent>
+              <UIFormSelectListContent
+                :collection="providerCollection"
+                intent="primary"
+                size="md"
+                :loading="false"
+                loading-text="Loading…"
+                empty-text="No results"
+                :allow-select-all="false"
+                :is-grouped="false"
+              />
+            </UIFormSelectContent>
+          </UIFormSelectPositioner>
+        </Teleport>
+        <UIFormSelectHiddenInput />
+      </UIFormSelectRoot>
     </section>
   </div>
 </template>

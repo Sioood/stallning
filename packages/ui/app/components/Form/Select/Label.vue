@@ -6,19 +6,19 @@ import {
   type SelectIntent,
   type SelectSize,
 } from '~/utils/Components/Form/Select/context'
-import { selectContentCVA } from '~/utils/Components/Form/Select/variants'
+import { selectLabelCVA } from '~/utils/Components/Form/Select/variants'
 
 import type { ClassValue } from 'vue'
 
 defineOptions({ inheritAttrs: false })
 
-export interface SelectContentProps {
+export interface SelectLabelProps {
   intent?: SelectIntent
   size?: SelectSize
   ui?: ClassValue
 }
 
-const props = withDefaults(defineProps<SelectContentProps>(), {
+const props = withDefaults(defineProps<SelectLabelProps>(), {
   intent: undefined,
   size: undefined,
   ui: undefined,
@@ -30,7 +30,7 @@ const attrs = useAttrs()
 const intent = computed(() => props.intent ?? chrome?.intent.value ?? 'primary')
 const size = computed(() => props.size ?? chrome?.size.value ?? 'md')
 
-const contentAttrs = computed(() => {
+const labelAttrs = computed(() => {
   const {
     intent: _intent,
     size: _size,
@@ -46,42 +46,10 @@ const contentAttrs = computed(() => {
 </script>
 
 <template>
-  <ArkSelect.Content
-    v-bind="contentAttrs"
-    :class="cn(selectContentCVA({ intent, size }), contentAttrs.class as ClassValue, ui)"
+  <ArkSelect.Label
+    v-bind="labelAttrs"
+    :class="cn(selectLabelCVA({ intent, size }), labelAttrs.class as ClassValue, ui)"
   >
     <slot />
-  </ArkSelect.Content>
+  </ArkSelect.Label>
 </template>
-
-<style scoped>
-:deep([data-part='content'][data-state='open']) {
-  animation: scale-fade-in 100ms ease-out;
-}
-
-:deep([data-part='content'][data-state='closed']) {
-  animation: scale-fade-out 50ms ease-in;
-}
-
-@keyframes scale-fade-in {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes scale-fade-out {
-  from {
-    opacity: 1;
-    transform: scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-}
-</style>

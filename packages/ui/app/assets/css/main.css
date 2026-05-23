@@ -2053,6 +2053,9 @@
 :root {
   font-size: 16px;
   overscroll-behavior: none;
+  @apply text-base;
+  @apply leading-base;
+  @apply font-normal;
 }
 
 html {

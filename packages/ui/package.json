@@ -7,7 +7,7 @@
     "dev": "nuxt dev .playground",
     "generate": "nuxt generate .playground",
     "preview": "nuxt preview .playground",
-    "postinstall": "nuxt prepare .playground",
+    "postinstall": "nuxt prepare && nuxt prepare .playground",
     "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
     "lint:oxlint": "pnpm exec oxlint -c .oxlintrc.json .",
     "lint:eslint": "pnpm exec eslint .",

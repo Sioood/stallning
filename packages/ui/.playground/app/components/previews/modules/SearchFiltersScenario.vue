@@ -5,6 +5,7 @@ const query = ref('')
 const status = ref<string[]>([])
 const filtersOpen = ref(false)
 const showPremiumOnly = ref(false)
+const filtersAnchorRef = ref<HTMLElement | null>(null)
 
 const statusItems = [
   { label: 'Tous', value: 'all' },
@@ -44,10 +45,10 @@ const activeFilterLabels = computed(() => {
   return labels
 })
 
-const selectUi = {
-  positioner: '[--z-index:10050]',
-  content: 'z-[10050]',
-}
+const filtersPopoverPositioning = computed(() => ({
+  placement: 'bottom-end' as const,
+  getAnchorRect: () => filtersAnchorRef.value?.getBoundingClientRect() ?? null,
+}))
 
 const addonTrailing = cn(
   controlShellCVA({ intent: 'primary', size: 'sm', invalid: false, disabled: false }),
@@ -65,34 +66,47 @@ const addonTrailing = cn(
       size="sm"
     >
       <template #trailing>
-        <span :class="addonTrailing">
-          <UIPopover
-            v-model:open="filtersOpen"
-            class="contents"
-            :close-on-interact-outside="false"
-            :positioning="{ placement: 'bottom-end' }"
-          >
-            <template #trigger>
-              <UIButton variant="subtle" intent="neutral" size="sm" text="Filtres" />
-            </template>
-            <template #content>
-              <div class="flex min-w-48 flex-col gap-3">
-                <p class="txt-label text-neutral-text-default">Filtres</p>
-                <UIFormSelect
-                  v-model="status"
-                  label="Statut"
-                  :items="statusItems"
-                  placeholder="Choisir…"
-                  size="sm"
-                  :ui="selectUi"
-                />
-                <UISwitch v-model:checked="showPremiumOnly" label="Premium uniquement" size="sm" />
-              </div>
-            </template>
-          </UIPopover>
+        <span ref="filtersAnchorRef" :class="addonTrailing">
+          <UIButton
+            variant="subtle"
+            intent="neutral"
+            size="sm"
+            text="Filtres"
+            @click="filtersOpen = !filtersOpen"
+          />
         </span>
       </template>
     </UIFormInput>
+
+    <UIPopover
+      v-model:open="filtersOpen"
+      :auto-focus="false"
+      :close-on-interact-outside="false"
+      :positioning="filtersPopoverPositioning"
+      :ui="{ content: 'overflow-visible' }"
+    >
+      <template #trigger>
+        <span class="hidden" aria-hidden="true" />
+      </template>
+      <template #content>
+        <div class="flex min-w-48 flex-col gap-3">
+          <p class="txt-label text-neutral-text-default">Filtres</p>
+          <UIFormSelect
+            v-model="status"
+            label="Statut"
+            :items="statusItems"
+            placeholder="Choisir…"
+            size="sm"
+            :portalled="false"
+            :ui="{
+              positioner: '[--z-index:1]',
+              content: 'relative z-10',
+            }"
+          />
+          <UISwitch v-model:checked="showPremiumOnly" label="Premium uniquement" size="sm" />
+        </div>
+      </template>
+    </UIPopover>
 
     <div v-if="activeFilterLabels.length > 0" class="flex flex-wrap gap-1">
       <UIChip

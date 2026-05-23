@@ -1,6 +1,10 @@
 <script setup lang="ts">
 const previews = [
   {
+    title: 'Component Bento',
+    to: '/previews/bento',
+  },
+  {
     title: 'Movie Detail Page',
     to: '/previews/movie',
   },

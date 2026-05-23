@@ -73,7 +73,7 @@ const props = withDefaults(defineProps<SelectProps>(), {
   readOnly: false,
   portalled: true,
   teleportTo: 'body',
-  intent: 'neutral',
+  intent: 'primary',
   size: 'md',
   showClear: true,
   value: undefined,

@@ -5,6 +5,14 @@ select:
   loading: 'Chargement'
   noOptions: 'Aucune option'
   selectAll: 'Tout sélectionner'
+combobox:
+  placeholder: 'Rechercher…'
+  loading: 'Chargement'
+  noOptions: 'Aucun résultat'
+tagsInput:
+  placeholder: 'Ajouter…'
+  loading: 'Chargement'
+  noOptions: 'Aucun résultat'
 open: 'Ouvrir'
 fileUpload:
   dropzoneText: 'Glissez & déposez des fichiers ici, ou cliquez pour parcourir'

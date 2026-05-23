@@ -11,7 +11,7 @@ export const selectContentCVA = cva(
     'data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0',
     'data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95',
     'max-h-[min(var(--available-height,20rem),20rem)]',
-    'w-(--reference-width)',
+    'w-(--reference-width) min-w-(--reference-width) max-w-(--reference-width)',
   ],
   {
     variants: {

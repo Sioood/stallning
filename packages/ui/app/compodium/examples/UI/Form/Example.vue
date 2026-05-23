@@ -5,6 +5,7 @@ import { z } from 'zod'
 import UIButton from '~ui/app/components/Button.vue'
 import UIFileUpload from '~ui/app/components/FileUpload/index.vue'
 import UIFormCheckbox from '~ui/app/components/Form/Checkbox.vue'
+import UIFormCombobox from '~ui/app/components/Form/Combobox/index.vue'
 import UIFormDatePicker from '~ui/app/components/Form/DatePicker/index.vue'
 import UIFormInput from '~ui/app/components/Form/Input.vue'
 import UIFormNumberInput from '~ui/app/components/Form/NumberInput.vue'
@@ -12,6 +13,7 @@ import UIFormPhoneInput from '~ui/app/components/Form/PhoneInput.vue'
 import UIFormPinInput from '~ui/app/components/Form/PinInput.vue'
 import UIFormRadioGroup from '~ui/app/components/Form/RadioGroup.vue'
 import UIFormSlider from '~ui/app/components/Form/Slider/index.vue'
+import UIFormTagsInput from '~ui/app/components/Form/TagsInput/index.vue'
 import UIFormTextarea from '~ui/app/components/Form/Textarea.vue'
 import UISwitch from '~ui/app/components/Switch.vue'
 
@@ -38,6 +40,8 @@ const schema = z.object({
   checkbox: z.union([z.literal(true), z.literal(false), z.literal('indeterminate')]),
   switch: z.boolean(),
   framework: z.string().nullable().optional(),
+  stack: z.array(z.string()).optional(),
+  tags: z.array(z.string()).optional(),
   volume: z.array(z.number()).min(1).max(2).default([50]),
   avatar: z.custom<File[]>(),
 })
@@ -60,6 +64,8 @@ const defaultValues: FormValues = {
   checkbox: false,
   switch: false,
   framework: null,
+  stack: [],
+  tags: [],
   volume: [50],
   avatar: [],
 }
@@ -70,6 +76,14 @@ const countryItems = [
   { label: '+44 UK', value: '+44' },
   { label: '+33 France', value: '+33' },
   { label: '+49 Germany', value: '+49' },
+]
+
+const frameworkItems = [
+  { label: 'React', value: 'react' },
+  { label: 'Vue', value: 'vue' },
+  { label: 'Solid', value: 'solid' },
+  { label: 'Svelte', value: 'svelte' },
+  { label: 'Angular', value: 'angular' },
 ]
 
 function domainTrailing() {
@@ -246,6 +260,24 @@ const fields: SchemaFieldsMap<FormValues> = {
       ],
     },
   },
+  stack: {
+    as: UIFormCombobox,
+    props: {
+      label: 'Primary stack',
+      placeholder: 'Search framework…',
+      helperText: 'Single selection with autocomplete',
+      items: frameworkItems,
+    },
+  },
+  tags: {
+    as: UIFormTagsInput,
+    props: {
+      label: 'Skills',
+      placeholder: 'Add skill…',
+      helperText: 'Tags with combobox suggestions',
+      items: frameworkItems,
+    },
+  },
   volume: {
     as: UIFormSlider,
     props: {
@@ -285,6 +317,8 @@ const layout: SchemaFormLayout<keyof FormValues & string>[] = [
   'checkbox',
   'switch',
   'framework',
+  'stack',
+  'tags',
   'volume',
   'avatar',
 ]

@@ -7,6 +7,13 @@ import {
 import { createReusableTemplate } from '@vueuse/core'
 import { cva, type VariantProps } from 'class-variance-authority'
 
+import {
+  checkboxControlCVA,
+  checkboxDisabledFlag,
+  checkboxIndicatorCVA,
+  checkboxInvalidFlag,
+} from '~/utils/Components/Form/checkbox-variants'
+
 import type {
   FormFieldIntent,
   FormFieldSize,
@@ -37,52 +44,8 @@ const checkboxRootCVA = cva('group inline-flex items-center gap-2', {
 
 type CheckboxRootVariants = VariantProps<typeof checkboxRootCVA>
 
-const checkboxControlCVA = cva('size-4 border', {
-  variants: {
-    intent: {
-      primary:
-        'border-primary-border-default data-hover:border-primary-border-default-hover data-[disabled]:border-primary-border-subtle data-[invalid]:border-error-border-default',
-    } satisfies Record<FormFieldIntent, string>,
-    size: {
-      md: '',
-    } satisfies Record<FormFieldSize, string>,
-    disabled: {
-      true: '',
-      false: '',
-    } satisfies Record<'false' | 'true', string>,
-    invalid: {
-      true: '',
-      false: '',
-    } satisfies Record<'false' | 'true', string>,
-  },
-})
-
-const checkboxIndicatorCVA = cva(
-  [
-    'flex size-full items-center justify-center',
-    'bg-primary-fill-subtle text-primary-text-default',
-    'group-data-[state=checked]:bg-primary-fill-default group-data-[state=checked]:text-primary-fill-inverse',
-    'group-data-[state=indeterminate]:bg-primary-fill-default group-data-[state=indeterminate]:text-primary-fill-inverse',
-  ],
-  {
-    variants: {
-      intent: {
-        primary: '',
-      } satisfies Record<FormFieldIntent, string>,
-      size: {
-        md: '',
-      } satisfies Record<FormFieldSize, string>,
-      disabled: {
-        true: '',
-        false: '',
-      } satisfies Record<'false' | 'true', string>,
-      invalid: {
-        true: '',
-        false: '',
-      } satisfies Record<'false' | 'true', string>,
-    },
-  },
-)
+const disabled = computed(() => checkboxDisabledFlag(Boolean(props.disabled)))
+const invalidState = computed(() => checkboxInvalidFlag(invalid.value))
 
 const fieldLabelCVA = cva('', {
   variants: {
@@ -193,14 +156,28 @@ const [DefineCheckboxControl, ReuseCheckboxControl] =
       v-bind="p.rootBindings"
       :class="cn(checkboxRootCVA({ intent, size, disabled }), ui?.root)"
     >
-      <ArkCheckbox.Control :class="cn(checkboxControlCVA({ intent, size, disabled }), ui?.control)">
+      <ArkCheckbox.Control
+        :class="
+          cn(checkboxControlCVA({ intent, size, disabled, invalid: invalidState }), ui?.control)
+        "
+      >
         <ArkCheckbox.Indicator
-          :class="cn(checkboxIndicatorCVA({ intent, size, disabled }), ui?.indicator)"
+          :class="
+            cn(
+              checkboxIndicatorCVA({ intent, size, disabled, invalid: invalidState }),
+              ui?.indicator,
+            )
+          "
         >
           <Icon name="tabler:check" class="size-3 shrink-0" />
         </ArkCheckbox.Indicator>
         <ArkCheckbox.Indicator
-          :class="cn(checkboxIndicatorCVA({ intent, size, disabled }), ui?.indicator)"
+          :class="
+            cn(
+              checkboxIndicatorCVA({ intent, size, disabled, invalid: invalidState }),
+              ui?.indicator,
+            )
+          "
           indeterminate
         >
           <Icon name="tabler:minus" class="size-3 shrink-0" />

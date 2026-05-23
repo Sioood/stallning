@@ -15,6 +15,7 @@ import UIFormRadioGroup from '~ui/app/components/Form/RadioGroup.vue'
 import UIFormSlider from '~ui/app/components/Form/Slider/index.vue'
 import UIFormTagsInput from '~ui/app/components/Form/TagsInput/index.vue'
 import UIFormTextarea from '~ui/app/components/Form/Textarea.vue'
+import UIFormTreeView from '~ui/app/components/Form/TreeView/index.vue'
 import UISwitch from '~ui/app/components/Switch.vue'
 
 import type { DateValue } from '@internationalized/date'
@@ -23,6 +24,8 @@ import type {
   SchemaFieldsMap,
   SchemaFormLayout,
 } from '~/utils/Components/Form/schema'
+import type { TreeViewCheckedState } from '~/utils/Components/TreeView/checked-state'
+import type { TreeViewItem } from '~/utils/Components/TreeView/context'
 
 const schema = z.object({
   firstName: z.string().trim().min(2),
@@ -42,6 +45,7 @@ const schema = z.object({
   framework: z.string().nullable().optional(),
   stack: z.array(z.string()).optional(),
   tags: z.array(z.string()).optional(),
+  permissions: z.custom<TreeViewCheckedState>(),
   volume: z.array(z.number()).min(1).max(2).default([50]),
   avatar: z.custom<File[]>(),
 })
@@ -66,6 +70,7 @@ const defaultValues: FormValues = {
   framework: null,
   stack: [],
   tags: [],
+  permissions: { value: [], branches: {}, leaves: {} },
   volume: [50],
   avatar: [],
 }
@@ -112,6 +117,26 @@ function priceInnerLeading() {
 function newsletterTrailing() {
   return h(UIButton, { variant: 'subtle', intent: 'primary', text: 'Subscribe' })
 }
+
+const permissionTreeItems: TreeViewItem[] = [
+  {
+    id: 'dashboard',
+    label: 'Dashboard',
+    children: [
+      { id: 'dashboard/analytics', label: 'Analytics' },
+      { id: 'dashboard/reports', label: 'Reports' },
+    ],
+  },
+  {
+    id: 'settings',
+    label: 'Settings',
+    children: [
+      { id: 'settings/profile', label: 'Profile' },
+      { id: 'settings/security', label: 'Security' },
+    ],
+  },
+  { id: 'billing', label: 'Billing' },
+]
 
 const fields: SchemaFieldsMap<FormValues> = {
   firstName: {
@@ -278,6 +303,14 @@ const fields: SchemaFieldsMap<FormValues> = {
       items: frameworkItems,
     },
   },
+  permissions: {
+    as: UIFormTreeView,
+    props: {
+      label: 'Permissions',
+      helperText: 'Select accessible sections (checkbox tree)',
+      items: permissionTreeItems,
+    },
+  },
   volume: {
     as: UIFormSlider,
     props: {
@@ -319,6 +352,7 @@ const layout: SchemaFormLayout<keyof FormValues & string>[] = [
   'framework',
   'stack',
   'tags',
+  'permissions',
   'volume',
   'avatar',
 ]

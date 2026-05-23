@@ -70,6 +70,7 @@ const accordion = useAccordion({ multiple: true, collapsible: true })
 | `UIQRCode`                          | `useQrCode()` from `@ark-ui/vue/qr-code`             |
 | `UISegmentGroup`                    | `useSegmentGroup()` from `@ark-ui/vue/segment-group` |
 | `UIFormSelect`                      | `useSelect()` from `@ark-ui/vue/select`              |
+| `UIFormDatePicker`                  | `useDatePicker()` from `@ark-ui/vue/date-picker`     |
 | `UISteps` / `UIStepsRoot`           | `useSteps()` from `@ark-ui/vue/steps`                |
 | `UISwitch`                          | `useSwitch()` from `@ark-ui/vue/switch`              |
 | `UITabs`                            | `useTabs()` from `@ark-ui/vue/tabs`                  |

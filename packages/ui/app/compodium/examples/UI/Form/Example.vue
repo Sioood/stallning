@@ -5,6 +5,7 @@ import { z } from 'zod'
 import UIButton from '~ui/app/components/Button.vue'
 import UIFileUpload from '~ui/app/components/FileUpload/index.vue'
 import UIFormCheckbox from '~ui/app/components/Form/Checkbox.vue'
+import UIFormDatePicker from '~ui/app/components/Form/DatePicker/index.vue'
 import UIFormInput from '~ui/app/components/Form/Input.vue'
 import UIFormNumberInput from '~ui/app/components/Form/NumberInput.vue'
 import UIFormPhoneInput from '~ui/app/components/Form/PhoneInput.vue'
@@ -14,6 +15,7 @@ import UIFormSlider from '~ui/app/components/Form/Slider/index.vue'
 import UIFormTextarea from '~ui/app/components/Form/Textarea.vue'
 import UISwitch from '~ui/app/components/Switch.vue'
 
+import type { DateValue } from '@internationalized/date'
 import type {
   InferSchemaValues,
   SchemaFieldsMap,
@@ -24,6 +26,7 @@ const schema = z.object({
   firstName: z.string().trim().min(2),
   lastName: z.string().trim().min(2),
   email: z.string().trim().optional(),
+  birthDate: z.custom<DateValue[]>().optional(),
   bio: z.string().trim().optional(),
   age: z.string().trim().min(1).optional(),
   code: z.string().trim().min(1).optional(),
@@ -45,6 +48,7 @@ const defaultValues: FormValues = {
   firstName: '',
   lastName: '',
   email: '',
+  birthDate: undefined,
   bio: '',
   age: '18',
   code: '',
@@ -124,6 +128,14 @@ const fields: SchemaFieldsMap<FormValues> = {
       label: 'Email',
       placeholder: 'you@example.com',
       type: 'email',
+    },
+  },
+  birthDate: {
+    as: UIFormDatePicker,
+    props: {
+      label: 'Birth date',
+      placeholder: 'Select date…',
+      helperText: 'Uses the active i18n locale by default',
     },
   },
   bio: {
@@ -261,6 +273,7 @@ const fields: SchemaFieldsMap<FormValues> = {
 const layout: SchemaFormLayout<keyof FormValues & string>[] = [
   ['firstName', 'lastName'],
   'email',
+  'birthDate',
   'age',
   'bio',
   'code',

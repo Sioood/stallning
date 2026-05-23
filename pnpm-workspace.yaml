@@ -5,6 +5,7 @@ packages:
 
 catalog:
   '@ark-ui/vue': ^5.36.2
+  '@internationalized/date': 3.12.0
   '@nuxt/eslint': ^1.15.2
   '@nuxt/kit': ^4.4.2
   '@nuxtjs/i18n': ^10.2.4
@@ -38,6 +39,7 @@ catalog:
 
 minimumReleaseAge: 1440 # 24 hours
 overrides:
+  '@internationalized/date': 3.12.0
   '@nuxt/nitro-server@>=4.2.0 <=4.4.5': '>=4.4.6'
   ajv@>=7.0.0-alpha.0 <8.18.0: '>=8.18.0'
   brace-expansion@>=2.0.0 <2.0.3: '>=2.0.3'

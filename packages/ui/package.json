@@ -27,6 +27,7 @@
   "dependencies": {
     "@ark-ui/vue": "catalog:",
     "@compodium/nuxt": "0.1.0-beta.12",
+    "@internationalized/date": "catalog:",
     "@nuxt/fonts": "0.14.0",
     "@nuxt/icon": "2.2.1",
     "@nuxt/image": "2.0.0",

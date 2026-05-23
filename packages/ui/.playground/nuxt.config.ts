@@ -6,4 +6,12 @@ export default defineNuxtConfig({
   compodium: {
     dir: '../app/compodium/',
   },
+  components: {
+    dirs: [
+      {
+        path: resolve('./app/components'),
+        pathPrefix: false,
+      },
+    ],
+  },
 })

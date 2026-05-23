@@ -91,26 +91,13 @@ const rootProps = computed(() => {
 
 const arkAttrs = computed(() => splitArkAttrs(attrs))
 
-const rootBindings = computed(() => {
-  const base: Record<string, unknown> = {
-    ...rootProps.value,
-    ...arkAttrs.value,
-    class: cn(
-      tabsRootCVA({ variant: props.variant, orientation: props.orientation }),
-      arkAttrs.value.class as ClassValue,
-      props.ui?.root,
-    ),
-  }
-
-  if (!isProvider.value && modelValue.value !== undefined) {
-    base.modelValue = modelValue.value
-    base['onUpdate:modelValue'] = (next: string) => {
-      modelValue.value = next
-    }
-  }
-
-  return base
-})
+const rootClass = computed(() =>
+  cn(
+    tabsRootCVA({ variant: props.variant, orientation: props.orientation }),
+    arkAttrs.value.class as ClassValue,
+    props.ui?.root,
+  ),
+)
 
 extendCompodiumMeta<typeof props & { modelValue?: string }>({
   defaultProps: {
@@ -124,7 +111,22 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
 </script>
 
 <template>
-  <component :is="rootComponent" v-bind="rootBindings">
+  <component
+    :is="rootComponent"
+    v-if="isProvider"
+    v-bind="{ ...rootProps, ...arkAttrs, class: rootClass }"
+  >
+    <slot />
+  </component>
+
+  <component
+    :is="rootComponent"
+    v-else
+    v-bind="{ ...rootProps, ...arkAttrs, class: rootClass }"
+    :model-value="modelValue"
+    @update:model-value="(next) => (modelValue = next)"
+    @value-change="(details) => (modelValue = details.value)"
+  >
     <slot />
   </component>
 </template>

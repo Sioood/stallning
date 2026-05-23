@@ -184,6 +184,9 @@ describe('UITabs', () => {
     expect(triggers).toHaveLength(2)
     for (const trigger of triggers) {
       expect(trigger.find('svg').exists()).toBe(true)
+      expect(trigger.classes()).toContain('inline-flex')
+      expect(trigger.classes()).toContain('whitespace-nowrap')
+      expect(trigger.find('.truncate').exists()).toBe(true)
     }
   })
 
@@ -266,6 +269,7 @@ describe('UITabs', () => {
     await nextTick()
     await nextTick()
 
-    expect(wrapper.html()).toBeTruthy()
+    expect(model.value).toBe('b')
+    expect(triggers[1]!.attributes('data-selected')).toBe('')
   })
 })

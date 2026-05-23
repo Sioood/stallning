@@ -97,7 +97,7 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
           :ui="{ root: ui?.trigger }"
         >
           <Icon v-if="option.icon" :name="option.icon" :class="optionIconClass" />
-          <span>{{ option.label ?? option.value }}</span>
+          <span class="min-w-0 truncate">{{ option.label ?? option.value }}</span>
         </UITabsTrigger>
       </template>
 

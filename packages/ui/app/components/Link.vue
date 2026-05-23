@@ -3,6 +3,8 @@ import { cva } from 'class-variance-authority'
 
 import type { NuxtLinkProps } from '#app'
 
+defineOptions({ inheritAttrs: false })
+
 type linkIntent = 'primary' | 'secondary' | 'accent' | 'info' | 'warning' | 'error' | 'neutral'
 type linkVariant = 'default' | 'ghost'
 
@@ -30,13 +32,19 @@ const linkCVA = cva('w-fit', {
   },
 })
 
-interface LinkProps extends /* @vue-ignore */ NuxtLinkProps {
+interface LinkProps extends /* @vue-ignore */ Omit<NuxtLinkProps, 'custom'> {
+  to?: NuxtLinkProps['to']
+  external?: boolean
+  target?: string
+  rel?: string
+  custom?: boolean
   styled?: boolean
   intent?: linkIntent
   variant?: linkVariant
 }
 
 const props = withDefaults(defineProps<LinkProps>(), {
+  custom: false,
   styled: true,
   intent: 'accent',
   variant: 'default',
@@ -47,27 +55,46 @@ const isExternal = computed(() => {
   if (props.external) return true
   const url = props.to?.toString()
   const siteUrl = config.public.siteUrl
-  if (url?.startsWith(siteUrl)) return false
+  if (siteUrl && url?.startsWith(siteUrl)) return false
   return url?.startsWith('http')
 })
 
-const target = computed(() => props.target || (isExternal.value ? '_blank' : undefined))
-const rel = computed(() => props.rel || (isExternal.value ? 'noopener noreferrer' : undefined))
+const linkTarget = computed(() => props.target || (isExternal.value ? '_blank' : undefined))
+const linkRel = computed(() => props.rel || (isExternal.value ? 'noopener noreferrer' : undefined))
+
+const linkClass = computed(() =>
+  cn(props.styled ? linkCVA({ intent: props.intent, variant: props.variant }) : ''),
+)
+
+const href = computed(() => {
+  const to = props.to
+  if (typeof to === 'string') return to
+  return to?.toString() ?? ''
+})
 </script>
 
 <template>
+  <a
+    v-if="isExternal && !props.custom"
+    :href="href"
+    :target="linkTarget"
+    :rel="linkRel"
+    :class="linkClass"
+  >
+    <slot>{{ to }}</slot>
+  </a>
   <nuxt-link
-    v-if="!custom"
-    v-bind="{ ...props, target, rel, class: cn(styled ? linkCVA({ intent, variant }) : '') }"
+    v-else-if="!props.custom"
+    v-bind="{
+      ...props,
+      target: linkTarget,
+      rel: linkRel,
+      class: linkClass,
+    }"
   >
-    <slot>
-      {{ to }}
-    </slot>
+    <slot>{{ to }}</slot>
   </nuxt-link>
-  <slot
-    v-else
-    v-bind="{ ...props, target, rel, class: cn(styled ? linkCVA({ intent, variant }) : '') }"
-  >
-    <span :class="cn(styled ? linkCVA({ intent, variant }) : '')">{{ to }}</span>
+  <slot v-else v-bind="{ ...props, target: linkTarget, rel: linkRel, class: linkClass }">
+    <span :class="linkClass">{{ to }}</span>
   </slot>
 </template>

@@ -56,10 +56,18 @@ const { form } = useSchemaForm<TValues>({
 
 const formSubmitting = form.useStore((s) => s.isSubmitting)
 const formCanSubmit = form.useStore((s) => s.canSubmit)
-const formErrors = form.useStore((s) => s.errors)
-const formIsSubmitted = form.useStore((s) => s.isSubmitted)
+const formSubmissionAttempts = form.useStore((s) => s.submissionAttempts)
+const formFieldMeta = form.useStore((s) => s.fieldMeta)
 
-const errorSummaryText = computed(() => formatFieldErrors(formErrors.value))
+const errorSummaryText = computed(() => {
+  const messages: string[] = []
+  for (const meta of Object.values(formFieldMeta.value) as Array<{ errors?: readonly unknown[] }>) {
+    if (!meta?.errors?.length) continue
+    const text = formatFieldErrors(meta.errors)
+    if (text) messages.push(text)
+  }
+  return messages.join(', ')
+})
 
 function hasMultipleFields(row: SchemaFormLayout<keyof TValues & string>): boolean {
   return layoutRowKeys(row).length > 1
@@ -109,7 +117,7 @@ defineExpose({ form })
     @submit.prevent="void form.handleSubmit()"
   >
     <div
-      v-if="showErrorSummary && formIsSubmitted && errorSummaryText.length > 0"
+      v-if="showErrorSummary && formSubmissionAttempts > 0 && errorSummaryText.length > 0"
       role="alert"
       class="txt-caption text-error-text-default"
     >
@@ -127,12 +135,12 @@ defineExpose({ form })
               :name="fieldKey"
               :validators="fieldConfigByKey[String(fieldKey)]!.validators"
             >
-              <template #default="{ field, state }">
+              <template #default="{ field }">
                 <UIFormBoundControl
                   :field-name="fieldKey as keyof TValues & string"
                   :config="fieldConfigByKey[String(fieldKey)]!"
                   :field-api="field"
-                  :state="state"
+                  :state="field.state"
                 />
               </template>
             </form.Field>

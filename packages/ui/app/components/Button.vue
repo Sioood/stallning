@@ -35,6 +35,7 @@ export interface UIButtonSlots {
 }
 
 export interface ButtonProps extends /* @vue-ignore */ NuxtLinkProps, UseComponentIconsProps {
+  to?: NuxtLinkProps['to']
   /**
    * text to display in the button
    * used if no slot is provided

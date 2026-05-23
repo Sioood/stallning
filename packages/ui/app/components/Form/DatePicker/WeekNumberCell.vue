@@ -27,7 +27,7 @@ const chrome = inject(datePickerChromeKey, null)
 
 const intent = computed<DatePickerIntent>(() => chrome?.intent.value ?? 'primary')
 
-const cellProps = computed(() => pick(props, ['asChild', 'week', 'weekIndex'] as const))
+const cellProps = computed(() => pick(props, ['asChild', 'week', 'weekIndex']))
 
 const cellAttrs = computed(() => {
   const { ui: _ui, ...rest } = attrs as Record<string, unknown> & { ui?: ClassValue }

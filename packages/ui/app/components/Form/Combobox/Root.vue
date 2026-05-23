@@ -58,7 +58,7 @@ const rootComponent = computed(() =>
 
 const rootProps = computed(() => {
   if (isProvider.value) {
-    return pick(props, ['asChild', 'lazyMount', 'unmountOnExit', 'value'] as const)
+    return pick(props, ['asChild', 'lazyMount', 'unmountOnExit', 'value'])
   }
   return pick(props, [
     'allowCustomValue',
@@ -95,7 +95,7 @@ const rootProps = computed(() => {
     'selectionBehavior',
     'translations',
     'unmountOnExit',
-  ] as const)
+  ])
 })
 
 const arkAttrs = computed(() => splitArkAttrs(attrs))

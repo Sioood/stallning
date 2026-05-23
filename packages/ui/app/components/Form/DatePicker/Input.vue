@@ -32,7 +32,7 @@ const chrome = inject(datePickerChromeKey, null)
 const intent = computed(() => props.intent ?? chrome?.intent.value ?? 'primary')
 const size = computed(() => props.size ?? chrome?.size.value ?? 'md')
 
-const inputProps = computed(() => pick(props, ['asChild', 'fixOnBlur', 'index'] as const))
+const inputProps = computed(() => pick(props, ['asChild', 'fixOnBlur', 'index']))
 
 const inputAttrs = computed(() => {
   const {

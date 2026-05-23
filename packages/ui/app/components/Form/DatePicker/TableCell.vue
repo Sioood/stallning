@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<DatePickerTableCellProps>(), {
 const attrs = useAttrs()
 
 const cellProps = computed(() =>
-  pick(props, ['asChild', 'columns', 'disabled', 'value', 'visibleRange'] as const),
+  pick(props, ['asChild', 'columns', 'disabled', 'value', 'visibleRange']),
 )
 
 const cellAttrs = computed(() => {

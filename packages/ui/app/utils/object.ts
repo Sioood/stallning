@@ -1,15 +1,15 @@
-export const pick = <T extends object, K extends keyof T>(
+export const pick = <T extends object, const K extends readonly (keyof T)[]>(
   obj: T,
-  keys: readonly K[],
-): Pick<T, K> => {
-  return Object.fromEntries(keys.map((key) => [key, obj[key]])) as Pick<T, K>
+  keys: K,
+): Pick<T, K[number]> => {
+  return Object.fromEntries(keys.map((key) => [key, obj[key]])) as Pick<T, K[number]>
 }
 
-export const omit = <T extends object, K extends keyof T>(
+export const omit = <T extends object, const K extends readonly (keyof T)[]>(
   obj: T,
-  keys: readonly K[],
-): Omit<T, K> => {
+  keys: K,
+): Omit<T, K[number]> => {
   return Object.fromEntries(
-    Object.entries(obj).filter(([key]) => !keys.includes(key as K)),
-  ) as Omit<T, K>
+    Object.entries(obj).filter(([key]) => !keys.includes(key as K[number])),
+  ) as Omit<T, K[number]>
 }

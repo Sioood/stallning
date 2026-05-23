@@ -29,7 +29,7 @@ const chrome = inject(datePickerChromeKey, null)
 
 const intent = computed(() => props.intent ?? chrome?.intent.value ?? 'primary')
 
-const presetProps = computed(() => pick(props, ['asChild', 'value'] as const))
+const presetProps = computed(() => pick(props, ['asChild', 'value']))
 
 const presetAttrs = computed(() => {
   const {

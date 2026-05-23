@@ -20,7 +20,7 @@ const props = withDefaults(defineProps<DatePickerViewProps>(), {
 
 const attrs = useAttrs()
 
-const viewProps = computed(() => pick(props, ['asChild', 'view'] as const))
+const viewProps = computed(() => pick(props, ['asChild', 'view']))
 
 const viewAttrs = computed(() => {
   const { ui: _ui, view: _view, ...rest } = attrs as Record<string, unknown> & { ui?: ClassValue }

@@ -36,7 +36,7 @@ const intent = computed(() => props.intent ?? chrome?.intent.value ?? 'primary')
 const size = computed(() => props.size ?? chrome?.size.value ?? 'md')
 const iconClass = computed(() => datePickerIconSizeCVA({ size: size.value }))
 
-const triggerProps = computed(() => pick(props, ['asChild'] as const))
+const triggerProps = computed(() => pick(props, ['asChild']))
 
 const triggerAttrs = computed(() => {
   const {

@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<DatePickerValueTextProps>(), {
 
 const attrs = useAttrs()
 
-const valueTextProps = computed(() => pick(props, ['asChild', 'placeholder', 'separator'] as const))
+const valueTextProps = computed(() => pick(props, ['asChild', 'placeholder', 'separator']))
 
 const valueTextAttrs = computed(() => {
   const { ui: _ui, ...rest } = attrs as Record<string, unknown> & { ui?: ClassValue }

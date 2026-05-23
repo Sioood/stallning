@@ -57,7 +57,7 @@ const rootComponent = computed(() =>
 
 const rootProps = computed(() => {
   if (isProvider.value) {
-    return pick(props, ['asChild', 'value'] as const)
+    return pick(props, ['asChild', 'value'])
   }
   return pick(props, [
     'addOnPaste',
@@ -82,7 +82,7 @@ const rootProps = computed(() => {
     'required',
     'translations',
     'validate',
-  ] as const)
+  ])
 })
 
 const arkAttrs = computed(() => splitArkAttrs(attrs))

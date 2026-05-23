@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<DatePickerTableProps>(), {
 
 const attrs = useAttrs()
 
-const tableProps = computed(() => pick(props, ['asChild', 'columns', 'id', 'view'] as const))
+const tableProps = computed(() => pick(props, ['asChild', 'columns', 'id', 'view']))
 
 const tableAttrs = computed(() => {
   const { ui: _ui, ...rest } = attrs as Record<string, unknown> & { ui?: ClassValue }

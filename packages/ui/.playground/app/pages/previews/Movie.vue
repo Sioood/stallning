@@ -140,7 +140,7 @@ const collapsibleTriggerUi = {
           size="sm"
           :ui="{ root: 'size-full' }"
         >
-          <UITabsList :ui="{ root: 'flex w-full flex-col p-1 border-none' }">
+          <UITabsList :ui="{ root: 'flex w-full flex-col p-1 border-none bg-neutral-bg-default' }">
             <UITabsTrigger
               v-for="tab in navTabs"
               :key="tab.value"

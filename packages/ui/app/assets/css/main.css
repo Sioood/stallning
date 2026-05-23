@@ -272,21 +272,21 @@
     ────────────────────────────────────────────────────────────── */
 
   /* bg — background (no interactive states) */
-  --color-primary-bg-subtle: var(--color-primary-100);
-  --color-primary-bg-default: var(--color-primary-200);
-  --color-primary-bg-strong: var(--color-primary-300);
+  --color-primary-bg-subtle: var(--color-primary-50);
+  --color-primary-bg-default: var(--color-primary-100);
+  --color-primary-bg-strong: var(--color-primary-200);
   --color-primary-bg-inverse: var(--color-primary-900);
 
   /* surface — card / panel */
-  --color-primary-surface-subtle: var(--color-primary-300);
-  --color-primary-surface-default: var(--color-primary-400);
-  --color-primary-surface-strong: var(--color-primary-500);
+  --color-primary-surface-subtle: var(--color-primary-200);
+  --color-primary-surface-default: var(--color-primary-300);
+  --color-primary-surface-strong: var(--color-primary-400);
   --color-primary-surface-inverse: var(--color-primary-800);
 
   /* fill subtle — ghost button, light badge */
-  --color-primary-fill-subtle: var(--color-primary-200);
-  --color-primary-fill-subtle-hover: var(--color-primary-300);
-  --color-primary-fill-subtle-active: var(--color-primary-400);
+  --color-primary-fill-subtle: var(--color-primary-300);
+  --color-primary-fill-subtle-hover: var(--color-primary-400);
+  --color-primary-fill-subtle-active: var(--color-primary-500);
   --color-primary-fill-subtle-disabled: var(--color-primary-100);
 
   /* fill default — primary button */
@@ -308,9 +308,9 @@
   --color-primary-fill-inverse-disabled: var(--color-primary-700);
 
   /* border subtle — separator, discrete outline */
-  --color-primary-border-subtle: var(--color-primary-300);
-  --color-primary-border-subtle-hover: var(--color-primary-400);
-  --color-primary-border-subtle-active: var(--color-primary-500);
+  --color-primary-border-subtle: var(--color-primary-400);
+  --color-primary-border-subtle-hover: var(--color-primary-500);
+  --color-primary-border-subtle-active: var(--color-primary-600);
   --color-primary-border-subtle-disabled: var(--color-primary-200);
 
   /* border default — input focus, card outline */
@@ -386,19 +386,19 @@
     secondary (green)
     ────────────────────────────────────────────────────────────── */
 
-  --color-secondary-bg-subtle: var(--color-secondary-100);
-  --color-secondary-bg-default: var(--color-secondary-200);
-  --color-secondary-bg-strong: var(--color-secondary-300);
+  --color-secondary-bg-subtle: var(--color-secondary-50);
+  --color-secondary-bg-default: var(--color-secondary-100);
+  --color-secondary-bg-strong: var(--color-secondary-200);
   --color-secondary-bg-inverse: var(--color-secondary-900);
 
-  --color-secondary-surface-subtle: var(--color-secondary-300);
-  --color-secondary-surface-default: var(--color-secondary-400);
-  --color-secondary-surface-strong: var(--color-secondary-500);
+  --color-secondary-surface-subtle: var(--color-secondary-200);
+  --color-secondary-surface-default: var(--color-secondary-300);
+  --color-secondary-surface-strong: var(--color-secondary-400);
   --color-secondary-surface-inverse: var(--color-secondary-800);
 
-  --color-secondary-fill-subtle: var(--color-secondary-200);
-  --color-secondary-fill-subtle-hover: var(--color-secondary-300);
-  --color-secondary-fill-subtle-active: var(--color-secondary-400);
+  --color-secondary-fill-subtle: var(--color-secondary-300);
+  --color-secondary-fill-subtle-hover: var(--color-secondary-400);
+  --color-secondary-fill-subtle-active: var(--color-secondary-500);
   --color-secondary-fill-subtle-disabled: var(--color-secondary-100);
 
   --color-secondary-fill-default: var(--color-secondary-500);
@@ -416,9 +416,9 @@
   --color-secondary-fill-inverse-active: var(--color-secondary-300);
   --color-secondary-fill-inverse-disabled: var(--color-secondary-700);
 
-  --color-secondary-border-subtle: var(--color-secondary-300);
-  --color-secondary-border-subtle-hover: var(--color-secondary-400);
-  --color-secondary-border-subtle-active: var(--color-secondary-500);
+  --color-secondary-border-subtle: var(--color-secondary-400);
+  --color-secondary-border-subtle-hover: var(--color-secondary-500);
+  --color-secondary-border-subtle-active: var(--color-secondary-600);
   --color-secondary-border-subtle-disabled: var(--color-secondary-200);
 
   --color-secondary-border-default: var(--color-secondary-600);
@@ -482,19 +482,19 @@
     accent (orange)
     ────────────────────────────────────────────────────────────── */
 
-  --color-accent-bg-subtle: var(--color-accent-100);
-  --color-accent-bg-default: var(--color-accent-200);
-  --color-accent-bg-strong: var(--color-accent-300);
+  --color-accent-bg-subtle: var(--color-accent-50);
+  --color-accent-bg-default: var(--color-accent-100);
+  --color-accent-bg-strong: var(--color-accent-200);
   --color-accent-bg-inverse: var(--color-accent-900);
 
-  --color-accent-surface-subtle: var(--color-accent-300);
-  --color-accent-surface-default: var(--color-accent-400);
-  --color-accent-surface-strong: var(--color-accent-500);
+  --color-accent-surface-subtle: var(--color-accent-200);
+  --color-accent-surface-default: var(--color-accent-300);
+  --color-accent-surface-strong: var(--color-accent-400);
   --color-accent-surface-inverse: var(--color-accent-800);
 
-  --color-accent-fill-subtle: var(--color-accent-200);
-  --color-accent-fill-subtle-hover: var(--color-accent-300);
-  --color-accent-fill-subtle-active: var(--color-accent-400);
+  --color-accent-fill-subtle: var(--color-accent-300);
+  --color-accent-fill-subtle-hover: var(--color-accent-400);
+  --color-accent-fill-subtle-active: var(--color-accent-500);
   --color-accent-fill-subtle-disabled: var(--color-accent-100);
 
   --color-accent-fill-default: var(--color-accent-500);
@@ -512,9 +512,9 @@
   --color-accent-fill-inverse-active: var(--color-accent-300);
   --color-accent-fill-inverse-disabled: var(--color-accent-700);
 
-  --color-accent-border-subtle: var(--color-accent-300);
-  --color-accent-border-subtle-hover: var(--color-accent-400);
-  --color-accent-border-subtle-active: var(--color-accent-500);
+  --color-accent-border-subtle: var(--color-accent-400);
+  --color-accent-border-subtle-hover: var(--color-accent-500);
+  --color-accent-border-subtle-active: var(--color-accent-600);
   --color-accent-border-subtle-disabled: var(--color-accent-200);
 
   --color-accent-border-default: var(--color-accent-600);
@@ -579,19 +579,19 @@
     error
     ────────────────────────────────────────────────────────────── */
 
-  --color-error-bg-subtle: var(--color-error-100);
-  --color-error-bg-default: var(--color-error-200);
-  --color-error-bg-strong: var(--color-error-300);
+  --color-error-bg-subtle: var(--color-error-50);
+  --color-error-bg-default: var(--color-error-100);
+  --color-error-bg-strong: var(--color-error-200);
   --color-error-bg-inverse: var(--color-error-900);
 
-  --color-error-surface-subtle: var(--color-error-300);
-  --color-error-surface-default: var(--color-error-400);
-  --color-error-surface-strong: var(--color-error-500);
+  --color-error-surface-subtle: var(--color-error-200);
+  --color-error-surface-default: var(--color-error-300);
+  --color-error-surface-strong: var(--color-error-400);
   --color-error-surface-inverse: var(--color-error-800);
 
-  --color-error-fill-subtle: var(--color-error-200);
-  --color-error-fill-subtle-hover: var(--color-error-300);
-  --color-error-fill-subtle-active: var(--color-error-400);
+  --color-error-fill-subtle: var(--color-error-300);
+  --color-error-fill-subtle-hover: var(--color-error-400);
+  --color-error-fill-subtle-active: var(--color-error-500);
   --color-error-fill-subtle-disabled: var(--color-error-100);
 
   --color-error-fill-default: var(--color-error-500);
@@ -609,9 +609,9 @@
   --color-error-fill-inverse-active: var(--color-error-300);
   --color-error-fill-inverse-disabled: var(--color-error-700);
 
-  --color-error-border-subtle: var(--color-error-300);
-  --color-error-border-subtle-hover: var(--color-error-400);
-  --color-error-border-subtle-active: var(--color-error-500);
+  --color-error-border-subtle: var(--color-error-400);
+  --color-error-border-subtle-hover: var(--color-error-500);
+  --color-error-border-subtle-active: var(--color-error-600);
   --color-error-border-subtle-disabled: var(--color-error-200);
 
   --color-error-border-default: var(--color-error-600);
@@ -675,19 +675,19 @@
     warning
     ────────────────────────────────────────────────────────────── */
 
-  --color-warning-bg-subtle: var(--color-warning-100);
-  --color-warning-bg-default: var(--color-warning-200);
-  --color-warning-bg-strong: var(--color-warning-300);
+  --color-warning-bg-subtle: var(--color-warning-50);
+  --color-warning-bg-default: var(--color-warning-100);
+  --color-warning-bg-strong: var(--color-warning-200);
   --color-warning-bg-inverse: var(--color-warning-900);
 
-  --color-warning-surface-subtle: var(--color-warning-300);
-  --color-warning-surface-default: var(--color-warning-400);
-  --color-warning-surface-strong: var(--color-warning-500);
+  --color-warning-surface-subtle: var(--color-warning-200);
+  --color-warning-surface-default: var(--color-warning-300);
+  --color-warning-surface-strong: var(--color-warning-400);
   --color-warning-surface-inverse: var(--color-warning-800);
 
-  --color-warning-fill-subtle: var(--color-warning-200);
-  --color-warning-fill-subtle-hover: var(--color-warning-300);
-  --color-warning-fill-subtle-active: var(--color-warning-400);
+  --color-warning-fill-subtle: var(--color-warning-300);
+  --color-warning-fill-subtle-hover: var(--color-warning-400);
+  --color-warning-fill-subtle-active: var(--color-warning-500);
   --color-warning-fill-subtle-disabled: var(--color-warning-100);
 
   --color-warning-fill-default: var(--color-warning-500);
@@ -705,9 +705,9 @@
   --color-warning-fill-inverse-active: var(--color-warning-300);
   --color-warning-fill-inverse-disabled: var(--color-warning-700);
 
-  --color-warning-border-subtle: var(--color-warning-300);
-  --color-warning-border-subtle-hover: var(--color-warning-400);
-  --color-warning-border-subtle-active: var(--color-warning-500);
+  --color-warning-border-subtle: var(--color-warning-400);
+  --color-warning-border-subtle-hover: var(--color-warning-500);
+  --color-warning-border-subtle-active: var(--color-warning-600);
   --color-warning-border-subtle-disabled: var(--color-warning-200);
 
   --color-warning-border-default: var(--color-warning-600);
@@ -771,19 +771,19 @@
     info
     ────────────────────────────────────────────────────────────── */
 
-  --color-info-bg-subtle: var(--color-info-100);
-  --color-info-bg-default: var(--color-info-200);
-  --color-info-bg-strong: var(--color-info-300);
+  --color-info-bg-subtle: var(--color-info-50);
+  --color-info-bg-default: var(--color-info-100);
+  --color-info-bg-strong: var(--color-info-200);
   --color-info-bg-inverse: var(--color-info-900);
 
-  --color-info-surface-subtle: var(--color-info-300);
-  --color-info-surface-default: var(--color-info-400);
-  --color-info-surface-strong: var(--color-info-500);
+  --color-info-surface-subtle: var(--color-info-200);
+  --color-info-surface-default: var(--color-info-300);
+  --color-info-surface-strong: var(--color-info-400);
   --color-info-surface-inverse: var(--color-info-800);
 
-  --color-info-fill-subtle: var(--color-info-200);
-  --color-info-fill-subtle-hover: var(--color-info-300);
-  --color-info-fill-subtle-active: var(--color-info-400);
+  --color-info-fill-subtle: var(--color-info-300);
+  --color-info-fill-subtle-hover: var(--color-info-400);
+  --color-info-fill-subtle-active: var(--color-info-500);
   --color-info-fill-subtle-disabled: var(--color-info-100);
 
   --color-info-fill-default: var(--color-info-500);
@@ -801,9 +801,9 @@
   --color-info-fill-inverse-active: var(--color-info-300);
   --color-info-fill-inverse-disabled: var(--color-info-700);
 
-  --color-info-border-subtle: var(--color-info-300);
-  --color-info-border-subtle-hover: var(--color-info-400);
-  --color-info-border-subtle-active: var(--color-info-500);
+  --color-info-border-subtle: var(--color-info-400);
+  --color-info-border-subtle-hover: var(--color-info-500);
+  --color-info-border-subtle-active: var(--color-info-600);
   --color-info-border-subtle-disabled: var(--color-info-200);
 
   --color-info-border-default: var(--color-info-600);
@@ -867,19 +867,19 @@
     success
     ────────────────────────────────────────────────────────────── */
 
-  --color-success-bg-subtle: var(--color-success-100);
-  --color-success-bg-default: var(--color-success-200);
-  --color-success-bg-strong: var(--color-success-300);
+  --color-success-bg-subtle: var(--color-success-50);
+  --color-success-bg-default: var(--color-success-100);
+  --color-success-bg-strong: var(--color-success-200);
   --color-success-bg-inverse: var(--color-success-900);
 
-  --color-success-surface-subtle: var(--color-success-300);
-  --color-success-surface-default: var(--color-success-400);
-  --color-success-surface-strong: var(--color-success-500);
+  --color-success-surface-subtle: var(--color-success-200);
+  --color-success-surface-default: var(--color-success-300);
+  --color-success-surface-strong: var(--color-success-400);
   --color-success-surface-inverse: var(--color-success-800);
 
-  --color-success-fill-subtle: var(--color-success-200);
-  --color-success-fill-subtle-hover: var(--color-success-300);
-  --color-success-fill-subtle-active: var(--color-success-400);
+  --color-success-fill-subtle: var(--color-success-300);
+  --color-success-fill-subtle-hover: var(--color-success-400);
+  --color-success-fill-subtle-active: var(--color-success-500);
   --color-success-fill-subtle-disabled: var(--color-success-100);
 
   --color-success-fill-default: var(--color-success-500);
@@ -897,9 +897,9 @@
   --color-success-fill-inverse-active: var(--color-success-300);
   --color-success-fill-inverse-disabled: var(--color-success-700);
 
-  --color-success-border-subtle: var(--color-success-300);
-  --color-success-border-subtle-hover: var(--color-success-400);
-  --color-success-border-subtle-active: var(--color-success-500);
+  --color-success-border-subtle: var(--color-success-400);
+  --color-success-border-subtle-hover: var(--color-success-500);
+  --color-success-border-subtle-active: var(--color-success-600);
   --color-success-border-subtle-disabled: var(--color-success-200);
 
   --color-success-border-default: var(--color-success-600);
@@ -963,19 +963,19 @@
     neutral
     ────────────────────────────────────────────────────────────── */
 
-  --color-neutral-bg-subtle: var(--color-neutral-100);
-  --color-neutral-bg-default: var(--color-neutral-200);
-  --color-neutral-bg-strong: var(--color-neutral-300);
+  --color-neutral-bg-subtle: var(--color-neutral-50);
+  --color-neutral-bg-default: var(--color-neutral-100);
+  --color-neutral-bg-strong: var(--color-neutral-200);
   --color-neutral-bg-inverse: var(--color-neutral-900);
 
-  --color-neutral-surface-subtle: var(--color-neutral-300);
-  --color-neutral-surface-default: var(--color-neutral-400);
-  --color-neutral-surface-strong: var(--color-neutral-500);
+  --color-neutral-surface-subtle: var(--color-neutral-200);
+  --color-neutral-surface-default: var(--color-neutral-300);
+  --color-neutral-surface-strong: var(--color-neutral-400);
   --color-neutral-surface-inverse: var(--color-neutral-800);
 
-  --color-neutral-fill-subtle: var(--color-neutral-200);
-  --color-neutral-fill-subtle-hover: var(--color-neutral-300);
-  --color-neutral-fill-subtle-active: var(--color-neutral-400);
+  --color-neutral-fill-subtle: var(--color-neutral-300);
+  --color-neutral-fill-subtle-hover: var(--color-neutral-400);
+  --color-neutral-fill-subtle-active: var(--color-neutral-500);
   --color-neutral-fill-subtle-disabled: var(--color-neutral-100);
 
   --color-neutral-fill-default: var(--color-neutral-500);
@@ -993,9 +993,9 @@
   --color-neutral-fill-inverse-active: var(--color-neutral-300);
   --color-neutral-fill-inverse-disabled: var(--color-neutral-700);
 
-  --color-neutral-border-subtle: var(--color-neutral-300);
-  --color-neutral-border-subtle-hover: var(--color-neutral-400);
-  --color-neutral-border-subtle-active: var(--color-neutral-500);
+  --color-neutral-border-subtle: var(--color-neutral-400);
+  --color-neutral-border-subtle-hover: var(--color-neutral-500);
+  --color-neutral-border-subtle-active: var(--color-neutral-600);
   --color-neutral-border-subtle-disabled: var(--color-neutral-200);
 
   --color-neutral-border-default: var(--color-neutral-600);
@@ -1060,19 +1060,19 @@
     red
     ────────────────────────────────────────────────────────────── */
 
-  --color-red-bg-subtle: var(--color-red-100);
-  --color-red-bg-default: var(--color-red-200);
-  --color-red-bg-strong: var(--color-red-300);
+  --color-red-bg-subtle: var(--color-red-50);
+  --color-red-bg-default: var(--color-red-100);
+  --color-red-bg-strong: var(--color-red-200);
   --color-red-bg-inverse: var(--color-red-900);
 
-  --color-red-surface-subtle: var(--color-red-300);
-  --color-red-surface-default: var(--color-red-400);
-  --color-red-surface-strong: var(--color-red-500);
+  --color-red-surface-subtle: var(--color-red-200);
+  --color-red-surface-default: var(--color-red-300);
+  --color-red-surface-strong: var(--color-red-400);
   --color-red-surface-inverse: var(--color-red-800);
 
-  --color-red-fill-subtle: var(--color-red-200);
-  --color-red-fill-subtle-hover: var(--color-red-300);
-  --color-red-fill-subtle-active: var(--color-red-400);
+  --color-red-fill-subtle: var(--color-red-300);
+  --color-red-fill-subtle-hover: var(--color-red-400);
+  --color-red-fill-subtle-active: var(--color-red-500);
   --color-red-fill-subtle-disabled: var(--color-red-100);
 
   --color-red-fill-default: var(--color-red-500);
@@ -1090,9 +1090,9 @@
   --color-red-fill-inverse-active: var(--color-red-300);
   --color-red-fill-inverse-disabled: var(--color-red-700);
 
-  --color-red-border-subtle: var(--color-red-300);
-  --color-red-border-subtle-hover: var(--color-red-400);
-  --color-red-border-subtle-active: var(--color-red-500);
+  --color-red-border-subtle: var(--color-red-400);
+  --color-red-border-subtle-hover: var(--color-red-500);
+  --color-red-border-subtle-active: var(--color-red-600);
   --color-red-border-subtle-disabled: var(--color-red-200);
 
   --color-red-border-default: var(--color-red-600);
@@ -1156,19 +1156,19 @@
     orange
     ────────────────────────────────────────────────────────────── */
 
-  --color-orange-bg-subtle: var(--color-orange-100);
-  --color-orange-bg-default: var(--color-orange-200);
-  --color-orange-bg-strong: var(--color-orange-300);
+  --color-orange-bg-subtle: var(--color-orange-50);
+  --color-orange-bg-default: var(--color-orange-100);
+  --color-orange-bg-strong: var(--color-orange-200);
   --color-orange-bg-inverse: var(--color-orange-900);
 
-  --color-orange-surface-subtle: var(--color-orange-300);
-  --color-orange-surface-default: var(--color-orange-400);
-  --color-orange-surface-strong: var(--color-orange-500);
+  --color-orange-surface-subtle: var(--color-orange-200);
+  --color-orange-surface-default: var(--color-orange-300);
+  --color-orange-surface-strong: var(--color-orange-400);
   --color-orange-surface-inverse: var(--color-orange-800);
 
-  --color-orange-fill-subtle: var(--color-orange-200);
-  --color-orange-fill-subtle-hover: var(--color-orange-300);
-  --color-orange-fill-subtle-active: var(--color-orange-400);
+  --color-orange-fill-subtle: var(--color-orange-300);
+  --color-orange-fill-subtle-hover: var(--color-orange-400);
+  --color-orange-fill-subtle-active: var(--color-orange-500);
   --color-orange-fill-subtle-disabled: var(--color-orange-100);
 
   --color-orange-fill-default: var(--color-orange-500);
@@ -1186,9 +1186,9 @@
   --color-orange-fill-inverse-active: var(--color-orange-300);
   --color-orange-fill-inverse-disabled: var(--color-orange-700);
 
-  --color-orange-border-subtle: var(--color-orange-300);
-  --color-orange-border-subtle-hover: var(--color-orange-400);
-  --color-orange-border-subtle-active: var(--color-orange-500);
+  --color-orange-border-subtle: var(--color-orange-400);
+  --color-orange-border-subtle-hover: var(--color-orange-500);
+  --color-orange-border-subtle-active: var(--color-orange-600);
   --color-orange-border-subtle-disabled: var(--color-orange-200);
 
   --color-orange-border-default: var(--color-orange-600);
@@ -1252,19 +1252,19 @@
     yellow
     ────────────────────────────────────────────────────────────── */
 
-  --color-yellow-bg-subtle: var(--color-yellow-100);
-  --color-yellow-bg-default: var(--color-yellow-200);
-  --color-yellow-bg-strong: var(--color-yellow-300);
+  --color-yellow-bg-subtle: var(--color-yellow-50);
+  --color-yellow-bg-default: var(--color-yellow-100);
+  --color-yellow-bg-strong: var(--color-yellow-200);
   --color-yellow-bg-inverse: var(--color-yellow-900);
 
-  --color-yellow-surface-subtle: var(--color-yellow-300);
-  --color-yellow-surface-default: var(--color-yellow-400);
-  --color-yellow-surface-strong: var(--color-yellow-500);
+  --color-yellow-surface-subtle: var(--color-yellow-200);
+  --color-yellow-surface-default: var(--color-yellow-300);
+  --color-yellow-surface-strong: var(--color-yellow-400);
   --color-yellow-surface-inverse: var(--color-yellow-800);
 
-  --color-yellow-fill-subtle: var(--color-yellow-200);
-  --color-yellow-fill-subtle-hover: var(--color-yellow-300);
-  --color-yellow-fill-subtle-active: var(--color-yellow-400);
+  --color-yellow-fill-subtle: var(--color-yellow-300);
+  --color-yellow-fill-subtle-hover: var(--color-yellow-400);
+  --color-yellow-fill-subtle-active: var(--color-yellow-500);
   --color-yellow-fill-subtle-disabled: var(--color-yellow-100);
 
   --color-yellow-fill-default: var(--color-yellow-500);
@@ -1282,9 +1282,9 @@
   --color-yellow-fill-inverse-active: var(--color-yellow-300);
   --color-yellow-fill-inverse-disabled: var(--color-yellow-700);
 
-  --color-yellow-border-subtle: var(--color-yellow-300);
-  --color-yellow-border-subtle-hover: var(--color-yellow-400);
-  --color-yellow-border-subtle-active: var(--color-yellow-500);
+  --color-yellow-border-subtle: var(--color-yellow-400);
+  --color-yellow-border-subtle-hover: var(--color-yellow-500);
+  --color-yellow-border-subtle-active: var(--color-yellow-600);
   --color-yellow-border-subtle-disabled: var(--color-yellow-200);
 
   --color-yellow-border-default: var(--color-yellow-600);
@@ -1348,19 +1348,19 @@
     blue
     ────────────────────────────────────────────────────────────── */
 
-  --color-blue-bg-subtle: var(--color-blue-100);
-  --color-blue-bg-default: var(--color-blue-200);
-  --color-blue-bg-strong: var(--color-blue-300);
+  --color-blue-bg-subtle: var(--color-blue-50);
+  --color-blue-bg-default: var(--color-blue-100);
+  --color-blue-bg-strong: var(--color-blue-200);
   --color-blue-bg-inverse: var(--color-blue-900);
 
-  --color-blue-surface-subtle: var(--color-blue-300);
-  --color-blue-surface-default: var(--color-blue-400);
-  --color-blue-surface-strong: var(--color-blue-500);
+  --color-blue-surface-subtle: var(--color-blue-200);
+  --color-blue-surface-default: var(--color-blue-300);
+  --color-blue-surface-strong: var(--color-blue-400);
   --color-blue-surface-inverse: var(--color-blue-800);
 
-  --color-blue-fill-subtle: var(--color-blue-200);
-  --color-blue-fill-subtle-hover: var(--color-blue-300);
-  --color-blue-fill-subtle-active: var(--color-blue-400);
+  --color-blue-fill-subtle: var(--color-blue-300);
+  --color-blue-fill-subtle-hover: var(--color-blue-400);
+  --color-blue-fill-subtle-active: var(--color-blue-500);
   --color-blue-fill-subtle-disabled: var(--color-blue-100);
 
   --color-blue-fill-default: var(--color-blue-500);
@@ -1378,9 +1378,9 @@
   --color-blue-fill-inverse-active: var(--color-blue-300);
   --color-blue-fill-inverse-disabled: var(--color-blue-700);
 
-  --color-blue-border-subtle: var(--color-blue-300);
-  --color-blue-border-subtle-hover: var(--color-blue-400);
-  --color-blue-border-subtle-active: var(--color-blue-500);
+  --color-blue-border-subtle: var(--color-blue-400);
+  --color-blue-border-subtle-hover: var(--color-blue-500);
+  --color-blue-border-subtle-active: var(--color-blue-600);
   --color-blue-border-subtle-disabled: var(--color-blue-200);
 
   --color-blue-border-default: var(--color-blue-600);
@@ -1444,19 +1444,19 @@
     green
     ────────────────────────────────────────────────────────────── */
 
-  --color-green-bg-subtle: var(--color-green-100);
-  --color-green-bg-default: var(--color-green-200);
-  --color-green-bg-strong: var(--color-green-300);
+  --color-green-bg-subtle: var(--color-green-50);
+  --color-green-bg-default: var(--color-green-100);
+  --color-green-bg-strong: var(--color-green-200);
   --color-green-bg-inverse: var(--color-green-900);
 
-  --color-green-surface-subtle: var(--color-green-300);
-  --color-green-surface-default: var(--color-green-400);
-  --color-green-surface-strong: var(--color-green-500);
+  --color-green-surface-subtle: var(--color-green-200);
+  --color-green-surface-default: var(--color-green-300);
+  --color-green-surface-strong: var(--color-green-400);
   --color-green-surface-inverse: var(--color-green-800);
 
-  --color-green-fill-subtle: var(--color-green-200);
-  --color-green-fill-subtle-hover: var(--color-green-300);
-  --color-green-fill-subtle-active: var(--color-green-400);
+  --color-green-fill-subtle: var(--color-green-300);
+  --color-green-fill-subtle-hover: var(--color-green-400);
+  --color-green-fill-subtle-active: var(--color-green-500);
   --color-green-fill-subtle-disabled: var(--color-green-100);
 
   --color-green-fill-default: var(--color-green-500);
@@ -1474,9 +1474,9 @@
   --color-green-fill-inverse-active: var(--color-green-300);
   --color-green-fill-inverse-disabled: var(--color-green-700);
 
-  --color-green-border-subtle: var(--color-green-300);
-  --color-green-border-subtle-hover: var(--color-green-400);
-  --color-green-border-subtle-active: var(--color-green-500);
+  --color-green-border-subtle: var(--color-green-400);
+  --color-green-border-subtle-hover: var(--color-green-500);
+  --color-green-border-subtle-active: var(--color-green-600);
   --color-green-border-subtle-disabled: var(--color-green-200);
 
   --color-green-border-default: var(--color-green-600);
@@ -1540,19 +1540,19 @@
     pink
     ────────────────────────────────────────────────────────────── */
 
-  --color-pink-bg-subtle: var(--color-pink-100);
-  --color-pink-bg-default: var(--color-pink-200);
-  --color-pink-bg-strong: var(--color-pink-300);
+  --color-pink-bg-subtle: var(--color-pink-50);
+  --color-pink-bg-default: var(--color-pink-100);
+  --color-pink-bg-strong: var(--color-pink-200);
   --color-pink-bg-inverse: var(--color-pink-900);
 
-  --color-pink-surface-subtle: var(--color-pink-300);
-  --color-pink-surface-default: var(--color-pink-400);
-  --color-pink-surface-strong: var(--color-pink-500);
+  --color-pink-surface-subtle: var(--color-pink-200);
+  --color-pink-surface-default: var(--color-pink-300);
+  --color-pink-surface-strong: var(--color-pink-400);
   --color-pink-surface-inverse: var(--color-pink-800);
 
-  --color-pink-fill-subtle: var(--color-pink-200);
-  --color-pink-fill-subtle-hover: var(--color-pink-300);
-  --color-pink-fill-subtle-active: var(--color-pink-400);
+  --color-pink-fill-subtle: var(--color-pink-300);
+  --color-pink-fill-subtle-hover: var(--color-pink-400);
+  --color-pink-fill-subtle-active: var(--color-pink-500);
   --color-pink-fill-subtle-disabled: var(--color-pink-100);
 
   --color-pink-fill-default: var(--color-pink-500);
@@ -1570,9 +1570,9 @@
   --color-pink-fill-inverse-active: var(--color-pink-300);
   --color-pink-fill-inverse-disabled: var(--color-pink-700);
 
-  --color-pink-border-subtle: var(--color-pink-300);
-  --color-pink-border-subtle-hover: var(--color-pink-400);
-  --color-pink-border-subtle-active: var(--color-pink-500);
+  --color-pink-border-subtle: var(--color-pink-400);
+  --color-pink-border-subtle-hover: var(--color-pink-500);
+  --color-pink-border-subtle-active: var(--color-pink-600);
   --color-pink-border-subtle-disabled: var(--color-pink-200);
 
   --color-pink-border-default: var(--color-pink-600);
@@ -1636,19 +1636,19 @@
     gray
     ────────────────────────────────────────────────────────────── */
 
-  --color-gray-bg-subtle: var(--color-gray-100);
-  --color-gray-bg-default: var(--color-gray-200);
-  --color-gray-bg-strong: var(--color-gray-300);
+  --color-gray-bg-subtle: var(--color-gray-50);
+  --color-gray-bg-default: var(--color-gray-100);
+  --color-gray-bg-strong: var(--color-gray-200);
   --color-gray-bg-inverse: var(--color-gray-900);
 
-  --color-gray-surface-subtle: var(--color-gray-300);
-  --color-gray-surface-default: var(--color-gray-400);
-  --color-gray-surface-strong: var(--color-gray-500);
+  --color-gray-surface-subtle: var(--color-gray-200);
+  --color-gray-surface-default: var(--color-gray-300);
+  --color-gray-surface-strong: var(--color-gray-400);
   --color-gray-surface-inverse: var(--color-gray-800);
 
-  --color-gray-fill-subtle: var(--color-gray-200);
-  --color-gray-fill-subtle-hover: var(--color-gray-300);
-  --color-gray-fill-subtle-active: var(--color-gray-400);
+  --color-gray-fill-subtle: var(--color-gray-300);
+  --color-gray-fill-subtle-hover: var(--color-gray-400);
+  --color-gray-fill-subtle-active: var(--color-gray-500);
   --color-gray-fill-subtle-disabled: var(--color-gray-100);
 
   --color-gray-fill-default: var(--color-gray-500);
@@ -1666,9 +1666,9 @@
   --color-gray-fill-inverse-active: var(--color-gray-300);
   --color-gray-fill-inverse-disabled: var(--color-gray-700);
 
-  --color-gray-border-subtle: var(--color-gray-300);
-  --color-gray-border-subtle-hover: var(--color-gray-400);
-  --color-gray-border-subtle-active: var(--color-gray-500);
+  --color-gray-border-subtle: var(--color-gray-400);
+  --color-gray-border-subtle-hover: var(--color-gray-500);
+  --color-gray-border-subtle-active: var(--color-gray-600);
   --color-gray-border-subtle-disabled: var(--color-gray-200);
 
   --color-gray-border-default: var(--color-gray-600);
@@ -1732,19 +1732,19 @@
     purple
     ────────────────────────────────────────────────────────────── */
 
-  --color-purple-bg-subtle: var(--color-purple-100);
-  --color-purple-bg-default: var(--color-purple-200);
-  --color-purple-bg-strong: var(--color-purple-300);
+  --color-purple-bg-subtle: var(--color-purple-50);
+  --color-purple-bg-default: var(--color-purple-100);
+  --color-purple-bg-strong: var(--color-purple-200);
   --color-purple-bg-inverse: var(--color-purple-900);
 
-  --color-purple-surface-subtle: var(--color-purple-300);
-  --color-purple-surface-default: var(--color-purple-400);
-  --color-purple-surface-strong: var(--color-purple-500);
+  --color-purple-surface-subtle: var(--color-purple-200);
+  --color-purple-surface-default: var(--color-purple-300);
+  --color-purple-surface-strong: var(--color-purple-400);
   --color-purple-surface-inverse: var(--color-purple-800);
 
-  --color-purple-fill-subtle: var(--color-purple-200);
-  --color-purple-fill-subtle-hover: var(--color-purple-300);
-  --color-purple-fill-subtle-active: var(--color-purple-400);
+  --color-purple-fill-subtle: var(--color-purple-300);
+  --color-purple-fill-subtle-hover: var(--color-purple-400);
+  --color-purple-fill-subtle-active: var(--color-purple-500);
   --color-purple-fill-subtle-disabled: var(--color-purple-100);
 
   --color-purple-fill-default: var(--color-purple-500);
@@ -1762,9 +1762,9 @@
   --color-purple-fill-inverse-active: var(--color-purple-300);
   --color-purple-fill-inverse-disabled: var(--color-purple-700);
 
-  --color-purple-border-subtle: var(--color-purple-300);
-  --color-purple-border-subtle-hover: var(--color-purple-400);
-  --color-purple-border-subtle-active: var(--color-purple-500);
+  --color-purple-border-subtle: var(--color-purple-400);
+  --color-purple-border-subtle-hover: var(--color-purple-500);
+  --color-purple-border-subtle-active: var(--color-purple-600);
   --color-purple-border-subtle-disabled: var(--color-purple-200);
 
   --color-purple-border-default: var(--color-purple-600);

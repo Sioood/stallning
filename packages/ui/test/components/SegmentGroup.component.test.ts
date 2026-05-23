@@ -62,6 +62,33 @@ describe('UISegmentGroup', () => {
     expect(indicator.exists()).toBe(true)
   })
 
+  it('applies pill variant classes to root and indicator', async () => {
+    const wrapper = await mountSuspended(UISegmentGroup, {
+      props: {
+        options: [{ value: 'a', label: 'A' }],
+        intent: 'primary',
+        variant: 'pill',
+      },
+    })
+
+    expect(wrapper.html()).toContain('border-primary-border-default')
+    expect(wrapper.html()).toContain('bg-primary-fill-subtle')
+    expect(wrapper.html()).not.toContain('border-b')
+  })
+
+  it('applies line variant classes to root', async () => {
+    const wrapper = await mountSuspended(UISegmentGroup, {
+      props: {
+        options: [{ value: 'a', label: 'A' }],
+        intent: 'neutral',
+        variant: 'line',
+      },
+    })
+
+    expect(wrapper.html()).toContain('border-b')
+    expect(wrapper.html()).toContain('border-neutral-border-subtle')
+  })
+
   it('applies intent classes to root', async () => {
     const wrapper = await mountSuspended(UISegmentGroup, {
       props: {
@@ -192,10 +219,14 @@ describe('UISegmentGroup', () => {
     const items = wrapper.findAll('[data-part="item"]')
     expect(items[0]!.attributes('data-state')).toBe('checked')
 
-    await items[1]!.trigger('click')
+    const inputs = wrapper.findAll('input[type="radio"]')
+    expect(inputs).toHaveLength(2)
+
+    await inputs[1]!.trigger('click')
     await nextTick()
     await nextTick()
 
-    expect(wrapper.html()).toBeTruthy()
+    expect(model.value).toBe('b')
+    expect(items[1]!.attributes('data-state')).toBe('checked')
   })
 })

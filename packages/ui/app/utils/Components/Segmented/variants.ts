@@ -115,8 +115,9 @@ export const segmentedItemCVA = cva(
         lg: 'txt-base px-4 py-2',
       } satisfies Record<SegmentedSize, string>,
       orientation: {
-        horizontal: 'text-center',
-        vertical: 'w-full text-left',
+        horizontal:
+          'inline-flex min-w-0 max-w-full items-center justify-center gap-1.5 whitespace-nowrap text-center',
+        vertical: 'inline-flex min-w-0 w-full flex-col items-start gap-1 text-left',
       } satisfies Record<SegmentedOrientation, string>,
       disabled: {
         true: 'pointer-events-none cursor-not-allowed opacity-50',

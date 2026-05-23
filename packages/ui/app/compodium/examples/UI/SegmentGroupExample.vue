@@ -164,14 +164,14 @@ function onValueChange(d: SegmentGroupValueChangeDetails) {
       </p>
       <UISegmentGroup v-model="selected" intent="primary">
         <UISegmentGroupItem value="react">
-          <UISegmentGroupItemControl>
-            <UISegmentGroupItemText>⚛️ React</UISegmentGroupItemText>
-          </UISegmentGroupItemControl>
+          <UISegmentGroupItemText>⚛️ React</UISegmentGroupItemText>
+          <UISegmentGroupItemControl class="hidden" />
+          <UISegmentGroupItemHiddenInput />
         </UISegmentGroupItem>
         <UISegmentGroupItem value="vue">
-          <UISegmentGroupItemControl>
-            <UISegmentGroupItemText>💚 Vue</UISegmentGroupItemText>
-          </UISegmentGroupItemControl>
+          <UISegmentGroupItemText>💚 Vue</UISegmentGroupItemText>
+          <UISegmentGroupItemControl class="hidden" />
+          <UISegmentGroupItemHiddenInput />
         </UISegmentGroupItem>
       </UISegmentGroup>
     </section>

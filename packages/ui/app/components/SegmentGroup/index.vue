@@ -95,31 +95,18 @@ const arkAttrs = computed(() => splitArkAttrs(attrs))
 
 const resolvedOptions = computed(() => (props.options.length > 0 ? props.options : []))
 
-const rootBindings = computed(() => {
-  const base: Record<string, unknown> = {
-    ...rootProps.value,
-    ...arkAttrs.value,
-    class: cn(
-      segmentedRootCVA({
-        variant: props.variant,
-        intent: props.intent,
-        size: props.size,
-        orientation: props.orientation,
-      }),
-      arkAttrs.value.class as string,
-      props.ui?.root,
-    ),
-  }
-
-  if (!isProvider.value) {
-    base.modelValue = modelValue.value
-    base['onUpdate:modelValue'] = (next: string) => {
-      modelValue.value = next
-    }
-  }
-
-  return base
-})
+const rootClass = computed(() =>
+  cn(
+    segmentedRootCVA({
+      variant: props.variant,
+      intent: props.intent,
+      size: props.size,
+      orientation: props.orientation,
+    }),
+    arkAttrs.value.class as string,
+    props.ui?.root,
+  ),
+)
 
 extendCompodiumMeta<typeof props & { modelValue?: string }>({
   defaultProps: {
@@ -139,7 +126,12 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
 </script>
 
 <template>
-  <component :is="rootComponent" v-bind="rootBindings">
+  <component
+    :is="rootComponent"
+    v-if="isProvider"
+    v-bind="{ ...rootProps, ...arkAttrs, class: rootClass }"
+  >
+    <UISegmentGroupIndicator :class="ui?.indicator" />
     <UISegmentGroupItem
       v-for="option in resolvedOptions"
       :key="option.value"
@@ -150,9 +142,35 @@ extendCompodiumMeta<typeof props & { modelValue?: string }>({
       <UISegmentGroupItemText :ui="{ root: ui?.itemText }">
         {{ option.label ?? option.value }}
       </UISegmentGroupItemText>
-      <UISegmentGroupItemControl :ui="{ root: ui?.itemControl }" />
+      <UISegmentGroupItemControl :ui="{ root: cn('hidden', ui?.itemControl) }" />
+      <UISegmentGroupItemHiddenInput />
     </UISegmentGroupItem>
-    <UISegmentGroupIndicator />
+    <slot />
+  </component>
+
+  <component
+    :is="rootComponent"
+    v-else
+    v-bind="{ ...rootProps, ...arkAttrs, class: rootClass }"
+    :model-value="modelValue"
+    @update:model-value="(next) => (modelValue = next ?? undefined)"
+    @value-change="(details) => (modelValue = details.value ?? undefined)"
+  >
+    <UISegmentGroupIndicator :class="ui?.indicator" />
+    <UISegmentGroupItem
+      v-for="option in resolvedOptions"
+      :key="option.value"
+      :value="option.value"
+      :disabled="props.disabled || option.disabled"
+      :ui="{ root: ui?.item }"
+    >
+      <UISegmentGroupItemText :ui="{ root: ui?.itemText }">
+        {{ option.label ?? option.value }}
+      </UISegmentGroupItemText>
+      <UISegmentGroupItemControl :ui="{ root: cn('hidden', ui?.itemControl) }" />
+      <UISegmentGroupItemHiddenInput />
+    </UISegmentGroupItem>
+    <slot />
   </component>
 </template>
 

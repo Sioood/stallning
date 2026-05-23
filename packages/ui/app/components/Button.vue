@@ -34,7 +34,7 @@ export interface UIButtonSlots {
   trailingIcon?: ClassValue
 }
 
-export interface ButtonProps extends NuxtLinkProps, UseComponentIconsProps {
+export interface ButtonProps extends /* @vue-ignore */ NuxtLinkProps, UseComponentIconsProps {
   /**
    * text to display in the button
    * used if no slot is provided

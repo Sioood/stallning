@@ -30,7 +30,7 @@ const linkCVA = cva('w-fit', {
   },
 })
 
-interface LinkProps extends NuxtLinkProps {
+interface LinkProps extends /* @vue-ignore */ NuxtLinkProps {
   styled?: boolean
   intent?: linkIntent
   variant?: linkVariant

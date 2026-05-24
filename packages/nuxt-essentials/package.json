@@ -29,7 +29,7 @@
     "@nuxtjs/i18n": "catalog:",
     "@nuxtjs/seo": "catalog:",
     "@pinia/nuxt": "catalog:",
-    "@takumi-rs/core": "^0.73.1",
+    "@takumi-rs/core": "^1.4.1",
     "@vite-pwa/nuxt": "catalog:",
     "@vueuse/nuxt": "catalog:",
     "nuxt": "catalog:",

@@ -30,12 +30,12 @@
     "todoctor": "pnpx todoctor"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.30.0",
+    "@changesets/cli": "^2.31.0",
     "@changesets/read": "^0.6.7",
     "@changesets/types": "^6.1.0",
     "@changesets/write": "^0.4.0",
-    "@commitlint/cli": "^20.5.0",
-    "@commitlint/config-conventional": "^20.5.0",
+    "@commitlint/cli": "^20.5.3",
+    "@commitlint/config-conventional": "^20.5.3",
     "@manypkg/get-packages": "^3.1.0",
     "@stallning/eslint": "workspace:^",
     "@stallning/oxlint": "workspace:^",
@@ -46,18 +46,18 @@
     "consola": "^3.4.2",
     "eslint": "catalog:",
     "husky": "^9.1.7",
-    "knip": "^6.3.1",
+    "knip": "^6.14.2",
     "lint-staged": "^16.4.0",
     "minimist": "^1.2.8",
-    "only-allow": "^1.2.1",
+    "only-allow": "^1.2.2",
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
-    "turbo": "^2.9.5",
+    "turbo": "^2.9.14",
     "typescript": "catalog:"
   },
   "lint-staged": {
     "**/*.{json,js,ts,md,yaml,yml}": [
-      "oxlint --fix",
+      "oxlint --fix --no-error-on-unmatched-pattern",
       "eslint --fix -c eslint.config.ts",
       "pnpm exec oxfmt --write"
     ]
@@ -103,5 +103,5 @@
   "engines": {
     "node": ">=25.8.0"
   },
-  "packageManager": "pnpm@10.33.0"
+  "packageManager": "pnpm@10.33.4"
 }

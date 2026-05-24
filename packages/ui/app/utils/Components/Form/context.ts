@@ -3,6 +3,7 @@ import type {
   ComponentIntent,
   ComponentSize,
   ComponentOrientation,
+  ComponentVariant,
 } from '~/utils/Components/contextBase'
 
 export type FormFieldIntent = NonNullable<
@@ -11,6 +12,7 @@ export type FormFieldIntent = NonNullable<
 
 export type FormFieldSize = NonNullable<ComponentSize>
 export type FormFieldOrientation = NonNullable<ComponentOrientation>
+export type FormFieldVariant = NonNullable<Extract<ComponentVariant, 'default' | 'subtle'>>
 
 export interface UIFieldSlots {
   root?: ClassValue
@@ -73,6 +75,15 @@ export interface UITextareaSlots extends UIFieldSlots {
 export interface UIPinInputSlots extends UIFieldSlots {
   control?: ClassValue
   input?: ClassValue
+  hiddenInput?: ClassValue
+}
+
+export interface UISignaturePadSlots extends UIFieldSlots {
+  shell?: ClassValue
+  control?: ClassValue
+  segment?: ClassValue
+  guide?: ClassValue
+  clearTrigger?: ClassValue
   hiddenInput?: ClassValue
 }
 

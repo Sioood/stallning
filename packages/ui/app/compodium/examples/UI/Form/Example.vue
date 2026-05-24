@@ -12,6 +12,7 @@ import UIFormNumberInput from '~ui/app/components/Form/NumberInput.vue'
 import UIFormPhoneInput from '~ui/app/components/Form/PhoneInput.vue'
 import UIFormPinInput from '~ui/app/components/Form/PinInput.vue'
 import UIFormRadioGroup from '~ui/app/components/Form/RadioGroup.vue'
+import UIFormSignaturePad from '~ui/app/components/Form/SignaturePad.vue'
 import UIFormSlider from '~ui/app/components/Form/Slider/index.vue'
 import UIFormTagsInput from '~ui/app/components/Form/TagsInput/index.vue'
 import UIFormTextarea from '~ui/app/components/Form/Textarea.vue'
@@ -48,6 +49,7 @@ const schema = z.object({
   permissions: z.custom<TreeViewCheckedState>(),
   volume: z.array(z.number()).min(1).max(2).default([50]),
   avatar: z.custom<File[]>(),
+  signature: z.array(z.string()).optional(),
 })
 
 type FormValues = InferSchemaValues<typeof schema>
@@ -73,6 +75,7 @@ const defaultValues: FormValues = {
   permissions: { value: [], branches: {}, leaves: {} },
   volume: [50],
   avatar: [],
+  signature: [],
 }
 
 const countryItems = [
@@ -333,6 +336,15 @@ const fields: SchemaFieldsMap<FormValues> = {
       clearable: true,
     },
   },
+  signature: {
+    as: UIFormSignaturePad,
+    props: {
+      label: 'Signature',
+      helperText: 'Draw your signature in the box',
+      required: true,
+      clearable: true,
+    },
+  },
 }
 
 const layout: SchemaFormLayout<keyof FormValues & string>[] = [
@@ -355,6 +367,7 @@ const layout: SchemaFormLayout<keyof FormValues & string>[] = [
   'permissions',
   'volume',
   'avatar',
+  'signature',
 ]
 
 const submitted = ref('')

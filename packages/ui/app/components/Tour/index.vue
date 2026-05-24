@@ -271,8 +271,8 @@ const arkAttrs = computed(() => splitArkAttrs(attrs))
 
 const rootBindings = computed(() => {
   const base: Record<string, unknown> = {
-    ...rootProps.value,
     ...arkAttrs.value,
+    ...rootProps.value,
     class: cn(
       tourRootCVA({ intent: props.intent }),
       arkAttrs.value.class as ClassValue,

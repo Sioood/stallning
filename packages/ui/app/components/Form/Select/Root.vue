@@ -102,6 +102,12 @@ const rootBindings = computed(() => {
         open.value = next
       }
     }
+    if (modelValue.value !== undefined) {
+      base.modelValue = modelValue.value
+      base['onUpdate:modelValue'] = (next: string[]) => {
+        modelValue.value = next
+      }
+    }
   }
 
   return base
@@ -122,18 +128,7 @@ extendCompodiumMeta<typeof props & { modelValue?: string[] }>({
 </script>
 
 <template>
-  <component :is="rootComponent" v-if="isProvider" v-bind="rootBindings">
-    <slot />
-  </component>
-
-  <component
-    :is="rootComponent"
-    v-else
-    v-bind="rootBindings"
-    :model-value="modelValue"
-    @update:model-value="(next: string[]) => (modelValue = next)"
-    @value-change="onValueChange"
-  >
+  <component :is="rootComponent" v-bind="rootBindings" @value-change="onValueChange">
     <slot />
   </component>
 </template>

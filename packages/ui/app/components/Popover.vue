@@ -99,7 +99,7 @@ interface PopoverProps
   ui?: Partial<UIPopoverSlots>
 }
 
-const open = defineModel<boolean>('open', { default: false })
+const open = defineModel<boolean>('open', { required: false })
 
 const props = withDefaults(defineProps<PopoverProps>(), {
   closeOnEscape: true,
@@ -126,7 +126,7 @@ const rootProps = computed(() => {
   if (isProvider.value) {
     return pick(props, ['asChild', 'lazyMount', 'unmountOnExit', 'value'] as const)
   }
-  return {
+  const base: Record<string, unknown> = {
     ...pick(props, [
       'autoFocus',
       'closeOnEscape',
@@ -147,16 +147,26 @@ const rootProps = computed(() => {
       'triggerValue',
       'unmountOnExit',
     ] as const),
-    'onUpdate:open': (val: boolean) => {
-      open.value = val
-    },
-    open: open.value,
   }
+
+  if (open.value !== undefined) {
+    base.open = open.value
+    base['onUpdate:open'] = (val: boolean) => {
+      open.value = val
+    }
+  }
+
+  return base
 })
+
+const rootBindings = computed(() => ({
+  ...arkAttrs.value,
+  ...rootProps.value,
+}))
 </script>
 
 <template>
-  <component :is="rootComponent" v-bind="{ ...arkAttrs, ...rootProps }">
+  <component :is="rootComponent" v-bind="rootBindings">
     <ArkPopover.Context v-slot="popover">
       <slot
         name="triggers"

@@ -56,6 +56,7 @@ describe('Toggle/Group', () => {
   it('emits single selected value by default', async () => {
     const wrapper = await mountSuspended(ToggleGroup, {
       props: {
+        modelValue: [],
         options: [
           { value: 'left', title: 'Left' },
           { value: 'center', title: 'Center' },
@@ -76,6 +77,7 @@ describe('Toggle/Group', () => {
     const wrapper = await mountSuspended(ToggleGroup, {
       props: {
         multiple: true,
+        modelValue: [],
         options: [
           { value: 'left', title: 'Left' },
           { value: 'center', title: 'Center' },

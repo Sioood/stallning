@@ -53,7 +53,7 @@ interface ToggleGroupProps
   variant?: ToggleVariant
 }
 
-const modelValue = defineModel<string[]>({ default: [] })
+const modelValue = defineModel<string[]>({ required: false })
 const pressedByValue = reactive<Record<string, boolean>>({})
 
 const props = withDefaults(defineProps<ToggleGroupProps>(), {
@@ -94,32 +94,37 @@ const rootProps = computed(() => {
 const attrs = useAttrs()
 const arkAttrs = computed(() => splitArkAttrs(attrs))
 
+const rootBindings = computed(() => {
+  const base: Record<string, unknown> = {
+    ...arkAttrs.value,
+    ...rootProps.value,
+    class: cn(
+      groupRootCVA({ orientation: props.orientation }),
+      arkAttrs.value.class as ClassValue,
+      props.ui?.root,
+    ),
+  }
+
+  if (!isProvider.value && modelValue.value !== undefined) {
+    base.modelValue = modelValue.value
+    base['onUpdate:modelValue'] = (next: string[] | null) => {
+      modelValue.value = next ?? []
+    }
+  }
+
+  return base
+})
+
 watchEffect(() => {
+  const selected = modelValue.value ?? []
   for (const option of props.options) {
-    pressedByValue[option.value] = modelValue.value.includes(option.value)
+    pressedByValue[option.value] = selected.includes(option.value)
   }
 })
 </script>
 
 <template>
-  <component
-    :is="rootComponent"
-    v-bind="
-      isProvider
-        ? {
-            ...arkAttrs,
-            ...rootProps,
-            class: cn(groupRootCVA({ orientation }), arkAttrs.class as ClassValue, props.ui?.root),
-          }
-        : {
-            ...arkAttrs,
-            ...rootProps,
-            class: cn(groupRootCVA({ orientation }), arkAttrs.class as ClassValue, props.ui?.root),
-            modelValue: modelValue,
-            'onUpdate:modelValue': (v: string[]) => (modelValue = v),
-          }
-    "
-  >
+  <component :is="rootComponent" v-bind="rootBindings">
     <ArkToggleGroup.Item
       v-for="option in options"
       :key="option.value"

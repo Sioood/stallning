@@ -95,7 +95,7 @@ export interface CollapsibleProps
   size?: CollapsibleTriggerVariants['size']
 }
 
-const modelValue = defineModel<boolean>({ default: false })
+const modelValue = defineModel<boolean>({ required: false })
 
 /**
  * Default `open` to `undefined` so Vue does not coerce absent Boolean props to `false` (controlled stuck closed).
@@ -135,6 +135,23 @@ const rootProps = computed(() => {
 const attrs = useAttrs()
 const arkAttrs = computed(() => splitArkAttrs(attrs))
 
+const rootBindings = computed(() => {
+  const base: Record<string, unknown> = {
+    ...arkAttrs.value,
+    ...rootProps.value,
+    class: arkAttrs.value.class,
+  }
+
+  if (!isProvider.value && modelValue.value !== undefined) {
+    base.open = modelValue.value
+    base['onUpdate:open'] = (next: boolean) => {
+      modelValue.value = next
+    }
+  }
+
+  return base
+})
+
 extendCompodiumMeta<CollapsibleProps>({
   defaultProps: {
     heading: 'Heading',
@@ -145,19 +162,7 @@ extendCompodiumMeta<CollapsibleProps>({
 </script>
 
 <template>
-  <component
-    :is="rootComponent"
-    v-bind="
-      isProvider
-        ? { ...arkAttrs, ...rootProps }
-        : {
-            ...arkAttrs,
-            ...rootProps,
-            open: modelValue,
-            'onUpdate:open': (v: boolean) => (modelValue = v),
-          }
-    "
-  >
+  <component :is="rootComponent" v-bind="rootBindings">
     <Collapsible.Trigger
       type="button"
       :class="cn(collapsibleTriggerCVA({ intent, size, disabled }), ui?.trigger)"

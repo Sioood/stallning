@@ -22,9 +22,7 @@ describe('UIProgress', () => {
   })
 
   it('sets data-state="indeterminate" when modelValue is undefined', async () => {
-    const wrapper = await mountSuspended(UIProgress, {
-      props: { modelValue: undefined },
-    })
+    const wrapper = await mountSuspended(UIProgress)
 
     const root = wrapper.find('[data-part="root"]')
     expect(root.attributes('data-state')).toBe('indeterminate')

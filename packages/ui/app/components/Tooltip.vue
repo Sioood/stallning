@@ -95,7 +95,7 @@ interface TooltipProps
   ui?: Partial<UITooltipSlots>
 }
 
-const open = defineModel<boolean>('open', { default: false })
+const open = defineModel<boolean>('open', { required: false })
 
 const props = withDefaults(defineProps<TooltipProps>(), {
   closeDelay: 100,
@@ -132,7 +132,7 @@ const rootProps = computed(() => {
       }
     : basePositioning
 
-  return {
+  const base: Record<string, unknown> = {
     ...pick(props, [
       'closeDelay',
       'defaultOpen',
@@ -146,7 +146,21 @@ const rootProps = computed(() => {
     ]),
     positioning,
   }
+
+  if (open.value !== undefined) {
+    base.open = open.value
+    base['onUpdate:open'] = (next: boolean) => {
+      open.value = next
+    }
+  }
+
+  return base
 })
+
+const rootBindings = computed(() => ({
+  ...arkAttrs.value,
+  ...rootProps.value,
+}))
 
 function handleTriggerPointerMove(
   event: PointerEvent,
@@ -159,14 +173,7 @@ function handleTriggerPointerMove(
 </script>
 
 <template>
-  <component
-    :is="rootComponent"
-    v-bind="
-      isProvider
-        ? { ...arkAttrs, ...rootProps }
-        : { ...arkAttrs, ...rootProps, open, 'onUpdate:open': (v: boolean) => (open = v) }
-    "
-  >
+  <component :is="rootComponent" v-bind="rootBindings">
     <ArkTooltip.Context v-slot="tooltip">
       <slot
         name="triggers"

@@ -72,7 +72,7 @@ interface QrCodeProps
   fileName?: ArkQrCodeDownloadTriggerProps['fileName']
 }
 
-const modelValue = defineModel<string>({ default: 'https://theodupont.fr' })
+const modelValue = defineModel<string>({ required: false })
 
 const props = withDefaults(defineProps<QrCodeProps>(), {
   defaultValue: 'https://theodupont.fr',
@@ -96,14 +96,24 @@ const rootProps = computed(() => {
   if (isProvider.value) {
     return pick(props, ['asChild', 'value'] as const)
   }
-  return {
+  const base: Record<string, unknown> = {
     ...pick(props, ['asChild', 'defaultValue', 'encoding', 'id', 'ids', 'pixelSize'] as const),
-    modelValue: modelValue.value,
-    'onUpdate:modelValue': (v: string) => {
-      modelValue.value = v
-    },
   }
+
+  if (modelValue.value !== undefined) {
+    base.modelValue = modelValue.value
+    base['onUpdate:modelValue'] = (next: string) => {
+      modelValue.value = next
+    }
+  }
+
+  return base
 })
+
+const rootBindings = computed(() => ({
+  ...arkAttrs.value,
+  ...rootProps.value,
+}))
 
 const attrs = useAttrs()
 const arkAttrs = computed(() => splitArkAttrs(attrs))
@@ -116,7 +126,7 @@ const downloadTriggerProps = computed(() => ({
 <template>
   <component
     :is="rootComponent"
-    v-bind="{ ...arkAttrs, ...rootProps }"
+    v-bind="rootBindings"
     :class="cn(qrCodeRootCVA({ intent, size }), ui?.root)"
   >
     <div class="relative size-full">

@@ -153,6 +153,27 @@ const rootProps = computed(() => {
 const attrs = useAttrs()
 const arkAttrs = computed(() => splitArkAttrs(attrs))
 
+const rootBindings = computed(() => {
+  const base: Record<string, unknown> = {
+    ...arkAttrs.value,
+    ...rootProps.value,
+    class: cn(
+      progressRootCVA({ size: props.size }),
+      arkAttrs.value.class as ClassValue,
+      props.ui?.root,
+    ),
+  }
+
+  if (!isProvider.value && modelValue.value !== undefined) {
+    base.modelValue = modelValue.value
+    base['onUpdate:modelValue'] = (next: number) => {
+      modelValue.value = next
+    }
+  }
+
+  return base
+})
+
 extendCompodiumMeta({
   defaultProps: {
     label: 'Loading...',
@@ -161,24 +182,7 @@ extendCompodiumMeta({
 </script>
 
 <template>
-  <component
-    :is="rootComponent"
-    v-bind="
-      isProvider
-        ? {
-            ...arkAttrs,
-            ...rootProps,
-            class: cn(progressRootCVA({ size }), arkAttrs.class as ClassValue, ui?.root),
-          }
-        : {
-            ...arkAttrs,
-            ...rootProps,
-            class: cn(progressRootCVA({ size }), arkAttrs.class as ClassValue, ui?.root),
-            modelValue: modelValue,
-            'onUpdate:modelValue': (v: number) => (modelValue = v),
-          }
-    "
-  >
+  <component :is="rootComponent" v-bind="rootBindings">
     <ArkProgress.Label :class="cn(progressLabelCVA({ intent, size }), ui?.label)">
       {{ $te(label) ? $t(label) : label }}
     </ArkProgress.Label>

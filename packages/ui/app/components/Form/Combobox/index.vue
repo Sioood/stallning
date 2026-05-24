@@ -47,6 +47,7 @@ export interface ComboboxProps
   intent?: ComboboxIntent
   size?: ComboboxSize
   ui?: Partial<UIComboboxSlots>
+  filterDebounceMs?: number
 }
 
 const modelValue = defineModel<string[]>({ default: () => [] })
@@ -76,10 +77,18 @@ const props = withDefaults(defineProps<ComboboxProps>(), {
   teleportTo: 'body',
   ui: undefined,
   value: undefined,
+  filterDebounceMs: 250,
 })
 
 const attrs = useAttrs()
 const filters = useFilter({ sensitivity: 'base' })
+
+/** Debounced query for list filtering — keeps `inputValue` immediate for the input field. */
+const debouncedFilterInput = refDebounced(inputValue, () => props.filterDebounceMs)
+
+const filterQuery = computed(() =>
+  inputValue.value.trim() === '' ? '' : debouncedFilterInput.value,
+)
 
 const rawItems = computed(() => props.items ?? [])
 
@@ -106,7 +115,7 @@ const collection = computed(() => {
 
   const filtered = filterComboboxItems(
     processedItems.value,
-    inputValue.value,
+    filterQuery.value,
     filters.value.contains,
   )
 
@@ -190,7 +199,11 @@ function handleInputKeydown(event: KeyboardEvent) {
   const currentInput = inputValue.value.trim()
   if (!currentInput) return
 
-  const availableItems = collection.value.items.filter((item) => !item.disabled)
+  const availableItems = filterComboboxItems(
+    processedItems.value,
+    currentInput,
+    filters.value.contains,
+  ).filter((item) => !item.disabled)
   const match = resolveComboboxEnterMatch(currentInput, availableItems, rawItems.value)
   if (!match) return
 

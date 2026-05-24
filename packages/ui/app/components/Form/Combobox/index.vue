@@ -29,9 +29,9 @@ export type { ComboboxItem } from '~/utils/Components/Form/Combobox/context'
 
 export interface ComboboxProps
   extends
-    Omit<ComboboxRootBaseProps, 'collection' | 'modelValue' | 'open' | 'inputValue'>,
-    Omit<ComboboxRootProviderBaseProps, 'value'> {
-  value?: UseComboboxReturn
+    Omit<ComboboxRootBaseProps<ComboboxItem>, 'collection' | 'modelValue' | 'open' | 'inputValue'>,
+    Omit<ComboboxRootProviderBaseProps<ComboboxItem>, 'value'> {
+  value?: UseComboboxReturn<ComboboxItem>
   items?: ComboboxItem[] | null
   label?: string
   helperText?: string

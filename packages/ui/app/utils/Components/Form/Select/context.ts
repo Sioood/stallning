@@ -9,7 +9,7 @@ export type SelectSize = NonNullable<ComponentSize>
 export interface SelectItem {
   label: string
   value: string
-  disabled: boolean
+  disabled?: boolean
   group?: string
 }
 

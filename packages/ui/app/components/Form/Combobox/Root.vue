@@ -9,6 +9,7 @@ import {
 import {
   comboboxChromeKey,
   type ComboboxIntent,
+  type ComboboxItem,
   type ComboboxSize,
   type UIComboboxSlots,
 } from '~/utils/Components/Form/Combobox/context'
@@ -24,9 +25,9 @@ export interface UIFormComboboxRootSlots {
 
 export interface ComboboxRootProps
   extends
-    Omit<ComboboxRootBaseProps, 'modelValue' | 'open' | 'inputValue'>,
-    Omit<ComboboxRootProviderBaseProps, 'value'> {
-  value?: UseComboboxReturn
+    Omit<ComboboxRootBaseProps<ComboboxItem>, 'modelValue' | 'open' | 'inputValue'>,
+    Omit<ComboboxRootProviderBaseProps<ComboboxItem>, 'value'> {
+  value?: UseComboboxReturn<ComboboxItem>
   intent?: ComboboxIntent
   size?: ComboboxSize
   ui?: Partial<UIFormComboboxRootSlots & UIComboboxSlots>

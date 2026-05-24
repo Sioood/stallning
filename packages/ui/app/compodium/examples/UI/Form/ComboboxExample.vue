@@ -125,9 +125,9 @@ async function loadAsyncItems() {
 
     <section class="flex flex-col gap-2">
       <h3 class="text-lg font-bold">RootProvider mode</h3>
-      <UIButton size="sm" @click="providerApi.setValue(['react'])"
-        >Select React externally</UIButton
-      >
+      <UIButton size="sm" @click="providerApi.setValue(['react'])">
+        Select React externally
+      </UIButton>
       <UIFormComboboxRoot :value="providerApi" intent="primary">
         <UIFormControlShell label="Provider mode" intent="primary" size="md">
           <UIFormComboboxControl class="min-w-0 flex-1 border-0 bg-transparent p-0 shadow-none">

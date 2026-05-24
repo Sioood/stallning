@@ -3,6 +3,12 @@ packages:
   - 'packages/*'
   - 'packages/config/*'
 
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  sharp: true
+  vue-demi: true
+
 catalog:
   '@ark-ui/vue': ^5.36.2
   '@internationalized/date': 3.12.0

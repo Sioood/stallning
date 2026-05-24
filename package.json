@@ -34,8 +34,8 @@
     "@changesets/read": "^0.6.7",
     "@changesets/types": "^6.1.0",
     "@changesets/write": "^0.4.0",
-    "@commitlint/cli": "^20.5.3",
-    "@commitlint/config-conventional": "^20.5.3",
+    "@commitlint/cli": "^21.0.1",
+    "@commitlint/config-conventional": "^21.0.1",
     "@manypkg/get-packages": "^3.1.0",
     "@stallning/eslint": "workspace:^",
     "@stallning/oxlint": "workspace:^",
@@ -47,7 +47,7 @@
     "eslint": "catalog:",
     "husky": "^9.1.7",
     "knip": "^6.14.2",
-    "lint-staged": "^16.4.0",
+    "lint-staged": "^17.0.5",
     "minimist": "^1.2.8",
     "only-allow": "^1.2.2",
     "oxfmt": "catalog:",
@@ -103,5 +103,5 @@
   "engines": {
     "node": ">=25.8.0"
   },
-  "packageManager": "pnpm@10.33.4"
+  "packageManager": "pnpm@11.2.2"
 }

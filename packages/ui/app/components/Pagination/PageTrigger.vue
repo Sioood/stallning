@@ -75,7 +75,12 @@ extendCompodiumMeta<PaginationPageTriggerProps>({
     as-child
     :class="ui?.root"
   >
-    <UIButton :variant="isSelected ? 'default' : 'subtle'" :intent="intent" :size="size">
+    <UIButton
+      :variant="isSelected ? 'default' : 'subtle'"
+      :intent
+      :size
+      :ui="{ root: 'tabular-nums' }"
+    >
       <slot>{{ value }}</slot>
     </UIButton>
   </ArkPagination.Item>

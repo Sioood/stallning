@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url'
 import { defineVitestProject } from '@nuxt/test-utils/config'
 import tailwindcss from '@tailwindcss/vite'
 import vue from '@vitejs/plugin-vue'
+import { playwright } from '@vitest/browser-playwright'
 import autoImport from 'unplugin-auto-import/vite'
 import { coverageConfigDefaults, defineConfig, defineProject } from 'vitest/config'
 
@@ -44,7 +45,7 @@ const uiCoverage = {
    */
   excludeAfterRemap: true,
   processingConcurrency: 1,
-  reporter: ['text', 'html', 'lcov'] as const,
+  reporter: ['text', 'html', 'lcov'],
   reportsDirectory: './coverage',
   include: [
     'app/utils/**/*.ts',
@@ -87,72 +88,70 @@ const uiCoverage = {
   },
 }
 
-export default defineConfig(async () => {
-  const uiComponent = await defineVitestProject({
-    test: {
-      name: 'ui-component',
-      root: packageRoot,
-      setupFiles: [componentSetupPath],
-      include: ['test/**/*.component.test.ts'],
-      environmentOptions: {
-        nuxt: {
-          overrides: {
-            imports: {
-              imports: [{ name: 'extendCompodiumMeta', from: stubPath }],
-            },
+const uiComponent = await defineVitestProject({
+  test: {
+    name: 'ui-component',
+    root: packageRoot,
+    setupFiles: [componentSetupPath],
+    include: ['test/**/*.component.test.ts'],
+    environmentOptions: {
+      nuxt: {
+        overrides: {
+          imports: {
+            imports: [{ name: 'extendCompodiumMeta', from: stubPath }],
           },
         },
       },
     },
-  })
+  },
+})
 
-  uiComponent.test.environment = './vitest-nuxt-environment.ts'
+uiComponent.test!.environment = './vitest-nuxt-environment.ts'
 
-  return {
-    root: packageRoot,
-    test: {
-      /** Used by `initCoverageProvider()`; per-project `coverage` is not applied to the v8 provider. */
-      coverage: uiCoverage,
-      projects: [
-        defineProject({
-          root: packageRoot,
-          resolve: {
-            alias: workspaceLayerAliasesFromNuxtAppTsconfig(),
+export default defineConfig({
+  root: packageRoot,
+  test: {
+    /** Used by `initCoverageProvider()`; per-project `coverage` is not applied to the v8 provider. */
+    coverage: uiCoverage,
+    projects: [
+      defineProject({
+        root: packageRoot,
+        resolve: {
+          alias: workspaceLayerAliasesFromNuxtAppTsconfig(),
+        },
+        test: {
+          name: 'ui-unit',
+          environment: 'node',
+          include: ['test/**/*.test.ts'],
+          exclude: ['test/**/*.component.test.ts', 'test/**/*.visual.test.ts'],
+        },
+      }),
+      uiComponent,
+      defineProject({
+        root: packageRoot,
+        plugins: [tailwindcss(), vue(), autoImport({ imports: ['vue'], dts: false })],
+        resolve: {
+          alias: {
+            '~ui': packageRoot,
+            '~nuxt-essentials': resolvePath(packageRoot, '../nuxt-essentials'),
+            '~': resolvePath(packageRoot, 'app'),
+            '#app': resolvePath(packageRoot, 'test/visual/stubs/nuxt-app.ts'),
           },
-          test: {
-            name: 'ui-unit',
-            environment: 'node',
-            include: ['test/**/*.test.ts'],
-            exclude: ['test/**/*.component.test.ts', 'test/**/*.visual.test.ts'],
+        },
+        test: {
+          name: 'ui-visual',
+          setupFiles: [visualSetupPath],
+          include: ['test/**/*.visual.test.ts'],
+          browser: {
+            enabled: true,
+            provider: playwright(),
+            headless: true,
+            instances: [{ browser: 'chromium' }],
+            viewport: { width: 1280, height: 720 },
+            screenshotFailures: false,
           },
-        }),
-        uiComponent,
-        defineProject({
-          root: packageRoot,
-          plugins: [tailwindcss(), vue(), autoImport({ imports: ['vue'], dts: false })],
-          resolve: {
-            alias: {
-              '~ui': packageRoot,
-              '~nuxt-essentials': resolvePath(packageRoot, '../nuxt-essentials'),
-              '~': resolvePath(packageRoot, 'app'),
-              '#app': resolvePath(packageRoot, 'test/visual/stubs/nuxt-app.ts'),
-            },
-          },
-          test: {
-            name: 'ui-visual',
-            setupFiles: [visualSetupPath],
-            include: ['test/**/*.visual.test.ts'],
-            browser: {
-              enabled: true,
-              provider: 'playwright',
-              headless: true,
-              instances: [{ browser: 'chromium' }],
-              viewport: { width: 1280, height: 720 },
-              screenshotFailures: false,
-            },
-          },
-        }),
-      ],
-    },
-  }
+        },
+      }),
+    ],
+  },
 })

@@ -25,6 +25,7 @@ catalog:
   '@types/node': ^25.9.1
   '@vite-pwa/nuxt': ^1.1.1
   '@vitest/browser': ^4.1.7
+  '@vitest/browser-playwright': ^4.1.7
   '@vitest/coverage-v8': ^4.1.7
   '@vueuse/nuxt': ^14.3.0
   class-variance-authority: ^0.7.1

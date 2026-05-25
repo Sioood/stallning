@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app'
 
-const props = defineProps<{ error: NuxtError }>()
 const { t } = useI18n()
+
+const props = defineProps<{ error: NuxtError }>()
 
 const statusCode = computed(() => props.error.status || 500)
 const title = computed(() => {
@@ -18,15 +19,14 @@ const handleClearError = () => clearError({ redirect: '/' })
 </script>
 
 <template>
-  <div class="flex min-h-screen flex-col items-center justify-center px-4 text-center">
-    <p>{{ statusCode }}</p>
-    <h1 class="mt-4">{{ title }}</h1>
-    <p class="mt-2 max-w-md">{{ description }}</p>
-    <button
-      class="mt-8 inline-flex cursor-pointer items-center gap-2 px-4 py-2"
-      @click="handleClearError"
-    >
+  <div class="flex min-h-screen flex-col items-center justify-center gap-4 px-4 text-center">
+    <div class="flex flex-col items-center justify-center">
+      <span class="txt-title text-accent-text-subtle">{{ statusCode }}</span>
+      <h1 class="txt-h2 mt-4 text-neutral-text-default">{{ title }}</h1>
+      <p class="txt-caption mt-2 max-w-md text-neutral-text-subtle">{{ description }}</p>
+    </div>
+    <UIButton class="mt-8" @click="handleClearError">
       {{ t('errorPage.backHome') }}
-    </button>
+    </UIButton>
   </div>
 </template>

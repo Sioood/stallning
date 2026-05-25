@@ -25,6 +25,8 @@ All `UI*` components are auto-imported:
 </UIAccordion>
 ```
 
+When building composables or helpers, check [VueUse](https://vueuse.org/functions.html) before rolling your own DOM/reactivity utilities. See [Component Development — VueUse](../../docs/ai/component-development.md#vueuse).
+
 ---
 
 ## Root vs RootProvider

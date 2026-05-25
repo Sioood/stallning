@@ -212,6 +212,7 @@ Three ways to read component state, in increasing "reach":
 - Use `<Teleport :disabled>` for conditional portal rendering (not createReusableTemplate)
 - Run `pnpm mutation` to validate test quality for new utils/composables
 - Use `<NuxtImg>` with explicit width/height for CLS prevention
+- Check [VueUse](https://vueuse.org/functions.html) before implementing DOM/reactivity utilities in composables or helpers
 
 ## Don'ts
 
@@ -222,6 +223,7 @@ Three ways to read component state, in increasing "reach":
 - Don't test compodium examples — they're documentation, not production code
 - Don't use raw hex/rgb colors — use semantic tokens
 - Don't create new intent colors without updating ALL components
+- Don't reimplement debounce, `addEventListener` cleanup, or scroll observers when a VueUse composable exists
 
 ## Testing Strategy
 

@@ -18,6 +18,35 @@ There are two distinct types of components in this library:
 
 ---
 
+## VueUse
+
+Before writing custom logic for DOM events, refs, scroll, debounce, clipboard, storage, infinite scroll, drag-and-drop, or media queries — **search [VueUse](https://vueuse.org/functions.html) first**.
+
+`@vueuse/nuxt` is provided by `@stallning/nuxt-essentials`; composables auto-import in `app/` directories (same as other Nuxt auto-imports).
+
+### When to reach for VueUse
+
+- Event listeners with cleanup → `useEventListener`
+- Element/size refs → `useTemplateRef`, `useElementSize`
+- Debounced inputs → `refDebounced`
+- Scroll / infinite scroll → `useScroll`, `useInfiniteScroll`
+- Clipboard / storage / breakpoints → `useClipboard`, `useLocalStorage`, `useBreakpoints`
+- Sortable / DnD → `@vueuse/integrations` (`useSortable`) — add to the catalog when needed
+
+### When not to
+
+- Pure CVA styling and layout
+- Ark UI state machines (`usePagination`, `useMenu`, …)
+- TanStack Table/Form core logic — wrap VueUse only at the UI boundary (filters, resize handles, scroll containers)
+
+### Reference in this repo
+
+`UITable` helpers demonstrate the pattern: debounced filters (`refDebounced`), column resize listeners (`useEventListener`), pagination footer bridging, and Compodium examples for infinite scroll / row reorder.
+
+For integrations, see [`@vueuse/integrations`](https://vueuse.org/integrations/README.html).
+
+---
+
 ## Plain Component Template
 
 ```vue

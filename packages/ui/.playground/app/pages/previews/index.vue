@@ -9,12 +9,6 @@ const previews = [
     to: '/previews/movie',
   },
 ]
-
-throw createError({
-  status: 404,
-  statusMessage: 'Page not found es',
-  fatal: true,
-})
 </script>
 
 <template>

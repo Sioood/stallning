@@ -188,7 +188,7 @@ extendCompodiumMeta<UICarouselProps>({
                 />
                 <div
                   v-else
-                  class="flex h-48 w-full items-center justify-center border border-neutral-border-subtle bg-neutral-fill-subtle txt-h3"
+                  class="txt-h3 flex h-48 w-full items-center justify-center border border-neutral-border-subtle bg-neutral-fill-subtle"
                 >
                   {{ item.label ?? `Slide ${index + 1}` }}
                 </div>

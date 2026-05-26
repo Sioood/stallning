@@ -94,7 +94,7 @@ function onDrawEnd(details: SignaturePadDrawEndDetails) {
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div v-for="intent in intents" :key="intent" class="flex flex-col gap-2">
           <p class="text-sm font-medium text-neutral-text-subtle capitalize">{{ intent }}</p>
-          <UIFormSignaturePad :intent="intent" :label="intent" />
+          <UIFormSignaturePad :intent :label="intent" />
         </div>
       </div>
     </section>
@@ -105,7 +105,7 @@ function onDrawEnd(details: SignaturePadDrawEndDetails) {
       <div class="flex flex-col gap-6">
         <div v-for="size in sizes" :key="size" class="flex flex-col gap-2">
           <p class="text-sm font-medium text-neutral-text-subtle capitalize">{{ size }}</p>
-          <UIFormSignaturePad :size="size" :label="`Size ${size}`" intent="primary" />
+          <UIFormSignaturePad :size :label="`Size ${size}`" intent="primary" />
         </div>
       </div>
     </section>

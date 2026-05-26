@@ -50,7 +50,7 @@ export const ratingControlCVA = cva('inline-flex items-center', {
 })
 
 export const ratingItemCVA = cva(
-  'inline-flex items-center justify-center outline-none focus-visible:ring-2 focus-visible:ring-offset-2 not-data-[disabled]:cursor-pointer data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50 data-[disabled]:grayscale',
+  'inline-flex items-center justify-center outline-none not-data-[disabled]:cursor-pointer focus-visible:ring-2 focus-visible:ring-offset-2 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50 data-[disabled]:grayscale',
   {
     variants: {
       intent: {

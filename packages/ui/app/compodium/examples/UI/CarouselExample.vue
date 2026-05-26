@@ -122,8 +122,8 @@ function removeSlide() {
     <section class="flex flex-col gap-4">
       <h2 class="text-xl font-bold">Sizes</h2>
       <div v-for="size in sizes" :key="size" class="flex flex-col gap-2">
-        <p class="text-sm font-medium capitalize text-neutral-text-subtle">{{ size }}</p>
-        <UICarousel :items="images.slice(0, 3)" :size="size" />
+        <p class="text-sm font-medium text-neutral-text-subtle capitalize">{{ size }}</p>
+        <UICarousel :items="images.slice(0, 3)" :size />
       </div>
     </section>
 
@@ -132,8 +132,8 @@ function removeSlide() {
       <h2 class="text-xl font-bold">Intents</h2>
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div v-for="intent in intents" :key="intent" class="flex flex-col gap-2">
-          <p class="text-sm font-medium capitalize text-neutral-text-subtle">{{ intent }}</p>
-          <UICarousel :items="images.slice(0, 3)" :intent="intent" />
+          <p class="text-sm font-medium text-neutral-text-subtle capitalize">{{ intent }}</p>
+          <UICarousel :items="images.slice(0, 3)" :intent />
         </div>
       </div>
     </section>

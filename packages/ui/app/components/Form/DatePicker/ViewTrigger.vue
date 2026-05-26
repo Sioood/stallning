@@ -35,8 +35,8 @@ const viewTriggerAttrs = computed(() => {
   <ArkDatePicker.ViewTrigger v-bind="viewTriggerAttrs" as-child>
     <UIButton
       variant="ghost"
-      :intent="intent"
-      :size="size"
+      :intent
+      :size
       :ui="{ root: cn('h-full min-h-8 flex-1', ui, viewTriggerAttrs.class as ClassValue) }"
     >
       <slot />

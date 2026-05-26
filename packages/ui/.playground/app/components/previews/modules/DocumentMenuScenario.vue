@@ -48,7 +48,7 @@ const menuItems = [
       </UITooltip>
     </div>
     <UICollapsible v-model="metadataOpen" heading="Métadonnées">
-      <dl class="flex flex-col gap-1 txt-caption text-neutral-text-subtle">
+      <dl class="txt-caption flex flex-col gap-1 text-neutral-text-subtle">
         <div class="flex justify-between gap-2">
           <dt>Auteur</dt>
           <dd class="text-neutral-text-default">Marie Dupont</dd>

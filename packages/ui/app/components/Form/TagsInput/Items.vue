@@ -45,8 +45,8 @@ function labelFor(value: string) {
         v-for="(value, index) in tagsInput.value"
         :key="`${value}-${index}`"
         :label="labelFor(value)"
-        :intent="intent"
-        :size="size"
+        :intent
+        :size
         action-icon="tabler:x"
         :on-icon-action="true"
         :disabled="tagsInput.disabled"

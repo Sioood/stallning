@@ -64,7 +64,7 @@ const intents = ['neutral', 'primary', 'secondary', 'accent'] as const
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div v-for="intent in intents" :key="intent" class="flex flex-col gap-2">
           <p class="text-sm font-medium text-neutral-text-subtle capitalize">{{ intent }}</p>
-          <UIAccordion :intent="intent" collapsible>
+          <UIAccordion :intent collapsible>
             <UIAccordionItem value="a">
               <UIAccordionItemTrigger>Panel A <UIAccordionItemIndicator /></UIAccordionItemTrigger>
               <UIAccordionItemContent>Content for {{ intent }} panel A.</UIAccordionItemContent>

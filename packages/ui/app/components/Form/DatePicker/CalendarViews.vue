@@ -114,7 +114,7 @@ function onTimeInput(
         <UIButton
           v-if="showTodayButton"
           variant="subtle"
-          :intent="intent"
+          :intent
           size="sm"
           text="Today"
           @click="datePicker.selectToday()"

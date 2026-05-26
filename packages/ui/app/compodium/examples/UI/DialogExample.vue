@@ -101,12 +101,12 @@ const externalDialog = useDialog({ defaultOpen: false })
         <UIDialog
           v-for="intent in ['neutral', 'primary', 'secondary', 'accent'] as const"
           :key="intent"
-          :intent="intent"
+          :intent
           :title="`${intent.charAt(0).toUpperCase() + intent.slice(1)} Dialog`"
           :description="`This dialog uses the '${intent}' intent.`"
         >
           <template #trigger>
-            <UIButton :intent="intent" variant="subtle">{{ intent }}</UIButton>
+            <UIButton :intent variant="subtle">{{ intent }}</UIButton>
           </template>
           <template #default>
             <p class="txt-base text-neutral-text-default">
@@ -114,7 +114,7 @@ const externalDialog = useDialog({ defaultOpen: false })
             </p>
           </template>
           <template #footer>
-            <UIButton :intent="intent">Close</UIButton>
+            <UIButton :intent>Close</UIButton>
           </template>
         </UIDialog>
       </div>
@@ -127,7 +127,7 @@ const externalDialog = useDialog({ defaultOpen: false })
         <UIDialog
           v-for="size in ['sm', 'md', 'lg', 'full'] as const"
           :key="size"
-          :size="size"
+          :size
           :title="`Size: ${size}`"
           description="Dialog width controlled by the size prop."
         >

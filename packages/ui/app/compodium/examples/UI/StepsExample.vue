@@ -367,7 +367,7 @@ function onLinearStepUpdate(next: number | undefined) {
       <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
         <div v-for="intent in intents" :key="intent" class="flex flex-col gap-2">
           <p class="text-sm font-medium text-neutral-text-subtle capitalize">{{ intent }}</p>
-          <UIStepsRoot :count="3" :intent="intent">
+          <UIStepsRoot :count="3" :intent>
             <UIStepsList>
               <UIStepsItem :index="0">
                 <UIStepsIndicator />
@@ -411,7 +411,7 @@ function onLinearStepUpdate(next: number | undefined) {
       <div class="flex flex-col gap-8">
         <div v-for="size in sizes" :key="size" class="flex flex-col gap-2">
           <p class="text-sm font-medium text-neutral-text-subtle capitalize">{{ size }}</p>
-          <UIStepsRoot :count="3" :size="size" intent="primary">
+          <UIStepsRoot :count="3" :size intent="primary">
             <UIStepsList>
               <UIStepsItem :index="0">
                 <UIStepsIndicator />

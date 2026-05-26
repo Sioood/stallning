@@ -53,7 +53,7 @@ extendCompodiumMeta<StepsTriggerProps>({
     <slot />
   </ArkSteps.Trigger>
   <ArkSteps.Trigger v-else v-bind="triggerAttrs" as-child :class="ui?.root">
-    <UIButton :variant="'ghost'" :intent="intent" :size="size">
+    <UIButton :variant="'ghost'" :intent :size>
       <slot />
     </UIButton>
   </ArkSteps.Trigger>

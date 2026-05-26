@@ -110,7 +110,7 @@ function logEvent(name: string, details?: unknown): void {
           v-for="intent in ['neutral', 'primary', 'secondary', 'accent'] as const"
           :key="intent"
           :label="intent"
-          :intent="intent"
+          :intent
           :placeholder="`${intent} textarea`"
           size="sm"
         />
@@ -124,7 +124,7 @@ function logEvent(name: string, details?: unknown): void {
         v-for="size in ['sm', 'md', 'lg'] as const"
         :key="size"
         :label="`Size: ${size}`"
-        :size="size"
+        :size
         :placeholder="`${size} textarea`"
       />
     </section>

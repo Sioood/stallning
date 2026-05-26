@@ -18,7 +18,7 @@ const value = ref<string[]>(['vue'])
         helper-text="Choose your preferred frameworks"
         label="Frameworks"
         name="framework-v"
-        :items="items"
+        :items
       />
     </section>
 
@@ -31,7 +31,7 @@ const value = ref<string[]>(['vue'])
         label="Frameworks (Horizontal)"
         name="framework-h"
         intent="primary"
-        :items="items"
+        :items
       />
     </section>
 

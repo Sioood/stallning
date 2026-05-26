@@ -112,7 +112,7 @@ extendCompodiumMeta<typeof props & { modelValue?: string[] }>({
     v-bind="{ ...props, ...attrs }"
     v-model="modelValue"
     v-model:input-value="inputValue"
-    :items="items"
+    :items
   />
 
   <UIFormTagsInputRoot

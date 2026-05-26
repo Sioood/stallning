@@ -98,10 +98,10 @@ const passthroughAttrs = computed(() => {
         :key="item.value"
         in-group
         :disabled="item.disabled || disabled"
-        :intent="intent"
+        :intent
         :invalid="invalid"
         :label="item.label"
-        :size="size"
+        :size
         :value="item.value"
       />
     </ArkCheckbox.Group>

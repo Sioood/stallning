@@ -69,7 +69,7 @@ export const treeNodeCheckboxCVA = cva(
     'data-hover:border-primary-border-default-hover',
     'data-[state=checked]:border-primary-fill-default data-[state=checked]:bg-primary-fill-default data-[state=checked]:text-primary-fill-inverse',
     'data-[state=indeterminate]:border-primary-fill-default data-[state=indeterminate]:bg-primary-fill-default data-[state=indeterminate]:text-primary-fill-inverse',
-    'data-[disabled]:border-primary-border-subtle data-[disabled]:cursor-not-allowed',
+    'data-[disabled]:cursor-not-allowed data-[disabled]:border-primary-border-subtle',
   ],
   {
     variants: {

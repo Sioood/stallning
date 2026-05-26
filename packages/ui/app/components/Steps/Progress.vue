@@ -45,8 +45,8 @@ extendCompodiumMeta<StepsProgressProps>({
     <UIProgress
       v-bind="{ ...progressAttrs, 'data-part': 'progress' }"
       :model-value="percent"
-      :intent="intent"
-      :size="size"
+      :intent
+      :size
       :ui="{
         root: cn('grid-cols-1 gap-0 h-auto', ui?.root),
         label: 'hidden',

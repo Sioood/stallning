@@ -93,7 +93,7 @@ const sizes = ['sm', 'md', 'lg'] as const
         <div v-for="intent in intents" :key="intent" class="flex flex-col gap-2">
           <p class="text-sm font-medium text-neutral-text-subtle capitalize">{{ intent }}</p>
           <UITreeView
-            :intent="intent"
+            :intent
             :items="fileTreeItems.slice(0, 2)"
             :default-expanded-value="['src']"
           />
@@ -106,11 +106,7 @@ const sizes = ['sm', 'md', 'lg'] as const
       <div class="flex flex-col gap-6">
         <div v-for="size in sizes" :key="size" class="flex flex-col gap-2">
           <p class="text-sm font-medium text-neutral-text-subtle uppercase">{{ size }}</p>
-          <UITreeView
-            :size="size"
-            :items="fileTreeItems.slice(0, 2)"
-            :default-expanded-value="['src']"
-          />
+          <UITreeView :size :items="fileTreeItems.slice(0, 2)" :default-expanded-value="['src']" />
         </div>
       </div>
     </section>
@@ -178,7 +174,7 @@ const sizes = ['sm', 'md', 'lg'] as const
         <UITreeViewLabel>Manual composition</UITreeViewLabel>
         <UITreeViewTree>
           <UITreeViewContext v-slot="ctx">
-            <p class="mb-2 txt-caption text-neutral-text-subtle">
+            <p class="txt-caption mb-2 text-neutral-text-subtle">
               Expanded nodes: {{ ctx.expandedValue.join(', ') || 'none' }}
             </p>
           </UITreeViewContext>
@@ -201,7 +197,7 @@ const sizes = ['sm', 'md', 'lg'] as const
         :items="fileTreeItems"
         :default-expanded-value="['src']"
       />
-      <pre class="rounded-md bg-neutral-fill-subtle p-3 txt-caption">{{ controlledChecked }}</pre>
+      <pre class="txt-caption rounded-md bg-neutral-fill-subtle p-3">{{ controlledChecked }}</pre>
     </section>
   </div>
 </template>

@@ -37,8 +37,8 @@ watchEffect(() => {
             :key="size"
             v-model="value"
             :label="`Loading (${size})`"
-            :intent="intent"
-            :size="size"
+            :intent
+            :size
             @value-change="
               (d: ProgressValueChangeDetails) => console.log('valueChange', intent, size, d)
             "
@@ -53,7 +53,7 @@ watchEffect(() => {
           :key="intent"
           v-model="value"
           label="Vertical"
-          :intent="intent"
+          :intent
           orientation="vertical"
         />
       </div>
@@ -73,8 +73,8 @@ watchEffect(() => {
             :key="size"
             v-model="value"
             :label="size"
-            :intent="intent"
-            :size="size"
+            :intent
+            :size
             @value-change="
               (d: ProgressValueChangeDetails) => console.log('valueChange', intent, size, d)
             "
@@ -89,7 +89,7 @@ watchEffect(() => {
           :key="size"
           :model-value="undefined"
           :label="size"
-          :size="size"
+          :size
         />
       </div>
     </div>

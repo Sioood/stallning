@@ -44,6 +44,9 @@ interface LinkProps extends /* @vue-ignore */ Omit<NuxtLinkProps, 'custom'> {
 }
 
 const props = withDefaults(defineProps<LinkProps>(), {
+  to: undefined,
+  target: undefined,
+  rel: undefined,
   custom: false,
   styled: true,
   intent: 'accent',

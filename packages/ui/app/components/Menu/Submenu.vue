@@ -90,9 +90,9 @@ withDefaults(defineProps<MenuSubmenuProps>(), {
       <ArkMenu.Positioner>
         <ArkMenu.Content :class="menuSubmenuContentCVA({ intent, size })">
           <UIMenuEntryRenderer
-            :items="items"
-            :intent="intent"
-            :size="size"
+            :items
+            :intent
+            :size
             :item="item"
             :item-group="itemGroup"
             :item-group-label="itemGroupLabel"

@@ -56,7 +56,7 @@ extendCompodiumMeta<StepsNextTriggerProps>({
     </slot>
   </ArkSteps.NextTrigger>
   <ArkSteps.NextTrigger v-else v-bind="triggerAttrs" as-child :class="ui?.root">
-    <UIButton :variant="'default'" :intent="intent" :size="size">
+    <UIButton :variant="'default'" :intent :size>
       <slot>
         <span>Next</span>
         <Icon name="tabler:chevron-right" class="size-4 shrink-0" />

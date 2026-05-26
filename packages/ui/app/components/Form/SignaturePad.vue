@@ -179,7 +179,7 @@ const signaturePadShellCVA = cva('flex w-full min-w-0 items-stretch gap-0.5 bord
 })
 
 const signaturePadGuideCVA = cva(
-  'pointer-events-none absolute bottom-6 left-6 right-6 border-b border-dashed',
+  'pointer-events-none absolute right-6 bottom-6 left-6 border-b border-dashed',
   {
     variants: {
       intent: {

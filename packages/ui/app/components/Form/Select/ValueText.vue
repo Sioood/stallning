@@ -33,7 +33,7 @@ const valueTextAttrs = computed(() => {
 <template>
   <ArkSelect.ValueText
     v-bind="valueTextAttrs"
-    :placeholder="placeholder"
+    :placeholder
     :class="cn('flex-1 truncate text-left', valueTextAttrs.class as ClassValue, ui)"
   >
     <template v-if="$slots.default" #default>

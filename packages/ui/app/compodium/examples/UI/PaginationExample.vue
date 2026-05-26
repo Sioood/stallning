@@ -78,7 +78,7 @@ const slicedItems = computed(() => {
       <div class="flex flex-col gap-6">
         <div v-for="size in sizes" :key="size" class="flex flex-col gap-2">
           <p class="text-sm font-medium text-neutral-text-subtle capitalize">{{ size }}</p>
-          <UIPagination :count="40" :page-size="6" :size="size" />
+          <UIPagination :count="40" :page-size="6" :size />
         </div>
       </div>
     </section>
@@ -89,7 +89,7 @@ const slicedItems = computed(() => {
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div v-for="intent in intents" :key="intent" class="flex flex-col gap-2">
           <p class="text-sm font-medium text-neutral-text-subtle capitalize">{{ intent }}</p>
-          <UIPagination :count="60" :page-size="8" :intent="intent" />
+          <UIPagination :count="60" :page-size="8" :intent />
         </div>
       </div>
     </section>

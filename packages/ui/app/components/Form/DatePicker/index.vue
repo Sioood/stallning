@@ -149,7 +149,7 @@ extendCompodiumMeta<typeof props & { modelValue?: DateValue[] }>({
       >
         <template v-if="selectionMode === 'multiple' && showSelectedTags">
           <UIFormDatePickerSelectedDates
-            :placeholder="placeholder"
+            :placeholder
             :ui="{
               root: cn(fieldInputCVA({ size, intent, disabled: Boolean(disabled) }), ui?.input),
               date: ui?.selectedDate,
@@ -228,7 +228,7 @@ extendCompodiumMeta<typeof props & { modelValue?: DateValue[] }>({
           :show-today-button="showTodayButton"
           :with-time="withTime"
           :num-of-months="numOfMonths"
-          :ui="ui"
+          :ui
         >
           <template #footer="slotProps">
             <slot name="footer" v-bind="slotProps" />
@@ -245,7 +245,7 @@ extendCompodiumMeta<typeof props & { modelValue?: DateValue[] }>({
               :show-today-button="showTodayButton"
               :with-time="withTime"
               :num-of-months="numOfMonths"
-              :ui="ui"
+              :ui
             >
               <template #footer="slotProps">
                 <slot name="footer" v-bind="slotProps" />

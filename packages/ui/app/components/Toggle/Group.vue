@@ -137,9 +137,9 @@ watchEffect(() => {
         :active-background="activeBackground"
         :disabled="disabled || option.disabled"
         :icon-only="iconOnly"
-        :intent="intent"
-        :size="size"
-        :variant="variant"
+        :intent
+        :size
+        :variant
         :ui="{ root: cn('join-item', ui?.item) }"
       >
         <template #on>

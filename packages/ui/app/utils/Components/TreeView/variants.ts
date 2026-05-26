@@ -11,9 +11,9 @@ export const treeViewRootCVA = cva('flex w-full flex-col gap-2', {
       accent: 'text-accent-text-default',
     } satisfies Record<TreeViewIntent, string>,
     size: {
-      sm: 'max-w-xs txt-caption',
-      md: 'max-w-sm txt-label',
-      lg: 'max-w-md txt-base',
+      sm: 'txt-caption max-w-xs',
+      md: 'txt-label max-w-sm',
+      lg: 'txt-base max-w-md',
     } satisfies Record<TreeViewSize, string>,
   },
   defaultVariants: {
@@ -134,7 +134,7 @@ export const treeViewBranchContentCVA = cva('relative', {
 })
 
 export const treeViewBranchIndentGuideCVA = cva(
-  'absolute top-0 z-1 h-full w-px p-0 left-[calc(0.75rem+1rem*(var(--depth,1)-1)+0.5rem-1px)]',
+  'absolute top-0 left-[calc(0.75rem+1rem*(var(--depth,1)-1)+0.5rem-1px)] z-1 h-full w-px p-0',
   {
     variants: {
       intent: {
@@ -208,7 +208,7 @@ export const treeViewNodeTextCVA = cva('inline-flex min-w-0 flex-1 items-center 
 })
 
 export const treeViewNodeRenameInputCVA = cva(
-  'min-w-0 flex-1 border border-primary-border-strong bg-neutral-fill-subtle px-1 py-0 txt-label text-primary-text-default outline-none focus-visible:focus-ring',
+  'txt-label min-w-0 flex-1 border border-primary-border-strong bg-neutral-fill-subtle px-1 py-0 text-primary-text-default outline-none focus-visible:focus-ring',
   {
     variants: {
       intent: {

@@ -48,7 +48,7 @@ onUnmounted(() => {
 <template>
   <div
     ref="gridRef"
-    class="grid grid-cols-[repeat(auto-fill,400px)] grid-auto-rows-[10px] justify-center gap-3"
+    class="grid-auto-rows-[10px] grid grid-cols-[repeat(auto-fill,400px)] justify-center gap-3"
   >
     <slot />
   </div>

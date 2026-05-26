@@ -62,7 +62,7 @@ extendCompodiumMeta<PaginationNextTriggerProps>({
     </slot>
   </ArkPagination.NextTrigger>
   <ArkPagination.NextTrigger v-else v-bind="triggerAttrs" as-child :class="ui?.root">
-    <UIButton :variant="'subtle'" :intent="intent" :size="size">
+    <UIButton :variant="'subtle'" :intent :size>
       <slot>
         <Icon name="tabler:chevron-right" class="size-4 shrink-0" />
       </slot>

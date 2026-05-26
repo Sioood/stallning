@@ -54,7 +54,7 @@ const intents = ['neutral', 'primary', 'secondary', 'accent'] as const
         <UISwitch
           v-for="intent in intents"
           :key="intent"
-          :intent="intent"
+          :intent
           :label="`Intent: ${intent}`"
           :model-value="true"
         />
@@ -71,7 +71,7 @@ const intents = ['neutral', 'primary', 'secondary', 'accent'] as const
           <UISwitch
             v-for="size in sizes"
             :key="size"
-            :size="size"
+            :size
             :label="`Size ${size}`"
             :model-value="true"
           />

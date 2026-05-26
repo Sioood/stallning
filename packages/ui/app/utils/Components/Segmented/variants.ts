@@ -116,8 +116,8 @@ export const segmentedItemCVA = cva(
       } satisfies Record<SegmentedSize, string>,
       orientation: {
         horizontal:
-          'inline-flex min-w-0 max-w-full items-center justify-center gap-1.5 whitespace-nowrap text-center',
-        vertical: 'inline-flex min-w-0 w-full flex-col items-start gap-1 text-left',
+          'inline-flex max-w-full min-w-0 items-center justify-center gap-1.5 text-center whitespace-nowrap',
+        vertical: 'inline-flex w-full min-w-0 flex-col items-start gap-1 text-left',
       } satisfies Record<SegmentedOrientation, string>,
       disabled: {
         true: 'pointer-events-none cursor-not-allowed opacity-50',
@@ -206,12 +206,12 @@ export const segmentedIndicatorCVA = cva(
       {
         variant: 'line',
         orientation: 'horizontal',
-        class: 'translate-y-[1px] border-b-2',
+        class: 'translate-y-px border-b-2',
       },
       {
         variant: 'line',
         orientation: 'vertical',
-        class: 'translate-x-[1px] border-r-2',
+        class: 'translate-x-px border-r-2',
       },
       {
         variant: 'line',

@@ -34,7 +34,7 @@ const externalQrCode = useQrCode({ value: 'https://ark-ui.com' })
       <div class="flex flex-wrap gap-6">
         <div v-for="intent in intents" :key="intent" class="flex flex-col items-center gap-2">
           <div class="size-24">
-            <UIQRCode v-model="url" :intent="intent" />
+            <UIQRCode v-model="url" :intent />
           </div>
           <span class="text-xs text-neutral-text-subtle capitalize">{{ intent }}</span>
         </div>

@@ -42,8 +42,8 @@ const size = computed<DatePickerSize>(() => chrome?.size.value ?? 'md')
           v-for="(date, index) in datePicker.value"
           :key="`${date.year}-${date.month}-${date.day}-${index}`"
           :label="datePicker.format(date)"
-          :intent="intent"
-          :size="size"
+          :intent
+          :size
           action-icon="tabler:x"
           :on-icon-action="true"
           :ui="{

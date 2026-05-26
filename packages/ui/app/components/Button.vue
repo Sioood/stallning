@@ -61,6 +61,7 @@ export interface UIButtonExpose {
 }
 
 const props = withDefaults(defineProps<ButtonProps>(), {
+  to: undefined,
   text: '',
   type: 'button',
   disabled: false,

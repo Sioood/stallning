@@ -140,7 +140,7 @@ export const datePickerSelectCVA = cva(
 export const datePickerTableCVA = cva('w-full border-collapse border-spacing-0')
 
 export const datePickerTableHeaderCVA = cva(
-  'px-0 py-2 text-center txt-caption font-medium uppercase tracking-wide',
+  'txt-caption px-0 py-2 text-center font-medium tracking-wide uppercase',
   {
     variants: {
       intent: {
@@ -194,7 +194,7 @@ export const datePickerYearCellTriggerCVA = cva(
 )
 
 export const datePickerWeekNumberHeaderCellCVA = cva(
-  'w-8 px-0 py-2 text-center txt-caption font-medium uppercase tracking-wide',
+  'txt-caption w-8 px-0 py-2 text-center font-medium tracking-wide uppercase',
   {
     variants: {
       intent: {

@@ -278,12 +278,7 @@ extendCompodiumMeta<MenuProps>({
               :context-trigger="ArkMenu.ContextTrigger"
               :trigger-value="menuTriggerValue(menu)"
             >
-              <UIMenuEntryRenderer
-                :items="items"
-                :intent="intent"
-                :size="size"
-                v-bind="itemUiProps"
-              />
+              <UIMenuEntryRenderer :items :intent :size v-bind="itemUiProps" />
             </slot>
           </ArkMenu.Content>
         </ArkMenu.Positioner>

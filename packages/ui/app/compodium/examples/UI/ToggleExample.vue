@@ -14,7 +14,7 @@ const pressed = ref(false)
         <UIToggle
           v-for="intent in intents"
           :key="intent"
-          :intent="intent"
+          :intent
           active-background
           @pressed-change="(d: boolean) => console.log('pressedChange', intent, d)"
         >
@@ -28,7 +28,7 @@ const pressed = ref(false)
     <section class="flex flex-col gap-4">
       <h3 class="text-lg font-bold">Sizes</h3>
       <div class="flex flex-wrap items-center gap-4">
-        <UIToggle v-for="size in sizes" :key="size" :size="size" active-background intent="primary">
+        <UIToggle v-for="size in sizes" :key="size" :size active-background intent="primary">
           <template #on><Icon name="tabler:star-filled" class="size-full" /></template>
           <template #off><Icon name="tabler:star" class="size-full" /></template>
         </UIToggle>

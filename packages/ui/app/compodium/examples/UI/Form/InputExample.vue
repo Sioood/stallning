@@ -207,7 +207,7 @@ const addonTrailing = cn(addonBase, 'rounded-l-none')
           :key="intent"
           v-model="intentValue"
           :label="intent"
-          :intent="intent"
+          :intent
           placeholder="Placeholder"
           size="sm"
         />
@@ -222,7 +222,7 @@ const addonTrailing = cn(addonBase, 'rounded-l-none')
         :key="size"
         v-model="sizeValue"
         :label="`Size: ${size}`"
-        :size="size"
+        :size
         placeholder="Placeholder"
       />
     </section>

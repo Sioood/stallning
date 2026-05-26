@@ -26,14 +26,14 @@ const externalAvatar = useAvatar({ ids: { root: 'ext-avatar-root' } })
     <section class="flex flex-col gap-4">
       <h3 class="text-xl font-bold">Intents</h3>
       <div class="flex flex-wrap gap-4">
-        <UIAvatar v-for="intent in intents" :key="intent" :intent="intent" name="Intent demo" />
+        <UIAvatar v-for="intent in intents" :key="intent" :intent name="Intent demo" />
       </div>
     </section>
 
     <section class="flex flex-col gap-4">
       <h3 class="text-xl font-bold">Sizes</h3>
       <div class="flex flex-wrap items-end gap-4">
-        <UIAvatar v-for="size in sizes" :key="size" :size="size" name="Size demo" />
+        <UIAvatar v-for="size in sizes" :key="size" :size name="Size demo" />
       </div>
     </section>
 

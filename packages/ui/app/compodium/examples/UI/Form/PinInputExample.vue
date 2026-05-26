@@ -138,7 +138,7 @@ function onValueInvalid(d: PinInputValueInvalidDetails) {
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div v-for="intent in intents" :key="intent" class="flex flex-col gap-2">
           <p class="text-sm font-medium text-neutral-text-subtle capitalize">{{ intent }}</p>
-          <UIFormPinInput :intent="intent" :count="4" :label="intent" />
+          <UIFormPinInput :intent :count="4" :label="intent" />
         </div>
       </div>
     </section>
@@ -149,7 +149,7 @@ function onValueInvalid(d: PinInputValueInvalidDetails) {
       <div class="flex flex-col gap-6">
         <div v-for="size in sizes" :key="size" class="flex flex-col gap-2">
           <p class="text-sm font-medium text-neutral-text-subtle capitalize">{{ size }}</p>
-          <UIFormPinInput :size="size" :count="4" :label="size" />
+          <UIFormPinInput :size :count="4" :label="size" />
         </div>
       </div>
     </section>

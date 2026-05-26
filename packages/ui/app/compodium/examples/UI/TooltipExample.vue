@@ -46,7 +46,7 @@ const externalTooltip = useTooltip({ openDelay: 0 })
           v-for="intent in intents"
           :key="intent"
           :content="`${intent} tooltip`"
-          :intent="intent"
+          :intent
           :open-delay="0"
         >
           <template #trigger>

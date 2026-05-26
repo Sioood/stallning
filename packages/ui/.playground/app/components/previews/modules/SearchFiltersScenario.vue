@@ -128,7 +128,7 @@ const addonTrailing = cn(
       <li
         v-for="project in filteredProjects"
         :key="project.id"
-        class="flex items-center justify-between gap-2 border-b border-neutral-border-subtle py-1 txt-caption"
+        class="txt-caption flex items-center justify-between gap-2 border-b border-neutral-border-subtle py-1"
       >
         <span class="min-w-0 truncate text-neutral-text-default">{{ project.name }}</span>
         <div class="flex shrink-0 items-center gap-1">

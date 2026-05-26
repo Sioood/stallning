@@ -205,7 +205,7 @@ function logEvent(name: string, details?: unknown): void {
           v-for="intent in ['neutral', 'primary', 'secondary', 'accent'] as const"
           :key="intent"
           :label="intent"
-          :intent="intent"
+          :intent
           :min="0"
           :max="100"
           size="sm"
@@ -220,7 +220,7 @@ function logEvent(name: string, details?: unknown): void {
         v-for="size in ['sm', 'md', 'lg'] as const"
         :key="size"
         :label="`Size: ${size}`"
-        :size="size"
+        :size
         :min="0"
         :max="100"
       />

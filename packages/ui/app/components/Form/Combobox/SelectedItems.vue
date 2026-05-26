@@ -46,8 +46,8 @@ function resolveLabel(value: string) {
         v-for="(value, index) in combobox.value"
         :key="`${value}-${index}`"
         :label="resolveLabel(value)"
-        :intent="intent"
-        :size="size"
+        :intent
+        :size
         action-icon="tabler:x"
         :on-icon-action="true"
         :ui="{

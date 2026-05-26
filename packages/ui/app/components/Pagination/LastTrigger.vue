@@ -62,7 +62,7 @@ extendCompodiumMeta<PaginationLastTriggerProps>({
     </slot>
   </ArkPagination.LastTrigger>
   <ArkPagination.LastTrigger v-else v-bind="triggerAttrs" as-child :class="ui?.root">
-    <UIButton :variant="'subtle'" :intent="intent" :size="size">
+    <UIButton :variant="'subtle'" :intent :size>
       <slot>
         <Icon name="tabler:chevrons-right" class="size-4 shrink-0" />
       </slot>

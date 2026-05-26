@@ -120,7 +120,7 @@ defineExpose({
     <template #leading>
       <UIFormSelect
         v-model="internalCountryCode"
-        :items="items"
+        :items
         :intent
         size="md"
         :show-clear="false"

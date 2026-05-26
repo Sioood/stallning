@@ -23,6 +23,6 @@ const comboboxInputAttrs = computed(() => {
 
 <template>
   <ArkCombobox.Input as-child>
-    <UIFormTagsInputFieldInput v-bind="comboboxInputAttrs" :ui="ui" />
+    <UIFormTagsInputFieldInput v-bind="comboboxInputAttrs" :ui />
   </ArkCombobox.Input>
 </template>

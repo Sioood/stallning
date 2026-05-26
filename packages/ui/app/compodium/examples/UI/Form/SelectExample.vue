@@ -255,7 +255,7 @@ const providerApi = useSelect({
           v-model="intentValue"
           :items="frameworks"
           :placeholder="intent"
-          :intent="intent"
+          :intent
           size="sm"
         />
       </div>
@@ -270,7 +270,7 @@ const providerApi = useSelect({
         v-model="sizeValue"
         :items="frameworks"
         :placeholder="`Size: ${size}`"
-        :size="size"
+        :size
       />
     </section>
 
@@ -290,9 +290,9 @@ const providerApi = useSelect({
     <!-- RootProvider compound mode -->
     <section class="flex flex-col gap-2">
       <p class="txt-label text-neutral-text-default">RootProvider compound</p>
-      <UIButton size="sm" @click="providerApi.setValue(['react'])"
-        >Select React externally</UIButton
-      >
+      <UIButton size="sm" @click="providerApi.setValue(['react'])">
+        Select React externally
+      </UIButton>
       <UIFormSelectRoot :value="providerApi" intent="primary" size="md">
         <UIFormSelectLabel>Provider mode</UIFormSelectLabel>
         <UIFormSelectControl>

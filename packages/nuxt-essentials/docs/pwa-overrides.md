@@ -91,3 +91,4 @@ export default defineNuxtConfig({
 - Favor `NetworkFirst` for frequently changing API data to avoid stale screens.
 - Keep broad offline-first strategies limited to static assets unless there is a strong product need.
 - Keep `pwa.client.installPrompt` enabled only when you plan to provide a dedicated install UX.
+- `navigateFallback` is intentionally omitted from the shared defaults — Nuxt SSR apps do not precache `/` as a static shell, which causes Workbox `non-precached-url` errors.

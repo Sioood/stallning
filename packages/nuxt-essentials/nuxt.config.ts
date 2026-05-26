@@ -33,7 +33,6 @@ export default defineNuxtConfig({
     },
     workbox: {
       globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff2}'],
-      navigateFallback: '/',
       runtimeCaching: [
         {
           // Keep dynamic API responses fresh while still leveraging cache on flaky networks.

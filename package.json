@@ -62,9 +62,9 @@
   },
   "lint-staged": {
     "**/*.{js,mjs,cjs,ts,mts,cts,vue}": [
+      "pnpm exec oxfmt --write",
       "node ./scripts/lint-staged-oxlint.mjs --no-error-on-unmatched-pattern",
-      "eslint --fix",
-      "pnpm exec oxfmt --write"
+      "eslint --fix"
     ],
     "**/*.{json,md,yaml,yml}": [
       "pnpm exec oxfmt --write",

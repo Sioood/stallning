@@ -46,7 +46,7 @@ export const carouselItemGroupCVA = cva(
   ].join(' '),
 )
 
-export const carouselItemCVA = cva('min-w-0 shrink-0 grow-0 basis-[var(--slide-item-size,100%)]', {
+export const carouselItemCVA = cva('min-w-0 shrink-0 grow-0 basis-(--slide-item-size,100%)', {
   variants: {
     size: {
       sm: '',

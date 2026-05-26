@@ -152,12 +152,10 @@ const slicedItems = computed(() => {
               class="mb-3 flex flex-wrap items-center gap-4 font-mono text-xs text-neutral-text-subtle"
             >
               <span>Page {{ ctx.page }} / {{ ctx.totalPages }}</span>
-              <span
-                >Items {{ ctx.pageRange.start + 1 }}–{{
-                  Math.min(ctx.pageRange.end + 1, ctx.count)
-                }}
-                of {{ ctx.count }}</span
-              >
+              <span>Items {{ ctx.pageRange.start + 1 }}–{{
+                Math.min(ctx.pageRange.end + 1, ctx.count)
+              }}
+                of {{ ctx.count }}</span>
               <span>Page size: {{ ctx.pageSize }}</span>
             </div>
             <ul class="grid grid-cols-5 gap-1">

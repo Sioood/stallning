@@ -176,10 +176,10 @@ extendCompodiumMeta<typeof props>({
         to
           ? { ...linkProps, disabled }
           : {
-              type,
-              disabled: props.disabled || effectiveState === 'loading',
-              onClick: handleClick,
-            },
+            type,
+            disabled: props.disabled || effectiveState === 'loading',
+            onClick: handleClick,
+          },
       )
     "
     :class="

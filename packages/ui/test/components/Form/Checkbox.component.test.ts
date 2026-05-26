@@ -115,4 +115,33 @@ describe('UIFormCheckbox', () => {
     expect(wrapper.find('[data-scope="field"]').exists()).toBe(false)
     expect(wrapper.find('[data-scope="checkbox"]').exists()).toBe(true)
   })
+
+  it('forwards aria-label to the checkbox root', async () => {
+    const wrapper = await mountSuspended(Checkbox, {
+      props: {
+        controlOnly: true,
+        'aria-label': 'Select row',
+      },
+    })
+
+    expect(wrapper.find('[data-scope="checkbox"][data-part="root"]').attributes('aria-label')).toBe(
+      'Select row',
+    )
+  })
+
+  it('binds v-model when controlOnly is true', async () => {
+    const onUpdateModelValue = vi.fn()
+    const wrapper = await mountSuspended(Checkbox, {
+      props: {
+        controlOnly: true,
+        modelValue: false,
+        'onUpdate:modelValue': onUpdateModelValue,
+      },
+    })
+
+    await wrapper.find('input[type="checkbox"]').trigger('click')
+    await flushPromises()
+
+    expect(onUpdateModelValue).toHaveBeenCalledWith(true)
+  })
 })

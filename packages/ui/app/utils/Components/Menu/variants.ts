@@ -3,9 +3,10 @@ import { cva } from 'class-variance-authority'
 import type { MenuIntent, MenuSize } from './context'
 
 export const menuIndicatorCVA = cva('inline-flex items-center')
-export const menuPositionerCVA = cva('origin-(--transform-origin) [--z-index:9999]')
+export const menuPositionerCVA = cva('z-9999 origin-(--transform-origin) [--z-index:9999]')
 export const menuContentCVA = cva(
   [
+    'z-9999',
     'border',
     'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0',
     'min-w-48 p-1',

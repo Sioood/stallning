@@ -7,6 +7,7 @@ allowBuilds:
   '@parcel/watcher': true
   esbuild: true
   sharp: true
+  unrs-resolver: true
   vue-demi: true
 
 catalog:
@@ -20,7 +21,11 @@ catalog:
   '@playwright/test': ^1.60.0
   '@tailwindcss/vite': ^4.3.0
   '@tanstack/form-core': ^1.32.0
+  '@tanstack/table-core': ^8.21.3
   '@tanstack/vue-form': ^1.32.0
+  '@tanstack/vue-table': ^8.21.3
+  '@tanstack/vue-virtual': ^3.13.12
+  '@vueuse/integrations': ^14.3.0
   '@types/minimist': ^1.2.5
   '@types/node': ^25.9.1
   '@vite-pwa/nuxt': ^1.1.1

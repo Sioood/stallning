@@ -216,7 +216,7 @@ Three ways to read component state, in increasing "reach":
 
 ## Don'ts
 
-- Don't create components without Ark UI if an equivalent primitive exists
+- Don't create components without Ark UI if an equivalent primitive exists (plain Vue + TanStack is fine for tables/datagrids)
 - Don't use inline styles — always Tailwind utilities or CVA
 - Don't use `!important` in Tailwind (use specificity or `cn()` override)
 - Under `app/`, prefer `@/` (Nuxt aliases it to the `app/` directory). Use `~ui/` when you need the package root (e.g. `~ui/app/...` from configs, or paths outside `app/`)

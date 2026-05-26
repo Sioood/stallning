@@ -12,6 +12,25 @@ pnpm dev
 cd apps/web && pnpm dev
 ```
 
+## Docker
+
+Build and run from the **monorepo root** (`context: .`, `dockerfile: apps/web/Dockerfile`).
+
+```bash
+# Production (Nitro node server on port 3000)
+docker compose build
+docker compose up
+
+# Development with bind-mount and HMR (first start runs pnpm install in-container)
+docker compose -f docker-compose.dev.yaml up --build
+
+# If native bindings fail after an earlier attempt, reset dev volumes:
+docker compose -f docker-compose.dev.yaml down -v
+docker compose -f docker-compose.dev.yaml up --build
+```
+
+Copy [`apps/web/.env.example`](.env.example) to `apps/web/.env` for runtime variables (`NUXT_PUBLIC_SITE_URL`, etc.). Production secrets are injected at runtime via `env_file` / host environment, not baked into the image.
+
 ## Scripts
 
 | Script             | Description                              |

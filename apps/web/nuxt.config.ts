@@ -2,6 +2,8 @@
 import { createResolver } from '@nuxt/kit'
 const { resolve } = createResolver(import.meta.url)
 
+const isDockerDev = process.env.DOCKER === '1'
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
@@ -20,4 +22,12 @@ export default defineNuxtConfig({
       siteUrl: 'https://web.com',
     },
   },
+  vite: isDockerDev
+    ? {
+        server: {
+          watch: { usePolling: true },
+          hmr: { clientPort: 3000 },
+        },
+      }
+    : undefined,
 })

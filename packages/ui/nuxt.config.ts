@@ -4,6 +4,8 @@ import tailwindcss from '@tailwindcss/vite'
 const { resolve } = createResolver(import.meta.url)
 
 const isVitest = process.env.VITEST === 'true'
+const isProduction = process.env.NODE_ENV === 'production'
+const enableCompodium = !isVitest && !isProduction
 
 // // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -13,10 +15,20 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/fonts',
     '@nuxt/icon',
-    ...(isVitest ? [] : ['@compodium/nuxt']),
+    ...(enableCompodium ? ['@compodium/nuxt'] : []),
     '@nuxt/image',
     'v-gsap-nuxt',
   ],
+  imports: enableCompodium
+    ? undefined
+    : {
+        presets: [
+          {
+            from: resolve('./app/utils/extend-compodium-meta-stub.ts'),
+            imports: ['extendCompodiumMeta'],
+          },
+        ],
+      },
   fonts: {
     families: [
       { name: 'Inter', provider: 'google' },
@@ -67,12 +79,12 @@ export default defineNuxtConfig({
       siteUrl: 'https://ui.com',
     },
   },
-  ...(isVitest
-    ? {}
-    : {
+  ...(enableCompodium
+    ? {
         compodium: {
           dir: 'app/compodium/',
           includeLibraryCollections: true,
         },
-      }),
+      }
+    : {}),
 })

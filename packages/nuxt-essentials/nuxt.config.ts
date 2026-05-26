@@ -1,6 +1,12 @@
+import { createRequire } from 'node:module'
+import { dirname, join } from 'node:path'
+
 import ViteYaml from '@modyfi/vite-plugin-yaml'
 import { createResolver } from '@nuxt/kit'
+
+const require = createRequire(import.meta.url)
 const { resolve } = createResolver(import.meta.url)
+const piniaEsmEntry = join(dirname(require.resolve('pinia/package.json')), 'dist/pinia.mjs')
 
 const isDev = process.env.NODE_ENV !== 'production'
 
@@ -62,7 +68,10 @@ export default defineNuxtConfig({
       plugins: [ViteYaml()],
     },
   },
-  alias: { '~nuxt-essentials': resolve('./') },
+  alias: {
+    '~nuxt-essentials': resolve('./'),
+    pinia: piniaEsmEntry,
+  },
   eslint: {
     config: {
       standalone: false,

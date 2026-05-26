@@ -90,12 +90,18 @@ catalogs:
     oxlint-tailwindcss:
       specifier: ^0.8.0
       version: 0.8.0
+    pinia:
+      specifier: ^3.0.4
+      version: 3.0.4
     playwright:
       specifier: ^1.60.0
       version: 1.60.0
     tailwind-merge:
       specifier: ^3.6.0
       version: 3.6.0
+    tailwindcss:
+      specifier: ^4.3.0
+      version: 4.3.0
     typescript:
       specifier: ^6.0.3
       version: 6.0.3
@@ -236,6 +242,9 @@ importers:
         specifier: 'catalog:'
         version: 5.0.7(@vue/compiler-sfc@3.5.34)(pinia@3.0.4(typescript@6.0.3)(vue@3.5.34(typescript@6.0.3)))(vue@3.5.34(typescript@6.0.3))
     devDependencies:
+      '@nuxt/kit':
+        specifier: 'catalog:'
+        version: 4.4.6(magicast@0.5.3)
       '@playwright/test':
         specifier: 'catalog:'
         version: 1.60.0
@@ -340,6 +349,9 @@ importers:
       nuxt-security:
         specifier: 'catalog:'
         version: 2.6.0(magicast@0.5.3)(rollup@4.60.4)
+      pinia:
+        specifier: 'catalog:'
+        version: 3.0.4(typescript@6.0.3)(vue@3.5.34(typescript@6.0.3))
       vue:
         specifier: 'catalog:'
         version: 3.5.34(typescript@6.0.3)
@@ -389,9 +401,6 @@ importers:
       '@ark-ui/vue':
         specifier: 'catalog:'
         version: 5.36.2(vue@3.5.34(typescript@6.0.3))
-      '@compodium/nuxt':
-        specifier: 0.1.0-beta.12
-        version: 0.1.0-beta.12(@nuxt/kit@4.4.6(magicast@0.5.3))(magicast@0.5.3)(typescript@6.0.3)(vite@7.3.3(@types/node@25.9.1)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.48.0)(yaml@2.9.0))(vue@3.5.34(typescript@6.0.3))
       '@internationalized/date':
         specifier: 3.12.0
         version: 3.12.0
@@ -437,6 +446,9 @@ importers:
       tailwind-merge:
         specifier: 'catalog:'
         version: 3.6.0
+      tailwindcss:
+        specifier: 'catalog:'
+        version: 4.3.0
       v-gsap-nuxt:
         specifier: 1.5.12
         version: 1.5.12(magicast@0.5.3)
@@ -450,6 +462,9 @@ importers:
         specifier: 'catalog:'
         version: 4.4.3
     devDependencies:
+      '@compodium/nuxt':
+        specifier: 0.1.0-beta.12
+        version: 0.1.0-beta.12(@nuxt/kit@4.4.6(magicast@0.5.3))(magicast@0.5.3)(typescript@6.0.3)(vite@7.3.3(@types/node@25.9.1)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.48.0)(yaml@2.9.0))(vue@3.5.34(typescript@6.0.3))
       '@nuxt/kit':
         specifier: 'catalog:'
         version: 4.4.6(magicast@0.5.3)

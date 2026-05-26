@@ -34,6 +34,7 @@
     "@vueuse/nuxt": "catalog:",
     "nuxt": "catalog:",
     "nuxt-security": "catalog:",
+    "pinia": "catalog:",
     "vue": "catalog:",
     "vue-router": "catalog:"
   },

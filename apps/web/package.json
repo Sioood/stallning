@@ -26,6 +26,7 @@
     "vue-router": "catalog:"
   },
   "devDependencies": {
+    "@nuxt/kit": "catalog:",
     "@playwright/test": "catalog:",
     "@stallning/eslint": "workspace:^",
     "eslint": "catalog:",

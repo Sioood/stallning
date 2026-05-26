@@ -57,9 +57,9 @@
   },
   "lint-staged": {
     "**/*.{json,js,ts,md,yaml,yml}": [
+      "pnpm exec oxfmt --write",
       "oxlint --fix --no-error-on-unmatched-pattern",
-      "eslint --fix -c eslint.config.ts",
-      "pnpm exec oxfmt --write"
+      "eslint --fix -c eslint.config.ts"
     ]
   },
   "commitlint": {

@@ -9,3 +9,4 @@ Parent context, conventions, and how the three config packages fit together: [..
 - **Entry:** `index.ts` (consumed as `@stallning/eslint`)
 - **Local config:** `eslint.config.ts` — used when linting this package’s own sources
 - **Changes:** Prefer mirroring new rules in `@stallning/oxlint` first; use `eslint-plugin-oxlint` to avoid duplicate reports
+- **Formatting:** oxfmt is the sole formatter. `eslint-config-prettier` (via `configs/prettier.ts`) disables ESLint stylistic rules that would conflict with oxfmt — it does not add the Prettier package

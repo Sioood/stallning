@@ -1,6 +1,6 @@
 import { composer } from 'eslint-flat-config-utils'
 
-import { imports, jsonc, markdown, oxlint, typescript, vue, yml } from './configs.ts'
+import { imports, jsonc, markdown, oxlint, prettier, typescript, vue, yml } from './configs.ts'
 import { GLOB_EXCLUDE } from './globs.ts'
 
 import type { FlatConfigs, OptionsConfig } from './types.ts'
@@ -50,6 +50,8 @@ export function eslint(options: OptionsConfig = {}, ...userConfigs: FlatConfigs)
   if (oxlintOptions) {
     configs.push(...oxlint(oxlintOptions))
   }
+
+  configs.push(...prettier())
 
   return composer(...configs, ...userConfigs)
 }

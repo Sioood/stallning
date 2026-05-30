@@ -25,6 +25,7 @@
     "@types/node": "catalog:",
     "@typescript-eslint/parser": "^8.59.4",
     "eslint": "catalog:",
+    "eslint-config-prettier": "catalog:",
     "eslint-flat-config-utils": "^3.2.0",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import-x": "^4.16.2",

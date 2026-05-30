@@ -1,13 +1,11 @@
 import { describe, expect, it } from 'vitest'
 
-import { resolveActionVariant } from '~ui/app/utils/Components/Tour/variants'
-
-import type { StepAction } from '@zag-js/tour'
+import { resolveActionVariant, type TourStepAction } from '~ui/app/utils/Components/Tour/variants'
 
 describe('Tour variants', () => {
   describe('resolveActionVariant', () => {
     it('returns primary for dismiss action as last action', () => {
-      const actions: StepAction[] = [
+      const actions: TourStepAction[] = [
         { label: 'Back', action: 'prev' },
         { label: 'Finish', action: 'dismiss' },
       ]
@@ -16,13 +14,13 @@ describe('Tour variants', () => {
     })
 
     it('returns primary for next action as last action', () => {
-      const actions: StepAction[] = [{ label: 'Next', action: 'next' }]
+      const actions: TourStepAction[] = [{ label: 'Next', action: 'next' }]
 
       expect(resolveActionVariant(actions[0]!, actions, 0)).toBe('primary')
     })
 
     it('returns default for prev action as last action', () => {
-      const actions: StepAction[] = [
+      const actions: TourStepAction[] = [
         { label: 'Next', action: 'next' },
         { label: 'Back', action: 'prev' },
       ]
@@ -31,7 +29,7 @@ describe('Tour variants', () => {
     })
 
     it('returns default for non-last actions', () => {
-      const actions: StepAction[] = [
+      const actions: TourStepAction[] = [
         { label: 'Back', action: 'prev' },
         { label: 'Next', action: 'next' },
         { label: 'Finish', action: 'dismiss' },
@@ -42,13 +40,13 @@ describe('Tour variants', () => {
     })
 
     it('returns primary for next action when it is the only action', () => {
-      const actions: StepAction[] = [{ label: 'Next', action: 'next' }]
+      const actions: TourStepAction[] = [{ label: 'Next', action: 'next' }]
 
       expect(resolveActionVariant(actions[0]!, actions, 0)).toBe('primary')
     })
 
     it('returns primary for dismiss action when it is the only action', () => {
-      const actions: StepAction[] = [{ label: 'Close', action: 'dismiss' }]
+      const actions: TourStepAction[] = [{ label: 'Close', action: 'dismiss' }]
 
       expect(resolveActionVariant(actions[0]!, actions, 0)).toBe('primary')
     })

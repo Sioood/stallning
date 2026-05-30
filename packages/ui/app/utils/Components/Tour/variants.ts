@@ -1,4 +1,7 @@
-import type { StepAction as TourStepAction } from '@zag-js/tour'
+export interface TourStepAction {
+  label: string
+  action: 'prev' | 'next' | 'dismiss'
+}
 
 export function resolveActionVariant(
   action: TourStepAction,

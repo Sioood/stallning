@@ -25,7 +25,7 @@
     "sync:merge": "node ./scripts/sync-from-minimal.ts",
     "sync:pick": "node ./scripts/pick-commits.ts",
     "build": "turbo run build",
-    "knip": "knip",
+    "knip": "pnpm --filter @stallning/ui exec nuxt prepare && knip",
     "knip:fix": "knip --fix",
     "mutation": "turbo run mutation",
     "mutation:open": "turbo run mutation:open",
@@ -56,7 +56,6 @@
     "only-allow": "^1.2.2",
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
-    "oxlint-tailwindcss": "catalog:",
     "turbo": "^2.9.14",
     "typescript": "catalog:"
   },

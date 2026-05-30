@@ -12,7 +12,7 @@ import {
 
 import type { TableOptions } from '@tanstack/vue-table'
 
-export interface RowModelFeatureFlags {
+interface RowModelFeatureFlags {
   enableFiltering?: boolean
   enableSorting?: boolean
   enablePagination?: boolean
@@ -21,7 +21,7 @@ export interface RowModelFeatureFlags {
   enableFaceting?: boolean
 }
 
-export function resolveRowModelFeatures<TData>(
+function resolveRowModelFeatures<TData>(
   options: Partial<TableOptions<TData>>,
 ): RowModelFeatureFlags {
   const enableFiltering =

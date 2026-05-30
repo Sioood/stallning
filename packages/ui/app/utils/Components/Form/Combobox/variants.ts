@@ -5,7 +5,6 @@ import {
   selectIconSizeCVA,
   selectItemCVA,
   selectItemGroupLabelCVA,
-  selectLabelCVA,
   selectPositionerCVA,
 } from '~/utils/Components/Form/Select/variants'
 
@@ -16,7 +15,6 @@ export {
   selectIconSizeCVA as comboboxIconSizeCVA,
   selectItemCVA as comboboxItemCVA,
   selectItemGroupLabelCVA as comboboxItemGroupLabelCVA,
-  selectLabelCVA as comboboxLabelCVA,
 }
 
 export const comboboxPositionerCVA = cva([

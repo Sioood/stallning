@@ -10,6 +10,7 @@
     "check-types": "echo \"No TypeScript files to check in @stallning/oxlint\""
   },
   "devDependencies": {
-    "oxlint": "catalog:"
+    "oxlint": "catalog:",
+    "oxlint-tailwindcss": "catalog:"
   }
 }

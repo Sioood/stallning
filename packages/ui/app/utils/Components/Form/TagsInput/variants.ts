@@ -2,11 +2,7 @@ import { cva } from 'class-variance-authority'
 
 import {
   comboboxClearTriggerCVA,
-  comboboxContentCVA,
-  comboboxEmptyCVA,
   comboboxIconSizeCVA,
-  comboboxItemCVA,
-  comboboxPositionerCVA,
   comboboxRootCVA,
 } from '~/utils/Components/Form/Combobox/variants'
 
@@ -14,11 +10,7 @@ import type { TagsInputIntent, TagsInputSize } from './context'
 
 export {
   comboboxClearTriggerCVA as tagsInputClearTriggerCVA,
-  comboboxContentCVA as tagsInputComboboxContentCVA,
-  comboboxEmptyCVA as tagsInputComboboxEmptyCVA,
   comboboxIconSizeCVA as tagsInputComboboxIconSizeCVA,
-  comboboxItemCVA as tagsInputComboboxItemCVA,
-  comboboxPositionerCVA as tagsInputComboboxPositionerCVA,
   comboboxRootCVA as tagsInputRootCVA,
 }
 

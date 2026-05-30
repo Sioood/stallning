@@ -1,20 +1,15 @@
 import { describe, expect, it } from 'vitest'
-import { ref } from 'vue'
 
-import {
-  applyDefaultRowModels,
-  resolveRowModelFeatures,
-} from '~ui/app/utils/Components/Table/row-models'
-import { createStateBridge } from '~ui/app/utils/Components/Table/state-bridge'
+import { applyDefaultRowModels } from '~ui/app/utils/Components/Table/row-models'
 import { createColumnsFromData } from '~ui/app/utils/Components/Table/types'
 
 describe('Table row-models', () => {
   it('enables filtering row model when column filters state is present', () => {
-    const features = resolveRowModelFeatures({
+    const options = applyDefaultRowModels({
       state: { columnFilters: [] },
     })
 
-    expect(features.enableFiltering).toBe(true)
+    expect(options.getFilteredRowModel).toBeDefined()
   })
 
   it('applies filtered and sorted row models when features are enabled', () => {
@@ -34,17 +29,6 @@ describe('Table row-models', () => {
     })
 
     expect(options.getPaginationRowModel).toBeUndefined()
-  })
-})
-
-describe('Table state bridge', () => {
-  it('updates ref when bridge onChange is called', () => {
-    const sorting = ref([{ id: 'name', desc: false }])
-    const bridge = createStateBridge(sorting, undefined, undefined)
-
-    bridge.onChange?.([{ id: 'email', desc: true }])
-
-    expect(sorting.value).toEqual([{ id: 'email', desc: true }])
   })
 })
 

@@ -3,29 +3,13 @@ import {
   Pagination as ArkPagination,
   type PaginationEllipsisBaseProps,
 } from '@ark-ui/vue/pagination'
-import { cva } from 'class-variance-authority'
 
 import { paginationChromeKey, type PaginationSize } from '~/utils/Components/Pagination/context'
+import { paginationEllipsisCVA } from '~/utils/Components/Pagination/variants'
 
 import type { ClassValue } from 'vue'
 
 defineOptions({ inheritAttrs: false })
-
-const paginationEllipsisCVA = cva(
-  ['inline-flex items-center justify-center', 'pointer-events-none select-none'],
-  {
-    variants: {
-      size: {
-        sm: 'txt-caption min-w-8 px-1 py-1',
-        md: 'txt-base min-w-10 px-2 py-2',
-        lg: 'txt-h6 min-w-12 px-2 py-3',
-      } satisfies Record<PaginationSize, string>,
-    },
-    defaultVariants: {
-      size: 'md',
-    },
-  },
-)
 
 export interface UIPaginationEllipsisSlots {
   root?: ClassValue

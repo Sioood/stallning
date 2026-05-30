@@ -233,23 +233,3 @@ export const stepsCompletedContentCVA = cva('w-full', {
     size: 'md',
   },
 })
-
-export const stepsProgressCVA = cva('h-1 w-full overflow-hidden', {
-  variants: {
-    intent: {
-      neutral: 'bg-neutral-fill-default',
-      primary: 'bg-primary-fill-default',
-      secondary: 'bg-secondary-fill-default',
-      accent: 'bg-accent-fill-default',
-    } satisfies Record<StepsIntent, string>,
-    size: {
-      sm: '',
-      md: '',
-      lg: '',
-    } satisfies Record<StepsSize, string>,
-  },
-  defaultVariants: {
-    intent: 'neutral',
-    size: 'md',
-  },
-})

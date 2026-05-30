@@ -1,3 +1,5 @@
+import './tanstack.d.ts'
+
 import type { TableIntent, TableSize, TableSticky, UITableSlotClasses } from './context'
 import type {
   ColumnDef,
@@ -23,7 +25,6 @@ import type { VirtualizerOptions } from '@tanstack/vue-virtual'
 import type { ClassValue } from 'vue'
 
 export type {
-  ColumnDef,
   ColumnFiltersState,
   ColumnOrderState,
   ColumnPinningState,
@@ -31,15 +32,14 @@ export type {
   ExpandedState,
   GroupingState,
   PaginationState,
-  Row,
   RowPinningState,
   RowSelectionState,
   SortingState,
-  TableMeta,
-  TableOptions,
-  TableState,
   VisibilityState,
 }
+
+/** @lintignore Re-exported TanStack types for table consumers */
+export type { ColumnDef, Row, TableMeta, TableOptions, TableState }
 
 export type UITableColumn<TData, TValue = unknown> = ColumnDef<TData, TValue>
 
@@ -53,8 +53,10 @@ export type TableVirtualizeOptions = Partial<
   estimateSize?: number | ((index: number) => number)
 }
 
+/** @lintignore Public table slot API */
 export type UITableSlots = Partial<UITableSlotClasses>
 
+/** @lintignore Public table root slot API */
 export interface UITableRootSlots {
   root?: ClassValue
   base?: ClassValue
@@ -103,6 +105,7 @@ export interface TableProps<TData extends Record<string, unknown> = Record<strin
   onContextmenu?: (event: Event, row: Row<TData>) => void
 }
 
+/** @lintignore Public table meta alias */
 export type UITableTableMeta<TData extends RowData = RowData> = TableMeta<TData>
 
 export type TableRowClassMeta<TData extends RowData = RowData> =

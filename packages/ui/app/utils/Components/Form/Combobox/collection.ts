@@ -2,7 +2,7 @@ import { createListCollection, type ListCollection } from '@ark-ui/vue/combobox'
 
 import type { ComboboxItem } from './context'
 
-export const comboboxCollectionOptions = {
+const comboboxCollectionOptions = {
   itemToString: (item: ComboboxItem) => item.label,
   itemToValue: (item: ComboboxItem) => item.value,
 } as const

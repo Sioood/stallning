@@ -2,13 +2,6 @@ import { cva } from 'class-variance-authority'
 
 import type { FormFieldIntent, FormFieldSize } from './context'
 
-type CheckboxVariantOptions = {
-  intent: FormFieldIntent
-  size: FormFieldSize
-  disabled: boolean
-  invalid: boolean
-}
-
 export const checkboxControlCVA = cva(
   [
     'size-4 shrink-0 border',
@@ -92,20 +85,6 @@ export const treeNodeCheckboxCVA = cva(
 )
 
 export const treeNodeCheckboxIndicatorCVA = cva('flex size-full items-center justify-center')
-
-export function checkboxVariantOptions(
-  intent: FormFieldIntent,
-  size: FormFieldSize,
-  disabled = false,
-  invalid = false,
-): CheckboxVariantOptions {
-  return {
-    intent,
-    size,
-    disabled,
-    invalid,
-  }
-}
 
 export function checkboxDisabledFlag(disabled: boolean): 'false' | 'true' {
   return disabled ? 'true' : 'false'

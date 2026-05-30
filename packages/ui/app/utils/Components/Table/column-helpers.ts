@@ -1,7 +1,7 @@
 import { h } from 'vue'
 
 import type { MenuListEntry } from '@/components/Menu/index.vue'
-import type { ColumnDef, Row, Table } from '@tanstack/vue-table'
+import type { ColumnDef, Row } from '@tanstack/vue-table'
 import type { Component, VNode } from 'vue'
 
 type RenderableComponent = Component | string
@@ -69,39 +69,7 @@ export function createExpandToggleColumn<TData>(
   }
 }
 
-export interface ExpandColumnOptions<TData> {
-  components: ExpandColumnComponents
-  accessorKey?: keyof TData & string
-}
-
-export function createExpandColumn<TData>(
-  options: ExpandColumnOptions<TData>,
-): ColumnDef<TData, unknown> {
-  const accessorKey = options.accessorKey ?? ('id' as keyof TData & string)
-
-  return {
-    id: 'expand',
-    accessorKey,
-    header: '#',
-    cell: ({ row }) =>
-      h(
-        'div',
-        {
-          style: { paddingLeft: `${row.depth}rem` },
-          class: 'flex items-center gap-2',
-        },
-        [
-          h(options.components.Toggle, {
-            key: row.id,
-            rowId: row.id,
-          }),
-          row.getValue(accessorKey) as string,
-        ],
-      ),
-  }
-}
-
-export interface ActionsColumnComponents {
+interface ActionsColumnComponents {
   Cell: RenderableComponent
 }
 
@@ -131,15 +99,3 @@ export function createActionsColumn<TData>(
       }),
   }
 }
-
-export function getSelectionSummary<TData>(table: Table<TData>): {
-  selected: number
-  filtered: number
-} {
-  return {
-    selected: table.getFilteredSelectedRowModel().rows.length,
-    filtered: table.getFilteredRowModel().rows.length,
-  }
-}
-
-export type TableRowEventHandler<TData> = (event: Event, row: Row<TData>) => void

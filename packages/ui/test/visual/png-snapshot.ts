@@ -5,7 +5,7 @@ import { expect } from 'vitest'
  * Disk path relative to the Vitest project `root` (e.g. `packages/ui`).
  * Must match the `path` passed to `screenshot({ path })` (resolved from the test file dir).
  */
-export function pngSnapshotDiskPath(specFolder: string, filename: string): string {
+function pngSnapshotDiskPath(specFolder: string, filename: string): string {
   return `test/visual/__screenshots__/${specFolder}/${filename}`
 }
 

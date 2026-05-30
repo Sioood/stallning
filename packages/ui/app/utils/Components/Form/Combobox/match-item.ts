@@ -1,9 +1,6 @@
 import type { ComboboxItem } from './context'
 
-export function findComboboxItemMatch(
-  input: string,
-  items: ComboboxItem[],
-): ComboboxItem | undefined {
+function findComboboxItemMatch(input: string, items: ComboboxItem[]): ComboboxItem | undefined {
   const normalized = input.trim().toLowerCase()
   if (!normalized) return undefined
 

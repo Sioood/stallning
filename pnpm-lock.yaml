@@ -63,9 +63,6 @@ catalogs:
     '@vitest/coverage-v8':
       specifier: ^4.1.7
       version: 4.1.7
-    '@vueuse/integrations':
-      specifier: ^14.3.0
-      version: 14.3.0
     '@vueuse/nuxt':
       specifier: ^14.3.0
       version: 14.3.0
@@ -217,9 +214,6 @@ importers:
       oxlint:
         specifier: 'catalog:'
         version: 1.66.0
-      oxlint-tailwindcss:
-        specifier: 'catalog:'
-        version: 0.8.0(@oxlint/plugins@1.66.0)
       turbo:
         specifier: ^2.9.14
         version: 2.9.14
@@ -263,9 +257,6 @@ importers:
       oxlint:
         specifier: 'catalog:'
         version: 1.66.0
-      oxlint-tailwindcss:
-        specifier: 'catalog:'
-        version: 0.8.0(@oxlint/plugins@1.66.0)
 
   packages/config/eslint:
     devDependencies:
@@ -323,6 +314,9 @@ importers:
       oxlint:
         specifier: 'catalog:'
         version: 1.66.0
+      oxlint-tailwindcss:
+        specifier: 'catalog:'
+        version: 0.8.0(@oxlint/plugins@1.66.0)
 
   packages/config/typescript: {}
 
@@ -377,6 +371,9 @@ importers:
       '@stallning/oxlint':
         specifier: workspace:^
         version: link:../config/oxlint
+      '@stryker-mutator/api':
+        specifier: ^9.6.1
+        version: 9.6.1
       '@stryker-mutator/core':
         specifier: ^9.6.1
         version: 9.6.1(@types/node@25.9.1)
@@ -440,9 +437,6 @@ importers:
       '@tanstack/vue-virtual':
         specifier: 'catalog:'
         version: 3.13.25(vue@3.5.34(typescript@6.0.3))
-      '@vueuse/integrations':
-        specifier: 'catalog:'
-        version: 14.3.0(change-case@5.4.4)(fuse.js@7.3.0)(vue@3.5.34(typescript@6.0.3))
       class-variance-authority:
         specifier: 'catalog:'
         version: 0.7.1
@@ -483,6 +477,9 @@ importers:
       '@stallning/oxlint':
         specifier: workspace:^
         version: link:../config/oxlint
+      '@stryker-mutator/api':
+        specifier: ^9.6.1
+        version: 9.6.1
       '@stryker-mutator/core':
         specifier: ^9.6.1
         version: 9.6.1(@types/node@25.9.1)
@@ -513,9 +510,6 @@ importers:
       oxlint:
         specifier: 'catalog:'
         version: 1.66.0
-      oxlint-tailwindcss:
-        specifier: 'catalog:'
-        version: 0.8.0(@oxlint/plugins@1.66.0)
       playwright:
         specifier: 'catalog:'
         version: 1.60.0

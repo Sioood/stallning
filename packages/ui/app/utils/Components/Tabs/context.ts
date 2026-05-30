@@ -8,6 +8,7 @@ import type { InjectionKey, Ref } from 'vue'
 
 export type TabsIntent = SegmentedIntent
 export type TabsSize = SegmentedSize
+/** @lintignore Public tabs orientation alias */
 export type TabsOrientation = SegmentedOrientation
 export type TabsVariant = SegmentedVariant
 

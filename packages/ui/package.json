@@ -37,7 +37,6 @@
     "@tanstack/vue-form": "catalog:",
     "@tanstack/vue-table": "catalog:",
     "@tanstack/vue-virtual": "catalog:",
-    "@vueuse/integrations": "catalog:",
     "class-variance-authority": "catalog:",
     "nuxt": "catalog:",
     "tailwind-merge": "catalog:",
@@ -53,6 +52,7 @@
     "@nuxt/test-utils": "^4.0.3",
     "@stallning/eslint": "workspace:^",
     "@stallning/oxlint": "workspace:^",
+    "@stryker-mutator/api": "^9.6.1",
     "@stryker-mutator/core": "^9.6.1",
     "@stryker-mutator/vitest-runner": "^9.6.1",
     "@vitejs/plugin-vue": "^6.0.7",
@@ -63,7 +63,6 @@
     "happy-dom": "^20.9.0",
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
-    "oxlint-tailwindcss": "catalog:",
     "playwright": "catalog:",
     "unplugin-auto-import": "^21.0.0",
     "vitest": "catalog:"

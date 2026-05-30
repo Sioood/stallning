@@ -65,6 +65,7 @@ export interface UINumberInputSlots extends UIFieldSlots {
   scrubber?: ClassValue
 }
 
+/** @lintignore Public slot API for form field consumers */
 export interface UITextareaSlots extends UIFieldSlots {
   shell?: ClassValue
   input?: ClassValue
@@ -87,6 +88,7 @@ export interface UISignaturePadSlots extends UIFieldSlots {
   hiddenInput?: ClassValue
 }
 
+/** @lintignore Public slot API for form field consumers */
 export interface UIFileUploadSlots extends UIFieldSlots {
   trigger?: ClassValue
   dropzone?: ClassValue

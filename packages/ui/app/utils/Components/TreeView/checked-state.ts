@@ -1,3 +1,4 @@
+/** @lintignore Public tree view check state for branch nodes */
 export type TreeViewBranchCheckState = boolean | 'indeterminate'
 
 export interface TreeViewCheckedValueMap {

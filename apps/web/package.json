@@ -31,7 +31,6 @@
     "@stallning/eslint": "workspace:^",
     "eslint": "catalog:",
     "oxfmt": "catalog:",
-    "oxlint": "catalog:",
-    "oxlint-tailwindcss": "catalog:"
+    "oxlint": "catalog:"
   }
 }

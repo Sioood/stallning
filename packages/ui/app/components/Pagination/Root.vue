@@ -5,7 +5,6 @@ import {
   type PaginationRootProviderBaseProps,
   type UsePaginationReturn,
 } from '@ark-ui/vue/pagination'
-import { cva } from 'class-variance-authority'
 
 import {
   paginationChromeKey,
@@ -13,30 +12,11 @@ import {
   type PaginationSize,
   type PaginationVariant,
 } from '~/utils/Components/Pagination/context'
+import { paginationRootCVA } from '~/utils/Components/Pagination/variants'
 
 import type { ClassValue } from 'vue'
 
 defineOptions({ inheritAttrs: false })
-
-const paginationRootCVA = cva('flex items-stretch', {
-  variants: {
-    intent: {
-      neutral: 'text-neutral-text-default',
-      primary: 'text-primary-text-default',
-      secondary: 'text-secondary-text-default',
-      accent: 'text-accent-text-default',
-    } satisfies Record<PaginationIntent, string>,
-    size: {
-      sm: 'gap-1',
-      md: 'gap-1.5',
-      lg: 'gap-2',
-    } satisfies Record<PaginationSize, string>,
-  },
-  defaultVariants: {
-    intent: 'neutral',
-    size: 'md',
-  },
-})
 
 export interface UIPaginationRootSlots {
   root?: ClassValue

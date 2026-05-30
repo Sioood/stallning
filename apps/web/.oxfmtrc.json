@@ -1,7 +1,7 @@
 {
   "$schema": "../../node_modules/oxfmt/configuration_schema.json",
   "sortTailwindcss": {
-    "stylesheet": "../packages/ui/app/assets/css/main.css",
+    "stylesheet": "../../packages/ui/app/assets/css/main.css",
     "functions": ["cn", "clsx", "cva", "twMerge", "twJoin", "ctl", "cc", "clb", "cnb"]
   },
   "ignorePatterns": [

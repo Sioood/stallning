@@ -710,7 +710,7 @@ function tokensForScale(triggerValue: string | null) {
 
 <template>
   <div :class="cn('txt-caption inline-flex font-mono uppercase', textDefaultCVA())">
-    <div class="aspect-9/13.5 relative z-1 min-w-87.5 bg-primary-300">
+    <div class="relative z-1 aspect-9/13.5 min-w-87.5 bg-primary-300">
       <div class="flex flex-row-reverse flex-wrap">
         <div
           :class="
@@ -768,7 +768,7 @@ function tokensForScale(triggerValue: string | null) {
       />
     </div>
 
-    <div class="aspect-9/13.5 flex min-w-87.5 flex-col bg-primary-100">
+    <div class="flex aspect-9/13.5 min-w-87.5 flex-col bg-primary-100">
       <UITooltip
         class="flex min-h-0 flex-1 flex-col"
         :positioning="{ placement: 'top', gutter: 8 }"

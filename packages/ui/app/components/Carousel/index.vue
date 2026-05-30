@@ -216,8 +216,8 @@ extendCompodiumMeta<UICarouselProps>({
           <template
             v-if="
               indicatorVariant === 'thumbnail' &&
-                normalizedItems[index]?.src &&
-                (slidesPerPage ?? 1) === 1
+              normalizedItems[index]?.src &&
+              (slidesPerPage ?? 1) === 1
             "
           >
             <NuxtImg

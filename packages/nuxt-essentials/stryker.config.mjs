@@ -9,11 +9,7 @@ export default {
   inPlace: true,
   incremental: true,
   incrementalFile: 'reports/stryker-incremental.json',
-  mutate: [
-    'i18n/utils/**/*.ts',
-    'app/composables/**/*.ts',
-    '!**/*.d.ts',
-  ],
+  mutate: ['i18n/utils/**/*.ts', 'app/composables/**/*.ts', '!**/*.d.ts'],
   reporters: ['html', 'progress', 'clear-text'],
   htmlReporter: { fileName: 'reports/stryker-mutation.html' },
   thresholds: { high: 80, low: 60, break: null },

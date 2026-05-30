@@ -177,10 +177,10 @@ extendCompodiumMeta({
       isProvider
         ? rootProps
         : {
-          ...rootProps,
-          modelValue: modelValue,
-          'onUpdate:modelValue': (v: number) => (modelValue = v),
-        }
+            ...rootProps,
+            modelValue: modelValue,
+            'onUpdate:modelValue': (v: number) => (modelValue = v),
+          }
     "
     :class="cn(progressCircleRootCVA({ intent, size }), ui?.root)"
   >

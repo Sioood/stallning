@@ -32,7 +32,7 @@ packages/config/* -> shared eslint, oxlint, typescript configs
 
 ### Code Style
 
-- **Formatter:** oxfmt (NOT Prettier) — configured in `.oxfmtrc.json`
+- **Formatter:** oxfmt (NOT the Prettier npm package) — configured in `.oxfmtrc.json`. ESLint uses `eslint-config-prettier` only to turn off stylistic rules that overlap with oxfmt
 - **Linting:** oxlint + ESLint (flat config via `@stallning/eslint`)
 - **TypeScript:** Strict mode, no `any` (use `unknown`), no unused vars (prefix with `_`)
 

@@ -61,6 +61,7 @@ test.describe('Error Handling', () => {
   test('shows error page for 404 routes', async ({ page }) => {
     await page.goto('/this-page-does-not-exist-404')
 
-    await expect(page.getByText(/not found|404/i)).toBeVisible()
+    await expect(page.locator('span.txt-title')).toHaveText('404')
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
   })
 })

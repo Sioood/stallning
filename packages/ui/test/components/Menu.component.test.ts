@@ -1,9 +1,89 @@
 import { mountSuspended } from '@nuxt/test-utils/runtime'
+import { DOMWrapper, flushPromises } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
+import { defineComponent, h, ref } from 'vue'
 
 import Menu from '~ui/app/components/Menu/index.vue'
 
 describe('Menu', () => {
+  it('closes menu after item select when open is uncontrolled', async () => {
+    const wrapper = await mountSuspended(Menu, {
+      props: {
+        items: [{ value: 'go', label: 'Go' }],
+      },
+    })
+
+    await wrapper.find('[data-part="trigger"]').trigger('click')
+    await flushPromises()
+    expect(document.body.querySelector('[data-part="content"][data-state="open"]')).not.toBeNull()
+
+    const itemEl = document.body.querySelector('[data-part="item"][data-value="go"]')
+    expect(itemEl).not.toBeNull()
+    await new DOMWrapper(itemEl as HTMLElement).trigger('click')
+    await flushPromises()
+
+    expect(document.body.querySelector('[data-part="content"][data-state="open"]')).toBeNull()
+    wrapper.unmount()
+    await flushPromises()
+  })
+
+  it('keeps menu open when checkbox item has closeOnSelect false', async () => {
+    const wrapper = await mountSuspended(Menu, {
+      props: {
+        open: true,
+        items: [
+          {
+            type: 'checkbox',
+            value: 'opt',
+            label: 'Option',
+            checked: false,
+            closeOnSelect: false,
+          },
+        ],
+      },
+    })
+
+    const checkboxEl = document.body.querySelector('[data-part="item"][data-value="opt"]')
+    expect(checkboxEl).not.toBeNull()
+    await new DOMWrapper(checkboxEl as HTMLElement).trigger('click')
+    await flushPromises()
+
+    expect(document.body.querySelector('[data-part="content"][data-state="open"]')).not.toBeNull()
+    wrapper.unmount()
+    await flushPromises()
+  })
+
+  it('closes menu after item select when using v-model:open', async () => {
+    const open = ref(true)
+
+    const Harness = defineComponent({
+      setup() {
+        return () =>
+          h(Menu, {
+            open: open.value,
+            'onUpdate:open': (value: boolean) => {
+              open.value = value
+            },
+            items: [{ value: 'go', label: 'Go' }],
+          })
+      },
+    })
+
+    const wrapper = await mountSuspended(Harness)
+    await flushPromises()
+    expect(document.body.querySelector('[data-part="content"][data-state="open"]')).not.toBeNull()
+
+    const itemEl = document.body.querySelector('[data-part="item"][data-value="go"]')
+    expect(itemEl).not.toBeNull()
+    await new DOMWrapper(itemEl as HTMLElement).trigger('click')
+    await flushPromises()
+
+    expect(open.value).toBe(false)
+    expect(document.body.querySelector('[data-part="content"][data-state="open"]')).toBeNull()
+    wrapper.unmount()
+    await flushPromises()
+  })
+
   it('renders configured items when controlled open is true', async () => {
     await mountSuspended(Menu, {
       props: {
@@ -32,7 +112,7 @@ describe('Menu', () => {
             type: 'item',
             value: 'docs',
             label: 'Documentation',
-            href: 'https://ark-ui.com',
+            to: 'https://ark-ui.com',
             target: '_blank',
           },
         ],
@@ -42,6 +122,7 @@ describe('Menu', () => {
     const link = document.body.querySelector('a[href="https://ark-ui.com"]')
     expect(link).not.toBeNull()
     expect(link?.getAttribute('target')).toBe('_blank')
+    expect(link?.className).toMatch(/px-2/)
   })
 
   it('renders checkbox entry labels', async () => {
@@ -292,7 +373,7 @@ describe('Menu', () => {
     expect(document.body.textContent).toContain('Option A')
   })
 
-  it('renders item with href as anchor tag with rel attribute', async () => {
+  it('renders item with to as anchor tag with rel attribute', async () => {
     await mountSuspended(Menu, {
       props: {
         open: true,
@@ -301,7 +382,7 @@ describe('Menu', () => {
             type: 'item',
             value: 'link',
             label: 'External Link',
-            href: 'https://example.com',
+            to: 'https://example.com',
             target: '_blank',
           },
         ],
@@ -310,6 +391,40 @@ describe('Menu', () => {
 
     const link = document.body.querySelector('a[href="https://example.com"]')
     expect(link).not.toBeNull()
-    expect(link?.getAttribute('rel')).toBe('noreferrer noopener')
+    expect(link?.getAttribute('rel')).toBe('noopener noreferrer')
+  })
+
+  it('renders custom #trigger slot with w-fit unstyled anchor', async () => {
+    const wrapper = await mountSuspended(Menu, {
+      slots: {
+        trigger: '<span class="custom-menu-trigger">Open</span>',
+      },
+    })
+
+    const trigger = wrapper.find('[data-part="trigger"]')
+    expect(trigger.element.tagName).toBe('SPAN')
+    expect(trigger.classes()).toContain('w-fit')
+    expect(trigger.find('.custom-menu-trigger').exists()).toBe(true)
+    expect(trigger.classes().join(' ')).not.toMatch(/primary-fill|neutral-fill-subtle/)
+  })
+
+  it('applies w-fit to default styled trigger', async () => {
+    const wrapper = await mountSuspended(Menu, {
+      props: { triggerText: 'Actions' },
+    })
+
+    expect(wrapper.find('[data-part="trigger"]').classes()).toContain('w-fit')
+  })
+
+  it('does not apply default button styles when unstyled is true', async () => {
+    const wrapper = await mountSuspended(Menu, {
+      props: {
+        unstyled: true,
+        triggerText: 'Actions',
+      },
+    })
+
+    const trigger = wrapper.find('[data-part="trigger"]')
+    expect(trigger.classes().join(' ')).not.toMatch(/primary-fill|neutral-fill-subtle/)
   })
 })

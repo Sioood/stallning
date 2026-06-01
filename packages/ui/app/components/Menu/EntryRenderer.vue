@@ -2,13 +2,16 @@
 import { Menu as ArkMenu } from '@ark-ui/vue/menu'
 import { cva } from 'class-variance-authority'
 
-import type { MenuCheckboxItemProps } from '@/components/Menu/CheckboxItem.vue'
-import type { MenuListEntry, MenuListEntryStrict } from '@/components/Menu/index.vue'
-import type { MenuItemProps } from '@/components/Menu/Item.vue'
-import type { MenuRadioGroupProps } from '@/components/Menu/RadioGroup.vue'
-import type { MenuSubmenuProps } from '@/components/Menu/Submenu.vue'
 import type { ClassValue } from 'vue'
 import type { MenuIntent } from '~/utils/Components/Menu/context'
+import type {
+  MenuCheckboxEntry,
+  MenuItemEntry,
+  MenuListEntry,
+  MenuListEntryStrict,
+  MenuRadioGroupEntry,
+  MenuSubmenuEntry,
+} from '~/utils/Components/Menu/entries'
 
 const menuSeparatorCVA = cva('block w-full', {
   variants: {
@@ -23,11 +26,6 @@ const menuSeparatorCVA = cva('block w-full', {
     },
   },
 })
-
-type MenuCheckboxEntry = MenuCheckboxItemProps
-type MenuItemEntry = MenuItemProps
-type MenuRadioGroupEntry = MenuRadioGroupProps
-type MenuSubmenuEntry = MenuSubmenuProps
 
 export interface MenuEntryRendererProps {
   items: MenuListEntry[]
@@ -88,6 +86,16 @@ function isItem(entry: MenuListEntry): entry is MenuItemEntry {
   return !entry.type || entry.type === 'item'
 }
 
+function itemEntryProps(entry: MenuItemEntry) {
+  const { closeOnSelect, onSelect: _onSelect, ...rest } = entry
+  return { ...rest, entryCloseOnSelect: closeOnSelect }
+}
+
+function checkboxEntryProps(entry: MenuCheckboxEntry) {
+  const { closeOnSelect, ...rest } = entry
+  return { ...rest, entryCloseOnSelect: closeOnSelect }
+}
+
 /**
  * Compile-time proof that all entry types are handled in the template above.
  * If a new type is added to MenuListEntryStrict, this will cause a TS error
@@ -126,7 +134,13 @@ void _getEntryComponent
       v-bind="{ ...sharedStyleProps, ...entry, separator }"
     />
     <UIMenuRadioGroup v-else-if="isRadioGroup(entry)" v-bind="{ ...sharedStyleProps, ...entry }" />
-    <UIMenuCheckboxItem v-else-if="isCheckbox(entry)" v-bind="{ ...sharedStyleProps, ...entry }" />
-    <UIMenuItem v-else-if="isItem(entry)" v-bind="{ ...sharedStyleProps, ...entry }" />
+    <UIMenuCheckboxItem
+      v-else-if="isCheckbox(entry)"
+      v-bind="{ ...sharedStyleProps, ...checkboxEntryProps(entry) }"
+    />
+    <UIMenuItem
+      v-else-if="isItem(entry)"
+      v-bind="{ ...sharedStyleProps, ...itemEntryProps(entry) }"
+    />
   </template>
 </template>

@@ -3,6 +3,12 @@ import { cva } from 'class-variance-authority'
 import type { MenuIntent, MenuSize } from './context'
 
 export const menuIndicatorCVA = cva('inline-flex items-center')
+
+/** Unstyled trigger shell for `#trigger` slot (`as-child` anchor). */
+export const menuUnstyledTriggerCVA = cva(
+  'inline-flex w-fit cursor-pointer items-center border-0 bg-transparent p-0 outline-none focus-visible:ring-2 focus-visible:ring-primary-border-default',
+)
+
 export const menuPositionerCVA = cva('z-9999 origin-(--transform-origin) [--z-index:9999]')
 export const menuContentCVA = cva(
   [

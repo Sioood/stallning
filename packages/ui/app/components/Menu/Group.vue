@@ -2,13 +2,9 @@
 import { Menu as ArkMenu } from '@ark-ui/vue/menu'
 import { cva } from 'class-variance-authority'
 
-import type { MenuCheckboxItemProps } from './CheckboxItem.vue'
-import type { MenuListEntry } from './index.vue'
-import type { MenuItemProps } from './Item.vue'
-import type { MenuRadioGroupProps } from './RadioGroup.vue'
-import type { MenuSubmenuProps } from './Submenu.vue'
 import type { ClassValue } from 'vue'
 import type { MenuIntent } from '~/utils/Components/Menu/context'
+import type { MenuGroupEntry } from '~/utils/Components/Menu/entries'
 
 const menuItemGroupLabelCVA = cva('', {
   variants: {
@@ -37,30 +33,7 @@ const menuSeparatorCVA = cva('block w-full border-t', {
   },
 })
 
-type MenuGroupItemProps = MenuItemProps
-type MenuGroupCheckboxProps = MenuCheckboxItemProps
-type MenuGroupRadioGroupProps = MenuRadioGroupProps
-type MenuGroupSubmenuProps = MenuSubmenuProps
-
-interface MenuGroupSeparatorEntry {
-  type: 'separator'
-}
-
-export interface MenuGroupEntry {
-  type: 'group'
-  label?: string
-  items: Array<
-    | MenuGroupItemProps
-    | MenuGroupCheckboxProps
-    | MenuGroupRadioGroupProps
-    | MenuGroupSubmenuProps
-    | MenuGroupSeparatorEntry
-  >
-}
-
-export interface MenuGroupProps {
-  label?: string
-  items: MenuListEntry[]
+export interface MenuGroupProps extends MenuGroupEntry {
   intent?: MenuIntent
   size?: 'md'
   item?: ClassValue
@@ -69,7 +42,6 @@ export interface MenuGroupProps {
   separator?: ClassValue
   itemIndicator?: ClassValue
   itemText?: ClassValue
-  customClass?: ClassValue
 }
 
 const props = withDefaults(defineProps<MenuGroupProps>(), {

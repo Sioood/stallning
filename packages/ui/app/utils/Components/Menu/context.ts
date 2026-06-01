@@ -1,5 +1,8 @@
-import type { ClassValue } from 'vue'
+import type { ClassValue, ComputedRef, InjectionKey } from 'vue'
 import type { ComponentIntent, ComponentSize } from '~/utils/Components/contextBase'
+
+/** Root `closeOnSelect` (defaults to `true` when omitted). Items inherit unless they override. */
+export const menuCloseOnSelectKey: InjectionKey<ComputedRef<boolean>> = Symbol('menuCloseOnSelect')
 
 export interface UIMenuSlots {
   trigger?: ClassValue

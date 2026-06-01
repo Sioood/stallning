@@ -8,16 +8,35 @@ import {
 
 import { buttonCVA } from '~/utils/Components/Button/variants'
 import {
+  menuCloseOnSelectKey,
+  type MenuIntent,
+  type MenuSize,
+  type UIMenuSlots,
+} from '~/utils/Components/Menu/context'
+import { resolveEntryOnSelect } from '~/utils/Components/Menu/resolve-entry-on-select'
+import {
   menuArrowCVA,
   menuArrowTipCVA,
   menuContentCVA,
   menuIndicatorCVA,
   menuPositionerCVA,
+  menuUnstyledTriggerCVA,
 } from '~/utils/Components/Menu/variants'
 
-import type { ClassValue } from 'vue'
-import type { MenuIntent, MenuSize, UIMenuSlots } from '~/utils/Components/Menu/context'
+import type { MenuListEntry } from '~/utils/Components/Menu/entries'
 
+type MenuSelectionDetails = { value: string }
+
+export type {
+  MenuCheckboxEntry,
+  MenuGroupEntry,
+  MenuItemEntry,
+  MenuListEntry,
+  MenuListEntryStrict,
+  MenuRadioGroupEntry,
+  MenuSeparatorEntry,
+  MenuSubmenuEntry,
+} from '~/utils/Components/Menu/entries'
 export type { MenuIntent, MenuSize, UIMenuSlots } from '~/utils/Components/Menu/context'
 
 type MenuTriggerValueSource = { triggerValue?: string | null }
@@ -28,84 +47,6 @@ function menuTriggerValue(menu: unknown): string | null {
 
 defineOptions({ inheritAttrs: false })
 const slots = useSlots()
-
-interface MenuBaseItem {
-  disabled?: boolean
-  customClass?: ClassValue
-}
-
-export interface MenuItemEntry extends MenuBaseItem {
-  /** Explicit `'item'` or omitted (defaults to `'item'` at runtime). */
-  type?: 'item'
-  label: string
-  value: string
-  closeOnSelect?: boolean
-  valueText?: string
-  onSelect?: () => void
-  href?: string
-  target?: string
-}
-
-/**
- * Narrowed variant requiring a literal `type` discriminant.
- * Use in switch/if-chains that need exhaustive checking via `assertNever`.
- */
-export type MenuListEntryStrict =
-  | (MenuItemEntry & { type: 'item' })
-  | MenuCheckboxEntry
-  | MenuRadioGroupEntry
-  | MenuGroupEntry
-  | MenuSubmenuEntry
-  | MenuSeparatorEntry
-
-export interface MenuCheckboxEntry extends MenuBaseItem {
-  type: 'checkbox'
-  label: string
-  value: string
-  checked: boolean
-  closeOnSelect?: boolean
-  onCheckedChange?: (checked: boolean) => void
-}
-
-export interface MenuRadioGroupEntry {
-  type: 'radio-group'
-  label?: string
-  value?: string
-  customClass?: ClassValue
-  onValueChange?: (value: string) => void
-  items: Array<{
-    label: string
-    value: string
-    disabled?: boolean
-  }>
-}
-
-export interface MenuSeparatorEntry {
-  type: 'separator'
-  customClass?: ClassValue
-}
-
-export interface MenuSubmenuEntry {
-  type: 'submenu'
-  label: string
-  customClass?: ClassValue
-  items: MenuListEntry[]
-}
-
-export interface MenuGroupEntry {
-  type: 'group'
-  label?: string
-  customClass?: ClassValue
-  items: MenuListEntry[]
-}
-
-export type MenuListEntry =
-  | MenuItemEntry
-  | MenuCheckboxEntry
-  | MenuRadioGroupEntry
-  | MenuGroupEntry
-  | MenuSubmenuEntry
-  | MenuSeparatorEntry
 
 export interface MenuProps
   extends ArkMenuRootBaseProps, Omit<ArkMenuRootProviderBaseProps, 'value'> {
@@ -121,14 +62,26 @@ export interface MenuProps
   size?: MenuSize
   showIndicator?: boolean
   showArrow?: boolean
+  /**
+   * Teleport the positioner to `teleportTo` (e.g. escape `overflow: hidden` in tables).
+   * Prefer `false` when the trigger uses a custom slot (`#trigger` / `#triggers`) inside
+   * transformed or scaled preview panels so floating-ui anchors correctly.
+   * @default true
+   */
   portalled?: boolean
   teleportTo?: string
   indicatorIcon?: string
   items?: MenuListEntry[]
   ui?: Partial<UIMenuSlots>
+  /**
+   * Skip default button styles on the built-in trigger.
+   * Applied automatically when `#trigger`, `#triggers`, or `#context-trigger` slots are used.
+   */
+  unstyled?: boolean
 }
 
-const open = defineModel<boolean>('open', { default: false })
+/** Only bound when the consumer uses `v-model:open` (see `rootProps`). */
+const open = defineModel<boolean>('open', { required: false })
 
 const props = withDefaults(defineProps<MenuProps>(), {
   contextTriggerText: '',
@@ -136,24 +89,42 @@ const props = withDefaults(defineProps<MenuProps>(), {
   intent: 'neutral',
   items: () => [],
   portalled: true,
+  positioning: () => ({ placement: 'bottom-start', gutter: 8 }),
   showArrow: false,
   showIndicator: true,
   size: 'md',
   teleportTo: 'body',
   triggerText: 'Actions',
+  unstyled: false,
   value: undefined,
   ui: undefined,
+  /** Zag defaults to `true`; Vue boolean props must be explicit or they coerce to `false`. */
+  closeOnSelect: true,
 })
 
 const isProvider = computed(() => props.value !== undefined)
 
+provide(
+  menuCloseOnSelectKey,
+  computed(() => props.closeOnSelect),
+)
+
 const rootComponent = computed(() => (isProvider.value ? ArkMenu.RootProvider : ArkMenu.Root))
+
+function menuRootPropsWithoutUndefined<T extends Record<string, unknown>>(props: T): Partial<T> {
+  return Object.fromEntries(
+    Object.entries(props).filter(([, value]) => value !== undefined),
+  ) as Partial<T>
+}
 
 const rootProps = computed(() => {
   if (isProvider.value) {
-    return pick(props, ['asChild', 'lazyMount', 'unmountOnExit', 'value'] as const)
+    return menuRootPropsWithoutUndefined(
+      pick(props, ['asChild', 'closeOnSelect', 'lazyMount', 'unmountOnExit', 'value'] as const),
+    )
   }
-  return {
+
+  const base = menuRootPropsWithoutUndefined({
     ...pick(props, [
       'anchorPoint',
       'aria-label',
@@ -172,15 +143,29 @@ const rootProps = computed(() => {
       'typeahead',
       'unmountOnExit',
     ] as const),
-    open: open.value,
-    'onUpdate:open': (v: boolean) => {
-      open.value = v
-    },
+  })
+
+  if (open.value !== undefined) {
+    return {
+      ...base,
+      open: open.value,
+      'onUpdate:open': (nextOpen: boolean) => {
+        open.value = nextOpen
+      },
+    }
   }
+
+  return base
 })
 
 const attrs = useAttrs()
-const arkAttrs = computed(() => splitArkAttrs(attrs))
+const arkAttrs = computed(() => splitArkAttrs(attrs, ['ui', 'onSelect']))
+
+function handleMenuSelect(details: MenuSelectionDetails) {
+  resolveEntryOnSelect(props.items, details.value)
+  const userOnSelect = attrs.onSelect as ((details: MenuSelectionDetails) => void) | undefined
+  userOnSelect?.(details)
+}
 
 const itemUiProps = computed(() => ({
   item: props.ui?.item,
@@ -191,24 +176,32 @@ const itemUiProps = computed(() => ({
   itemText: props.ui?.itemText,
 }))
 
-const triggerClass = computed(() =>
-  cn(
-    buttonCVA({
-      variant: 'subtle',
-      intent: props.intent,
-      size: 'sm',
-      disabled: false,
-    }),
-    'transition-colors',
-    props.ui?.trigger,
-  ),
+const hasTriggersSlot = computed(() => Boolean(slots.triggers))
+const hasTriggerSlot = computed(() => Boolean(slots.trigger))
+const hasContextTriggerSlot = computed(() => Boolean(slots['context-trigger']))
+const hasContextTrigger = computed(
+  () => hasContextTriggerSlot.value || Boolean(props.contextTriggerText),
 )
 
-const hasCustomTriggers = computed(() => Boolean(slots.triggers))
-const hasContextTrigger = computed(
-  () => Boolean(slots['context-trigger']) || Boolean(props.contextTriggerText),
+/** Built-in trigger (default button or `#trigger` wrapper). Hidden when `#triggers` or context-only. */
+const showBuiltInTrigger = computed(() => !hasTriggersSlot.value && !hasContextTrigger.value)
+
+const unstyledTriggerClass = computed(() => cn(menuUnstyledTriggerCVA(), props.ui?.trigger))
+
+const styledTriggerClass = computed(() =>
+  props.unstyled
+    ? unstyledTriggerClass.value
+    : cn(
+        'w-fit transition-colors',
+        buttonCVA({
+          variant: 'subtle',
+          intent: props.intent,
+          size: 'sm',
+          disabled: false,
+        }),
+        props.ui?.trigger,
+      ),
 )
-const showDefaultTrigger = computed(() => !hasCustomTriggers.value && !hasContextTrigger.value)
 
 extendCompodiumMeta({
   defaultProps: {
@@ -222,7 +215,7 @@ extendCompodiumMeta({
 </script>
 
 <template>
-  <component :is="rootComponent" v-bind="{ ...arkAttrs, ...rootProps }">
+  <component :is="rootComponent" v-bind="{ ...arkAttrs, ...rootProps }" @select="handleMenuSelect">
     <ArkMenu.Context v-slot="menu">
       <slot
         name="context-trigger"
@@ -230,7 +223,10 @@ extendCompodiumMeta({
         :menu="menu"
         :trigger-value="menuTriggerValue(menu)"
       >
-        <ArkMenu.ContextTrigger v-if="contextTriggerText" :class="cn(ui?.contextTrigger)">
+        <ArkMenu.ContextTrigger
+          v-if="contextTriggerText && !hasContextTriggerSlot"
+          :class="cn('w-fit', ui?.contextTrigger)"
+        >
           {{ contextTriggerText }}
         </ArkMenu.ContextTrigger>
       </slot>
@@ -241,14 +237,21 @@ extendCompodiumMeta({
         :menu="menu"
         :trigger-value="menuTriggerValue(menu)"
       >
-        <ArkMenu.Trigger v-if="showDefaultTrigger" :class="triggerClass">
-          <slot name="trigger">{{ triggerText }}</slot>
-          <ArkMenu.Indicator v-if="showIndicator" :class="cn(menuIndicatorCVA(), ui?.indicator)">
-            <slot name="indicator">
-              <Icon :name="indicatorIcon" />
-            </slot>
-          </ArkMenu.Indicator>
-        </ArkMenu.Trigger>
+        <template v-if="showBuiltInTrigger">
+          <ArkMenu.Trigger v-if="hasTriggerSlot" as-child>
+            <span :class="unstyledTriggerClass">
+              <slot name="trigger" />
+            </span>
+          </ArkMenu.Trigger>
+          <ArkMenu.Trigger v-else :class="styledTriggerClass">
+            <slot name="trigger">{{ triggerText }}</slot>
+            <ArkMenu.Indicator v-if="showIndicator" :class="cn(menuIndicatorCVA(), ui?.indicator)">
+              <slot name="indicator">
+                <Icon :name="indicatorIcon" />
+              </slot>
+            </ArkMenu.Indicator>
+          </ArkMenu.Trigger>
+        </template>
       </slot>
 
       <Teleport :to="teleportTo" :disabled="!portalled">

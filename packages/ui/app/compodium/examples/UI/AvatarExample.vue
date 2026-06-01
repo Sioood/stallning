@@ -1,11 +1,37 @@
 <script setup lang="ts">
 import { useAvatar, type AvatarStatusChangeDetails } from '@ark-ui/vue/avatar'
 
+import type { MenuListEntry } from '@/components/Menu/index.vue'
+
 const names = ['Ada Lovelace', 'Grace Hopper', 'Alan Turing'] as const
 const intents = ['neutral', 'primary', 'secondary', 'accent'] as const
 const sizes = ['sm', 'md', 'lg'] as const
 
 const externalAvatar = useAvatar({ ids: { root: 'ext-avatar-root' } })
+
+const accountUser = { name: 'Marie Dupont' }
+
+const accountMenuItems: MenuListEntry[] = [
+  {
+    type: 'group',
+    label: accountUser.name,
+    items: [
+      { type: 'item', value: 'profile', label: 'Profile', to: '/previews' },
+      { type: 'item', value: 'settings', label: 'Settings', to: '/previews/bento' },
+      { type: 'item', value: 'billing', label: 'Billing' },
+      { type: 'item', value: 'notifications', label: 'Notifications' },
+      { type: 'item', value: 'help', label: 'Help & support', to: '/previews' },
+    ],
+  },
+  { type: 'separator' },
+  {
+    type: 'item',
+    value: 'sign-out',
+    label: 'Sign out',
+    customClass:
+      'text-error-text-default data-[highlighted]:bg-error-fill-subtle-hover data-[disabled]:text-error-text-subtle',
+  },
+]
 </script>
 
 <template>
@@ -60,6 +86,26 @@ const externalAvatar = useAvatar({ ids: { root: 'ext-avatar-root' } })
     <section class="flex flex-col gap-4">
       <h3 class="text-xl font-bold">RootProvider</h3>
       <UIAvatar :value="externalAvatar" name="Provider mode" />
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h3 class="text-xl font-bold">Account menu</h3>
+      <p class="txt-caption text-neutral-text-subtle">
+        <code>UIAvatar</code> as a <code>UIMenu</code> trigger — profile, settings, billing,
+        notifications, and help.
+      </p>
+      <UIMenu
+        :items="accountMenuItems"
+        :show-indicator="false"
+        :portalled="false"
+        :positioning="{ placement: 'bottom-end', gutter: 8 }"
+        :ui="{ trigger: 'rounded-full' }"
+      >
+        <template #trigger>
+          <UIAvatar :name="accountUser.name" size="md" intent="primary" />
+          <span class="sr-only">Account menu for {{ accountUser.name }}</span>
+        </template>
+      </UIMenu>
     </section>
   </div>
 </template>

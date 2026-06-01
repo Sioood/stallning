@@ -2,9 +2,9 @@
 import { Menu as ArkMenu } from '@ark-ui/vue/menu'
 import { cva } from 'class-variance-authority'
 
-import type { MenuListEntry } from './index.vue'
 import type { ClassValue } from 'vue'
 import type { MenuIntent } from '~/utils/Components/Menu/context'
+import type { MenuSubmenuEntry } from '~/utils/Components/Menu/entries'
 
 const menuSubmenuTriggerCVA = cva(
   'flex cursor-pointer items-center justify-between gap-2 outline-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-70',
@@ -50,10 +50,7 @@ const menuSubmenuChevronCVA = cva('size-3 shrink-0', {
   },
 })
 
-export interface MenuSubmenuProps {
-  type: 'submenu'
-  label: string
-  items: MenuListEntry[]
+export interface MenuSubmenuProps extends MenuSubmenuEntry {
   intent?: MenuIntent
   size?: 'md'
   item?: ClassValue
@@ -62,7 +59,6 @@ export interface MenuSubmenuProps {
   separator?: ClassValue
   itemIndicator?: ClassValue
   itemText?: ClassValue
-  customClass?: ClassValue
 }
 
 withDefaults(defineProps<MenuSubmenuProps>(), {

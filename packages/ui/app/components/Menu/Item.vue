@@ -2,11 +2,13 @@
 import { Menu as ArkMenu } from '@ark-ui/vue/menu'
 import { cva } from 'class-variance-authority'
 
+import { menuCloseOnSelectKey, type MenuIntent } from '~/utils/Components/Menu/context'
+
 import type { ClassValue } from 'vue'
-import type { MenuIntent } from '~/utils/Components/Menu/context'
+import type { MenuItemEntry } from '~/utils/Components/Menu/entries'
 
 const menuItemCVA = cva(
-  'flex cursor-pointer items-center gap-2 outline-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-70',
+  'flex w-full cursor-pointer items-center gap-2 outline-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-70',
   {
     variants: {
       intent: {
@@ -26,20 +28,12 @@ const menuItemCVA = cva(
   },
 )
 
-export interface MenuItemProps {
-  type?: 'item'
-  label: string
-  value: string
-  disabled?: boolean
-  closeOnSelect?: boolean
-  valueText?: string
-  onSelect?: () => void
-  href?: string
-  target?: string
+export interface MenuItemProps extends Omit<MenuItemEntry, 'closeOnSelect'> {
   intent?: MenuIntent
   size?: 'md'
   item?: ClassValue
-  customClass?: ClassValue
+  /** From `MenuItemEntry.closeOnSelect` — kept separate so Ark always gets an explicit boolean. */
+  entryCloseOnSelect?: boolean
 }
 
 const props = withDefaults(defineProps<MenuItemProps>(), {
@@ -48,36 +42,65 @@ const props = withDefaults(defineProps<MenuItemProps>(), {
   size: 'md',
   valueText: undefined,
   onSelect: undefined,
-  href: undefined,
+  to: undefined,
   target: undefined,
+  external: undefined,
   item: undefined,
   customClass: undefined,
+  entryCloseOnSelect: undefined,
 })
 
-const itemProps = computed(() =>
-  pick(props, ['value', 'disabled', 'closeOnSelect', 'valueText'] as const),
+const config = useRuntimeConfig()
+const menuCloseOnSelect = inject(
+  menuCloseOnSelectKey,
+  computed(() => true),
 )
 
-function handleSelect() {
-  props.onSelect?.()
-}
+const resolvedCloseOnSelect = computed(() => props.entryCloseOnSelect ?? menuCloseOnSelect.value)
+
+const itemProps = computed(() => pick(props, ['value', 'disabled', 'valueText'] as const))
+
+const itemClass = computed(() =>
+  cn(menuItemCVA({ intent: props.intent, size: props.size }), props.item, props.customClass),
+)
+
+const isExternalLink = computed(() => {
+  if (props.external) return true
+  const url = props.to?.toString()
+  const siteUrl = config.public.siteUrl
+  if (siteUrl && url?.startsWith(siteUrl)) return false
+  return url?.startsWith('http')
+})
+
+const linkTarget = computed(() => props.target || (isExternalLink.value ? '_blank' : undefined))
+const linkRel = computed(() => (linkTarget.value === '_blank' ? 'noopener noreferrer' : undefined))
+
+const linkHref = computed(() => {
+  const to = props.to
+  if (typeof to === 'string') return to
+  return to?.toString() ?? ''
+})
 </script>
 
 <template>
   <ArkMenu.Item
     v-bind="itemProps"
-    :class="cn(menuItemCVA({ intent, size }), item, customClass)"
-    :as-child="Boolean(href)"
-    @select="handleSelect"
+    :close-on-select="resolvedCloseOnSelect"
+    :class="to ? undefined : itemClass"
+    :as-child="Boolean(to)"
   >
     <a
-      v-if="href"
-      :href="href"
-      :target="target"
-      :rel="target === '_blank' ? 'noreferrer noopener' : undefined"
+      v-if="to && isExternalLink"
+      :href="linkHref"
+      :target="linkTarget"
+      :rel="linkRel"
+      :class="itemClass"
     >
       {{ label }}
     </a>
+    <NuxtLink v-else-if="to" :to="to" :class="itemClass">
+      {{ label }}
+    </NuxtLink>
     <template v-else>{{ label }}</template>
   </ArkMenu.Item>
 </template>

@@ -160,16 +160,23 @@ const actionItems = computed<MenuListEntry[]>(() => [
         type: 'item',
         value: 'docs',
         label: 'Documentation',
-        href: 'https://ark-ui.com',
+        to: 'https://ark-ui.com',
         onSelect: () => logAction('open-docs'),
       },
       {
         type: 'item',
         value: 'github',
         label: 'GitHub',
-        href: 'https://github.com/chakra-ui/ark',
+        to: 'https://github.com/chakra-ui/ark',
         target: '_blank',
         onSelect: () => logAction('open-github'),
+      },
+      {
+        type: 'item',
+        value: 'previews',
+        label: 'Playground',
+        to: '/previews',
+        onSelect: () => logAction('open-previews'),
       },
     ],
   },
@@ -262,6 +269,65 @@ function getMultipleTriggerItems(triggerValue: string | null): MenuListEntry[] {
   }
   return multipleTriggerItems.value[triggerValue] ?? actionItems.value
 }
+
+const accountUser = {
+  name: 'Marie Dupont',
+}
+
+const accountMenuItems = computed<MenuListEntry[]>(() => [
+  {
+    type: 'group',
+    label: accountUser.name,
+    items: [
+      {
+        type: 'item',
+        value: 'profile',
+        label: 'Profile',
+        to: '/previews',
+        onSelect: () => logAction('account-profile'),
+      },
+      {
+        type: 'item',
+        value: 'settings',
+        label: 'Settings',
+        to: '/previews/bento',
+        onSelect: () => logAction('account-settings'),
+      },
+      {
+        type: 'item',
+        value: 'billing',
+        label: 'Billing',
+        onSelect: () => logAction('account-billing'),
+      },
+      {
+        type: 'item',
+        value: 'notifications',
+        label: 'Notifications',
+        onSelect: () => logAction('account-notifications'),
+      },
+      {
+        type: 'item',
+        value: 'help',
+        label: 'Help & support',
+        to: '/previews',
+        onSelect: () => logAction('account-help'),
+      },
+    ],
+  },
+  { type: 'separator' },
+  {
+    type: 'item',
+    value: 'sign-out',
+    label: 'Sign out',
+    customClass:
+      'text-error-text-default data-[highlighted]:bg-error-fill-subtle-hover data-[disabled]:text-error-text-subtle',
+    onSelect: () => logAction('account-sign-out'),
+  },
+])
+
+function onAccountMenuSelect(event: { value: string }) {
+  handleSelect('account', event)
+}
 </script>
 
 <template>
@@ -304,6 +370,26 @@ function getMultipleTriggerItems(triggerValue: string | null): MenuListEntry[] {
         @update:open="logAction('controlled-update-open', $event)"
         @select="onControlledMenuSelect"
       />
+    </div>
+
+    <div class="flex flex-col items-end gap-2">
+      <p class="txt-caption text-neutral-text-subtle">
+        Account menu with <code>UIAvatar</code> trigger (profile, settings, billing, notifications,
+        help).
+      </p>
+      <UIMenu
+        :items="accountMenuItems"
+        :show-indicator="false"
+        :portalled="false"
+        :positioning="{ placement: 'bottom-end', gutter: 8 }"
+        :ui="{ trigger: 'rounded-full' }"
+        @select="onAccountMenuSelect"
+      >
+        <template #trigger>
+          <UIAvatar :name="accountUser.name" size="md" intent="primary" />
+          <span class="sr-only">Account menu for {{ accountUser.name }}</span>
+        </template>
+      </UIMenu>
     </div>
 
     <UIMenu

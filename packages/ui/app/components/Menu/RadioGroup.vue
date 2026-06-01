@@ -4,6 +4,7 @@ import { cva } from 'class-variance-authority'
 
 import type { ClassValue } from 'vue'
 import type { MenuIntent } from '~/utils/Components/Menu/context'
+import type { MenuRadioGroupEntry } from '~/utils/Components/Menu/entries'
 
 const menuItemCVA = cva(
   'flex cursor-pointer items-center justify-between outline-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-70',
@@ -72,16 +73,7 @@ const menuItemTextCVA = cva('', {
   },
 })
 
-export interface MenuRadioGroupProps {
-  type: 'radio-group'
-  label?: string
-  value?: string
-  onValueChange?: (value: string) => void
-  items: Array<{
-    label: string
-    value: string
-    disabled?: boolean
-  }>
+export interface MenuRadioGroupProps extends MenuRadioGroupEntry {
   intent?: MenuIntent
   size?: 'md'
   item?: ClassValue
@@ -89,7 +81,6 @@ export interface MenuRadioGroupProps {
   itemGroupLabel?: ClassValue
   itemIndicator?: ClassValue
   itemText?: ClassValue
-  customClass?: ClassValue
 }
 
 const props = withDefaults(defineProps<MenuRadioGroupProps>(), {

@@ -2,8 +2,10 @@
 import { Menu as ArkMenu } from '@ark-ui/vue/menu'
 import { cva } from 'class-variance-authority'
 
+import { menuCloseOnSelectKey, type MenuIntent } from '~/utils/Components/Menu/context'
+
 import type { ClassValue } from 'vue'
-import type { MenuIntent } from '~/utils/Components/Menu/context'
+import type { MenuCheckboxEntry } from '~/utils/Components/Menu/entries'
 
 const menuItemCVA = cva(
   'flex cursor-pointer items-center justify-between outline-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-70',
@@ -59,20 +61,13 @@ const menuItemTextCVA = cva('', {
   },
 })
 
-export interface MenuCheckboxItemProps {
-  type: 'checkbox'
-  label: string
-  value: string
-  checked: boolean
-  disabled?: boolean
-  closeOnSelect?: boolean
-  onCheckedChange?: (checked: boolean) => void
+export interface MenuCheckboxItemProps extends Omit<MenuCheckboxEntry, 'closeOnSelect'> {
+  entryCloseOnSelect?: boolean
   intent?: MenuIntent
   size?: 'md'
   item?: ClassValue
   itemIndicator?: ClassValue
   itemText?: ClassValue
-  customClass?: ClassValue
 }
 
 const props = withDefaults(defineProps<MenuCheckboxItemProps>(), {
@@ -83,11 +78,17 @@ const props = withDefaults(defineProps<MenuCheckboxItemProps>(), {
   itemIndicator: undefined,
   itemText: undefined,
   customClass: undefined,
+  entryCloseOnSelect: undefined,
 })
 
-const checkboxProps = computed(() =>
-  pick(props, ['checked', 'value', 'disabled', 'closeOnSelect'] as const),
+const menuCloseOnSelect = inject(
+  menuCloseOnSelectKey,
+  computed(() => true),
 )
+
+const resolvedCloseOnSelect = computed(() => props.entryCloseOnSelect ?? menuCloseOnSelect.value)
+
+const checkboxProps = computed(() => pick(props, ['checked', 'value', 'disabled'] as const))
 
 function handleCheckedChange(checked: boolean) {
   props.onCheckedChange?.(checked)
@@ -97,6 +98,7 @@ function handleCheckedChange(checked: boolean) {
 <template>
   <ArkMenu.CheckboxItem
     v-bind="checkboxProps"
+    :close-on-select="resolvedCloseOnSelect"
     :class="cn(menuItemCVA({ intent, size }), item, customClass)"
     @update:checked="handleCheckedChange(($event as boolean) ?? false)"
   >

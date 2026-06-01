@@ -1,5 +1,6 @@
 import { GLOB_VUE } from '../globs.ts'
 import { parserTs, parserVue, pluginVue } from '../plugins.ts'
+import { typescriptEslintRules } from '../rules/typescript-eslint.ts'
 import { defineConfig } from '../types.ts'
 
 import type { OptionsHasTypeScript } from '../types.ts'
@@ -24,6 +25,7 @@ export function vue(options: OptionsHasTypeScript = {}) {
         },
       },
       rules: {
+        ...(hasTypescript ? typescriptEslintRules : {}),
         'vue/block-order': ['error', { order: ['script', 'template', 'style'] }],
         'vue/multi-word-component-names': 'off',
       },

@@ -1,6 +1,6 @@
 import { configs as tseslintConfigs } from 'typescript-eslint'
 
-import { GLOB_VUE } from '../globs.ts'
+import { typescriptEslintRules } from '../rules/typescript-eslint.ts'
 import { defineConfig, type FlatConfigs } from '../types.ts'
 
 export function typescript(tsconfigRootDir?: string) {
@@ -16,7 +16,6 @@ export function typescript(tsconfigRootDir?: string) {
         '**/*.jsx',
         '**/*.mjs',
         '**/*.cjs',
-        GLOB_VUE,
       ],
       languageOptions: {
         parserOptions: {
@@ -24,17 +23,7 @@ export function typescript(tsconfigRootDir?: string) {
           ...(tsconfigRootDir ? { tsconfigRootDir } : {}),
         },
       },
-      rules: {
-        '@typescript-eslint/no-unused-vars': [
-          'error',
-          {
-            argsIgnorePattern: '^_',
-            varsIgnorePattern: '^_',
-            ignoreRestSiblings: true,
-          },
-        ],
-        '@typescript-eslint/no-explicit-any': 'error',
-      },
+      rules: typescriptEslintRules,
     },
   ])
 }

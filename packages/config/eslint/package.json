@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@types/node": "catalog:",
-    "@typescript-eslint/parser": "^8.59.4",
+    "@typescript-eslint/parser": "catalog:",
     "eslint": "catalog:",
     "eslint-config-prettier": "catalog:",
     "eslint-flat-config-utils": "^3.2.0",
@@ -32,11 +32,11 @@
     "eslint-plugin-jsonc": "^3.1.2",
     "eslint-plugin-markdown": "^5.1.0",
     "eslint-plugin-oxlint": "^1.66.0",
-    "eslint-plugin-vue": "^10.9.1",
+    "eslint-plugin-vue": "catalog:",
     "eslint-plugin-yml": "^3.3.2",
     "jiti": "^2.7.0",
     "oxlint": "catalog:",
-    "typescript-eslint": "^8.59.4",
-    "vue-eslint-parser": "^10.4.0"
+    "typescript-eslint": "catalog:",
+    "vue-eslint-parser": "catalog:"
   }
 }

@@ -190,7 +190,7 @@ defineExpose({
   },
 } satisfies UIFormNumberInputExpose)
 
-extendCompodiumMeta<typeof props & { modelValue?: string }>({
+extendCompodiumMeta({
   defaultProps: {
     intent: 'primary',
     size: 'md',

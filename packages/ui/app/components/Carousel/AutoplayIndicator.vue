@@ -31,7 +31,7 @@ const indicatorAttrs = computed(() => {
   return rest
 })
 
-extendCompodiumMeta<CarouselAutoplayIndicatorProps>({
+extendCompodiumMeta({
   defaultProps: {},
 })
 </script>

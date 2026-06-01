@@ -99,7 +99,7 @@ const rootBindings = computed(() => {
   return base
 })
 
-extendCompodiumMeta<RatingRootProps>({
+extendCompodiumMeta({
   defaultProps: {
     intent: 'primary',
     size: 'md',

@@ -98,7 +98,7 @@ const rootBindings = computed(() => {
   return base
 })
 
-extendCompodiumMeta<AccordionProps>({
+extendCompodiumMeta({
   defaultProps: {
     intent: 'neutral',
     size: 'md',

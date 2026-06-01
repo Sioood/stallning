@@ -320,7 +320,7 @@ const defaultFormatValue = (v: number, _index: number): string => `${v}`
 
 const formatFn = computed(() => props.formatValue ?? defaultFormatValue)
 
-extendCompodiumMeta<SliderProps>({
+extendCompodiumMeta({
   defaultProps: {
     intent: 'neutral',
     size: 'md',

@@ -73,7 +73,7 @@ const rootProps = computed(() => {
   return rest
 })
 
-extendCompodiumMeta<UIStepsProps>({
+extendCompodiumMeta({
   defaultProps: {
     intent: 'neutral',
     size: 'md',

@@ -152,7 +152,7 @@ const rootBindings = computed(() => {
   return base
 })
 
-extendCompodiumMeta<CollapsibleProps>({
+extendCompodiumMeta({
   defaultProps: {
     heading: 'Heading',
     intent: 'neutral',

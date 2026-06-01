@@ -47,7 +47,7 @@ const indicatorAttrs = computed(() => {
   return rest
 })
 
-extendCompodiumMeta<AccordionItemIndicatorProps>({
+extendCompodiumMeta({
   defaultProps: {},
 })
 </script>

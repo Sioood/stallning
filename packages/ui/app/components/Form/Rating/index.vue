@@ -92,7 +92,7 @@ function formatValue(value: number | undefined, count: number): string {
   return `${value ?? 0}/${count}`
 }
 
-extendCompodiumMeta<typeof props & { modelValue?: number }>({
+extendCompodiumMeta({
   defaultProps: {
     intent: 'primary',
     size: 'md',

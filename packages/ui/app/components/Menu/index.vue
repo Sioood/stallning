@@ -210,7 +210,7 @@ const hasContextTrigger = computed(
 )
 const showDefaultTrigger = computed(() => !hasCustomTriggers.value && !hasContextTrigger.value)
 
-extendCompodiumMeta<MenuProps>({
+extendCompodiumMeta({
   defaultProps: {
     triggerText: 'Actions',
     showIndicator: true,

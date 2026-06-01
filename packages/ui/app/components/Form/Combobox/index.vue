@@ -226,7 +226,7 @@ function handleInputKeydown(event: KeyboardEvent) {
   open.value = false
 }
 
-extendCompodiumMeta<typeof props & { modelValue?: string[] }>({
+extendCompodiumMeta({
   defaultProps: {
     intent: 'primary',
     label: 'Combobox',

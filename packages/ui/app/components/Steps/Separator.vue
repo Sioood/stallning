@@ -51,7 +51,7 @@ const separatorAttrs = computed(() => {
   return rest
 })
 
-extendCompodiumMeta<StepsSeparatorProps>({
+extendCompodiumMeta({
   defaultProps: {},
 })
 </script>

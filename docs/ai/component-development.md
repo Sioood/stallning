@@ -90,7 +90,7 @@ const props = withDefaults(defineProps<MyComponentProps>(), {
   ui: undefined,
 })
 
-extendCompodiumMeta<MyComponentProps>({
+extendCompodiumMeta({
   defaultProps: {
     intent: 'neutral',
     size: 'md',

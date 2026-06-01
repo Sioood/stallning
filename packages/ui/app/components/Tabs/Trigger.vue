@@ -38,7 +38,7 @@ const isDisabled = computed(() => props.disabled ?? false)
 const triggerProps = computed(() => pick(props, ['asChild', 'disabled', 'value'] as const))
 const triggerAttrs = computed(() => splitArkAttrs(attrs))
 
-extendCompodiumMeta<TabsTriggerProps>({
+extendCompodiumMeta({
   defaultProps: {
     value: 'react',
   },

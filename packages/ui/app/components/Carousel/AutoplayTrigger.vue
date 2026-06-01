@@ -45,7 +45,7 @@ const triggerAttrs = computed(() => {
   return rest
 })
 
-extendCompodiumMeta<CarouselAutoplayTriggerProps>({
+extendCompodiumMeta({
   defaultProps: {},
 })
 </script>

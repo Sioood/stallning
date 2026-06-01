@@ -46,7 +46,7 @@ const triggerAttrs = computed(() => {
   return rest
 })
 
-extendCompodiumMeta<PaginationFirstTriggerProps>({
+extendCompodiumMeta({
   defaultProps: {},
 })
 </script>

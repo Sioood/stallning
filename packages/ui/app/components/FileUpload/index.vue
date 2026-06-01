@@ -447,7 +447,7 @@ const resolveErrorText = (key: FileUploadFileError) => {
   return text ? ($te(text) ? $t(text) : text) : undefined
 }
 
-extendCompodiumMeta<FileUploadProps>({
+extendCompodiumMeta({
   defaultProps: {
     intent: 'neutral',
     size: 'md',

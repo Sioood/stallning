@@ -45,7 +45,7 @@ const itemAttrs = computed(() => {
   return rest
 })
 
-extendCompodiumMeta<AccordionItemProps>({
+extendCompodiumMeta({
   defaultProps: {
     value: 'one',
   },

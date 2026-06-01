@@ -47,7 +47,7 @@ const triggerAttrs = computed(() => {
   return rest
 })
 
-extendCompodiumMeta<CarouselNextTriggerProps>({
+extendCompodiumMeta({
   defaultProps: {},
 })
 </script>

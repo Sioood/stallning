@@ -157,7 +157,7 @@ const mergedRootBind = computed(() => ({
   ...fieldRootAttrs.value,
 }))
 
-extendCompodiumMeta<typeof props>({
+extendCompodiumMeta({
   defaultProps: {
     intent: 'primary',
     label: 'Email',

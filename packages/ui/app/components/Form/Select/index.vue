@@ -130,7 +130,7 @@ const rootPassthrough = computed(() => {
   return rest
 })
 
-extendCompodiumMeta<typeof props & { modelValue?: string[] }>({
+extendCompodiumMeta({
   defaultProps: {
     intent: 'primary',
     label: 'Framework',

@@ -43,7 +43,7 @@ const indicatorAttrs = computed(() => {
   return rest
 })
 
-extendCompodiumMeta<StepsIndicatorProps>({
+extendCompodiumMeta({
   defaultProps: {},
 })
 </script>

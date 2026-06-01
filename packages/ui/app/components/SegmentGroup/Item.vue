@@ -45,7 +45,7 @@ const isDisabled = computed(() => props.disabled ?? false)
 const itemProps = computed(() => pick(props, ['asChild', 'disabled', 'value'] as const))
 const itemAttrs = computed(() => splitArkAttrs(attrs))
 
-extendCompodiumMeta<SegmentGroupItemProps>({
+extendCompodiumMeta({
   defaultProps: {
     value: 'react',
   },

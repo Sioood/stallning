@@ -40,7 +40,7 @@ const contentAttrs = computed(() => {
   return rest
 })
 
-extendCompodiumMeta<StepsContentProps>({
+extendCompodiumMeta({
   defaultProps: {
     index: 0,
   },

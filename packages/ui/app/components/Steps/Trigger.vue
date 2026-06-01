@@ -39,7 +39,7 @@ const triggerAttrs = computed(() => {
   return rest
 })
 
-extendCompodiumMeta<StepsTriggerProps>({
+extendCompodiumMeta({
   defaultProps: {},
 })
 </script>

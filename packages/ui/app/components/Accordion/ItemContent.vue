@@ -47,7 +47,7 @@ const contentAttrs = computed(() => {
   return rest
 })
 
-extendCompodiumMeta<AccordionItemContentProps>({
+extendCompodiumMeta({
   defaultProps: {},
 })
 </script>

@@ -123,7 +123,7 @@ const rootPassthrough = computed(() => {
   return rest
 })
 
-extendCompodiumMeta<typeof props & { modelValue?: DateValue[] }>({
+extendCompodiumMeta({
   defaultProps: {
     intent: 'primary',
     label: 'Date',

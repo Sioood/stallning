@@ -147,7 +147,7 @@ defineExpose({
   },
 } satisfies UIButtonExpose)
 
-extendCompodiumMeta<typeof props>({
+extendCompodiumMeta({
   defaultProps: {
     text: 'Button',
     variant: 'default',

@@ -68,7 +68,7 @@ const rootProps = computed(() => {
 
 const optionIconClass = computed(() => tabsOptionIconCVA({ size: props.size }))
 
-extendCompodiumMeta<typeof props & { modelValue?: string }>({
+extendCompodiumMeta({
   defaultProps: {
     modelValue: 'react',
     intent: 'primary',

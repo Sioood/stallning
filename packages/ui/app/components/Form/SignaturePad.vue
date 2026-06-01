@@ -321,7 +321,7 @@ const fieldProps = computed(() => ({
   },
 }))
 
-extendCompodiumMeta<typeof props & { modelValue?: string[] }>({
+extendCompodiumMeta({
   defaultProps: {
     modelValue: [],
     label: 'Signature',

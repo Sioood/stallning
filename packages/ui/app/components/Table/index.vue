@@ -180,7 +180,7 @@ defineExpose({
   },
 })
 
-extendCompodiumMeta<TableProps<TData>>({
+extendCompodiumMeta({
   defaultProps: {
     intent: 'neutral',
     size: 'md',

@@ -132,7 +132,7 @@ const resolvedAlt = computed(
   () => props.alt ?? (props.name?.trim() ? `${props.name.trim()} avatar` : 'Avatar'),
 )
 
-extendCompodiumMeta<AvatarProps>({
+extendCompodiumMeta({
   defaultProps: {
     intent: 'neutral',
     size: 'md',

@@ -40,7 +40,7 @@ const listAttrs = computed(() => {
   return rest
 })
 
-extendCompodiumMeta<StepsListProps>({
+extendCompodiumMeta({
   defaultProps: {},
 })
 </script>

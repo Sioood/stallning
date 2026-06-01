@@ -99,7 +99,7 @@ const rootClass = computed(() =>
   ),
 )
 
-extendCompodiumMeta<typeof props & { modelValue?: string }>({
+extendCompodiumMeta({
   defaultProps: {
     modelValue: 'react',
     intent: 'primary',

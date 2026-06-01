@@ -178,7 +178,7 @@ function onValueChange(details: { value: DateValue[] }) {
   }
 }
 
-extendCompodiumMeta<typeof props & { modelValue?: DateValue[] }>({
+extendCompodiumMeta({
   defaultProps: {
     intent: 'primary',
     size: 'md',

@@ -43,7 +43,7 @@ const textAttrs = computed(() => {
   return rest
 })
 
-extendCompodiumMeta<CarouselProgressTextProps>({
+extendCompodiumMeta({
   defaultProps: {},
 })
 </script>

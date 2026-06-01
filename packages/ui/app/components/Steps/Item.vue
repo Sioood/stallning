@@ -40,7 +40,7 @@ const itemAttrs = computed(() => {
   return rest
 })
 
-extendCompodiumMeta<StepsItemProps>({
+extendCompodiumMeta({
   defaultProps: {
     index: 0,
   },

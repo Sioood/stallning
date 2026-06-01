@@ -36,7 +36,7 @@ const itemAttrs = computed(() => {
   return rest
 })
 
-extendCompodiumMeta<CarouselItemProps>({
+extendCompodiumMeta({
   defaultProps: {
     index: 0,
   },

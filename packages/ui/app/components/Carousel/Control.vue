@@ -34,7 +34,7 @@ const controlAttrs = computed(() => {
   return rest
 })
 
-extendCompodiumMeta<CarouselControlProps>({
+extendCompodiumMeta({
   defaultProps: {},
 })
 </script>

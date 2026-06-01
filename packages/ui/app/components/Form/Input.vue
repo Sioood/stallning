@@ -123,7 +123,7 @@ defineExpose({
   },
 } satisfies UIFormInputExpose)
 
-extendCompodiumMeta<typeof props & { modelValue?: string }>({
+extendCompodiumMeta({
   defaultProps: {
     modelValue: '',
     label: 'Email',

@@ -118,7 +118,7 @@ const rootBindings = computed(() => {
   return base
 })
 
-extendCompodiumMeta<CarouselRootProps>({
+extendCompodiumMeta({
   defaultProps: {
     slideCount: 5,
     intent: 'primary',

@@ -42,7 +42,7 @@ const groupAttrs = computed(() => {
   return rest
 })
 
-extendCompodiumMeta<CarouselIndicatorGroupProps>({
+extendCompodiumMeta({
   defaultProps: {},
 })
 </script>

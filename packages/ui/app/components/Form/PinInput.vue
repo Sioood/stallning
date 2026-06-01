@@ -173,7 +173,7 @@ defineExpose({
   },
 } satisfies UIFormPinInputExpose)
 
-extendCompodiumMeta<typeof props & { modelValue?: string }>({
+extendCompodiumMeta({
   defaultProps: {
     modelValue: '',
     count: 5,

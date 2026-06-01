@@ -103,7 +103,7 @@ function handleContextReady(context: UseTreeViewContext<TreeViewItem>) {
   treeContext.value = context
 }
 
-extendCompodiumMeta<typeof props & { modelValue?: TreeViewCheckedState }>({
+extendCompodiumMeta({
   defaultProps: {
     intent: 'primary',
     label: 'Tree',

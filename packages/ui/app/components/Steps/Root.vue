@@ -99,7 +99,7 @@ const rootBindings = computed(() => {
   return base
 })
 
-extendCompodiumMeta<StepsProps>({
+extendCompodiumMeta({
   defaultProps: {
     count: 3,
     intent: 'neutral',

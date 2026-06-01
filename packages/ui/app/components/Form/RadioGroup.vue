@@ -142,7 +142,7 @@ const passthroughAttrs = computed(() => {
   return rest
 })
 
-extendCompodiumMeta<typeof props & { modelValue?: string | null }>({
+extendCompodiumMeta({
   defaultProps: {
     modelValue: 'react',
     label: 'Framework (radio group)',

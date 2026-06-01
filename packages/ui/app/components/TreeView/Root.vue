@@ -157,7 +157,7 @@ const rootBindings = computed(() => {
   return base
 })
 
-extendCompodiumMeta<TreeViewRootProps>({
+extendCompodiumMeta({
   defaultProps: {
     intent: 'primary',
     mode: 'normal',

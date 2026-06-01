@@ -119,7 +119,7 @@ function onValueChange(details: { value: string[] }) {
   }
 }
 
-extendCompodiumMeta<typeof props & { modelValue?: string[] }>({
+extendCompodiumMeta({
   defaultProps: {
     intent: 'primary',
     size: 'md',

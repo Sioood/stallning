@@ -40,7 +40,7 @@ const ellipsisAttrs = computed(() => {
   return rest
 })
 
-extendCompodiumMeta<PaginationEllipsisProps>({
+extendCompodiumMeta({
   defaultProps: {
     index: 0,
   },

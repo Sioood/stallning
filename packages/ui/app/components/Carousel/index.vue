@@ -146,7 +146,7 @@ function handleViewportLeave(carousel: CarouselContextApi) {
   }
 }
 
-extendCompodiumMeta<UICarouselProps>({
+extendCompodiumMeta({
   defaultProps: {
     intent: 'primary',
     size: 'md',

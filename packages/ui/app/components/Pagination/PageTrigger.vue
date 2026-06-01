@@ -54,7 +54,7 @@ const itemAttrs = computed(() => {
   return rest
 })
 
-extendCompodiumMeta<PaginationPageTriggerProps>({
+extendCompodiumMeta({
   defaultProps: {
     value: 1,
   },

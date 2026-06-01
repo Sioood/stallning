@@ -63,7 +63,7 @@ const indicatorClass = computed(() => {
   return cn(carouselDotIndicatorCVA({ intent: intent.value }), props.ui?.root)
 })
 
-extendCompodiumMeta<CarouselIndicatorProps>({
+extendCompodiumMeta({
   defaultProps: {
     index: 0,
     variant: 'dot',

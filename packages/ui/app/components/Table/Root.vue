@@ -47,7 +47,7 @@ defineExpose({
   tableApi: table,
 })
 
-extendCompodiumMeta<TableRootProps<TData>>({
+extendCompodiumMeta({
   defaultProps: {
     intent: 'neutral',
     size: 'md',

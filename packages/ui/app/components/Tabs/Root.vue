@@ -11,6 +11,7 @@ import {
   tabsChromeKey,
   type TabsIntent,
   type TabsSize,
+  type TabsTriggerLayout,
   type TabsVariant,
 } from '~/utils/Components/Tabs/context'
 import { tabsRootCVA } from '~/utils/Components/Tabs/variants'
@@ -42,6 +43,8 @@ export interface TabsRootProps
   variant?: TabsVariant
   intent?: TabsIntent
   size?: TabsSize
+  /** Icon + label layout inside each trigger (`stacked` = icon above label). */
+  triggerLayout?: TabsTriggerLayout
   ui?: Partial<UITabsRootSlots>
 }
 
@@ -51,6 +54,7 @@ const props = withDefaults(defineProps<TabsRootProps>(), {
   intent: 'primary',
   orientation: 'horizontal',
   size: 'md',
+  triggerLayout: 'inline',
   ui: undefined,
   value: undefined,
   variant: 'line',
@@ -63,6 +67,7 @@ provide(tabsChromeKey, {
   size: computed(() => props.size),
   orientation: computed(() => props.orientation),
   variant: computed(() => props.variant),
+  triggerLayout: computed(() => props.triggerLayout),
 })
 
 const isProvider = computed(() => props.value !== undefined)
@@ -83,6 +88,7 @@ const rootProps = computed(() => {
     'ids',
     'lazyMount',
     'loopFocus',
+    'navigate',
     'orientation',
     'translations',
     'unmountOnExit',

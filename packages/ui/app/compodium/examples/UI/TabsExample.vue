@@ -2,6 +2,7 @@
 import { useTabs, type TabsValueChangeDetails } from '@ark-ui/vue/tabs'
 
 const selected = ref<string>('react')
+const route = useRoute()
 const externalApi = useTabs({
   defaultValue: 'solid',
 })
@@ -213,6 +214,30 @@ function onValueChange(d: TabsValueChangeDetails) {
         <UIButton size="sm" variant="subtle" @click="externalApi.setValue('')"> Clear </UIButton>
       </div>
       <UITabs :value="externalApi" :options intent="accent" />
+    </section>
+
+    <!-- Mobile bottom nav (stacked triggers, routing) -->
+    <section class="flex flex-col gap-4">
+      <h2 class="text-xl font-bold">Mobile navigation (stacked, no panels)</h2>
+      <p class="text-sm text-neutral-text-subtle">
+        <code>trigger-layout="stacked"</code> with <code>render-content="false"</code> — use
+        <code>:model-value="route.path"</code> (read-only from the router) and matching
+        <code>value</code> / <code>to</code> on each option. Navigation is handled by
+        <code>NuxtLink</code> inside the trigger (SPA, no full reload).
+      </p>
+      <UITabs
+        v-model="route.path"
+        :options="[
+          { value: '/', label: 'Dashboard', icon: 'tabler:layout-grid', to: '/' },
+          { value: '/training', label: 'Training', icon: 'tabler:barbell', to: '/training' },
+          { value: '/goals', label: 'Goals', icon: 'tabler:target', to: '/goals' },
+          { value: '/social', label: 'Social', icon: 'tabler:users', to: '/social' },
+          { value: '/profile', label: 'Profile', icon: 'tabler:user', to: '/profile' },
+        ]"
+        trigger-layout="stacked"
+        :render-content="false"
+        :ui="{ root: 'w-full', list: 'w-full', trigger: 'flex-1' }"
+      />
     </section>
 
     <!-- Custom slot content -->

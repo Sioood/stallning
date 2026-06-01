@@ -243,6 +243,63 @@ describe('UITabs', () => {
     expect(wrapper.exists()).toBe(true)
   })
 
+  it('does not render content panels when renderContent is false', async () => {
+    const wrapper = await mountSuspended(UITabs, {
+      props: {
+        options: [
+          { value: 'a', label: 'A' },
+          { value: 'b', label: 'B' },
+        ],
+        renderContent: false,
+      },
+    })
+
+    expect(wrapper.findAll('[data-part="content"]')).toHaveLength(0)
+    expect(wrapper.findAll('[data-part="trigger"]')).toHaveLength(2)
+  })
+
+  it('hides labels when hideLabel is set on an option', async () => {
+    const wrapper = await mountSuspended(UITabs, {
+      props: {
+        options: [
+          { value: 'home', label: 'Home', icon: 'tabler:home', hideLabel: true },
+          { value: 'profile', label: 'Profile', icon: 'tabler:user' },
+        ],
+      },
+    })
+
+    const triggers = wrapper.findAll('[data-part="trigger"]')
+    expect(triggers[0]!.text()).toBe('')
+    expect(triggers[0]!.find('.truncate').exists()).toBe(false)
+    expect(triggers[1]!.text()).toContain('Profile')
+  })
+
+  it('applies stacked trigger layout classes', async () => {
+    const wrapper = await mountSuspended(UITabs, {
+      props: {
+        options: [{ value: 'goals', label: 'Goals', icon: 'tabler:target' }],
+        triggerLayout: 'stacked',
+      },
+    })
+
+    const trigger = wrapper.find('[data-part="trigger"]')
+    expect(trigger.classes()).toContain('flex-col')
+    expect(trigger.classes()).toContain('items-center')
+  })
+
+  it('renders a link when option has an external to', async () => {
+    const wrapper = await mountSuspended(UITabs, {
+      props: {
+        options: [{ value: 'home', label: 'Home', to: 'https://example.com/home' }],
+        renderContent: false,
+      },
+    })
+
+    const link = wrapper.find('a[href="https://example.com/home"]')
+    expect(link.exists()).toBe(true)
+    expect(link.attributes('data-part')).toBe('trigger')
+  })
+
   it('updates v-model when tab selection changes internally', async () => {
     const model = ref('a')
 

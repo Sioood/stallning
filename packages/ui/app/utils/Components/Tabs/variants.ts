@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority'
 
-import type { TabsSize } from './context'
+import type { TabsSize, TabsTriggerLayout } from './context'
 
 export const tabsRootCVA = cva('w-fit', {
   variants: {
@@ -29,5 +29,29 @@ export const tabsOptionIconCVA = cva('shrink-0', {
   },
   defaultVariants: {
     size: 'md',
+  },
+})
+
+export const tabsTriggerLayoutCVA = cva('', {
+  variants: {
+    triggerLayout: {
+      inline: '',
+      stacked: 'flex-col items-center justify-center gap-0.5 text-center whitespace-normal',
+    } satisfies Record<TabsTriggerLayout, string>,
+  },
+  defaultVariants: {
+    triggerLayout: 'inline',
+  },
+})
+
+export const tabsOptionLabelCVA = cva('min-w-0 truncate', {
+  variants: {
+    triggerLayout: {
+      inline: '',
+      stacked: 'txt-caption max-w-full truncate',
+    } satisfies Record<TabsTriggerLayout, string>,
+  },
+  defaultVariants: {
+    triggerLayout: 'inline',
   },
 })

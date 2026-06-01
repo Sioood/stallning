@@ -8,10 +8,11 @@ import {
 import {
   type TabsIntent,
   type TabsSize,
+  type TabsTriggerLayout,
   type TabsVariant,
   type UITabOption,
 } from '~/utils/Components/Tabs/context'
-import { tabsOptionIconCVA } from '~/utils/Components/Tabs/variants'
+import { tabsOptionIconCVA, tabsOptionLabelCVA } from '~/utils/Components/Tabs/variants'
 
 import type { UITabsRootSlots } from './Root.vue'
 import type { ClassValue } from 'vue'
@@ -35,6 +36,9 @@ export interface UITabsSlots extends UITabsRootSlots {
  * Automates rendering of list, triggers (with optional icons), indicator, and content panels
  * from the `options` prop.
  *
+ * Set `render-content` to `false` for router-driven navigation (triggers only).
+ * Use `trigger-layout="stacked"` for mobile-style icon-above-label triggers.
+ *
  * For full control, use `<UITabsRoot>` with `<UITabsList>`, `<UITabsTrigger>`, etc.
  */
 export interface TabsProps
@@ -43,17 +47,27 @@ export interface TabsProps
   variant?: TabsVariant
   intent?: TabsIntent
   size?: TabsSize
+  triggerLayout?: TabsTriggerLayout
   options?: UITabOption[]
+  /** When `false`, content panels are not rendered (e.g. route changes replace the page). */
+  renderContent?: boolean
+  /** Teleport all option content panels when `contentPortalled` is `true`. */
+  contentPortalled?: boolean
+  contentTeleportTo?: string
   ui?: Partial<UITabsSlots>
 }
 
 const modelValue = defineModel<string>()
 
 const props = withDefaults(defineProps<TabsProps>(), {
+  contentPortalled: false,
+  contentTeleportTo: 'body',
   intent: 'primary',
   options: () => [],
   orientation: 'horizontal',
+  renderContent: true,
   size: 'md',
+  triggerLayout: 'inline',
   ui: undefined,
   value: undefined,
   variant: 'line',
@@ -61,12 +75,47 @@ const props = withDefaults(defineProps<TabsProps>(), {
 
 const resolvedOptions = computed(() => (props.options.length > 0 ? props.options : []))
 
+const hasLinkOptions = computed(() =>
+  resolvedOptions.value.some((option) => option.to !== undefined && option.to !== null),
+)
+
+/** Fallback when Ark runs `navigateIfNeeded` (e.g. keyboard). Clicks use `navigateTo` on the anchor. */
+function onRouterTabNavigate(details: { href: string }) {
+  if (details.href.startsWith('http')) return
+  void navigateTo(details.href)
+}
+
 const rootProps = computed(() => {
-  const { options: _, ui: __, ...rest } = props
+  const {
+    contentPortalled: _contentPortalled,
+    contentTeleportTo: _contentTeleportTo,
+    options: _options,
+    renderContent: _renderContent,
+    ui: _ui,
+    ...rest
+  } = props
+
+  if (hasLinkOptions.value && rest.navigate === undefined) {
+    return { ...rest, navigate: onRouterTabNavigate }
+  }
+
   return rest
 })
 
 const optionIconClass = computed(() => tabsOptionIconCVA({ size: props.size }))
+
+function resolveTriggerLayout(option: UITabOption): TabsTriggerLayout {
+  return option.triggerLayout ?? props.triggerLayout
+}
+
+function resolveOptionLabel(option: UITabOption): string | undefined {
+  if (option.hideLabel) return undefined
+  return option.label ?? option.value
+}
+
+const shouldRenderAutoContent = computed(
+  () => props.renderContent && resolvedOptions.value.length > 0,
+)
 
 extendCompodiumMeta({
   defaultProps: {
@@ -74,6 +123,7 @@ extendCompodiumMeta({
     intent: 'primary',
     orientation: 'horizontal',
     size: 'md',
+    triggerLayout: 'inline',
     variant: 'line',
     options: [
       { value: 'react', label: 'React', icon: 'tabler:brand-react' },
@@ -94,10 +144,17 @@ extendCompodiumMeta({
           :key="option.value"
           :value="option.value"
           :disabled="option.disabled"
+          :to="option.to"
+          :trigger-layout="resolveTriggerLayout(option)"
           :ui="{ root: ui?.trigger }"
         >
           <Icon v-if="option.icon" :name="option.icon" :class="optionIconClass" />
-          <span class="min-w-0 truncate">{{ option.label ?? option.value }}</span>
+          <span
+            v-if="resolveOptionLabel(option)"
+            :class="tabsOptionLabelCVA({ triggerLayout: resolveTriggerLayout(option) })"
+          >
+            {{ resolveOptionLabel(option) }}
+          </span>
         </UITabsTrigger>
       </template>
 
@@ -106,11 +163,13 @@ extendCompodiumMeta({
       <UITabsIndicator :ui="{ root: ui?.indicator }" />
     </UITabsList>
 
-    <template v-if="resolvedOptions.length > 0">
+    <template v-if="shouldRenderAutoContent">
       <UITabsContent
         v-for="option in resolvedOptions"
         :key="option.value"
         :value="option.value"
+        :portalled="contentPortalled"
+        :teleport-to="contentTeleportTo"
         :ui="{ root: ui?.content }"
       >
         <slot :name="`content-${option.value}`">

@@ -15,6 +15,9 @@ export interface UITabsContentSlots {
 export interface TabsContentProps extends TabContentBaseProps {
   lazyMount?: boolean
   unmountOnExit?: boolean
+  /** Teleport panel markup to `teleportTo` (e.g. `'body'` or a layout outlet selector). */
+  portalled?: boolean
+  teleportTo?: string
   ui?: Partial<UITabsContentSlots>
 }
 
@@ -30,6 +33,8 @@ const tabsContentCVA = cva('outline-none', {
 const props = withDefaults(defineProps<TabsContentProps>(), {
   lazyMount: undefined,
   unmountOnExit: undefined,
+  portalled: false,
+  teleportTo: 'body',
   ui: undefined,
 })
 
@@ -43,13 +48,16 @@ const contentProps = computed(() =>
   pick(props, ['asChild', 'value', 'lazyMount', 'unmountOnExit'] as const),
 )
 const contentAttrs = computed(() => splitArkAttrs(attrs))
+
+const contentClass = computed(() =>
+  cn(tabsContentCVA({ orientation: orientation.value }), props.ui?.root),
+)
 </script>
 
 <template>
-  <TabContent
-    v-bind="{ ...contentProps, ...contentAttrs }"
-    :class="cn(tabsContentCVA({ orientation }), ui?.root)"
-  >
-    <slot />
-  </TabContent>
+  <Teleport :to="teleportTo" :disabled="!portalled">
+    <TabContent v-bind="{ ...contentProps, ...contentAttrs }" :class="contentClass">
+      <slot />
+    </TabContent>
+  </Teleport>
 </template>

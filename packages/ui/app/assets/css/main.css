@@ -2061,6 +2061,7 @@
 html {
   @apply scroll-smooth;
   @apply bg-primary-bg-default!;
+  @apply text-neutral-text-default;
 }
 
 body {

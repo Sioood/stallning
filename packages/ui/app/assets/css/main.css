@@ -2056,6 +2056,15 @@
   @apply text-base;
   @apply leading-base;
   @apply font-normal;
+
+  /* ─── Unovis ──────────────────────────────────────────────────── */
+  --vis-font-family: var(--font-mono) !important;
+  --vis-color0: var(--color-blue-fill-default) !important;
+  --vis-color1: var(--color-red-fill-default) !important;
+  --vis-color2: var(--color-green-fill-default) !important;
+  --vis-color3: var(--color-purple-fill-default) !important;
+  --vis-color4: var(--color-yellow-fill-default) !important;
+  --vis-color5: var(--color-pink-fill-default) !important;
 }
 
 html {

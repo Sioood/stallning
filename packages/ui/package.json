@@ -37,6 +37,8 @@
     "@tanstack/vue-form": "catalog:",
     "@tanstack/vue-table": "catalog:",
     "@tanstack/vue-virtual": "catalog:",
+    "@unovis/ts": "catalog:",
+    "@unovis/vue": "catalog:",
     "class-variance-authority": "catalog:",
     "nuxt": "catalog:",
     "tailwind-merge": "catalog:",

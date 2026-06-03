@@ -1942,6 +1942,12 @@
   }
 }
 
+html {
+  @apply scroll-smooth;
+  @apply bg-primary-bg-default!;
+  @apply text-neutral-text-default;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     /* ── red · firebug ──────────────────────────────────────────── */
@@ -2048,6 +2054,10 @@
     --color-gray-900: hsl(30 8% 94%);
     --color-gray-950: hsl(30 10% 97%);
   }
+
+  html {
+    @apply bg-neutral-bg-default!;
+  }
 }
 
 :root {
@@ -2067,10 +2077,8 @@
   --vis-color5: var(--color-pink-fill-default) !important;
 }
 
-html {
-  @apply scroll-smooth;
-  @apply bg-primary-bg-default!;
-  @apply text-neutral-text-default;
+html.dark {
+  @apply bg-neutral-bg-default!;
 }
 
 body {

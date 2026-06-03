@@ -47,6 +47,11 @@ const cardCVA = cva('', {
       class:
         'border-secondary-border-default bg-secondary-surface-default text-secondary-text-default',
     },
+    {
+      variant: 'default',
+      intent: 'accent',
+      class: 'border-accent-border-default bg-accent-surface-default text-accent-text-default',
+    },
     /** subtle */
     {
       variant: 'subtle',

@@ -11,7 +11,8 @@
     ],
     "eqeqeq": "error",
     "typescript/no-explicit-any": "error",
-    "unicorn/no-array-for-each": "error"
+    "unicorn/no-array-for-each": "error",
+    "max-params": ["error", { "max": 3 }]
   },
   "ignorePatterns": ["**/node_modules/**", "**/dist/**"]
 }

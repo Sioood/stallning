@@ -2,21 +2,41 @@
 
 Shared Oxlint config for the monorepo.
 
-## What it enforces
+## Presets
 
-- General correctness and consistency rules.
-- TypeScript safety baseline (`typescript/no-explicit-any`).
-- Unicorn quality rules where low-noise.
+| File                     | Purpose                                        |
+| ------------------------ | ---------------------------------------------- |
+| `base.oxlintrc.json`     | TypeScript + general JS rules                  |
+| `vue.oxlintrc.json`      | Vue 3 Composition API (`<script setup>`) rules |
+| `tailwind.oxlintrc.json` | Tailwind class linting (`oxlint-tailwindcss`)  |
+| `.oxlintrc.json`         | Package entry (extends `base` only)            |
 
 ## Usage
 
-Root `.oxlintrc.json`:
+Root (TypeScript / config only):
 
 ```json
 {
-  "extends": ["./node_modules/@stallning/oxlint/.oxlintrc.json"]
+  "extends": ["./node_modules/@stallning/oxlint/base.oxlintrc.json"]
 }
 ```
+
+Nuxt apps / layers (`nuxt-essentials`, `ui`, `web`):
+
+```json
+{
+  "extends": [
+    "./node_modules/@stallning/oxlint/base.oxlintrc.json",
+    "./node_modules/@stallning/oxlint/vue.oxlintrc.json",
+    "./node_modules/@stallning/oxlint/tailwind.oxlintrc.json"
+  ],
+  "settings": {
+    "tailwindcss": { "entryPoint": "app/assets/css/main.css" }
+  }
+}
+```
+
+Paths in `extends` are resolved relative to the consuming `.oxlintrc.json`.
 
 ## Scripts
 

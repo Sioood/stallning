@@ -1,5 +1,9 @@
 {
-  "extends": ["../config/oxlint/base.oxlintrc.json", "../config/oxlint/tailwind.oxlintrc.json"],
+  "extends": [
+    "./node_modules/@stallning/oxlint/base.oxlintrc.json",
+    "./node_modules/@stallning/oxlint/vue.oxlintrc.json",
+    "./node_modules/@stallning/oxlint/tailwind.oxlintrc.json"
+  ],
   "settings": {
     "tailwindcss": {
       "entryPoint": "app/assets/css/main.css"

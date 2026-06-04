@@ -266,6 +266,9 @@ importers:
       '@stallning/eslint':
         specifier: workspace:^
         version: link:../../packages/config/eslint
+      '@stallning/oxlint':
+        specifier: workspace:^
+        version: link:../../packages/config/oxlint
       eslint:
         specifier: 'catalog:'
         version: 10.4.0(jiti@2.7.0)

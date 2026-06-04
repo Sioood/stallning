@@ -9,7 +9,12 @@
       "ignoreDependencies": ["@stallning/ui", "vue", "vue-router"]
     },
     "packages/config/oxlint": {
-      "entry": [".oxlintrc.json", "tailwind.oxlintrc.json", "base.oxlintrc.json"],
+      "entry": [
+        ".oxlintrc.json",
+        "base.oxlintrc.json",
+        "vue.oxlintrc.json",
+        "tailwind.oxlintrc.json"
+      ],
       "ignoreDependencies": ["oxlint-tailwindcss"]
     },
     "packages/ui": {

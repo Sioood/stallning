@@ -85,5 +85,5 @@ All rules must align with the codebase philosophy:
 - `eslint/src/index.ts` — Main factory function
 - `eslint/src/configs/*.ts` — Individual config modules
 - `eslint/src/globs.ts` — File glob patterns and exclusions
-- `oxlint/.oxlintrc.json` — Oxlint rules (consumed by ESLint bridge)
+- `oxlint/base.oxlintrc.json`, `vue.oxlintrc.json`, `tailwind.oxlintrc.json` — layered Oxlint presets (consumed via `@stallning/oxlint`)
 - `typescript/base.json` — Base tsconfig preset

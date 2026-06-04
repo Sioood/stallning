@@ -30,6 +30,7 @@
     "@nuxt/kit": "catalog:",
     "@playwright/test": "catalog:",
     "@stallning/eslint": "workspace:^",
+    "@stallning/oxlint": "workspace:^",
     "eslint": "catalog:",
     "oxfmt": "catalog:",
     "oxlint": "catalog:"

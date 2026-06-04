@@ -131,7 +131,7 @@ export function tableFooterSlotName(columnId: string): string {
 export function createColumnsFromData<TData extends Record<string, unknown>>(
   data: TData[],
 ): UITableColumn<TData>[] {
-  const first = data[0]
+  const [first] = data
   if (!first) return []
 
   return Object.keys(first).map((key) => ({

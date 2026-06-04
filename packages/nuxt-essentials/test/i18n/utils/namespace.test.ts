@@ -4,10 +4,10 @@ import { getMessagesWithNamespace, prefixKeys } from '../../../i18n/utils/namesp
 
 describe('prefixKeys', () => {
   it('adds namespace prefix to all keys', () => {
-    const result = prefixKeys('myNs', { foo: 'bar', baz: 'qux' })
+    const result = prefixKeys('myNs', { baz: 'qux', foo: 'bar' })
     expect(result).toEqual({
-      'myNs:foo': 'bar',
       'myNs:baz': 'qux',
+      'myNs:foo': 'bar',
     })
   })
 
@@ -39,14 +39,14 @@ describe('getMessagesWithNamespace', () => {
 
   it('merges multiple namespaces correctly', async () => {
     const messages = await getMessagesWithNamespace({
+      layout: async () => ({ header: 'Top' }),
       translations: async () => ({ global: 'value' }),
       ui: async () => ({ button: 'Click' }),
-      layout: async () => ({ header: 'Top' }),
     })
     expect(messages).toEqual({
       global: 'value',
-      'ui:button': 'Click',
       'layout:header': 'Top',
+      'ui:button': 'Click',
     })
   })
 

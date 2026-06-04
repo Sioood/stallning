@@ -32,14 +32,6 @@ function resolveRowModelFeatures<TData>(
       options.onGlobalFilterChange !== undefined)
 
   return {
-    enableFiltering,
-    enableSorting:
-      !options.manualSorting &&
-      (options.state?.sorting !== undefined || options.onSortingChange !== undefined),
-    enablePagination:
-      !options.manualPagination &&
-      (options.state?.pagination !== undefined || options.onPaginationChange !== undefined),
-    enableGrouping: options.state?.grouping !== undefined || options.onGroupingChange !== undefined,
     enableExpanding:
       options.enableExpanding === true ||
       options.getSubRows !== undefined ||
@@ -50,6 +42,14 @@ function resolveRowModelFeatures<TData>(
       options.getFacetedUniqueValues !== undefined ||
       options.getFacetedMinMaxValues !== undefined ||
       enableFiltering,
+    enableFiltering,
+    enableGrouping: options.state?.grouping !== undefined || options.onGroupingChange !== undefined,
+    enablePagination:
+      !options.manualPagination &&
+      (options.state?.pagination !== undefined || options.onPaginationChange !== undefined),
+    enableSorting:
+      !options.manualSorting &&
+      (options.state?.sorting !== undefined || options.onSortingChange !== undefined),
   }
 }
 

@@ -80,11 +80,11 @@ const fieldProps = computed(() => ({
   intent: props.intent,
   invalid: invalid.value,
   ui: {
-    root: props.ui?.root,
-    label: props.ui?.label,
-    helperText: props.ui?.helperText,
     error: props.ui?.error,
+    helperText: props.ui?.helperText,
+    label: props.ui?.label,
     requiredIndicator: props.ui?.requiredIndicator,
+    root: props.ui?.root,
   },
 }))
 
@@ -94,12 +94,12 @@ function formatValue(value: number | undefined, count: number): string {
 
 extendCompodiumMeta({
   defaultProps: {
-    intent: 'primary',
-    size: 'md',
-    label: 'Rating',
     count: 5,
     defaultValue: 3,
     helperText: 'Select a rating from 1 to 5',
+    intent: 'primary',
+    label: 'Rating',
+    size: 'md',
   },
 })
 </script>

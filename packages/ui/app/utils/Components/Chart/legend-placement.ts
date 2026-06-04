@@ -10,7 +10,7 @@ export function parseChartLegendPlacement(placement: ChartLegendPlacement): {
 } {
   const [side, align] = placement.split('-') as [ChartLegendSide, ChartLegendAlign | undefined]
   return {
-    side,
     align: align ?? 'center',
+    side,
   }
 }

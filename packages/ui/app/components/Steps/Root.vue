@@ -42,8 +42,8 @@ export interface StepsProps
 const props = withDefaults(defineProps<StepsProps>(), {
   intent: 'neutral',
   size: 'md',
-  value: undefined,
   ui: undefined,
+  value: undefined,
 })
 
 const step = defineModel<number>('step', { required: false })
@@ -55,7 +55,7 @@ const size = toRef(props, 'size')
 
 const orientation = computed<'horizontal' | 'vertical'>(() => props.orientation ?? 'horizontal')
 
-provide(stepsChromeKey, { intent, size, orientation })
+provide(stepsChromeKey, { intent, orientation, size })
 
 const isProvider = computed(() => props.value !== undefined)
 

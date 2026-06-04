@@ -3,154 +3,136 @@ import { cva } from 'class-variance-authority'
 import type { RatingIntent, RatingSize } from './context'
 
 export const ratingRootCVA = cva('flex flex-col gap-1.5 data-[readonly]:pointer-events-none', {
+  defaultVariants: {
+    intent: 'primary',
+  },
   variants: {
     intent: {
+      accent: 'text-accent-text-default',
       neutral: 'text-neutral-text-default',
       primary: 'text-primary-text-default',
       secondary: 'text-secondary-text-default',
-      accent: 'text-accent-text-default',
     } satisfies Record<RatingIntent, string>,
-  },
-  defaultVariants: {
-    intent: 'primary',
   },
 })
 
 export const ratingLabelCVA = cva('select-none data-[disabled]:opacity-50', {
-  variants: {
-    intent: {
-      neutral: 'text-neutral-text-default',
-      primary: 'text-primary-text-default',
-      secondary: 'text-secondary-text-default',
-      accent: 'text-accent-text-default',
-    } satisfies Record<RatingIntent, string>,
-    size: {
-      sm: 'txt-caption',
-      md: 'txt-label',
-      lg: 'txt-h6',
-    } satisfies Record<RatingSize, string>,
-  },
   defaultVariants: {
     intent: 'primary',
     size: 'md',
   },
+  variants: {
+    intent: {
+      accent: 'text-accent-text-default',
+      neutral: 'text-neutral-text-default',
+      primary: 'text-primary-text-default',
+      secondary: 'text-secondary-text-default',
+    } satisfies Record<RatingIntent, string>,
+    size: {
+      lg: 'txt-h6',
+      md: 'txt-label',
+      sm: 'txt-caption',
+    } satisfies Record<RatingSize, string>,
+  },
 })
 
 export const ratingControlCVA = cva('inline-flex items-center', {
-  variants: {
-    size: {
-      sm: 'gap-0.5',
-      md: 'gap-1',
-      lg: 'gap-1.5',
-    } satisfies Record<RatingSize, string>,
-  },
   defaultVariants: {
     size: 'md',
+  },
+  variants: {
+    size: {
+      lg: 'gap-1.5',
+      md: 'gap-1',
+      sm: 'gap-0.5',
+    } satisfies Record<RatingSize, string>,
   },
 })
 
 export const ratingItemCVA = cva(
   'inline-flex items-center justify-center outline-none not-data-[disabled]:cursor-pointer focus-visible:ring-2 focus-visible:ring-offset-2 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50 data-[disabled]:grayscale',
   {
-    variants: {
-      intent: {
-        neutral: 'focus-visible:ring-neutral-border-default',
-        primary: 'focus-visible:ring-primary-border-default',
-        secondary: 'focus-visible:ring-secondary-border-default',
-        accent: 'focus-visible:ring-accent-border-default',
-      } satisfies Record<RatingIntent, string>,
-      size: {
-        sm: '',
-        md: '',
-        lg: '',
-      } satisfies Record<RatingSize, string>,
-    },
     defaultVariants: {
       intent: 'primary',
       size: 'md',
+    },
+    variants: {
+      intent: {
+        accent: 'focus-visible:ring-accent-border-default',
+        neutral: 'focus-visible:ring-neutral-border-default',
+        primary: 'focus-visible:ring-primary-border-default',
+        secondary: 'focus-visible:ring-secondary-border-default',
+      } satisfies Record<RatingIntent, string>,
+      size: {
+        lg: '',
+        md: '',
+        sm: '',
+      } satisfies Record<RatingSize, string>,
     },
   },
 )
 
 export const ratingStarIconCVA = cva('shrink-0', {
-  variants: {
-    intent: {
-      neutral: '',
-      primary: '',
-      secondary: '',
-      accent: '',
-    } satisfies Record<RatingIntent, string>,
-    size: {
-      sm: 'size-4',
-      md: 'size-5',
-      lg: 'size-6',
-    } satisfies Record<RatingSize, string>,
-    state: {
-      empty: '',
-      half: '',
-      full: '',
-    } satisfies Record<'empty' | 'full' | 'half', string>,
-  },
   compoundVariants: [
     {
-      intent: 'neutral',
-      state: 'empty',
       class: 'text-neutral-text-subtle',
+      intent: 'neutral',
+      state: 'empty',
     },
     {
-      intent: 'primary',
-      state: 'empty',
       class: 'text-primary-text-subtle',
+      intent: 'primary',
+      state: 'empty',
     },
     {
-      intent: 'secondary',
-      state: 'empty',
       class: 'text-secondary-text-subtle',
+      intent: 'secondary',
+      state: 'empty',
     },
     {
+      class: 'text-accent-text-subtle',
       intent: 'accent',
       state: 'empty',
-      class: 'text-accent-text-subtle',
     },
     {
+      class: 'text-neutral-fill-default',
       intent: 'neutral',
       state: 'half',
-      class: 'text-neutral-fill-default',
     },
     {
+      class: 'text-primary-fill-default',
       intent: 'primary',
       state: 'half',
-      class: 'text-primary-fill-default',
     },
     {
+      class: 'text-secondary-fill-default',
       intent: 'secondary',
       state: 'half',
-      class: 'text-secondary-fill-default',
     },
     {
+      class: 'text-accent-fill-default',
       intent: 'accent',
       state: 'half',
-      class: 'text-accent-fill-default',
     },
     {
+      class: 'text-neutral-fill-default',
       intent: 'neutral',
       state: 'full',
-      class: 'text-neutral-fill-default',
     },
     {
+      class: 'text-primary-fill-default',
       intent: 'primary',
       state: 'full',
-      class: 'text-primary-fill-default',
     },
     {
+      class: 'text-secondary-fill-default',
       intent: 'secondary',
       state: 'full',
-      class: 'text-secondary-fill-default',
     },
     {
+      class: 'text-accent-fill-default',
       intent: 'accent',
       state: 'full',
-      class: 'text-accent-fill-default',
     },
   ],
   defaultVariants: {
@@ -158,24 +140,42 @@ export const ratingStarIconCVA = cva('shrink-0', {
     size: 'md',
     state: 'empty',
   },
+  variants: {
+    intent: {
+      accent: '',
+      neutral: '',
+      primary: '',
+      secondary: '',
+    } satisfies Record<RatingIntent, string>,
+    size: {
+      lg: 'size-6',
+      md: 'size-5',
+      sm: 'size-4',
+    } satisfies Record<RatingSize, string>,
+    state: {
+      empty: '',
+      full: '',
+      half: '',
+    } satisfies Record<'empty' | 'full' | 'half', string>,
+  },
 })
 
 export const ratingValueTextCVA = cva('font-mono tabular-nums', {
-  variants: {
-    intent: {
-      neutral: 'text-neutral-text-subtle',
-      primary: 'text-primary-text-subtle',
-      secondary: 'text-secondary-text-subtle',
-      accent: 'text-accent-text-subtle',
-    } satisfies Record<RatingIntent, string>,
-    size: {
-      sm: 'txt-caption',
-      md: 'txt-label',
-      lg: 'txt-base',
-    } satisfies Record<RatingSize, string>,
-  },
   defaultVariants: {
     intent: 'primary',
     size: 'md',
+  },
+  variants: {
+    intent: {
+      accent: 'text-accent-text-subtle',
+      neutral: 'text-neutral-text-subtle',
+      primary: 'text-primary-text-subtle',
+      secondary: 'text-secondary-text-subtle',
+    } satisfies Record<RatingIntent, string>,
+    size: {
+      lg: 'txt-base',
+      md: 'txt-label',
+      sm: 'txt-caption',
+    } satisfies Record<RatingSize, string>,
   },
 })

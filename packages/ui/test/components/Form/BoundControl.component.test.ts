@@ -6,20 +6,20 @@ import BoundControl from '~ui/app/components/Form/BoundControl.vue'
 
 const DummyInput = defineComponent({
   props: {
-    modelValue: { type: String, default: '' },
-    invalid: Boolean,
     error: String,
-    name: String,
     extra: String,
+    invalid: Boolean,
+    modelValue: { default: '', type: String },
+    name: String,
   },
   emits: ['update:modelValue', 'blur'],
   setup(props, { emit }) {
     return () =>
       h('input', {
         'data-extra': props.extra,
-        value: props.modelValue,
-        onInput: (e: Event) => emit('update:modelValue', (e.target as HTMLInputElement).value),
         onBlur: () => emit('blur'),
+        onInput: (e: Event) => emit('update:modelValue', (e.target as HTMLInputElement).value),
+        value: props.modelValue,
       })
   },
 })
@@ -31,18 +31,18 @@ describe('UIFormBoundControl', () => {
 
     const wrapper = await mountSuspended(BoundControl, {
       props: {
-        fieldName: 'title',
         config: {
           as: DummyInput,
           props: { extra: 'merged' },
         },
         fieldApi: {
-          handleChange,
           handleBlur,
+          handleChange,
         },
+        fieldName: 'title',
         state: {
-          value: 'hi',
           meta: { errors: ['bad'] },
+          value: 'hi',
         },
       },
     })

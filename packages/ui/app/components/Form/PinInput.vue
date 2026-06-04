@@ -120,8 +120,8 @@ const rootBindings = computed(() => {
   const base: Record<string, unknown> = {
     ...rootProps.value,
     ...arkAttrs.value,
-    invalid: invalid.value,
     class: cn('flex flex-col gap-1.5', props.ui?.root),
+    invalid: invalid.value,
   }
   if (!isProvider.value) {
     base.modelValue = arkValue.value
@@ -146,10 +146,10 @@ const fieldProps = computed(() => ({
   ] as const),
   invalid: invalid.value,
   ui: {
-    root: props.ui?.root,
-    label: props.ui?.label,
-    helperText: props.ui?.helperText,
     error: props.ui?.error,
+    helperText: props.ui?.helperText,
+    label: props.ui?.label,
+    root: props.ui?.root,
   },
 }))
 
@@ -160,27 +160,27 @@ const slotIndexes = computed(() => Array.from({ length: props.count }, (_, i) =>
 const pinInputRefs = ref<Array<InstanceType<typeof ArkPinInput.Input> | null>>([])
 
 const controlElement = computed((): HTMLInputElement | null => {
-  const inst = pinInputRefs.value[0]
+  const [inst] = pinInputRefs.value
   if (!inst) return null
   const el = (inst as { $el?: unknown }).$el
   return el instanceof HTMLInputElement ? el : null
 })
 
 defineExpose({
-  getControlElement: (): HTMLInputElement | null => controlElement.value,
   focus: (): void => {
     controlElement.value?.focus()
   },
+  getControlElement: (): HTMLInputElement | null => controlElement.value,
 } satisfies UIFormPinInputExpose)
 
 extendCompodiumMeta({
   defaultProps: {
-    modelValue: '',
     count: 5,
-    type: 'numeric',
-    label: 'Verification code',
     intent: 'primary',
+    label: 'Verification code',
+    modelValue: '',
     size: 'md',
+    type: 'numeric',
   },
 })
 </script>

@@ -8,8 +8,8 @@ describe('Toggle', () => {
     const wrapper = await mountSuspended(Toggle, {
       props: { pressed: false },
       slots: {
-        on: 'On',
         off: 'Off',
+        on: 'On',
       },
     })
 
@@ -21,8 +21,8 @@ describe('Toggle', () => {
     const wrapper = await mountSuspended(Toggle, {
       props: { pressed: true },
       slots: {
-        on: 'On',
         off: 'Off',
+        on: 'On',
       },
     })
 
@@ -33,7 +33,7 @@ describe('Toggle', () => {
   it('emits update:pressed when clicked', async () => {
     const wrapper = await mountSuspended(Toggle, {
       props: { pressed: false },
-      slots: { on: 'On', off: 'Off' },
+      slots: { off: 'Off', on: 'On' },
     })
 
     await wrapper.find('button').trigger('click')
@@ -42,8 +42,8 @@ describe('Toggle', () => {
 
   it('does not emit when disabled', async () => {
     const wrapper = await mountSuspended(Toggle, {
-      props: { pressed: false, disabled: true },
-      slots: { on: 'On', off: 'Off' },
+      props: { disabled: true, pressed: false },
+      slots: { off: 'Off', on: 'On' },
     })
 
     await wrapper.find('button').trigger('click')
@@ -52,8 +52,8 @@ describe('Toggle', () => {
 
   it('applies variant and intent classes to root button', async () => {
     const wrapper = await mountSuspended(Toggle, {
-      props: { pressed: false, variant: 'subtle', intent: 'accent' },
-      slots: { on: 'On', off: 'Off' },
+      props: { intent: 'accent', pressed: false, variant: 'subtle' },
+      slots: { off: 'Off', on: 'On' },
     })
 
     const classes = wrapper.find('button').classes().join(' ')
@@ -62,8 +62,8 @@ describe('Toggle', () => {
 
   it('applies iconOnly compact padding when set', async () => {
     const wrapper = await mountSuspended(Toggle, {
-      props: { pressed: false, iconOnly: true },
-      slots: { on: 'On', off: 'Off' },
+      props: { iconOnly: true, pressed: false },
+      slots: { off: 'Off', on: 'On' },
     })
 
     const classes = wrapper.find('button').classes().join(' ')
@@ -72,8 +72,8 @@ describe('Toggle', () => {
 
   it('applies activeBackground pressed-on styles when pressed and activeBackground is true', async () => {
     const wrapper = await mountSuspended(Toggle, {
-      props: { pressed: true, activeBackground: true, intent: 'primary', variant: 'default' },
-      slots: { on: 'On', off: 'Off' },
+      props: { activeBackground: true, intent: 'primary', pressed: true, variant: 'default' },
+      slots: { off: 'Off', on: 'On' },
     })
 
     const classes = wrapper.find('button').classes().join(' ')
@@ -83,7 +83,7 @@ describe('Toggle', () => {
   it('renders as a button element with type button', async () => {
     const wrapper = await mountSuspended(Toggle, {
       props: { pressed: false },
-      slots: { on: 'On', off: 'Off' },
+      slots: { off: 'Off', on: 'On' },
     })
 
     const button = wrapper.find('button')

@@ -17,7 +17,7 @@ function layoutMasonry() {
   }
 
   for (const node of items) {
-    const height = node.getBoundingClientRect().height
+    const { height } = node.getBoundingClientRect()
     const span = Math.max(1, Math.ceil((height + GAP_PX) / (ROW_HEIGHT_PX + GAP_PX)))
     node.style.gridRowEnd = `span ${span}`
   }

@@ -3,19 +3,19 @@ const expandedPanels = ref<string[]>(['shipping'])
 
 const faqItems = [
   {
-    value: 'shipping',
-    trigger: 'Quels sont les délais de livraison ?',
     content: 'Les commandes partent sous 24 h ouvrées. Livraison standard en 3 à 5 jours.',
+    trigger: 'Quels sont les délais de livraison ?',
+    value: 'shipping',
   },
   {
-    value: 'returns',
-    trigger: 'Comment retourner un article ?',
     content: 'Contactez le support sous 30 jours. L’étiquette retour est envoyée par e-mail.',
+    trigger: 'Comment retourner un article ?',
+    value: 'returns',
   },
   {
-    value: 'payment',
-    trigger: 'Quels moyens de paiement acceptez-vous ?',
     content: 'Carte bancaire, virement SEPA et paiement en plusieurs fois éligible.',
+    trigger: 'Quels moyens de paiement acceptez-vous ?',
+    value: 'payment',
   },
 ] as const
 </script>

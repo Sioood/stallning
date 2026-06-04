@@ -25,9 +25,9 @@ function paginationRootHarness(extraProps: Record<string, unknown> = {}) {
           UIPaginationRoot,
           {
             count: 100,
+            'data-testid': 'pagination-root',
             'page-size': 10,
             'sibling-count': 1,
-            'data-testid': 'pagination-root',
             ...extraProps,
           },
           {
@@ -44,7 +44,7 @@ function paginationRootHarness(extraProps: Record<string, unknown> = {}) {
                   }) =>
                     pages.map((page) =>
                       page.type === 'page'
-                        ? h(UIPaginationPageTrigger, { value: page.value, key: page.value })
+                        ? h(UIPaginationPageTrigger, { key: page.value, value: page.value })
                         : h(UIPaginationEllipsis, {
                             index: page.index ?? 0,
                             key: `ellipsis-${page.index}`,
@@ -67,7 +67,7 @@ describe('UIPagination (assembled)', () => {
         name: 'AssembledHarness',
         setup() {
           return () =>
-            h(UIPagination, { count: 100, 'page-size': 10, 'data-testid': 'pagination-root' })
+            h(UIPagination, { count: 100, 'data-testid': 'pagination-root', 'page-size': 10 })
         },
       }),
     )
@@ -119,11 +119,11 @@ describe('UIPagination (assembled)', () => {
         return () =>
           h(UIPagination, {
             count: 100,
-            'page-size': 10,
-            page: page.value,
             'onUpdate:page': (v: number) => {
               page.value = v
             },
+            page: page.value,
+            'page-size': 10,
           })
       },
     })
@@ -148,11 +148,11 @@ describe('UIPagination (assembled)', () => {
         return () =>
           h(UIPagination, {
             count: 100,
-            'page-size': 10,
-            page: page.value,
             'onUpdate:page': (v: number) => {
               page.value = v
             },
+            page: page.value,
+            'page-size': 10,
           })
       },
     })
@@ -176,10 +176,10 @@ describe('UIPagination (assembled)', () => {
         return () =>
           h(UIPagination, {
             count: 100,
-            'page-size': pageSize.value,
             'onUpdate:pageSize': (v: number) => {
               pageSize.value = v
             },
+            'page-size': pageSize.value,
           })
       },
     })
@@ -241,9 +241,9 @@ describe('UIPaginationRoot (manual composition)', () => {
           return () =>
             h(UIPagination, {
               count: 100,
+              onPageChange: pageChangeSpy,
               'page-size': 10,
               'sibling-count': 1,
-              onPageChange: pageChangeSpy,
             })
         },
       }),
@@ -277,7 +277,7 @@ describe('UIPaginationRoot (manual composition)', () => {
     const wrapper = await mountSuspended(paginationRootHarness())
 
     const allButtons = wrapper.findAll('button')
-    const prevButton = allButtons[0]
+    const [prevButton] = allButtons
     const nextButton = allButtons[allButtons.length - 1]
 
     // Prev should be disabled on first page
@@ -303,12 +303,12 @@ describe('UIPaginationRoot (manual composition)', () => {
             UIPaginationRoot,
             {
               count: 100,
-              'page-size': 10,
-              'sibling-count': 1,
-              page: page.value,
               'onUpdate:page': (v: number) => {
                 page.value = v
               },
+              page: page.value,
+              'page-size': 10,
+              'sibling-count': 1,
             },
             {
               default: () => [
@@ -324,7 +324,7 @@ describe('UIPaginationRoot (manual composition)', () => {
                     }) =>
                       pages.map((p) =>
                         p.type === 'page'
-                          ? h(UIPaginationPageTrigger, { value: p.value, key: p.value })
+                          ? h(UIPaginationPageTrigger, { key: p.value, value: p.value })
                           : h(UIPaginationEllipsis, { index: p.index ?? 0, key: `e-${p.index}` }),
                       ),
                   },
@@ -357,7 +357,7 @@ describe('UIPaginationRoot (manual composition)', () => {
         return () =>
           h(
             UIPaginationRoot,
-            { value: api.value, 'sibling-count': 1 },
+            { 'sibling-count': 1, value: api.value },
             {
               default: () => [
                 h(UIPaginationPrevTrigger),
@@ -372,7 +372,7 @@ describe('UIPaginationRoot (manual composition)', () => {
                     }) =>
                       pages.map((p) =>
                         p.type === 'page'
-                          ? h(UIPaginationPageTrigger, { value: p.value, key: p.value })
+                          ? h(UIPaginationPageTrigger, { key: p.value, value: p.value })
                           : h(UIPaginationEllipsis, { index: p.index ?? 0, key: `e-${p.index}` }),
                       ),
                   },
@@ -414,7 +414,7 @@ describe('UIPaginationRoot (manual composition)', () => {
                     }) =>
                       pages.map((p) =>
                         p.type === 'page'
-                          ? h(UIPaginationPageTrigger, { value: p.value, key: p.value })
+                          ? h(UIPaginationPageTrigger, { key: p.value, value: p.value })
                           : h(UIPaginationEllipsis, { index: p.index ?? 0, key: `e-${p.index}` }),
                       ),
                   },
@@ -440,7 +440,7 @@ describe('UIPaginationRoot (manual composition)', () => {
         return () =>
           h(
             UIPaginationRoot,
-            { count: 43, 'page-size': 10, 'sibling-count': 1, 'data-testid': 'ctx-root' },
+            { count: 43, 'data-testid': 'ctx-root', 'page-size': 10, 'sibling-count': 1 },
             {
               default: () => [
                 h(
@@ -490,7 +490,7 @@ describe('UIPagination triggers with asChild', () => {
     const wrapper = await mountSuspended(
       defineComponent({
         name: 'PrevTriggerAsChildHarness',
-        components: { UIPaginationRoot, UIPaginationPrevTrigger },
+        components: { UIPaginationPrevTrigger, UIPaginationRoot },
         setup() {
           return () =>
             h(
@@ -512,7 +512,7 @@ describe('UIPagination triggers with asChild', () => {
     const wrapper = await mountSuspended(
       defineComponent({
         name: 'NextTriggerAsChildHarness',
-        components: { UIPaginationRoot, UIPaginationNextTrigger },
+        components: { UIPaginationNextTrigger, UIPaginationRoot },
         setup() {
           return () =>
             h(
@@ -534,7 +534,7 @@ describe('UIPagination triggers with asChild', () => {
     const wrapper = await mountSuspended(
       defineComponent({
         name: 'FirstTriggerAsChildHarness',
-        components: { UIPaginationRoot, UIPaginationFirstTrigger },
+        components: { UIPaginationFirstTrigger, UIPaginationRoot },
         setup() {
           return () =>
             h(
@@ -556,7 +556,7 @@ describe('UIPagination triggers with asChild', () => {
     const wrapper = await mountSuspended(
       defineComponent({
         name: 'LastTriggerAsChildHarness',
-        components: { UIPaginationRoot, UIPaginationLastTrigger },
+        components: { UIPaginationLastTrigger, UIPaginationRoot },
         setup() {
           return () =>
             h(

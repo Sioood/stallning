@@ -1,11 +1,13 @@
-import { getMessagesWithNamespace } from '~nuxt-essentials/i18n/utils/namespace'
 
 import namespace from './namespace.json'
 import translations from './translations.yaml'
 
-export default defineI18nLocale(async () => {
-  return await getMessagesWithNamespace({
-    translations: async () => translations,
-    namespace: async () => namespace,
-  })
-})
+import { getMessagesWithNamespace } from '~nuxt-essentials/i18n/utils/namespace'
+
+export default defineI18nLocale(
+  async () =>
+    await getMessagesWithNamespace({
+      namespace: async () => namespace,
+      translations: async () => translations,
+    }),
+)

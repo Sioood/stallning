@@ -97,7 +97,7 @@ describe('UIStepsRoot', () => {
   it('renders default indicator content (step number on first step)', async () => {
     const wrapper = await mountSuspended(stepsHarness())
     // The first indicator (current step) should show "1"
-    const firstIndicator = wrapper.findAll('[data-part="indicator"]')[0]
+    const [firstIndicator] = wrapper.findAll('[data-part="indicator"]')
     expect(firstIndicator!.text()).toBe('1')
   })
 
@@ -106,12 +106,12 @@ describe('UIStepsRoot', () => {
     const navContainer = wrapper.find('[data-testid="nav-buttons"]')
 
     // Prev should exist and be disabled on first step
-    const prevButton = navContainer.findAll('button')[0]
+    const [prevButton] = navContainer.findAll('button')
     expect(prevButton).toBeDefined()
     expect(prevButton!.attributes('disabled')).toBeDefined()
 
     // Next should exist
-    const nextButton = navContainer.findAll('button')[1]
+    const [, nextButton] = navContainer.findAll('button')
     expect(nextButton).toBeDefined()
   })
 
@@ -119,7 +119,7 @@ describe('UIStepsRoot', () => {
     const wrapper = await mountSuspended(stepsHarness())
 
     const navContainer = wrapper.find('[data-testid="nav-buttons"]')
-    const nextButton = navContainer.findAll('button')[1]
+    const [, nextButton] = navContainer.findAll('button')
     expect(nextButton!.attributes('disabled')).toBeUndefined()
 
     // Click next
@@ -140,10 +140,10 @@ describe('UIStepsRoot', () => {
             UIStepsRoot,
             {
               count: 3,
-              step: step.value,
               'onUpdate:step': (v: number) => {
                 step.value = v
               },
+              step: step.value,
             },
             {
               default: () => [
@@ -228,7 +228,7 @@ describe('UIStepsRoot', () => {
     const wrapper = await mountSuspended(stepsHarness())
 
     const navContainer = wrapper.find('[data-testid="nav-buttons"]')
-    const nextButton = navContainer.findAll('button')[1]
+    const [, nextButton] = navContainer.findAll('button')
 
     // Go to step 2
     await nextButton!.trigger('click')
@@ -248,14 +248,14 @@ describe('UIStepsRoot', () => {
 
     // First, go to step 2
     const navContainer = wrapper.find('[data-testid="nav-buttons"]')
-    const nextButton = navContainer.findAll('button')[1]
+    const [, nextButton] = navContainer.findAll('button')
     await nextButton!.trigger('click')
     await nextTick()
 
     expect(wrapper.text()).toContain('Content 2')
 
     // Now go back
-    const prevButton = navContainer.findAll('button')[0]
+    const [prevButton] = navContainer.findAll('button')
     await prevButton!.trigger('click')
     await nextTick()
 
@@ -463,14 +463,14 @@ describe('UIStepsRoot', () => {
     const wrapper = await mountSuspended(stepsHarness())
 
     const navContainer = wrapper.find('[data-testid="nav-buttons"]')
-    const nextButton = navContainer.findAll('button')[1]
+    const [, nextButton] = navContainer.findAll('button')
     await nextButton!.trigger('click')
     await nextTick()
     await nextButton!.trigger('click')
     await nextTick()
 
     // Step 0 indicator should now be completed — no longer show "1"
-    const firstIndicator = wrapper.findAll('[data-part="indicator"]')[0]
+    const [firstIndicator] = wrapper.findAll('[data-part="indicator"]')
     expect(firstIndicator!.text()).not.toBe('1')
     // The indicator should not be empty (has checkmark icon)
     expect(firstIndicator!.element.childElementCount).toBeGreaterThan(0)
@@ -532,7 +532,7 @@ describe('UISteps triggers with asChild', () => {
     const wrapper = await mountSuspended(
       defineComponent({
         name: 'NextTriggerAsChildHarness',
-        components: { UIStepsRoot, UIStepsNextTrigger },
+        components: { UIStepsNextTrigger, UIStepsRoot },
         setup() {
           return () =>
             h(
@@ -554,7 +554,7 @@ describe('UISteps triggers with asChild', () => {
     const wrapper = await mountSuspended(
       defineComponent({
         name: 'PrevTriggerAsChildHarness',
-        components: { UIStepsRoot, UIStepsPrevTrigger },
+        components: { UIStepsPrevTrigger, UIStepsRoot },
         setup() {
           return () =>
             h(
@@ -576,7 +576,7 @@ describe('UISteps triggers with asChild', () => {
     const wrapper = await mountSuspended(
       defineComponent({
         name: 'TriggerAsChildHarness',
-        components: { UIStepsRoot, UIStepsItem, UIStepsTrigger },
+        components: { UIStepsItem, UIStepsRoot, UIStepsTrigger },
         setup() {
           return () =>
             h(

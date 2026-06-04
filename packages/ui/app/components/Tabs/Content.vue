@@ -32,10 +32,10 @@ const tabsContentCVA = cva('outline-none', {
 
 const props = withDefaults(defineProps<TabsContentProps>(), {
   lazyMount: undefined,
-  unmountOnExit: undefined,
   portalled: false,
   teleportTo: 'body',
   ui: undefined,
+  unmountOnExit: undefined,
 })
 
 const attrs = useAttrs()

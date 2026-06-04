@@ -9,10 +9,10 @@ import type { MenuGroupEntry } from '~/utils/Components/Menu/entries'
 const menuItemGroupLabelCVA = cva('', {
   variants: {
     intent: {
+      accent: 'text-accent-text-subtle',
       neutral: 'text-neutral-text-subtle',
       primary: 'text-primary-text-subtle',
       secondary: 'text-secondary-text-subtle',
-      accent: 'text-accent-text-subtle',
     },
     size: {
       md: 'txt-caption px-2 py-1',
@@ -22,10 +22,10 @@ const menuItemGroupLabelCVA = cva('', {
 const menuSeparatorCVA = cva('block w-full border-t', {
   variants: {
     intent: {
+      accent: 'border-accent-border-subtle',
       neutral: 'border-neutral-border-subtle',
       primary: 'border-primary-border-subtle',
       secondary: 'border-secondary-border-subtle',
-      accent: 'border-accent-border-subtle',
     },
     size: {
       md: 'my-1',
@@ -45,16 +45,16 @@ export interface MenuGroupProps extends MenuGroupEntry {
 }
 
 const props = withDefaults(defineProps<MenuGroupProps>(), {
-  label: undefined,
+  customClass: undefined,
   intent: 'neutral',
-  size: 'md',
   item: undefined,
   itemGroup: undefined,
   itemGroupLabel: undefined,
-  separator: undefined,
   itemIndicator: undefined,
   itemText: undefined,
-  customClass: undefined,
+  label: undefined,
+  separator: undefined,
+  size: 'md',
 })
 
 const groupProps = computed(() => pick(props, ['label', 'items', 'intent', 'size'] as const))

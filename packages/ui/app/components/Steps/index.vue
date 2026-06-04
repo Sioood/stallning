@@ -48,13 +48,13 @@ export interface UIStepsProps
 }
 
 const props = withDefaults(defineProps<UIStepsProps>(), {
-  items: () => [],
   intent: 'neutral',
-  size: 'md',
+  items: () => [],
   showProgress: false,
   showTriggers: true,
-  value: undefined,
+  size: 'md',
   ui: undefined,
+  value: undefined,
 })
 
 const step = defineModel<number>('step', { required: false })
@@ -76,8 +76,8 @@ const rootProps = computed(() => {
 extendCompodiumMeta({
   defaultProps: {
     intent: 'neutral',
-    size: 'md',
     showTriggers: true,
+    size: 'md',
   },
 })
 </script>

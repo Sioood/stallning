@@ -4,13 +4,13 @@ import { buttonCVA as button, toggleCVA } from '../../app/utils/Components/Butto
 
 describe('buttonVariants', () => {
   it('returns base classes', () => {
-    const result = button({ variant: 'default', intent: 'primary', size: 'md', disabled: false })
+    const result = button({ disabled: false, intent: 'primary', size: 'md', variant: 'default' })
     expect(result).toContain('inline-flex')
     expect(result).toContain('justify-center')
   })
 
   it('applies ghost variant base classes', () => {
-    const result = button({ variant: 'ghost', intent: 'primary' })
+    const result = button({ intent: 'primary', variant: 'ghost' })
     expect(result).toContain('border-transparent')
   })
 
@@ -37,21 +37,21 @@ describe('buttonVariants', () => {
   })
 
   it('generates compound variant for default + primary intent', () => {
-    const result = button({ variant: 'default', intent: 'primary' })
+    const result = button({ intent: 'primary', variant: 'default' })
     expect(result).toContain('bg-primary-fill-default')
     expect(result).toContain('border-primary-border-default')
     expect(result).toContain('text-primary-text-inverse')
   })
 
   it('generates compound variant for subtle + error intent', () => {
-    const result = button({ variant: 'subtle', intent: 'error' })
+    const result = button({ intent: 'error', variant: 'subtle' })
     expect(result).toContain('bg-error-fill-subtle')
     expect(result).toContain('border-error-border-subtle')
     expect(result).toContain('text-error-text-subtle')
   })
 
   it('generates compound variant for ghost + accent intent', () => {
-    const result = button({ variant: 'ghost', intent: 'accent' })
+    const result = button({ intent: 'accent', variant: 'ghost' })
     expect(result).toContain('bg-transparent')
     expect(result).toContain('text-accent-text-subtle')
   })
@@ -59,13 +59,13 @@ describe('buttonVariants', () => {
 
 describe('toggleCVA', () => {
   it('applies pressed state classes for default + primary', () => {
-    const result = toggleCVA({ variant: 'default', intent: 'primary' })
+    const result = toggleCVA({ intent: 'primary', variant: 'default' })
     expect(result).toContain('data-[state=on]:bg-primary-fill-default-active')
     expect(result).toContain('data-[state=on]:border-primary-border-default-active')
   })
 
   it('applies pressed state classes for ghost + success', () => {
-    const result = toggleCVA({ variant: 'ghost', intent: 'success' })
+    const result = toggleCVA({ intent: 'success', variant: 'ghost' })
     expect(result).toContain('data-[state=on]:bg-success-fill-subtle-active')
   })
 })

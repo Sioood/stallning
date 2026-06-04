@@ -16,11 +16,11 @@ const contentKey = ref(0)
 
 const menu = useMenu(
   computed(() => ({
-    open: open.value,
-    positioning: { strategy: 'fixed' },
     onOpenChange: (details) => {
       open.value = details.open
     },
+    open: open.value,
+    positioning: { strategy: 'fixed' },
   })),
 )
 
@@ -40,8 +40,8 @@ async function handleContextmenu(event: Event, row: Row<TData>) {
   await nextTick()
 
   menu.machine.send({
-    type: 'CONTEXT_MENU',
     point: { x: event.clientX, y: event.clientY },
+    type: 'CONTEXT_MENU',
   })
 }
 </script>

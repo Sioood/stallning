@@ -46,11 +46,11 @@ export interface CarouselRootProps
 
 const props = withDefaults(defineProps<CarouselRootProps>(), {
   allowMouseDrag: true,
+  indicatorVariant: 'dot',
   intent: 'primary',
   size: 'md',
-  indicatorVariant: 'dot',
-  value: undefined,
   ui: undefined,
+  value: undefined,
 })
 
 const page = defineModel<number>('page', { required: false })
@@ -62,7 +62,7 @@ const size = toRef(props, 'size')
 const indicatorVariant = toRef(props, 'indicatorVariant')
 const orientation = computed<'horizontal' | 'vertical'>(() => props.orientation ?? 'horizontal')
 
-provide(carouselChromeKey, { intent, size, orientation, indicatorVariant })
+provide(carouselChromeKey, { indicatorVariant, intent, orientation, size })
 
 const isProvider = computed(() => props.value !== undefined)
 
@@ -120,10 +120,10 @@ const rootBindings = computed(() => {
 
 extendCompodiumMeta({
   defaultProps: {
-    slideCount: 5,
+    allowMouseDrag: true,
     intent: 'primary',
     size: 'md',
-    allowMouseDrag: true,
+    slideCount: 5,
   },
 })
 </script>

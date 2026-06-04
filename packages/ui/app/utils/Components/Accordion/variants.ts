@@ -8,20 +8,20 @@ export const accordionRootCVA = cva(
     'data-[orientation=horizontal]:flex-row data-[orientation=vertical]:flex-col',
   ],
   {
+    defaultVariants: {
+      intent: 'neutral',
+      size: 'md',
+    },
     variants: {
       intent: {
+        accent: 'text-accent-text-default',
         neutral: 'text-neutral-text-default',
         primary: 'text-primary-text-default',
         secondary: 'text-secondary-text-default',
-        accent: 'text-accent-text-default',
       } satisfies Record<AccordionIntent, string>,
       size: {
         md: '',
       } satisfies Record<AccordionSize, string>,
-    },
-    defaultVariants: {
-      intent: 'neutral',
-      size: 'md',
     },
   },
 )
@@ -33,20 +33,20 @@ export const accordionItemCVA = cva(
     'flex w-full items-center data-[orientation=horizontal]:w-fit data-[orientation=vertical]:flex-col',
   ],
   {
+    defaultVariants: {
+      intent: 'neutral',
+      size: 'md',
+    },
     variants: {
       intent: {
+        accent: 'border-accent-border-subtle',
         neutral: 'border-neutral-border-subtle',
         primary: 'border-primary-border-subtle',
         secondary: 'border-secondary-border-subtle',
-        accent: 'border-accent-border-subtle',
       } satisfies Record<AccordionIntent, string>,
       size: {
         md: 'txt-h6 gap-3 p-1 data-[orientation=horizontal]:border-r data-[orientation=vertical]:border-b',
       } satisfies Record<AccordionSize, string>,
-    },
-    defaultVariants: {
-      intent: 'neutral',
-      size: 'md',
     },
   },
 )
@@ -59,20 +59,20 @@ export const accordionItemTriggerCVA = cva(
     'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
   ],
   {
+    defaultVariants: {
+      intent: 'neutral',
+      size: 'md',
+    },
     variants: {
       intent: {
+        accent: 'text-accent-text-default',
         neutral: 'text-neutral-text-default',
         primary: 'text-primary-text-default',
         secondary: 'text-secondary-text-default',
-        accent: 'text-accent-text-default',
       } satisfies Record<AccordionIntent, string>,
       size: {
         md: 'txt-h6 gap-3 p-1',
       } satisfies Record<AccordionSize, string>,
-    },
-    defaultVariants: {
-      intent: 'neutral',
-      size: 'md',
     },
   },
 )
@@ -86,20 +86,20 @@ export const accordionItemContentCVA = cva(
     'data-[orientation=horizontal]:data-[state=closed]:slide-out-to-left-1 data-[orientation=horizontal]:data-[state=open]:slide-in-from-left-1',
   ],
   {
+    defaultVariants: {
+      intent: 'neutral',
+      size: 'md',
+    },
     variants: {
       intent: {
+        accent: 'border-accent-border-subtle text-accent-text-default',
         neutral: 'border-neutral-border-subtle text-neutral-text-default',
         primary: 'border-primary-border-subtle text-primary-text-default',
         secondary: 'border-secondary-border-subtle text-secondary-text-default',
-        accent: 'border-accent-border-subtle text-accent-text-default',
       } satisfies Record<AccordionIntent, string>,
       size: {
         md: 'txt-base data-[orientation=horizontal]:border-l data-[orientation=horizontal]:px-4 data-[orientation=vertical]:border-t data-[orientation=vertical]:py-4',
       } satisfies Record<AccordionSize, string>,
-    },
-    defaultVariants: {
-      intent: 'neutral',
-      size: 'md',
     },
   },
 )
@@ -111,20 +111,20 @@ export const accordionItemIndicatorCVA = cva(
     'data-[state=open]:data-[orientation=horizontal]:rotate-90',
   ],
   {
+    defaultVariants: {
+      intent: 'neutral',
+      size: 'md',
+    },
     variants: {
       intent: {
+        accent: 'text-accent-text-subtle',
         neutral: 'text-neutral-text-subtle',
         primary: 'text-primary-text-subtle',
         secondary: 'text-secondary-text-subtle',
-        accent: 'text-accent-text-subtle',
       } satisfies Record<AccordionIntent, string>,
       size: {
         md: 'size-4',
       } satisfies Record<AccordionSize, string>,
-    },
-    defaultVariants: {
-      intent: 'neutral',
-      size: 'md',
     },
   },
 )

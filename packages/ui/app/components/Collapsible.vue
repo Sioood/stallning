@@ -16,16 +16,16 @@ type CollapsibleSize = 'md'
 
 const collapsibleTriggerCVA = cva('flex w-full items-center justify-between text-left', {
   variants: {
+    disabled: {
+      false: 'cursor-pointer',
+      true: 'cursor-not-allowed',
+    },
     intent: {
       neutral: 'border-neutral-border-default text-neutral-text-default',
     } satisfies Record<CollapsibleIntent, string>,
     size: {
       md: 'txt-h6 gap-3 border-b p-1',
     } satisfies Record<CollapsibleSize, string>,
-    disabled: {
-      true: 'cursor-not-allowed',
-      false: 'cursor-pointer',
-    },
   },
 })
 
@@ -58,13 +58,13 @@ const collapsibleIconCVA = cva('shrink-0', {
 
 const collapsibleContentCVA = cva('overflow-hidden', {
   variants: {
+    animated: {
+      false: '',
+      true: '',
+    },
     size: {
       md: 'pt-2',
     } satisfies Record<CollapsibleSize, string>,
-    animated: {
-      true: '',
-      false: '',
-    },
   },
 })
 
@@ -105,8 +105,8 @@ const props = withDefaults(defineProps<CollapsibleProps>(), {
   heading: '',
   intent: 'neutral',
   size: 'md',
-  value: undefined,
   ui: undefined,
+  value: undefined,
 })
 
 const isProvider = computed(() => props.value !== undefined)

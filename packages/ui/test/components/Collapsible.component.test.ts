@@ -18,8 +18,8 @@ describe('Collapsible', () => {
     const wrapper = await mountSuspended(Collapsible, {
       props: { heading: 'Ignored' },
       slots: {
-        title: 'Custom title',
         default: 'Content',
+        title: 'Custom title',
       },
     })
 

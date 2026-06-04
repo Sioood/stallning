@@ -49,10 +49,10 @@ export function useSchemaForm<TValues extends Record<string, unknown>>(
 
   const form = useForm({
     defaultValues: options.defaultValues,
-    validators: formValidators,
     onSubmit: async ({ value }) => {
       await options.onSubmit?.({ value: value as TValues })
     },
+    validators: formValidators,
   })
 
   return { form }

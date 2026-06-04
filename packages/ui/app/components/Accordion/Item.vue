@@ -23,9 +23,9 @@ export interface AccordionItemProps extends AccordionItemBaseProps {
 }
 
 const props = withDefaults(defineProps<AccordionItemProps>(), {
+  disabled: undefined,
   intent: undefined,
   size: undefined,
-  disabled: undefined,
   ui: undefined,
 })
 

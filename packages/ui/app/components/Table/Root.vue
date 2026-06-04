@@ -9,11 +9,11 @@ import type { TableRootProps } from '~/utils/Components/Table/types'
 defineOptions({ inheritAttrs: false })
 
 const props = withDefaults(defineProps<TableRootProps<TData>>(), {
+  empty: undefined,
   intent: 'neutral',
+  loading: false,
   size: 'md',
   sticky: undefined,
-  loading: false,
-  empty: undefined,
   ui: undefined,
 })
 
@@ -30,28 +30,28 @@ const emptyText = toRef(props, 'empty')
 const table = toRef(props, 'table')
 
 provide(tableChromeKey, {
+  emptyText,
   intent,
+  loading,
   size,
   sticky,
-  loading,
-  ui,
-  emptyText,
   table: table as Ref<Table<RowData>>,
+  ui,
 })
 
 const stickyVariant = computed(() => resolveStickyVariant(sticky.value))
 
 defineExpose({
-  tableRef,
   scrollRef,
   tableApi: table,
+  tableRef,
 })
 
 extendCompodiumMeta({
   defaultProps: {
     intent: 'neutral',
-    size: 'md',
     loading: false,
+    size: 'md',
   },
 })
 </script>

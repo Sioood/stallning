@@ -12,12 +12,12 @@ describe('UIFormCheckboxGroup', () => {
   it('renders fieldset legend, helper text, and all items', async () => {
     const wrapper = await mountSuspended(CheckboxGroup, {
       props: {
-        modelValue: ['1'],
-        'onUpdate:modelValue': () => {},
-        label: 'Pick',
         helperText: 'Choose items',
         items,
+        label: 'Pick',
+        modelValue: ['1'],
         name: 'nums',
+        'onUpdate:modelValue': () => {},
       },
     })
 
@@ -30,11 +30,11 @@ describe('UIFormCheckboxGroup', () => {
   it('renders checked state for pre-selected values', async () => {
     const wrapper = await mountSuspended(CheckboxGroup, {
       props: {
-        modelValue: ['1'],
-        'onUpdate:modelValue': () => {},
-        label: 'Pick',
         items,
+        label: 'Pick',
+        modelValue: ['1'],
         name: 'nums',
+        'onUpdate:modelValue': () => {},
       },
     })
 
@@ -48,11 +48,11 @@ describe('UIFormCheckboxGroup', () => {
   it('applies invalid styling when error prop is provided', async () => {
     const wrapper = await mountSuspended(CheckboxGroup, {
       props: {
+        error: 'Select at least one',
+        items,
+        label: 'Required group',
         modelValue: [],
         'onUpdate:modelValue': () => {},
-        label: 'Required group',
-        items,
-        error: 'Select at least one',
       },
     })
 
@@ -63,11 +63,11 @@ describe('UIFormCheckboxGroup', () => {
   it('forwards passthrough attrs to the group element', async () => {
     const wrapper = await mountSuspended(CheckboxGroup, {
       props: {
+        'data-testid': 'my-checkbox-group',
+        items,
+        label: 'Attrs test',
         modelValue: [],
         'onUpdate:modelValue': () => {},
-        label: 'Attrs test',
-        items,
-        'data-testid': 'my-checkbox-group',
       },
     })
 

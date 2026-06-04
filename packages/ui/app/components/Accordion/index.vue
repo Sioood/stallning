@@ -40,8 +40,8 @@ export interface AccordionProps
 const props = withDefaults(defineProps<AccordionProps>(), {
   intent: 'neutral',
   size: 'md',
-  value: undefined,
   ui: undefined,
+  value: undefined,
 })
 
 const modelValue = defineModel<string[]>({ required: false })
@@ -100,10 +100,10 @@ const rootBindings = computed(() => {
 
 extendCompodiumMeta({
   defaultProps: {
+    collapsible: true,
+    defaultValue: ['one'],
     intent: 'neutral',
     size: 'md',
-    defaultValue: ['one'],
-    collapsible: true,
   },
 })
 </script>

@@ -70,19 +70,19 @@ export interface UICarouselProps
 }
 
 const props = withDefaults(defineProps<UICarouselProps>(), {
-  slideCount: undefined,
-  items: () => [],
   allowMouseDrag: true,
-  intent: 'primary',
-  size: 'md',
   indicatorVariant: 'dot',
-  showTriggers: true,
-  showIndicators: true,
-  showAutoplayControls: true,
-  showProgress: false,
+  intent: 'primary',
+  items: () => [],
   pauseOnHover: false,
-  value: undefined,
+  showAutoplayControls: true,
+  showIndicators: true,
+  showProgress: false,
+  showTriggers: true,
+  size: 'md',
+  slideCount: undefined,
   ui: undefined,
+  value: undefined,
 })
 
 const page = defineModel<number>('page', { required: false })
@@ -100,20 +100,20 @@ const hasAutoplay = computed(() => Boolean(props.autoplay))
 const orientation = computed(() => props.orientation ?? 'horizontal')
 
 const overlayPrevClass = computed(() =>
-  carouselOverlayTriggerCVA({ position: 'prev', orientation: orientation.value }),
+  carouselOverlayTriggerCVA({ orientation: orientation.value, position: 'prev' }),
 )
 const overlayNextClass = computed(() =>
-  carouselOverlayTriggerCVA({ position: 'next', orientation: orientation.value }),
+  carouselOverlayTriggerCVA({ orientation: orientation.value, position: 'next' }),
 )
 
 const thumbnailImageSize = computed(() => {
   switch (props.size) {
     case 'sm':
-      return { width: 112, height: 80 }
+      return { height: 80, width: 112 }
     case 'lg':
-      return { width: 176, height: 112 }
+      return { height: 112, width: 176 }
     default:
-      return { width: 144, height: 96 }
+      return { height: 96, width: 144 }
   }
 })
 
@@ -148,11 +148,11 @@ function handleViewportLeave(carousel: CarouselContextApi) {
 
 extendCompodiumMeta({
   defaultProps: {
-    intent: 'primary',
-    size: 'md',
     allowMouseDrag: true,
-    showTriggers: true,
+    intent: 'primary',
     showIndicators: true,
+    showTriggers: true,
+    size: 'md',
   },
 })
 </script>

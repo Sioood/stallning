@@ -26,9 +26,9 @@ export interface SegmentGroupItemProps extends SegmentGroupItemBaseProps {
 }
 
 const props = withDefaults(defineProps<SegmentGroupItemProps>(), {
+  disabled: undefined,
   intent: undefined,
   size: undefined,
-  disabled: undefined,
   ui: undefined,
 })
 

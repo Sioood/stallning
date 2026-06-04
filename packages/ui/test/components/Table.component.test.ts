@@ -23,8 +23,8 @@ type Payment = {
 }
 
 const sampleData: Payment[] = [
-  { id: '1', email: 'alice@example.com', amount: 100 },
-  { id: '2', email: 'bob@example.com', amount: 200 },
+  { amount: 100, email: 'alice@example.com', id: '1' },
+  { amount: 200, email: 'bob@example.com', id: '2' },
 ]
 
 describe('UITable (assembled)', () => {
@@ -68,7 +68,7 @@ describe('UITable (assembled)', () => {
           return () =>
             h(
               UITable,
-              { data: data.value, columns: columns.value },
+              { columns: columns.value, data: data.value },
               {
                 'email-cell': ({ row }: { row: { original: Payment } }) =>
                   h('span', { 'data-testid': 'email-cell' }, row.original.email.toUpperCase()),
@@ -82,18 +82,18 @@ describe('UITable (assembled)', () => {
   })
 
   it('sorts rows when sorting state changes', async () => {
-    const sorting = ref([{ id: 'email', desc: false }])
+    const sorting = ref([{ desc: false, id: 'email' }])
     const data = ref(sampleData)
     const columns = ref<UITableColumn<Payment>[]>([
-      { accessorKey: 'email', header: 'Email', enableSorting: true },
+      { accessorKey: 'email', enableSorting: true, header: 'Email' },
     ])
 
     const wrapper = await mountSuspended(
       defineComponent({
         setup() {
           const table = useUITable({
-            data,
             columns,
+            data,
             stateModels: { sorting },
           })
 
@@ -122,7 +122,7 @@ describe('UITable (assembled)', () => {
     expect(wrapper.find('[data-testid="first-email"]').text()).toBe('alice@example.com')
     await wrapper.find('[data-testid="sort-email"]').trigger('click')
     await flushPromises()
-    expect(sorting.value).toEqual([{ id: 'email', desc: true }])
+    expect(sorting.value).toEqual([{ desc: true, id: 'email' }])
     expect(wrapper.find('[data-testid="first-email"]').text()).toBe('bob@example.com')
   })
 
@@ -135,10 +135,10 @@ describe('UITable (assembled)', () => {
       defineComponent({
         setup() {
           const table = useUITable({
-            data,
             columns,
-            stateModels: { rowSelection },
+            data,
             getRowId: (row) => row.id,
+            stateModels: { rowSelection },
           })
 
           return () =>
@@ -170,8 +170,8 @@ describe('UITable (assembled)', () => {
       defineComponent({
         setup() {
           const table = useUITable({
-            data,
             columns,
+            data,
             stateModels: { globalFilter },
           })
 
@@ -219,8 +219,8 @@ describe('UITable (assembled)', () => {
     const data = ref(sampleData)
     const columns = ref<UITableColumn<Payment>[]>([
       createSelectionColumn({
-        Header: RowSelectionHeader,
         Cell: RowSelectionCell,
+        Header: RowSelectionHeader,
       }),
       { accessorKey: 'email', header: 'Email' },
     ])
@@ -228,7 +228,7 @@ describe('UITable (assembled)', () => {
     const Host = defineComponent({
       components: { UITable },
       setup() {
-        return { data, columns, rowSelection, getRowId: (row: Payment) => row.id }
+        return { columns, data, getRowId: (row: Payment) => row.id, rowSelection }
       },
       template: `
         <UITable
@@ -242,7 +242,7 @@ describe('UITable (assembled)', () => {
 
     const wrapper = await mountSuspended(Host)
 
-    const rowCheckbox = wrapper.findAll('input[type="checkbox"]')[1]
+    const [, rowCheckbox] = wrapper.findAll('input[type="checkbox"]')
     expect(rowCheckbox).toBeDefined()
     await rowCheckbox!.trigger('click')
     await flushPromises()
@@ -263,8 +263,8 @@ describe('UITable (assembled)', () => {
       components: { UITable },
       setup() {
         return {
-          data,
           columns,
+          data,
           expanded,
           getRowId: (row: Payment) => row.id,
         }
@@ -302,14 +302,14 @@ describe('UITable (assembled)', () => {
     const data = ref(sampleData)
     const columns = ref<UITableColumn<Payment>[]>([{ accessorKey: 'email', header: 'Email' }])
     const getItems = vi.fn(() => [
-      { type: 'item' as const, label: 'Log row data', value: 'log-row' },
-      { type: 'item' as const, label: 'Copy email', value: 'copy-email' },
+      { label: 'Log row data', type: 'item' as const, value: 'log-row' },
+      { label: 'Copy email', type: 'item' as const, value: 'copy-email' },
     ])
 
     const Host = defineComponent({
       components: { RowContextMenu, UITable },
       setup() {
-        return { data, columns, getItems, getRowId: (row: Payment) => row.id }
+        return { columns, data, getItems, getRowId: (row: Payment) => row.id }
       },
       template: `
         <RowContextMenu :get-items="getItems">
@@ -340,10 +340,10 @@ describe('UITable (assembled)', () => {
   })
 
   it('keeps stable table options handlers across repeated sorts', async () => {
-    const sorting = ref([{ id: 'email', desc: false }])
+    const sorting = ref([{ desc: false, id: 'email' }])
     const data = ref(sampleData)
     const columns = ref<UITableColumn<Payment>[]>([
-      { accessorKey: 'email', header: 'Email', enableSorting: true },
+      { accessorKey: 'email', enableSorting: true, header: 'Email' },
     ])
 
     let table: ReturnType<typeof useUITable<Payment>> | undefined
@@ -352,8 +352,8 @@ describe('UITable (assembled)', () => {
       defineComponent({
         setup() {
           table = useUITable({
-            data,
             columns,
+            data,
             stateModels: { sorting },
           })
           return () => h('div')

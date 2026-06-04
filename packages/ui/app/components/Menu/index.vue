@@ -84,22 +84,22 @@ export interface MenuProps
 const open = defineModel<boolean>('open', { required: false })
 
 const props = withDefaults(defineProps<MenuProps>(), {
+  /** Zag defaults to `true`; Vue boolean props must be explicit or they coerce to `false`. */
+  closeOnSelect: true,
   contextTriggerText: '',
   indicatorIcon: 'tabler:chevron-down',
   intent: 'neutral',
   items: () => [],
   portalled: true,
-  positioning: () => ({ placement: 'bottom-start', gutter: 8 }),
+  positioning: () => ({ gutter: 8, placement: 'bottom-start' }),
   showArrow: false,
   showIndicator: true,
   size: 'md',
   teleportTo: 'body',
   triggerText: 'Actions',
+  ui: undefined,
   unstyled: false,
   value: undefined,
-  ui: undefined,
-  /** Zag defaults to `true`; Vue boolean props must be explicit or they coerce to `false`. */
-  closeOnSelect: true,
 })
 
 const isProvider = computed(() => props.value !== undefined)
@@ -148,10 +148,10 @@ const rootProps = computed(() => {
   if (open.value !== undefined) {
     return {
       ...base,
-      open: open.value,
       'onUpdate:open': (nextOpen: boolean) => {
         open.value = nextOpen
       },
+      open: open.value,
     }
   }
 
@@ -171,9 +171,9 @@ const itemUiProps = computed(() => ({
   item: props.ui?.item,
   itemGroup: props.ui?.itemGroup,
   itemGroupLabel: props.ui?.itemGroupLabel,
-  separator: props.ui?.separator,
   itemIndicator: props.ui?.itemIndicator,
   itemText: props.ui?.itemText,
+  separator: props.ui?.separator,
 }))
 
 const hasTriggersSlot = computed(() => Boolean(slots.triggers))
@@ -194,10 +194,10 @@ const styledTriggerClass = computed(() =>
     : cn(
         'w-fit transition-colors',
         buttonCVA({
-          variant: 'subtle',
+          disabled: false,
           intent: props.intent,
           size: 'sm',
-          disabled: false,
+          variant: 'subtle',
         }),
         props.ui?.trigger,
       ),
@@ -205,11 +205,11 @@ const styledTriggerClass = computed(() =>
 
 extendCompodiumMeta({
   defaultProps: {
-    triggerText: 'Actions',
-    showIndicator: true,
-    showArrow: false,
     intent: 'neutral',
+    showArrow: false,
+    showIndicator: true,
     size: 'md',
+    triggerText: 'Actions',
   },
 })
 </script>

@@ -22,8 +22,8 @@ const onUp = () => {
   isResizing.value = false
   table.value.setColumnSizingInfo((prev: ColumnSizingInfoState) => ({
     ...prev,
-    isResizingColumn: false,
     deltaOffset: 0,
+    isResizingColumn: false,
   }))
 }
 

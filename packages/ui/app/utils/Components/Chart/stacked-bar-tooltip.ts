@@ -2,6 +2,7 @@ import { StackedBar, type NumericAccessor, type TooltipConfigInterface } from '@
 
 import type { ChartStackedBarSeries } from '@/utils/Components/Chart/context'
 
+// oxlint-disable-next-line max-params
 export type StackedBarCrosshairTemplate<T extends Record<string, unknown>> = (
   datum: T,
   x: number | Date,

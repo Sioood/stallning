@@ -28,35 +28,53 @@ defineOptions({ inheritAttrs: false })
 
 const checkboxRootCVA = cva('group inline-flex items-center gap-2', {
   variants: {
-    intent: {
-      primary: '',
-    } satisfies Record<FormFieldIntent, string>,
-    size: {
-      md: '',
-    } satisfies Record<FormFieldSize, string>,
     disabled: {
-      true: 'cursor-not-allowed',
       false: 'cursor-pointer',
+      true: 'cursor-not-allowed',
     } satisfies Record<'false' | 'true', string>,
+    intent: {
+      accent: '',
+      error: '',
+      info: '',
+      neutral: '',
+      primary: '',
+      secondary: '',
+      success: '',
+      warning: '',
+    } satisfies Record<FormFieldIntent, string>,
     invalid: {
-      true: '',
       false: '',
+      true: '',
     } satisfies Record<'false' | 'true', string>,
+    size: {
+      lg: '',
+      md: '',
+      sm: '',
+    } satisfies Record<FormFieldSize, string>,
   },
 })
 
 type CheckboxRootVariants = VariantProps<typeof checkboxRootCVA>
 
-const disabled = computed(() => checkboxDisabledFlag(Boolean(props.disabled)))
-const invalidState = computed(() => checkboxInvalidFlag(invalid.value))
+const disabled = computed(() => Boolean(checkboxDisabledFlag(Boolean(props.disabled))))
+const invalidState = computed(() => Boolean(checkboxInvalidFlag(Boolean(invalid.value))))
 
 const fieldLabelCVA = cva('', {
   variants: {
     intent: {
+      accent: 'text-accent-text-default data-[disabled]:text-accent-text-default-disabled',
+      error: '',
+      info: '',
+      neutral: 'text-neutral-text-default data-[disabled]:text-neutral-text-default-disabled',
       primary: 'text-primary-text-default data-[disabled]:text-primary-text-default-disabled',
+      secondary: 'text-secondary-text-default data-[disabled]:text-secondary-text-default-disabled',
+      success: '',
+      warning: '',
     } satisfies Record<FormFieldIntent, string>,
     size: {
+      lg: 'txt-label',
       md: 'txt-label',
+      sm: 'txt-label',
     } satisfies Record<FormFieldSize, string>,
   },
 })
@@ -83,8 +101,8 @@ const checked = defineModel<ArkCheckboxCheckedState>({
 })
 
 const props = withDefaults(defineProps<CheckboxProps>(), {
-  inGroup: false,
   controlOnly: false,
+  inGroup: false,
   intent: 'primary',
   label: '',
   size: 'md',
@@ -188,7 +206,12 @@ const [DefineCheckboxControl, ReuseCheckboxControl] =
         <ArkCheckbox.Indicator
           :class="
             cn(
-              checkboxIndicatorCVA({ intent, size, disabled, invalid: invalidState }),
+              checkboxIndicatorCVA({
+                intent,
+                size,
+                disabled: Boolean(disabled),
+                invalid: invalidState,
+              }),
               ui?.indicator,
             )
           "

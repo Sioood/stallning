@@ -10,9 +10,9 @@ describe('UISegmentGroup', () => {
     const wrapper = await mountSuspended(UISegmentGroup, {
       props: {
         options: [
-          { value: 'a', label: 'A' },
-          { value: 'b', label: 'B' },
-          { value: 'c', label: 'C' },
+          { label: 'A', value: 'a' },
+          { label: 'B', value: 'b' },
+          { label: 'C', value: 'c' },
         ],
       },
     })
@@ -25,8 +25,8 @@ describe('UISegmentGroup', () => {
     const wrapper = await mountSuspended(UISegmentGroup, {
       props: {
         options: [
-          { value: 'react', label: 'React' },
-          { value: 'vue', label: 'Vue' },
+          { label: 'React', value: 'react' },
+          { label: 'Vue', value: 'vue' },
         ],
       },
     })
@@ -38,11 +38,11 @@ describe('UISegmentGroup', () => {
   it('sets the initial modelValue as selected', async () => {
     const wrapper = await mountSuspended(UISegmentGroup, {
       props: {
-        options: [
-          { value: 'a', label: 'A' },
-          { value: 'b', label: 'B' },
-        ],
         modelValue: 'b',
+        options: [
+          { label: 'A', value: 'a' },
+          { label: 'B', value: 'b' },
+        ],
       },
     })
 
@@ -53,8 +53,8 @@ describe('UISegmentGroup', () => {
   it('renders the indicator element', async () => {
     const wrapper = await mountSuspended(UISegmentGroup, {
       props: {
-        options: [{ value: 'a', label: 'A' }],
         modelValue: 'a',
+        options: [{ label: 'A', value: 'a' }],
       },
     })
 
@@ -65,8 +65,8 @@ describe('UISegmentGroup', () => {
   it('applies pill variant classes to root and indicator', async () => {
     const wrapper = await mountSuspended(UISegmentGroup, {
       props: {
-        options: [{ value: 'a', label: 'A' }],
         intent: 'primary',
+        options: [{ label: 'A', value: 'a' }],
         variant: 'pill',
       },
     })
@@ -79,8 +79,8 @@ describe('UISegmentGroup', () => {
   it('applies line variant classes to root', async () => {
     const wrapper = await mountSuspended(UISegmentGroup, {
       props: {
-        options: [{ value: 'a', label: 'A' }],
         intent: 'neutral',
+        options: [{ label: 'A', value: 'a' }],
         variant: 'line',
       },
     })
@@ -92,8 +92,8 @@ describe('UISegmentGroup', () => {
   it('applies intent classes to root', async () => {
     const wrapper = await mountSuspended(UISegmentGroup, {
       props: {
-        options: [{ value: 'a', label: 'A' }],
         intent: 'accent',
+        options: [{ label: 'A', value: 'a' }],
       },
     })
 
@@ -104,7 +104,7 @@ describe('UISegmentGroup', () => {
   it('applies size classes to root', async () => {
     const wrapper = await mountSuspended(UISegmentGroup, {
       props: {
-        options: [{ value: 'a', label: 'A' }],
+        options: [{ label: 'A', value: 'a' }],
         size: 'lg',
       },
     })
@@ -116,11 +116,11 @@ describe('UISegmentGroup', () => {
   it('renders without crashing when group is disabled', async () => {
     const wrapper = await mountSuspended(UISegmentGroup, {
       props: {
-        options: [
-          { value: 'a', label: 'A' },
-          { value: 'b', label: 'B' },
-        ],
         disabled: true,
+        options: [
+          { label: 'A', value: 'a' },
+          { label: 'B', value: 'b' },
+        ],
       },
     })
 
@@ -132,8 +132,8 @@ describe('UISegmentGroup', () => {
     const wrapper = await mountSuspended(UISegmentGroup, {
       props: {
         options: [
-          { value: 'a', label: 'A' },
-          { value: 'b', label: 'B', disabled: true },
+          { label: 'A', value: 'a' },
+          { disabled: true, label: 'B', value: 'b' },
         ],
       },
     })

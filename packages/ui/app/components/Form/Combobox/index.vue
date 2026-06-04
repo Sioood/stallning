@@ -59,6 +59,7 @@ const props = withDefaults(defineProps<ComboboxProps>(), {
   closeOnSelect: undefined,
   emptyText: 'combobox.noOptions',
   error: undefined,
+  filterDebounceMs: 250,
   helperText: undefined,
   inputBehavior: 'none',
   intent: 'primary',
@@ -77,7 +78,6 @@ const props = withDefaults(defineProps<ComboboxProps>(), {
   teleportTo: 'body',
   ui: undefined,
   value: undefined,
-  filterDebounceMs: 250,
 })
 
 const attrs = useAttrs()

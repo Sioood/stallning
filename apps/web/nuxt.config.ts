@@ -7,38 +7,39 @@ const isDockerDev = process.env.DOCKER === '1'
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+  extends: [resolve('../../packages/ui')],
+
   app: {
     head: {
-      link: [{ rel: 'manifest', href: '/manifest.webmanifest' }],
+      link: [{ href: '/manifest.webmanifest', rel: 'manifest' }],
     },
   },
-  extends: [resolve('../../packages/ui')],
   css: [resolve('./app/assets/css/main.css')],
   i18n: {
     defaultLocale: 'fr-FR',
     locales: [
-      { code: 'fr-FR', language: 'fr-FR', name: 'Français', file: 'fr-FR/index.ts' },
-      { code: 'en-US', language: 'en-US', name: 'English', file: 'en-US/index.ts' },
+      { code: 'fr-FR', file: 'fr-FR/index.ts', language: 'fr-FR', name: 'Français' },
+      { code: 'en-US', file: 'en-US/index.ts', language: 'en-US', name: 'English' },
     ],
   },
   pwa: {
     manifest: {
-      name: 'Stallning',
-      short_name: 'Stallning',
-      description: 'Stallning web application',
-      theme_color: '#111827',
       background_color: '#ffffff',
+      description: 'Stallning web application',
       display: 'standalone',
-      start_url: '/',
-      lang: 'fr',
       icons: [
         {
-          src: '/pwa-icon.svg',
-          sizes: 'any',
-          type: 'image/svg+xml',
           purpose: 'any',
+          sizes: 'any',
+          src: '/pwa-icon.svg',
+          type: 'image/svg+xml',
         },
       ],
+      lang: 'fr',
+      name: 'Stallning',
+      short_name: 'Stallning',
+      start_url: '/',
+      theme_color: '#111827',
     },
   },
   runtimeConfig: {
@@ -49,8 +50,8 @@ export default defineNuxtConfig({
   vite: isDockerDev
     ? {
         server: {
-          watch: { usePolling: true },
           hmr: { clientPort: 3000 },
+          watch: { usePolling: true },
         },
       }
     : undefined,

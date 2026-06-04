@@ -16,7 +16,7 @@ describe('Divider', () => {
 
   it('applies intent, size, and orientation variants', async () => {
     const wrapper = await mountSuspended(Divider, {
-      props: { intent: 'accent', size: 'lg', orientation: 'vertical' },
+      props: { intent: 'accent', orientation: 'vertical', size: 'lg' },
     })
     const classes = wrapper.find('span').classes().join(' ')
     expect(classes).toMatch(/bg-accent-border-subtle/)

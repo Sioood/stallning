@@ -28,19 +28,19 @@ const toastRootCVA = cva(
   {
     variants: {
       intent: {
+        accent: 'border-accent-border-default bg-accent-surface-default text-accent-text-default',
+        error: 'border-error-border-default bg-error-surface-default text-error-text-default',
+        info: 'border-info-border-default bg-info-surface-default text-info-text-default',
         neutral:
           'border-neutral-border-default bg-neutral-surface-default text-neutral-text-default',
         primary:
           'border-primary-border-default bg-primary-surface-default text-primary-text-default',
         secondary:
           'border-secondary-border-default bg-secondary-surface-default text-secondary-text-default',
-        accent: 'border-accent-border-default bg-accent-surface-default text-accent-text-default',
-        info: 'border-info-border-default bg-info-surface-default text-info-text-default',
-        warning:
-          'border-warning-border-default bg-warning-surface-default text-warning-text-default',
-        error: 'border-error-border-default bg-error-surface-default text-error-text-default',
         success:
           'border-success-border-default bg-success-surface-default text-success-text-default',
+        warning:
+          'border-warning-border-default bg-warning-surface-default text-warning-text-default',
       } satisfies Record<ToastIntent, string>,
       size: {
         md: 'min-w-64 p-2 pr-12',
@@ -62,14 +62,14 @@ const toastTitleCVA = cva('inline-flex gap-2', {
 const toastDescriptionCVA = cva('', {
   variants: {
     intent: {
+      accent: 'text-accent-text-subtle',
+      error: 'text-error-text-subtle',
+      info: 'text-info-text-subtle',
       neutral: 'text-neutral-text-subtle',
       primary: 'text-primary-text-subtle',
       secondary: 'text-secondary-text-subtle',
-      accent: 'text-accent-text-subtle',
-      info: 'text-info-text-subtle',
-      warning: 'text-warning-text-subtle',
-      error: 'text-error-text-subtle',
       success: 'text-success-text-subtle',
+      warning: 'text-warning-text-subtle',
     } satisfies Record<ToastIntent, string>,
     size: {
       md: 'txt-caption',
@@ -120,8 +120,8 @@ const resolveToastMeta = (type: string | undefined) => {
     iconCache.set(cacheKey, useComponentIcons({ mode: 'single', state: type as ComponentState }))
   }
   return {
-    intent: getType(type),
     iconName: iconCache.get(cacheKey)!.iconName,
+    intent: getType(type),
     shouldAnimate: iconCache.get(cacheKey)!.shouldAnimate,
   }
 }

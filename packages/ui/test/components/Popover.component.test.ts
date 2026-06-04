@@ -7,10 +7,10 @@ describe('Popover', () => {
   it('renders content in controlled open mode', async () => {
     const wrapper = await mountSuspended(Popover, {
       props: {
+        content: 'Body',
+        description: 'Description',
         open: true,
         title: 'Title',
-        description: 'Description',
-        content: 'Body',
       },
     })
 
@@ -69,8 +69,8 @@ describe('Popover', () => {
   it('prefers content slot over content prop', async () => {
     const wrapper = await mountSuspended(Popover, {
       props: {
-        open: true,
         content: 'Fallback content',
+        open: true,
       },
       slots: {
         content: '<span data-testid="slot-content">Slot content</span>',
@@ -85,8 +85,8 @@ describe('Popover', () => {
   it('does not render visible content when controlled open is false', async () => {
     const wrapper = await mountSuspended(Popover, {
       props: {
-        open: false,
         content: 'Body',
+        open: false,
       },
     })
 

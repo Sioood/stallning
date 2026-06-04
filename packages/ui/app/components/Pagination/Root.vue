@@ -42,9 +42,9 @@ export interface PaginationRootProps
 const props = withDefaults(defineProps<PaginationRootProps>(), {
   intent: 'primary',
   size: 'md',
-  variant: 'ghost',
-  value: undefined,
   ui: undefined,
+  value: undefined,
+  variant: 'ghost',
 })
 
 const page = defineModel<number>('page', { required: false })

@@ -9,8 +9,8 @@ describe('UIFormNumberInput', () => {
     const wrapper = await mountSuspended(NumberInput, {
       props: {
         label: 'Quantity',
-        min: 0,
         max: 100,
+        min: 0,
       },
     })
 
@@ -21,10 +21,10 @@ describe('UIFormNumberInput', () => {
   it('renders with default value', async () => {
     const wrapper = await mountSuspended(NumberInput, {
       props: {
-        label: 'Age',
         defaultValue: '25',
-        min: 0,
+        label: 'Age',
         max: 100,
+        min: 0,
       },
     })
 
@@ -36,8 +36,8 @@ describe('UIFormNumberInput', () => {
     const wrapper = await mountSuspended(NumberInput, {
       props: {
         label: 'Count',
-        min: 0,
         max: 100,
+        min: 0,
       },
     })
 
@@ -49,10 +49,10 @@ describe('UIFormNumberInput', () => {
   it('renders with helper text', async () => {
     const wrapper = await mountSuspended(NumberInput, {
       props: {
-        label: 'Score',
         helperText: 'Between 0 and 100',
-        min: 0,
+        label: 'Score',
         max: 100,
+        min: 0,
       },
     })
 
@@ -62,10 +62,10 @@ describe('UIFormNumberInput', () => {
   it('renders as disabled', async () => {
     const wrapper = await mountSuspended(NumberInput, {
       props: {
-        label: 'Disabled',
         disabled: true,
-        min: 0,
+        label: 'Disabled',
         max: 100,
+        min: 0,
       },
     })
 
@@ -76,11 +76,11 @@ describe('UIFormNumberInput', () => {
   it('renders as read-only', async () => {
     const wrapper = await mountSuspended(NumberInput, {
       props: {
-        label: 'Read-only',
-        readOnly: true,
-        min: 0,
-        max: 100,
         defaultValue: '42',
+        label: 'Read-only',
+        max: 100,
+        min: 0,
+        readOnly: true,
       },
     })
 
@@ -91,11 +91,11 @@ describe('UIFormNumberInput', () => {
   it('renders with error message', async () => {
     const wrapper = await mountSuspended(NumberInput, {
       props: {
-        label: 'Invalid',
-        invalid: true,
         error: 'Must be between 0 and 100',
-        min: 0,
+        invalid: true,
+        label: 'Invalid',
         max: 100,
+        min: 0,
       },
     })
 
@@ -108,8 +108,8 @@ describe('UIFormNumberInput', () => {
         label: 'With icon',
         leading: true,
         leadingIcon: 'tabler:coins',
-        min: 0,
         max: 100,
+        min: 0,
       },
     })
 
@@ -120,12 +120,12 @@ describe('UIFormNumberInput', () => {
 
   it('renders an input that accepts focus', async () => {
     const wrapper = await mountSuspended(NumberInput, {
+      attachTo: document.body,
       props: {
         label: 'Focusable',
-        min: 0,
         max: 100,
+        min: 0,
       },
-      attachTo: document.body,
     })
 
     const input = wrapper.find('input')

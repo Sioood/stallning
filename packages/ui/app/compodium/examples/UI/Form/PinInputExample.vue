@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import {
   usePinInput,
   type PinInputValueChangeDetails,
@@ -16,8 +17,8 @@ const intents = ['neutral', 'primary', 'secondary', 'accent'] as const
 const sizes = ['sm', 'md', 'lg'] as const
 
 const externalApi = usePinInput({
-  type: 'numeric',
   count: 4,
+  type: 'numeric',
 })
 
 function onValueChange(d: PinInputValueChangeDetails) {

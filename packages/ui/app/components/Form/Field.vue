@@ -16,23 +16,23 @@ defineOptions({ inheritAttrs: false })
 const fieldRootCVA = cva('flex flex-col gap-1', {
   variants: {
     intent: {
+      accent: '',
+      error: '',
+      info: '',
       neutral: '',
       primary: '',
       secondary: '',
-      accent: '',
-      info: '',
-      warning: '',
-      error: '',
       success: '',
+      warning: '',
     } satisfies Record<FormFieldIntent, string>,
-    size: {
-      sm: '',
-      md: '',
-      lg: '',
-    } satisfies Record<FormFieldSize, string>,
     invalid: {
       true: '',
     },
+    size: {
+      lg: '',
+      md: '',
+      sm: '',
+    } satisfies Record<FormFieldSize, string>,
   },
 })
 
@@ -41,19 +41,19 @@ type FieldCVAProps = VariantProps<typeof fieldRootCVA>
 const fieldLabelCVA = cva('', {
   variants: {
     intent: {
+      accent: 'text-accent-text-default',
+      error: 'text-error-text-default',
+      info: 'text-info-text-default',
       neutral: 'text-neutral-text-default',
       primary: 'text-primary-text-default',
       secondary: 'text-secondary-text-default',
-      accent: 'text-accent-text-default',
-      info: 'text-info-text-default',
-      warning: 'text-warning-text-default',
-      error: 'text-error-text-default',
       success: 'text-success-text-default',
+      warning: 'text-warning-text-default',
     } satisfies Record<FormFieldIntent, string>,
     size: {
-      sm: 'txt-caption',
-      md: 'txt-label',
       lg: 'txt-h6',
+      md: 'txt-label',
+      sm: 'txt-caption',
     } satisfies Record<FormFieldSize, string>,
   },
 })
@@ -61,19 +61,19 @@ const fieldLabelCVA = cva('', {
 const fieldHelperTextCVA = cva('', {
   variants: {
     intent: {
+      accent: 'text-accent-text-subtle',
+      error: 'text-error-text-subtle',
+      info: 'text-info-text-subtle',
       neutral: 'text-neutral-text-subtle',
       primary: 'text-primary-text-subtle',
       secondary: 'text-secondary-text-subtle',
-      accent: 'text-accent-text-subtle',
-      info: 'text-info-text-subtle',
-      warning: 'text-warning-text-subtle',
-      error: 'text-error-text-subtle',
       success: 'text-success-text-subtle',
+      warning: 'text-warning-text-subtle',
     } satisfies Record<FormFieldIntent, string>,
     size: {
-      sm: 'txt-legal',
-      md: 'txt-caption',
       lg: 'txt-body',
+      md: 'txt-caption',
+      sm: 'txt-legal',
     } satisfies Record<FormFieldSize, string>,
   },
 })
@@ -159,12 +159,12 @@ const mergedRootBind = computed(() => ({
 
 extendCompodiumMeta({
   defaultProps: {
+    error: undefined,
+    helperText: 'Enter your email address',
     intent: 'primary',
+    invalid: false,
     label: 'Email',
     required: true,
-    helperText: 'Enter your email address',
-    error: undefined,
-    invalid: false,
     size: 'md',
   },
 })

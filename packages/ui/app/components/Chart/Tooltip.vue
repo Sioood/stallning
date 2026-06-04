@@ -10,8 +10,8 @@ import type { ChartTooltipProps } from '@/utils/Components/Chart/context'
 export type { ChartTooltipProps, UIChartTooltipSlots } from '@/utils/Components/Chart/context'
 
 const props = withDefaults(defineProps<ChartTooltipProps>(), {
-  show: true,
   horizontalPlacement: Position.Center,
+  show: true,
   ui: undefined,
 })
 

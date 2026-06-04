@@ -31,8 +31,8 @@ export interface CarouselIndicatorProps extends CarouselIndicatorBaseProps {
 const props = withDefaults(defineProps<CarouselIndicatorProps>(), {
   intent: undefined,
   size: undefined,
-  variant: undefined,
   ui: undefined,
+  variant: undefined,
 })
 
 const attrs = useAttrs()

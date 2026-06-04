@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import { useCombobox, useListCollection } from '@ark-ui/vue/combobox'
 import { useFilter } from '@ark-ui/vue/locale'
 
@@ -13,21 +14,21 @@ const frameworks: ComboboxItem[] = [
   { label: 'React', value: 'react' },
   { label: 'Vue', value: 'vue' },
   { label: 'Solid', value: 'solid' },
-  { label: 'Svelte', value: 'svelte', disabled: true },
+  { disabled: true, label: 'Svelte', value: 'svelte' },
   { label: 'Angular', value: 'angular' },
 ]
 
 const groupedItems: ComboboxItem[] = [
-  { label: 'React', value: 'react', group: 'JS' },
-  { label: 'Solid', value: 'solid', group: 'JS' },
-  { label: 'Tailwind', value: 'tailwind', group: 'CSS' },
+  { group: 'JS', label: 'React', value: 'react' },
+  { group: 'JS', label: 'Solid', value: 'solid' },
+  { group: 'CSS', label: 'Tailwind', value: 'tailwind' },
 ]
 
 const filters = useFilter({ sensitivity: 'base' })
 
 const providerCollection = useListCollection({
-  initialItems: frameworks,
   filter: filters.value.contains,
+  initialItems: frameworks,
 })
 
 const providerApi = useCombobox({

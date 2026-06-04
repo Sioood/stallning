@@ -15,8 +15,8 @@ const props = withDefaults(
   }>(),
   {
     estimateSize: 52,
-    overscan: 8,
     options: undefined,
+    overscan: 8,
     selectable: false,
   },
 )
@@ -49,8 +49,8 @@ const virtualizerOptions = computed(() => {
 
   return {
     count: rows.value.length,
-    getScrollElement: () => rootRef.value?.parentElement ?? null,
     estimateSize: resolveEstimateSize(optionsEstimateSize, props.estimateSize),
+    getScrollElement: () => rootRef.value?.parentElement ?? null,
     overscan: optionsOverscan ?? props.overscan,
     ...restOptions,
   }

@@ -6,9 +6,7 @@ import type {
   ComponentVariant,
 } from '~/utils/Components/contextBase'
 
-export type FormFieldIntent = NonNullable<
-  Extract<ComponentIntent, 'neutral' | 'primary' | 'secondary' | 'accent'>
->
+export type FormFieldIntent = NonNullable<ComponentIntent>
 
 export type FormFieldSize = NonNullable<ComponentSize>
 export type FormFieldOrientation = NonNullable<ComponentOrientation>

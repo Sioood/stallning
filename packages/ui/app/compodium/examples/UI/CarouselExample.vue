@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import {
   useCarousel,
   type CarouselDragStatusDetails,
@@ -6,11 +7,11 @@ import {
 } from '@ark-ui/vue/carousel'
 
 const images = [
-  { src: 'https://picsum.photos/seed/carousel-1/800/480', alt: 'Nature landscape' },
-  { src: 'https://picsum.photos/seed/carousel-2/800/480', alt: 'City skyline' },
-  { src: 'https://picsum.photos/seed/carousel-3/800/480', alt: 'Mountain view' },
-  { src: 'https://picsum.photos/seed/carousel-4/800/480', alt: 'Ocean sunset' },
-  { src: 'https://picsum.photos/seed/carousel-5/800/480', alt: 'Forest path' },
+  { alt: 'Nature landscape', src: 'https://picsum.photos/seed/carousel-1/800/480' },
+  { alt: 'City skyline', src: 'https://picsum.photos/seed/carousel-2/800/480' },
+  { alt: 'Mountain view', src: 'https://picsum.photos/seed/carousel-3/800/480' },
+  { alt: 'Ocean sunset', src: 'https://picsum.photos/seed/carousel-4/800/480' },
+  { alt: 'Forest path', src: 'https://picsum.photos/seed/carousel-5/800/480' },
 ]
 
 const thumbnailImages = images.slice(0, 4)
@@ -19,8 +20,8 @@ const currentPage = ref(0)
 const dynamicSlides = ref(['Slide A', 'Slide B', 'Slide C'])
 
 const externalCarousel = useCarousel({
-  slideCount: images.length,
   allowMouseDrag: true,
+  slideCount: images.length,
 })
 
 const intents = ['neutral', 'primary', 'secondary', 'accent'] as const

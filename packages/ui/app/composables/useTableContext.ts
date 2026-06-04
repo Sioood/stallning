@@ -11,12 +11,12 @@ export function useTableContext<TData extends RowData = RowData>() {
   }
 
   return {
+    emptyText: context.emptyText,
     intent: context.intent,
+    loading: context.loading,
     size: context.size,
     sticky: context.sticky,
-    loading: context.loading,
-    ui: context.ui,
-    emptyText: context.emptyText,
     table: context.table as Ref<Table<TData>>,
+    ui: context.ui,
   }
 }

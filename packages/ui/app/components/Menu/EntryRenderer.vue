@@ -16,10 +16,10 @@ import type {
 const menuSeparatorCVA = cva('block w-full', {
   variants: {
     intent: {
+      accent: 'border-accent-border-subtle',
       neutral: 'border-neutral-border-subtle',
       primary: 'border-primary-border-subtle',
       secondary: 'border-secondary-border-subtle',
-      accent: 'border-accent-border-subtle',
     },
     size: {
       md: 'my-1 border-t',
@@ -41,13 +41,13 @@ export interface MenuEntryRendererProps {
 
 const props = withDefaults(defineProps<MenuEntryRendererProps>(), {
   intent: 'neutral',
-  size: 'md',
   item: undefined,
   itemGroup: undefined,
   itemGroupLabel: undefined,
-  separator: undefined,
   itemIndicator: undefined,
   itemText: undefined,
+  separator: undefined,
+  size: 'md',
 })
 
 const sharedStyleProps = computed(() =>

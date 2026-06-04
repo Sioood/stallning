@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import { useMenu, type MenuOpenChangeDetails, type MenuSelectionDetails } from '@ark-ui/vue/menu'
 
 import type { MenuListEntry } from '@/components/Menu/index.vue'
@@ -42,223 +43,223 @@ function logControlledMenuOpen(open: boolean) {
 }
 
 const actionItems = computed<MenuListEntry[]>(() => [
-  { type: 'item', value: 'new-file', label: 'New File', onSelect: () => logAction('new-file') },
-  { type: 'item', value: 'open', label: 'Open...', onSelect: () => logAction('open') },
-  { type: 'item', value: 'save', label: 'Save', onSelect: () => logAction('save') },
-  { type: 'item', value: 'save-as', label: 'Save As...', onSelect: () => logAction('save-as') },
+  { label: 'New File', onSelect: () => logAction('new-file'), type: 'item', value: 'new-file' },
+  { label: 'Open...', onSelect: () => logAction('open'), type: 'item', value: 'open' },
+  { label: 'Save', onSelect: () => logAction('save'), type: 'item', value: 'save' },
+  { label: 'Save As...', onSelect: () => logAction('save-as'), type: 'item', value: 'save-as' },
   {
-    type: 'item',
-    value: 'delete',
-    label: 'Delete',
     customClass:
       'text-error-text-default data-[highlighted]:bg-error-fill-subtle-hover data-[disabled]:text-error-text-subtle',
+    label: 'Delete',
     onSelect: () => logAction('delete'),
+    type: 'item',
+    value: 'delete',
   },
   { type: 'separator' },
   {
-    type: 'group',
-    label: 'Export',
     items: [
       {
-        type: 'item',
-        value: 'export-pdf',
         label: 'PDF',
         onSelect: () => logAction('export-pdf'),
+        type: 'item',
+        value: 'export-pdf',
       },
-      { type: 'item', value: 'export-png', label: 'PNG', onSelect: () => logAction('export-png') },
-      { type: 'item', value: 'export-svg', label: 'SVG', onSelect: () => logAction('export-svg') },
+      { label: 'PNG', onSelect: () => logAction('export-png'), type: 'item', value: 'export-png' },
+      { label: 'SVG', onSelect: () => logAction('export-svg'), type: 'item', value: 'export-svg' },
     ],
+    label: 'Export',
+    type: 'group',
   },
   {
-    type: 'submenu',
-    label: 'Share',
     items: [
       {
-        type: 'item',
-        value: 'share-email',
         label: 'Email',
         onSelect: () => logAction('share-email'),
+        type: 'item',
+        value: 'share-email',
       },
       {
-        type: 'item',
-        value: 'share-message',
         label: 'Message',
         onSelect: () => logAction('share-message'),
+        type: 'item',
+        value: 'share-message',
       },
       {
-        type: 'item',
-        value: 'share-airdrop',
         label: 'AirDrop',
         onSelect: () => logAction('share-airdrop'),
+        type: 'item',
+        value: 'share-airdrop',
       },
       {
-        type: 'submenu',
-        label: 'Advanced',
         items: [
           {
-            type: 'item',
-            value: 'share-link',
             label: 'Copy share link',
             onSelect: () => logAction('share-link'),
+            type: 'item',
+            value: 'share-link',
           },
           {
-            type: 'submenu',
-            label: 'Permissions',
             items: [
               {
-                type: 'item',
-                value: 'permission-view',
                 label: 'Can view',
                 onSelect: () => logAction('permission-view'),
+                type: 'item',
+                value: 'permission-view',
               },
               {
-                type: 'submenu',
-                label: 'Grant temporary access',
                 items: [
                   {
-                    type: 'item',
-                    value: 'grant-1h',
                     label: '1 hour',
                     onSelect: () => logAction('grant-1h'),
+                    type: 'item',
+                    value: 'grant-1h',
                   },
                   {
-                    type: 'item',
-                    value: 'grant-24h',
                     label: '24 hours',
                     onSelect: () => logAction('grant-24h'),
+                    type: 'item',
+                    value: 'grant-24h',
                   },
                   {
-                    type: 'item',
-                    value: 'grant-7d',
                     label: '7 days',
                     onSelect: () => logAction('grant-7d'),
+                    type: 'item',
+                    value: 'grant-7d',
                   },
                 ],
+                label: 'Grant temporary access',
+                type: 'submenu',
               },
             ],
+            label: 'Permissions',
+            type: 'submenu',
           },
         ],
+        label: 'Advanced',
+        type: 'submenu',
       },
       { type: 'separator' },
       {
-        type: 'radio-group',
-        label: 'Visibility',
-        value: 'team',
-        onValueChange: (value: string) => logAction('share-visibility', value),
         items: [
-          { value: 'team', label: 'Team' },
-          { value: 'private', label: 'Private' },
+          { label: 'Team', value: 'team' },
+          { label: 'Private', value: 'private' },
         ],
+        label: 'Visibility',
+        onValueChange: (value: string) => logAction('share-visibility', value),
+        type: 'radio-group',
+        value: 'team',
       },
     ],
+    label: 'Share',
+    type: 'submenu',
   },
   {
-    type: 'group',
-    label: 'Links',
     items: [
       {
+        label: 'Documentation',
+        onSelect: () => logAction('open-docs'),
+        to: 'https://ark-ui.com',
         type: 'item',
         value: 'docs',
-        label: 'Documentation',
-        to: 'https://ark-ui.com',
-        onSelect: () => logAction('open-docs'),
       },
       {
+        label: 'GitHub',
+        onSelect: () => logAction('open-github'),
+        target: '_blank',
+        to: 'https://github.com/chakra-ui/ark',
         type: 'item',
         value: 'github',
-        label: 'GitHub',
-        to: 'https://github.com/chakra-ui/ark',
-        target: '_blank',
-        onSelect: () => logAction('open-github'),
       },
       {
+        label: 'Playground',
+        onSelect: () => logAction('open-previews'),
+        to: '/previews',
         type: 'item',
         value: 'previews',
-        label: 'Playground',
-        to: '/previews',
-        onSelect: () => logAction('open-previews'),
       },
     ],
+    label: 'Links',
+    type: 'group',
   },
   { type: 'separator' },
   {
-    type: 'checkbox',
-    value: 'toolbar',
-    label: 'Show Toolbar',
     checked: toolbarVisible.value,
+    label: 'Show Toolbar',
     onCheckedChange: (checked: boolean) => {
       toolbarVisible.value = checked
       logAction('toolbar-visibility', checked)
     },
+    type: 'checkbox',
+    value: 'toolbar',
   },
   {
-    type: 'checkbox',
-    value: 'status-bar',
-    label: 'Show Status Bar',
     checked: statusBarVisible.value,
+    label: 'Show Status Bar',
     onCheckedChange: (checked: boolean) => {
       statusBarVisible.value = checked
       logAction('statusbar-visibility', checked)
     },
+    type: 'checkbox',
+    value: 'status-bar',
   },
   { type: 'separator' },
   {
-    type: 'radio-group',
+    items: [
+      { label: 'Name', value: 'name' },
+      { label: 'Date Modified', value: 'date' },
+      { disabled: true, label: 'Size', value: 'size' },
+    ],
     label: 'Sort By',
-    value: sortBy.value,
     onValueChange: (value: string) => {
       sortBy.value = value
       logAction('sort-by', value)
     },
-    items: [
-      { value: 'name', label: 'Name' },
-      { value: 'date', label: 'Date Modified' },
-      { value: 'size', label: 'Size', disabled: true },
-    ],
+    type: 'radio-group',
+    value: sortBy.value,
   },
 ])
 
 const multipleTriggerItems = computed<Record<string, MenuListEntry[]>>(() => ({
   'msg-1': [
     {
-      type: 'item',
-      value: 'msg-1-reply',
       label: 'Reply',
       onSelect: () => logAction('msg-1-reply'),
+      type: 'item',
+      value: 'msg-1-reply',
     },
-    { type: 'item', value: 'msg-1-pin', label: 'Pin', onSelect: () => logAction('msg-1-pin') },
+    { label: 'Pin', onSelect: () => logAction('msg-1-pin'), type: 'item', value: 'msg-1-pin' },
   ],
   'msg-2': [
     {
-      type: 'item',
-      value: 'msg-2-forward',
       label: 'Forward',
       onSelect: () => logAction('msg-2-forward'),
+      type: 'item',
+      value: 'msg-2-forward',
     },
     {
-      type: 'radio-group',
-      label: 'Priority',
-      value: 'normal',
-      onValueChange: (value: string) => logAction('msg-2-priority', value),
       items: [
-        { value: 'low', label: 'Low' },
-        { value: 'normal', label: 'Normal' },
-        { value: 'high', label: 'High' },
+        { label: 'Low', value: 'low' },
+        { label: 'Normal', value: 'normal' },
+        { label: 'High', value: 'high' },
       ],
+      label: 'Priority',
+      onValueChange: (value: string) => logAction('msg-2-priority', value),
+      type: 'radio-group',
+      value: 'normal',
     },
   ],
   'msg-3': [
     {
-      type: 'item',
-      value: 'msg-3-archive',
       label: 'Archive',
       onSelect: () => logAction('msg-3-archive'),
+      type: 'item',
+      value: 'msg-3-archive',
     },
     {
-      type: 'item',
-      value: 'msg-3-delete',
       label: 'Delete',
       onSelect: () => logAction('msg-3-delete'),
+      type: 'item',
+      value: 'msg-3-delete',
     },
   ],
 }))
@@ -276,52 +277,52 @@ const accountUser = {
 
 const accountMenuItems = computed<MenuListEntry[]>(() => [
   {
-    type: 'group',
-    label: accountUser.name,
     items: [
       {
+        label: 'Profile',
+        onSelect: () => logAction('account-profile'),
+        to: '/previews',
         type: 'item',
         value: 'profile',
-        label: 'Profile',
-        to: '/previews',
-        onSelect: () => logAction('account-profile'),
       },
       {
+        label: 'Settings',
+        onSelect: () => logAction('account-settings'),
+        to: '/previews/bento',
         type: 'item',
         value: 'settings',
-        label: 'Settings',
-        to: '/previews/bento',
-        onSelect: () => logAction('account-settings'),
       },
       {
-        type: 'item',
-        value: 'billing',
         label: 'Billing',
         onSelect: () => logAction('account-billing'),
+        type: 'item',
+        value: 'billing',
       },
       {
-        type: 'item',
-        value: 'notifications',
         label: 'Notifications',
         onSelect: () => logAction('account-notifications'),
+        type: 'item',
+        value: 'notifications',
       },
       {
+        label: 'Help & support',
+        onSelect: () => logAction('account-help'),
+        to: '/previews',
         type: 'item',
         value: 'help',
-        label: 'Help & support',
-        to: '/previews',
-        onSelect: () => logAction('account-help'),
       },
     ],
+    label: accountUser.name,
+    type: 'group',
   },
   { type: 'separator' },
   {
-    type: 'item',
-    value: 'sign-out',
-    label: 'Sign out',
     customClass:
       'text-error-text-default data-[highlighted]:bg-error-fill-subtle-hover data-[disabled]:text-error-text-subtle',
+    label: 'Sign out',
     onSelect: () => logAction('account-sign-out'),
+    type: 'item',
+    value: 'sign-out',
   },
 ])
 

@@ -62,12 +62,12 @@ describe('UISlider', () => {
       setup() {
         return () =>
           h(UISlider, {
+            'data-testid': 'ctl-slider',
+            label: 'Controlled',
             modelValue: model.value,
             'onUpdate:modelValue': (v: number[]) => {
               model.value = v
             },
-            label: 'Controlled',
-            'data-testid': 'ctl-slider',
           })
       },
     })
@@ -101,7 +101,7 @@ describe('UISlider', () => {
   })
 
   it('renders with min/max', async () => {
-    const wrapper = await mountSuspended(sliderHarness({ min: -10, max: 10, defaultValue: [5] }))
+    const wrapper = await mountSuspended(sliderHarness({ defaultValue: [5], max: 10, min: -10 }))
 
     expect(wrapper.text()).toContain('Test Slider')
   })
@@ -155,8 +155,8 @@ describe('UISlider', () => {
         setup() {
           return () =>
             h(UISlider, {
-              defaultValue: [50],
               'data-testid': 'no-label-slider',
+              defaultValue: [50],
             })
         },
       }),

@@ -23,11 +23,11 @@ export interface UseComponentIconsInputProps {
 export type UseComponentIconsProps = Omit<UseComponentIconsInputProps, 'mode'>
 
 export const useSemanticIcons: Record<Exclude<ComponentState, 'default'>, string> = {
+  error: 'tabler:alert-hexagon',
+  info: 'tabler:info-circle',
   loading: 'tabler:loader',
   success: 'tabler:circle-check',
   warning: 'tabler:alert-triangle',
-  error: 'tabler:alert-hexagon',
-  info: 'tabler:info-circle',
 }
 
 export function useComponentIcons(componentProps: MaybeRefOrGetter<UseComponentIconsInputProps>) {
@@ -99,11 +99,11 @@ export function useComponentIcons(componentProps: MaybeRefOrGetter<UseComponentI
   })
 
   return {
+    iconName,
     isLeading,
     isTrailing,
     leadingIconName,
-    trailingIconName,
-    iconName,
     shouldAnimate,
+    trailingIconName,
   }
 }

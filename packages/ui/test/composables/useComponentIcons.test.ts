@@ -17,8 +17,8 @@ describe('useComponentIcons', () => {
       const scope = effectScope(true)
       scope.run(() => {
         const props = ref({
-          state,
           mode: 'single' as const,
+          state,
         })
         const { iconName, shouldAnimate } = useComponentIcons(props)
         expect(iconName.value).toBe(expected)
@@ -32,9 +32,9 @@ describe('useComponentIcons', () => {
     const scope = effectScope(true)
     scope.run(() => {
       const props = ref({
-        state: 'loading' as const,
-        mode: 'single' as const,
         loadingIcon: 'custom:spin',
+        mode: 'single' as const,
+        state: 'loading' as const,
       })
       const { iconName } = useComponentIcons(props)
       expect(iconName.value).toBe('custom:spin')
@@ -76,10 +76,10 @@ describe('useComponentIcons', () => {
     const scope = effectScope(true)
     scope.run(() => {
       const props = ref({
-        mode: 'leadingAndTrailing' as const,
-        state: 'default' as const,
         icon: 'tabler:mail',
         leading: true,
+        mode: 'leadingAndTrailing' as const,
+        state: 'default' as const,
       })
       const { isLeading, leadingIconName } = useComponentIcons(props)
       expect(isLeading.value).toBe(true)

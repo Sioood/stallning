@@ -6,14 +6,14 @@ const showActiveOnly = ref(true)
 const showPremiumOnly = ref(false)
 
 const viewOptions = [
-  { value: 'list', label: 'Liste' },
-  { value: 'grid', label: 'Grille' },
+  { label: 'Liste', value: 'list' },
+  { label: 'Grille', value: 'grid' },
 ]
 
 const allItems = Array.from({ length: 120 }, (_, index) => ({
+  active: index % 3 !== 0,
   id: index + 1,
   name: `Projet ${index + 1}`,
-  active: index % 3 !== 0,
   premium: index % 5 === 0,
 }))
 

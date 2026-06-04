@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import { useToast } from '@/composables/useToast'
 
 const toaster = useToast()
@@ -15,24 +16,24 @@ const showPromiseToast = () => {
       }, 2000),
     ),
     {
-      loading: { title: 'Uploading...', description: 'Please wait while we process your request.' },
-      success: { title: 'Upload Complete', description: 'Your file has been saved.' },
-      error: { title: 'Upload Failed', description: 'Could not connect to the server.' },
+      error: { description: 'Could not connect to the server.', title: 'Upload Failed' },
+      loading: { description: 'Please wait while we process your request.', title: 'Uploading...' },
+      success: { description: 'Your file has been saved.', title: 'Upload Complete' },
     },
   )
 }
 
 const showActionToast = () => {
   toaster.value?.create({
-    title: 'Deployment Started',
-    description: 'Your changes are being deployed to production.',
-    type: 'info',
     action: {
       label: 'View Logs',
       onClick: () => {
         console.log('Viewing logs...')
       },
     },
+    description: 'Your changes are being deployed to production.',
+    title: 'Deployment Started',
+    type: 'info',
   })
 }
 </script>

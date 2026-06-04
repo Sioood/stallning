@@ -32,8 +32,8 @@ describe('applyServerFieldErrors', () => {
     const setFieldMeta = vi.fn()
     applyServerFieldErrors({ setFieldMeta }, { name: 'Required' })
     const updater = getUpdater(setFieldMeta)
-    const result = updater({ isTouched: true, isDirty: false })
-    expect(result).toEqual({ isTouched: true, isDirty: false, errors: ['Required'] })
+    const result = updater({ isDirty: false, isTouched: true })
+    expect(result).toEqual({ errors: ['Required'], isDirty: false, isTouched: true })
   })
 
   it('handles multiple fields in one call', () => {

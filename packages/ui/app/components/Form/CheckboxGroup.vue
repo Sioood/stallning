@@ -40,11 +40,11 @@ const props = withDefaults(defineProps<CheckboxGroupProps>(), {
   label: undefined,
   maxSelectedValues: undefined,
   name: undefined,
+  orientation: 'vertical',
   readOnly: undefined,
   required: undefined,
   size: 'md',
   ui: undefined,
-  orientation: 'vertical',
 })
 
 const attrs = useAttrs()

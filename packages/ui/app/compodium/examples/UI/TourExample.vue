@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import { useTour, waitForElement, waitForEvent, type TourStepDetails } from '@ark-ui/vue/tour'
 import { ref } from 'vue'
 
@@ -18,40 +19,40 @@ const activeScenario = ref<
 // ─── Basic Tour ──────────────────────────────────────────────
 const basicSteps: TourStepDetails[] = [
   {
-    id: 'welcome',
-    type: 'dialog',
-    title: 'Bienvenue !',
+    actions: [{ action: 'next', label: 'Commencer' }],
     description: "Découvrons ensemble les fonctionnalités principales de l'application.",
-    actions: [{ label: 'Commencer', action: 'next' }],
-  },
-  {
-    id: 'upload',
-    type: 'tooltip',
-    title: 'Téléverser des fichiers',
-    description: 'Cliquez ici pour ajouter vos fichiers au projet.',
-    target: () => document.querySelector<HTMLElement>('#basic-upload'),
-    actions: [
-      { label: 'Précédent', action: 'prev' },
-      { label: 'Suivant', action: 'next' },
-    ],
-  },
-  {
-    id: 'save',
-    type: 'tooltip',
-    title: 'Sauvegarder',
-    description: 'Enregistrez vos modifications pour conserver votre progression.',
-    target: () => document.querySelector<HTMLElement>('#basic-save'),
-    actions: [
-      { label: 'Précédent', action: 'prev' },
-      { label: 'Suivant', action: 'next' },
-    ],
-  },
-  {
-    id: 'complete',
+    id: 'welcome',
+    title: 'Bienvenue !',
     type: 'dialog',
-    title: 'Terminé !',
+  },
+  {
+    actions: [
+      { action: 'prev', label: 'Précédent' },
+      { action: 'next', label: 'Suivant' },
+    ],
+    description: 'Cliquez ici pour ajouter vos fichiers au projet.',
+    id: 'upload',
+    target: () => document.querySelector<HTMLElement>('#basic-upload'),
+    title: 'Téléverser des fichiers',
+    type: 'tooltip',
+  },
+  {
+    actions: [
+      { action: 'prev', label: 'Précédent' },
+      { action: 'next', label: 'Suivant' },
+    ],
+    description: 'Enregistrez vos modifications pour conserver votre progression.',
+    id: 'save',
+    target: () => document.querySelector<HTMLElement>('#basic-save'),
+    title: 'Sauvegarder',
+    type: 'tooltip',
+  },
+  {
+    actions: [{ action: 'dismiss', label: 'Fermer' }],
     description: 'Vous connaissez maintenant les bases. Bonne utilisation !',
-    actions: [{ label: 'Fermer', action: 'dismiss' }],
+    id: 'complete',
+    title: 'Terminé !',
+    type: 'dialog',
   },
 ]
 
@@ -60,45 +61,45 @@ const basicTour = useTour({ steps: basicSteps })
 // ─── Progress Bar Tour ───────────────────────────────────────
 const progressSteps: TourStepDetails[] = [
   {
-    id: 'p1',
-    type: 'tooltip',
-    title: 'Étape 1 sur 4',
+    actions: [{ action: 'next', label: 'Suivant' }],
     description: 'Observez la barre de progression en bas du panneau.',
+    id: 'p1',
     target: () => document.querySelector<HTMLElement>('#progress-1'),
-    actions: [{ label: 'Suivant', action: 'next' }],
+    title: 'Étape 1 sur 4',
+    type: 'tooltip',
   },
   {
-    id: 'p2',
-    type: 'tooltip',
-    title: 'Étape 2 sur 4',
+    actions: [
+      { action: 'prev', label: 'Précédent' },
+      { action: 'next', label: 'Suivant' },
+    ],
     description: 'La barre avance à chaque étape.',
+    id: 'p2',
     target: () => document.querySelector<HTMLElement>('#progress-2'),
-    actions: [
-      { label: 'Précédent', action: 'prev' },
-      { label: 'Suivant', action: 'next' },
-    ],
+    title: 'Étape 2 sur 4',
+    type: 'tooltip',
   },
   {
-    id: 'p3',
-    type: 'tooltip',
-    title: 'Étape 3 sur 4',
+    actions: [
+      { action: 'prev', label: 'Précédent' },
+      { action: 'next', label: 'Suivant' },
+    ],
     description: 'Encore un petit effort !',
+    id: 'p3',
     target: () => document.querySelector<HTMLElement>('#progress-3'),
-    actions: [
-      { label: 'Précédent', action: 'prev' },
-      { label: 'Suivant', action: 'next' },
-    ],
+    title: 'Étape 3 sur 4',
+    type: 'tooltip',
   },
   {
-    id: 'p4',
-    type: 'tooltip',
-    title: 'Étape 4 sur 4',
-    description: 'Vous avez complété toutes les étapes.',
-    target: () => document.querySelector<HTMLElement>('#progress-4'),
     actions: [
-      { label: 'Précédent', action: 'prev' },
-      { label: 'Terminer', action: 'dismiss' },
+      { action: 'prev', label: 'Précédent' },
+      { action: 'dismiss', label: 'Terminer' },
     ],
+    description: 'Vous avez complété toutes les étapes.',
+    id: 'p4',
+    target: () => document.querySelector<HTMLElement>('#progress-4'),
+    title: 'Étape 4 sur 4',
+    type: 'tooltip',
   },
 ]
 
@@ -107,38 +108,38 @@ const progressTour = useTour({ steps: progressSteps })
 // ─── Skip Tour ───────────────────────────────────────────────
 const skipSteps: TourStepDetails[] = [
   {
-    id: 's1',
-    type: 'tooltip',
-    title: 'Première fonctionnalité',
+    actions: [
+      { action: 'dismiss', label: 'Ignorer' },
+      { action: 'next', label: 'Suivant' },
+    ],
     description: 'Vous pouvez ignorer cette visite à tout moment avec le bouton Ignorer.',
+    id: 's1',
     target: () => document.querySelector<HTMLElement>('#skip-1'),
-    actions: [
-      { label: 'Ignorer', action: 'dismiss' },
-      { label: 'Suivant', action: 'next' },
-    ],
+    title: 'Première fonctionnalité',
+    type: 'tooltip',
   },
   {
-    id: 's2',
-    type: 'tooltip',
-    title: 'Deuxième fonctionnalité',
+    actions: [
+      { action: 'dismiss', label: 'Ignorer' },
+      { action: 'prev', label: 'Précédent' },
+      { action: 'next', label: 'Suivant' },
+    ],
     description: 'Continuez ou ignorez pour terminer la visite.',
+    id: 's2',
     target: () => document.querySelector<HTMLElement>('#skip-2'),
-    actions: [
-      { label: 'Ignorer', action: 'dismiss' },
-      { label: 'Précédent', action: 'prev' },
-      { label: 'Suivant', action: 'next' },
-    ],
+    title: 'Deuxième fonctionnalité',
+    type: 'tooltip',
   },
   {
-    id: 's3',
-    type: 'tooltip',
-    title: 'Dernière étape',
-    description: "C'est la dernière étape de la visite.",
-    target: () => document.querySelector<HTMLElement>('#skip-3'),
     actions: [
-      { label: 'Précédent', action: 'prev' },
-      { label: 'Terminer', action: 'dismiss' },
+      { action: 'prev', label: 'Précédent' },
+      { action: 'dismiss', label: 'Terminer' },
     ],
+    description: "C'est la dernière étape de la visite.",
+    id: 's3',
+    target: () => document.querySelector<HTMLElement>('#skip-3'),
+    title: 'Dernière étape',
+    type: 'tooltip',
   },
 ]
 
@@ -147,81 +148,81 @@ const skipTour = useTour({ steps: skipSteps })
 // ─── Keyboard Navigation Tour ────────────────────────────────
 const keyboardSteps: TourStepDetails[] = [
   {
-    id: 'k1',
-    type: 'tooltip',
-    title: 'Navigation clavier',
+    actions: [{ action: 'next', label: 'Suivant' }],
     description: "Appuyez sur la flèche droite pour passer à l'étape suivante.",
+    id: 'k1',
     target: () => document.querySelector<HTMLElement>('#key-1'),
-    actions: [{ label: 'Suivant', action: 'next' }],
+    title: 'Navigation clavier',
+    type: 'tooltip',
   },
   {
-    id: 'k2',
-    type: 'tooltip',
-    title: 'Revenir en arrière',
+    actions: [
+      { action: 'prev', label: 'Précédent' },
+      { action: 'next', label: 'Suivant' },
+    ],
     description: "Appuyez sur la flèche gauche pour revenir à l'étape précédente.",
+    id: 'k2',
     target: () => document.querySelector<HTMLElement>('#key-2'),
-    actions: [
-      { label: 'Précédent', action: 'prev' },
-      { label: 'Suivant', action: 'next' },
-    ],
+    title: 'Revenir en arrière',
+    type: 'tooltip',
   },
   {
-    id: 'k3',
-    type: 'tooltip',
-    title: 'Fermer la visite',
-    description: 'Appuyez sur Échap pour fermer la visite à tout moment.',
-    target: () => document.querySelector<HTMLElement>('#key-3'),
     actions: [
-      { label: 'Précédent', action: 'prev' },
-      { label: 'Terminer', action: 'dismiss' },
+      { action: 'prev', label: 'Précédent' },
+      { action: 'dismiss', label: 'Terminer' },
     ],
+    description: 'Appuyez sur Échap pour fermer la visite à tout moment.',
+    id: 'k3',
+    target: () => document.querySelector<HTMLElement>('#key-3'),
+    title: 'Fermer la visite',
+    type: 'tooltip',
   },
 ]
 
-const keyboardTour = useTour({ steps: keyboardSteps, keyboardNavigation: true })
+const keyboardTour = useTour({ keyboardNavigation: true, steps: keyboardSteps })
 
 // ─── Wait for Click Tour ─────────────────────────────────────
 const waitClickSteps: TourStepDetails[] = [
   {
-    id: 'wc-intro',
-    type: 'dialog',
-    title: 'Tutoriel interactif',
+    actions: [{ action: 'next', label: 'Commencer' }],
     description:
       'Cette visite vous guidera à travers des actions. Vous devez compléter chaque étape pour continuer.',
-    actions: [{ label: 'Commencer', action: 'next' }],
-  },
-  {
-    id: 'wc-add',
-    type: 'tooltip',
-    title: 'Cliquez sur "Ajouter"',
-    description: 'Cliquez sur le bouton "Ajouter un élément" pour continuer.',
-    target: () => document.querySelector<HTMLElement>('#wc-add-btn'),
-    effect({ next, target, show }) {
-      show()
-      const [promise, cancel] = waitForEvent(target, 'click')
-      promise.then(() => next())
-      return cancel
-    },
-  },
-  {
-    id: 'wc-edit',
-    type: 'tooltip',
-    title: 'Cliquez sur "Modifier"',
-    description: 'Maintenant, cliquez sur le bouton "Modifier".',
-    target: () => document.querySelector<HTMLElement>('#wc-edit-btn'),
-    effect({ next, target, show }) {
-      show()
-      const [promise, cancel] = waitForEvent(target, 'click')
-      promise.then(() => next())
-      return cancel
-    },
-  },
-  {
-    id: 'wc-complete',
+    id: 'wc-intro',
+    title: 'Tutoriel interactif',
     type: 'dialog',
-    title: 'Bravo !',
+  },
+  {
+    description: 'Cliquez sur le bouton "Ajouter un élément" pour continuer.',
+    effect({ next, target, show }) {
+      show()
+      const [promise, cancel] = waitForEvent(target, 'click')
+      promise.then(() => next())
+      return cancel
+    },
+    id: 'wc-add',
+    target: () => document.querySelector<HTMLElement>('#wc-add-btn'),
+    title: 'Cliquez sur "Ajouter"',
+    type: 'tooltip',
+  },
+  {
+    description: 'Maintenant, cliquez sur le bouton "Modifier".',
+    effect({ next, target, show }) {
+      show()
+      const [promise, cancel] = waitForEvent(target, 'click')
+      promise.then(() => next())
+      return cancel
+    },
+    id: 'wc-edit',
+    target: () => document.querySelector<HTMLElement>('#wc-edit-btn'),
+    title: 'Cliquez sur "Modifier"',
+    type: 'tooltip',
+  },
+  {
+    actions: [{ action: 'dismiss', label: 'Terminer' }],
     description: 'Vous avez terminé toutes les étapes interactives.',
-    actions: [{ label: 'Terminer', action: 'dismiss' }],
+    id: 'wc-complete',
+    title: 'Bravo !',
+    type: 'dialog',
   },
 ]
 
@@ -230,18 +231,14 @@ const waitClickTour = useTour({ steps: waitClickSteps })
 // ─── Wait for Input Tour ─────────────────────────────────────
 const waitInputSteps: TourStepDetails[] = [
   {
-    id: 'wi-intro',
-    type: 'dialog',
-    title: 'Tutoriel formulaire',
+    actions: [{ action: 'next', label: 'Commencer' }],
     description: 'Apprenez à remplir le formulaire en suivant les étapes guidées.',
-    actions: [{ label: 'Commencer', action: 'next' }],
+    id: 'wi-intro',
+    title: 'Tutoriel formulaire',
+    type: 'dialog',
   },
   {
-    id: 'wi-name',
-    type: 'tooltip',
-    title: 'Entrez votre nom',
     description: 'Tapez votre nom dans le champ pour continuer (min. 2 caractères).',
-    target: () => document.querySelector<HTMLInputElement>('#wi-name-input'),
     effect({ next, target, show }) {
       show()
       const [promise, cancel] = waitForEvent<HTMLInputElement>(target, 'input', {
@@ -250,13 +247,13 @@ const waitInputSteps: TourStepDetails[] = [
       promise.then(() => next())
       return cancel
     },
+    id: 'wi-name',
+    target: () => document.querySelector<HTMLInputElement>('#wi-name-input'),
+    title: 'Entrez votre nom',
+    type: 'tooltip',
   },
   {
-    id: 'wi-email',
-    type: 'tooltip',
-    title: 'Entrez votre email',
     description: 'Maintenant, entrez une adresse email valide.',
-    target: () => document.querySelector<HTMLInputElement>('#wi-email-input'),
     effect({ next, target, show }) {
       show()
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -266,13 +263,13 @@ const waitInputSteps: TourStepDetails[] = [
       promise.then(() => next())
       return cancel
     },
+    id: 'wi-email',
+    target: () => document.querySelector<HTMLInputElement>('#wi-email-input'),
+    title: 'Entrez votre email',
+    type: 'tooltip',
   },
   {
-    id: 'wi-terms',
-    type: 'tooltip',
-    title: 'Acceptez les conditions',
     description: "Cochez la case pour accepter les conditions d'utilisation.",
-    target: () => document.querySelector<HTMLInputElement>('#wi-terms-checkbox'),
     effect({ next, target, show }) {
       show()
       const [promise, cancel] = waitForEvent<HTMLInputElement>(target, 'change', {
@@ -281,13 +278,17 @@ const waitInputSteps: TourStepDetails[] = [
       promise.then(() => next())
       return cancel
     },
+    id: 'wi-terms',
+    target: () => document.querySelector<HTMLInputElement>('#wi-terms-checkbox'),
+    title: 'Acceptez les conditions',
+    type: 'tooltip',
   },
   {
-    id: 'wi-complete',
-    type: 'dialog',
-    title: 'Formulaire complété !',
+    actions: [{ action: 'dismiss', label: 'Terminer' }],
     description: 'Vous avez réussi à remplir le formulaire.',
-    actions: [{ label: 'Terminer', action: 'dismiss' }],
+    id: 'wi-complete',
+    title: 'Formulaire complété !',
+    type: 'dialog',
   },
 ]
 
@@ -298,32 +299,29 @@ const waitElementItems = ref<string[]>(['Élément 1', 'Élément 2'])
 
 const waitElementSteps: TourStepDetails[] = [
   {
-    id: 'we-intro',
-    type: 'dialog',
-    title: 'Éléments dynamiques',
+    actions: [{ action: 'next', label: 'Commencer' }],
     description:
       'Cette visite montre comment attendre des éléments qui apparaissent dynamiquement.',
-    actions: [{ label: 'Commencer', action: 'next' }],
+    id: 'we-intro',
+    title: 'Éléments dynamiques',
+    type: 'dialog',
   },
   {
-    id: 'we-add',
-    type: 'tooltip',
-    title: 'Ajoutez un élément',
     description: 'Cliquez sur le bouton pour ajouter un nouvel élément à la liste.',
-    target: () => document.querySelector<HTMLElement>('#we-add-btn'),
     effect({ next, target, show }) {
       show()
       const [promise, cancel] = waitForEvent(target, 'click')
       promise.then(() => next())
       return cancel
     },
+    id: 'we-add',
+    target: () => document.querySelector<HTMLElement>('#we-add-btn'),
+    title: 'Ajoutez un élément',
+    type: 'tooltip',
   },
   {
-    id: 'we-new',
-    type: 'tooltip',
-    title: 'Nouvel élément ajouté !',
+    actions: [{ action: 'next', label: 'Suivant' }],
     description: "La visite a attendu que cet élément apparaisse avant d'afficher cette étape.",
-    target: () => document.querySelector<HTMLElement>('[data-item="new"]'),
     effect({ show }) {
       const [promise, cancel] = waitForElement(
         () => document.querySelector<HTMLElement>('[data-item="new"]'),
@@ -334,14 +332,17 @@ const waitElementSteps: TourStepDetails[] = [
       promise.then(() => show())
       return () => cancel()
     },
-    actions: [{ label: 'Suivant', action: 'next' }],
+    id: 'we-new',
+    target: () => document.querySelector<HTMLElement>('[data-item="new"]'),
+    title: 'Nouvel élément ajouté !',
+    type: 'tooltip',
   },
   {
-    id: 'we-complete',
-    type: 'dialog',
-    title: 'Visite terminée',
+    actions: [{ action: 'dismiss', label: 'Terminer' }],
     description: 'Vous avez appris à utiliser waitForElement pour le contenu dynamique.',
-    actions: [{ label: 'Terminer', action: 'dismiss' }],
+    id: 'we-complete',
+    title: 'Visite terminée',
+    type: 'dialog',
   },
 ]
 
@@ -357,18 +358,18 @@ const addWaitElementItem = () => {
 // ─── Async Tour ──────────────────────────────────────────────
 const asyncSteps: TourStepDetails[] = [
   {
-    id: 'async-intro',
-    type: 'dialog',
-    title: 'Chargement asynchrone',
+    actions: [{ action: 'next', label: 'Suivant' }],
     description: "Cette visite charge des données avant d'afficher une étape.",
-    actions: [{ label: 'Suivant', action: 'next' }],
+    id: 'async-intro',
+    title: 'Chargement asynchrone',
+    type: 'dialog',
   },
   {
-    id: 'async-user',
-    type: 'tooltip',
-    title: 'Chargement...',
+    actions: [
+      { action: 'prev', label: 'Précédent' },
+      { action: 'next', label: 'Suivant' },
+    ],
     description: 'Récupération des données utilisateur...',
-    target: () => document.querySelector<HTMLElement>('#async-user-card'),
     effect({ show, update }) {
       const controller = new AbortController()
 
@@ -376,32 +377,32 @@ const asyncSteps: TourStepDetails[] = [
         .then((res) => res.json())
         .then((data) => {
           update({
-            title: `Bienvenue, ${data.name || data.login} !`,
             description: `${data.public_repos} dépôts publics et ${data.followers} abonnés.`,
+            title: `Bienvenue, ${data.name || data.login} !`,
           })
           show()
         })
         .catch(() => {
           update({
-            title: 'Profil utilisateur',
             description: 'Impossible de charger les données. Veuillez réessayer.',
+            title: 'Profil utilisateur',
           })
           show()
         })
 
       return () => controller.abort()
     },
-    actions: [
-      { label: 'Précédent', action: 'prev' },
-      { label: 'Suivant', action: 'next' },
-    ],
+    id: 'async-user',
+    target: () => document.querySelector<HTMLElement>('#async-user-card'),
+    title: 'Chargement...',
+    type: 'tooltip',
   },
   {
-    id: 'async-complete',
-    type: 'dialog',
-    title: 'Visite terminée',
+    actions: [{ action: 'dismiss', label: 'Terminer' }],
     description: "L'étape asynchrone a chargé les données depuis l'API GitHub.",
-    actions: [{ label: 'Terminer', action: 'dismiss' }],
+    id: 'async-complete',
+    title: 'Visite terminée',
+    type: 'dialog',
   },
 ]
 
@@ -416,86 +417,86 @@ const addEventLog = (message: string) => {
 
 const eventSteps: TourStepDetails[] = [
   {
-    id: 'e1',
-    type: 'tooltip',
-    title: 'Première étape',
+    actions: [{ action: 'next', label: 'Suivant' }],
     description: "Observez le journal d'événements ci-dessous pendant la navigation.",
+    id: 'e1',
     target: () => document.querySelector<HTMLElement>('#event-1'),
-    actions: [{ label: 'Suivant', action: 'next' }],
+    title: 'Première étape',
+    type: 'tooltip',
   },
   {
-    id: 'e2',
-    type: 'tooltip',
-    title: 'Deuxième étape',
+    actions: [
+      { action: 'prev', label: 'Précédent' },
+      { action: 'next', label: 'Suivant' },
+    ],
     description: "Chaque changement d'étape déclenche un événement.",
+    id: 'e2',
     target: () => document.querySelector<HTMLElement>('#event-2'),
-    actions: [
-      { label: 'Précédent', action: 'prev' },
-      { label: 'Suivant', action: 'next' },
-    ],
+    title: 'Deuxième étape',
+    type: 'tooltip',
   },
   {
-    id: 'e3',
-    type: 'tooltip',
-    title: 'Dernière étape',
-    description: 'Terminez la visite pour voir le changement de statut.',
-    target: () => document.querySelector<HTMLElement>('#event-3'),
     actions: [
-      { label: 'Précédent', action: 'prev' },
-      { label: 'Terminer', action: 'dismiss' },
+      { action: 'prev', label: 'Précédent' },
+      { action: 'dismiss', label: 'Terminer' },
     ],
+    description: 'Terminez la visite pour voir le changement de statut.',
+    id: 'e3',
+    target: () => document.querySelector<HTMLElement>('#event-3'),
+    title: 'Dernière étape',
+    type: 'tooltip',
   },
 ]
 
 const eventTour = useTour({
-  steps: eventSteps,
-  onStepChange(details) {
-    addEventLog(`Étape changée : ${details.stepId}`)
-  },
   onStatusChange(details) {
     addEventLog(`Statut : ${details.status}`)
   },
+  onStepChange(details) {
+    addEventLog(`Étape changée : ${details.stepId}`)
+  },
+  steps: eventSteps,
 })
 
 // ─── Mixed Types Tour ────────────────────────────────────────
 const mixedSteps: TourStepDetails[] = [
   {
-    id: 'm-welcome',
-    type: 'dialog',
-    title: 'Bienvenue !',
+    actions: [{ action: 'next', label: 'Commencer' }],
     description:
       "Cette visite montre les différents types d'étapes : dialogue, tooltip et flottant.",
-    actions: [{ label: 'Commencer', action: 'next' }],
+    id: 'm-welcome',
+    title: 'Bienvenue !',
+    type: 'dialog',
   },
   {
-    id: 'm-tooltip',
-    type: 'tooltip',
-    title: 'Étape Tooltip',
-    description: 'Cette étape apparaît comme un tooltip ancré à un élément spécifique.',
-    target: () => document.querySelector<HTMLElement>('#mixed-target'),
     actions: [
-      { label: 'Précédent', action: 'prev' },
-      { label: 'Suivant', action: 'next' },
+      { action: 'prev', label: 'Précédent' },
+      { action: 'next', label: 'Suivant' },
     ],
+    description: 'Cette étape apparaît comme un tooltip ancré à un élément spécifique.',
+    id: 'm-tooltip',
+    target: () => document.querySelector<HTMLElement>('#mixed-target'),
+    title: 'Étape Tooltip',
+    type: 'tooltip',
   },
   {
-    id: 'm-floating',
-    type: 'floating',
-    placement: 'bottom-end',
-    title: 'Étape flottante',
+    actions: [
+      { action: 'prev', label: 'Précédent' },
+      { action: 'next', label: 'Suivant' },
+    ],
     description:
       "Cette étape flotte à une position fixe sur l'écran, indépendante de tout élément cible.",
-    actions: [
-      { label: 'Précédent', action: 'prev' },
-      { label: 'Suivant', action: 'next' },
-    ],
+    id: 'm-floating',
+    placement: 'bottom-end',
+    title: 'Étape flottante',
+    type: 'floating',
   },
   {
-    id: 'm-complete',
-    type: 'dialog',
-    title: 'Visite terminée !',
+    actions: [{ action: 'dismiss', label: 'Terminer' }],
     description: "Vous avez vu tous les types d'étapes disponibles.",
-    actions: [{ label: 'Terminer', action: 'dismiss' }],
+    id: 'm-complete',
+    title: 'Visite terminée !',
+    type: 'dialog',
   },
 ]
 

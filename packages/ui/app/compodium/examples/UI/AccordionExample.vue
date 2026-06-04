@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import {
   useAccordion,
   type AccordionFocusChangeDetails,
@@ -8,26 +9,26 @@ import {
 const controlled = ref<string[]>([])
 const contextValue = ref<string[]>([])
 
-const externalAccordion = useAccordion({ multiple: true, collapsible: true })
+const externalAccordion = useAccordion({ collapsible: true, multiple: true })
 
 const faqItems = [
   {
-    value: 'what',
-    trigger: 'What is this UI library?',
     content:
       'A high-performance, accessible component library built on top of Ark UI and Tailwind CSS.',
+    trigger: 'What is this UI library?',
+    value: 'what',
   },
   {
-    value: 'why',
-    trigger: 'Why choose this over others?',
     content:
       'It focuses on extreme type safety, modularity via Nuxt layers, and a cohesive design system.',
+    trigger: 'Why choose this over others?',
+    value: 'why',
   },
   {
-    value: 'how',
-    trigger: 'How do I get started?',
     content:
       'Install the package, add it to your nuxt.config.ts layers, and start using the UI components.',
+    trigger: 'How do I get started?',
+    value: 'how',
   },
 ]
 

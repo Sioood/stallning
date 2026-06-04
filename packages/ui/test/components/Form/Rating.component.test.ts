@@ -17,7 +17,7 @@ describe('UIFormRating', () => {
 
   it('renders label when label prop is provided', async () => {
     const wrapper = await mountSuspended(UIFormRating, {
-      props: { label: 'Product rating', count: 5 },
+      props: { count: 5, label: 'Product rating' },
     })
 
     expect(wrapper.text()).toContain('Product rating')
@@ -25,7 +25,7 @@ describe('UIFormRating', () => {
 
   it('renders helper text when provided', async () => {
     const wrapper = await mountSuspended(UIFormRating, {
-      props: { helperText: 'Rate from 1 to 5', count: 5 },
+      props: { count: 5, helperText: 'Rate from 1 to 5' },
     })
 
     expect(wrapper.text()).toContain('Rate from 1 to 5')
@@ -33,7 +33,7 @@ describe('UIFormRating', () => {
 
   it('renders error text when invalid with error message', async () => {
     const wrapper = await mountSuspended(UIFormRating, {
-      props: { invalid: true, error: 'Rating is required', count: 5 },
+      props: { count: 5, error: 'Rating is required', invalid: true },
     })
 
     expect(wrapper.text()).toContain('Rating is required')
@@ -41,7 +41,7 @@ describe('UIFormRating', () => {
 
   it('renders hidden input for form submission when name is set', async () => {
     const wrapper = await mountSuspended(UIFormRating, {
-      props: { name: 'rating', count: 5, defaultValue: 3 },
+      props: { count: 5, defaultValue: 3, name: 'rating' },
     })
 
     const hidden = wrapper.find('input[name="rating"]')
@@ -68,7 +68,7 @@ describe('UIFormRating', () => {
 
   it('respects disabled state on items', async () => {
     const wrapper = await mountSuspended(UIFormRating, {
-      props: { disabled: true, count: 5 },
+      props: { count: 5, disabled: true },
     })
 
     const items = wrapper.findAll('[data-part="item"]')
@@ -79,7 +79,7 @@ describe('UIFormRating', () => {
 
   it('respects read-only state on control', async () => {
     const wrapper = await mountSuspended(UIFormRating, {
-      props: { readOnly: true, count: 5, defaultValue: 4 },
+      props: { count: 5, defaultValue: 4, readOnly: true },
     })
 
     const control = wrapper.find('[data-part="control"]')
@@ -88,7 +88,7 @@ describe('UIFormRating', () => {
 
   it('supports allowHalf via root props', async () => {
     const wrapper = await mountSuspended(UIFormRatingRoot, {
-      props: { allowHalf: true, defaultValue: 2.5, count: 5 },
+      props: { allowHalf: true, count: 5, defaultValue: 2.5 },
     })
 
     const root = wrapper.find('[data-part="root"]')
@@ -113,8 +113,8 @@ describe('UIFormRating', () => {
       props: {
         count: 5,
         defaultValue: 3,
-        onValueChange,
         onHoverChange,
+        onValueChange,
       },
     })
 

@@ -14,17 +14,17 @@ describe('Badge', () => {
 
   it('applies badgeIcon size classes for each size variant', async () => {
     const sizes = [
-      { size: 'sm' as const, iconSizeClass: 'size-2.5' },
-      { size: 'md' as const, iconSizeClass: 'size-3' },
-      { size: 'lg' as const, iconSizeClass: 'size-4' },
+      { iconSizeClass: 'size-2.5', size: 'sm' as const },
+      { iconSizeClass: 'size-3', size: 'md' as const },
+      { iconSizeClass: 'size-4', size: 'lg' as const },
     ]
 
     for (const { size, iconSizeClass } of sizes) {
       const wrapper = await mountSuspended(Badge, {
         props: {
           label: 'X',
-          size,
           leadingIcon: 'tabler:badge',
+          size,
         },
       })
 

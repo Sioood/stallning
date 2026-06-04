@@ -64,10 +64,10 @@ const attrs = useAttrs()
 
 provide(tabsChromeKey, {
   intent: computed(() => props.intent),
-  size: computed(() => props.size),
   orientation: computed(() => props.orientation),
-  variant: computed(() => props.variant),
+  size: computed(() => props.size),
   triggerLayout: computed(() => props.triggerLayout),
+  variant: computed(() => props.variant),
 })
 
 const isProvider = computed(() => props.value !== undefined)
@@ -99,7 +99,7 @@ const arkAttrs = computed(() => splitArkAttrs(attrs))
 
 const rootClass = computed(() =>
   cn(
-    tabsRootCVA({ variant: props.variant, orientation: props.orientation }),
+    tabsRootCVA({ orientation: props.orientation, variant: props.variant }),
     arkAttrs.value.class as ClassValue,
     props.ui?.root,
   ),
@@ -107,8 +107,8 @@ const rootClass = computed(() =>
 
 extendCompodiumMeta({
   defaultProps: {
-    modelValue: 'react',
     intent: 'primary',
+    modelValue: 'react',
     orientation: 'horizontal',
     size: 'md',
     variant: 'line',

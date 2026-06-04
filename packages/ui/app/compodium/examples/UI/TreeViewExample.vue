@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import { useTreeView } from '@ark-ui/vue/tree-view'
 
 import {
@@ -16,26 +17,26 @@ import type { TreeViewItem } from '~/utils/Components/TreeView/context'
 
 const fileTreeItems: TreeViewItem[] = [
   {
-    id: 'src',
-    label: 'src',
     children: [
       { id: 'src/app.vue', label: 'app.vue' },
       { id: 'src/main.ts', label: 'main.ts' },
     ],
+    id: 'src',
+    label: 'src',
   },
   {
-    id: 'packages',
-    label: 'packages',
     children: [
       {
-        id: 'packages/ui',
-        label: 'ui',
         children: [
           { id: 'packages/ui/index.ts', label: 'index.ts' },
           { id: 'packages/ui/components', label: 'components' },
         ],
+        id: 'packages/ui',
+        label: 'ui',
       },
     ],
+    id: 'packages',
+    label: 'packages',
   },
   { id: 'package.json', label: 'package.json' },
   { id: 'readme.md', label: 'README.md' },
@@ -49,8 +50,8 @@ const controlledChecked = ref<TreeViewCheckedState>(emptyTreeViewCheckedState())
 
 const externalTree = useTreeView({
   collection,
-  defaultExpandedValue: ['packages'],
   defaultCheckedValue: [],
+  defaultExpandedValue: ['packages'],
 })
 
 const intents = ['neutral', 'primary', 'secondary', 'accent'] as const

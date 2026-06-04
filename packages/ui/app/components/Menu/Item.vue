@@ -12,14 +12,14 @@ const menuItemCVA = cva(
   {
     variants: {
       intent: {
+        accent:
+          'text-accent-text-default data-[disabled]:text-accent-text-subtle data-[highlighted]:bg-accent-fill-subtle-hover',
         neutral:
           'text-neutral-text-default data-[disabled]:text-neutral-text-subtle data-[highlighted]:bg-neutral-fill-subtle-hover',
         primary:
           'text-primary-text-default data-[disabled]:text-primary-text-subtle data-[highlighted]:bg-primary-fill-subtle-hover',
         secondary:
           'text-secondary-text-default data-[disabled]:text-secondary-text-subtle data-[highlighted]:bg-secondary-fill-subtle-hover',
-        accent:
-          'text-accent-text-default data-[disabled]:text-accent-text-subtle data-[highlighted]:bg-accent-fill-subtle-hover',
       },
       size: {
         md: 'txt-caption px-2 py-1.5',
@@ -37,17 +37,17 @@ export interface MenuItemProps extends Omit<MenuItemEntry, 'closeOnSelect'> {
 }
 
 const props = withDefaults(defineProps<MenuItemProps>(), {
-  type: undefined,
-  intent: 'neutral',
-  size: 'md',
-  valueText: undefined,
-  onSelect: undefined,
-  to: undefined,
-  target: undefined,
-  external: undefined,
-  item: undefined,
   customClass: undefined,
   entryCloseOnSelect: undefined,
+  external: undefined,
+  intent: 'neutral',
+  item: undefined,
+  onSelect: undefined,
+  size: 'md',
+  target: undefined,
+  to: undefined,
+  type: undefined,
+  valueText: undefined,
 })
 
 const config = useRuntimeConfig()
@@ -67,7 +67,7 @@ const itemClass = computed(() =>
 const isExternalLink = computed(() => {
   if (props.external) return true
   const url = props.to?.toString()
-  const siteUrl = config.public.siteUrl
+  const { siteUrl } = config.public
   if (siteUrl && url?.startsWith(siteUrl)) return false
   return url?.startsWith('http')
 })
@@ -76,7 +76,7 @@ const linkTarget = computed(() => props.target || (isExternalLink.value ? '_blan
 const linkRel = computed(() => (linkTarget.value === '_blank' ? 'noopener noreferrer' : undefined))
 
 const linkHref = computed(() => {
-  const to = props.to
+  const { to } = props
   if (typeof to === 'string') return to
   return to?.toString() ?? ''
 })

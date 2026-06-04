@@ -7,8 +7,8 @@ describe('Alert', () => {
   it('renders title and description', async () => {
     const wrapper = await mountSuspended(Alert, {
       props: {
-        title: 'Important update',
         description: 'A description for this alert',
+        title: 'Important update',
       },
     })
 
@@ -32,10 +32,10 @@ describe('Alert', () => {
   it('renders action buttons and falls back action intent/size to alert values', async () => {
     const wrapper = await mountSuspended(Alert, {
       props: {
-        title: 'Take action',
+        actions: [{ text: 'Retry' }],
         intent: 'warning',
         size: 'md',
-        actions: [{ text: 'Retry' }],
+        title: 'Take action',
       },
     })
 
@@ -47,9 +47,9 @@ describe('Alert', () => {
   it('hides alert when close button is clicked', async () => {
     const wrapper = await mountSuspended(Alert, {
       props: {
-        title: 'Closable',
-        closable: true,
         actions: [{ text: 'Action' }],
+        closable: true,
+        title: 'Closable',
       },
     })
 
@@ -62,8 +62,8 @@ describe('Alert', () => {
     const onClick = vi.fn()
     const wrapper = await mountSuspended(Alert, {
       props: {
+        actions: [{ onClick, text: 'Run' }],
         title: 'Click action',
-        actions: [{ text: 'Run', onClick }],
       },
     })
 
@@ -76,9 +76,9 @@ describe('Alert', () => {
   it('applies intent from type prop when both type and intent are set', async () => {
     const wrapper = await mountSuspended(Alert, {
       props: {
+        intent: 'neutral',
         title: 'Type overrides',
         type: 'error',
-        intent: 'neutral',
       },
     })
 
@@ -120,8 +120,8 @@ describe('Alert', () => {
   it('renders custom icon from prop', async () => {
     const wrapper = await mountSuspended(Alert, {
       props: {
-        title: 'Custom icon',
         icon: 'tabler:bell',
+        title: 'Custom icon',
       },
     })
 

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import { useSegmentGroup, type SegmentGroupValueChangeDetails } from '@ark-ui/vue/segment-group'
 
 const selected = ref<string>('react')
@@ -7,10 +8,10 @@ const externalApi = useSegmentGroup({
 })
 
 const options = [
-  { value: 'react', label: 'React' },
-  { value: 'solid', label: 'Solid' },
-  { value: 'svelte', label: 'Svelte' },
-  { value: 'vue', label: 'Vue' },
+  { label: 'React', value: 'react' },
+  { label: 'Solid', value: 'solid' },
+  { label: 'Svelte', value: 'svelte' },
+  { label: 'Vue', value: 'vue' },
 ]
 
 const intents = ['neutral', 'primary', 'secondary', 'accent'] as const

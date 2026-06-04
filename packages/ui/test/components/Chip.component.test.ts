@@ -14,24 +14,24 @@ describe('Chip', () => {
 
   it('applies chipIcon size classes for each size variant', async () => {
     const sizes = [
-      { size: 'sm' as const, iconSizeClass: 'size-2.5' },
-      { size: 'md' as const, iconSizeClass: 'size-3' },
-      { size: 'lg' as const, iconSizeClass: 'size-4' },
+      { iconSizeClass: 'size-2.5', size: 'sm' as const },
+      { iconSizeClass: 'size-3', size: 'md' as const },
+      { iconSizeClass: 'size-4', size: 'lg' as const },
     ]
 
     for (const { size, iconSizeClass } of sizes) {
       const wrapper = await mountSuspended(Chip, {
         props: {
+          icon: 'tabler:tag',
           label: 'X',
           size,
-          icon: 'tabler:tag',
         },
       })
 
       const sizeIcons = wrapper
         .findAll('*')
         .filter((w) => w.classes().some((c) => c.startsWith('size-')))
-      const mainIcon = sizeIcons[0]
+      const [mainIcon] = sizeIcons
       expect(mainIcon, `main icon for size ${size}`).toBeDefined()
       expect(mainIcon!.classes()).toContain(iconSizeClass)
     }
@@ -40,8 +40,8 @@ describe('Chip', () => {
   it('merges ui.icon onto the main icon', async () => {
     const wrapper = await mountSuspended(Chip, {
       props: {
-        label: 'Y',
         icon: 'tabler:tag',
+        label: 'Y',
         ui: { icon: 'custom-chip-icon' },
       },
     })
@@ -56,8 +56,8 @@ describe('Chip', () => {
     const wrapper = await mountSuspended(Chip, {
       props: {
         label: 'Remove',
-        onIconAction: true,
         onClick,
+        onIconAction: true,
       },
     })
 
@@ -72,8 +72,8 @@ describe('Chip', () => {
     const wrapper = await mountSuspended(Chip, {
       props: {
         label: 'Whole chip',
-        onIconAction: false,
         onClick,
+        onIconAction: false,
       },
     })
 
@@ -85,8 +85,8 @@ describe('Chip', () => {
     const onClick = vi.fn()
     const wrapper = await mountSuspended(Chip, {
       props: {
-        label: 'Off',
         disabled: true,
+        label: 'Off',
         onClick,
       },
     })

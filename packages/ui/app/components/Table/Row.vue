@@ -28,8 +28,8 @@ const rowClass = computed(() =>
   cn(
     tableRowCVA({
       intent: intent.value,
-      selected: isSelected.value,
       pinned: Boolean(isPinned.value),
+      selected: isSelected.value,
     }),
     resolveMetaClassValue<TData>(tableMeta.value?.class?.tr, props.row),
     ui.value?.tr,

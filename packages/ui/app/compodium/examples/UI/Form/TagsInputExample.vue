@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import { useListCollection } from '@ark-ui/vue/combobox'
 import { useFilter } from '@ark-ui/vue/locale'
 import { useTagsInput } from '@ark-ui/vue/tags-input'
@@ -25,18 +26,18 @@ const providerApi = useTagsInput({
 const filters = useFilter({ sensitivity: 'base' })
 
 const providerCollection = useListCollection({
-  initialItems: frameworks,
   filter: filters.value.contains,
+  initialItems: frameworks,
 })
 
 const providerCombobox = useFormTagsInputCombobox({
   collection: providerCollection.collection,
-  tagsInput: { max: 5 },
   combobox: {
     onInputValueChange(details) {
       providerCollection.filter(details.inputValue)
     },
   },
+  tagsInput: { max: 5 },
 })
 </script>
 

@@ -8,8 +8,8 @@ describe('Toggle/Group', () => {
     const wrapper = await mountSuspended(ToggleGroup, {
       props: {
         options: [
-          { value: 'grid', title: 'Grid', icon: 'tabler:layout-grid' },
-          { value: 'list', title: 'List' },
+          { icon: 'tabler:layout-grid', title: 'Grid', value: 'grid' },
+          { title: 'List', value: 'list' },
         ],
       },
     })
@@ -22,7 +22,7 @@ describe('Toggle/Group', () => {
     const wrapper = await mountSuspended(ToggleGroup, {
       props: {
         modelValue: ['a'],
-        options: [{ value: 'a', title: 'A' }],
+        options: [{ title: 'A', value: 'a' }],
       },
       slots: {
         item: `
@@ -39,7 +39,7 @@ describe('Toggle/Group', () => {
   it('passes icon and title to item slot props', async () => {
     const wrapper = await mountSuspended(ToggleGroup, {
       props: {
-        options: [{ value: 'grid', title: 'Grid', icon: 'tabler:layout-grid' }],
+        options: [{ icon: 'tabler:layout-grid', title: 'Grid', value: 'grid' }],
       },
       slots: {
         item: `
@@ -58,8 +58,8 @@ describe('Toggle/Group', () => {
       props: {
         modelValue: [],
         options: [
-          { value: 'left', title: 'Left' },
-          { value: 'center', title: 'Center' },
+          { title: 'Left', value: 'left' },
+          { title: 'Center', value: 'center' },
         ],
       },
     })
@@ -76,11 +76,11 @@ describe('Toggle/Group', () => {
   it('emits multiple selected values when multiple is true', async () => {
     const wrapper = await mountSuspended(ToggleGroup, {
       props: {
-        multiple: true,
         modelValue: [],
+        multiple: true,
         options: [
-          { value: 'left', title: 'Left' },
-          { value: 'center', title: 'Center' },
+          { title: 'Left', value: 'left' },
+          { title: 'Center', value: 'center' },
         ],
       },
     })
@@ -97,7 +97,7 @@ describe('Toggle/Group', () => {
   it('does not emit selection for disabled option', async () => {
     const wrapper = await mountSuspended(ToggleGroup, {
       props: {
-        options: [{ value: 'left', title: 'Left', disabled: true }],
+        options: [{ disabled: true, title: 'Left', value: 'left' }],
       },
     })
 

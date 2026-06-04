@@ -111,8 +111,8 @@ const props = withDefaults(defineProps<PopoverProps>(), {
   showCloseTrigger: false,
   size: 'md',
   title: '',
-  value: undefined,
   ui: undefined,
+  value: undefined,
 })
 
 const attrs = useAttrs()

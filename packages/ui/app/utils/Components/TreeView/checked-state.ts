@@ -20,9 +20,9 @@ export function buildTreeViewCheckedState(
   map?: Partial<TreeViewCheckedValueMap>,
 ): TreeViewCheckedState {
   return {
-    value,
     branches: map?.branches ?? {},
     leaves: map?.leaves ?? {},
+    value,
   }
 }
 

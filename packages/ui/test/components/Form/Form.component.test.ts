@@ -10,12 +10,12 @@ import Input from '~ui/app/components/Form/Input.vue'
 describe('UIForm', () => {
   const baseSchema = z.object({ name: z.string().min(2) })
   const baseProps = {
-    schema: baseSchema,
     defaultValues: { name: '' },
     fields: {
       name: { as: Input, props: { label: 'Name', name: 'name' } },
     },
     layout: ['name'] as const,
+    schema: baseSchema,
     validateSchemaOn: ['submit'] as const,
   }
 
@@ -45,13 +45,13 @@ describe('UIForm', () => {
     const schema = z.object({ first: z.string(), last: z.string() })
     const wrapper = await mountSuspended(Form, {
       props: {
-        schema,
         defaultValues: { first: '', last: '' },
         fields: {
           first: { as: Input, props: { label: 'First', name: 'first' } },
           last: { as: Input, props: { label: 'Last', name: 'last' } },
         },
         layout: [['first', 'last']],
+        schema,
         validateSchemaOn: ['submit'] as const,
       },
     })

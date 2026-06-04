@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import {
   useDialog,
   type DialogOpenChangeDetails,
@@ -19,9 +20,9 @@ const finalFocusButtonRef = ref<UIButtonExpose | null>(null)
 // ── Multiple triggers ─────────────────────────────────────────
 const activeTrigger = ref<string | null>(null)
 const productContent: Record<string, { name: string; price: string; desc: string }> = {
-  shoes: { name: 'Trail Runners', price: '$120', desc: 'Lightweight trail running shoes.' },
-  jacket: { name: 'Shell Jacket', price: '$240', desc: 'Waterproof shell for alpine conditions.' },
-  pack: { name: 'Summit Pack', price: '$180', desc: '30L daypack with hydration sleeve.' },
+  jacket: { desc: 'Waterproof shell for alpine conditions.', name: 'Shell Jacket', price: '$240' },
+  pack: { desc: '30L daypack with hydration sleeve.', name: 'Summit Pack', price: '$180' },
+  shoes: { desc: 'Lightweight trail running shoes.', name: 'Trail Runners', price: '$120' },
 }
 
 // ── Confirmation ──────────────────────────────────────────────

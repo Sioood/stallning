@@ -9,15 +9,15 @@ export function getColumnPinningStyles<TData>(column: Column<TData, unknown>): C
   const isFirstRight = pinned === 'right' && column.getIsFirstColumn('right')
 
   return {
-    position: 'sticky',
-    left: pinned === 'left' ? `${column.getStart('left')}px` : undefined,
-    right: pinned === 'right' ? `${column.getAfter('right')}px` : undefined,
-    zIndex: pinned ? 1 : undefined,
     boxShadow: isLastLeft
       ? '2px 0 4px -2px rgb(0 0 0 / 0.08)'
       : isFirstRight
         ? '-2px 0 4px -2px rgb(0 0 0 / 0.08)'
         : undefined,
+    left: pinned === 'left' ? `${column.getStart('left')}px` : undefined,
+    position: 'sticky',
+    right: pinned === 'right' ? `${column.getAfter('right')}px` : undefined,
+    zIndex: pinned ? 1 : undefined,
   }
 }
 
@@ -26,9 +26,9 @@ export function getRowPinningStyles<TData>(row: Row<TData>): CSSProperties {
   if (!pinned) return {}
 
   return {
+    bottom: pinned === 'bottom' ? `${row.getPinnedIndex()}px` : undefined,
     position: 'sticky',
     top: pinned === 'top' ? `${row.getPinnedIndex()}px` : undefined,
-    bottom: pinned === 'bottom' ? `${row.getPinnedIndex()}px` : undefined,
     zIndex: 5,
   }
 }

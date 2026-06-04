@@ -73,8 +73,8 @@ const attrs = useAttrs()
 
 provide(segmentGroupChromeKey, {
   intent: computed(() => props.intent),
-  size: computed(() => props.size),
   orientation: computed(() => props.orientation),
+  size: computed(() => props.size),
   variant: computed(() => props.variant),
 })
 
@@ -98,10 +98,10 @@ const resolvedOptions = computed(() => (props.options.length > 0 ? props.options
 const rootClass = computed(() =>
   cn(
     segmentedRootCVA({
-      variant: props.variant,
       intent: props.intent,
-      size: props.size,
       orientation: props.orientation,
+      size: props.size,
+      variant: props.variant,
     }),
     arkAttrs.value.class as string,
     props.ui?.root,
@@ -110,17 +110,17 @@ const rootClass = computed(() =>
 
 extendCompodiumMeta({
   defaultProps: {
-    modelValue: 'react',
     intent: 'primary',
+    modelValue: 'react',
+    options: [
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Svelte', value: 'svelte' },
+      { label: 'Vue', value: 'vue' },
+    ],
     orientation: 'horizontal',
     size: 'md',
     variant: 'line',
-    options: [
-      { value: 'react', label: 'React' },
-      { value: 'solid', label: 'Solid' },
-      { value: 'svelte', label: 'Svelte' },
-      { value: 'vue', label: 'Vue' },
-    ],
   },
 })
 </script>

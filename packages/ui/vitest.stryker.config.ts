@@ -9,7 +9,7 @@ export default defineConfig({
   root: packageRoot,
   test: {
     environment: 'node',
-    include: ['test/**/*.test.ts'],
     exclude: ['test/**/*.component.test.ts', 'test/**/*.visual.test.ts'],
+    include: ['test/**/*.test.ts'],
   },
 })

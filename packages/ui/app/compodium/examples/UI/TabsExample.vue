@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import { useTabs, type TabsValueChangeDetails } from '@ark-ui/vue/tabs'
 
 const selected = ref<string>('react')
@@ -8,10 +9,10 @@ const externalApi = useTabs({
 })
 
 const options = [
-  { value: 'react', label: 'React', icon: 'tabler:brand-react' },
-  { value: 'solid', label: 'Solid' },
-  { value: 'svelte', label: 'Svelte', icon: 'tabler:brand-svelte' },
-  { value: 'vue', label: 'Vue', icon: 'tabler:brand-vue' },
+  { icon: 'tabler:brand-react', label: 'React', value: 'react' },
+  { label: 'Solid', value: 'solid' },
+  { icon: 'tabler:brand-svelte', label: 'Svelte', value: 'svelte' },
+  { icon: 'tabler:brand-vue', label: 'Vue', value: 'vue' },
 ]
 
 const intents = ['neutral', 'primary', 'secondary', 'accent'] as const

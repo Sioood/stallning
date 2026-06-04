@@ -18,36 +18,36 @@ afterEach(() => {
 
 test('Button default/neutral renders correctly', async () => {
   const { el, unmount } = mountForVisual(Button, {
-    text: 'Click me',
-    variant: 'default',
     intent: 'neutral',
     size: 'md',
+    text: 'Click me',
+    variant: 'default',
   })
   cleanup = unmount
 
-  await expectPngSnapshot(
-    el.querySelector('button')!,
+  await expectPngSnapshot({
+    element: el.querySelector('button')!,
+    filename: 'button-default-neutral.png',
+    screenshotPathFromTestFile: `${screenshotDir}/button-default-neutral.png`,
     specFolder,
-    `${screenshotDir}/button-default-neutral.png`,
-    'button-default-neutral.png',
-  )
+  })
 })
 
 test('Button default/primary renders correctly', async () => {
   const { el, unmount } = mountForVisual(Button, {
-    text: 'Primary',
-    variant: 'default',
     intent: 'primary',
     size: 'md',
+    text: 'Primary',
+    variant: 'default',
   })
   cleanup = unmount
 
-  await expectPngSnapshot(
-    el.querySelector('button')!,
+  await expectPngSnapshot({
+    element: el.querySelector('button')!,
+    filename: 'button-default-primary.png',
+    screenshotPathFromTestFile: `${screenshotDir}/button-default-primary.png`,
     specFolder,
-    `${screenshotDir}/button-default-primary.png`,
-    'button-default-primary.png',
-  )
+  })
 })
 
 test('Button default/primary (defaults) hover shows hover styles', async () => {
@@ -60,12 +60,12 @@ test('Button default/primary (defaults) hover shows hover styles', async () => {
   const locator = page.elementLocator(btn)
   await locator.hover()
   try {
-    await expectPngSnapshot(
-      btn,
+    await expectPngSnapshot({
+      element: btn,
+      filename: 'button-default-primary-hover.png',
+      screenshotPathFromTestFile: `${screenshotDir}/button-default-primary-hover.png`,
       specFolder,
-      `${screenshotDir}/button-default-primary-hover.png`,
-      'button-default-primary-hover.png',
-    )
+    })
   } finally {
     await locator.unhover()
   }
@@ -73,44 +73,44 @@ test('Button default/primary (defaults) hover shows hover styles', async () => {
 
 test('Button subtle/secondary renders correctly', async () => {
   const { el, unmount } = mountForVisual(Button, {
-    text: 'Secondary',
-    variant: 'subtle',
     intent: 'secondary',
     size: 'md',
+    text: 'Secondary',
+    variant: 'subtle',
   })
   cleanup = unmount
 
-  await expectPngSnapshot(
-    el.querySelector('button')!,
+  await expectPngSnapshot({
+    element: el.querySelector('button')!,
+    filename: 'button-subtle-secondary.png',
+    screenshotPathFromTestFile: `${screenshotDir}/button-subtle-secondary.png`,
     specFolder,
-    `${screenshotDir}/button-subtle-secondary.png`,
-    'button-subtle-secondary.png',
-  )
+  })
 })
 
 test('Button ghost/accent renders correctly', async () => {
   const { el, unmount } = mountForVisual(Button, {
-    text: 'Ghost',
-    variant: 'ghost',
     intent: 'accent',
     size: 'md',
+    text: 'Ghost',
+    variant: 'ghost',
   })
   cleanup = unmount
 
-  await expectPngSnapshot(
-    el.querySelector('button')!,
+  await expectPngSnapshot({
+    element: el.querySelector('button')!,
+    filename: 'button-ghost-accent.png',
+    screenshotPathFromTestFile: `${screenshotDir}/button-ghost-accent.png`,
     specFolder,
-    `${screenshotDir}/button-ghost-accent.png`,
-    'button-ghost-accent.png',
-  )
+  })
 })
 
 test('Button small size renders correctly', async () => {
   const { el, unmount } = mountForVisual(Button, {
-    text: 'Small',
-    variant: 'default',
     intent: 'primary',
     size: 'sm',
+    text: 'Small',
+    variant: 'default',
   })
   cleanup = unmount
 
@@ -124,35 +124,35 @@ test('Button small size renders correctly', async () => {
 
 test('Button large size renders correctly', async () => {
   const { el, unmount } = mountForVisual(Button, {
-    text: 'Large',
-    variant: 'default',
     intent: 'primary',
     size: 'lg',
+    text: 'Large',
+    variant: 'default',
   })
   cleanup = unmount
 
-  await expectPngSnapshot(
-    el.querySelector('button')!,
+  await expectPngSnapshot({
+    element: el.querySelector('button')!,
+    filename: 'button-size-lg.png',
+    screenshotPathFromTestFile: `${screenshotDir}/button-size-lg.png`,
     specFolder,
-    `${screenshotDir}/button-size-lg.png`,
-    'button-size-lg.png',
-  )
+  })
 })
 
 test('Button disabled state renders correctly', async () => {
   const { el, unmount } = mountForVisual(Button, {
-    text: 'Disabled',
-    variant: 'default',
+    disabled: true,
     intent: 'primary',
     size: 'md',
-    disabled: true,
+    text: 'Disabled',
+    variant: 'default',
   })
   cleanup = unmount
 
-  await expectPngSnapshot(
-    el.querySelector('button')!,
+  await expectPngSnapshot({
+    element: el.querySelector('button')!,
+    filename: 'button-disabled.png',
+    screenshotPathFromTestFile: `${screenshotDir}/button-disabled.png`,
     specFolder,
-    `${screenshotDir}/button-disabled.png`,
-    'button-disabled.png',
-  )
+  })
 })

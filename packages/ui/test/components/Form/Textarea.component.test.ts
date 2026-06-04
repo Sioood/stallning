@@ -35,8 +35,8 @@ describe('UIFormTextarea', () => {
   it('renders as disabled', async () => {
     const wrapper = await mountSuspended(Textarea, {
       props: {
-        label: 'Disabled',
         disabled: true,
+        label: 'Disabled',
       },
     })
 
@@ -48,8 +48,8 @@ describe('UIFormTextarea', () => {
     const wrapper = await mountSuspended(Textarea, {
       props: {
         label: 'Read-only',
-        readOnly: true,
         modelValue: 'Cannot edit',
+        readOnly: true,
       },
     })
 
@@ -60,8 +60,8 @@ describe('UIFormTextarea', () => {
   it('renders with helper text', async () => {
     const wrapper = await mountSuspended(Textarea, {
       props: {
-        label: 'Comments',
         helperText: 'Max 500 characters',
+        label: 'Comments',
       },
     })
 
@@ -71,9 +71,9 @@ describe('UIFormTextarea', () => {
   it('renders with error message', async () => {
     const wrapper = await mountSuspended(Textarea, {
       props: {
-        label: 'Required',
-        invalid: true,
         error: 'This field is required',
+        invalid: true,
+        label: 'Required',
       },
     })
 
@@ -83,8 +83,8 @@ describe('UIFormTextarea', () => {
   it('renders with autoresize', async () => {
     const wrapper = await mountSuspended(Textarea, {
       props: {
-        label: 'Autoresize',
         autoresize: true,
+        label: 'Autoresize',
       },
     })
 
@@ -107,10 +107,10 @@ describe('UIFormTextarea', () => {
 
   it('renders a textarea that accepts focus', async () => {
     const wrapper = await mountSuspended(Textarea, {
+      attachTo: document.body,
       props: {
         label: 'Focusable',
       },
-      attachTo: document.body,
     })
 
     const textarea = wrapper.find('textarea')

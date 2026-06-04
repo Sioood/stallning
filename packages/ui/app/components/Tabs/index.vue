@@ -119,18 +119,18 @@ const shouldRenderAutoContent = computed(
 
 extendCompodiumMeta({
   defaultProps: {
-    modelValue: 'react',
     intent: 'primary',
+    modelValue: 'react',
+    options: [
+      { icon: 'tabler:brand-react', label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { icon: 'tabler:brand-svelte', label: 'Svelte', value: 'svelte' },
+      { icon: 'tabler:brand-vue', label: 'Vue', value: 'vue' },
+    ],
     orientation: 'horizontal',
     size: 'md',
     triggerLayout: 'inline',
     variant: 'line',
-    options: [
-      { value: 'react', label: 'React', icon: 'tabler:brand-react' },
-      { value: 'solid', label: 'Solid' },
-      { value: 'svelte', label: 'Svelte', icon: 'tabler:brand-svelte' },
-      { value: 'vue', label: 'Vue', icon: 'tabler:brand-vue' },
-    ],
   },
 })
 </script>

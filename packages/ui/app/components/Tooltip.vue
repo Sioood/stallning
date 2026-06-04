@@ -43,14 +43,14 @@ const tooltipContentCVA = cva(
   {
     variants: {
       intent: {
+        accent: 'bg-accent-surface-default text-accent-text-default',
+        error: 'bg-error-surface-default text-error-text-default',
+        info: 'bg-info-surface-default text-info-text-default',
         neutral: 'bg-neutral-surface-default text-neutral-text-default',
         primary: 'bg-primary-surface-default text-primary-text-default',
         secondary: 'bg-secondary-surface-default text-secondary-text-default',
-        accent: 'bg-accent-surface-default text-accent-text-default',
-        info: 'bg-info-surface-default text-info-text-default',
         success: 'bg-success-surface-default text-success-text-default',
         warning: 'bg-warning-surface-default text-warning-text-default',
-        error: 'bg-error-surface-default text-error-text-default',
       } satisfies Record<TooltipIntent, string>,
       size: {
         md: 'txt-caption px-2 py-1',
@@ -62,14 +62,14 @@ const tooltipContentCVA = cva(
 const tooltipArrowCVA = cva(['tooltipArrow', 'flex items-center justify-center'], {
   variants: {
     intent: {
+      accent: '[--arrow-background:var(--color-accent-surface-default)]',
+      error: '[--arrow-background:var(--color-error-surface-default)]',
+      info: '[--arrow-background:var(--color-info-surface-default)]',
       neutral: '[--arrow-background:var(--color-neutral-surface-default)]',
       primary: '[--arrow-background:var(--color-primary-surface-default)]',
       secondary: '[--arrow-background:var(--color-secondary-surface-default)]',
-      accent: '[--arrow-background:var(--color-accent-surface-default)]',
-      info: '[--arrow-background:var(--color-info-surface-default)]',
       success: '[--arrow-background:var(--color-success-surface-default)]',
       warning: '[--arrow-background:var(--color-warning-surface-default)]',
-      error: '[--arrow-background:var(--color-error-surface-default)]',
     } satisfies Record<TooltipIntent, string>,
     size: {
       md: '[--arrow-size:calc(var(--spacing)*2)]',
@@ -104,8 +104,8 @@ const props = withDefaults(defineProps<TooltipProps>(), {
   intent: 'neutral',
   openDelay: 300,
   size: 'md',
-  value: undefined,
   ui: undefined,
+  value: undefined,
 })
 
 const anchorRect = ref<DOMRect | null>(null)
@@ -126,9 +126,9 @@ const rootProps = computed(() => {
   const positioning = props.followCursor
     ? {
         ...basePositioning,
+        getAnchorRect: () => anchorRect.value,
         gutter: basePositioning.gutter ?? 8,
         placement: basePositioning.placement ?? 'top-start',
-        getAnchorRect: () => anchorRect.value,
       }
     : basePositioning
 

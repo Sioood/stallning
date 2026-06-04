@@ -16,8 +16,8 @@ const statusItems = [
 const allProjects = Array.from({ length: 24 }, (_, index) => ({
   id: index + 1,
   name: `Projet ${index + 1}`,
-  status: index % 4 === 0 ? 'archived' : 'active',
   premium: index % 5 === 0,
+  status: index % 4 === 0 ? 'archived' : 'active',
 }))
 
 const selectedStatus = computed(() => status.value[0] ?? 'all')
@@ -46,12 +46,12 @@ const activeFilterLabels = computed(() => {
 })
 
 const filtersPopoverPositioning = computed(() => ({
-  placement: 'bottom-end' as const,
   getAnchorRect: () => filtersAnchorRef.value?.getBoundingClientRect() ?? null,
+  placement: 'bottom-end' as const,
 }))
 
 const addonTrailing = cn(
-  controlShellCVA({ intent: 'primary', size: 'sm', invalid: false, disabled: false }),
+  controlShellCVA({ disabled: false, intent: 'primary', invalid: false, size: 'sm' }),
   'txt-label inline-flex w-auto shrink-0 items-stretch rounded-l-none border-0',
 )
 </script>

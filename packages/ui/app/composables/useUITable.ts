@@ -69,6 +69,7 @@ function bindControlledState<T>(
   })
 }
 
+// oxlint-disable-next-line max-params
 function bindControlledHandler<TData, T>(
   model: Ref<T | undefined>,
   handlers: Partial<TableOptions<TData>>,
@@ -208,20 +209,20 @@ export function useUITable<TData>(options: UseUITableOptions<TData>): Table<TDat
   const tableOptions = applyDefaultRowModels({
     ...rest,
     ...controlledHandlers,
-    enableExpanding,
-    get data() {
-      return data.value
-    },
     get columns() {
       return columns.value
     },
-    state: controlledState,
+    get data() {
+      return data.value
+    },
+    enableExpanding,
     enableRowSelection: resolveEnableRowSelection(
       enableRowSelectionOption,
       stateModels,
       columns.value,
     ),
     getRowCanExpand: resolveGetRowCanExpand(rest.getRowCanExpand, stateModels, columns.value),
+    state: controlledState,
   }) as TableOptions<TData>
 
   return useVueTable(tableOptions)

@@ -68,7 +68,7 @@ describe('UIFormPinInput', () => {
 
   it('renders error text when invalid with error message', async () => {
     const wrapper = await mountSuspended(UIFormPinInput, {
-      props: { count: 4, invalid: true, error: 'Invalid code' },
+      props: { count: 4, error: 'Invalid code', invalid: true },
     })
 
     expect(wrapper.text()).toContain('Invalid code')
@@ -96,7 +96,7 @@ describe('UIFormPinInput', () => {
 
   it('renders the required indicator when required', async () => {
     const wrapper = await mountSuspended(UIFormPinInput, {
-      props: { count: 4, required: true, label: 'Code' },
+      props: { count: 4, label: 'Code', required: true },
     })
 
     expect(wrapper.text()).toContain('*')
@@ -140,8 +140,8 @@ describe('UIFormPinInput', () => {
 
   it('renders a visible input that is focusable', async () => {
     const wrapper = await mountSuspended(UIFormPinInput, {
-      props: { count: 4 },
       attachTo: document.body,
+      props: { count: 4 },
     })
 
     const inputs = wrapper.findAll('input[data-part="input"]')

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import { Orientation, StackedBar } from '@unovis/ts'
 
 import {

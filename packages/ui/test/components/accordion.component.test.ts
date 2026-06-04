@@ -57,8 +57,8 @@ describe('UIAccordion', () => {
           h(
             UIAccordion,
             {
-              modelValue: model.value,
               collapsible: true,
+              modelValue: model.value,
               'onUpdate:modelValue': (v: string[]) => {
                 model.value = v
               },
@@ -101,8 +101,8 @@ describe('UIAccordion', () => {
         components: {
           UIAccordion,
           UIAccordionItem,
-          UIAccordionItemTrigger,
           UIAccordionItemContent,
+          UIAccordionItemTrigger,
         },
         setup() {
           const accordion = useAccordion({ collapsible: true })
@@ -130,8 +130,8 @@ describe('UIAccordion', () => {
         components: {
           UIAccordion,
           UIAccordionItem,
-          UIAccordionItemTrigger,
           UIAccordionItemContent,
+          UIAccordionItemTrigger,
         },
         setup() {
           const accordion = useAccordion({ collapsible: true })
@@ -156,7 +156,7 @@ describe('UIAccordion', () => {
 
     const Controlled = defineComponent({
       name: 'AccordionVModelUpdateTest',
-      components: { UIAccordion, UIAccordionItem, UIAccordionItemTrigger, UIAccordionItemContent },
+      components: { UIAccordion, UIAccordionItem, UIAccordionItemContent, UIAccordionItemTrigger },
       setup() {
         return { model }
       },

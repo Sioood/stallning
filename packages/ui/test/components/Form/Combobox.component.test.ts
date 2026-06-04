@@ -14,9 +14,9 @@ describe('UIFormCombobox', () => {
   it('renders label and placeholder', async () => {
     const wrapper = await mountSuspended(UIFormCombobox, {
       props: {
+        items,
         label: 'Framework',
         placeholder: 'Search…',
-        items,
       },
     })
 
@@ -27,10 +27,10 @@ describe('UIFormCombobox', () => {
   it('filters and shows items when typing', async () => {
     const wrapper = await mountSuspended(UIFormCombobox, {
       props: {
-        items,
-        portalled: false,
         inputValue: 'vu',
+        items,
         open: true,
+        portalled: false,
       },
     })
 
@@ -44,10 +44,10 @@ describe('UIFormCombobox', () => {
   it('selects an item on Enter when input matches label or value', async () => {
     const wrapper = await mountSuspended(UIFormCombobox, {
       props: {
-        items,
-        portalled: false,
         inputValue: 'react',
+        items,
         open: true,
+        portalled: false,
       },
     })
 
@@ -61,10 +61,10 @@ describe('UIFormCombobox', () => {
   it('selects the only filtered option on Enter without an exact match', async () => {
     const wrapper = await mountSuspended(UIFormCombobox, {
       props: {
-        items,
-        portalled: false,
         inputValue: 'vu',
+        items,
         open: true,
+        portalled: false,
       },
     })
 
@@ -96,8 +96,8 @@ describe('UIFormCombobox', () => {
     const wrapper = await mountSuspended(UIFormCombobox, {
       props: {
         items,
-        multiple: true,
         modelValue: ['react', 'vue'],
+        multiple: true,
       },
     })
 
@@ -108,9 +108,9 @@ describe('UIFormCombobox', () => {
   it('shows loading state', async () => {
     const wrapper = await mountSuspended(UIFormCombobox, {
       props: {
+        items: [],
         loading: true,
         loadingText: 'Loading items…',
-        items: [],
         portalled: false,
       },
     })
@@ -124,8 +124,8 @@ describe('UIFormCombobox', () => {
   it('shows empty state', async () => {
     const wrapper = await mountSuspended(UIFormCombobox, {
       props: {
-        items: [],
         emptyText: 'No results found',
+        items: [],
         portalled: false,
       },
     })

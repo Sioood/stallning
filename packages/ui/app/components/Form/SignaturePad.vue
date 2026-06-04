@@ -21,160 +21,168 @@ const signaturePadSegmentCVA = cva(
   {
     variants: {
       intent: {
+        accent: 'text-accent-text-default',
+        error: '',
+        info: '',
         neutral: 'text-neutral-text-default',
         primary: 'text-primary-text-default',
         secondary: 'text-secondary-text-default',
-        accent: 'text-accent-text-default',
+        success: '',
+        warning: '',
       } satisfies Record<FormFieldIntent, string>,
       size: {
-        sm: 'min-h-32',
-        md: 'min-h-40',
         lg: 'min-h-48',
+        md: 'min-h-40',
+        sm: 'min-h-32',
       } satisfies Record<FormFieldSize, string>,
     },
   },
 )
 
 const signaturePadShellCVA = cva('flex w-full min-w-0 items-stretch gap-0.5 border p-0', {
-  variants: {
-    variant: {
-      default: '',
-      subtle: '',
-    } satisfies Record<FormFieldVariant, string>,
-    intent: {
-      neutral: '',
-      primary: '',
-      secondary: '',
-      accent: '',
-    } satisfies Record<FormFieldIntent, string>,
-    size: {
-      sm: 'min-h-32',
-      md: 'min-h-40',
-      lg: 'min-h-48',
-    } satisfies Record<FormFieldSize, string>,
-    invalid: {
-      true: 'border-error-border-default!',
-    },
-    disabled: {
-      true: 'cursor-not-allowed',
-    },
-  },
   compoundVariants: [
     {
-      variant: 'default',
-      intent: 'neutral',
-      disabled: false,
       class:
         'border-neutral-border-default bg-neutral-fill-subtle text-neutral-text-default focus-within:border-neutral-border-strong focus-within:focus-ring',
+      disabled: false,
+      intent: 'neutral',
+      variant: 'default',
     },
     {
-      variant: 'default',
-      intent: 'neutral',
-      disabled: true,
       class:
         'border-neutral-border-default-disabled bg-neutral-fill-subtle-disabled text-neutral-text-default-disabled',
+      disabled: true,
+      intent: 'neutral',
+      variant: 'default',
     },
     {
-      variant: 'default',
-      intent: 'primary',
-      disabled: false,
       class:
         'border-primary-border-default bg-primary-fill-subtle text-primary-text-default focus-within:border-primary-border-strong focus-within:focus-ring',
+      disabled: false,
+      intent: 'primary',
+      variant: 'default',
     },
     {
-      variant: 'default',
-      intent: 'primary',
-      disabled: true,
       class:
         'border-primary-border-default-disabled bg-primary-fill-subtle-disabled text-primary-text-default-disabled',
+      disabled: true,
+      intent: 'primary',
+      variant: 'default',
     },
     {
-      variant: 'default',
-      intent: 'secondary',
-      disabled: false,
       class:
         'border-secondary-border-default bg-secondary-fill-subtle text-secondary-text-default focus-within:border-secondary-border-strong focus-within:focus-ring',
+      disabled: false,
+      intent: 'secondary',
+      variant: 'default',
     },
     {
-      variant: 'default',
-      intent: 'secondary',
-      disabled: true,
       class:
         'border-secondary-border-default-disabled bg-secondary-fill-subtle-disabled text-secondary-text-default-disabled',
+      disabled: true,
+      intent: 'secondary',
+      variant: 'default',
     },
     {
-      variant: 'default',
-      intent: 'accent',
-      disabled: false,
       class:
         'border-accent-border-default bg-accent-fill-subtle text-accent-text-default focus-within:border-accent-border-strong focus-within:focus-ring',
+      disabled: false,
+      intent: 'accent',
+      variant: 'default',
     },
     {
-      variant: 'default',
-      intent: 'accent',
-      disabled: true,
       class:
         'border-accent-border-default-disabled bg-accent-fill-subtle-disabled text-accent-text-default-disabled',
+      disabled: true,
+      intent: 'accent',
+      variant: 'default',
     },
     {
-      variant: 'subtle',
-      intent: 'neutral',
-      disabled: false,
       class:
         'border-neutral-border-default bg-transparent text-neutral-text-default focus-within:border-neutral-border-strong focus-within:focus-ring',
+      disabled: false,
+      intent: 'neutral',
+      variant: 'subtle',
     },
     {
-      variant: 'subtle',
-      intent: 'neutral',
-      disabled: true,
       class:
         'border-neutral-border-default-disabled bg-transparent text-neutral-text-default-disabled',
+      disabled: true,
+      intent: 'neutral',
+      variant: 'subtle',
     },
     {
-      variant: 'subtle',
-      intent: 'primary',
-      disabled: false,
       class:
         'border-primary-border-default bg-transparent text-primary-text-default focus-within:border-primary-border-strong focus-within:focus-ring',
+      disabled: false,
+      intent: 'primary',
+      variant: 'subtle',
     },
     {
-      variant: 'subtle',
-      intent: 'primary',
-      disabled: true,
       class:
         'border-primary-border-default-disabled bg-transparent text-primary-text-default-disabled',
+      disabled: true,
+      intent: 'primary',
+      variant: 'subtle',
     },
     {
-      variant: 'subtle',
-      intent: 'secondary',
-      disabled: false,
       class:
         'border-secondary-border-default bg-transparent text-secondary-text-default focus-within:border-secondary-border-strong focus-within:focus-ring',
+      disabled: false,
+      intent: 'secondary',
+      variant: 'subtle',
     },
     {
-      variant: 'subtle',
-      intent: 'secondary',
-      disabled: true,
       class:
         'border-secondary-border-default-disabled bg-transparent text-secondary-text-default-disabled',
+      disabled: true,
+      intent: 'secondary',
+      variant: 'subtle',
     },
     {
-      variant: 'subtle',
-      intent: 'accent',
-      disabled: false,
       class:
         'border-accent-border-default bg-transparent text-accent-text-default focus-within:border-accent-border-strong focus-within:focus-ring',
+      disabled: false,
+      intent: 'accent',
+      variant: 'subtle',
     },
     {
-      variant: 'subtle',
-      intent: 'accent',
-      disabled: true,
       class:
         'border-accent-border-default-disabled bg-transparent text-accent-text-default-disabled',
+      disabled: true,
+      intent: 'accent',
+      variant: 'subtle',
     },
   ],
   defaultVariants: {
     variant: 'default',
+  },
+  variants: {
+    disabled: {
+      true: 'cursor-not-allowed',
+    },
+    intent: {
+      accent: '',
+      error: '',
+      info: '',
+      neutral: '',
+      primary: '',
+      secondary: '',
+      success: '',
+      warning: '',
+    } satisfies Record<FormFieldIntent, string>,
+    invalid: {
+      true: 'border-error-border-default!',
+    },
+    size: {
+      lg: 'min-h-48',
+      md: 'min-h-40',
+      sm: 'min-h-32',
+    } satisfies Record<FormFieldSize, string>,
+    variant: {
+      default: '',
+      subtle: '',
+    } satisfies Record<FormFieldVariant, string>,
   },
 })
 
@@ -183,10 +191,14 @@ const signaturePadGuideCVA = cva(
   {
     variants: {
       intent: {
+        accent: 'border-accent-border-default',
+        error: '',
+        info: '',
         neutral: 'border-neutral-border-default',
         primary: 'border-primary-border-default',
         secondary: 'border-secondary-border-default',
-        accent: 'border-accent-border-default',
+        success: '',
+        warning: '',
       } satisfies Record<FormFieldIntent, string>,
     },
   },
@@ -222,10 +234,10 @@ const props = withDefaults(defineProps<SignaturePadProps>(), {
   drawing: undefined,
   error: undefined,
   helperText: undefined,
-  invalid: undefined,
   id: undefined,
   ids: undefined,
   intent: 'primary',
+  invalid: undefined,
   label: undefined,
   name: undefined,
   readOnly: undefined,
@@ -310,26 +322,26 @@ const fieldProps = computed(() => ({
     'required',
   ]),
   intent: props.intent,
-  size: props.size,
   invalid: invalid.value,
+  size: props.size,
   ui: {
-    root: props.ui?.root,
-    label: props.ui?.label,
-    helperText: props.ui?.helperText,
     error: props.ui?.error,
+    helperText: props.ui?.helperText,
+    label: props.ui?.label,
     requiredIndicator: props.ui?.requiredIndicator,
+    root: props.ui?.root,
   },
 }))
 
 extendCompodiumMeta({
   defaultProps: {
-    modelValue: [],
-    label: 'Signature',
+    clearable: true,
     helperText: 'Sign in the box above',
     intent: 'primary',
+    label: 'Signature',
+    modelValue: [],
     size: 'md',
     variant: 'default',
-    clearable: true,
   },
 })
 </script>

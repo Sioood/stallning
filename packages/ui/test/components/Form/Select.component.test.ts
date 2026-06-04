@@ -14,9 +14,9 @@ describe('UIFormSelect', () => {
   it('renders the label and placeholder', async () => {
     const wrapper = await mountSuspended(UIFormSelect, {
       props: {
+        items,
         label: 'Select an option',
         placeholder: 'Pick one',
-        items,
       },
     })
 
@@ -45,8 +45,8 @@ describe('UIFormSelect', () => {
     const wrapper = await mountSuspended(UIFormSelect, {
       props: {
         items,
-        portalled: false,
         'onUpdate:modelValue': onUpdateModelValue,
+        portalled: false,
       },
     })
 
@@ -65,12 +65,12 @@ describe('UIFormSelect', () => {
     const onUpdateModelValue = vi.fn()
     const wrapper = await mountSuspended(UIFormSelect, {
       props: {
-        items,
-        multiple: true,
-        portalled: false,
-        modelValue: ['1'],
         defaultValue: ['1'],
+        items,
+        modelValue: ['1'],
+        multiple: true,
         'onUpdate:modelValue': onUpdateModelValue,
+        portalled: false,
       },
     })
 
@@ -102,8 +102,8 @@ describe('UIFormSelect', () => {
   it('shows empty state', async () => {
     const wrapper = await mountSuspended(UIFormSelect, {
       props: {
-        items: [],
         emptyText: 'No results found',
+        items: [],
         portalled: false,
       },
     })
@@ -118,11 +118,11 @@ describe('UIFormSelect', () => {
     const onUpdateModelValue = vi.fn()
     const wrapper = await mountSuspended(UIFormSelect, {
       props: {
+        defaultValue: ['1'],
         items,
         modelValue: ['1'],
-        defaultValue: ['1'],
-        showClear: true,
         'onUpdate:modelValue': onUpdateModelValue,
+        showClear: true,
       },
     })
 
@@ -137,9 +137,9 @@ describe('UIFormSelect', () => {
 
   it('renders grouped items with group labels', async () => {
     const groupedItems = [
-      { label: 'Option A1', value: 'a1', group: 'Group A' },
-      { label: 'Option A2', value: 'a2', group: 'Group A' },
-      { label: 'Option B1', value: 'b1', group: 'Group B' },
+      { group: 'Group A', label: 'Option A1', value: 'a1' },
+      { group: 'Group A', label: 'Option A2', value: 'a2' },
+      { group: 'Group B', label: 'Option B1', value: 'b1' },
     ]
 
     const wrapper = await mountSuspended(UIFormSelect, {
@@ -180,9 +180,9 @@ describe('UIFormSelect', () => {
   it('renders Select All button when allowSelectAll and multiple are true', async () => {
     const wrapper = await mountSuspended(UIFormSelect, {
       props: {
+        allowSelectAll: true,
         items,
         multiple: true,
-        allowSelectAll: true,
         portalled: false,
       },
     })

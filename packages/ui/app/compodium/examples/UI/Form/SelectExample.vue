@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import { createListCollection, useSelect } from '@ark-ui/vue/select'
 
 import type { SelectItem } from '~/components/Form/Select/index.vue'
@@ -10,7 +11,7 @@ const frameworks: SelectItem[] = [
   { label: 'React', value: 'react' },
   { label: 'Vue', value: 'vue' },
   { label: 'Solid', value: 'solid' },
-  { label: 'Svelte', value: 'svelte', disabled: true },
+  { disabled: true, label: 'Svelte', value: 'svelte' },
   { label: 'Angular', value: 'angular' },
   { label: 'Ember', value: 'ember' },
   { label: 'Panda', value: 'panda' },
@@ -31,11 +32,11 @@ const multipleValue = ref<string[]>([])
 const groupValue = ref<string[]>([])
 
 const groupedItems: SelectItem[] = [
-  { label: 'React', value: 'react', group: 'JS' },
-  { label: 'Solid', value: 'solid', group: 'JS' },
-  { label: 'Vue', value: 'vue', group: 'JS' },
-  { label: 'Panda', value: 'panda', group: 'CSS' },
-  { label: 'Tailwind', value: 'tailwind', group: 'CSS' },
+  { group: 'JS', label: 'React', value: 'react' },
+  { group: 'JS', label: 'Solid', value: 'solid' },
+  { group: 'JS', label: 'Vue', value: 'vue' },
+  { group: 'CSS', label: 'Panda', value: 'panda' },
+  { group: 'CSS', label: 'Tailwind', value: 'tailwind' },
 ]
 
 // ── Max selection ──────────────────────────────────────────────────────────

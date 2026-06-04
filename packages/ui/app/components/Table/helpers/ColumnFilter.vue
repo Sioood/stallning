@@ -13,8 +13,8 @@ const props = withDefaults(
   {
     column: undefined,
     columnId: undefined,
-    placeholder: 'Filter…',
     debounce: 300,
+    placeholder: 'Filter…',
   },
 )
 

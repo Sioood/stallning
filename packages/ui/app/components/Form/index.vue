@@ -31,9 +31,7 @@ const emit = defineEmits<{
 }>()
 
 const { form } = useSchemaForm<TValues>({
-  schema: props.schema,
   defaultValues: props.defaultValues,
-  validateSchemaOn: props.validateSchemaOn,
   onSubmit: ({ value }) => {
     const transformed = { ...value } as Record<string, unknown>
     for (const row of props.layout) {
@@ -52,6 +50,8 @@ const { form } = useSchemaForm<TValues>({
     }
     emit('submit', transformed as TValues)
   },
+  schema: props.schema,
+  validateSchemaOn: props.validateSchemaOn,
 })
 
 const formSubmitting = form.useStore((s) => s.isSubmitting)
@@ -98,7 +98,7 @@ if (import.meta.dev) {
     for (const row of props.layout) {
       for (const k of layoutRowKeys(row)) {
         if (!valueKeys.has(k as keyof TValues & string)) {
-          console.warn(`[UIForm] Layout key "${k}" is not present on defaultValues`)
+          // console.warn(`[UIForm] Layout key "${k}" is not present on defaultValues`)
         }
       }
     }

@@ -27,8 +27,8 @@ export interface ChartLegendComponentProps {
 
 const props = withDefaults(defineProps<ChartLegendComponentProps>(), {
   placement: 'top-center',
-  size: 'md',
   show: true,
+  size: 'md',
   ui: undefined,
 })
 

@@ -15,7 +15,7 @@ describe('UIAvatar', () => {
 
   it('shows initials in fallback', async () => {
     const wrapper = await mountSuspended(Avatar, {
-      props: { name: 'Ada Lovelace', lettersOnly: true },
+      props: { lettersOnly: true, name: 'Ada Lovelace' },
     })
     const fallback = wrapper.find('[data-part="fallback"]')
     expect(fallback.exists()).toBe(true)
@@ -40,14 +40,14 @@ describe('UIAvatar', () => {
 
   it('lettersOnly hides image', async () => {
     const wrapper = await mountSuspended(Avatar, {
-      props: { name: 'Ada', lettersOnly: true },
+      props: { lettersOnly: true, name: 'Ada' },
     })
     expect(wrapper.find('img').exists()).toBe(false)
   })
 
   it('merges ui slot classes', async () => {
     const wrapper = await mountSuspended(Avatar, {
-      props: { name: 'Ada', ui: { root: 'custom-root', fallback: 'custom-fallback' } },
+      props: { name: 'Ada', ui: { fallback: 'custom-fallback', root: 'custom-root' } },
     })
     expect(wrapper.find('.custom-root').exists()).toBe(true)
     expect(wrapper.find('.custom-fallback').exists()).toBe(true)
@@ -55,7 +55,7 @@ describe('UIAvatar', () => {
 
   it('applies intent and size variants', async () => {
     const wrapper = await mountSuspended(Avatar, {
-      props: { name: 'Ada', intent: 'primary', size: 'lg' },
+      props: { intent: 'primary', name: 'Ada', size: 'lg' },
     })
     expect(wrapper.find('[data-part="root"]').exists()).toBe(true)
   })

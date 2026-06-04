@@ -38,7 +38,7 @@ export function resolveComboboxSelectedValue(details: {
   const fromItem = details.items[0]?.value
   if (fromItem) return fromItem
 
-  const fromValue = details.value[0]
+  const [fromValue] = details.value
   if (!fromValue) return undefined
 
   return fromValue

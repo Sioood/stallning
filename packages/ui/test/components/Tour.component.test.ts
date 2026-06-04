@@ -7,48 +7,48 @@ import Tour from '~ui/app/components/Tour/index.vue'
 
 const steps: TourStepDetails[] = [
   {
-    id: 'step-1',
-    type: 'dialog',
-    title: 'Step 1',
+    actions: [{ action: 'next', label: 'Next' }],
     description: 'First step description',
-    actions: [{ label: 'Next', action: 'next' }],
+    id: 'step-1',
+    title: 'Step 1',
+    type: 'dialog',
   },
   {
-    id: 'step-2',
-    type: 'tooltip',
-    title: 'Step 2',
-    description: 'Second step description',
-    target: () => document.querySelector<HTMLElement>('#target'),
     actions: [
-      { label: 'Back', action: 'prev' },
-      { label: 'Next', action: 'next' },
+      { action: 'prev', label: 'Back' },
+      { action: 'next', label: 'Next' },
     ],
+    description: 'Second step description',
+    id: 'step-2',
+    target: () => document.querySelector<HTMLElement>('#target'),
+    title: 'Step 2',
+    type: 'tooltip',
   },
 ]
 
 const stepsWithDismiss: TourStepDetails[] = [
   {
-    id: 'step-1',
-    type: 'dialog',
-    title: 'Step 1',
-    description: 'Description',
     actions: [
-      { label: 'Back', action: 'prev' },
-      { label: 'Finish', action: 'dismiss' },
+      { action: 'prev', label: 'Back' },
+      { action: 'dismiss', label: 'Finish' },
     ],
+    description: 'Description',
+    id: 'step-1',
+    title: 'Step 1',
+    type: 'dialog',
   },
 ]
 
 const stepsWithPrevLast: TourStepDetails[] = [
   {
-    id: 'step-1',
-    type: 'dialog',
-    title: 'Step 1',
-    description: 'Description',
     actions: [
-      { label: 'Next', action: 'next' },
-      { label: 'Back', action: 'prev' },
+      { action: 'next', label: 'Next' },
+      { action: 'prev', label: 'Back' },
     ],
+    description: 'Description',
+    id: 'step-1',
+    title: 'Step 1',
+    type: 'dialog',
   },
 ]
 

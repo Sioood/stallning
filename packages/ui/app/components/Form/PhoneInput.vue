@@ -37,8 +37,8 @@ const _props = withDefaults(defineProps<UIFormPhoneInputProps>(), {
   successIcon: undefined,
   trailing: false,
   trailingIcon: undefined,
-  warningIcon: undefined,
   ui: undefined,
+  warningIcon: undefined,
 })
 
 const emit = defineEmits<{
@@ -70,7 +70,7 @@ watch(
 )
 
 function updateCombined() {
-  const code = internalCountryCode.value[0]
+  const [code] = internalCountryCode.value
   if (!code) {
     modelValue.value = ''
     return
@@ -105,8 +105,8 @@ const rootProps = computed(() => ({
 }))
 
 defineExpose({
-  getControlElement: (): HTMLInputElement | null => arkInputRef.value?.getControlElement() ?? null,
   focus: (): void => arkInputRef.value?.focus(),
+  getControlElement: (): HTMLInputElement | null => arkInputRef.value?.getControlElement() ?? null,
 })
 </script>
 

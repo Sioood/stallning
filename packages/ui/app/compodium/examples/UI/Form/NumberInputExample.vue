@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import { useNumberInput } from '@ark-ui/vue/number-input'
 
 // ── Basic ──────────────────────────────────────────────────────────────────
@@ -8,7 +9,7 @@ const basicValue = ref<string>('0')
 const controlledValue = ref<string>('42')
 
 // ── RootProvider mode ──────────────────────────────────────────────────────
-const externalApi = useNumberInput({ defaultValue: '25', min: 0, max: 100, step: 5 })
+const externalApi = useNumberInput({ defaultValue: '25', max: 100, min: 0, step: 5 })
 
 // ── Event log ──────────────────────────────────────────────────────────────
 const eventLog = ref<string[]>([])

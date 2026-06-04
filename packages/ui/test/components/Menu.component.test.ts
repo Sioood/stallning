@@ -9,7 +9,7 @@ describe('Menu', () => {
   it('closes menu after item select when open is uncontrolled', async () => {
     const wrapper = await mountSuspended(Menu, {
       props: {
-        items: [{ value: 'go', label: 'Go' }],
+        items: [{ label: 'Go', value: 'go' }],
       },
     })
 
@@ -30,16 +30,16 @@ describe('Menu', () => {
   it('keeps menu open when checkbox item has closeOnSelect false', async () => {
     const wrapper = await mountSuspended(Menu, {
       props: {
-        open: true,
         items: [
           {
-            type: 'checkbox',
-            value: 'opt',
-            label: 'Option',
             checked: false,
             closeOnSelect: false,
+            label: 'Option',
+            type: 'checkbox',
+            value: 'opt',
           },
         ],
+        open: true,
       },
     })
 
@@ -60,11 +60,11 @@ describe('Menu', () => {
       setup() {
         return () =>
           h(Menu, {
-            open: open.value,
+            items: [{ label: 'Go', value: 'go' }],
             'onUpdate:open': (value: boolean) => {
               open.value = value
             },
-            items: [{ value: 'go', label: 'Go' }],
+            open: open.value,
           })
       },
     })
@@ -87,12 +87,12 @@ describe('Menu', () => {
   it('renders configured items when controlled open is true', async () => {
     await mountSuspended(Menu, {
       props: {
-        open: true,
         items: [
-          { type: 'item', value: 'edit', label: 'Edit' },
+          { label: 'Edit', type: 'item', value: 'edit' },
           { type: 'separator' },
-          { type: 'item', value: 'delete', label: 'Delete' },
+          { label: 'Delete', type: 'item', value: 'delete' },
         ],
+        open: true,
       },
     })
 
@@ -106,16 +106,16 @@ describe('Menu', () => {
   it('renders links through item as-child mode', async () => {
     await mountSuspended(Menu, {
       props: {
-        open: true,
         items: [
           {
+            label: 'Documentation',
+            target: '_blank',
+            to: 'https://ark-ui.com',
             type: 'item',
             value: 'docs',
-            label: 'Documentation',
-            to: 'https://ark-ui.com',
-            target: '_blank',
           },
         ],
+        open: true,
       },
     })
 
@@ -128,8 +128,8 @@ describe('Menu', () => {
   it('renders checkbox entry labels', async () => {
     const wrapper = await mountSuspended(Menu, {
       props: {
+        items: [{ checked: false, label: 'Toolbar', type: 'checkbox', value: 'toolbar' }],
         open: true,
-        items: [{ type: 'checkbox', value: 'toolbar', label: 'Toolbar', checked: false }],
       },
     })
 
@@ -140,6 +140,17 @@ describe('Menu', () => {
   it('renders group entries and forwards ui classes to entries', async () => {
     await mountSuspended(Menu, {
       props: {
+        items: [
+          {
+            items: [
+              { label: 'Duplicate', type: 'item', value: 'duplicate' },
+              { type: 'separator' },
+              { label: 'Move', type: 'item', value: 'move' },
+            ],
+            label: 'Manage',
+            type: 'group',
+          },
+        ],
         open: true,
         ui: {
           item: 'test-item-class',
@@ -147,17 +158,6 @@ describe('Menu', () => {
           itemGroupLabel: 'test-group-label-class',
           separator: 'test-separator-class',
         },
-        items: [
-          {
-            type: 'group',
-            label: 'Manage',
-            items: [
-              { type: 'item', value: 'duplicate', label: 'Duplicate' },
-              { type: 'separator' },
-              { type: 'item', value: 'move', label: 'Move' },
-            ],
-          },
-        ],
       },
     })
 
@@ -170,30 +170,30 @@ describe('Menu', () => {
   it('renders mixed group entry types including submenu and radio', async () => {
     await mountSuspended(Menu, {
       props: {
-        open: true,
         items: [
           {
-            type: 'group',
-            label: 'Advanced',
             items: [
-              { type: 'checkbox', value: 'audit', label: 'Audit log', checked: true },
+              { checked: true, label: 'Audit log', type: 'checkbox', value: 'audit' },
               {
-                type: 'radio-group',
-                label: 'Mode',
-                value: 'safe',
                 items: [
-                  { value: 'safe', label: 'Safe' },
-                  { value: 'fast', label: 'Fast' },
+                  { label: 'Safe', value: 'safe' },
+                  { label: 'Fast', value: 'fast' },
                 ],
+                label: 'Mode',
+                type: 'radio-group',
+                value: 'safe',
               },
               {
-                type: 'submenu',
+                items: [{ label: 'Deep action', type: 'item', value: 'deep' }],
                 label: 'More',
-                items: [{ type: 'item', value: 'deep', label: 'Deep action' }],
+                type: 'submenu',
               },
             ],
+            label: 'Advanced',
+            type: 'group',
           },
         ],
+        open: true,
       },
     })
 
@@ -225,18 +225,18 @@ describe('Menu', () => {
         open: true,
       },
       slots: {
-        triggers: `
-          <template #default="{ trigger: Trigger }">
-            <component :is="Trigger" value="one">One</component>
-            <component :is="Trigger" value="two">Two</component>
-          </template>
-        `,
         content: `
           <template #default="{ root: Root, triggerItem: TriggerItem, item: Item }">
             <component :is="Item" value="base">Base</component>
             <component :is="Root">
               <component :is="TriggerItem">More</component>
             </component>
+          </template>
+        `,
+        triggers: `
+          <template #default="{ trigger: Trigger }">
+            <component :is="Trigger" value="one">One</component>
+            <component :is="Trigger" value="two">Two</component>
           </template>
         `,
       },
@@ -260,9 +260,9 @@ describe('Menu', () => {
   it('shows arrow when showArrow is true', async () => {
     await mountSuspended(Menu, {
       props: {
+        items: [{ label: 'A', type: 'item', value: 'a' }],
         open: true,
         showArrow: true,
-        items: [{ type: 'item', value: 'a', label: 'A' }],
       },
     })
 
@@ -292,12 +292,12 @@ describe('Menu', () => {
   it('applies custom ui classes to positioner and content', async () => {
     await mountSuspended(Menu, {
       props: {
+        items: [{ label: 'A', type: 'item', value: 'a' }],
         open: true,
         ui: {
-          positioner: 'custom-positioner',
           content: 'custom-content',
+          positioner: 'custom-positioner',
         },
-        items: [{ type: 'item', value: 'a', label: 'A' }],
       },
     })
 
@@ -308,8 +308,8 @@ describe('Menu', () => {
   it('renders disabled items with disabled attribute', async () => {
     await mountSuspended(Menu, {
       props: {
+        items: [{ disabled: true, label: 'Disabled', type: 'item', value: 'disabled' }],
         open: true,
-        items: [{ type: 'item', value: 'disabled', label: 'Disabled', disabled: true }],
       },
     })
 
@@ -325,8 +325,8 @@ describe('Menu', () => {
     const onSelect = vi.fn()
     await mountSuspended(Menu, {
       props: {
+        items: [{ label: 'Action', onSelect, type: 'item', value: 'action' }],
         open: true,
-        items: [{ type: 'item', value: 'action', label: 'Action', onSelect }],
       },
     })
 
@@ -339,10 +339,10 @@ describe('Menu', () => {
     const onCheckedChange = vi.fn()
     await mountSuspended(Menu, {
       props: {
-        open: true,
         items: [
-          { type: 'checkbox', value: 'toggle', label: 'Toggle', checked: false, onCheckedChange },
+          { checked: false, label: 'Toggle', onCheckedChange, type: 'checkbox', value: 'toggle' },
         ],
+        open: true,
       },
     })
 
@@ -353,19 +353,19 @@ describe('Menu', () => {
     const onValueChange = vi.fn()
     await mountSuspended(Menu, {
       props: {
-        open: true,
         items: [
           {
-            type: 'radio-group',
-            label: 'Options',
-            value: 'a',
-            onValueChange,
             items: [
-              { value: 'a', label: 'Option A' },
-              { value: 'b', label: 'Option B' },
+              { label: 'Option A', value: 'a' },
+              { label: 'Option B', value: 'b' },
             ],
+            label: 'Options',
+            onValueChange,
+            type: 'radio-group',
+            value: 'a',
           },
         ],
+        open: true,
       },
     })
 
@@ -376,16 +376,16 @@ describe('Menu', () => {
   it('renders item with to as anchor tag with rel attribute', async () => {
     await mountSuspended(Menu, {
       props: {
-        open: true,
         items: [
           {
+            label: 'External Link',
+            target: '_blank',
+            to: 'https://example.com',
             type: 'item',
             value: 'link',
-            label: 'External Link',
-            to: 'https://example.com',
-            target: '_blank',
           },
         ],
+        open: true,
       },
     })
 
@@ -419,8 +419,8 @@ describe('Menu', () => {
   it('does not apply default button styles when unstyled is true', async () => {
     const wrapper = await mountSuspended(Menu, {
       props: {
-        unstyled: true,
         triggerText: 'Actions',
+        unstyled: true,
       },
     })
 

@@ -38,7 +38,7 @@ describe('getMessagesByLocaleWithNamespace', () => {
         getMessagesByLocaleWithNamespace({ locales: ['en-US'], localesPath: root }),
       ).toThrow(/Invalid translation content/)
     } finally {
-      rmSync(root, { recursive: true, force: true })
+      rmSync(root, { force: true, recursive: true })
     }
   })
 
@@ -49,8 +49,8 @@ describe('getMessagesByLocaleWithNamespace', () => {
     })
 
     expect(messages['en-US']).toEqual({
-      hello: 'Hello from en',
       app: 'App title',
+      hello: 'Hello from en',
       'ui:submit': 'Submit',
     })
     expect(Object.keys(messages['en-US']!).some((k) => k.includes('README'))).toBe(false)
@@ -104,15 +104,15 @@ describe('getMessagesByLocaleWithNamespace', () => {
       const messages = getMessagesByLocaleWithNamespace({ locales: ['en-US'], localesPath: root })
 
       expect(messages['en-US']).toMatchObject({
-        'pwa:offlineReady.title': 'Offline ready',
         'pwa:offlineReady.description': 'Works offline',
-        'pwa:updateAvailable.title': 'Update available',
+        'pwa:offlineReady.title': 'Offline ready',
         'pwa:updateAvailable.description': 'Reload required',
         'pwa:updateAvailable.reloadLabel': 'Reload',
+        'pwa:updateAvailable.title': 'Update available',
         'ui:form.fields.0.label': 'Name',
       })
     } finally {
-      rmSync(root, { recursive: true, force: true })
+      rmSync(root, { force: true, recursive: true })
     }
   })
 })
@@ -120,8 +120,8 @@ describe('getMessagesByLocaleWithNamespace', () => {
 describe('getUniqueMessageKeys', () => {
   it('collects all unique keys across locales', () => {
     const messagesByLocale = {
-      'fr-FR': { hello: 'Bonjour', 'ui:button': 'Bouton' },
       'en-US': { hello: 'Hello', 'ui:button': 'Button' },
+      'fr-FR': { hello: 'Bonjour', 'ui:button': 'Bouton' },
     }
 
     const keys = getUniqueMessageKeys(messagesByLocale)
@@ -130,8 +130,8 @@ describe('getUniqueMessageKeys', () => {
 
   it('deduplicates keys across locales', () => {
     const messagesByLocale = {
-      'fr-FR': { shared: 'FR value' },
       'en-US': { shared: 'EN value' },
+      'fr-FR': { shared: 'FR value' },
     }
 
     const keys = getUniqueMessageKeys(messagesByLocale)
@@ -141,7 +141,7 @@ describe('getUniqueMessageKeys', () => {
 
   it('returns sorted keys', () => {
     const messagesByLocale = {
-      'en-US': { zebra: 'z', alpha: 'a', beta: 'b' },
+      'en-US': { alpha: 'a', beta: 'b', zebra: 'z' },
     }
 
     const keys = getUniqueMessageKeys(messagesByLocale)
@@ -214,7 +214,7 @@ describe('getCoverageData', () => {
   it('when unique key list is empty, total is zero and each locale reports 100%', () => {
     const data = getCoverageData({
       messagesByLocale: {
-        'en-US': { foo: 'a', bar: 'b' },
+        'en-US': { bar: 'b', foo: 'a' },
       },
       uniqueMessageKeys: [],
     })
@@ -238,7 +238,7 @@ describe('getCoverageData', () => {
 
 describe('getLocaleNamespaces', () => {
   it('lists only json/yaml translation files, sorted', () => {
-    const ns = getLocaleNamespaces({ localesPath: fixturesLocalesPath, locale: 'en-US' })
+    const ns = getLocaleNamespaces({ locale: 'en-US', localesPath: fixturesLocalesPath })
     expect(ns).toContain('translations.yaml')
     expect(ns).toContain('ui.json')
     expect(ns.some((f) => f.includes('README'))).toBe(false)
@@ -270,26 +270,26 @@ describe('renderTreeStructure', () => {
 
   it('includes percentage in output for high coverage locale', () => {
     const lines = renderTreeStructure({
-      tree: sampleTree,
       data: {
         data: { total: 2 },
         locale: {
-          'en-US': { percentage: 92, count: 2, missing: 0, missingKeys: [] },
+          'en-US': { count: 2, missing: 0, missingKeys: [], percentage: 92 },
         },
       },
+      tree: sampleTree,
     })
     expect(lines.some((l) => l.includes('92%'))).toBe(true)
   })
 
   it('includes percentage and missing count for partial coverage locale', () => {
     const lines = renderTreeStructure({
-      tree: [['en-US', []]],
       data: {
         data: { total: 2 },
         locale: {
-          'en-US': { percentage: 75, count: 1, missing: 1, missingKeys: ['a'] },
+          'en-US': { count: 1, missing: 1, missingKeys: ['a'], percentage: 75 },
         },
       },
+      tree: [['en-US', []]],
     })
     expect(lines.some((l) => l.includes('75%'))).toBe(true)
     expect(lines.some((l) => l.includes('missing:'))).toBe(true)
@@ -297,41 +297,41 @@ describe('renderTreeStructure', () => {
 
   it('includes percentage for low coverage locale', () => {
     const lines = renderTreeStructure({
-      tree: [['en-US', []]],
       data: {
         data: { total: 2 },
         locale: {
-          'en-US': { percentage: 30, count: 1, missing: 1, missingKeys: ['x'] },
+          'en-US': { count: 1, missing: 1, missingKeys: ['x'], percentage: 30 },
         },
       },
+      tree: [['en-US', []]],
     })
     expect(lines.some((l) => l.includes('30%'))).toBe(true)
   })
 
   it('prints missing keys when showKeys is true', () => {
     const lines = renderTreeStructure({
-      tree: [['fr-FR', []]],
       data: {
         data: { total: 1 },
         locale: {
-          'fr-FR': { percentage: 0, count: 0, missing: 1, missingKeys: ['only.in.en'] },
+          'fr-FR': { count: 0, missing: 1, missingKeys: ['only.in.en'], percentage: 0 },
         },
       },
       showKeys: true,
+      tree: [['fr-FR', []]],
     })
     expect(lines.some((l) => l.includes('only.in.en'))).toBe(true)
   })
 
   it('prints missing keys section with none when showKeys is true and locale is complete', () => {
     const lines = renderTreeStructure({
-      tree: [['fr-FR', []]],
       data: {
         data: { total: 1 },
         locale: {
-          'fr-FR': { percentage: 100, count: 1, missing: 0, missingKeys: [] },
+          'fr-FR': { count: 1, missing: 0, missingKeys: [], percentage: 100 },
         },
       },
       showKeys: true,
+      tree: [['fr-FR', []]],
     })
     expect(lines.some((l) => l.includes('missing keys:'))).toBe(true)
     expect(lines.some((l) => l.includes('(none)'))).toBe(true)
@@ -346,7 +346,7 @@ describe('renderCoverage', () => {
   })
 
   afterAll(() => {
-    rmSync(emptyLocalesDir, { recursive: true, force: true })
+    rmSync(emptyLocalesDir, { force: true, recursive: true })
   })
 
   it('warns and skips rendering when no locale directories exist', () => {

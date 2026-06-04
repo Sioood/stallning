@@ -20,7 +20,7 @@ describe('Card/Base', () => {
 
   it('applies subtle neutral compound classes', async () => {
     const wrapper = await mountSuspended(CardBase, {
-      props: { variant: 'subtle', intent: 'neutral' },
+      props: { intent: 'neutral', variant: 'subtle' },
     })
     const classes = wrapper.find('div').classes().join(' ')
     expect(classes).toMatch(/bg-neutral-surface-subtle/)

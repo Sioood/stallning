@@ -9,15 +9,15 @@ export const selectControlCVA = cva('flex items-center gap-1')
 export const selectTriggerCVA = cva('w-full justify-between active:scale-100', {
   variants: {
     intent: {
+      accent: '',
       neutral: '',
       primary: '',
       secondary: '',
-      accent: '',
     } satisfies Record<SelectIntent, string>,
     size: {
-      sm: '',
-      md: '',
       lg: '',
+      md: '',
+      sm: '',
     } satisfies Record<SelectSize, string>,
   },
 })
@@ -40,16 +40,16 @@ export const selectContentCVA = cva(
   {
     variants: {
       intent: {
+        accent: 'border-accent-border-subtle bg-accent-fill-subtle text-accent-text-default',
         neutral: 'border-neutral-border-subtle bg-neutral-fill-subtle text-neutral-text-default',
         primary: 'border-primary-border-subtle bg-primary-fill-subtle text-primary-text-default',
         secondary:
           'border-secondary-border-subtle bg-secondary-fill-subtle text-secondary-text-default',
-        accent: 'border-accent-border-subtle bg-accent-fill-subtle text-accent-text-default',
       } satisfies Record<SelectIntent, string>,
       size: {
-        sm: 'txt-caption p-1',
-        md: 'txt-label p-1',
         lg: 'txt-base p-1',
+        md: 'txt-label p-1',
+        sm: 'txt-caption p-1',
       } satisfies Record<SelectSize, string>,
     },
   },
@@ -60,19 +60,19 @@ export const selectItemCVA = cva(
   {
     variants: {
       intent: {
+        accent:
+          'text-accent-text-default data-[disabled]:text-accent-text-subtle data-[highlighted]:bg-accent-fill-subtle-hover',
         neutral:
           'text-neutral-text-default data-[disabled]:text-neutral-text-subtle data-[highlighted]:bg-neutral-fill-subtle-hover',
         primary:
           'text-primary-text-default data-[disabled]:text-primary-text-subtle data-[highlighted]:bg-primary-fill-subtle-hover',
         secondary:
           'text-secondary-text-default data-[disabled]:text-secondary-text-subtle data-[highlighted]:bg-secondary-fill-subtle-hover',
-        accent:
-          'text-accent-text-default data-[disabled]:text-accent-text-subtle data-[highlighted]:bg-accent-fill-subtle-hover',
       } satisfies Record<SelectIntent, string>,
       size: {
-        sm: 'txt-caption gap-2 px-2 py-1',
-        md: 'txt-label gap-2 px-2 py-1.5',
         lg: 'txt-base gap-2 px-3 py-2',
+        md: 'txt-label gap-2 px-2 py-1.5',
+        sm: 'txt-caption gap-2 px-2 py-1',
       } satisfies Record<SelectSize, string>,
     },
   },
@@ -81,15 +81,15 @@ export const selectItemCVA = cva(
 export const selectItemGroupLabelCVA = cva('', {
   variants: {
     intent: {
+      accent: 'text-accent-text-subtle',
       neutral: 'text-neutral-text-subtle',
       primary: 'text-primary-text-subtle',
       secondary: 'text-secondary-text-subtle',
-      accent: 'text-accent-text-subtle',
     } satisfies Record<SelectIntent, string>,
     size: {
-      sm: 'txt-caption px-2 py-1',
-      md: 'txt-caption px-2 py-1',
       lg: 'txt-label px-2 py-1',
+      md: 'txt-caption px-2 py-1',
+      sm: 'txt-caption px-2 py-1',
     } satisfies Record<SelectSize, string>,
   },
 })
@@ -97,19 +97,19 @@ export const selectItemGroupLabelCVA = cva('', {
 export const selectLabelCVA = cva('block', {
   variants: {
     intent: {
+      accent:
+        'text-accent-text-subtle data-[disabled]:opacity-50 data-[invalid]:text-error-text-default',
       neutral:
         'text-neutral-text-subtle data-[disabled]:opacity-50 data-[invalid]:text-error-text-default',
       primary:
         'text-primary-text-subtle data-[disabled]:opacity-50 data-[invalid]:text-error-text-default',
       secondary:
         'text-secondary-text-subtle data-[disabled]:opacity-50 data-[invalid]:text-error-text-default',
-      accent:
-        'text-accent-text-subtle data-[disabled]:opacity-50 data-[invalid]:text-error-text-default',
     } satisfies Record<SelectIntent, string>,
     size: {
-      sm: 'txt-caption mb-1',
-      md: 'txt-caption mb-1',
       lg: 'txt-label mb-1.5',
+      md: 'txt-caption mb-1',
+      sm: 'txt-caption mb-1',
     } satisfies Record<SelectSize, string>,
   },
 })
@@ -117,9 +117,9 @@ export const selectLabelCVA = cva('block', {
 export const selectIconSizeCVA = cva('shrink-0', {
   variants: {
     size: {
-      sm: 'size-3',
-      md: 'size-3.5',
       lg: 'size-4',
+      md: 'size-3.5',
+      sm: 'size-3',
     } satisfies Record<SelectSize, string>,
   },
 })

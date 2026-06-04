@@ -55,8 +55,8 @@ const props = withDefaults(defineProps<InputProps>(), {
   trailing: false,
   trailingIcon: undefined,
   type: 'text',
-  warningIcon: undefined,
   ui: undefined,
+  warningIcon: undefined,
 })
 
 const shellProps = computed<FormControlShellProps>(() => ({
@@ -80,9 +80,9 @@ const shellProps = computed<FormControlShellProps>(() => ({
     'warningIcon',
   ] as const),
   errorIcon: props.errorIcon,
+  invalid: props.invalid || String(props.error ?? '').length > 0,
   trailing: isPasswordField.value ? false : props.trailing,
   trailingIcon: isPasswordField.value ? undefined : props.trailingIcon,
-  invalid: props.invalid || String(props.error ?? '').length > 0,
   ui: props.ui,
 }))
 
@@ -117,23 +117,23 @@ const controlElement = computed((): HTMLInputElement | null => {
 })
 
 defineExpose({
-  getControlElement: (): HTMLInputElement | null => controlElement.value,
   focus: (): void => {
     controlElement.value?.focus()
   },
+  getControlElement: (): HTMLInputElement | null => controlElement.value,
 } satisfies UIFormInputExpose)
 
 extendCompodiumMeta({
   defaultProps: {
-    modelValue: '',
-    label: 'Email',
-    placeholder: 'you@example.com',
-    type: 'text',
-    size: 'md',
     intent: 'primary',
-    required: true,
+    label: 'Email',
     leading: true,
     leadingIcon: 'tabler:sparkles',
+    modelValue: '',
+    placeholder: 'you@example.com',
+    required: true,
+    size: 'md',
+    type: 'text',
   },
 })
 </script>

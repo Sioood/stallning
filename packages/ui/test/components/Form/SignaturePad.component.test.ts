@@ -26,7 +26,7 @@ function findHiddenInput(wrapper: Awaited<ReturnType<typeof mountSuspended>>) {
 describe('UIFormSignaturePad', () => {
   it('renders label and field chrome', async () => {
     const wrapper = await mountSuspended(UIFormSignaturePad, {
-      props: { label: 'Signature', helperText: 'Sign above the line' },
+      props: { helperText: 'Sign above the line', label: 'Signature' },
     })
 
     expect(wrapper.text()).toContain('Signature')
@@ -35,7 +35,7 @@ describe('UIFormSignaturePad', () => {
 
   it('renders error text when invalid with error message', async () => {
     const wrapper = await mountSuspended(UIFormSignaturePad, {
-      props: { invalid: true, error: 'Signature is required', label: 'Signature' },
+      props: { error: 'Signature is required', invalid: true, label: 'Signature' },
     })
 
     expect(wrapper.text()).toContain('Signature is required')
@@ -65,7 +65,7 @@ describe('UIFormSignaturePad', () => {
 
   it('applies subtle variant shell classes (transparent background)', async () => {
     const wrapper = await mountSuspended(UIFormSignaturePad, {
-      props: { variant: 'subtle', intent: 'primary', label: 'Signature' },
+      props: { intent: 'primary', label: 'Signature', variant: 'subtle' },
     })
 
     const classes = shellClassName(wrapper)
@@ -76,7 +76,7 @@ describe('UIFormSignaturePad', () => {
 
   it('applies size classes on the drawing segment', async () => {
     const wrapper = await mountSuspended(UIFormSignaturePad, {
-      props: { size: 'lg', label: 'Signature' },
+      props: { label: 'Signature', size: 'lg' },
     })
 
     const segment = wrapper.find('[data-part="segment"]')
@@ -103,7 +103,7 @@ describe('UIFormSignaturePad', () => {
 
   it('applies invalid border on the shell', async () => {
     const wrapper = await mountSuspended(UIFormSignaturePad, {
-      props: { invalid: true, error: 'Required', label: 'Signature' },
+      props: { error: 'Required', invalid: true, label: 'Signature' },
     })
 
     expect(shellClassName(wrapper)).toMatch(/border-error-border-default/)
@@ -111,7 +111,7 @@ describe('UIFormSignaturePad', () => {
 
   it('renders clear trigger when clearable', async () => {
     const wrapper = await mountSuspended(UIFormSignaturePad, {
-      props: { label: 'Signature', clearable: true },
+      props: { clearable: true, label: 'Signature' },
     })
 
     expect(wrapper.find('button[aria-label="Clear signature"]').exists()).toBe(true)
@@ -119,7 +119,7 @@ describe('UIFormSignaturePad', () => {
 
   it('hides clear trigger when clearable is false', async () => {
     const wrapper = await mountSuspended(UIFormSignaturePad, {
-      props: { label: 'Signature', clearable: false },
+      props: { clearable: false, label: 'Signature' },
     })
 
     expect(wrapper.find('button[aria-label="Clear signature"]').exists()).toBe(false)
@@ -127,7 +127,7 @@ describe('UIFormSignaturePad', () => {
 
   it('disables clear trigger when disabled', async () => {
     const wrapper = await mountSuspended(UIFormSignaturePad, {
-      props: { label: 'Signature', disabled: true },
+      props: { disabled: true, label: 'Signature' },
     })
 
     const clear = wrapper.find('button[aria-label="Clear signature"]')
@@ -198,7 +198,7 @@ describe('UIFormSignaturePad', () => {
 
   it('renders required indicator when required', async () => {
     const wrapper = await mountSuspended(UIFormSignaturePad, {
-      props: { required: true, label: 'Signature' },
+      props: { label: 'Signature', required: true },
     })
 
     expect(wrapper.text()).toContain('*')

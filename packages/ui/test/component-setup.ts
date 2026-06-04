@@ -16,26 +16,26 @@ function patchVisualViewport(): void {
   if (typeof (globalThis as { visualViewport?: unknown }).visualViewport !== 'undefined') return
 
   const stub = {
-    width: 1280,
+    addEventListener: () => {},
+    clientHeight: 720,
+    clientWidth: 1280,
+    dispatchEvent: () => false,
     height: 720,
     offsetLeft: 0,
     offsetTop: 0,
-    pageLeft: 0,
-    pageTop: 0,
-    scale: 1,
-    clientWidth: 1280,
-    clientHeight: 720,
-    addEventListener: () => {},
-    removeEventListener: () => {},
-    dispatchEvent: () => false,
     onresize: null,
     onscroll: null,
+    pageLeft: 0,
+    pageTop: 0,
+    removeEventListener: () => {},
+    scale: 1,
+    width: 1280,
   }
 
   Object.defineProperty(globalThis, 'visualViewport', {
+    configurable: true,
     value: stub,
     writable: true,
-    configurable: true,
   })
 
   const hosts = [

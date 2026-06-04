@@ -33,11 +33,11 @@ export interface ToggleProps extends Omit<ArkToggleRootBaseProps, 'pressed'> {
 const props = withDefaults(defineProps<ToggleProps>(), {
   activeBackground: false,
   iconOnly: false,
+  indicatorAnimation: 'fade',
   intent: 'primary',
   size: 'sm',
-  variant: 'ghost',
   ui: undefined,
-  indicatorAnimation: 'fade',
+  variant: 'ghost',
 })
 
 const pressed = defineModel<boolean>('pressed', { default: false })

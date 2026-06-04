@@ -96,8 +96,13 @@ const collection = computed(() => {
 })
 
 const { tagsInput, combobox } = useFormTagsInputCombobox({
-  collection,
   allowCustomValue: props.allowCustomValue,
+  collection,
+  combobox: {
+    onInputValueChange: (details: ComboboxInputValueChangeDetails) => {
+      inputValue.value = details.inputValue
+    },
+  },
   tagsInput: {
     addOnPaste: props.addOnPaste,
     allowOverflow: props.allowOverflow,
@@ -112,11 +117,6 @@ const { tagsInput, combobox } = useFormTagsInputCombobox({
     readOnly: props.readOnly,
     required: props.required,
     validate: props.validate,
-  },
-  combobox: {
-    onInputValueChange: (details: ComboboxInputValueChangeDetails) => {
-      inputValue.value = details.inputValue
-    },
   },
 })
 

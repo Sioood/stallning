@@ -15,8 +15,8 @@ describe('UIFormDatePicker (assembled)', () => {
         setup() {
           return () =>
             h(UIFormDatePicker, {
-              label: 'Date',
               'data-testid': 'date-picker-root',
+              label: 'Date',
             })
         },
       }),
@@ -49,8 +49,8 @@ describe('UIFormDatePicker (assembled)', () => {
         setup() {
           return () =>
             h(UIFormDatePicker, {
-              label: 'Inline',
               inline: true,
+              label: 'Inline',
               showTrigger: false,
             })
         },
@@ -70,14 +70,14 @@ describe('UIFormDatePicker (assembled)', () => {
         setup() {
           return () =>
             h(UIFormDatePicker, {
-              label: 'Controlled',
-              inline: true,
-              showTrigger: false,
               defaultValue: [parseDate('2025-05-01')],
+              inline: true,
+              label: 'Controlled',
               modelValue: model.value,
               'onUpdate:modelValue': (next: DateValue[]) => {
                 model.value = next
               },
+              showTrigger: false,
             })
         },
       }),
@@ -104,10 +104,10 @@ describe('UIFormDatePicker (assembled)', () => {
         setup() {
           return () =>
             h(UIFormDatePicker, {
-              label: 'Uncontrolled',
-              inline: true,
-              showTrigger: false,
               defaultValue: [parseDate('2025-05-01')],
+              inline: true,
+              label: 'Uncontrolled',
+              showTrigger: false,
             })
         },
       }),
@@ -176,8 +176,8 @@ describe('UIFormDatePicker (assembled)', () => {
           return () =>
             h(UIFormDatePicker, {
               label: 'Event date',
-              triggerPlacement: 'trailing',
               portalled: false,
+              triggerPlacement: 'trailing',
             })
         },
       }),
@@ -205,8 +205,8 @@ describe('UIFormDatePicker (assembled)', () => {
         setup() {
           return () =>
             h(UIFormDatePicker, {
-              label: 'Event date',
               defaultValue: [parseDate('2025-05-01')],
+              label: 'Event date',
               portalled: false,
             })
         },
@@ -230,8 +230,8 @@ describe('UIFormDatePicker (assembled)', () => {
         setup() {
           return () =>
             h(UIFormDatePicker, {
-              label: 'Date',
               inline: true,
+              label: 'Date',
               showTrigger: false,
             })
         },
@@ -255,9 +255,9 @@ describe('UIFormDatePicker (assembled)', () => {
         setup() {
           return () =>
             h(UIFormDatePicker, {
-              label: 'Date',
-              intent: 'secondary',
               inline: true,
+              intent: 'secondary',
+              label: 'Date',
               showTrigger: false,
             })
         },

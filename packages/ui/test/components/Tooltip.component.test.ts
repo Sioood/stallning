@@ -173,8 +173,8 @@ describe('Tooltip', () => {
       const wrapper = await mountSuspended(Tooltip, {
         props: {
           content: `${size} tooltip`,
-          size,
           open: true,
+          size,
         },
       })
 

@@ -40,14 +40,14 @@ function resolveWeeks(datePicker: {
 }) {
   if (props.monthOffset === 0) {
     return {
-      weeks: datePicker.weeks,
       visibleRange: undefined as VisibleRange | undefined,
+      weeks: datePicker.weeks,
     }
   }
   const offset = datePicker.getOffset({ months: props.monthOffset })
   return {
-    weeks: offset.weeks,
     visibleRange: offset.visibleRange,
+    weeks: offset.weeks,
   }
 }
 </script>

@@ -12,14 +12,14 @@ const items = computed<MenuListEntryStrict[]>(() =>
     .reduce<MenuListEntryStrict[]>((acc, column: Column<unknown, unknown>) => {
       if (!column.getCanHide()) return acc
       acc.push({
-        type: 'checkbox' as const,
-        label: column.id,
-        value: column.id,
         checked: column.getIsVisible(),
         closeOnSelect: false,
+        label: column.id,
         onCheckedChange: (checked: boolean) => {
           column.toggleVisibility(checked)
         },
+        type: 'checkbox' as const,
+        value: column.id,
       })
       return acc
     }, []),

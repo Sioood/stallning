@@ -11,14 +11,14 @@ const menuSubmenuTriggerCVA = cva(
   {
     variants: {
       intent: {
+        accent:
+          'text-accent-text-default data-[disabled]:text-accent-text-subtle data-[highlighted]:bg-accent-fill-subtle-hover',
         neutral:
           'text-neutral-text-default data-[disabled]:text-neutral-text-subtle data-[highlighted]:bg-neutral-fill-subtle-hover',
         primary:
           'text-primary-text-default data-[disabled]:text-primary-text-subtle data-[highlighted]:bg-primary-fill-subtle-hover',
         secondary:
           'text-secondary-text-default data-[disabled]:text-secondary-text-subtle data-[highlighted]:bg-secondary-fill-subtle-hover',
-        accent:
-          'text-accent-text-default data-[disabled]:text-accent-text-subtle data-[highlighted]:bg-accent-fill-subtle-hover',
       },
       size: {
         md: 'txt-caption px-2 py-1.5',
@@ -29,10 +29,10 @@ const menuSubmenuTriggerCVA = cva(
 const menuSubmenuContentCVA = cva('', {
   variants: {
     intent: {
+      accent: 'border-accent-border-subtle bg-accent-fill-subtle',
       neutral: 'border-neutral-border-subtle bg-neutral-fill-subtle',
       primary: 'border-primary-border-subtle bg-primary-fill-subtle',
       secondary: 'border-secondary-border-subtle bg-secondary-fill-subtle',
-      accent: 'border-accent-border-subtle bg-accent-fill-subtle',
     },
     size: {
       md: 'txt-label border p-1',
@@ -42,10 +42,10 @@ const menuSubmenuContentCVA = cva('', {
 const menuSubmenuChevronCVA = cva('size-3 shrink-0', {
   variants: {
     intent: {
+      accent: 'text-accent-text-subtle',
       neutral: 'text-neutral-text-subtle',
       primary: 'text-primary-text-subtle',
       secondary: 'text-secondary-text-subtle',
-      accent: 'text-accent-text-subtle',
     },
   },
 })
@@ -62,15 +62,15 @@ export interface MenuSubmenuProps extends MenuSubmenuEntry {
 }
 
 withDefaults(defineProps<MenuSubmenuProps>(), {
+  customClass: undefined,
   intent: 'neutral',
-  size: 'md',
   item: undefined,
   itemGroup: undefined,
   itemGroupLabel: undefined,
-  separator: undefined,
   itemIndicator: undefined,
   itemText: undefined,
-  customClass: undefined,
+  separator: undefined,
+  size: 'md',
 })
 </script>
 

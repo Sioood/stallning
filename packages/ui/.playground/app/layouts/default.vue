@@ -2,11 +2,11 @@
 const route = useRoute()
 
 const navOptions = [
-  { value: '/', label: 'Dashboard', icon: 'tabler:layout-grid', to: '/' },
-  { value: '/training', label: 'Training', icon: 'tabler:barbell', to: '/training' },
-  { value: '/goals', label: 'Goals', icon: 'tabler:target', to: '/goals' },
-  { value: '/social', label: 'Social', icon: 'tabler:users', to: '/social' },
-  { value: '/profile', label: 'Profile', icon: 'tabler:user', to: '/profile' },
+  { icon: 'tabler:layout-grid', label: 'Dashboard', to: '/', value: '/' },
+  { icon: 'tabler:barbell', label: 'Training', to: '/training', value: '/training' },
+  { icon: 'tabler:target', label: 'Goals', to: '/goals', value: '/goals' },
+  { icon: 'tabler:users', label: 'Social', to: '/social', value: '/social' },
+  { icon: 'tabler:user', label: 'Profile', to: '/profile', value: '/profile' },
 ] as const
 </script>
 

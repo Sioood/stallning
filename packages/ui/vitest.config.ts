@@ -36,25 +36,8 @@ const componentSetupPath = fileURLToPath(new URL('./test/component-setup.ts', im
 const visualSetupPath = fileURLToPath(new URL('./test/visual-setup.ts', import.meta.url))
 
 const uiCoverage = {
-  provider: 'v8' as const,
   /** Do not add every file matching `include` at 0% — only what tests touch (plus `all` merges). */
   all: false,
-  /**
-   * Without this, `exclude` / `include` are not re-applied after V8 results are remapped to source
-   * paths, so Nuxt-loaded files (e.g. `app/compodium/**`) still appear in the table at 0%.
-   */
-  excludeAfterRemap: true,
-  processingConcurrency: 1,
-  reporter: ['text', 'html', 'lcov'],
-  reportsDirectory: './coverage',
-  include: [
-    'app/utils/**/*.ts',
-    'app/plugins/**/*.ts',
-    'app/composables/**/*.ts',
-    'app/app.vue',
-    'app/components/**/*.vue',
-    'app/components/Form/schema.ts',
-  ],
   exclude: [
     ...coverageConfigDefaults.exclude,
     '**/nuxt.config.ts',
@@ -64,45 +47,62 @@ const uiCoverage = {
     '**/i18n/locales/**',
     'test/**',
   ],
+  /**
+   * Without this, `exclude` / `include` are not re-applied after V8 results are remapped to source
+   * paths, so Nuxt-loaded files (e.g. `app/compodium/**`) still appear in the table at 0%.
+   */
+  excludeAfterRemap: true,
+  include: [
+    'app/utils/**/*.ts',
+    'app/plugins/**/*.ts',
+    'app/composables/**/*.ts',
+    'app/app.vue',
+    'app/components/**/*.vue',
+    'app/components/Form/schema.ts',
+  ],
+  processingConcurrency: 1,
+  provider: 'v8' as const,
+  reporter: ['text', 'html', 'lcov'],
+  reportsDirectory: './coverage',
   /** Gate CI on shipped UI under `app/components` and shared `app` TS (see root `test.coverage`). */
   thresholds: {
     'app/**/*.ts': {
-      lines: 75,
-      statements: 75,
       branches: 65,
       functions: 70,
-    },
-    'app/components/**/*.vue': {
       lines: 75,
       statements: 75,
+    },
+    'app/app.vue': {
+      branches: 65,
+      functions: 70,
+      lines: 75,
+      statements: 75,
+    },
+    'app/components/**/*.vue': {
       branches: 65,
       /** SFC `<script setup>` often reports many “functions” (inline callbacks) as uncovered. */
       functions: 50,
-    },
-    'app/app.vue': {
       lines: 75,
       statements: 75,
-      branches: 65,
-      functions: 70,
     },
   },
 }
 
 const uiComponent = await defineVitestProject({
   test: {
-    name: 'ui-component',
-    root: packageRoot,
-    setupFiles: [componentSetupPath],
-    include: ['test/**/*.component.test.ts'],
     environmentOptions: {
       nuxt: {
         overrides: {
           imports: {
-            imports: [{ name: 'extendCompodiumMeta', from: stubPath }],
+            imports: [{ from: stubPath, name: 'extendCompodiumMeta' }],
           },
         },
       },
     },
+    include: ['test/**/*.component.test.ts'],
+    name: 'ui-component',
+    root: packageRoot,
+    setupFiles: [componentSetupPath],
   },
 })
 
@@ -115,41 +115,41 @@ export default defineConfig({
     coverage: uiCoverage,
     projects: [
       defineProject({
-        root: packageRoot,
         resolve: {
           alias: workspaceLayerAliasesFromNuxtAppTsconfig(),
         },
+        root: packageRoot,
         test: {
-          name: 'ui-unit',
           environment: 'node',
-          include: ['test/**/*.test.ts'],
           exclude: ['test/**/*.component.test.ts', 'test/**/*.visual.test.ts'],
+          include: ['test/**/*.test.ts'],
+          name: 'ui-unit',
         },
       }),
       uiComponent,
       defineProject({
-        root: packageRoot,
-        plugins: [tailwindcss(), vue(), autoImport({ imports: ['vue'], dts: false })],
+        plugins: [tailwindcss(), vue(), autoImport({ dts: false, imports: ['vue'] })],
         resolve: {
           alias: {
-            '~ui': packageRoot,
-            '~nuxt-essentials': resolvePath(packageRoot, '../nuxt-essentials'),
-            '~': resolvePath(packageRoot, 'app'),
             '#app': resolvePath(packageRoot, 'test/visual/stubs/nuxt-app.ts'),
+            '~': resolvePath(packageRoot, 'app'),
+            '~nuxt-essentials': resolvePath(packageRoot, '../nuxt-essentials'),
+            '~ui': packageRoot,
           },
         },
+        root: packageRoot,
         test: {
-          name: 'ui-visual',
-          setupFiles: [visualSetupPath],
-          include: ['test/**/*.visual.test.ts'],
           browser: {
             enabled: true,
-            provider: playwright(),
             headless: true,
             instances: [{ browser: 'chromium' }],
-            viewport: { width: 1280, height: 720 },
+            provider: playwright(),
             screenshotFailures: false,
+            viewport: { height: 720, width: 1280 },
           },
+          include: ['test/**/*.visual.test.ts'],
+          name: 'ui-visual',
+          setupFiles: [visualSetupPath],
         },
       }),
     ],

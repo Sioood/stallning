@@ -14,7 +14,7 @@ describe('Table row-models', () => {
 
   it('applies filtered and sorted row models when features are enabled', () => {
     const options = applyDefaultRowModels({
-      state: { sorting: [], columnFilters: [] },
+      state: { columnFilters: [], sorting: [] },
     })
 
     expect(options.getCoreRowModel).toBeDefined()

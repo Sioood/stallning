@@ -18,11 +18,11 @@ type QrCodeSize = 'md'
 const qrCodeRootCVA = cva(['flex size-full flex-col items-center justify-center'], {
   variants: {
     intent: {
+      accent: 'text-accent-surface-default',
+      blackAndWhite: 'text-black',
       neutral: 'text-neutral-surface-default',
       primary: 'text-primary-surface-default',
       secondary: 'text-secondary-surface-default',
-      accent: 'text-accent-surface-default',
-      blackAndWhite: 'text-black',
     } satisfies Record<QrCodeIntent, string>,
     size: {
       md: 'gap-2',
@@ -35,11 +35,11 @@ type QrCodeRootCVAProps = VariantProps<typeof qrCodeRootCVA>
 const qrCodeFrameCVA = cva('size-full', {
   variants: {
     intent: {
+      accent: 'bg-accent-fill-subtle fill-accent-fill-strong',
+      blackAndWhite: 'bg-white fill-black',
       neutral: 'bg-neutral-fill-subtle fill-neutral-fill-strong',
       primary: 'bg-primary-fill-subtle fill-primary-fill-strong',
       secondary: 'bg-secondary-fill-subtle fill-secondary-fill-strong',
-      accent: 'bg-accent-fill-subtle fill-accent-fill-strong',
-      blackAndWhite: 'bg-white fill-black',
     } satisfies Record<QrCodeIntent, string>,
   },
 })
@@ -76,16 +76,16 @@ const modelValue = defineModel<string>({ required: false })
 
 const props = withDefaults(defineProps<QrCodeProps>(), {
   defaultValue: 'https://theodupont.fr',
-  encoding: () => ({ ecc: 'M', boostEcc: true }),
-  downloadable: false,
   downloadLabel: 'downloadQRCode',
+  downloadable: false,
+  encoding: () => ({ boostEcc: true, ecc: 'M' }),
   fileName: 'qr-code.png',
+  intent: 'neutral',
   mimeType: 'image/png',
   quality: 1,
-  intent: 'neutral',
   size: 'md',
-  value: undefined,
   ui: undefined,
+  value: undefined,
 })
 
 const isProvider = computed(() => props.value !== undefined)

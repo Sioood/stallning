@@ -62,8 +62,8 @@ const props = withDefaults(defineProps<ToggleGroupProps>(), {
   intent: 'primary',
   options: () => [],
   size: 'sm',
-  value: undefined,
   ui: undefined,
+  value: undefined,
   variant: 'default',
 })
 

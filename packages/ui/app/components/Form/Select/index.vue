@@ -56,23 +56,23 @@ const modelValue = defineModel<string[]>({ default: () => [] })
 const open = defineModel<boolean>('open', { default: false })
 
 const props = withDefaults(defineProps<SelectProps>(), {
-  items: () => [],
-  placeholder: 'select.select',
-  label: undefined,
-  multiple: false,
-  maxSelection: undefined,
   allowSelectAll: false,
+  emptyText: 'select.noOptions',
+  intent: 'primary',
+  items: () => [],
+  label: undefined,
   loading: false,
   loadingText: 'select.loading',
-  emptyText: 'select.noOptions',
-  readOnly: false,
+  maxSelection: undefined,
+  multiple: false,
+  placeholder: 'select.select',
   portalled: true,
-  teleportTo: 'body',
-  intent: 'primary',
-  size: 'md',
+  readOnly: false,
   showClear: true,
-  value: undefined,
+  size: 'md',
+  teleportTo: 'body',
   ui: undefined,
+  value: undefined,
 })
 
 const attrs = useAttrs()
@@ -94,8 +94,8 @@ const collection = computed(() => {
 
   if (processed.some((item) => item.group)) {
     return createListCollection({
-      items: processed,
       groupBy: (item: SelectItem) => item.group ?? '',
+      items: processed,
     })
   }
 

@@ -18,15 +18,15 @@ interface Argv extends ParsedArgs {
 }
 
 const localeLabels: Record<string, string> = {
-  'fr-FR': 'Francais',
   'en-US': 'English',
+  'fr-FR': 'Francais',
 }
 
 const treeCharacters = {
   CHILD: '├── ',
-  LAST_CHILD: '└── ',
   DIRECTORY: '│   ',
   EMPTY: '    ',
+  LAST_CHILD: '└── ',
 } as const
 
 type Messages = Record<string, string>
@@ -130,7 +130,7 @@ export const getTreeStructure = ({
     tree.push([locale, []])
 
     if (showNamespaces) {
-      const namespaces = getLocaleNamespaces({ localesPath, locale })
+      const namespaces = getLocaleNamespaces({ locale, localesPath })
       tree[tree.length - 1]![1] = namespaces
     }
   }
@@ -267,10 +267,10 @@ export const getCoverageData = ({
         return [
           locale,
           {
-            percentage,
             count,
             missing: missingKeys.length,
             missingKeys,
+            percentage,
           },
         ]
       }),
@@ -302,9 +302,9 @@ export const renderCoverage = ({
   })
 
   const treeRender = renderTreeStructure({
-    tree: getTreeStructure({ localesPath, showNamespaces }),
     data: coverageData,
     showKeys,
+    tree: getTreeStructure({ localesPath, showNamespaces }),
   })
 
   consola.log('')
@@ -319,10 +319,10 @@ export const renderCoverage = ({
 
 if (esMain(import.meta)) {
   const argv: Argv = minimist(process.argv.slice(2), {
+    '--': true,
     alias: {
       k: 'keys',
     },
-    '--': true,
     boolean: ['ns', 'k', 'keys'],
   })
 
@@ -339,5 +339,5 @@ if (esMain(import.meta)) {
   )
 
   const localesPath = resolve(argv.f)
-  renderCoverage({ localesPath, showNamespaces, showKeys })
+  renderCoverage({ localesPath, showKeys, showNamespaces })
 }

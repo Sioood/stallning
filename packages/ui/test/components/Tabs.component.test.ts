@@ -13,9 +13,9 @@ describe('UITabs', () => {
     const wrapper = await mountSuspended(UITabs, {
       props: {
         options: [
-          { value: 'a', label: 'A' },
-          { value: 'b', label: 'B' },
-          { value: 'c', label: 'C' },
+          { label: 'A', value: 'a' },
+          { label: 'B', value: 'b' },
+          { label: 'C', value: 'c' },
         ],
       },
     })
@@ -28,8 +28,8 @@ describe('UITabs', () => {
     const wrapper = await mountSuspended(UITabs, {
       props: {
         options: [
-          { value: 'react', label: 'React' },
-          { value: 'vue', label: 'Vue' },
+          { label: 'React', value: 'react' },
+          { label: 'Vue', value: 'vue' },
         ],
       },
     })
@@ -41,11 +41,11 @@ describe('UITabs', () => {
   it('sets the initial modelValue as selected', async () => {
     const wrapper = await mountSuspended(UITabs, {
       props: {
-        options: [
-          { value: 'a', label: 'A' },
-          { value: 'b', label: 'B' },
-        ],
         modelValue: 'b',
+        options: [
+          { label: 'A', value: 'a' },
+          { label: 'B', value: 'b' },
+        ],
       },
     })
 
@@ -56,8 +56,8 @@ describe('UITabs', () => {
   it('renders the indicator element', async () => {
     const wrapper = await mountSuspended(UITabs, {
       props: {
-        options: [{ value: 'a', label: 'A' }],
         modelValue: 'a',
+        options: [{ label: 'A', value: 'a' }],
       },
     })
 
@@ -68,8 +68,8 @@ describe('UITabs', () => {
   it('applies intent classes to list', async () => {
     const wrapper = await mountSuspended(UITabs, {
       props: {
-        options: [{ value: 'a', label: 'A' }],
         intent: 'accent',
+        options: [{ label: 'A', value: 'a' }],
       },
     })
 
@@ -80,7 +80,7 @@ describe('UITabs', () => {
   it('applies size classes to list', async () => {
     const wrapper = await mountSuspended(UITabs, {
       props: {
-        options: [{ value: 'a', label: 'A' }],
+        options: [{ label: 'A', value: 'a' }],
         size: 'lg',
       },
     })
@@ -92,7 +92,7 @@ describe('UITabs', () => {
   it('applies orientation classes to list', async () => {
     const wrapper = await mountSuspended(UITabs, {
       props: {
-        options: [{ value: 'a', label: 'A' }],
+        options: [{ label: 'A', value: 'a' }],
         orientation: 'vertical' as const,
       },
     })
@@ -104,11 +104,11 @@ describe('UITabs', () => {
   it('renders without crashing when tabs are disabled', async () => {
     const wrapper = await mountSuspended(UITabs, {
       props: {
-        options: [
-          { value: 'a', label: 'A' },
-          { value: 'b', label: 'B' },
-        ],
         disabled: true,
+        options: [
+          { label: 'A', value: 'a' },
+          { label: 'B', value: 'b' },
+        ],
       },
     })
 
@@ -120,8 +120,8 @@ describe('UITabs', () => {
     const wrapper = await mountSuspended(UITabs, {
       props: {
         options: [
-          { value: 'a', label: 'A' },
-          { value: 'b', label: 'B', disabled: true },
+          { label: 'A', value: 'a' },
+          { disabled: true, label: 'B', value: 'b' },
         ],
       },
     })
@@ -136,8 +136,8 @@ describe('UITabs', () => {
     const wrapper = await mountSuspended(UITabs, {
       global: {
         components: {
-          UITabsTrigger,
           UITabsContent,
+          UITabsTrigger,
         },
       },
       slots: {
@@ -154,10 +154,10 @@ describe('UITabs', () => {
 
   it('renders UITabsRoot for manual composition', async () => {
     const wrapper = await mountSuspended(UITabsRoot, {
-      props: { modelValue: 'a' },
       global: {
-        components: { UITabsTrigger, UITabsContent },
+        components: { UITabsContent, UITabsTrigger },
       },
+      props: { modelValue: 'a' },
       slots: {
         default: `
           <UITabsTrigger value="a">A</UITabsTrigger>
@@ -174,8 +174,8 @@ describe('UITabs', () => {
     const wrapper = await mountSuspended(UITabs, {
       props: {
         options: [
-          { value: 'home', label: 'Home', icon: 'tabler:home' },
-          { value: 'search', label: 'Search', icon: 'tabler:search' },
+          { icon: 'tabler:home', label: 'Home', value: 'home' },
+          { icon: 'tabler:search', label: 'Search', value: 'search' },
         ],
       },
     })
@@ -247,8 +247,8 @@ describe('UITabs', () => {
     const wrapper = await mountSuspended(UITabs, {
       props: {
         options: [
-          { value: 'a', label: 'A' },
-          { value: 'b', label: 'B' },
+          { label: 'A', value: 'a' },
+          { label: 'B', value: 'b' },
         ],
         renderContent: false,
       },
@@ -262,8 +262,8 @@ describe('UITabs', () => {
     const wrapper = await mountSuspended(UITabs, {
       props: {
         options: [
-          { value: 'home', label: 'Home', icon: 'tabler:home', hideLabel: true },
-          { value: 'profile', label: 'Profile', icon: 'tabler:user' },
+          { hideLabel: true, icon: 'tabler:home', label: 'Home', value: 'home' },
+          { icon: 'tabler:user', label: 'Profile', value: 'profile' },
         ],
       },
     })
@@ -277,7 +277,7 @@ describe('UITabs', () => {
   it('applies stacked trigger layout classes', async () => {
     const wrapper = await mountSuspended(UITabs, {
       props: {
-        options: [{ value: 'goals', label: 'Goals', icon: 'tabler:target' }],
+        options: [{ icon: 'tabler:target', label: 'Goals', value: 'goals' }],
         triggerLayout: 'stacked',
       },
     })
@@ -290,7 +290,7 @@ describe('UITabs', () => {
   it('renders a link when option has an external to', async () => {
     const wrapper = await mountSuspended(UITabs, {
       props: {
-        options: [{ value: 'home', label: 'Home', to: 'https://example.com/home' }],
+        options: [{ label: 'Home', to: 'https://example.com/home', value: 'home' }],
         renderContent: false,
       },
     })

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import { h } from 'vue'
 import { z } from 'zod'
 
@@ -29,53 +30,53 @@ import type { TreeViewCheckedState } from '~/utils/Components/TreeView/checked-s
 import type { TreeViewItem } from '~/utils/Components/TreeView/context'
 
 const schema = z.object({
-  firstName: z.string().trim().min(2),
-  lastName: z.string().trim().min(2),
-  email: z.string().trim().optional(),
-  birthDate: z.custom<DateValue[]>().optional(),
-  bio: z.string().trim().optional(),
   age: z.string().trim().min(1).optional(),
+  avatar: z.custom<File[]>(),
+  bio: z.string().trim().optional(),
+  birthDate: z.custom<DateValue[]>().optional(),
+  checkbox: z.union([z.literal(true), z.literal(false), z.literal('indeterminate')]),
   code: z.string().trim().min(1).optional(),
   domain: z.string().trim().optional(),
-  website: z.string().trim().optional(),
-  price: z.string().trim().optional(),
-  newsletter: z.string().trim().optional(),
-  phone: z.string().trim().min(1, 'Phone number is required'),
-  checkbox: z.union([z.literal(true), z.literal(false), z.literal('indeterminate')]),
-  switch: z.boolean(),
+  email: z.string().trim().optional(),
+  firstName: z.string().trim().min(2),
   framework: z.string().nullable().optional(),
-  stack: z.array(z.string()).optional(),
-  tags: z.array(z.string()).optional(),
+  lastName: z.string().trim().min(2),
+  newsletter: z.string().trim().optional(),
   permissions: z.custom<TreeViewCheckedState>(),
-  volume: z.array(z.number()).min(1).max(2).default([50]),
-  avatar: z.custom<File[]>(),
+  phone: z.string().trim().min(1, 'Phone number is required'),
+  price: z.string().trim().optional(),
   signature: z.array(z.string()).optional(),
+  stack: z.array(z.string()).optional(),
+  switch: z.boolean(),
+  tags: z.array(z.string()).optional(),
+  volume: z.array(z.number()).min(1).max(2).default([50]),
+  website: z.string().trim().optional(),
 })
 
 type FormValues = InferSchemaValues<typeof schema>
 
 const defaultValues: FormValues = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  birthDate: undefined,
-  bio: '',
   age: '18',
+  avatar: [],
+  bio: '',
+  birthDate: undefined,
+  checkbox: false,
   code: '',
   domain: '',
-  website: '',
-  price: '',
-  newsletter: '',
-  phone: '+46 ',
-  checkbox: false,
-  switch: false,
+  email: '',
+  firstName: '',
   framework: null,
-  stack: [],
-  tags: [],
-  permissions: { value: [], branches: {}, leaves: {} },
-  volume: [50],
-  avatar: [],
+  lastName: '',
+  newsletter: '',
+  permissions: { branches: {}, leaves: {}, value: [] },
+  phone: '+46 ',
+  price: '',
   signature: [],
+  stack: [],
+  switch: false,
+  tags: [],
+  volume: [50],
+  website: '',
 }
 
 const countryItems = [
@@ -118,51 +119,89 @@ function priceInnerLeading() {
   return h('span', { class: 'txt-label text-neutral-text-subtle' }, '$')
 }
 function newsletterTrailing() {
-  return h(UIButton, { variant: 'subtle', intent: 'primary', text: 'Subscribe' })
+  return h(UIButton, { intent: 'primary', text: 'Subscribe', variant: 'subtle' })
 }
 
 const permissionTreeItems: TreeViewItem[] = [
   {
-    id: 'dashboard',
-    label: 'Dashboard',
     children: [
       { id: 'dashboard/analytics', label: 'Analytics' },
       { id: 'dashboard/reports', label: 'Reports' },
     ],
+    id: 'dashboard',
+    label: 'Dashboard',
   },
   {
-    id: 'settings',
-    label: 'Settings',
     children: [
       { id: 'settings/profile', label: 'Profile' },
       { id: 'settings/security', label: 'Security' },
     ],
+    id: 'settings',
+    label: 'Settings',
   },
   { id: 'billing', label: 'Billing' },
 ]
 
 const fields: SchemaFieldsMap<FormValues> = {
-  firstName: {
-    as: UIFormInput,
+  age: {
+    as: UIFormNumberInput,
     props: {
-      label: 'First name',
-      placeholder: 'Jane',
-      required: true,
-    },
-    validators: {
-      onChangeAsyncDebounceMs: 400,
-      onChangeAsync: async ({ value }: { value: string }) => {
-        await new Promise((r) => setTimeout(r, 200))
-        return value.includes('error') ? "Text must not contain 'error'" : undefined
-      },
+      label: 'Age',
+      max: 150,
+      min: 0,
+      placeholder: '18',
+      step: 1,
     },
   },
-  lastName: {
+  avatar: {
+    as: UIFileUpload,
+    props: {
+      accept: 'image/*',
+      clearable: true,
+      helperText: 'Upload a profile picture (images only, max 5MB)',
+      label: 'Avatar',
+      maxFileSize: 5 * 1024 * 1024,
+      maxFiles: 1,
+    },
+  },
+  bio: {
+    as: UIFormTextarea,
+    props: {
+      autoresize: true,
+      label: 'Bio',
+      placeholder: 'Tell us about yourself…',
+    },
+  },
+  birthDate: {
+    as: UIFormDatePicker,
+    props: {
+      helperText: 'Uses the active i18n locale by default',
+      label: 'Birth date',
+      placeholder: 'Select date…',
+    },
+  },
+  checkbox: {
+    as: UIFormCheckbox,
+    props: {
+      label: 'Checkbox',
+    },
+  },
+  code: {
+    as: UIFormPinInput,
+    props: {
+      count: 5,
+      helperText: 'Enter the 5-digit code',
+      label: 'Verification code',
+    },
+  },
+  domain: {
     as: UIFormInput,
     props: {
-      label: 'Last name',
-      placeholder: 'Doe',
+      label: 'Domain',
+      placeholder: 'mywebsite',
     },
+    slots: { trailing: domainTrailing },
+    suffix: '.com',
   },
   email: {
     as: UIFormInput,
@@ -172,67 +211,40 @@ const fields: SchemaFieldsMap<FormValues> = {
       type: 'email',
     },
   },
-  birthDate: {
-    as: UIFormDatePicker,
-    props: {
-      label: 'Birth date',
-      placeholder: 'Select date…',
-      helperText: 'Uses the active i18n locale by default',
-    },
-  },
-  bio: {
-    as: UIFormTextarea,
-    props: {
-      label: 'Bio',
-      placeholder: 'Tell us about yourself…',
-      autoresize: true,
-    },
-  },
-  age: {
-    as: UIFormNumberInput,
-    props: {
-      label: 'Age',
-      placeholder: '18',
-      min: 0,
-      max: 150,
-      step: 1,
-    },
-  },
-  code: {
-    as: UIFormPinInput,
-    props: {
-      label: 'Verification code',
-      helperText: 'Enter the 5-digit code',
-      count: 5,
-    },
-  },
-  domain: {
+  firstName: {
     as: UIFormInput,
     props: {
-      label: 'Domain',
-      placeholder: 'mywebsite',
+      label: 'First name',
+      placeholder: 'Jane',
+      required: true,
     },
-    suffix: '.com',
-    slots: { trailing: domainTrailing },
+    validators: {
+      onChangeAsync: async ({ value }: { value: string }) => {
+        await new Promise((r) => setTimeout(r, 200))
+        return value.includes('error') ? "Text must not contain 'error'" : undefined
+      },
+      onChangeAsyncDebounceMs: 400,
+    },
   },
-  website: {
+  framework: {
+    as: UIFormRadioGroup,
+    props: {
+      helperText: 'Choose your preferred framework',
+      items: [
+        { label: 'React', value: 'react' },
+        { label: 'Solid', value: 'solid' },
+        { label: 'Vue', value: 'vue' },
+      ],
+      label: 'Framework',
+      orientation: 'horizontal',
+    },
+  },
+  lastName: {
     as: UIFormInput,
     props: {
-      label: 'Website',
-      placeholder: 'example.com',
+      label: 'Last name',
+      placeholder: 'Doe',
     },
-    prefix: 'https://',
-    slots: { leading: websiteLeading },
-  },
-  price: {
-    as: UIFormInput,
-    props: {
-      label: 'Price',
-      placeholder: '0.00',
-      type: 'number',
-    },
-    prefix: '$',
-    slots: { 'inner-leading': priceInnerLeading },
   },
   newsletter: {
     as: UIFormInput,
@@ -243,12 +255,20 @@ const fields: SchemaFieldsMap<FormValues> = {
     },
     slots: { trailing: newsletterTrailing },
   },
+  permissions: {
+    as: UIFormTreeView,
+    props: {
+      helperText: 'Select accessible sections (checkbox tree)',
+      items: permissionTreeItems,
+      label: 'Permissions',
+    },
+  },
   phone: {
     as: UIFormPhoneInput,
     props: {
+      items: countryItems,
       label: 'Phone',
       placeholder: '0701234567',
-      items: countryItems,
       required: true,
     },
     validators: {
@@ -262,88 +282,69 @@ const fields: SchemaFieldsMap<FormValues> = {
       },
     },
   },
-  checkbox: {
-    as: UIFormCheckbox,
+  price: {
+    as: UIFormInput,
+    prefix: '$',
     props: {
-      label: 'Checkbox',
+      label: 'Price',
+      placeholder: '0.00',
+      type: 'number',
     },
+    slots: { 'inner-leading': priceInnerLeading },
   },
-  switch: {
-    as: UISwitch,
+  signature: {
+    as: UIFormSignaturePad,
     props: {
-      label: 'Switch',
-      helperText: 'Accept terms and conditions',
-    },
-  },
-  framework: {
-    as: UIFormRadioGroup,
-    props: {
-      label: 'Framework',
-      helperText: 'Choose your preferred framework',
-      orientation: 'horizontal',
-      items: [
-        { label: 'React', value: 'react' },
-        { label: 'Solid', value: 'solid' },
-        { label: 'Vue', value: 'vue' },
-      ],
+      clearable: true,
+      helperText: 'Draw your signature in the box',
+      label: 'Signature',
+      required: true,
     },
   },
   stack: {
     as: UIFormCombobox,
     props: {
-      label: 'Primary stack',
-      placeholder: 'Search framework…',
       helperText: 'Single selection with autocomplete',
       items: frameworkItems,
+      label: 'Primary stack',
+      placeholder: 'Search framework…',
+    },
+  },
+  switch: {
+    as: UISwitch,
+    props: {
+      helperText: 'Accept terms and conditions',
+      label: 'Switch',
     },
   },
   tags: {
     as: UIFormTagsInput,
     props: {
-      label: 'Skills',
-      placeholder: 'Add skill…',
       helperText: 'Tags with combobox suggestions',
       items: frameworkItems,
-    },
-  },
-  permissions: {
-    as: UIFormTreeView,
-    props: {
-      label: 'Permissions',
-      helperText: 'Select accessible sections (checkbox tree)',
-      items: permissionTreeItems,
+      label: 'Skills',
+      placeholder: 'Add skill…',
     },
   },
   volume: {
     as: UIFormSlider,
     props: {
-      label: 'Volume',
       helperText: 'Adjust the volume range',
-      min: 0,
-      max: 100,
-      step: 1,
       intent: 'primary',
+      label: 'Volume',
+      max: 100,
+      min: 0,
+      step: 1,
     },
   },
-  avatar: {
-    as: UIFileUpload,
+  website: {
+    as: UIFormInput,
+    prefix: 'https://',
     props: {
-      label: 'Avatar',
-      helperText: 'Upload a profile picture (images only, max 5MB)',
-      accept: 'image/*',
-      maxFiles: 1,
-      maxFileSize: 5 * 1024 * 1024,
-      clearable: true,
+      label: 'Website',
+      placeholder: 'example.com',
     },
-  },
-  signature: {
-    as: UIFormSignaturePad,
-    props: {
-      label: 'Signature',
-      helperText: 'Draw your signature in the box',
-      required: true,
-      clearable: true,
-    },
+    slots: { leading: websiteLeading },
   },
 }
 

@@ -45,8 +45,8 @@ const props = withDefaults(defineProps<FormControlShellProps>(), {
   successIcon: undefined,
   trailing: false,
   trailingIcon: undefined,
-  warningIcon: undefined,
   ui: undefined,
+  warningIcon: undefined,
 })
 
 const fieldProps = computed(() => ({

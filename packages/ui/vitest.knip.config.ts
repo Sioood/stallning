@@ -11,8 +11,8 @@ const componentSetupPath = resolvePath(packageRoot, 'test/component-setup.ts')
 const visualSetupPath = resolvePath(packageRoot, 'test/visual-setup.ts')
 
 export default defineConfig({
+  plugins: [vue(), autoImport({ dts: false, imports: ['vue'] })],
   root: packageRoot,
-  plugins: [vue(), autoImport({ imports: ['vue'], dts: false })],
   test: {
     coverage: {
       provider: 'v8',
@@ -21,32 +21,32 @@ export default defineConfig({
       defineProject({
         root: packageRoot,
         test: {
-          name: 'ui-unit',
           environment: 'node',
-          include: ['test/**/*.test.ts'],
           exclude: ['test/**/*.component.test.ts', 'test/**/*.visual.test.ts'],
+          include: ['test/**/*.test.ts'],
+          name: 'ui-unit',
         },
       }),
       defineProject({
+        plugins: [vue(), autoImport({ dts: false, imports: ['vue'] })],
         root: packageRoot,
-        plugins: [vue(), autoImport({ imports: ['vue'], dts: false })],
         test: {
-          name: 'ui-component',
           environment: 'node',
-          setupFiles: [componentSetupPath],
           include: ['test/**/*.component.test.ts'],
+          name: 'ui-component',
+          setupFiles: [componentSetupPath],
         },
       }),
       defineProject({
         root: packageRoot,
         test: {
-          name: 'ui-visual',
-          setupFiles: [visualSetupPath],
-          include: ['test/**/*.visual.test.ts'],
           browser: {
             enabled: true,
             provider: 'playwright',
           },
+          include: ['test/**/*.visual.test.ts'],
+          name: 'ui-visual',
+          setupFiles: [visualSetupPath],
         },
       }),
     ],

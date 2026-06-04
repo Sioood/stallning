@@ -26,7 +26,7 @@ describe('FileUpload', () => {
 
   it('renders trigger instead of dropzone when dropzone is false', async () => {
     const wrapper = await mountSuspended(FileUpload, {
-      props: { label: 'Upload', dropzone: false },
+      props: { dropzone: false, label: 'Upload' },
     })
 
     expect(wrapper.text()).toContain('Choisir des fichier(s)')
@@ -53,7 +53,7 @@ describe('FileUpload', () => {
 
   it('shows clear trigger when clearable is true', async () => {
     const wrapper = await mountSuspended(FileUpload, {
-      props: { label: 'Upload', clearable: true },
+      props: { clearable: true, label: 'Upload' },
     })
 
     expect(wrapper.text()).toContain('Tout effacer')
@@ -61,7 +61,7 @@ describe('FileUpload', () => {
 
   it('uses custom clear text', async () => {
     const wrapper = await mountSuspended(FileUpload, {
-      props: { label: 'Upload', clearable: true, clearText: 'Remove files' },
+      props: { clearText: 'Remove files', clearable: true, label: 'Upload' },
     })
 
     expect(wrapper.text()).toContain('Remove files')
@@ -69,7 +69,7 @@ describe('FileUpload', () => {
 
   it('applies disabled state', async () => {
     const wrapper = await mountSuspended(FileUpload, {
-      props: { label: 'Upload', disabled: true },
+      props: { disabled: true, label: 'Upload' },
     })
 
     const root = wrapper.find('[data-part="root"]')
@@ -78,7 +78,7 @@ describe('FileUpload', () => {
 
   it('renders helper text when provided', async () => {
     const wrapper = await mountSuspended(FileUpload, {
-      props: { label: 'Upload', helperText: 'Max 5 files allowed' },
+      props: { helperText: 'Max 5 files allowed', label: 'Upload' },
     })
 
     expect(wrapper.text()).toContain('Max 5 files allowed')
@@ -103,7 +103,7 @@ describe('FileUpload', () => {
 
   it('uses custom dropzone text', async () => {
     const wrapper = await mountSuspended(FileUpload, {
-      props: { label: 'Upload', dropzoneText: 'Custom dropzone message' },
+      props: { dropzoneText: 'Custom dropzone message', label: 'Upload' },
     })
 
     expect(wrapper.text()).toContain('Custom dropzone message')
@@ -153,7 +153,7 @@ describe('FileUpload', () => {
 
   it('applies invalid styling when invalid prop is true', async () => {
     const wrapper = await mountSuspended(FileUpload, {
-      props: { label: 'Upload', invalid: true },
+      props: { invalid: true, label: 'Upload' },
     })
 
     const dropzone = wrapper.find('[data-part="dropzone"]')
@@ -162,7 +162,7 @@ describe('FileUpload', () => {
 
   it('applies invalid styling when error prop is provided', async () => {
     const wrapper = await mountSuspended(FileUpload, {
-      props: { label: 'Upload', error: 'Something went wrong' },
+      props: { error: 'Something went wrong', label: 'Upload' },
     })
 
     const dropzone = wrapper.find('[data-part="dropzone"]')
@@ -180,9 +180,9 @@ describe('FileUpload', () => {
   it('renders with custom error message texts', async () => {
     const wrapper = await mountSuspended(FileUpload, {
       props: {
-        label: 'Upload',
-        fileTooLargeText: 'File is too big!',
         fileInvalidTypeText: 'Invalid file type!',
+        fileTooLargeText: 'File is too big!',
+        label: 'Upload',
         tooManyFilesText: 'Too many files!',
       },
     })
@@ -193,8 +193,8 @@ describe('FileUpload', () => {
   it('renders with duplicate detection disabled', async () => {
     const wrapper = await mountSuspended(FileUpload, {
       props: {
-        label: 'Upload',
         duplicate: true,
+        label: 'Upload',
       },
     })
 
@@ -205,9 +205,9 @@ describe('FileUpload', () => {
     const files = [new File(['content'], 'test.txt', { type: 'text/plain' })]
     const wrapper = await mountSuspended(FileUpload, {
       props: {
+        clearable: true,
         label: 'Upload',
         modelValue: files,
-        clearable: true,
       },
     })
 
@@ -231,7 +231,7 @@ describe('FileUpload', () => {
 
     for (const intent of intents) {
       const wrapper = await mountSuspended(FileUpload, {
-        props: { label: 'Upload', intent },
+        props: { intent, label: 'Upload' },
       })
 
       expect(wrapper.exists()).toBe(true)
@@ -255,9 +255,9 @@ describe('FileUpload', () => {
       props: {
         label: 'Upload',
         ui: {
-          root: 'custom-root',
-          label: 'custom-label',
           dropzone: 'custom-dropzone',
+          label: 'custom-label',
+          root: 'custom-root',
         },
       },
     })
@@ -266,7 +266,7 @@ describe('FileUpload', () => {
   })
 
   it('renders item template with file details', async () => {
-    const files = [new File(['content'], 'test.txt', { type: 'text/plain', size: 1234 })]
+    const files = [new File(['content'], 'test.txt', { size: 1234, type: 'text/plain' })]
     const wrapper = await mountSuspended(FileUpload, {
       props: {
         label: 'Upload',
@@ -280,10 +280,10 @@ describe('FileUpload', () => {
   it('renders rejected file error messages when file exceeds max size', async () => {
     const wrapper = await mountSuspended(FileUpload, {
       props: {
-        label: 'Upload',
-        maxFiles: 1,
-        maxFileSize: 1,
         fileTooLargeText: 'File too large',
+        label: 'Upload',
+        maxFileSize: 1,
+        maxFiles: 1,
         tooManyFilesText: 'Too many files',
       },
       slots: {
@@ -301,14 +301,14 @@ describe('FileUpload', () => {
   it('renders rejected files with custom error texts via slot', async () => {
     const wrapper = await mountSuspended(FileUpload, {
       props: {
+        fileExistsText: 'Custom: File exists',
+        fileInvalidText: 'Custom: Invalid file',
+        fileInvalidTypeText: 'Custom: Invalid type',
+        fileTooLargeText: 'Custom: File too large',
+        fileTooSmallText: 'Custom: Too small',
         label: 'Upload',
         maxFiles: 1,
-        fileTooLargeText: 'Custom: File too large',
-        fileInvalidTypeText: 'Custom: Invalid type',
         tooManyFilesText: 'Custom: Too many',
-        fileTooSmallText: 'Custom: Too small',
-        fileInvalidText: 'Custom: Invalid file',
-        fileExistsText: 'Custom: File exists',
       },
       slots: {
         default: `

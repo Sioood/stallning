@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import { useDatePicker, type DatePickerValueChangeDetails } from '@ark-ui/vue/date-picker'
 import { CalendarDateTime, parseDate, type DateValue } from '@internationalized/date'
 
@@ -8,14 +9,14 @@ const controlledValue = ref<DateValue[]>([parseDate('2025-06-15')])
 const controlledOpen = ref(false)
 
 const providerApi = useDatePicker({
-  selectionMode: 'single',
   defaultValue: [parseDate('2025-03-10')],
+  selectionMode: 'single',
 })
 
 const rangePresets: DatePickerPreset[] = [
-  { value: 'last7Days', label: 'Last 7 days' },
-  { value: 'last30Days', label: 'Last 30 days' },
-  { value: 'thisMonth', label: 'This month' },
+  { label: 'Last 7 days', value: 'last7Days' },
+  { label: 'Last 30 days', value: 'last30Days' },
+  { label: 'This month', value: 'thisMonth' },
 ]
 
 const multipleValue = ref<DateValue[]>([])

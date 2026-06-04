@@ -43,11 +43,11 @@ export interface PaginationProps
 
 const props = withDefaults(defineProps<PaginationProps>(), {
   intent: 'primary',
-  size: 'md',
-  variant: 'ghost',
   showFirstLast: false,
-  value: undefined,
+  size: 'md',
   ui: undefined,
+  value: undefined,
+  variant: 'ghost',
 })
 
 const page = defineModel<number>('page', { required: false })

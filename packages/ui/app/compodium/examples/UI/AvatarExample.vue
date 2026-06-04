@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import { useAvatar, type AvatarStatusChangeDetails } from '@ark-ui/vue/avatar'
 
 import type { MenuListEntry } from '@/components/Menu/index.vue'
@@ -13,23 +14,23 @@ const accountUser = { name: 'Marie Dupont' }
 
 const accountMenuItems: MenuListEntry[] = [
   {
-    type: 'group',
-    label: accountUser.name,
     items: [
-      { type: 'item', value: 'profile', label: 'Profile', to: '/previews' },
-      { type: 'item', value: 'settings', label: 'Settings', to: '/previews/bento' },
-      { type: 'item', value: 'billing', label: 'Billing' },
-      { type: 'item', value: 'notifications', label: 'Notifications' },
-      { type: 'item', value: 'help', label: 'Help & support', to: '/previews' },
+      { label: 'Profile', to: '/previews', type: 'item', value: 'profile' },
+      { label: 'Settings', to: '/previews/bento', type: 'item', value: 'settings' },
+      { label: 'Billing', type: 'item', value: 'billing' },
+      { label: 'Notifications', type: 'item', value: 'notifications' },
+      { label: 'Help & support', to: '/previews', type: 'item', value: 'help' },
     ],
+    label: accountUser.name,
+    type: 'group',
   },
   { type: 'separator' },
   {
-    type: 'item',
-    value: 'sign-out',
-    label: 'Sign out',
     customClass:
       'text-error-text-default data-[highlighted]:bg-error-fill-subtle-hover data-[disabled]:text-error-text-subtle',
+    label: 'Sign out',
+    type: 'item',
+    value: 'sign-out',
   },
 ]
 </script>

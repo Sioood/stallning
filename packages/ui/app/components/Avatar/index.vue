@@ -26,22 +26,22 @@ const avatarRootCVA = cva(
     'relative inline-flex shrink-0 items-center justify-center overflow-hidden font-medium select-none',
   ],
   {
-    variants: {
-      intent: {
-        neutral: 'bg-neutral-fill-subtle text-neutral-text-default',
-        primary: 'bg-primary-fill-subtle text-primary-text-default',
-        secondary: 'bg-secondary-fill-subtle text-secondary-text-default',
-        accent: 'bg-accent-fill-subtle text-accent-text-default',
-      } satisfies Record<AvatarIntent, string>,
-      size: {
-        sm: 'txt-caption size-8',
-        md: 'txt-label size-10',
-        lg: 'txt-base size-12',
-      } satisfies Record<AvatarSize, string>,
-    },
     defaultVariants: {
       intent: 'neutral',
       size: 'md',
+    },
+    variants: {
+      intent: {
+        accent: 'bg-accent-fill-subtle text-accent-text-default',
+        neutral: 'bg-neutral-fill-subtle text-neutral-text-default',
+        primary: 'bg-primary-fill-subtle text-primary-text-default',
+        secondary: 'bg-secondary-fill-subtle text-secondary-text-default',
+      } satisfies Record<AvatarIntent, string>,
+      size: {
+        lg: 'txt-base size-12',
+        md: 'txt-label size-10',
+        sm: 'txt-caption size-8',
+      } satisfies Record<AvatarSize, string>,
     },
   },
 )
@@ -71,14 +71,14 @@ export interface AvatarProps
 }
 
 const props = withDefaults(defineProps<AvatarProps>(), {
-  intent: 'neutral',
-  size: 'md',
-  lettersOnly: false,
-  value: undefined,
-  ui: undefined,
-  name: undefined,
-  src: undefined,
   alt: undefined,
+  intent: 'neutral',
+  lettersOnly: false,
+  name: undefined,
+  size: 'md',
+  src: undefined,
+  ui: undefined,
+  value: undefined,
 })
 
 const attrs = useAttrs()
@@ -135,9 +135,9 @@ const resolvedAlt = computed(
 extendCompodiumMeta({
   defaultProps: {
     intent: 'neutral',
-    size: 'md',
-    name: 'Ada Lovelace',
     lettersOnly: false,
+    name: 'Ada Lovelace',
+    size: 'md',
   },
 })
 </script>

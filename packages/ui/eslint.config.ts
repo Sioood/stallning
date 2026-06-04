@@ -15,6 +15,9 @@ export default withNuxt(
     vue: true,
   }),
   {
+    rules: {
+      'import-x/no-unresolved': 'error',
+    },
     settings: {
       'import-x/resolver': {
         typescript: {
@@ -23,17 +26,14 @@ export default withNuxt(
         },
       },
     },
-    rules: {
-      'import-x/no-unresolved': 'error',
-    },
   },
   {
     files: ['test/**/*.ts', '**/*.component.test.ts'],
     rules: {
       'vue/multi-word-component-names': 'off',
       'vue/no-reserved-component-names': 'off',
-      'vue/require-default-prop': 'off',
       'vue/one-component-per-file': 'off',
+      'vue/require-default-prop': 'off',
     },
   },
   {

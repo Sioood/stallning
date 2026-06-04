@@ -31,13 +31,13 @@ export interface TabsTriggerProps extends TabTriggerBaseProps {
 }
 
 const props = withDefaults(defineProps<TabsTriggerProps>(), {
-  intent: undefined,
-  size: undefined,
-  triggerLayout: undefined,
   disabled: undefined,
   external: undefined,
+  intent: undefined,
+  size: undefined,
   target: undefined,
   to: undefined,
+  triggerLayout: undefined,
   ui: undefined,
 })
 
@@ -68,7 +68,7 @@ const usesLink = computed(() => props.to !== undefined && props.to !== null)
 const isExternalLink = computed(() => {
   if (props.external) return true
   const url = props.to?.toString()
-  const siteUrl = config.public.siteUrl
+  const { siteUrl } = config.public
   if (siteUrl && url?.startsWith(siteUrl)) return false
   return url?.startsWith('http')
 })
@@ -77,7 +77,7 @@ const linkTarget = computed(() => props.target || (isExternalLink.value ? '_blan
 const linkRel = computed(() => (linkTarget.value === '_blank' ? 'noopener noreferrer' : undefined))
 
 const linkHref = computed(() => {
-  const to = props.to
+  const { to } = props
   if (typeof to === 'string') return to
   return to?.toString() ?? ''
 })
@@ -91,11 +91,11 @@ const anchorHref = computed(() => {
 const triggerClass = computed(() =>
   cn(
     segmentedItemCVA({
-      variant: variant.value,
-      intent: intent.value,
-      size: size.value,
-      orientation: itemOrientation.value,
       disabled: isDisabled.value,
+      intent: intent.value,
+      orientation: itemOrientation.value,
+      size: size.value,
+      variant: variant.value,
     }),
     tabsTriggerLayoutCVA({ triggerLayout: triggerLayout.value }),
     props.ui?.root,

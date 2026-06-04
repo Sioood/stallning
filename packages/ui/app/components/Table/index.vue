@@ -22,26 +22,26 @@ import type { Row, Table } from '@tanstack/vue-table'
 defineOptions({ inheritAttrs: false })
 
 const props = withDefaults(defineProps<TableProps<TData>>(), {
-  value: undefined,
-  data: undefined,
-  columns: undefined,
-  meta: undefined,
+  autoResetPageIndex: false,
   caption: undefined,
-  intent: 'neutral',
-  size: 'md',
-  sticky: undefined,
-  loading: false,
+  columns: undefined,
+  data: undefined,
   empty: undefined,
-  virtualize: false,
-  selectable: false,
-  ui: undefined,
   getRowId: undefined,
   getSubRows: undefined,
-  renderFallbackValue: undefined,
-  onSelect: undefined,
-  onHover: undefined,
+  intent: 'neutral',
+  loading: false,
+  meta: undefined,
   onContextmenu: undefined,
-  autoResetPageIndex: false,
+  onHover: undefined,
+  onSelect: undefined,
+  renderFallbackValue: undefined,
+  selectable: false,
+  size: 'md',
+  sticky: undefined,
+  ui: undefined,
+  value: undefined,
+  virtualize: false,
 })
 
 const sorting = defineModel<SortingState>('sorting')
@@ -92,12 +92,12 @@ const virtualizeOptions = computed<TableVirtualizeOptions | false>(() => {
 })
 
 if (import.meta.dev && virtualizeOptions.value && rowPinning.value) {
-  console.warn('[UITable] Row pinning is not supported when virtualization is enabled.')
+  // console.warn('[UITable] Row pinning is not supported when virtualization is enabled.')
 }
 
 const virtualizeEstimateSize = computed(() => {
   if (!virtualizeOptions.value) return 52
-  const estimateSize = virtualizeOptions.value.estimateSize
+  const { estimateSize } = virtualizeOptions.value
   return typeof estimateSize === 'number' ? estimateSize : 52
 })
 
@@ -121,23 +121,23 @@ const internalTable = useUITable<TData>({
     'onHover',
     'onContextmenu',
   ] as const),
-  enableRowSelection: props.enableRowSelection ?? (props.selectable ? true : undefined),
-  data: dataRef,
   columns: columnsRef,
+  data: dataRef,
+  enableRowSelection: props.enableRowSelection ?? (props.selectable ? true : undefined),
   meta: props.meta,
   stateModels: {
-    sorting,
     columnFilters,
-    globalFilter,
-    columnVisibility,
     columnOrder,
     columnPinning,
     columnSizing,
-    rowSelection,
-    rowPinning,
+    columnVisibility,
     expanded,
+    globalFilter,
     grouping,
     pagination,
+    rowPinning,
+    rowSelection,
+    sorting,
   },
 })
 
@@ -169,23 +169,23 @@ function handleVirtualContextmenu(event: Event, row: Row<Record<string, unknown>
 }
 
 defineExpose({
-  get tableRef() {
-    return rootRef.value?.tableRef ?? null
-  },
   get scrollRef() {
     return rootRef.value?.scrollRef ?? null
   },
   get tableApi() {
     return table.value
   },
+  get tableRef() {
+    return rootRef.value?.tableRef ?? null
+  },
 })
 
 extendCompodiumMeta({
   defaultProps: {
     intent: 'neutral',
-    size: 'md',
     loading: false,
     selectable: false,
+    size: 'md',
   },
 })
 </script>

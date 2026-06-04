@@ -43,38 +43,31 @@ export function useFormTagsInputCombobox<T extends { label: string; value: strin
 ): UseFormTagsInputComboboxReturn<T> {
   const uid = useId()
   const sharedIds = {
-    input: `tags-combobox-input_${uid}`,
     control: `tags-combobox-control_${uid}`,
+    input: `tags-combobox-input_${uid}`,
   }
 
   const tagsInput = useTagsInput({
     ...options.tagsInput,
     ids: {
       ...options.tagsInput?.ids,
-      input: sharedIds.input,
       control: sharedIds.control,
+      input: sharedIds.input,
     },
   })
 
   const combobox = useCombobox({
     ...options.combobox,
-    ids: {
-      ...options.combobox?.ids,
-      input: sharedIds.input,
-      control: sharedIds.control,
-    },
+    allowCustomValue: options.allowCustomValue ?? true,
+    closeOnSelect: options.combobox?.closeOnSelect ?? true,
     get collection() {
       return toValue(options.collection)
     },
-    value: [],
-    allowCustomValue: options.allowCustomValue ?? true,
-    closeOnSelect: options.combobox?.closeOnSelect ?? true,
-    openOnChange: options.combobox?.openOnChange ?? true,
-    positioning: {
-      ...formTagsInputComboboxPositioning,
-      ...options.combobox?.positioning,
+    ids: {
+      ...options.combobox?.ids,
+      control: sharedIds.control,
+      input: sharedIds.input,
     },
-    selectionBehavior: 'clear',
     onValueChange: (details) => {
       const nextValue = resolveComboboxSelectedValue(details)
       if (nextValue && !tagsInput.value.value.includes(nextValue)) {
@@ -83,9 +76,16 @@ export function useFormTagsInputCombobox<T extends { label: string; value: strin
       clearComposedInput(tagsInput, combobox)
       options.combobox?.onValueChange?.(details)
     },
+    openOnChange: options.combobox?.openOnChange ?? true,
+    positioning: {
+      ...formTagsInputComboboxPositioning,
+      ...options.combobox?.positioning,
+    },
+    selectionBehavior: 'clear',
+    value: [],
   })
 
-  return { tagsInput, combobox, sharedIds }
+  return { combobox, sharedIds, tagsInput }
 }
 
 export { clearComposedInput }

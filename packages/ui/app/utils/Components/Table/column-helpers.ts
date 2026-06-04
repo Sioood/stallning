@@ -19,9 +19,15 @@ export function createSelectionColumn<TData>(
   components: SelectionColumnComponents,
 ): ColumnDef<TData, unknown> {
   return {
-    id: 'select',
-    enableSorting: false,
+    cell: ({ row }) =>
+      h(components.Cell, {
+        checked: row.getIsSelected() ? true : row.getIsSomeSelected() ? 'indeterminate' : false,
+        toggleSelected: (value: boolean | 'indeterminate') => {
+          row.toggleSelected(!!value)
+        },
+      }),
     enableHiding: false,
+    enableSorting: false,
     header: ({ table }) =>
       h(components.Header, {
         checked: table.getIsAllPageRowsSelected()
@@ -33,13 +39,7 @@ export function createSelectionColumn<TData>(
           table.toggleAllPageRowsSelected(!!value)
         },
       }),
-    cell: ({ row }) =>
-      h(components.Cell, {
-        checked: row.getIsSelected() ? true : row.getIsSomeSelected() ? 'indeterminate' : false,
-        toggleSelected: (value: boolean | 'indeterminate') => {
-          row.toggleSelected(!!value)
-        },
-      }),
+    id: 'select',
   }
 }
 
@@ -51,21 +51,21 @@ export function createExpandToggleColumn<TData>(
   components: ExpandColumnComponents,
 ): ColumnDef<TData, unknown> {
   return {
-    id: 'expand',
-    enableSorting: false,
-    enableHiding: false,
-    header: srOnlyHeader('Expand row'),
-    meta: {
-      class: {
-        th: 'w-0',
-        td: 'w-0',
-      },
-    },
     cell: ({ row }) =>
       h(components.Toggle, {
         key: row.id,
         rowId: row.id,
       }),
+    enableHiding: false,
+    enableSorting: false,
+    header: srOnlyHeader('Expand row'),
+    id: 'expand',
+    meta: {
+      class: {
+        td: 'w-0',
+        th: 'w-0',
+      },
+    },
   }
 }
 
@@ -83,19 +83,19 @@ export function createActionsColumn<TData>(
   id = 'actions',
 ): ColumnDef<TData, unknown> {
   return {
-    id,
-    enableSorting: false,
-    enableHiding: false,
-    header: srOnlyHeader('Row actions'),
-    meta: {
-      class: {
-        th: 'w-0 text-right',
-        td: 'w-0 text-right',
-      },
-    },
     cell: ({ row }) =>
       h(options.components.Cell, {
         items: options.getItems(row),
       }),
+    enableHiding: false,
+    enableSorting: false,
+    header: srOnlyHeader('Row actions'),
+    id,
+    meta: {
+      class: {
+        td: 'w-0 text-right',
+        th: 'w-0 text-right',
+      },
+    },
   }
 }

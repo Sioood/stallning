@@ -37,8 +37,8 @@ const chrome = inject(treeViewChromeKey, null)
 
 const intent = computed<TreeViewIntent>(() => props.intent ?? chrome?.intent.value ?? 'primary')
 const size = computed<TreeViewSize>(() => props.size ?? chrome?.size.value ?? 'md')
-const invalid = computed(() => checkboxInvalidFlag(chrome?.invalid.value ?? false))
-const disabled = computed(() => checkboxDisabledFlag(false))
+const invalid = computed(() => Boolean(checkboxInvalidFlag(chrome?.invalid.value ?? false)))
+const disabled = computed(() => Boolean(checkboxDisabledFlag(false)))
 
 const checkboxProps = computed(() => pick(props, ['asChild']))
 </script>

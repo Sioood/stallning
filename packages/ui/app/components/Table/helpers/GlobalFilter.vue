@@ -7,8 +7,8 @@ const props = withDefaults(
     debounce?: number
   }>(),
   {
-    placeholder: 'Search…',
     debounce: 300,
+    placeholder: 'Search…',
   },
 )
 

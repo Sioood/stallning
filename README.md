@@ -150,12 +150,13 @@ test('Button default renders correctly', async () => {
   })
   cleanup = unmount
 
-  await expectPngSnapshot(
-    el.querySelector('button')!,
-    'button.visual.test.ts',
-    './__screenshots__/button.visual.test.ts/button-default-neutral.png',
-    'button-default-neutral.png',
-  )
+  await expectPngSnapshot({
+    element: el.querySelector('button')!,
+    filename: 'button-default-neutral.png',
+    screenshotPathFromTestFile:
+      './__screenshots__/button.visual.test.ts/button-default-neutral.png',
+    specFolder: 'button.visual.test.ts',
+  })
 })
 ```
 

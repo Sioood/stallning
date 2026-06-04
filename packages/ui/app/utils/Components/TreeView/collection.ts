@@ -6,12 +6,12 @@ const ROOT_NODE_ID = 'ROOT'
 
 export function createTreeViewCollection(items: TreeViewItem[]): TreeCollection<TreeViewItem> {
   return createTreeCollection<TreeViewItem>({
-    nodeToValue: (node) => node.id,
     nodeToString: (node) => node.label,
+    nodeToValue: (node) => node.id,
     rootNode: {
+      children: items,
       id: ROOT_NODE_ID,
       label: '',
-      children: items,
     },
   })
 }

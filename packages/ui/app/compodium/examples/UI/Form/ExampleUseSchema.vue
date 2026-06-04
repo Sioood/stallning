@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import { z } from 'zod'
 
 import { useSchemaForm } from '~ui/app/composables/useSchemaForm'
@@ -21,13 +22,13 @@ const defaultValues: FormValues = {
 const submitted = ref('')
 
 const { form } = useSchemaForm({
-  schema,
   defaultValues,
-  /** Example: also validate on blur; default in composable is change-only. */
-  validateSchemaOn: ['change', 'blur'],
   onSubmit: ({ value }) => {
     submitted.value = JSON.stringify(value)
   },
+  schema,
+  /** Example: also validate on blur; default in composable is change-only. */
+  validateSchemaOn: ['change', 'blur'],
 })
 
 const canSubmit = form.useStore((s) => s.canSubmit)

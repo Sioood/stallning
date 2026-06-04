@@ -3,9 +3,9 @@ const activeTab = ref('overview')
 const pendingTasks = ref(7)
 
 const tabOptions = [
-  { value: 'overview', label: 'Vue d’ensemble', icon: 'tabler:layout-dashboard' },
-  { value: 'activity', label: 'Activité', icon: 'tabler:activity' },
-  { value: 'settings', label: 'Paramètres', icon: 'tabler:settings' },
+  { icon: 'tabler:layout-dashboard', label: 'Vue d’ensemble', value: 'overview' },
+  { icon: 'tabler:activity', label: 'Activité', value: 'activity' },
+  { icon: 'tabler:settings', label: 'Paramètres', value: 'settings' },
 ]
 
 const activitySummary = computed(() => {

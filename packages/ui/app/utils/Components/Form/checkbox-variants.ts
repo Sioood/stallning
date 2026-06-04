@@ -9,20 +9,29 @@ export const checkboxControlCVA = cva(
   ],
   {
     variants: {
-      intent: {
-        primary: '',
-      } satisfies Record<FormFieldIntent, string>,
-      size: {
-        md: '',
-      } satisfies Record<FormFieldSize, string>,
       disabled: {
-        true: '',
         false: '',
+        true: '',
       } satisfies Record<'false' | 'true', string>,
+      intent: {
+        accent: '',
+        error: '',
+        info: '',
+        neutral: '',
+        primary: '',
+        secondary: '',
+        success: '',
+        warning: '',
+      } satisfies Record<FormFieldIntent, string>,
       invalid: {
-        true: '',
         false: '',
+        true: '',
       } satisfies Record<'false' | 'true', string>,
+      size: {
+        lg: '',
+        md: '',
+        sm: '',
+      } satisfies Record<FormFieldSize, string>,
     },
   },
 )
@@ -36,20 +45,29 @@ export const checkboxIndicatorCVA = cva(
   ],
   {
     variants: {
-      intent: {
-        primary: '',
-      } satisfies Record<FormFieldIntent, string>,
-      size: {
-        md: '',
-      } satisfies Record<FormFieldSize, string>,
       disabled: {
-        true: '',
         false: '',
+        true: '',
       } satisfies Record<'false' | 'true', string>,
+      intent: {
+        accent: '',
+        error: '',
+        info: '',
+        neutral: '',
+        primary: '',
+        secondary: '',
+        success: '',
+        warning: '',
+      } satisfies Record<FormFieldIntent, string>,
       invalid: {
-        true: '',
         false: '',
+        true: '',
       } satisfies Record<'false' | 'true', string>,
+      size: {
+        lg: '',
+        md: '',
+        sm: '',
+      } satisfies Record<FormFieldSize, string>,
     },
   },
 )
@@ -66,20 +84,29 @@ export const treeNodeCheckboxCVA = cva(
   ],
   {
     variants: {
-      intent: {
-        primary: '',
-      } satisfies Record<FormFieldIntent, string>,
-      size: {
-        md: '',
-      } satisfies Record<FormFieldSize, string>,
       disabled: {
-        true: '',
         false: 'cursor-pointer',
+        true: '',
       } satisfies Record<'false' | 'true', string>,
+      intent: {
+        accent: '',
+        error: '',
+        info: '',
+        neutral: '',
+        primary: '',
+        secondary: '',
+        success: '',
+        warning: '',
+      } satisfies Record<FormFieldIntent, string>,
       invalid: {
-        true: 'data-[invalid]:border-error-border-default',
         false: '',
+        true: 'data-[invalid]:border-error-border-default',
       } satisfies Record<'false' | 'true', string>,
+      size: {
+        lg: '',
+        md: '',
+        sm: '',
+      } satisfies Record<FormFieldSize, string>,
     },
   },
 )

@@ -18,10 +18,10 @@ export type DrawerSwipeDirection = 'up' | 'down' | 'start' | 'end'
 type ArkSwipeDirection = 'up' | 'down' | 'left' | 'right'
 
 const swipeDirectionMap: Record<DrawerSwipeDirection, ArkSwipeDirection> = {
-  up: 'up',
   down: 'down',
-  start: 'left',
   end: 'right',
+  start: 'left',
+  up: 'up',
 }
 
 const drawerBackdropCVA = cva([
@@ -59,28 +59,28 @@ const drawerContentRootCVA = cva(
   ],
   {
     variants: {
+      size: {
+        full: 'max-h-[99svh]',
+        lg: 'max-h-[90svh]',
+        md: 'max-h-[75svh]',
+        sm: 'max-h-[50svh]',
+      } satisfies Record<DrawerSize, string>,
       swipeDirection: {
         down: [
           'h-full data-[state=closed]:animate-[ui-drawer-slide-out-down_0.3s_cubic-bezier(0.4,0,0.2,1)_forwards]',
-        ],
-        up: [
-          'h-auto data-[state=closed]:animate-[ui-drawer-slide-out-up_0.3s_cubic-bezier(0.4,0,0.2,1)_forwards]',
-        ],
-        start: [
-          'h-full max-h-none w-auto',
-          'data-[state=closed]:animate-[ui-drawer-slide-out-start_0.3s_cubic-bezier(0.4,0,0.2,1)_forwards]',
         ],
         end: [
           'h-full max-h-none w-auto',
           'data-[state=closed]:animate-[ui-drawer-slide-out-end_0.3s_cubic-bezier(0.4,0,0.2,1)_forwards]',
         ],
+        start: [
+          'h-full max-h-none w-auto',
+          'data-[state=closed]:animate-[ui-drawer-slide-out-start_0.3s_cubic-bezier(0.4,0,0.2,1)_forwards]',
+        ],
+        up: [
+          'h-auto data-[state=closed]:animate-[ui-drawer-slide-out-up_0.3s_cubic-bezier(0.4,0,0.2,1)_forwards]',
+        ],
       } satisfies Record<DrawerSwipeDirection, string[]>,
-      size: {
-        sm: 'max-h-[50svh]',
-        md: 'max-h-[75svh]',
-        lg: 'max-h-[90svh]',
-        full: 'max-h-[99svh]',
-      } satisfies Record<DrawerSize, string>,
     },
   },
 )
@@ -106,27 +106,27 @@ const drawerBodyCVA = cva(
   {
     variants: {
       intent: {
+        accent: 'bg-accent-surface-default',
         neutral: 'bg-neutral-surface-default',
         primary: 'bg-primary-surface-default',
         secondary: 'bg-secondary-surface-default',
-        accent: 'bg-accent-surface-default',
       } satisfies Record<DrawerIntent, string>,
       swipeDirection: {
         down: [
           'drawer-bleed-down flex-col',
           'group-data-[state=open]:animate-[ui-drawer-body-slide-in-down_0.5s_cubic-bezier(0.32,0.72,0,1)_both]',
         ],
-        up: [
-          'drawer-bleed-up flex-col-reverse',
-          'group-data-[state=open]:animate-[ui-drawer-body-slide-in-up_0.5s_cubic-bezier(0.32,0.72,0,1)_both]',
+        end: [
+          'drawer-bleed-end flex-row',
+          'group-data-[state=open]:animate-[ui-drawer-body-slide-in-end_0.5s_cubic-bezier(0.32,0.72,0,1)_both]',
         ],
         start: [
           'drawer-bleed-start flex-row-reverse',
           'group-data-[state=open]:animate-[ui-drawer-body-slide-in-start_0.5s_cubic-bezier(0.32,0.72,0,1)_both]',
         ],
-        end: [
-          'drawer-bleed-end flex-row',
-          'group-data-[state=open]:animate-[ui-drawer-body-slide-in-end_0.5s_cubic-bezier(0.32,0.72,0,1)_both]',
+        up: [
+          'drawer-bleed-up flex-col-reverse',
+          'group-data-[state=open]:animate-[ui-drawer-body-slide-in-up_0.5s_cubic-bezier(0.32,0.72,0,1)_both]',
         ],
       } satisfies Record<DrawerSwipeDirection, string[]>,
     },
@@ -136,37 +136,37 @@ const drawerBodyCVA = cva(
 const drawerGrabberCVA = cva(
   'flex shrink-0 cursor-grab touch-none items-center justify-center select-none active:cursor-grabbing',
   {
+    defaultVariants: { swipeDirection: 'down' },
     variants: {
       swipeDirection: {
         down: 'w-full py-2',
-        up: 'w-full py-2',
-        start: 'h-full w-4 px-1',
         end: 'h-full w-4 px-1',
+        start: 'h-full w-4 px-1',
+        up: 'w-full py-2',
       } satisfies Record<DrawerSwipeDirection, string>,
     },
-    defaultVariants: { swipeDirection: 'down' },
   },
 )
 
 const drawerGrabberIndicatorCVA = cva('bg-neutral-border-inverse transition-colors duration-150', {
+  defaultVariants: { swipeDirection: 'down' },
   variants: {
     swipeDirection: {
       down: 'h-1 w-10',
-      up: 'h-1 w-10',
-      start: 'h-10 w-1',
       end: 'h-10 w-1',
+      start: 'h-10 w-1',
+      up: 'h-1 w-10',
     } satisfies Record<DrawerSwipeDirection, string>,
   },
-  defaultVariants: { swipeDirection: 'down' },
 })
 
 const drawerTitleCVA = cva('txt-h5', {
   variants: {
     intent: {
+      accent: 'text-accent-text-strong',
       neutral: 'text-neutral-text-strong',
       primary: 'text-primary-text-strong',
       secondary: 'text-secondary-text-strong',
-      accent: 'text-accent-text-strong',
     } satisfies Record<DrawerIntent, string>,
   },
 })
@@ -174,10 +174,10 @@ const drawerTitleCVA = cva('txt-h5', {
 const drawerDescriptionCVA = cva('txt-caption mt-0.5', {
   variants: {
     intent: {
+      accent: 'text-accent-text-subtle',
       neutral: 'text-neutral-text-subtle',
       primary: 'text-primary-text-subtle',
       secondary: 'text-secondary-text-subtle',
-      accent: 'text-accent-text-subtle',
     } satisfies Record<DrawerIntent, string>,
   },
 })
@@ -221,6 +221,7 @@ const open = defineModel<boolean>('open')
 const props = withDefaults(defineProps<DrawerProps>(), {
   closeOnEscape: true,
   closeOnInteractOutside: true,
+  defaultSnapPoint: 0.5,
   description: '',
   draggable: true,
   hideTrigger: false,
@@ -228,19 +229,18 @@ const props = withDefaults(defineProps<DrawerProps>(), {
   lazyMount: false,
   modal: true,
   portalled: true,
-  preventScroll: true,
   preventDragOnScroll: true,
+  preventScroll: true,
   scrollable: false,
   showCloseTrigger: true,
   showGrabber: true,
   size: 'md',
+  snapPoints: () => [0.25, 0.5, 1],
   swipeDirection: 'down',
   title: '',
   ui: undefined,
   unmountOnExit: false,
   value: undefined,
-  snapPoints: () => [0.25, 0.5, 1],
-  defaultSnapPoint: 0.5,
 })
 
 const arkAttrs = computed(() => splitArkAttrs(useAttrs()))
@@ -276,8 +276,8 @@ const rootProps = computed(() => {
       'trapFocus',
       'unmountOnExit',
     ] as const),
-    swipeDirection: swipeDirectionMap[props.swipeDirection],
     snapPoints: props.snapPoints,
+    swipeDirection: swipeDirectionMap[props.swipeDirection],
   }
 
   if (open.value !== undefined) {

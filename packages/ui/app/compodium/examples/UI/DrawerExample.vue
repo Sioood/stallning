@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import {
   type DrawerTriggerValueChangeDetails,
   type DrawerOpenChangeDetails,
@@ -15,9 +16,9 @@ const isOpen = ref(false)
 
 // RootProvider mode — external API control
 const drawer = useDrawer({
-  swipeDirection: 'down',
-  snapPoints: [0.25, 0.5, 1],
   defaultSnapPoint: 0.5,
+  snapPoints: [0.25, 0.5, 1],
+  swipeDirection: 'down',
 })
 </script>
 

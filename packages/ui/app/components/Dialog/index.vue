@@ -29,10 +29,10 @@ const dialogPositionerCVA = cva('fixed inset-0 z-9999 flex justify-center', {
       outside: 'items-start overflow-y-auto',
     } satisfies Record<ScrollBehavior, string>,
     size: {
-      sm: 'max-w-full p-4 md:p-8',
-      md: 'max-w-full p-4 md:p-8',
-      lg: 'max-w-full p-4 md:p-8',
       full: 'max-w-full',
+      lg: 'max-w-full p-4 md:p-8',
+      md: 'max-w-full p-4 md:p-8',
+      sm: 'max-w-full p-4 md:p-8',
     } satisfies Record<DialogSize, string>,
   },
 })
@@ -48,22 +48,22 @@ const dialogContentCVA = cva(
   ],
   {
     variants: {
-      size: {
-        sm: 'max-w-sm',
-        md: 'max-w-md',
-        lg: 'max-w-lg',
-        full: 'max-w-full',
-      } satisfies Record<DialogSize, string>,
       intent: {
+        accent: 'bg-accent-surface-default',
         neutral: 'bg-neutral-surface-default',
         primary: 'bg-primary-surface-default',
         secondary: 'bg-secondary-surface-default',
-        accent: 'bg-accent-surface-default',
       } satisfies Record<DialogIntent, string>,
       scrollBehavior: {
         inside: 'max-h-[calc(100dvh-4rem)]',
         outside: 'my-8',
       } satisfies Record<ScrollBehavior, string>,
+      size: {
+        full: 'max-w-full',
+        lg: 'max-w-lg',
+        md: 'max-w-md',
+        sm: 'max-w-sm',
+      } satisfies Record<DialogSize, string>,
     },
   },
 )
@@ -71,10 +71,10 @@ const dialogContentCVA = cva(
 const dialogHeaderCVA = cva('flex shrink-0 items-start justify-between gap-4 p-4', {
   variants: {
     size: {
-      sm: 'p-4',
-      md: 'p-4',
-      lg: 'p-4',
       full: 'p-4',
+      lg: 'p-4',
+      md: 'p-4',
+      sm: 'p-4',
     } satisfies Record<DialogSize, string>,
   },
 })
@@ -82,10 +82,10 @@ const dialogHeaderCVA = cva('flex shrink-0 items-start justify-between gap-4 p-4
 const dialogTitleCVA = cva('txt-h5', {
   variants: {
     intent: {
+      accent: 'text-accent-text-strong',
       neutral: 'text-neutral-text-strong',
       primary: 'text-primary-text-strong',
       secondary: 'text-secondary-text-strong',
-      accent: 'text-accent-text-strong',
     } satisfies Record<DialogIntent, string>,
   },
 })
@@ -93,10 +93,10 @@ const dialogTitleCVA = cva('txt-h5', {
 const dialogDescriptionCVA = cva('txt-caption mt-0.5', {
   variants: {
     intent: {
+      accent: 'text-accent-text-subtle',
       neutral: 'text-neutral-text-subtle',
       primary: 'text-primary-text-subtle',
       secondary: 'text-secondary-text-subtle',
-      accent: 'text-accent-text-subtle',
     } satisfies Record<DialogIntent, string>,
   },
 })
@@ -104,10 +104,10 @@ const dialogDescriptionCVA = cva('txt-caption mt-0.5', {
 const dialogFooterCVA = cva('flex shrink-0 justify-end', {
   variants: {
     size: {
-      sm: 'gap-2 p-4',
-      md: 'gap-2 p-4',
-      lg: 'gap-2 p-4',
       full: 'gap-2 p-4',
+      lg: 'gap-2 p-4',
+      md: 'gap-2 p-4',
+      sm: 'gap-2 p-4',
     } satisfies Record<DialogSize, string>,
   },
 })
@@ -157,6 +157,7 @@ const props = withDefaults(defineProps<DialogProps>(), {
   hideTrigger: false,
   intent: 'neutral',
   lazyMount: true,
+  modal: true,
   portalled: true,
   scrollBehavior: 'inside',
   showCloseTrigger: true,
@@ -165,7 +166,6 @@ const props = withDefaults(defineProps<DialogProps>(), {
   ui: undefined,
   unmountOnExit: true,
   value: undefined,
-  modal: true,
 })
 
 const attrs = useAttrs()
@@ -200,10 +200,10 @@ const rootProps = computed(() => {
       'triggerValue',
       'unmountOnExit',
     ] as const),
-    open: open.value,
     'onUpdate:open': (val: boolean) => {
       open.value = val
     },
+    open: open.value,
   }
 })
 
@@ -231,8 +231,8 @@ watch(
 
 extendCompodiumMeta({
   defaultProps: {
-    title: 'Dialog Title',
     description: 'A concise description of the dialog content.',
+    title: 'Dialog Title',
   },
 })
 </script>

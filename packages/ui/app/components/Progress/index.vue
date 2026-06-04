@@ -15,9 +15,9 @@ defineOptions({ inheritAttrs: false })
 const progressRootCVA = cva('', {
   variants: {
     size: {
-      sm: 'row-gap-2 grid w-full grid-cols-2 items-center gap-1',
-      md: 'row-gap-2 grid w-full grid-cols-2 items-center gap-1',
       lg: 'row-gap-2 grid w-full grid-cols-2 items-center gap-1',
+      md: 'row-gap-2 grid w-full grid-cols-2 items-center gap-1',
+      sm: 'row-gap-2 grid w-full grid-cols-2 items-center gap-1',
     } satisfies Record<ProgressSize, string>,
   },
 })
@@ -25,15 +25,15 @@ const progressRootCVA = cva('', {
 const progressLabelCVA = cva('', {
   variants: {
     intent: {
+      accent: 'text-accent-text-subtle',
       neutral: 'text-neutral-text-subtle',
       primary: 'text-primary-text-subtle',
       secondary: 'text-secondary-text-subtle',
-      accent: 'text-accent-text-subtle',
     } satisfies Record<ProgressIntent, string>,
     size: {
-      sm: 'text-small',
-      md: 'text-base',
       lg: 'text-lg',
+      md: 'text-base',
+      sm: 'text-small',
     } satisfies Record<ProgressSize, string>,
   },
 })
@@ -41,35 +41,35 @@ const progressLabelCVA = cva('', {
 const progressTrackCVA = cva('overflow-hidden', {
   variants: {
     intent: {
+      accent: 'bg-accent-fill-subtle',
       neutral: 'bg-neutral-fill-subtle',
       primary: 'bg-primary-fill-subtle',
       secondary: 'bg-secondary-fill-subtle',
-      accent: 'bg-accent-fill-subtle',
     } satisfies Record<ProgressIntent, string>,
-    size: {
-      sm: 'col-span-full h-1',
-      md: 'col-span-full h-1.5',
-      lg: 'col-span-full h-2',
-    } satisfies Record<ProgressSize, string>,
     orientation: {
       horizontal: '',
       vertical: 'h-50 w-1.5',
     } satisfies Record<'horizontal' | 'vertical', string>,
+    size: {
+      lg: 'col-span-full h-2',
+      md: 'col-span-full h-1.5',
+      sm: 'col-span-full h-1',
+    } satisfies Record<ProgressSize, string>,
   },
 })
 
 const progressRangeCVA = cva('', {
   variants: {
     intent: {
+      accent: 'bg-accent-fill-default',
       neutral: 'bg-neutral-fill-default',
       primary: 'bg-primary-fill-default',
       secondary: 'bg-secondary-fill-default',
-      accent: 'bg-accent-fill-default',
     } satisfies Record<ProgressIntent, string>,
     size: {
-      sm: 'h-full',
-      md: 'h-full',
       lg: 'h-full',
+      md: 'h-full',
+      sm: 'h-full',
     } satisfies Record<ProgressSize, string>,
   },
 })
@@ -77,15 +77,15 @@ const progressRangeCVA = cva('', {
 const progressValueTextCVA = cva('text-right font-mono tabular-nums', {
   variants: {
     intent: {
+      accent: 'text-accent-text-subtle',
       neutral: 'text-neutral-text-subtle',
       primary: 'text-primary-text-subtle',
       secondary: 'text-secondary-text-subtle',
-      accent: 'text-accent-text-subtle',
     } satisfies Record<ProgressIntent, string>,
     size: {
-      sm: 'txt-small',
-      md: 'txt-caption',
       lg: 'txt-base',
+      md: 'txt-caption',
+      sm: 'txt-small',
     } satisfies Record<ProgressSize, string>,
   },
 })
@@ -115,11 +115,11 @@ interface UIProgressProps
 const modelValue = defineModel<number>({ default: null })
 
 const props = withDefaults(defineProps<UIProgressProps>(), {
-  label: '',
   intent: 'neutral',
+  label: '',
   size: 'md',
-  value: undefined,
   ui: undefined,
+  value: undefined,
 })
 
 const { locale } = useI18n()

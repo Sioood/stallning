@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import { controlShellCVA } from '~/utils/Components/Form/variants'
 
 // ── Basic ──────────────────────────────────────────────────────────────────
@@ -58,7 +59,7 @@ const invalidValue = ref('')
 
 // ── Addon helper classes ───────────────────────────────────────────────────
 const addonBase = cn(
-  controlShellCVA({ intent: 'primary', size: 'md', invalid: false, disabled: false }),
+  controlShellCVA({ disabled: false, intent: 'primary', invalid: false, size: 'md' }),
   'txt-label flex w-auto shrink-0 items-center border-0 text-neutral-text-subtle',
 )
 const addonLeading = cn(addonBase, 'rounded-r-none')

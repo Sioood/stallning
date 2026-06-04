@@ -1,11 +1,12 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import { useSwitch, type SwitchCheckedChangeDetails } from '@ark-ui/vue/switch'
 
 const settings = ref({
-  notifications: true,
-  darkMode: false,
   autoUpdate: true,
   biometrics: false,
+  darkMode: false,
+  notifications: true,
 })
 
 const externalSwitch = useSwitch({ defaultChecked: false })

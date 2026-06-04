@@ -5,28 +5,28 @@ const lastAction = ref<string | null>(null)
 
 const menuItems = [
   {
-    type: 'item' as const,
-    value: 'new',
     label: 'Nouveau',
     onSelect: () => {
       lastAction.value = 'Nouveau'
     },
+    type: 'item' as const,
+    value: 'new',
   },
   {
-    type: 'item' as const,
-    value: 'open',
     label: 'Ouvrir…',
     onSelect: () => {
       lastAction.value = 'Ouvrir'
     },
+    type: 'item' as const,
+    value: 'open',
   },
   {
-    type: 'item' as const,
-    value: 'export',
     label: 'Exporter',
     onSelect: () => {
       lastAction.value = 'Exporter'
     },
+    type: 'item' as const,
+    value: 'export',
   },
 ]
 </script>

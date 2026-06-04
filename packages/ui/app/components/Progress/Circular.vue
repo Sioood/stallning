@@ -13,18 +13,18 @@ import type { ProgressCircularSize, ProgressIntent } from '~/utils/Components/Pr
 const progressCircleRootCVA = cva('', {
   variants: {
     intent: {
+      accent: 'text-accent-text-default',
       neutral: 'text-neutral-text-default',
       primary: 'text-primary-text-default',
       secondary: 'text-secondary-text-default',
-      accent: 'text-accent-text-default',
     } satisfies Record<ProgressIntent, string>,
     size: {
-      sm: 'flex w-min flex-col gap-1',
-      md: 'flex w-min flex-col gap-1',
-      lg: 'flex w-min flex-col gap-1',
-      'icon-sm': 'flex w-min flex-col',
-      'icon-md': 'flex w-min flex-col',
       'icon-lg': 'flex w-min flex-col',
+      'icon-md': 'flex w-min flex-col',
+      'icon-sm': 'flex w-min flex-col',
+      lg: 'flex w-min flex-col gap-1',
+      md: 'flex w-min flex-col gap-1',
+      sm: 'flex w-min flex-col gap-1',
     } satisfies Record<ProgressCircularSize, string>,
   },
 })
@@ -32,18 +32,18 @@ const progressCircleRootCVA = cva('', {
 const progressCircleLabelCVA = cva('', {
   variants: {
     intent: {
+      accent: 'text-accent-text-subtle',
       neutral: 'text-neutral-text-subtle',
       primary: 'text-primary-text-subtle',
       secondary: 'text-secondary-text-subtle',
-      accent: 'text-accent-text-subtle',
     } satisfies Record<ProgressIntent, string>,
     size: {
-      sm: 'txt-small',
-      md: 'txt-base',
-      lg: 'txt-lg',
-      'icon-sm': 'hidden',
-      'icon-md': 'hidden',
       'icon-lg': 'hidden',
+      'icon-md': 'hidden',
+      'icon-sm': 'hidden',
+      lg: 'txt-lg',
+      md: 'txt-base',
+      sm: 'txt-small',
     } satisfies Record<ProgressCircularSize, string>,
   },
 })
@@ -51,12 +51,12 @@ const progressCircleLabelCVA = cva('', {
 const progressCircleCVA = cva('', {
   variants: {
     size: {
-      sm: '[--size:3rem] [--thickness:calc(var(--size)/11)]',
-      md: '[--size:4rem] [--thickness:calc(var(--size)/11)]',
-      lg: '[--size:5rem] [--thickness:calc(var(--size)/11)]',
-      'icon-sm': '[--size:0.785rem] [--thickness:calc(var(--size)/5)]',
-      'icon-md': '[--size:0.94rem] [--thickness:calc(var(--size)/5)]',
       'icon-lg': '[--size:1.25rem] [--thickness:calc(var(--size)/5)]',
+      'icon-md': '[--size:0.94rem] [--thickness:calc(var(--size)/5)]',
+      'icon-sm': '[--size:0.785rem] [--thickness:calc(var(--size)/5)]',
+      lg: '[--size:5rem] [--thickness:calc(var(--size)/11)]',
+      md: '[--size:4rem] [--thickness:calc(var(--size)/11)]',
+      sm: '[--size:3rem] [--thickness:calc(var(--size)/11)]',
     } satisfies Record<ProgressCircularSize, string>,
   },
 })
@@ -64,10 +64,10 @@ const progressCircleCVA = cva('', {
 const progressCircleTrackCVA = cva('', {
   variants: {
     intent: {
+      accent: 'stroke-accent-fill-subtle',
       neutral: 'stroke-neutral-fill-subtle',
       primary: 'stroke-primary-fill-subtle',
       secondary: 'stroke-secondary-fill-subtle',
-      accent: 'stroke-accent-fill-subtle',
     } satisfies Record<ProgressIntent, string>,
   },
 })
@@ -75,10 +75,10 @@ const progressCircleTrackCVA = cva('', {
 const progressCircleRangeCVA = cva('[transition-[stroke-dasharray,stroke] ease-out] duration-600', {
   variants: {
     intent: {
+      accent: 'stroke-accent-fill-default',
       neutral: 'stroke-neutral-fill-default',
       primary: 'stroke-primary-fill-default',
       secondary: 'stroke-secondary-fill-default',
-      accent: 'stroke-accent-fill-default',
     } satisfies Record<ProgressIntent, string>,
   },
 })
@@ -86,18 +86,18 @@ const progressCircleRangeCVA = cva('[transition-[stroke-dasharray,stroke] ease-o
 const progressCircleValueTextCVA = cva('absolute text-right font-mono tabular-nums', {
   variants: {
     intent: {
+      accent: 'text-accent-text-subtle',
       neutral: 'text-neutral-text-subtle',
       primary: 'text-primary-text-subtle',
       secondary: 'text-secondary-text-subtle',
-      accent: 'text-accent-text-subtle',
     } satisfies Record<ProgressIntent, string>,
     size: {
-      sm: 'txt-small',
-      md: 'txt-caption',
-      lg: 'txt-base',
-      'icon-sm': 'hidden',
-      'icon-md': 'hidden',
       'icon-lg': 'hidden',
+      'icon-md': 'hidden',
+      'icon-sm': 'hidden',
+      lg: 'txt-base',
+      md: 'txt-caption',
+      sm: 'txt-small',
     } satisfies Record<ProgressCircularSize, string>,
   },
 })
@@ -128,11 +128,11 @@ interface UIProgressCircularProps
 const modelValue = defineModel<number>({ default: null })
 
 const props = withDefaults(defineProps<UIProgressCircularProps>(), {
-  label: '',
   intent: 'neutral',
+  label: '',
   size: 'md',
-  value: undefined,
   ui: undefined,
+  value: undefined,
 })
 
 const { locale } = useI18n()

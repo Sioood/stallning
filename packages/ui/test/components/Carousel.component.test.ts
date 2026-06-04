@@ -22,8 +22,8 @@ function carouselRootHarness(extraProps: Record<string, unknown> = {}) {
         h(
           UICarouselRoot,
           {
-            slideCount: slides.length,
             'data-testid': 'carousel-root',
+            slideCount: slides.length,
             ...extraProps,
           },
           {
@@ -62,8 +62,8 @@ describe('UICarousel (assembled)', () => {
         setup() {
           return () =>
             h(UICarousel, {
-              items: slides,
               'data-testid': 'carousel-root',
+              items: slides,
             })
         },
       }),
@@ -93,7 +93,7 @@ describe('UICarousel (assembled)', () => {
       defineComponent({
         name: 'DragHarness',
         setup() {
-          return () => h(UICarousel, { items: slides, 'data-testid': 'carousel-root' })
+          return () => h(UICarousel, { 'data-testid': 'carousel-root', items: slides })
         },
       }),
     )
@@ -111,10 +111,10 @@ describe('UICarousel (assembled)', () => {
         return () =>
           h(UICarousel, {
             items: slides,
-            page: page.value,
             'onUpdate:page': (v: number) => {
               page.value = v
             },
+            page: page.value,
           })
       },
     })
@@ -190,7 +190,7 @@ describe('UICarouselRoot (manual composition)', () => {
     const Provider = defineComponent({
       name: 'CarouselProviderHarness',
       setup() {
-        const api = useCarousel({ slideCount: slides.length, allowMouseDrag: true })
+        const api = useCarousel({ allowMouseDrag: true, slideCount: slides.length })
         return () =>
           h(
             UICarouselRoot,
@@ -222,7 +222,7 @@ describe('UICarouselRoot (manual composition)', () => {
         return () =>
           h(
             UICarouselRoot,
-            { slideCount: slides.length, 'data-testid': 'ctx-root' },
+            { 'data-testid': 'ctx-root', slideCount: slides.length },
             {
               default: () =>
                 h(

@@ -20,11 +20,11 @@ export const menuContentCVA = cva(
   {
     variants: {
       intent: {
+        accent: 'border-accent-border-subtle bg-accent-fill-subtle text-accent-text-default',
         neutral: 'border-neutral-border-subtle bg-neutral-fill-subtle text-neutral-text-default',
         primary: 'border-primary-border-subtle bg-primary-fill-subtle text-primary-text-default',
         secondary:
           'border-secondary-border-subtle bg-secondary-fill-subtle text-secondary-text-default',
-        accent: 'border-accent-border-subtle bg-accent-fill-subtle text-accent-text-default',
       } satisfies Record<MenuIntent, string>,
       size: {
         md: 'txt-label',
@@ -36,10 +36,10 @@ export const menuContentCVA = cva(
 export const menuArrowCVA = cva('', {
   variants: {
     intent: {
+      accent: '[--arrow-background:var(--color-accent-fill-subtle)]',
       neutral: '[--arrow-background:var(--color-neutral-fill-subtle)]',
       primary: '[--arrow-background:var(--color-primary-fill-subtle)]',
       secondary: '[--arrow-background:var(--color-secondary-fill-subtle)]',
-      accent: '[--arrow-background:var(--color-accent-fill-subtle)]',
     } satisfies Record<MenuIntent, string>,
     size: {
       md: '[--arrow-size:calc(var(--spacing)*2)]',

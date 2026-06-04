@@ -6,7 +6,7 @@ import Link from '~ui/app/components/Link.vue'
 describe('Link', () => {
   it('renders default slot in custom mode without vue-router', async () => {
     const wrapper = await mountSuspended(Link, {
-      props: { to: '/', custom: true },
+      props: { custom: true, to: '/' },
       slots: { default: 'Home' },
     })
 

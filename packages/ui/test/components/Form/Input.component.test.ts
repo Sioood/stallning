@@ -40,10 +40,10 @@ describe('UIFormInput', () => {
   it('shows clear button when clearable is true and has value', async () => {
     const wrapper = await mountSuspended(Input, {
       props: {
-        label: 'Search',
-        name: 'search',
         clearable: true,
+        label: 'Search',
         modelValue: 'test value',
+        name: 'search',
       },
     })
 
@@ -55,10 +55,10 @@ describe('UIFormInput', () => {
   it('hides clear button when clearable is true but value is empty', async () => {
     const wrapper = await mountSuspended(Input, {
       props: {
-        label: 'Search',
-        name: 'search',
         clearable: true,
+        label: 'Search',
         modelValue: '',
+        name: 'search',
       },
     })
 
@@ -70,11 +70,11 @@ describe('UIFormInput', () => {
   it('renders clearable input with disabled state', async () => {
     const wrapper = await mountSuspended(Input, {
       props: {
-        label: 'Search',
-        name: 'search',
         clearable: true,
-        modelValue: 'test',
         disabled: true,
+        label: 'Search',
+        modelValue: 'test',
+        name: 'search',
       },
     })
 
@@ -85,10 +85,10 @@ describe('UIFormInput', () => {
   it('renders clearable input with readOnly state', async () => {
     const wrapper = await mountSuspended(Input, {
       props: {
-        label: 'Search',
-        name: 'search',
         clearable: true,
+        label: 'Search',
         modelValue: 'test',
+        name: 'search',
         readOnly: true,
       },
     })

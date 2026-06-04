@@ -36,10 +36,19 @@ const radioItemCVA = cva(
   {
     variants: {
       intent: {
+        accent: '',
+        error: '',
+        info: '',
+        neutral: '',
         primary: '',
+        secondary: '',
+        success: '',
+        warning: '',
       } satisfies Record<FormFieldIntent, string>,
       size: {
+        lg: '',
         md: 'gap-2',
+        sm: '',
       } satisfies Record<FormFieldSize, string>,
     },
   },
@@ -48,11 +57,20 @@ const radioItemCVA = cva(
 const radioControlCVA = cva('relative', {
   variants: {
     intent: {
+      accent: '',
+      error: '',
+      info: '',
+      neutral: '',
       primary:
         'border-primary-border-default data-hover:border-primary-border-default-hover data-[disabled]:border-primary-border-subtle data-[invalid]:border-error-border-default',
+      secondary: '',
+      success: '',
+      warning: '',
     } satisfies Record<FormFieldIntent, string>,
     size: {
+      lg: '',
       md: 'size-4 rounded-full border',
+      sm: '',
     } satisfies Record<FormFieldSize, string>,
   },
 })
@@ -60,10 +78,19 @@ const radioControlCVA = cva('relative', {
 const radioIndicatorCVA = cva('block shrink-0', {
   variants: {
     intent: {
+      accent: '',
+      error: '',
+      info: '',
+      neutral: '',
       primary: 'bg-primary-fill-default',
+      secondary: '',
+      success: '',
+      warning: '',
     } satisfies Record<FormFieldIntent, string>,
     size: {
+      lg: '',
       md: 'size-4 rounded-full',
+      sm: '',
     } satisfies Record<FormFieldSize, string>,
   },
 })
@@ -71,10 +98,19 @@ const radioIndicatorCVA = cva('block shrink-0', {
 const radioItemLabelCVA = cva('', {
   variants: {
     intent: {
+      accent: '',
+      error: '',
+      info: '',
+      neutral: '',
       primary: 'text-primary-text-default data-[disabled]:text-primary-text-default-disabled',
+      secondary: '',
+      success: '',
+      warning: '',
     } satisfies Record<FormFieldIntent, string>,
     size: {
+      lg: '',
       md: 'txt-label',
+      sm: '',
     } satisfies Record<FormFieldSize, string>,
   },
 })
@@ -144,16 +180,16 @@ const passthroughAttrs = computed(() => {
 
 extendCompodiumMeta({
   defaultProps: {
-    modelValue: 'react',
-    label: 'Framework (radio group)',
     helperText: 'Choose your preferred framework',
-    required: true,
-    orientation: 'vertical',
     items: [
       { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid', disabled: true },
+      { disabled: true, label: 'Solid', value: 'solid' },
       { label: 'Vue', value: 'vue' },
     ],
+    label: 'Framework (radio group)',
+    modelValue: 'react',
+    orientation: 'vertical',
+    required: true,
   },
 })
 </script>

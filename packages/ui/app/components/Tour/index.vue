@@ -18,71 +18,71 @@ export type { TourStepDetails }
 type TourIntent = 'neutral' | 'primary' | 'secondary' | 'accent'
 
 const tourRootCVA = cva('flex flex-col', {
+  defaultVariants: {
+    intent: 'neutral',
+  },
   variants: {
     intent: {
+      accent: '',
       neutral: '',
       primary: '',
       secondary: '',
-      accent: '',
     } satisfies Record<TourIntent, string>,
-  },
-  defaultVariants: {
-    intent: 'neutral',
   },
 })
 
 const tourBackdropCVA = cva('fixed inset-0', {
+  defaultVariants: {
+    intent: 'neutral',
+  },
   variants: {
     intent: {
+      accent: 'bg-accent-bg-inverse/80',
       neutral: 'bg-neutral-bg-inverse/80',
       primary: 'bg-primary-bg-inverse/80',
       secondary: 'bg-secondary-bg-inverse/80',
-      accent: 'bg-accent-bg-inverse/80',
     } satisfies Record<TourIntent, string>,
-  },
-  defaultVariants: {
-    intent: 'neutral',
   },
 })
 
 const tourSpotlightCVA = cva('')
 
 const tourPositionerCVA = cva('fixed', {
+  defaultVariants: {
+    intent: 'neutral',
+  },
   variants: {
     intent: {
+      accent: '',
       neutral: '',
       primary: '',
       secondary: '',
-      accent: '',
     } satisfies Record<TourIntent, string>,
-  },
-  defaultVariants: {
-    intent: 'neutral',
   },
 })
 
 const tourContentCVA = cva(
   'relative flex flex-col gap-1 border bg-neutral-surface-default p-5 text-neutral-text-default shadow-lg outline-none',
   {
+    defaultVariants: {
+      intent: 'neutral',
+      size: 'md',
+    },
     variants: {
       intent: {
+        accent: 'border-accent-border-default bg-accent-surface-default text-accent-text-default',
         neutral:
           'border-neutral-border-default bg-neutral-surface-default text-neutral-text-default',
         primary:
           'border-primary-border-default bg-primary-surface-default text-primary-text-default',
         secondary:
           'border-secondary-border-default bg-secondary-surface-default text-secondary-text-default',
-        accent: 'border-accent-border-default bg-accent-surface-default text-accent-text-default',
       } satisfies Record<TourIntent, string>,
       size: {
-        sm: 'txt-caption w-64 p-3',
-        md: 'txt-label w-80 p-5',
         lg: 'txt-base w-96 p-6',
+        md: 'txt-label w-80 p-5',
+        sm: 'txt-caption w-64 p-3',
       } satisfies Record<TourSize, string>,
-    },
-    defaultVariants: {
-      intent: 'neutral',
-      size: 'md',
     },
   },
 )
@@ -90,75 +90,75 @@ const tourContentCVA = cva(
 const tourArrowCVA = cva('')
 
 const tourArrowTipCVA = cva('border-t border-l border-neutral-border-default', {
+  defaultVariants: {
+    intent: 'neutral',
+  },
   variants: {
     intent: {
+      accent: 'border-accent-border-default',
       neutral: 'border-neutral-border-default',
       primary: 'border-primary-border-default',
       secondary: 'border-secondary-border-default',
-      accent: 'border-accent-border-default',
     } satisfies Record<TourIntent, string>,
-  },
-  defaultVariants: {
-    intent: 'neutral',
   },
 })
 
 const tourCloseTriggerCVA = cva(
   'absolute top-2 right-2 inline-flex size-6 cursor-pointer items-center justify-center border-none bg-transparent text-neutral-text-subtle transition-colors hover:bg-neutral-fill-subtle',
   {
+    defaultVariants: {
+      intent: 'neutral',
+    },
     variants: {
       intent: {
+        accent: 'text-accent-text-subtle hover:bg-accent-fill-subtle',
         neutral: 'text-neutral-text-subtle hover:bg-neutral-fill-subtle',
         primary: 'text-primary-text-subtle hover:bg-primary-fill-subtle',
         secondary: 'text-secondary-text-subtle hover:bg-secondary-fill-subtle',
-        accent: 'text-accent-text-subtle hover:bg-accent-fill-subtle',
       } satisfies Record<TourIntent, string>,
-    },
-    defaultVariants: {
-      intent: 'neutral',
     },
   },
 )
 
 const tourTitleCVA = cva('txt-h6 m-0 leading-tight font-semibold text-neutral-text-default', {
+  defaultVariants: {
+    intent: 'neutral',
+  },
   variants: {
     intent: {
+      accent: 'text-accent-text-default',
       neutral: 'text-neutral-text-default',
       primary: 'text-primary-text-default',
       secondary: 'text-secondary-text-default',
-      accent: 'text-accent-text-default',
     } satisfies Record<TourIntent, string>,
-  },
-  defaultVariants: {
-    intent: 'neutral',
   },
 })
 
 const tourDescriptionCVA = cva('txt-caption m-0 leading-relaxed text-neutral-text-subtle', {
+  defaultVariants: {
+    intent: 'neutral',
+  },
   variants: {
     intent: {
+      accent: 'text-accent-text-subtle',
       neutral: 'text-neutral-text-subtle',
       primary: 'text-primary-text-subtle',
       secondary: 'text-secondary-text-subtle',
-      accent: 'text-accent-text-subtle',
     } satisfies Record<TourIntent, string>,
-  },
-  defaultVariants: {
-    intent: 'neutral',
   },
 })
 
 const tourProgressTextCVA = cva('txt-caption text-neutral-text-subtle opacity-80', {
+  defaultVariants: {
+    intent: 'neutral',
+  },
   variants: {
     intent: {
+      accent: 'text-accent-text-subtle',
       neutral: 'text-neutral-text-subtle',
       primary: 'text-primary-text-subtle',
       secondary: 'text-secondary-text-subtle',
-      accent: 'text-accent-text-subtle',
     } satisfies Record<TourIntent, string>,
-  },
-  defaultVariants: {
-    intent: 'neutral',
   },
 })
 
@@ -167,16 +167,20 @@ const tourControlCVA = cva('mt-3 flex items-center gap-2')
 const tourActionTriggerCVA = cva(
   'txt-caption inline-flex cursor-pointer items-center justify-center gap-1.5 border bg-transparent px-3.5 py-1.5 font-medium whitespace-nowrap text-neutral-text-default transition-colors select-none hover:bg-neutral-fill-subtle',
   {
+    defaultVariants: {
+      intent: 'neutral',
+      variant: 'default',
+    },
     variants: {
       intent: {
+        accent:
+          'border-accent-border-default bg-transparent text-accent-text-default hover:bg-accent-fill-subtle',
         neutral:
           'border-neutral-border-default bg-transparent text-neutral-text-default hover:bg-neutral-fill-subtle',
         primary:
           'border-primary-border-default bg-transparent text-primary-text-default hover:bg-primary-fill-subtle',
         secondary:
           'border-secondary-border-default bg-transparent text-secondary-text-default hover:bg-secondary-fill-subtle',
-        accent:
-          'border-accent-border-default bg-transparent text-accent-text-default hover:bg-accent-fill-subtle',
       } satisfies Record<TourIntent, string>,
       variant: {
         default:
@@ -184,10 +188,6 @@ const tourActionTriggerCVA = cva(
         primary:
           'border-primary-fill-default bg-primary-fill-default text-primary-text-inverse hover:bg-primary-fill-strong',
       },
-    },
-    defaultVariants: {
-      intent: 'neutral',
-      variant: 'default',
     },
   },
 )
@@ -249,16 +249,16 @@ export interface TourProps extends Omit<ArkTourRootBaseProps, 'tour'> {
 }
 
 const props = withDefaults(defineProps<TourProps>(), {
+  intent: 'neutral',
+  lazyMount: false,
   showBackdrop: true,
   showClose: true,
   showProgress: true,
   showProgressBar: false,
   showSpotlight: true,
-  lazyMount: false,
-  unmountOnExit: false,
-  intent: 'neutral',
   size: 'md',
   ui: undefined,
+  unmountOnExit: false,
 })
 
 const attrs = useAttrs()

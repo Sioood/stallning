@@ -12,12 +12,12 @@ describe('UIFormRadioGroup', () => {
   it('renders fieldset legend, helper text, and all items', async () => {
     const wrapper = await mountSuspended(RadioGroup, {
       props: {
-        modelValue: '1',
-        'onUpdate:modelValue': () => {},
-        label: 'Pick one',
         helperText: 'Choose an option',
         items,
+        label: 'Pick one',
+        modelValue: '1',
         name: 'nums',
+        'onUpdate:modelValue': () => {},
       },
     })
 
@@ -30,11 +30,11 @@ describe('UIFormRadioGroup', () => {
   it('renders checked state for pre-selected value', async () => {
     const wrapper = await mountSuspended(RadioGroup, {
       props: {
-        modelValue: '1',
-        'onUpdate:modelValue': () => {},
-        label: 'Pick one',
         items,
+        label: 'Pick one',
+        modelValue: '1',
         name: 'nums',
+        'onUpdate:modelValue': () => {},
       },
     })
 
@@ -48,10 +48,10 @@ describe('UIFormRadioGroup', () => {
   it('renders items in a row when orientation is horizontal', async () => {
     const wrapper = await mountSuspended(RadioGroup, {
       props: {
+        items,
+        label: 'Pick one',
         modelValue: '1',
         'onUpdate:modelValue': () => {},
-        label: 'Pick one',
-        items,
         orientation: 'horizontal',
       },
     })
@@ -63,11 +63,11 @@ describe('UIFormRadioGroup', () => {
   it('applies invalid styling when error prop is provided', async () => {
     const wrapper = await mountSuspended(RadioGroup, {
       props: {
+        error: 'Please select an option',
+        items,
+        label: 'Required radio',
         modelValue: null,
         'onUpdate:modelValue': () => {},
-        label: 'Required radio',
-        items,
-        error: 'Please select an option',
       },
     })
 
@@ -78,10 +78,10 @@ describe('UIFormRadioGroup', () => {
   it('renders radio items with labels', async () => {
     const wrapper = await mountSuspended(RadioGroup, {
       props: {
+        items,
+        label: 'Radio items test',
         modelValue: '1',
         'onUpdate:modelValue': () => {},
-        label: 'Radio items test',
-        items,
       },
     })
 

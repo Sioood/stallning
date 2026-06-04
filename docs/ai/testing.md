@@ -102,12 +102,12 @@ import { expectPngSnapshot } from '~ui/test/visual/png-snapshot'
 
 test('component renders correctly', async () => {
   const el = document.querySelector('[data-testid="target"]')!
-  await expectPngSnapshot(
-    el,
-    'my-component.visual.test.ts',
-    './__screenshots__/my-component.visual.test.ts/component-name.png',
-    'component-name.png',
-  )
+  await expectPngSnapshot({
+    element: el,
+    filename: 'component-name.png',
+    screenshotPathFromTestFile: './__screenshots__/my-component.visual.test.ts/component-name.png',
+    specFolder: 'my-component.visual.test.ts',
+  })
 })
 ```
 

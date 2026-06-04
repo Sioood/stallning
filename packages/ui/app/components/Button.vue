@@ -21,9 +21,9 @@ type ButtonCVAProps = VariantProps<typeof button>
 const buttonIconCVA = cva('shrink-0', {
   variants: {
     size: {
-      sm: 'size-2.5',
-      md: 'size-3',
       lg: 'size-4',
+      md: 'size-3',
+      sm: 'size-2.5',
     },
   },
 })
@@ -61,19 +61,19 @@ export interface UIButtonExpose {
 }
 
 const props = withDefaults(defineProps<ButtonProps>(), {
-  to: undefined,
-  text: '',
-  type: 'button',
-  disabled: false,
-  state: 'default',
-  handleLoadingState: false,
-  onClick: undefined,
   autoResetDelay: 3500,
-  onStateChange: undefined,
-  variant: 'default',
+  disabled: false,
+  handleLoadingState: false,
   intent: 'primary',
+  onClick: undefined,
+  onStateChange: undefined,
   size: 'md',
+  state: 'default',
+  text: '',
+  to: undefined,
+  type: 'button',
   ui: undefined,
+  variant: 'default',
 })
 
 const internalState = ref<ComponentState>(props.state || 'default')
@@ -141,27 +141,27 @@ const controlElement = computed((): HTMLElement | null => {
 })
 
 defineExpose({
-  getControlElement: (): HTMLElement | null => controlElement.value,
   focus: (): void => {
     controlElement.value?.focus()
   },
+  getControlElement: (): HTMLElement | null => controlElement.value,
 } satisfies UIButtonExpose)
 
 extendCompodiumMeta({
   defaultProps: {
-    text: 'Button',
-    variant: 'default',
-    intent: 'primary',
-    size: 'md',
-    icon: 'tabler:scribble',
-    leading: true,
-    trailing: true,
     disabled: false,
-    state: 'default',
-    loadingIcon: 'tabler:loader',
-    successIcon: 'tabler:circle-check',
-    warningIcon: 'tabler:alert-triangle',
     errorIcon: 'tabler:alert-hexagon',
+    icon: 'tabler:scribble',
+    intent: 'primary',
+    leading: true,
+    loadingIcon: 'tabler:loader',
+    size: 'md',
+    state: 'default',
+    successIcon: 'tabler:circle-check',
+    text: 'Button',
+    trailing: true,
+    variant: 'default',
+    warningIcon: 'tabler:alert-triangle',
   },
 })
 </script>

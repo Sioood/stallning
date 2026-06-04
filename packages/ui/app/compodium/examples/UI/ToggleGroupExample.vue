@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import { useToggleGroup, type ToggleGroupValueChangeDetails } from '@ark-ui/vue/toggle-group'
 
 const align = ref<string[]>(['center'])
@@ -6,32 +7,32 @@ const formatting = ref<string[]>(['bold'])
 const devices = ref<string[]>(['desktop'])
 
 const alignOptions = [
-  { value: 'left', title: 'Align Left', icon: 'tabler:align-left' },
-  { value: 'center', title: 'Align Center', icon: 'tabler:align-center' },
-  { value: 'right', title: 'Align Right', icon: 'tabler:align-right' },
-  { value: 'justify', title: 'Justify', icon: 'tabler:align-justified' },
+  { icon: 'tabler:align-left', title: 'Align Left', value: 'left' },
+  { icon: 'tabler:align-center', title: 'Align Center', value: 'center' },
+  { icon: 'tabler:align-right', title: 'Align Right', value: 'right' },
+  { icon: 'tabler:align-justified', title: 'Justify', value: 'justify' },
 ]
 
 const formattingOptions = [
-  { value: 'bold', title: 'Bold', icon: 'tabler:bold' },
-  { value: 'italic', title: 'Italic', icon: 'tabler:italic' },
-  { value: 'underline', title: 'Underline', icon: 'tabler:underline' },
-  { value: 'strike', title: 'Strikethrough', icon: 'tabler:strikethrough' },
+  { icon: 'tabler:bold', title: 'Bold', value: 'bold' },
+  { icon: 'tabler:italic', title: 'Italic', value: 'italic' },
+  { icon: 'tabler:underline', title: 'Underline', value: 'underline' },
+  { icon: 'tabler:strikethrough', title: 'Strikethrough', value: 'strike' },
 ]
 
 const deviceOptions = [
-  { value: 'mobile', title: 'Mobile', icon: 'tabler:device-mobile' },
-  { value: 'tablet', title: 'Tablet', icon: 'tabler:device-tablet' },
-  { value: 'desktop', title: 'Desktop', icon: 'tabler:device-desktop' },
+  { icon: 'tabler:device-mobile', title: 'Mobile', value: 'mobile' },
+  { icon: 'tabler:device-tablet', title: 'Tablet', value: 'tablet' },
+  { icon: 'tabler:device-desktop', title: 'Desktop', value: 'desktop' },
 ]
 
 const verticalOptions = [
-  { value: 'sm', title: 'Small' },
-  { value: 'md', title: 'Medium' },
-  { value: 'lg', title: 'Large' },
+  { title: 'Small', value: 'sm' },
+  { title: 'Medium', value: 'md' },
+  { title: 'Large', value: 'lg' },
 ]
 
-const externalGroup = useToggleGroup({ multiple: true, defaultValue: ['bold'] })
+const externalGroup = useToggleGroup({ defaultValue: ['bold'], multiple: true })
 </script>
 
 <template>

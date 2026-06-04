@@ -12,7 +12,7 @@ const downloadDefaults = {
 describe('QRCode', () => {
   it('renders root and SVG frame with layout classes', async () => {
     const wrapper = await mountSuspended(QRCode, {
-      props: { ...downloadDefaults, ui: { root: 'qrCodeRoot', frame: 'qrCodeFrame' } },
+      props: { ...downloadDefaults, ui: { frame: 'qrCodeFrame', root: 'qrCodeRoot' } },
     })
 
     const root = wrapper.find('.qrCodeRoot')
@@ -30,7 +30,7 @@ describe('QRCode', () => {
       props: {
         ...downloadDefaults,
         intent: 'primary',
-        ui: { root: 'qrCodeRoot', frame: 'qrCodeFrame' },
+        ui: { frame: 'qrCodeFrame', root: 'qrCodeRoot' },
       },
     })
 
@@ -43,7 +43,7 @@ describe('QRCode', () => {
       props: {
         ...downloadDefaults,
         modelValue: 'https://example.com/test',
-        ui: { root: 'qrCodeRoot', frame: 'qrCodeFrame' },
+        ui: { frame: 'qrCodeFrame', root: 'qrCodeRoot' },
       },
     })
 
@@ -75,8 +75,8 @@ describe('QRCode', () => {
       props: {
         ...downloadDefaults,
         ui: {
-          root: 'custom-qr-root',
           frame: 'custom-qr-frame',
+          root: 'custom-qr-root',
         },
       },
     })

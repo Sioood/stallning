@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import {
   createActionsColumn,
   createExpandToggleColumn,
@@ -36,18 +37,18 @@ const data = ref<Payment[]>(
     const status = statuses[index % statuses.length] ?? 'paid'
 
     return {
-      id,
-      date: new Date(Date.UTC(2024, 2, 11, 15 - (index % 8), index * 3)).toISOString(),
-      status,
-      email: `user${index + 1}@example.com`,
       amount: 100 + index * 37,
+      date: new Date(Date.UTC(2024, 2, 11, 15 - (index % 8), index * 3)).toISOString(),
+      email: `user${index + 1}@example.com`,
+      id,
+      status,
     }
   }),
 )
 
 const statusBadgeIntent = {
-  paid: 'success',
   failed: 'error',
+  paid: 'success',
   refunded: 'neutral',
 } as const
 
@@ -65,68 +66,68 @@ function sortHeader(label: string) {
 function paymentRowActions(row: Row<Payment>): MenuListEntry[] {
   return [
     {
-      type: 'item',
-      value: 'log-row',
       label: 'Log row data',
       onSelect: () => {
         console.log('[TableExample] row data', row.original)
       },
+      type: 'item',
+      value: 'log-row',
     },
     {
-      type: 'item',
-      value: 'log-email',
       label: 'Log email',
       onSelect: () => {
         console.log('[TableExample] email', row.getValue('email'))
       },
+      type: 'item',
+      value: 'log-email',
     },
   ]
 }
 
 const columns = ref<UITableColumn<Payment>[]>([
   createSelectionColumn({
-    Header: resolveComponent('UITableHelpersRowSelectionHeader'),
     Cell: resolveComponent('UITableHelpersRowSelectionCell'),
+    Header: resolveComponent('UITableHelpersRowSelectionHeader'),
   }),
   {
     accessorKey: 'id',
-    header: sortHeader('ID'),
     cell: ({ row }) => `#${row.getValue('id')}`,
+    header: sortHeader('ID'),
   },
   {
     accessorKey: 'status',
-    header: sortHeader('Status'),
     cell: ({ row }) => statusBadge(row.getValue('status') as Payment['status']),
     enableHiding: true,
+    header: sortHeader('Status'),
   },
   {
     accessorKey: 'email',
-    header: sortHeader('Email'),
     enableHiding: true,
+    header: sortHeader('Email'),
   },
   {
     accessorKey: 'date',
-    header: sortHeader('Date'),
     cell: ({ row }) =>
       new Intl.DateTimeFormat('fr-FR', { dateStyle: 'medium', timeStyle: 'short' }).format(
         new Date(String(row.getValue('date'))),
       ),
     enableHiding: true,
+    header: sortHeader('Date'),
   },
   {
     accessorKey: 'amount',
-    header: sortHeader('Amount'),
-    meta: {
-      class: {
-        th: 'text-right',
-        td: 'text-right font-medium',
-      },
-    },
     cell: ({ row }) =>
-      new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(
+      new Intl.NumberFormat('fr-FR', { currency: 'EUR', style: 'currency' }).format(
         Number(row.getValue('amount')),
       ),
     enableHiding: true,
+    header: sortHeader('Amount'),
+    meta: {
+      class: {
+        td: 'text-right font-medium',
+        th: 'text-right',
+      },
+    },
   },
   createActionsColumn({
     components: {
@@ -136,7 +137,7 @@ const columns = ref<UITableColumn<Payment>[]>([
   }),
 ])
 
-const sorting = ref([{ id: 'email', desc: false }])
+const sorting = ref([{ desc: false, id: 'email' }])
 const rowSelection = ref<Record<string, boolean>>({})
 const globalFilter = ref('')
 const columnFilters = ref<{ id: string; value: unknown }[]>([])
@@ -160,13 +161,13 @@ const expandColumns = ref<UITableColumn<Payment>[]>([
   }),
   {
     accessorKey: 'id',
-    header: '#',
     cell: ({ row }) => `#${row.getValue('id')}`,
+    header: '#',
   },
   {
     accessorKey: 'status',
-    header: 'Status',
     cell: ({ row }) => statusBadge(row.getValue('status') as Payment['status']),
+    header: 'Status',
   },
   {
     accessorKey: 'email',
@@ -174,68 +175,68 @@ const expandColumns = ref<UITableColumn<Payment>[]>([
   },
   {
     accessorKey: 'date',
-    header: 'Date',
     cell: ({ row }) =>
       new Intl.DateTimeFormat('fr-FR', { dateStyle: 'medium', timeStyle: 'short' }).format(
         new Date(String(row.getValue('date'))),
       ),
+    header: 'Date',
   },
   {
     accessorKey: 'amount',
+    cell: ({ row }) =>
+      new Intl.NumberFormat('fr-FR', { currency: 'EUR', style: 'currency' }).format(
+        Number(row.getValue('amount')),
+      ),
     header: 'Amount',
     meta: {
       class: {
-        th: 'text-right',
         td: 'text-right font-medium',
+        th: 'text-right',
       },
     },
-    cell: ({ row }) =>
-      new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(
-        Number(row.getValue('amount')),
-      ),
   },
 ])
 
 const groupedData = ref<GroupedPayment[]>([
   {
-    id: '4600',
-    date: '2024-03-11T15:30:00.000Z',
-    status: 'paid',
-    email: 'james.anderson@example.com',
+    account: { id: '1', name: 'Account 1' },
     amount: 594,
-    account: { id: '1', name: 'Account 1' },
+    date: '2024-03-11T15:30:00.000Z',
+    email: 'james.anderson@example.com',
+    id: '4600',
+    status: 'paid',
   },
   {
-    id: '4599',
-    date: '2024-03-11T10:10:00.000Z',
-    status: 'failed',
-    email: 'mia.white@example.com',
+    account: { id: '2', name: 'Account 2' },
     amount: 276,
-    account: { id: '2', name: 'Account 2' },
+    date: '2024-03-11T10:10:00.000Z',
+    email: 'mia.white@example.com',
+    id: '4599',
+    status: 'failed',
   },
   {
-    id: '4598',
-    date: '2024-03-11T08:50:00.000Z',
-    status: 'refunded',
-    email: 'william.brown@example.com',
+    account: { id: '1', name: 'Account 1' },
     amount: 315,
-    account: { id: '1', name: 'Account 1' },
+    date: '2024-03-11T08:50:00.000Z',
+    email: 'william.brown@example.com',
+    id: '4598',
+    status: 'refunded',
   },
   {
-    id: '4597',
-    date: '2024-03-10T19:45:00.000Z',
-    status: 'paid',
-    email: 'emma.davis@example.com',
-    amount: 529,
     account: { id: '2', name: 'Account 2' },
+    amount: 529,
+    date: '2024-03-10T19:45:00.000Z',
+    email: 'emma.davis@example.com',
+    id: '4597',
+    status: 'paid',
   },
   {
-    id: '4596',
-    date: '2024-03-10T15:55:00.000Z',
-    status: 'paid',
-    email: 'ethan.harris@example.com',
-    amount: 639,
     account: { id: '1', name: 'Account 1' },
+    amount: 639,
+    date: '2024-03-10T15:55:00.000Z',
+    email: 'ethan.harris@example.com',
+    id: '4596',
+    status: 'paid',
   },
 ])
 
@@ -243,8 +244,6 @@ const grouping = ref(['account_id', 'status'])
 
 const groupedColumns = ref<UITableColumn<GroupedPayment>[]>([
   {
-    id: 'title',
-    header: 'Item',
     cell: ({ row }) => {
       if (!row.getIsGrouped()) return null
 
@@ -262,32 +261,34 @@ const groupedColumns = ref<UITableColumn<GroupedPayment>[]>([
           : row.groupingColumnId === 'status'
             ? h(UIBadge, {
                 intent: statusBadgeIntent[row.original.status],
-                size: 'sm',
                 label: row.original.status,
+                size: 'sm',
               })
             : null,
       ])
     },
+    header: 'Item',
+    id: 'title',
   },
   {
-    id: 'account_id',
     accessorKey: 'account.id',
+    id: 'account_id',
   },
   {
     accessorKey: 'id',
-    header: '#',
+    aggregationFn: 'count',
     cell: ({ row }) =>
       row.getIsGrouped() ? `${row.getValue('id')} records` : `#${row.getValue('id')}`,
-    aggregationFn: 'count',
+    header: '#',
   },
   {
     accessorKey: 'date',
-    header: 'Date',
+    aggregationFn: 'max',
     cell: ({ row }) =>
       new Intl.DateTimeFormat('fr-FR', { dateStyle: 'medium', timeStyle: 'short' }).format(
         new Date(String(row.getValue('date'))),
       ),
-    aggregationFn: 'max',
+    header: 'Date',
   },
   {
     accessorKey: 'status',
@@ -295,47 +296,47 @@ const groupedColumns = ref<UITableColumn<GroupedPayment>[]>([
   },
   {
     accessorKey: 'email',
+    aggregationFn: 'uniqueCount',
+    cell: ({ row }) =>
+      row.getIsGrouped() ? `${row.getValue('email')} customers` : String(row.getValue('email')),
     header: 'Email',
     meta: {
       class: {
         td: 'w-full',
       },
     },
-    cell: ({ row }) =>
-      row.getIsGrouped() ? `${row.getValue('email')} customers` : String(row.getValue('email')),
-    aggregationFn: 'uniqueCount',
   },
   {
     accessorKey: 'amount',
+    aggregationFn: 'sum',
+    cell: ({ row }) =>
+      new Intl.NumberFormat('fr-FR', { currency: 'EUR', style: 'currency' }).format(
+        Number(row.getValue('amount')),
+      ),
     header: 'Amount',
     meta: {
       class: {
-        th: 'text-right',
         td: 'text-right font-medium',
+        th: 'text-right',
       },
     },
-    cell: ({ row }) =>
-      new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(
-        Number(row.getValue('amount')),
-      ),
-    aggregationFn: 'sum',
   },
 ])
 
 const contextMenuColumns = ref<UITableColumn<Payment>[]>([
   createSelectionColumn({
-    Header: resolveComponent('UITableHelpersRowSelectionHeader'),
     Cell: resolveComponent('UITableHelpersRowSelectionCell'),
+    Header: resolveComponent('UITableHelpersRowSelectionHeader'),
   }),
   {
     accessorKey: 'id',
-    header: 'ID',
     cell: ({ row }) => `#${row.getValue('id')}`,
+    header: 'ID',
   },
   {
     accessorKey: 'status',
-    header: 'Status',
     cell: ({ row }) => statusBadge(row.getValue('status') as Payment['status']),
+    header: 'Status',
   },
   {
     accessorKey: 'email',
@@ -343,47 +344,47 @@ const contextMenuColumns = ref<UITableColumn<Payment>[]>([
   },
   {
     accessorKey: 'amount',
+    cell: ({ row }) =>
+      new Intl.NumberFormat('fr-FR', { currency: 'EUR', style: 'currency' }).format(
+        Number(row.getValue('amount')),
+      ),
     header: 'Amount',
     meta: {
       class: {
-        th: 'text-right',
         td: 'text-right font-medium',
+        th: 'text-right',
       },
     },
-    cell: ({ row }) =>
-      new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(
-        Number(row.getValue('amount')),
-      ),
   },
 ])
 
 function contextMenuItems(row: Row<Payment>): MenuListEntry[] {
   return [
     {
-      type: 'item',
-      value: 'log-row',
       label: 'Log row data',
       onSelect: () => {
         console.log('[TableExample] context menu row', row.original)
       },
+      type: 'item',
+      value: 'log-row',
     },
     {
-      type: 'item',
-      value: 'copy-id',
       label: 'Copy payment ID',
       onSelect: () => {
         void navigator.clipboard.writeText(row.original.id)
         console.log('[TableExample] copied id', row.original.id)
       },
+      type: 'item',
+      value: 'copy-id',
     },
     { type: 'separator' },
     {
-      type: 'item',
-      value: 'toggle-expand',
       label: row.getIsExpanded() ? 'Collapse row' : 'Expand row',
       onSelect: () => {
         row.toggleExpanded()
       },
+      type: 'item',
+      value: 'toggle-expand',
     },
   ]
 }

@@ -19,6 +19,44 @@ export default defineNuxtConfig({
     '@nuxt/image',
     'v-gsap-nuxt',
   ],
+
+  alias: { '~ui': resolve('./') },
+  components: [
+    {
+      path: resolve('./app/components'),
+      prefix: 'UI',
+    },
+  ],
+  css: [resolve('./app/assets/css/main.css')],
+  fonts: {
+    families: [
+      { name: 'Inter', provider: 'google' },
+      { name: 'Spline Sans Mono', provider: 'google' },
+    ],
+  },
+  i18n: {
+    defaultLocale: 'fr-FR',
+    // ISO 639-1 + ISO 3166-1
+    locales: [{ code: 'fr-FR', file: 'fr-FR/index.ts', language: 'fr-FR', name: 'Français' }],
+  },
+  icon: {
+    mode: 'svg',
+    size: '1rem',
+  },
+  image: {
+    densities: [1, 2],
+    domains: ['api.dicebear.com'],
+    format: ['avif', 'webp'],
+    quality: 80,
+    screens: {
+      '2xl': 1536,
+      lg: 1024,
+      md: 768,
+      sm: 640,
+      xl: 1280,
+      xs: 320,
+    },
+  },
   imports: enableCompodium
     ? undefined
     : {
@@ -29,51 +67,6 @@ export default defineNuxtConfig({
           },
         ],
       },
-  fonts: {
-    families: [
-      { name: 'Inter', provider: 'google' },
-      { name: 'Spline Sans Mono', provider: 'google' },
-    ],
-  },
-  icon: {
-    size: '1rem',
-    mode: 'svg',
-  },
-  image: {
-    domains: ['api.dicebear.com'],
-    quality: 80,
-    format: ['avif', 'webp'],
-    screens: {
-      xs: 320,
-      sm: 640,
-      md: 768,
-      lg: 1024,
-      xl: 1280,
-      '2xl': 1536,
-    },
-    densities: [1, 2],
-  },
-  css: [resolve('./app/assets/css/main.css')],
-  vite: {
-    plugins: [tailwindcss()],
-  },
-  alias: { '~ui': resolve('./') },
-  components: [
-    {
-      path: resolve('./app/components'),
-      prefix: 'UI',
-    },
-  ],
-  i18n: {
-    defaultLocale: 'fr-FR',
-    // ISO 639-1 + ISO 3166-1
-    locales: [{ code: 'fr-FR', language: 'fr-FR', name: 'Français', file: 'fr-FR/index.ts' }],
-  },
-  site: {
-    url: 'https://ui.com',
-    name: 'UI',
-    description: 'UI component library',
-  },
   runtimeConfig: {
     public: {
       siteUrl: 'https://ui.com',
@@ -87,4 +80,12 @@ export default defineNuxtConfig({
         },
       }
     : {}),
+  site: {
+    description: 'UI component library',
+    name: 'UI',
+    url: 'https://ui.com',
+  },
+  vite: {
+    plugins: [tailwindcss()],
+  },
 })

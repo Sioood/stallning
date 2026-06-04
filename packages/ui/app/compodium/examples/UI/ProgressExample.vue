@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import { useProgress, type ProgressValueChangeDetails } from '@ark-ui/vue/progress'
 
 const value = ref(0)
@@ -6,7 +7,7 @@ const intents = ['neutral', 'primary', 'secondary', 'accent'] as const
 const sizes = ['sm', 'md', 'lg'] as const
 const circularSizes = ['sm', 'md', 'lg', 'icon-sm', 'icon-md', 'icon-lg'] as const
 
-const externalProgress = useProgress({ min: 0, max: 100 })
+const externalProgress = useProgress({ max: 100, min: 0 })
 
 onMounted(() => {
   const interval = setInterval(() => {

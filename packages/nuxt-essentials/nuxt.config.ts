@@ -14,7 +14,6 @@ const isDev = process.env.NODE_ENV !== 'production'
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-
   modules: [
     '@nuxt/eslint',
     '@nuxtjs/i18n',
@@ -24,50 +23,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     'nuxt-security',
   ],
-  pwa: {
-    registerType: 'prompt',
-    client: {
-      installPrompt: true,
-    },
-    manifest: {
-      name: 'Stallning App',
-      short_name: 'Stallning',
-      description: 'Stallning application',
-      theme_color: '#111827',
-      background_color: '#ffffff',
-      display: 'standalone',
-    },
-    workbox: {
-      globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff2}'],
-      runtimeCaching: [
-        {
-          // Keep dynamic API responses fresh while still leveraging cache on flaky networks.
-          urlPattern: '/api/.*',
-          handler: 'NetworkFirst',
-          options: {
-            cacheName: 'api-network-first',
-            expiration: {
-              maxEntries: 100,
-              maxAgeSeconds: 60 * 60,
-            },
-            networkTimeoutSeconds: 10,
-          },
-        },
-      ],
-    },
-    devOptions: {
-      enabled: false,
-      suppressWarnings: true,
-    },
-  },
-  vite: {
-    plugins: [ViteYaml()],
-  },
-  nitro: {
-    rollupConfig: {
-      plugins: [ViteYaml()],
-    },
-  },
+
   alias: {
     '~nuxt-essentials': resolve('./'),
     pinia: piniaEsmEntry,
@@ -80,41 +36,82 @@ export default defineNuxtConfig({
   i18n: {
     defaultLocale: 'fr-FR',
     // ISO 639-1 + ISO 3166-1
-    locales: [{ code: 'fr-FR', language: 'fr-FR', name: 'Français', file: 'fr-FR/index.ts' }],
+    locales: [{ code: 'fr-FR', file: 'fr-FR/index.ts', language: 'fr-FR', name: 'Français' }],
+  },
+  nitro: {
+    rollupConfig: {
+      plugins: [ViteYaml()],
+    },
+  },
+  pwa: {
+    client: {
+      installPrompt: true,
+    },
+    devOptions: {
+      enabled: false,
+      suppressWarnings: true,
+    },
+    manifest: {
+      background_color: '#ffffff',
+      description: 'Stallning application',
+      display: 'standalone',
+      name: 'Stallning App',
+      short_name: 'Stallning',
+      theme_color: '#111827',
+    },
+    registerType: 'prompt',
+    workbox: {
+      globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff2}'],
+      runtimeCaching: [
+        {
+          // Keep dynamic API responses fresh while still leveraging cache on flaky networks.
+          handler: 'NetworkFirst',
+          options: {
+            cacheName: 'api-network-first',
+            expiration: {
+              maxAgeSeconds: 60 * 60,
+              maxEntries: 100,
+            },
+            networkTimeoutSeconds: 10,
+          },
+          urlPattern: '/api/.*',
+        },
+      ],
+    },
+  },
+  // /** Public keys are overridden at runtime by `NUXT_PUBLIC_*` (see `.env.example`). */
+  runtimeConfig: {
+    public: {
+      siteUrl: 'http://localhost:3000',
+    },
   },
   security: {
+    corsHandler: {
+      credentials: true,
+      methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+      origin: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+      preflight: { statusCode: 204 },
+    },
     enabled: !isDev,
-    strict: true,
-    nonce: true,
-    sri: true,
-    hidePoweredBy: true,
     headers: {
       contentSecurityPolicy: {
         'base-uri': ["'none'"],
+        'connect-src': ["'self'"],
         'font-src': ["'self'", 'https:', 'data:'],
         'form-action': ["'self'"],
         'frame-ancestors': ["'self'"],
         'img-src': ["'self'", 'data:', 'https:'],
+        'manifest-src': ["'self'"],
         'object-src': ["'none'"],
+        'script-src': ["'self'", "'strict-dynamic'", "'nonce-{{nonce}}'"],
         'script-src-attr': ["'none'"],
         'style-src': ["'self'", "'unsafe-inline'"],
-        'script-src': ["'self'", "'strict-dynamic'", "'nonce-{{nonce}}'"],
         'upgrade-insecure-requests': true,
-        'connect-src': ["'self'"],
         'worker-src': ["'self'"],
-        'manifest-src': ["'self'"],
       },
+      crossOriginEmbedderPolicy: 'credentialless',
       crossOriginOpenerPolicy: 'same-origin',
       crossOriginResourcePolicy: 'same-origin',
-      crossOriginEmbedderPolicy: 'credentialless',
-      referrerPolicy: 'strict-origin-when-cross-origin',
-      strictTransportSecurity: {
-        maxAge: 31536000,
-        includeSubdomains: true,
-        preload: true,
-      },
-      xContentTypeOptions: 'nosniff',
-      xFrameOptions: 'DENY',
       permissionsPolicy: {
         camera: [],
         'display-capture': [],
@@ -122,34 +119,37 @@ export default defineNuxtConfig({
         geolocation: [],
         microphone: [],
       },
+      referrerPolicy: 'strict-origin-when-cross-origin',
+      strictTransportSecurity: {
+        includeSubdomains: true,
+        maxAge: 31536000,
+        preload: true,
+      },
+      xContentTypeOptions: 'nosniff',
+      xFrameOptions: 'DENY',
     },
-    corsHandler: {
-      origin: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
-      methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-      credentials: true,
-      preflight: { statusCode: 204 },
-    },
+    hidePoweredBy: true,
+    nonce: true,
     rateLimiter: {
-      tokensPerInterval: 100,
-      interval: 300000,
       headers: true,
+      interval: 300000,
       throwError: true,
+      tokensPerInterval: 100,
     },
     requestSizeLimiter: {
       maxRequestSizeInBytes: 2_000_000,
       maxUploadFileRequestInBytes: 8_000_000,
       throwError: true,
     },
+    sri: true,
+    strict: true,
   },
   site: {
-    url: 'https://nuxt-essentials.com',
-    name: 'Nuxt Essentials',
     description: 'Welcome to Nuxt Essentials!',
+    name: 'Nuxt Essentials',
+    url: 'https://nuxt-essentials.com',
   },
-  /** Public keys are overridden at runtime by `NUXT_PUBLIC_*` (see `.env.example`). */
-  runtimeConfig: {
-    public: {
-      siteUrl: 'http://localhost:3000',
-    },
+  vite: {
+    plugins: [ViteYaml()],
   },
 })

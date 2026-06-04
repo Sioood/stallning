@@ -16,10 +16,10 @@ export function useToast(): ShallowRef<ToasterInstance | null> {
     if (import.meta.client) {
       void nextTick(() => {
         ref!.value = createToaster({
-          overlap: true,
-          placement: 'bottom-end',
           gap: 8,
           max: 5,
+          overlap: true,
+          placement: 'bottom-end',
         })
       })
     }

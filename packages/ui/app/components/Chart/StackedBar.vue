@@ -75,31 +75,31 @@ interface ChartStackedBarProps<
 }
 
 const props = withDefaults(defineProps<ChartStackedBarProps<T>>(), {
-  data: () => [],
-  height: 450,
-  showCrosshair: true,
-  showTooltip: true,
-  showLegend: false,
-  intent: () => ({ axis: 'neutral', data: 'multicolor' }),
-  size: 'md',
-  ui: () => ({}),
-  x: undefined,
-  y: undefined,
-  series: undefined,
-  width: undefined,
   ariaLabel: undefined,
-  tooltipTemplate: undefined,
-  valueFormatter: undefined,
-  tooltipVerticalShift: undefined,
   axis: () => ({
     variant: 'dashed',
-    x: { show: true, gridLine: true },
-    y: { show: true, gridLine: true },
+    x: { gridLine: true, show: true },
+    y: { gridLine: true, show: true },
   }),
-  legend: undefined,
-  crosshair: undefined,
-  tooltip: undefined,
   container: undefined,
+  crosshair: undefined,
+  data: () => [],
+  height: 450,
+  intent: () => ({ axis: 'neutral', data: 'multicolor' }),
+  legend: undefined,
+  series: undefined,
+  showCrosshair: true,
+  showLegend: false,
+  showTooltip: true,
+  size: 'md',
+  tooltip: undefined,
+  tooltipTemplate: undefined,
+  tooltipVerticalShift: undefined,
+  ui: () => ({}),
+  valueFormatter: undefined,
+  width: undefined,
+  x: undefined,
+  y: undefined,
 })
 
 const axisXConfig = computed(
@@ -170,17 +170,17 @@ const showTooltipResolved = computed(() => props.tooltip?.show ?? props.showTool
 
 const themeClass = computed(() =>
   chartThemeClasses({
+    axisVariant: props.axis?.variant,
     intent: typeof props.intent === 'object' ? props.intent.axis : props.intent,
     size: props.size,
-    axisVariant: props.axis?.variant,
   }),
 )
 
 const layoutClasses = computed(() =>
   chartLegendPlacementClasses({
+    intent: typeof props.intent === 'object' ? props.intent.data : props.intent,
     placement: legendPlacement.value,
     size: props.size,
-    intent: typeof props.intent === 'object' ? props.intent.data : props.intent,
   }),
 )
 
@@ -203,13 +203,13 @@ const showCrosshairOnChart = computed(
 const visStackedBarBind = computed(
   (): StackedBarConfigInterface<T> =>
     buildChartStackedBarVisBind({
+      color: barColor.value,
       passthrough: {
         ...pickDefined(props, CHART_STACKED_BAR_OPTIONAL_PROP_KEYS),
         orientation: stackedBarOrientation.value,
       },
       x: xAccessor.value!,
       y: yAccessors.value,
-      color: barColor.value,
     }),
 )
 
@@ -230,9 +230,9 @@ const stackedBarTooltipTemplate = computed((): StackedBarCrosshairTemplate<T> =>
   return (datum) =>
     buildStackedBarDefaultTooltip({
       datum,
-      xAccessor: xAccessor.value!,
-      series: resolvedSeries.value,
       formatValue,
+      series: resolvedSeries.value,
+      xAccessor: xAccessor.value!,
     })
 })
 
@@ -243,8 +243,8 @@ const chartCrosshairProps = computed(() => ({
     ...props.crosshair,
     // Required when yStacked is set: Unovis treats any configured accessor as explicit and
     // skips XYContainer fallback x (see Crosshair.accessors getter + hasConfig).
-    x: props.crosshair?.x ?? xAccessor.value,
     template: props.crosshair?.template ?? stackedBarTooltipTemplate.value,
+    x: props.crosshair?.x ?? xAccessor.value,
     yStacked: props.crosshair?.yStacked ?? yAccessors.value,
   }),
 }))
@@ -263,10 +263,10 @@ const chartTooltipProps = computed(() => {
     ui: props.tooltip?.ui,
     ...buildChartTooltipVisBind({
       ...props.tooltip,
-      triggers: props.tooltip?.triggers ?? horizontalTriggers,
       followCursor: props.tooltip?.followCursor ?? isHorizontalStackedBar.value,
-      verticalShift: props.tooltip?.verticalShift ?? props.tooltipVerticalShift ?? props.height,
       horizontalPlacement: props.tooltip?.horizontalPlacement ?? Position.Center,
+      triggers: props.tooltip?.triggers ?? horizontalTriggers,
+      verticalShift: props.tooltip?.verticalShift ?? props.tooltipVerticalShift ?? props.height,
     }),
   }
 })

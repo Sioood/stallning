@@ -14,9 +14,9 @@ watch(
     }
 
     toaster.value?.success({
-      title: t('pwa:offlineReady.title'),
-      description: t('pwa:offlineReady.description'),
       closable: true,
+      description: t('pwa:offlineReady.description'),
+      title: t('pwa:offlineReady.title'),
     })
     hasShownOfflineReadyToast.value = true
   },
@@ -35,16 +35,16 @@ watch(
     }
 
     toaster.value?.create({
-      title: t('pwa:updateAvailable.title'),
-      description: t('pwa:updateAvailable.description'),
-      type: 'info',
-      closable: true,
       action: {
         label: t('pwa:updateAvailable.reloadLabel'),
         onClick: () => {
           void $pwa?.updateServiceWorker()
         },
       },
+      closable: true,
+      description: t('pwa:updateAvailable.description'),
+      title: t('pwa:updateAvailable.title'),
+      type: 'info',
     })
 
     hasShownUpdateToast.value = true

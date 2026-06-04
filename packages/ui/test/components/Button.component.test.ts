@@ -16,7 +16,7 @@ describe('Button', () => {
   it('calls onClick when used as a button', async () => {
     const onClick = vi.fn()
     const wrapper = await mountSuspended(Button, {
-      props: { text: 'Go', onClick },
+      props: { onClick, text: 'Go' },
     })
 
     await wrapper.find('button').trigger('click')
@@ -28,11 +28,11 @@ describe('Button', () => {
     const onStateChange = vi.fn()
     const wrapper = await mountSuspended(Button, {
       props: {
-        text: 'Save',
+        autoResetDelay: 15,
         handleLoadingState: true,
         onClick,
         onStateChange,
-        autoResetDelay: 15,
+        text: 'Save',
       },
     })
 
@@ -57,11 +57,11 @@ describe('Button', () => {
     const onStateChange = vi.fn()
     const wrapper = await mountSuspended(Button, {
       props: {
-        text: 'Save',
+        autoResetDelay: 15,
         handleLoadingState: true,
         onClick,
         onStateChange,
-        autoResetDelay: 15,
+        text: 'Save',
       },
     })
 
@@ -85,10 +85,10 @@ describe('Button', () => {
     const onStateChange = vi.fn()
     const wrapper = await mountSuspended(Button, {
       props: {
-        text: 'Go',
         handleLoadingState: false,
         onClick,
         onStateChange,
+        text: 'Go',
       },
     })
 
@@ -101,8 +101,8 @@ describe('Button', () => {
   it('renders as a link when `to` is an external URL', async () => {
     const wrapper = await mountSuspended(Button, {
       props: {
-        to: 'https://example.com/docs',
         text: 'Docs',
+        to: 'https://example.com/docs',
       },
     })
 
@@ -126,17 +126,17 @@ describe('Button', () => {
 
   it('applies buttonIcon size classes for each size variant on the leading icon', async () => {
     const sizes = [
-      { size: 'sm' as const, iconSizeClass: 'size-2.5' },
-      { size: 'md' as const, iconSizeClass: 'size-3' },
-      { size: 'lg' as const, iconSizeClass: 'size-4' },
+      { iconSizeClass: 'size-2.5', size: 'sm' as const },
+      { iconSizeClass: 'size-3', size: 'md' as const },
+      { iconSizeClass: 'size-4', size: 'lg' as const },
     ]
 
     for (const { size, iconSizeClass } of sizes) {
       const wrapper = await mountSuspended(Button, {
         props: {
-          text: 'Go',
-          size,
           leadingIcon: 'tabler:arrow-right',
+          size,
+          text: 'Go',
         },
       })
 
@@ -149,9 +149,9 @@ describe('Button', () => {
   it('renders button with leading and trailing icons', async () => {
     const wrapper = await mountSuspended(Button, {
       props: {
-        text: 'Action',
         leading: true,
         leadingIcon: 'tabler:plus',
+        text: 'Action',
         trailing: true,
         trailingIcon: 'tabler:arrow-right',
       },

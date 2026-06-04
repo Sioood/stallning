@@ -14,12 +14,12 @@ import type { TreeViewItem } from '~ui/app/utils/Components/TreeView/context'
 
 const treeItems: TreeViewItem[] = [
   {
-    id: 'src',
-    label: 'src',
     children: [
       { id: 'src/main.ts', label: 'main.ts' },
       { id: 'src/app.vue', label: 'app.vue' },
     ],
+    id: 'src',
+    label: 'src',
   },
   { id: 'package.json', label: 'package.json' },
 ]
@@ -28,9 +28,9 @@ describe('UITreeView', () => {
   it('renders auto-generated nodes from items', async () => {
     const wrapper = await mountSuspended(UITreeView, {
       props: {
+        defaultExpandedValue: ['src'],
         items: treeItems,
         label: 'Files',
-        defaultExpandedValue: ['src'],
       },
     })
 
@@ -42,8 +42,8 @@ describe('UITreeView', () => {
   it('expands branches matching defaultExpandedValue', async () => {
     const wrapper = await mountSuspended(UITreeView, {
       props: {
-        items: treeItems,
         defaultExpandedValue: ['src'],
+        items: treeItems,
       },
     })
 
@@ -53,9 +53,9 @@ describe('UITreeView', () => {
   it('renders checkbox controls in checkbox mode', async () => {
     const wrapper = await mountSuspended(UITreeView, {
       props: {
+        defaultExpandedValue: ['src'],
         items: treeItems,
         mode: 'checkbox',
-        defaultExpandedValue: ['src'],
       },
     })
 
@@ -94,12 +94,12 @@ describe('UITreeView', () => {
           return () =>
             h(
               UITreeViewRoot,
-              { value: tree.value, 'data-testid': 'tree-root' },
+              { 'data-testid': 'tree-root', value: tree.value },
               {
                 default: () => [
                   h(UITreeViewNode, {
-                    node: treeItems[0]!,
                     indexPath: [0],
+                    node: treeItems[0]!,
                   }),
                 ],
               },
@@ -117,8 +117,8 @@ describe('UIFormTreeView', () => {
   it('renders label and tree nodes', async () => {
     const wrapper = await mountSuspended(UIFormTreeView, {
       props: {
-        label: 'Permissions',
         items: treeItems,
+        label: 'Permissions',
         modelValue: emptyTreeViewCheckedState(),
       },
     })
@@ -131,9 +131,9 @@ describe('UIFormTreeView', () => {
   it('emits rich checked state on interaction', async () => {
     const wrapper = await mountSuspended(UIFormTreeView, {
       props: {
+        defaultExpandedValue: ['src'],
         items: treeItems,
         modelValue: emptyTreeViewCheckedState(),
-        defaultExpandedValue: ['src'],
       },
     })
 

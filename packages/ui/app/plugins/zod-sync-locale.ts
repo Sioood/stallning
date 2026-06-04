@@ -5,9 +5,9 @@ import { applyZodLocaleFromI18n } from '~ui/app/utils/zod-locale'
 import type { Composer } from 'vue-i18n'
 
 export default defineNuxtPlugin({
-  name: 'zod-sync-locale',
   dependsOn: ['i18n:plugin:route-locale-detect'],
   enforce: 'post',
+  name: 'zod-sync-locale',
   setup(nuxtApp) {
     const { locale } = nuxtApp.$i18n as Composer
 

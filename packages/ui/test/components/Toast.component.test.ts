@@ -13,15 +13,15 @@ describe('Toast', () => {
         const toaster = useToast()
         const show = () => {
           toaster.value?.create({
-            title: 'Toast title',
-            description: 'Toast body',
-            type: 'info',
             closable: false,
+            description: 'Toast body',
+            title: 'Toast title',
+            type: 'info',
           })
         }
         return () =>
           h('div', { 'data-toaster-ready': toaster.value ? '1' : '0' }, [
-            h('button', { type: 'button', 'data-testid': 'fire-toast', onClick: show }, 'show'),
+            h('button', { 'data-testid': 'fire-toast', onClick: show, type: 'button' }, 'show'),
             h(Toast),
           ])
       },

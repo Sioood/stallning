@@ -11,19 +11,19 @@ type linkVariant = 'default' | 'ghost'
 const linkCVA = cva('w-fit', {
   variants: {
     intent: {
+      accent:
+        'text-accent-text-default hover:text-accent-text-default-hover active:text-accent-text-default-active',
+      error:
+        'text-error-text-default hover:text-error-text-default-hover active:text-error-text-default-active',
+      info: 'text-info-text-default hover:text-info-text-default-hover active:text-info-text-default-active',
+      neutral:
+        'text-neutral-text-default hover:text-neutral-text-default-hover active:text-neutral-text-default-active',
       primary:
         'text-primary-text-default hover:text-primary-text-default-hover active:text-primary-text-default-active',
       secondary:
         'text-secondary-text-default hover:text-secondary-text-default-hover active:text-secondary-text-default-active',
-      accent:
-        'text-accent-text-default hover:text-accent-text-default-hover active:text-accent-text-default-active',
-      info: 'text-info-text-default hover:text-info-text-default-hover active:text-info-text-default-active',
       warning:
         'text-warning-text-default hover:text-warning-text-default-hover active:text-warning-text-default-active',
-      error:
-        'text-error-text-default hover:text-error-text-default-hover active:text-error-text-default-active',
-      neutral:
-        'text-neutral-text-default hover:text-neutral-text-default-hover active:text-neutral-text-default-active',
     } satisfies Record<linkIntent, string>,
     variant: {
       default: 'underline',
@@ -44,12 +44,12 @@ interface LinkProps extends /* @vue-ignore */ Omit<NuxtLinkProps, 'custom'> {
 }
 
 const props = withDefaults(defineProps<LinkProps>(), {
-  to: undefined,
-  target: undefined,
-  rel: undefined,
   custom: false,
-  styled: true,
   intent: 'accent',
+  rel: undefined,
+  styled: true,
+  target: undefined,
+  to: undefined,
   variant: 'default',
 })
 const config = useRuntimeConfig()
@@ -57,7 +57,7 @@ const config = useRuntimeConfig()
 const isExternal = computed(() => {
   if (props.external) return true
   const url = props.to?.toString()
-  const siteUrl = config.public.siteUrl
+  const { siteUrl } = config.public
   if (siteUrl && url?.startsWith(siteUrl)) return false
   return url?.startsWith('http')
 })
@@ -70,7 +70,7 @@ const linkClass = computed(() =>
 )
 
 const href = computed(() => {
-  const to = props.to
+  const { to } = props
   if (typeof to === 'string') return to
   return to?.toString() ?? ''
 })

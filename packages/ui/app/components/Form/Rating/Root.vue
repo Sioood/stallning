@@ -101,10 +101,10 @@ const rootBindings = computed(() => {
 
 extendCompodiumMeta({
   defaultProps: {
-    intent: 'primary',
-    size: 'md',
     count: 5,
     defaultValue: 3,
+    intent: 'primary',
+    size: 'md',
   },
 })
 </script>

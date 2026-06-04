@@ -1,14 +1,14 @@
 import { createApp, defineComponent, h, type Component } from 'vue'
 
 const IconStub = defineComponent({
-  props: { name: String, class: String },
+  props: { class: String, name: String },
   setup(props) {
     return () => h('span', { class: props.class, 'data-icon': props.name })
   },
 })
 
 const LinkStub = defineComponent({
-  props: { to: [String, Object], disabled: Boolean },
+  props: { disabled: Boolean, to: [String, Object] },
   setup(props, { slots }) {
     return () => h('a', { href: typeof props.to === 'string' ? props.to : '#' }, slots.default?.())
   },

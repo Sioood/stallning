@@ -16,10 +16,10 @@ describe('useSchemaForm', () => {
     const Consumer = defineComponent({
       setup() {
         const { form } = useSchemaForm({
-          schema,
           defaultValues: { email: '' },
-          validateSchemaOn: ['change', 'blur', 'submit'],
           onSubmit,
+          schema,
+          validateSchemaOn: ['change', 'blur', 'submit'],
         })
         formRef = form
         return () => h('div')
@@ -42,10 +42,10 @@ describe('useSchemaForm', () => {
     const Consumer = defineComponent({
       setup() {
         const { form } = useSchemaForm({
-          schema,
           defaultValues: { name: 'Alice' },
-          validateSchemaOn: ['submit'],
           onSubmit,
+          schema,
+          validateSchemaOn: ['submit'],
         })
         formRef = form
         return () => h('div', { 'data-ready': '1' })
@@ -68,9 +68,9 @@ describe('useSchemaForm', () => {
     const Consumer = defineComponent({
       setup() {
         const { form } = useSchemaForm({
-          schema,
           defaultValues: { x: 'ab' },
           onSubmit,
+          schema,
         })
         formRef = form
         return () => h('div')
@@ -82,7 +82,7 @@ describe('useSchemaForm', () => {
     formRef!.setFieldValue('x', 'a')
     await flushPromises()
 
-    const errors = formRef!.state.errors
+    const { errors } = formRef!.state
     expect(errors.length).toBeGreaterThan(0)
   })
 })

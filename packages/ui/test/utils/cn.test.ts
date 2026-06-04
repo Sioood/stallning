@@ -4,13 +4,13 @@ import { describe, expect, it } from 'vitest'
 import { cn } from '../../app/utils/cn'
 
 const padded = cva('block', {
+  defaultVariants: { size: 'sm' },
   variants: {
     size: {
-      sm: 'p-2',
       md: 'p-4',
+      sm: 'p-2',
     },
   },
-  defaultVariants: { size: 'sm' },
 })
 
 describe('cn', () => {

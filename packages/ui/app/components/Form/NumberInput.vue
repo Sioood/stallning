@@ -103,17 +103,17 @@ const rootBindings = computed(() => {
   const base: Record<string, unknown> = {
     ...rootProps.value,
     ...arkAttrs.value,
-    invalid: invalid.value,
     class: cn(
       controlShellCVA({
-        intent: props.intent,
-        size: props.size,
-        invalid: invalid.value,
         disabled: disabled.value,
+        intent: props.intent,
+        invalid: invalid.value,
+        size: props.size,
       }),
       'flex w-full items-stretch gap-0',
       props.ui?.shell,
     ),
+    invalid: invalid.value,
   }
   if (!isProvider.value) {
     if (modelValue.value !== undefined) {
@@ -158,13 +158,13 @@ const fieldProps = computed<FormControlShellProps>(() => ({
     'required',
     'size',
   ] as const),
-  ui: {
-    root: props.ui?.root,
-    label: props.ui?.label,
-    helperText: props.ui?.helperText,
-    error: props.ui?.error,
-  },
   invalid: invalid.value,
+  ui: {
+    error: props.ui?.error,
+    helperText: props.ui?.helperText,
+    label: props.ui?.label,
+    root: props.ui?.root,
+  },
 }))
 
 const inputAttrs = computed(() => {
@@ -184,19 +184,19 @@ const controlElement = computed((): HTMLInputElement | null => {
 })
 
 defineExpose({
-  getControlElement: (): HTMLInputElement | null => controlElement.value,
   focus: (): void => {
     controlElement.value?.focus()
   },
+  getControlElement: (): HTMLInputElement | null => controlElement.value,
 } satisfies UIFormNumberInputExpose)
 
 extendCompodiumMeta({
   defaultProps: {
     intent: 'primary',
-    size: 'md',
     label: 'Quantity',
-    min: 0,
     max: 100,
+    min: 0,
+    size: 'md',
     step: 1,
   },
 })

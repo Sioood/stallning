@@ -23,12 +23,12 @@ export interface DatePickerCalendarViewsProps {
 }
 
 const props = withDefaults(defineProps<DatePickerCalendarViewsProps>(), {
-  showMonthYearSelect: false,
-  showWeekNumbers: false,
-  showTodayButton: false,
-  withTime: false,
   numOfMonths: 1,
+  showMonthYearSelect: false,
+  showTodayButton: false,
+  showWeekNumbers: false,
   ui: undefined,
+  withTime: false,
 })
 
 const chrome = inject(datePickerChromeKey, null)
@@ -39,7 +39,7 @@ const monthIndexes = computed(() =>
 )
 
 function getTimeValue(values: DateValue[]): string {
-  const current = values[0]
+  const [current] = values
   if (current && 'hour' in current && 'minute' in current) {
     return `${String(current.hour).padStart(2, '0')}:${String(current.minute).padStart(2, '0')}`
   }
@@ -54,7 +54,7 @@ function onTimeInput(
   const [hours, minutes] = target.value.split(':').map(Number)
   if (Number.isNaN(hours) || Number.isNaN(minutes)) return
 
-  const current = datePicker.value[0]
+  const [current] = datePicker.value
   if (!current) return
 
   if ('hour' in current && 'minute' in current) {

@@ -21,12 +21,17 @@ function isSnapshotUpdateMode(): boolean {
  * Compare or update a PNG baseline. On `vitest -u`, writes a real binary PNG via Playwright.
  * Otherwise compares base64 from the browser with the file read as base64 on the server.
  */
-export async function expectPngSnapshot(
-  element: Element,
-  specFolder: string,
-  screenshotPathFromTestFile: string,
-  filename: string,
-): Promise<void> {
+export async function expectPngSnapshot({
+  element,
+  specFolder,
+  screenshotPathFromTestFile,
+  filename,
+}: {
+  element: Element
+  specFolder: string
+  screenshotPathFromTestFile: string
+  filename: string
+}): Promise<void> {
   const diskPath = pngSnapshotDiskPath(specFolder, filename)
 
   if (isSnapshotUpdateMode()) {

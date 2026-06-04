@@ -9,8 +9,8 @@ describe('UIDrawer', () => {
   it('renders trigger button by default', async () => {
     const wrapper = await mountSuspended(UIDrawer, {
       props: {
-        title: 'Test Drawer',
         description: 'Test description',
+        title: 'Test Drawer',
       },
       slots: {
         default: 'Drawer content',
@@ -23,8 +23,8 @@ describe('UIDrawer', () => {
   it('hides trigger when hideTrigger is true', async () => {
     const wrapper = await mountSuspended(UIDrawer, {
       props: {
-        title: 'Test Drawer',
         hideTrigger: true,
+        title: 'Test Drawer',
       },
       slots: {
         default: 'Drawer content',
@@ -37,8 +37,8 @@ describe('UIDrawer', () => {
   it('renders without error when portalled is false', async () => {
     const wrapper = await mountSuspended(UIDrawer, {
       props: {
-        title: 'Test Drawer',
         portalled: false,
+        title: 'Test Drawer',
       },
       slots: {
         default: '<span data-testid="inline">Inline content</span>',
@@ -52,8 +52,8 @@ describe('UIDrawer', () => {
   it('renders without error when modal is false', async () => {
     const wrapper = await mountSuspended(UIDrawer, {
       props: {
-        title: 'Test Drawer',
         modal: false,
+        title: 'Test Drawer',
       },
       slots: {
         default: 'Content',
@@ -66,8 +66,8 @@ describe('UIDrawer', () => {
   it('passes snap points to root component', async () => {
     const wrapper = await mountSuspended(UIDrawer, {
       props: {
-        title: 'Test Drawer',
         snapPoints: [0.3, 0.6, 1],
+        title: 'Test Drawer',
       },
       slots: {
         default: 'Content',
@@ -80,8 +80,8 @@ describe('UIDrawer', () => {
   it('prevents scroll by default', async () => {
     const wrapper = await mountSuspended(UIDrawer, {
       props: {
-        title: 'Test Drawer',
         preventScroll: true,
+        title: 'Test Drawer',
       },
       slots: {
         default: 'Content',

@@ -7,10 +7,10 @@ describe('UIFormField', () => {
   it('shows label, required indicator, and helper text', async () => {
     const wrapper = await mountSuspended(Field, {
       props: {
-        label: 'Email',
-        required: true,
         helperText: 'We never share your email',
         invalid: false,
+        label: 'Email',
+        required: true,
       },
       slots: {
         default: '<input type="text" />',
@@ -25,9 +25,9 @@ describe('UIFormField', () => {
   it('shows error message when invalid', async () => {
     const wrapper = await mountSuspended(Field, {
       props: {
-        label: 'Email',
-        invalid: true,
         error: 'Required',
+        invalid: true,
+        label: 'Email',
       },
       slots: {
         default: '<input />',
@@ -41,10 +41,10 @@ describe('UIFormField', () => {
     const wrapper = await mountSuspended(Field, {
       props: {
         asFieldset: true,
-        label: 'Select frameworks',
+        error: 'Pick at least one',
         helperText: 'Choose your preferred frameworks',
         invalid: true,
-        error: 'Pick at least one',
+        label: 'Select frameworks',
       },
       slots: {
         default: '<div class="group">Group</div>',

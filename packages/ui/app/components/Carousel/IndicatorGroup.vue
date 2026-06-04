@@ -21,8 +21,8 @@ export interface CarouselIndicatorGroupProps extends CarouselIndicatorGroupBaseP
 }
 
 const props = withDefaults(defineProps<CarouselIndicatorGroupProps>(), {
-  variant: undefined,
   ui: undefined,
+  variant: undefined,
 })
 
 const attrs = useAttrs()

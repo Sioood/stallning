@@ -23,8 +23,8 @@ describe('UIFormCheckbox', () => {
     const wrapperChecked = await mountSuspended(Checkbox, {
       props: {
         label: 'Opt in',
-        name: 'opt',
         modelValue: true,
+        name: 'opt',
       },
     })
 
@@ -35,8 +35,8 @@ describe('UIFormCheckbox', () => {
     const wrapperUnchecked = await mountSuspended(Checkbox, {
       props: {
         label: 'Opt out',
-        name: 'opt2',
         modelValue: false,
+        name: 'opt2',
       },
     })
 
@@ -50,8 +50,8 @@ describe('UIFormCheckbox', () => {
     const wrapper = await mountSuspended(Checkbox, {
       props: {
         label: 'Subscribe',
-        name: 'sub',
         modelValue: false,
+        name: 'sub',
         'onUpdate:modelValue': onUpdateModelValue,
       },
     })
@@ -77,9 +77,9 @@ describe('UIFormCheckbox', () => {
   it('applies invalid styling when error prop is provided', async () => {
     const wrapper = await mountSuspended(Checkbox, {
       props: {
+        error: 'This must be checked',
         label: 'Error checkbox',
         name: 'err',
-        error: 'This must be checked',
       },
     })
 
@@ -106,9 +106,9 @@ describe('UIFormCheckbox', () => {
   it('renders only control when inGroup is true', async () => {
     const wrapper = await mountSuspended(Checkbox, {
       props: {
+        inGroup: true,
         label: 'Group item',
         name: 'group',
-        inGroup: true,
       },
     })
 
@@ -119,8 +119,8 @@ describe('UIFormCheckbox', () => {
   it('forwards aria-label to the checkbox root', async () => {
     const wrapper = await mountSuspended(Checkbox, {
       props: {
-        controlOnly: true,
         'aria-label': 'Select row',
+        controlOnly: true,
       },
     })
 

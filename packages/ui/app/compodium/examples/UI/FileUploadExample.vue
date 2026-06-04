@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// oxlint-disable no-console
 import {
   useFileUpload,
   type FileUploadFileAcceptDetails,
@@ -10,18 +11,17 @@ const multiFiles = ref<File[]>([])
 const imageFiles = ref<File[]>([])
 
 const externalFileUpload = useFileUpload({
-  maxFiles: 3,
   accept: 'image/*',
+  maxFiles: 3,
 })
 
-const transformFiles = async (files: File[]) => {
-  return files.map((file) => {
+const transformFiles = async (files: File[]) =>
+  files.map((file) => {
     if (file.type.startsWith('image/') && file.size > 1024 * 1024) {
       console.log(`Transforming: ${file.name} (${(file.size / 1024).toFixed(1)}KB)`)
     }
     return file
   })
-}
 
 const sizes = ['sm', 'md', 'lg'] as const
 const intents = ['neutral', 'primary', 'secondary', 'accent'] as const

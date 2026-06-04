@@ -3,62 +3,62 @@ import { cva } from 'class-variance-authority'
 import type { TreeViewIntent, TreeViewSize } from './context'
 
 export const treeViewRootCVA = cva('flex w-full flex-col gap-2', {
-  variants: {
-    intent: {
-      neutral: 'text-neutral-text-default',
-      primary: 'text-primary-text-default',
-      secondary: 'text-secondary-text-default',
-      accent: 'text-accent-text-default',
-    } satisfies Record<TreeViewIntent, string>,
-    size: {
-      sm: 'txt-caption max-w-xs',
-      md: 'txt-label max-w-sm',
-      lg: 'txt-base max-w-md',
-    } satisfies Record<TreeViewSize, string>,
-  },
   defaultVariants: {
     intent: 'primary',
     size: 'md',
+  },
+  variants: {
+    intent: {
+      accent: 'text-accent-text-default',
+      neutral: 'text-neutral-text-default',
+      primary: 'text-primary-text-default',
+      secondary: 'text-secondary-text-default',
+    } satisfies Record<TreeViewIntent, string>,
+    size: {
+      lg: 'txt-base max-w-md',
+      md: 'txt-label max-w-sm',
+      sm: 'txt-caption max-w-xs',
+    } satisfies Record<TreeViewSize, string>,
   },
 })
 
 export const treeViewLabelCVA = cva('font-medium select-none', {
-  variants: {
-    intent: {
-      neutral: 'text-neutral-text-default',
-      primary: 'text-primary-text-default',
-      secondary: 'text-secondary-text-default',
-      accent: 'text-accent-text-default',
-    } satisfies Record<TreeViewIntent, string>,
-    size: {
-      sm: 'txt-caption',
-      md: 'txt-label',
-      lg: 'txt-base',
-    } satisfies Record<TreeViewSize, string>,
-  },
   defaultVariants: {
     intent: 'primary',
     size: 'md',
+  },
+  variants: {
+    intent: {
+      accent: 'text-accent-text-default',
+      neutral: 'text-neutral-text-default',
+      primary: 'text-primary-text-default',
+      secondary: 'text-secondary-text-default',
+    } satisfies Record<TreeViewIntent, string>,
+    size: {
+      lg: 'txt-base',
+      md: 'txt-label',
+      sm: 'txt-caption',
+    } satisfies Record<TreeViewSize, string>,
   },
 })
 
 export const treeViewTreeCVA = cva('flex flex-col outline-none', {
-  variants: {
-    intent: {
-      neutral: '',
-      primary: '',
-      secondary: '',
-      accent: '',
-    } satisfies Record<TreeViewIntent, string>,
-    size: {
-      sm: 'gap-0.5',
-      md: 'gap-0.5',
-      lg: 'gap-1',
-    } satisfies Record<TreeViewSize, string>,
-  },
   defaultVariants: {
     intent: 'primary',
     size: 'md',
+  },
+  variants: {
+    intent: {
+      accent: '',
+      neutral: '',
+      primary: '',
+      secondary: '',
+    } satisfies Record<TreeViewIntent, string>,
+    size: {
+      lg: 'gap-1',
+      md: 'gap-0.5',
+      sm: 'gap-0.5',
+    } satisfies Record<TreeViewSize, string>,
   },
 })
 
@@ -71,64 +71,64 @@ const treeNodeRowBase = [
 ]
 
 const treeNodeSelectedText = {
+  accent: 'data-[selected]:font-medium data-[selected]:text-accent-text-strong',
   neutral: 'data-[selected]:font-medium data-[selected]:text-neutral-text-strong',
   primary: 'data-[selected]:font-medium data-[selected]:text-primary-text-strong',
   secondary: 'data-[selected]:font-medium data-[selected]:text-secondary-text-strong',
-  accent: 'data-[selected]:font-medium data-[selected]:text-accent-text-strong',
 } satisfies Record<TreeViewIntent, string>
 
 export const treeViewBranchControlCVA = cva(treeNodeRowBase, {
-  variants: {
-    intent: {
-      neutral: `text-neutral-text-default hover:text-neutral-text-strong ${treeNodeSelectedText.neutral}`,
-      primary: `text-primary-text-default hover:text-primary-text-strong ${treeNodeSelectedText.primary}`,
-      secondary: `text-secondary-text-default hover:text-secondary-text-strong ${treeNodeSelectedText.secondary}`,
-      accent: `text-accent-text-default hover:text-accent-text-strong ${treeNodeSelectedText.accent}`,
-    } satisfies Record<TreeViewIntent, string>,
-    size: {
-      sm: 'txt-caption',
-      md: 'txt-label',
-      lg: 'txt-base',
-    } satisfies Record<TreeViewSize, string>,
-  },
   defaultVariants: {
     intent: 'primary',
     size: 'md',
+  },
+  variants: {
+    intent: {
+      accent: `text-accent-text-default hover:text-accent-text-strong ${treeNodeSelectedText.accent}`,
+      neutral: `text-neutral-text-default hover:text-neutral-text-strong ${treeNodeSelectedText.neutral}`,
+      primary: `text-primary-text-default hover:text-primary-text-strong ${treeNodeSelectedText.primary}`,
+      secondary: `text-secondary-text-default hover:text-secondary-text-strong ${treeNodeSelectedText.secondary}`,
+    } satisfies Record<TreeViewIntent, string>,
+    size: {
+      lg: 'txt-base',
+      md: 'txt-label',
+      sm: 'txt-caption',
+    } satisfies Record<TreeViewSize, string>,
   },
 })
 
 export const treeViewItemCVA = cva(treeNodeRowBase, {
-  variants: {
-    intent: {
-      neutral: `text-neutral-text-default hover:text-neutral-text-strong ${treeNodeSelectedText.neutral}`,
-      primary: `text-primary-text-default hover:text-primary-text-strong ${treeNodeSelectedText.primary}`,
-      secondary: `text-secondary-text-default hover:text-secondary-text-strong ${treeNodeSelectedText.secondary}`,
-      accent: `text-accent-text-default hover:text-accent-text-strong ${treeNodeSelectedText.accent}`,
-    } satisfies Record<TreeViewIntent, string>,
-    size: {
-      sm: 'txt-caption',
-      md: 'txt-label',
-      lg: 'txt-base',
-    } satisfies Record<TreeViewSize, string>,
-  },
   defaultVariants: {
     intent: 'primary',
     size: 'md',
+  },
+  variants: {
+    intent: {
+      accent: `text-accent-text-default hover:text-accent-text-strong ${treeNodeSelectedText.accent}`,
+      neutral: `text-neutral-text-default hover:text-neutral-text-strong ${treeNodeSelectedText.neutral}`,
+      primary: `text-primary-text-default hover:text-primary-text-strong ${treeNodeSelectedText.primary}`,
+      secondary: `text-secondary-text-default hover:text-secondary-text-strong ${treeNodeSelectedText.secondary}`,
+    } satisfies Record<TreeViewIntent, string>,
+    size: {
+      lg: 'txt-base',
+      md: 'txt-label',
+      sm: 'txt-caption',
+    } satisfies Record<TreeViewSize, string>,
   },
 })
 
 export const treeViewBranchContentCVA = cva('relative', {
   variants: {
     intent: {
+      accent: '',
       neutral: '',
       primary: '',
       secondary: '',
-      accent: '',
     } satisfies Record<TreeViewIntent, string>,
     size: {
-      sm: '',
-      md: '',
       lg: '',
+      md: '',
+      sm: '',
     } satisfies Record<TreeViewSize, string>,
   },
 })
@@ -138,15 +138,15 @@ export const treeViewBranchIndentGuideCVA = cva(
   {
     variants: {
       intent: {
+        accent: 'bg-accent-border-subtle',
         neutral: 'bg-neutral-border-subtle',
         primary: 'bg-primary-border-subtle',
         secondary: 'bg-secondary-border-subtle',
-        accent: 'bg-accent-border-subtle',
       } satisfies Record<TreeViewIntent, string>,
       size: {
-        sm: '',
-        md: '',
         lg: '',
+        md: '',
+        sm: '',
       } satisfies Record<TreeViewSize, string>,
     },
   },
@@ -155,15 +155,15 @@ export const treeViewBranchIndentGuideCVA = cva(
 export const treeViewBranchTriggerCVA = cva('inline-flex shrink-0 items-center justify-center', {
   variants: {
     intent: {
+      accent: '',
       neutral: '',
       primary: '',
       secondary: '',
-      accent: '',
     } satisfies Record<TreeViewIntent, string>,
     size: {
-      sm: '',
-      md: '',
       lg: '',
+      md: '',
+      sm: '',
     } satisfies Record<TreeViewSize, string>,
   },
 })
@@ -171,22 +171,22 @@ export const treeViewBranchTriggerCVA = cva('inline-flex shrink-0 items-center j
 export const treeViewBranchIndicatorCVA = cva(
   'inline-flex shrink-0 items-center justify-center text-neutral-text-subtle transition-transform duration-150 data-[state=open]:rotate-90',
   {
-    variants: {
-      intent: {
-        neutral: 'text-neutral-text-subtle',
-        primary: 'text-primary-text-subtle',
-        secondary: 'text-secondary-text-subtle',
-        accent: 'text-accent-text-subtle',
-      } satisfies Record<TreeViewIntent, string>,
-      size: {
-        sm: 'size-3.5',
-        md: 'size-4',
-        lg: 'size-4',
-      } satisfies Record<TreeViewSize, string>,
-    },
     defaultVariants: {
       intent: 'primary',
       size: 'md',
+    },
+    variants: {
+      intent: {
+        accent: 'text-accent-text-subtle',
+        neutral: 'text-neutral-text-subtle',
+        primary: 'text-primary-text-subtle',
+        secondary: 'text-secondary-text-subtle',
+      } satisfies Record<TreeViewIntent, string>,
+      size: {
+        lg: 'size-4',
+        md: 'size-4',
+        sm: 'size-3.5',
+      } satisfies Record<TreeViewSize, string>,
     },
   },
 )
@@ -194,15 +194,15 @@ export const treeViewBranchIndicatorCVA = cva(
 export const treeViewNodeTextCVA = cva('inline-flex min-w-0 flex-1 items-center gap-2 truncate', {
   variants: {
     intent: {
+      accent: '',
       neutral: '',
       primary: '',
       secondary: '',
-      accent: '',
     } satisfies Record<TreeViewIntent, string>,
     size: {
-      sm: 'txt-caption',
-      md: 'txt-label',
       lg: 'txt-base',
+      md: 'txt-label',
+      sm: 'txt-caption',
     } satisfies Record<TreeViewSize, string>,
   },
 })
@@ -212,15 +212,15 @@ export const treeViewNodeRenameInputCVA = cva(
   {
     variants: {
       intent: {
+        accent: 'border-accent-border-strong text-accent-text-default',
         neutral: 'border-neutral-border-strong text-neutral-text-default',
         primary: 'border-primary-border-strong text-primary-text-default',
         secondary: 'border-secondary-border-strong text-secondary-text-default',
-        accent: 'border-accent-border-strong text-accent-text-default',
       } satisfies Record<TreeViewIntent, string>,
       size: {
-        sm: 'txt-caption',
-        md: 'txt-label',
         lg: 'txt-base',
+        md: 'txt-label',
+        sm: 'txt-caption',
       } satisfies Record<TreeViewSize, string>,
     },
   },

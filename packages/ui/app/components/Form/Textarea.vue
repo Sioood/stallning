@@ -102,20 +102,20 @@ const controlElement = computed((): HTMLTextAreaElement | null => {
 })
 
 defineExpose({
-  getControlElement: (): HTMLTextAreaElement | null => controlElement.value,
   focus: (): void => {
     controlElement.value?.focus()
   },
+  getControlElement: (): HTMLTextAreaElement | null => controlElement.value,
 } satisfies UIFormTextareaExpose)
 
 extendCompodiumMeta({
   defaultProps: {
-    modelValue: '',
+    autoresize: false,
+    intent: 'primary',
     label: 'Bio',
+    modelValue: '',
     placeholder: 'Tell us about yourself…',
     size: 'md',
-    intent: 'primary',
-    autoresize: false,
   },
 })
 </script>

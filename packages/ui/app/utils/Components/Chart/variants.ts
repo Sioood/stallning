@@ -22,9 +22,9 @@ const LEGEND_ALIGNS = ['start', 'center', 'end'] as const satisfies readonly Cha
 function legendAlignItems(align: ChartLegendAlign): string {
   return (
     {
-      start: 'items-start',
       center: 'items-center',
       end: 'items-end',
+      start: 'items-start',
     } as const
   )[align]
 }
@@ -50,18 +50,18 @@ function chartLegendPlacementClass(side: ChartLegendSide, align: ChartLegendAlig
     const crossAlign = side === 'right' ? 'items-start' : 'items-end'
     const mainAlign = (
       {
-        start: 'justify-start',
         center: 'justify-center',
         end: 'justify-end',
+        start: 'justify-start',
       } as const
     )[align]
     return `flex ${direction} gap-x-5 gap-y-2 ${crossAlign} ${mainAlign}`
   }
   const mainAlign = (
     {
-      start: 'justify-start',
       center: 'justify-center',
       end: 'justify-end',
+      start: 'justify-start',
     } as const
   )[align]
   return `flex ${direction} gap-x-5 gap-y-2 ${mainAlign}`
@@ -88,6 +88,8 @@ const chartLegendPlacementVariants = buildLegendPlacementVariants(chartLegendPla
 const chartTooltipCVA = cva('[--vis-tooltip-border-radius:0]', {
   variants: {
     intent: {
+      accent:
+        '[--vis-tooltip-background-color:var(--color-accent-surface-default)] [--vis-tooltip-border-color:transparent] [--vis-tooltip-text-color:var(--color-accent-text-default)]',
       multicolor:
         '[--vis-tooltip-background-color:var(--color-neutral-surface-default)] [--vis-tooltip-border-color:transparent] [--vis-tooltip-text-color:var(--color-neutral-text-default)]',
       neutral:
@@ -96,24 +98,20 @@ const chartTooltipCVA = cva('[--vis-tooltip-border-radius:0]', {
         '[--vis-tooltip-background-color:var(--color-primary-surface-default)] [--vis-tooltip-border-color:transparent] [--vis-tooltip-text-color:var(--color-primary-text-default)]',
       secondary:
         '[--vis-tooltip-background-color:var(--color-secondary-surface-default)] [--vis-tooltip-border-color:transparent] [--vis-tooltip-text-color:var(--color-secondary-text-default)]',
-      accent:
-        '[--vis-tooltip-background-color:var(--color-accent-surface-default)] [--vis-tooltip-border-color:transparent] [--vis-tooltip-text-color:var(--color-accent-text-default)]',
     } satisfies Record<ChartIntent, string>,
     size: {
-      sm: 'txt-caption [--vis-tooltip-padding:calc(var(--spacing)*0.5)_var(--spacing)]',
-      md: 'txt-caption [--vis-tooltip-padding:var(--spacing)_calc(var(--spacing)*2)]',
       lg: 'txt-base [--vis-tooltip-padding:calc(var(--spacing)*1.5)_calc(var(--spacing)*3)]',
+      md: 'txt-caption [--vis-tooltip-padding:var(--spacing)_calc(var(--spacing)*2)]',
+      sm: 'txt-caption [--vis-tooltip-padding:calc(var(--spacing)*0.5)_var(--spacing)]',
     } satisfies Record<ChartSize, string>,
   },
 })
 
 const chartAxisCVA = cva('', {
   variants: {
-    variant: {
-      default: '',
-      dashed: '[--vis-axis-domain-line-dasharray:none] [--vis-axis-grid-line-dasharray:5_5]',
-    } satisfies Record<ChartAxisVariant, string>,
     intent: {
+      accent:
+        '[--vis-axis-grid-color:var(--color-accent-border-subtle)] [--vis-axis-text-color:var(--color-accent-text-default)] [--vis-axis-tick-color:var(--color-accent-border-subtle)]',
       multicolor:
         '[--vis-axis-grid-color:var(--color-neutral-border-subtle)] [--vis-axis-text-color:var(--color-neutral-text-default)] [--vis-axis-tick-color:var(--color-neutral-border-subtle)]',
       neutral:
@@ -122,16 +120,29 @@ const chartAxisCVA = cva('', {
         '[--vis-axis-grid-color:var(--color-primary-border-subtle)] [--vis-axis-text-color:var(--color-primary-text-default)] [--vis-axis-tick-color:var(--color-primary-border-subtle)]',
       secondary:
         '[--vis-axis-grid-color:var(--color-secondary-border-subtle)] [--vis-axis-text-color:var(--color-secondary-text-default)] [--vis-axis-tick-color:var(--color-secondary-border-subtle)]',
-      accent:
-        '[--vis-axis-grid-color:var(--color-accent-border-subtle)] [--vis-axis-text-color:var(--color-accent-text-default)] [--vis-axis-tick-color:var(--color-accent-border-subtle)]',
     } satisfies Record<ChartIntent, string>,
+    variant: {
+      dashed: '[--vis-axis-domain-line-dasharray:none] [--vis-axis-grid-line-dasharray:5_5]',
+      default: '',
+    } satisfies Record<ChartAxisVariant, string>,
   },
 })
 
 /** Layout of chart + legend wrapper from legend placement. */
 const chartRootCVA = cva('flex w-full font-mono', {
+  defaultVariants: {
+    gap: 'md',
+    legendPlacement: 'top',
+  },
   variants: {
+    gap: {
+      lg: 'gap-4',
+      md: 'gap-3',
+      sm: 'gap-2',
+    } satisfies Record<ChartSize, string>,
     intent: {
+      accent:
+        '[--vis-color0:var(--color-accent-300)] [--vis-color1:var(--color-accent-400)] [--vis-color2:var(--color-accent-500)] [--vis-color3:var(--color-accent-600)] [--vis-color4:var(--color-accent-700)] [--vis-color5:var(--color-accent-800)]',
       multicolor:
         '[--vis-color0:var(--color-blue-fill-default)] [--vis-color1:var(--color-red-fill-default)] [--vis-color2:var(--color-green-fill-default)] [--vis-color3:var(--color-purple-fill-default)] [--vis-color4:var(--color-yellow-fill-default)] [--vis-color5:var(--color-pink-fill-default)]',
       neutral:
@@ -140,35 +151,24 @@ const chartRootCVA = cva('flex w-full font-mono', {
         '[--vis-color0:var(--color-primary-300)] [--vis-color1:var(--color-primary-400)] [--vis-color2:var(--color-primary-500)] [--vis-color3:var(--color-primary-600)] [--vis-color4:var(--color-primary-700)] [--vis-color5:var(--color-primary-800)]',
       secondary:
         '[--vis-color0:var(--color-secondary-300)] [--vis-color1:var(--color-secondary-400)] [--vis-color2:var(--color-secondary-500)] [--vis-color3:var(--color-secondary-600)] [--vis-color4:var(--color-secondary-700)] [--vis-color5:var(--color-secondary-800)]',
-      accent:
-        '[--vis-color0:var(--color-accent-300)] [--vis-color1:var(--color-accent-400)] [--vis-color2:var(--color-accent-500)] [--vis-color3:var(--color-accent-600)] [--vis-color4:var(--color-accent-700)] [--vis-color5:var(--color-accent-800)]',
     } satisfies Record<ChartIntent, string>,
     legendPlacement: chartRootPlacementVariants,
-    gap: {
-      sm: 'gap-2',
-      md: 'gap-3',
-      lg: 'gap-4',
-    } satisfies Record<ChartSize, string>,
-  },
-  defaultVariants: {
-    legendPlacement: 'top',
-    gap: 'md',
   },
 })
 
 /** Legend item list layout from placement. */
 export const chartLegendCVA = cva('', {
-  variants: {
-    legendPlacement: chartLegendPlacementVariants,
-    size: {
-      sm: 'txt-small',
-      md: 'txt-caption',
-      lg: 'txt-base',
-    } satisfies Record<ChartSize, string>,
-  },
   defaultVariants: {
     legendPlacement: 'top',
     size: 'md',
+  },
+  variants: {
+    legendPlacement: chartLegendPlacementVariants,
+    size: {
+      lg: 'txt-base',
+      md: 'txt-caption',
+      sm: 'txt-small',
+    } satisfies Record<ChartSize, string>,
   },
 })
 
@@ -196,7 +196,7 @@ export function chartLegendPlacementClasses({
   const { side, align } = parseChartLegendPlacement(placement)
   const placementKey: ChartLegendPlacement = align === 'center' ? side : `${side}-${align}`
   return {
-    root: chartRootCVA({ legendPlacement: placementKey, intent }),
     legend: chartLegendCVA({ legendPlacement: placementKey, size }),
+    root: chartRootCVA({ intent, legendPlacement: placementKey }),
   }
 }

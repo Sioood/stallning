@@ -9,27 +9,10 @@ const awardsOpen = ref(false)
 const activeNav = ref('accueil')
 
 const movie = {
-  title: 'Requiem for a Dream',
-  originalTitle: 'Requiem for a Dream',
-  year: '2000',
-  category: 'Films > Drame',
-  genre: 'Drame',
-  language: 'VFF, VO',
-  runtime: '1 h 42 min',
-  director: 'Darren Aronofsky',
-  writers: 'Hubert Selby Jr., Darren Aronofsky',
-  music: 'Clint Mansell',
-  country: 'États-Unis',
-  classification: 'Interdit -12',
-  festival: 'Cannes 2000 (hors compétition)',
-  imdb: '8.3/10',
-  metascore: '71',
-  imdbUrl: 'https://www.imdb.com/fr/title/tt0180093/',
-  tmdbUrl: 'https://www.themoviedb.org/movie/641',
-  posterUrl:
-    'https://m.media-amazon.com/images/M/MV5BOTdiNzJlOWUtNWMwNS00NmFlLWI0YTEtZmI3YjIzZWUyY2Y3XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX101_CR0,0,101,150_.jpg',
-  synopsis:
-    "À Coney Island, Sara Goldfarb, veuve recluse accro à la télévision, rêve de participer à son émission favorite. Son fils Harry, sa petite amie Marion et leur ami Tyrone vivent dans l'euphorie de l'héroïne jusqu'à ce que leurs addictions les entraînent dans une spirale d'illusions, de désespoir et d'autodestruction.",
+  awards: [
+    "Nomination à l'Oscar de la meilleure actrice (Ellen Burstyn)",
+    '37 récompenses et 68 nominations internationales',
+  ],
   casting: [
     'Ellen Burstyn',
     'Jared Leto',
@@ -38,24 +21,41 @@ const movie = {
     'Christopher McDonald',
     'Mark Margolis',
   ],
-  awards: [
-    "Nomination à l'Oscar de la meilleure actrice (Ellen Burstyn)",
-    '37 récompenses et 68 nominations internationales',
-  ],
+  category: 'Films > Drame',
+  classification: 'Interdit -12',
+  country: 'États-Unis',
+  director: 'Darren Aronofsky',
+  festival: 'Cannes 2000 (hors compétition)',
+  genre: 'Drame',
+  imdb: '8.3/10',
+  imdbUrl: 'https://www.imdb.com/fr/title/tt0180093/',
+  language: 'VFF, VO',
+  metascore: '71',
+  music: 'Clint Mansell',
+  originalTitle: 'Requiem for a Dream',
+  posterUrl:
+    'https://m.media-amazon.com/images/M/MV5BOTdiNzJlOWUtNWMwNS00NmFlLWI0YTEtZmI3YjIzZWUyY2Y3XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX101_CR0,0,101,150_.jpg',
+  runtime: '1 h 42 min',
+  synopsis:
+    "À Coney Island, Sara Goldfarb, veuve recluse accro à la télévision, rêve de participer à son émission favorite. Son fils Harry, sa petite amie Marion et leur ami Tyrone vivent dans l'euphorie de l'héroïne jusqu'à ce que leurs addictions les entraînent dans une spirale d'illusions, de désespoir et d'autodestruction.",
+  title: 'Requiem for a Dream',
+  tmdbUrl: 'https://www.themoviedb.org/movie/641',
+  writers: 'Hubert Selby Jr., Darren Aronofsky',
+  year: '2000',
 }
 
 const navTabs = [
-  { value: 'accueil', label: 'Accueil', icon: 'tabler:home', chevron: false },
-  { value: 'parcourir', label: 'Parcourir', icon: 'tabler:search', chevron: false },
-  { value: 'top', label: 'Top', icon: 'tabler:flame', chevron: false },
-  { value: 'favoris', label: 'Favoris', icon: 'tabler:heart', chevron: false },
-  { value: 'histoire', label: 'Histoire', icon: 'tabler:history', chevron: false },
-  { value: 'paramètres', label: 'Paramètres', icon: 'tabler:settings', chevron: false },
-  { value: 'aide', label: 'Aide', icon: 'tabler:help', chevron: false },
-  { value: 'contact', label: 'Contact', icon: 'tabler:mail', chevron: false },
-  { value: 'politique', label: 'Politique', icon: 'tabler:shield', chevron: false },
-  { value: 'conditions', label: 'Conditions', icon: 'tabler:file-check', chevron: false },
-  { value: 'mentions', label: 'Mentions', icon: 'tabler:file-text', chevron: false },
+  { chevron: false, icon: 'tabler:home', label: 'Accueil', value: 'accueil' },
+  { chevron: false, icon: 'tabler:search', label: 'Parcourir', value: 'parcourir' },
+  { chevron: false, icon: 'tabler:flame', label: 'Top', value: 'top' },
+  { chevron: false, icon: 'tabler:heart', label: 'Favoris', value: 'favoris' },
+  { chevron: false, icon: 'tabler:history', label: 'Histoire', value: 'histoire' },
+  { chevron: false, icon: 'tabler:settings', label: 'Paramètres', value: 'paramètres' },
+  { chevron: false, icon: 'tabler:help', label: 'Aide', value: 'aide' },
+  { chevron: false, icon: 'tabler:mail', label: 'Contact', value: 'contact' },
+  { chevron: false, icon: 'tabler:shield', label: 'Politique', value: 'politique' },
+  { chevron: false, icon: 'tabler:file-check', label: 'Conditions', value: 'conditions' },
+  { chevron: false, icon: 'tabler:file-text', label: 'Mentions', value: 'mentions' },
 ] as const
 
 const metadataTags = [
@@ -69,14 +69,14 @@ type StatTone = 'default' | 'success' | 'error' | 'accent'
 
 const statRows: ReadonlyArray<ReadonlyArray<{ label: string; value: string; tone: StatTone }>> = [
   [
-    { label: 'IMDb', value: movie.imdb, tone: 'accent' },
-    { label: 'METASCORE', value: movie.metascore, tone: 'default' },
-    { label: 'DURÉE', value: movie.runtime, tone: 'default' },
+    { label: 'IMDb', tone: 'accent', value: movie.imdb },
+    { label: 'METASCORE', tone: 'default', value: movie.metascore },
+    { label: 'DURÉE', tone: 'default', value: movie.runtime },
   ],
   [
-    { label: 'ANNÉE', value: movie.year, tone: 'default' },
-    { label: 'CLASSIFICATION', value: movie.classification, tone: 'default' },
-    { label: 'PAYS', value: movie.country, tone: 'default' },
+    { label: 'ANNÉE', tone: 'default', value: movie.year },
+    { label: 'CLASSIFICATION', tone: 'default', value: movie.classification },
+    { label: 'PAYS', tone: 'default', value: movie.country },
   ],
 ]
 
@@ -97,15 +97,15 @@ const prevMovie = 'American Beauty (1999)'
 const nextMovie = 'Memento (2000)'
 
 const statValueClass: Record<StatTone, string> = {
-  default: 'text-neutral-text-strong',
-  success: 'text-success-text-strong',
-  error: 'text-error-text-strong',
   accent: 'text-accent-text-strong',
+  default: 'text-neutral-text-strong',
+  error: 'text-error-text-strong',
+  success: 'text-success-text-strong',
 }
 
 const collapsibleTriggerUi = {
-  trigger: 'border-0 px-4 py-3',
   indicator: 'sr-only',
+  trigger: 'border-0 px-4 py-3',
 }
 </script>
 

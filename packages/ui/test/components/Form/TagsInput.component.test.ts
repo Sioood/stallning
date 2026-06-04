@@ -57,9 +57,9 @@ describe('UIFormTagsInput', () => {
   it('shows combobox suggestions when items are provided', async () => {
     const wrapper = await mountSuspended(UIFormTagsInput, {
       props: {
+        inputValue: 'vu',
         items,
         portalled: false,
-        inputValue: 'vu',
       },
     })
 
@@ -73,10 +73,10 @@ describe('UIFormTagsInput', () => {
     const onUpdateModelValue = vi.fn()
     const wrapper = await mountSuspended(UIFormTagsInput, {
       props: {
-        items,
-        portalled: false,
         inputValue: 'react',
+        items,
         'onUpdate:modelValue': onUpdateModelValue,
+        portalled: false,
       },
     })
 
@@ -112,8 +112,8 @@ describe('UIFormTagsInput', () => {
     const wrapper = await mountSuspended(UIFormTagsInput, {
       props: {
         modelValue: ['react'],
-        showClear: true,
         'onUpdate:modelValue': onUpdateModelValue,
+        showClear: true,
       },
     })
 

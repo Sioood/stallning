@@ -10,6 +10,10 @@ export const imports = defineConfig([
       'import-x/order': [
         'error',
         {
+          alphabetize: {
+            caseInsensitive: true,
+            order: 'asc',
+          },
           groups: [
             'builtin',
             'external',
@@ -21,10 +25,6 @@ export const imports = defineConfig([
             'type',
           ],
           'newlines-between': 'always',
-          alphabetize: {
-            order: 'asc',
-            caseInsensitive: true,
-          },
         },
       ],
     },

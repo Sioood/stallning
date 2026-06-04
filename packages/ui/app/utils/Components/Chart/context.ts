@@ -7,7 +7,7 @@ import type {
 } from '@unovis/ts'
 import type { ClassValue } from 'vue'
 
-export type ChartIntent = 'neutral' | 'primary' | 'secondary' | 'accent'
+export type ChartIntent = 'multicolor' | 'neutral' | 'primary' | 'secondary' | 'accent'
 export type ChartSize = 'sm' | 'md' | 'lg'
 export type ChartAxisType = 'x' | 'y'
 export type ChartAxisVariant = 'default' | 'dashed'

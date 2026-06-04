@@ -63,7 +63,7 @@ interface ChartStackedBarProps<
   valueFormatter?: (value: number, seriesItem: ChartStackedBarSeries) => string
   /** @deprecated Prefer `tooltip.verticalShift` */
   tooltipVerticalShift?: number
-  intent?: ChartIntent
+  intent?: ChartIntent | { axis: ChartIntent; data: ChartIntent }
   size?: ChartSize
   ui?: Partial<UIChartStackedBarSlots>
   axis?: ChartAxesConfig<T>
@@ -80,7 +80,7 @@ const props = withDefaults(defineProps<ChartStackedBarProps<T>>(), {
   showCrosshair: true,
   showTooltip: true,
   showLegend: false,
-  intent: 'neutral',
+  intent: () => ({ axis: 'neutral', data: 'multicolor' }),
   size: 'md',
   ui: () => ({}),
   x: undefined,
@@ -170,13 +170,19 @@ const showTooltipResolved = computed(() => props.tooltip?.show ?? props.showTool
 
 const themeClass = computed(() =>
   chartThemeClasses({
-    intent: props.intent,
+    intent: typeof props.intent === 'object' ? props.intent.axis : props.intent,
     size: props.size,
     axisVariant: props.axis?.variant,
   }),
 )
 
-const layoutClasses = computed(() => chartLegendPlacementClasses(legendPlacement.value, props.size))
+const layoutClasses = computed(() =>
+  chartLegendPlacementClasses({
+    placement: legendPlacement.value,
+    size: props.size,
+    intent: typeof props.intent === 'object' ? props.intent.data : props.intent,
+  }),
+)
 
 const rootClass = computed(() => cn(layoutClasses.value.root, themeClass.value, props.ui?.root))
 

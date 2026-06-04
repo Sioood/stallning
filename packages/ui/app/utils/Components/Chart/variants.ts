@@ -88,6 +88,8 @@ const chartLegendPlacementVariants = buildLegendPlacementVariants(chartLegendPla
 const chartTooltipCVA = cva('[--vis-tooltip-border-radius:0]', {
   variants: {
     intent: {
+      multicolor:
+        '[--vis-tooltip-background-color:var(--color-neutral-surface-default)] [--vis-tooltip-border-color:transparent] [--vis-tooltip-text-color:var(--color-neutral-text-default)]',
       neutral:
         '[--vis-tooltip-background-color:var(--color-neutral-surface-default)] [--vis-tooltip-border-color:transparent] [--vis-tooltip-text-color:var(--color-neutral-text-default)]',
       primary:
@@ -112,6 +114,8 @@ const chartAxisCVA = cva('', {
       dashed: '[--vis-axis-domain-line-dasharray:none] [--vis-axis-grid-line-dasharray:5_5]',
     } satisfies Record<ChartAxisVariant, string>,
     intent: {
+      multicolor:
+        '[--vis-axis-grid-color:var(--color-neutral-border-subtle)] [--vis-axis-text-color:var(--color-neutral-text-default)] [--vis-axis-tick-color:var(--color-neutral-border-subtle)]',
       neutral:
         '[--vis-axis-grid-color:var(--color-neutral-border-subtle)] [--vis-axis-text-color:var(--color-neutral-text-default)] [--vis-axis-tick-color:var(--color-neutral-border-subtle)]',
       primary:
@@ -127,6 +131,18 @@ const chartAxisCVA = cva('', {
 /** Layout of chart + legend wrapper from legend placement. */
 const chartRootCVA = cva('flex w-full font-mono', {
   variants: {
+    intent: {
+      multicolor:
+        '[--vis-color0:var(--color-blue-fill-default)] [--vis-color1:var(--color-red-fill-default)] [--vis-color2:var(--color-green-fill-default)] [--vis-color3:var(--color-purple-fill-default)] [--vis-color4:var(--color-yellow-fill-default)] [--vis-color5:var(--color-pink-fill-default)]',
+      neutral:
+        '[--vis-color0:var(--color-neutral-300)] [--vis-color1:var(--color-neutral-400)] [--vis-color2:var(--color-neutral-500)] [--vis-color3:var(--color-neutral-600)] [--vis-color4:var(--color-neutral-700)] [--vis-color5:var(--color-neutral-800)]',
+      primary:
+        '[--vis-color0:var(--color-primary-300)] [--vis-color1:var(--color-primary-400)] [--vis-color2:var(--color-primary-500)] [--vis-color3:var(--color-primary-600)] [--vis-color4:var(--color-primary-700)] [--vis-color5:var(--color-primary-800)]',
+      secondary:
+        '[--vis-color0:var(--color-secondary-300)] [--vis-color1:var(--color-secondary-400)] [--vis-color2:var(--color-secondary-500)] [--vis-color3:var(--color-secondary-600)] [--vis-color4:var(--color-secondary-700)] [--vis-color5:var(--color-secondary-800)]',
+      accent:
+        '[--vis-color0:var(--color-accent-300)] [--vis-color1:var(--color-accent-400)] [--vis-color2:var(--color-accent-500)] [--vis-color3:var(--color-accent-600)] [--vis-color4:var(--color-accent-700)] [--vis-color5:var(--color-accent-800)]',
+    } satisfies Record<ChartIntent, string>,
     legendPlacement: chartRootPlacementVariants,
     gap: {
       sm: 'gap-2',
@@ -168,14 +184,19 @@ export function chartThemeClasses(options: {
   )
 }
 
-export function chartLegendPlacementClasses(
-  placement: ChartLegendPlacement,
-  size: ChartSize,
-): { root: string; legend: string } {
+export function chartLegendPlacementClasses({
+  size,
+  placement = 'top-end',
+  intent = 'multicolor',
+}: {
+  placement: ChartLegendPlacement
+  size: ChartSize
+  intent: ChartIntent
+}): { root: string; legend: string } {
   const { side, align } = parseChartLegendPlacement(placement)
   const placementKey: ChartLegendPlacement = align === 'center' ? side : `${side}-${align}`
   return {
-    root: chartRootCVA({ legendPlacement: placementKey }),
+    root: chartRootCVA({ legendPlacement: placementKey, intent }),
     legend: chartLegendCVA({ legendPlacement: placementKey, size }),
   }
 }

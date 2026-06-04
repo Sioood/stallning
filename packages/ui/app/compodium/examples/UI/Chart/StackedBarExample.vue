@@ -189,6 +189,7 @@ const barEvents = {
           :height="320"
           :legend="{ show: true, placement: 'top-end' }"
           :value-formatter="(value) => formatMusicRevenue(value)"
+          :intent="{ axis: 'neutral', data: 'primary' }"
         />
         <UIChartStackedBar
           :data="musicFormatData.slice(-10)"
@@ -197,6 +198,7 @@ const barEvents = {
           :height="320"
           :legend="{ show: true, placement: 'right-center' }"
           :value-formatter="(value) => formatMusicRevenue(value)"
+          :intent="{ axis: 'neutral', data: 'secondary' }"
         />
         <UIChartStackedBar
           :data="musicFormatData.slice(-10)"
@@ -205,6 +207,7 @@ const barEvents = {
           :height="320"
           :legend="{ show: true, placement: 'bottom-center' }"
           :value-formatter="(value) => formatMusicRevenue(value)"
+          :intent="{ axis: 'neutral', data: 'accent' }"
         />
         <UIChartStackedBar
           :data="musicFormatData.slice(-10)"
@@ -213,6 +216,7 @@ const barEvents = {
           :height="320"
           :legend="{ show: true, placement: 'left-end' }"
           :value-formatter="(value) => formatMusicRevenue(value)"
+          :intent="{ axis: 'primary', data: 'multicolor' }"
         />
       </div>
     </section>

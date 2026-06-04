@@ -9,6 +9,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
+    "lint:fix": "pnpm run lint:oxlint --fix && pnpm run lint:eslint --fix",
     "lint:oxlint": "pnpm exec oxlint -c .oxlintrc.json .",
     "lint:eslint": "pnpm exec eslint .",
     "format": "pnpm exec oxfmt --write .",

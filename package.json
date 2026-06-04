@@ -9,6 +9,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
     "lint:oxlint": "turbo run lint:oxlint",
     "lint:eslint": "turbo run lint:eslint",
     "deps:check:minor": "pnpx taze minor -r",

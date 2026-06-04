@@ -45,6 +45,17 @@
         "packages/config/oxlint/tailwind.oxlintrc.json"
       ]
     },
+    "lint:fix": {
+      "dependsOn": ["^lint:fix"],
+      "inputs": [
+        "**/*.{ts,vue,js,json,yaml,yml,md}",
+        "eslint.config.ts",
+        ".oxlintrc.json",
+        "**/.oxlintrc.json",
+        "packages/config/oxlint/base.oxlintrc.json",
+        "packages/config/oxlint/tailwind.oxlintrc.json"
+      ]
+    },
     "lint:eslint": {
       "dependsOn": ["^lint:eslint"],
       "inputs": ["**/*.{ts,vue,js,json,yaml,yml,md}", "eslint.config.ts"]

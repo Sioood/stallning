@@ -115,4 +115,20 @@ describe('useComponentIcons', () => {
     })
     scope.stop()
   })
+
+  it('does not reserve leading slot when state is omitted and only trailingIcon is set', () => {
+    const scope = effectScope(true)
+    scope.run(() => {
+      const props = ref({
+        mode: 'leadingAndTrailing' as const,
+        trailingIcon: 'tabler:chevron-right',
+      })
+      const { isLeading, isTrailing, leadingIconName, trailingIconName } = useComponentIcons(props)
+      expect(isLeading.value).toBe(false)
+      expect(leadingIconName.value).toBe('')
+      expect(isTrailing.value).toBe(true)
+      expect(trailingIconName.value).toBe('tabler:chevron-right')
+    })
+    scope.stop()
+  })
 })

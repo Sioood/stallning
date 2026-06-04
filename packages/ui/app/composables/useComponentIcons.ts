@@ -33,25 +33,26 @@ export const useSemanticIcons: Record<Exclude<ComponentState, 'default'>, string
 export function useComponentIcons(componentProps: MaybeRefOrGetter<UseComponentIconsInputProps>) {
   const props = computed(() => toValue(componentProps))
   const mode = computed(() => props.value.mode || 'leadingAndTrailing')
+  const state = computed(() => props.value.state ?? 'default')
 
   const isLeading = computed(
     () =>
       mode.value === 'leadingAndTrailing' &&
       ((props.value.icon && props.value.leading) ||
         (props.value.icon && !props.value.trailing) ||
-        (props.value.state !== 'default' && !props.value.trailing) ||
+        (state.value !== 'default' && !props.value.trailing) ||
         !!props.value.leadingIcon),
   )
   const isTrailing = computed(
     () =>
       mode.value === 'leadingAndTrailing' &&
       ((props.value.icon && props.value.trailing) ||
-        (props.value.state !== 'default' && props.value.trailing) ||
+        (state.value !== 'default' && props.value.trailing) ||
         !!props.value.trailingIcon),
   )
 
-  const getStateIcon = (state: ComponentState): string => {
-    switch (state) {
+  const getStateIcon = (iconState: ComponentState): string => {
+    switch (iconState) {
       case 'loading':
         return props.value.loadingIcon || useSemanticIcons.loading
       case 'success':
@@ -70,33 +71,27 @@ export function useComponentIcons(componentProps: MaybeRefOrGetter<UseComponentI
   }
 
   const leadingIconName = computed(() => {
-    const state = props.value.state || 'default'
-    const stateIcon = getStateIcon(state)
+    const stateIcon = getStateIcon(state.value)
     if (stateIcon) return stateIcon
 
     return props.value.leadingIcon || props.value.icon || ''
   })
 
   const trailingIconName = computed(() => {
-    const state = props.value.state || 'default'
-    const stateIcon = getStateIcon(state)
+    const stateIcon = getStateIcon(state.value)
     if (stateIcon && !isLeading.value) return stateIcon
 
     return props.value.trailingIcon || props.value.icon || ''
   })
 
   const iconName = computed(() => {
-    const state = props.value.state || 'default'
-    const stateIcon = getStateIcon(state)
+    const stateIcon = getStateIcon(state.value)
     if (stateIcon) return stateIcon
 
     return props.value.icon || props.value.leadingIcon || ''
   })
 
-  const shouldAnimate = computed(() => {
-    const state = props.value.state || 'default'
-    return state === 'loading'
-  })
+  const shouldAnimate = computed(() => state.value === 'loading')
 
   return {
     iconName,

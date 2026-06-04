@@ -23,15 +23,15 @@ export function typescript(tsconfigRootDir?: string) {
         },
       },
       rules: {
+        '@typescript-eslint/no-explicit-any': 'error',
         '@typescript-eslint/no-unused-vars': [
           'error',
           {
             argsIgnorePattern: '^_',
-            varsIgnorePattern: '^_',
             ignoreRestSiblings: true,
+            varsIgnorePattern: '^_',
           },
         ],
-        '@typescript-eslint/no-explicit-any': 'error',
       },
     },
   ])

@@ -22,6 +22,7 @@ type BadgeIntent =
   | 'pink'
   | 'gray'
 type BadgeSize = 'sm' | 'md' | 'lg'
+type BadgeVariant = 'default' | 'subtle'
 
 const badgeCVA = cva('flex w-fit items-center justify-center', {
   variants: {
@@ -48,6 +49,10 @@ const badgeCVA = cva('flex w-fit items-center justify-center', {
       md: 'gap-1 border p-1',
       sm: 'gap-0.5 border p-0.5',
     } satisfies Record<BadgeSize, string>,
+    variant: {
+      default: '',
+      subtle: 'border-none',
+    } satisfies Record<BadgeVariant, string>,
   },
 })
 
@@ -119,6 +124,7 @@ interface BadgeProps extends UseComponentIconsProps {
   intent?: BadgeCVAProps['intent']
   label?: string
   size?: BadgeCVAProps['size']
+  variant?: BadgeCVAProps['variant']
   ui?: Partial<UIBadgeSlots>
 }
 
@@ -127,6 +133,7 @@ const props = withDefaults(defineProps<BadgeProps>(), {
   label: '',
   size: 'md',
   ui: undefined,
+  variant: 'default',
 })
 
 const { isLeading, isTrailing, leadingIconName, trailingIconName } = useComponentIcons(() => props)
@@ -143,7 +150,7 @@ extendCompodiumMeta({
 </script>
 
 <template>
-  <div :class="cn(badgeCVA({ intent, size }), ui?.root)">
+  <div :class="cn(badgeCVA({ intent, size, variant }), ui?.root)">
     <Icon
       v-if="isLeading && leadingIconName"
       :name="leadingIconName"
@@ -151,7 +158,7 @@ extendCompodiumMeta({
     />
     <slot>
       <span :class="cn(badgeLabelCVA({ intent, size }), ui?.label)">
-        {{ label }}
+        {{ $te(label) ? label : $t(label) }}
       </span>
     </slot>
     <Icon

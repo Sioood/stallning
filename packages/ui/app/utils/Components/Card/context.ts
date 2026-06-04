@@ -15,7 +15,17 @@ export type CardIntent = NonNullable<
 
 export type CardSize = NonNullable<ComponentSize>
 
+export interface UICardBaseSlots {
+  header?: ClassValue
+  body?: ClassValue
+  content?: ClassValue
+  footer?: ClassValue
+}
+
 export interface UICardSlots {
-  root?: ClassValue
+  bodyHeader?: ClassValue
+  bodyTitleDescriptionWrapper?: ClassValue
+  bodyTitle?: ClassValue
+  bodyDescription?: ClassValue
   content?: ClassValue
 }

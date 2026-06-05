@@ -1,6 +1,6 @@
 import { StackedBar, type NumericAccessor, type TooltipConfigInterface } from '@unovis/ts'
 
-import type { ChartStackedBarSeries } from '@/utils/Components/Chart/context'
+import type { ChartLegendSeries } from '@/utils/Components/Chart/context'
 
 // oxlint-disable-next-line max-params
 export type StackedBarCrosshairTemplate<T extends Record<string, unknown>> = (
@@ -24,8 +24,8 @@ function resolveStackedBarXLabel<T extends Record<string, unknown>>(
 export function buildStackedBarDefaultTooltip<T extends Record<string, unknown>>(options: {
   datum: T
   xAccessor: NumericAccessor<T>
-  series: ChartStackedBarSeries[]
-  formatValue: (value: number, seriesItem: ChartStackedBarSeries) => string
+  series: ChartLegendSeries[]
+  formatValue: (value: number, seriesItem: ChartLegendSeries) => string
 }): string {
   const { datum, xAccessor, series, formatValue } = options
   const xLabel = resolveStackedBarXLabel(datum, xAccessor)

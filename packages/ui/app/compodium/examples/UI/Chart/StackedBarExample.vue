@@ -38,7 +38,7 @@ const barEvents = {
         :series="musicFormatSeries"
         :x="x"
         :value-formatter="(value) => formatMusicRevenue(value)"
-        show-legend
+        :legend="{ show: true }"
       />
     </section>
 
@@ -66,7 +66,7 @@ const barEvents = {
         :series="musicFormatSeries"
         :x="x"
         :value-formatter="(value) => formatMusicRevenue(value)"
-        show-legend
+        :legend="{ show: true }"
       />
     </section>
 
@@ -82,7 +82,7 @@ const barEvents = {
         :orientation="horizontalOrientation"
         :height="320"
         :value-formatter="(value) => formatMusicRevenue(value)"
-        show-legend
+        :legend="{ show: true }"
       />
     </section>
 
@@ -120,7 +120,7 @@ const barEvents = {
         :y="[(d) => d.streaming, (d) => d.download, (d) => d.cd]"
         :color="['var(--vis-color4)', 'var(--vis-color3)', 'var(--vis-color2)']"
         :value-formatter="(value) => formatMusicRevenue(value)"
-        show-legend
+        :legend="{ show: true }"
         :series="[
           { key: 'streaming', label: 'Streaming', color: 'var(--vis-color4)' },
           { key: 'download', label: 'Download', color: 'var(--vis-color3)' },
@@ -228,8 +228,8 @@ const barEvents = {
         :data="musicFormatData.slice(-6)"
         :series="musicFormatSeries"
         :x="x"
-        :show-crosshair="false"
-        :show-tooltip="false"
+        :crosshair="{ show: false }"
+        :tooltip="{ show: false }"
         :axis="{ variant: 'default', x: { show: false }, y: { show: false } }"
       />
     </section>

@@ -12,7 +12,8 @@ import { computed } from 'vue'
 import { buildChartCrosshairVisBind } from '@/utils/Components/Chart/crosshair'
 import {
   buildChartStackedBarVisBind,
-  CHART_STACKED_BAR_OPTIONAL_PROP_KEYS,
+  pickChartStackedBarVisProps,
+  type ChartStackedBarVisPassthrough,
 } from '@/utils/Components/Chart/stacked-bar'
 import {
   buildHorizontalStackedBarTooltipTriggers,
@@ -25,54 +26,32 @@ import {
   chartLegendCVA,
   chartThemeClasses,
 } from '@/utils/Components/Chart/variants'
-import { pickDefined } from '@/utils/object'
 
 import type {
   ChartAxesConfig,
   ChartAxisProps,
   ChartCrosshairProps,
-  ChartIntent,
-  ChartLegendConfig,
-  ChartSize,
-  ChartStackedBarPassthrough,
-  ChartStackedBarSeries,
-  ChartTooltipProps,
+  ChartLegendSeries,
+  ChartShellProps,
   ChartXYContainerProps,
   UIChartStackedBarSlots,
 } from '@/utils/Components/Chart/context'
 
-interface ChartStackedBarProps<
-  T extends Record<string, unknown> = Record<string, unknown>,
-> extends ChartStackedBarPassthrough<T> {
+interface ChartStackedBarProps<T extends Record<string, unknown> = Record<string, unknown>>
+  extends ChartShellProps, ChartStackedBarVisPassthrough<T> {
   data?: T[]
   /** Required in app code; omitted only in Compodium preview (built-in demo fallback). */
   x?: NumericAccessor<T>
   y?: NumericAccessor<T>[]
-  series?: ChartStackedBarSeries[]
-  height?: number
-  width?: number | string
-  ariaLabel?: string | null
-  /** @deprecated Prefer `legend.show` */
-  showLegend?: boolean
-  /** @deprecated Prefer `crosshair.show` */
-  showCrosshair?: boolean
-  /** @deprecated Prefer `tooltip.show` */
-  showTooltip?: boolean
-  /** @deprecated Prefer `crosshair` + `template` or `tooltipTemplate` */
-  tooltipTemplate?: (datum: T) => string
-  valueFormatter?: (value: number, seriesItem: ChartStackedBarSeries) => string
-  /** @deprecated Prefer `tooltip.verticalShift` */
-  tooltipVerticalShift?: number
-  intent?: ChartIntent | { axis: ChartIntent; data: ChartIntent }
-  size?: ChartSize
-  ui?: Partial<UIChartStackedBarSlots>
+  series?: ChartLegendSeries[]
   axis?: ChartAxesConfig<T>
-  legend?: ChartLegendConfig
   crosshair?: ChartCrosshairProps<T>
-  tooltip?: ChartTooltipProps
+  ui?: Partial<UIChartStackedBarSlots>
   /** XY container passthrough (margin, domain, scale, …). `data` / `height` / `width` stay top-level. */
   container?: Omit<ChartXYContainerProps<T>, 'data' | 'ui'>
 }
+
+defineOptions({ inheritAttrs: false })
 
 const props = withDefaults(defineProps<ChartStackedBarProps<T>>(), {
   ariaLabel: undefined,
@@ -88,19 +67,16 @@ const props = withDefaults(defineProps<ChartStackedBarProps<T>>(), {
   intent: () => ({ axis: 'neutral', data: 'multicolor' }),
   legend: undefined,
   series: undefined,
-  showCrosshair: true,
-  showLegend: false,
-  showTooltip: true,
   size: 'md',
   tooltip: undefined,
-  tooltipTemplate: undefined,
-  tooltipVerticalShift: undefined,
   ui: () => ({}),
   valueFormatter: undefined,
   width: undefined,
   x: undefined,
   y: undefined,
 })
+
+const stackedBarVisPassthrough = computed(() => pickChartStackedBarVisProps(props))
 
 const axisXConfig = computed(
   (): ChartAxisProps<T> => ({
@@ -116,7 +92,7 @@ const axisYConfig = computed(
   }),
 )
 
-const resolvedSeries = computed((): ChartStackedBarSeries[] => {
+const resolvedSeries = computed((): ChartLegendSeries[] => {
   if (props.series?.length) {
     return props.series
   }
@@ -149,8 +125,9 @@ const isChartReady = computed(
 )
 
 const barColor = computed((): ColorAccessor<T> | string[] | undefined => {
-  if (props.color !== undefined) {
-    return props.color
+  const passthroughColor = stackedBarVisPassthrough.value.color
+  if (passthroughColor !== undefined && passthroughColor !== null) {
+    return passthroughColor
   }
   if (resolvedSeries.value.length === 0) {
     return undefined
@@ -160,13 +137,13 @@ const barColor = computed((): ColorAccessor<T> | string[] | undefined => {
   )
 })
 
-const showLegendResolved = computed(() => props.legend?.show ?? props.showLegend ?? false)
+const showLegendResolved = computed(() => props.legend?.show ?? false)
 
 const legendPlacement = computed(() => props.legend?.placement ?? 'top-center')
 
-const showCrosshairResolved = computed(() => props.crosshair?.show ?? props.showCrosshair ?? true)
+const showCrosshairResolved = computed(() => props.crosshair?.show ?? true)
 
-const showTooltipResolved = computed(() => props.tooltip?.show ?? props.showTooltip ?? true)
+const showTooltipResolved = computed(() => props.tooltip?.show ?? true)
 
 const themeClass = computed(() =>
   chartThemeClasses({
@@ -190,7 +167,9 @@ const legendUi = computed(() => props.legend?.ui)
 
 const containerUiClass = computed(() => cn(props.ui?.chart))
 
-const stackedBarOrientation = computed(() => props.orientation ?? Orientation.Vertical)
+const stackedBarOrientation = computed(
+  () => stackedBarVisPassthrough.value.orientation ?? Orientation.Vertical,
+)
 
 const isHorizontalStackedBar = computed(
   () => stackedBarOrientation.value === Orientation.Horizontal,
@@ -205,7 +184,7 @@ const visStackedBarBind = computed(
     buildChartStackedBarVisBind({
       color: barColor.value,
       passthrough: {
-        ...pickDefined(props, CHART_STACKED_BAR_OPTIONAL_PROP_KEYS),
+        ...stackedBarVisPassthrough.value,
         orientation: stackedBarOrientation.value,
       },
       x: xAccessor.value!,
@@ -213,7 +192,7 @@ const visStackedBarBind = computed(
     }),
 )
 
-function formatValue(value: number, seriesItem: ChartStackedBarSeries): string {
+function formatValue(value: number, seriesItem: ChartLegendSeries): string {
   if (props.valueFormatter) {
     return props.valueFormatter(value, seriesItem)
   }
@@ -223,9 +202,6 @@ function formatValue(value: number, seriesItem: ChartStackedBarSeries): string {
 const stackedBarTooltipTemplate = computed((): StackedBarCrosshairTemplate<T> => {
   if (props.crosshair?.template) {
     return props.crosshair.template
-  }
-  if (props.tooltipTemplate) {
-    return (datum) => props.tooltipTemplate!(datum)
   }
   return (datum) =>
     buildStackedBarDefaultTooltip({
@@ -266,7 +242,7 @@ const chartTooltipProps = computed(() => {
       followCursor: props.tooltip?.followCursor ?? isHorizontalStackedBar.value,
       horizontalPlacement: props.tooltip?.horizontalPlacement ?? Position.Center,
       triggers: props.tooltip?.triggers ?? horizontalTriggers,
-      verticalShift: props.tooltip?.verticalShift ?? props.tooltipVerticalShift ?? props.height,
+      verticalShift: props.tooltip?.verticalShift ?? props.height,
     }),
   }
 })

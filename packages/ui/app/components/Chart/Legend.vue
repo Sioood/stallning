@@ -7,18 +7,18 @@ import { chartLegendCVA } from '@/utils/Components/Chart/variants'
 import type {
   ChartLegendPlacement,
   ChartSize,
-  ChartStackedBarSeries,
+  ChartLegendSeries,
   UIChartLegendSlots,
 } from '@/utils/Components/Chart/context'
 
 export type {
   ChartLegendPlacement,
-  ChartStackedBarSeries,
+  ChartLegendSeries,
   UIChartLegendSlots,
 } from '@/utils/Components/Chart/context'
 
 export interface ChartLegendComponentProps {
-  series: ChartStackedBarSeries[]
+  series: ChartLegendSeries[]
   placement?: ChartLegendPlacement
   size?: ChartSize
   show?: boolean

@@ -1,6 +1,8 @@
 import type {
   AxisConfigInterface,
   CrosshairConfigInterface,
+  DonutConfigInterface,
+  SingleContainerConfigInterface,
   StackedBarConfigInterface,
   TooltipConfigInterface,
   XYContainerConfigInterface,
@@ -18,13 +20,29 @@ export type ChartLegendAlign = 'start' | 'center' | 'end'
 /** e.g. `top`, `top-start`, `bottom-center`, `left`, `right-end` */
 export type ChartLegendPlacement = ChartLegendSide | `${ChartLegendSide}-${ChartLegendAlign}`
 
-export interface ChartStackedBarSeries {
+export interface ChartLegendSeries {
   key: string
   label: string
   color?: string
 }
 
+/** Shared layout props for composite chart components (`UIChartStackedBar`, `UIChartDonut`, …). */
+export interface ChartShellProps {
+  height?: number
+  width?: number | string
+  ariaLabel?: string | null
+  intent?: ChartIntent | { axis: ChartIntent; data: ChartIntent }
+  size?: ChartSize
+  legend?: ChartLegendConfig
+  tooltip?: ChartTooltipProps
+  valueFormatter?: (value: number, seriesItem: ChartLegendSeries) => string
+}
+
 export interface UIChartXYContainerSlots {
+  root?: ClassValue
+}
+
+export interface UIChartSingleContainerSlots {
   root?: ClassValue
 }
 
@@ -48,38 +66,29 @@ export interface UIChartStackedBarSlots {
   chart?: ClassValue
 }
 
+export interface UIChartDonutSlots {
+  root?: ClassValue
+  legend?: ClassValue
+  chart?: ClassValue
+}
+
 export interface UIChartAxisSlots {
   root?: ClassValue
 }
 
-/** Unovis `VisStackedBar` config fields exposed on `UIChartStackedBar` (declared explicitly for Vue `defineProps`). */
-export interface ChartStackedBarPassthrough<
-  T extends Record<string, unknown> = Record<string, unknown>,
-> {
-  color?: StackedBarConfigInterface<T>['color']
-  barWidth?: StackedBarConfigInterface<T>['barWidth']
-  barMaxWidth?: StackedBarConfigInterface<T>['barMaxWidth']
-  dataStep?: StackedBarConfigInterface<T>['dataStep']
-  barPadding?: StackedBarConfigInterface<T>['barPadding']
-  roundedCorners?: StackedBarConfigInterface<T>['roundedCorners']
-  cursor?: StackedBarConfigInterface<T>['cursor']
-  barMinHeight1Px?: StackedBarConfigInterface<T>['barMinHeight1Px']
-  barMinHeightZeroValue?: StackedBarConfigInterface<T>['barMinHeightZeroValue']
-  orientation?: StackedBarConfigInterface<T>['orientation']
-  duration?: StackedBarConfigInterface<T>['duration']
-  events?: StackedBarConfigInterface<T>['events']
-  attributes?: StackedBarConfigInterface<T>['attributes']
-  id?: StackedBarConfigInterface<T>['id']
-  xScale?: StackedBarConfigInterface<T>['xScale']
-  yScale?: StackedBarConfigInterface<T>['yScale']
-  excludeFromDomainCalculation?: StackedBarConfigInterface<T>['excludeFromDomainCalculation']
-}
-
 // Unovis configs use extends-chains the Vue SFC compiler cannot resolve; use @vue-ignore on those bases.
+export type { DonutConfigInterface, StackedBarConfigInterface }
+
 export interface ChartXYContainerProps<T extends Record<string, unknown> = Record<string, unknown>>
   extends /* @vue-ignore */ XYContainerConfigInterface<T> {
   data?: T[]
   ui?: Partial<UIChartXYContainerSlots>
+}
+
+export interface ChartSingleContainerProps<T = unknown>
+  extends /* @vue-ignore */ SingleContainerConfigInterface<T> {
+  data?: T[]
+  ui?: Partial<UIChartSingleContainerSlots>
 }
 
 /**

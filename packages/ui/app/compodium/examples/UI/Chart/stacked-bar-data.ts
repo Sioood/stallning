@@ -1,4 +1,4 @@
-import type { ChartStackedBarSeries } from '@/utils/Components/Chart/context'
+import type { ChartLegendSeries } from '@/utils/Components/Chart/context'
 
 export type MusicFormatRecord = {
   year: number
@@ -9,7 +9,7 @@ export type MusicFormatRecord = {
   streaming: number
 }
 
-export const musicFormatSeries: ChartStackedBarSeries[] = [
+export const musicFormatSeries: ChartLegendSeries[] = [
   { color: 'var(--vis-color0)', key: 'vinyl', label: 'Vinyl' },
   { color: 'var(--vis-color1)', key: 'cassette', label: 'Cassette' },
   { color: 'var(--vis-color2)', key: 'cd', label: 'CD' },

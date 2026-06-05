@@ -116,7 +116,10 @@ export default defineConfig({
     projects: [
       defineProject({
         resolve: {
-          alias: workspaceLayerAliasesFromNuxtAppTsconfig(),
+          alias: {
+            '@': resolvePath(packageRoot, 'app'),
+            ...workspaceLayerAliasesFromNuxtAppTsconfig(),
+          },
         },
         root: packageRoot,
         test: {

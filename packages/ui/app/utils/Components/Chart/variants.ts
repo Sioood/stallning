@@ -107,6 +107,28 @@ const chartTooltipCVA = cva('[--vis-tooltip-border-radius:0]', {
   },
 })
 
+const chartDonutCVA = cva('', {
+  variants: {
+    intent: {
+      accent:
+        '[--vis-donut-background-color:var(--color-accent-fill-subtle)] [--vis-donut-central-label-text-color:var(--color-accent-text-default)] [--vis-donut-central-sub-label-text-color:var(--color-accent-text-subtle)]',
+      multicolor:
+        '[--vis-donut-background-color:var(--color-neutral-fill-subtle)] [--vis-donut-central-label-text-color:var(--color-neutral-text-default)] [--vis-donut-central-sub-label-text-color:var(--color-neutral-text-subtle)]',
+      neutral:
+        '[--vis-donut-background-color:var(--color-neutral-fill-subtle)] [--vis-donut-central-label-text-color:var(--color-neutral-text-default)] [--vis-donut-central-sub-label-text-color:var(--color-neutral-text-subtle)]',
+      primary:
+        '[--vis-donut-background-color:var(--color-primary-fill-subtle)] [--vis-donut-central-label-text-color:var(--color-primary-text-default)] [--vis-donut-central-sub-label-text-color:var(--color-primary-text-subtle)]',
+      secondary:
+        '[--vis-donut-background-color:var(--color-secondary-fill-subtle)] [--vis-donut-central-label-text-color:var(--color-secondary-text-default)] [--vis-donut-central-sub-label-text-color:var(--color-secondary-text-subtle)]',
+    } satisfies Record<ChartIntent, string>,
+    size: {
+      lg: '[--vis-donut-central-label-font-size:1.25rem] [--vis-donut-central-sub-label-font-size:0.875rem]',
+      md: '[--vis-donut-central-label-font-size:1rem] [--vis-donut-central-sub-label-font-size:0.75rem]',
+      sm: '[--vis-donut-central-label-font-size:0.875rem] [--vis-donut-central-sub-label-font-size:0.6875rem]',
+    } satisfies Record<ChartSize, string>,
+  },
+})
+
 const chartAxisCVA = cva('', {
   variants: {
     intent: {
@@ -172,15 +194,40 @@ export const chartLegendCVA = cva('', {
   },
 })
 
+export function chartAxisThemeClasses(options: {
+  intent: ChartIntent
+  axisVariant?: ChartAxisVariant
+}): string {
+  return cn(
+    chartAxisCVA({ intent: options.intent, variant: options.axisVariant ?? 'default' }),
+    '[--vis-font-family:var(--font-mono)]',
+  )
+}
+
+export function chartTooltipThemeClasses(options: {
+  intent: ChartIntent
+  size: ChartSize
+}): string {
+  return chartTooltipCVA({ intent: options.intent, size: options.size })
+}
+
+export function chartDonutThemeClasses(options: { intent: ChartIntent; size: ChartSize }): string {
+  return cn(
+    chartDonutCVA({ intent: options.intent, size: options.size }),
+    chartTooltipThemeClasses(options),
+    '[--vis-font-family:var(--font-mono)]',
+  )
+}
+
+/** Stacked bar: axis + tooltip theme tokens. */
 export function chartThemeClasses(options: {
   intent: ChartIntent
   size: ChartSize
   axisVariant?: ChartAxisVariant
 }): string {
   return cn(
-    chartAxisCVA({ intent: options.intent, variant: options.axisVariant ?? 'default' }),
-    chartTooltipCVA({ intent: options.intent, size: options.size }),
-    '[--vis-font-family:var(--font-mono)]',
+    chartAxisThemeClasses({ axisVariant: options.axisVariant, intent: options.intent }),
+    chartTooltipThemeClasses({ intent: options.intent, size: options.size }),
   )
 }
 

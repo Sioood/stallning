@@ -2,6 +2,7 @@
 import { cva } from 'class-variance-authority'
 
 import type { NuxtLinkProps } from '#app'
+import type { ClassValue } from 'vue'
 
 defineOptions({ inheritAttrs: false })
 
@@ -41,6 +42,9 @@ interface LinkProps extends /* @vue-ignore */ Omit<NuxtLinkProps, 'custom'> {
   styled?: boolean
   intent?: linkIntent
   variant?: linkVariant
+  ui?: {
+    root?: ClassValue
+  }
 }
 
 const props = withDefaults(defineProps<LinkProps>(), {
@@ -50,6 +54,7 @@ const props = withDefaults(defineProps<LinkProps>(), {
   styled: true,
   target: undefined,
   to: undefined,
+  ui: undefined,
   variant: 'default',
 })
 const config = useRuntimeConfig()
@@ -66,7 +71,11 @@ const linkTarget = computed(() => props.target || (isExternal.value ? '_blank' :
 const linkRel = computed(() => props.rel || (isExternal.value ? 'noopener noreferrer' : undefined))
 
 const linkClass = computed(() =>
-  cn(props.styled ? linkCVA({ intent: props.intent, variant: props.variant }) : ''),
+  cn(
+    props.styled
+      ? cn(linkCVA({ intent: props.intent, variant: props.variant }), props.ui?.root)
+      : cn(props.ui?.root),
+  ),
 )
 
 const href = computed(() => {

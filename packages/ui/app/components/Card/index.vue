@@ -2,7 +2,12 @@
 import { cva } from 'class-variance-authority'
 
 import type { CardBaseProps } from './Base.vue'
-import type { CardIntent, CardSize, UICardSlots } from '~/utils/Components/Card/context'
+import type {
+  CardIntent,
+  CardSize,
+  UICardBaseSlots,
+  UICardSlots,
+} from '~/utils/Components/Card/context'
 
 const CardBodyHeaderCVA = cva('flex w-full items-center justify-between font-mono uppercase', {
   variants: {
@@ -45,9 +50,9 @@ const CardBodyCVA = cva('flex flex-col', {
       secondary: '',
     } as const satisfies Record<CardIntent, string>,
     size: {
-      lg: 'gap-6',
-      md: 'gap-4',
-      sm: 'gap-2',
+      lg: 'gap-6 p-2',
+      md: 'gap-4 p-2',
+      sm: 'gap-2 p-2',
     } as const satisfies Record<CardSize, string>,
   },
 })
@@ -94,12 +99,12 @@ const CardBodyDescriptionCVA = cva('', {
   },
 })
 
-interface CardProps extends Omit<CardBaseProps, 'ui'>, UseComponentIconsProps {
+export interface CardProps extends Omit<CardBaseProps, 'ui'>, UseComponentIconsProps {
   subtitle?: string
   tag?: string
   title?: string
   description?: string
-  cardBaseUi?: Partial<UICardSlots>
+  cardBaseUi?: Partial<UICardBaseSlots>
   elementIntent?: CardIntent
   ui?: UICardSlots
 }
@@ -120,17 +125,17 @@ const { isLeading, isTrailing, leadingIconName, trailingIconName } = useComponen
 
 const cardBaseProps = computed(() => ({
   ...pick(props, ['intent', 'variant', 'size']),
-  ui: props.cardBaseUi,
+  ui: { ...props.cardBaseUi, body: cn('relative', props.cardBaseUi?.body) },
 }))
 </script>
 
 <template>
-  <UICardBase v-bind="cardBaseProps" :ui="{ body: 'relative' }">
+  <UICardBase v-bind="cardBaseProps">
     <template v-if="$slots.header" #header>
       <slot name="header" />
     </template>
 
-    <div :class="cn(CardBodyCVA({ intent, size }))">
+    <div :class="cn(CardBodyCVA({ intent, size }), ui?.content)">
       <UIBadge
         v-if="tag"
         :label="tag"

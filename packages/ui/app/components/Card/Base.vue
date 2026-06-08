@@ -260,7 +260,7 @@ withDefaults(defineProps<CardBaseProps>(), {
 </script>
 
 <template>
-  <div class="join join-vertical">
+  <div class="join join-vertical" :class="ui?.root">
     <div
       v-if="$slots.header"
       :class="cn('join-item', cardHeaderFooterCVA({ variant, intent, size }), ui?.header)"

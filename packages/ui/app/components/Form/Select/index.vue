@@ -20,14 +20,14 @@ export type { SelectItem } from '~/utils/Components/Form/Select/context'
 
 export interface SelectProps
   extends
-    Omit<ArkSelectRootProps<SelectItem[]>, 'collection'>,
-    Omit<ArkSelectRootProviderBaseProps, 'value'> {
+    Omit<ArkSelectRootProps<SelectItem>, 'collection'>,
+    Omit<ArkSelectRootProviderBaseProps<SelectItem>, 'value'> {
   /**
    * Pass the return value of `useSelect()` to enable **RootProvider** mode —
    * the component will be controlled entirely from outside via the Ark API object.
    * Omit (or leave `undefined`) to use the default **Root** mode with `v-model`.
    */
-  value?: UseSelectReturn
+  value?: UseSelectReturn<SelectItem>['value']
   /** Items to display. Pass `null` to indicate items have not been loaded yet (async). */
   items?: SelectItem[] | null
   placeholder?: string
@@ -99,9 +99,10 @@ const hasMaxReached = computed(
 )
 
 const collection = computed(() => {
-  const processed = rawItems.value.map((item) => ({
+  const processed: SelectItem[] = rawItems.value.map((item) => ({
     ...item,
-    disabled: item.disabled || (hasMaxReached.value && !coalescedValue.value.includes(item.value)),
+    disabled:
+      item.disabled === true || (hasMaxReached.value && !coalescedValue.value.includes(item.value)),
   }))
 
   if (processed.some((item) => item.group)) {
@@ -115,8 +116,6 @@ const collection = computed(() => {
 })
 
 const isGrouped = computed(() => rawItems.value.some((item) => item.group))
-
-const isProvider = computed(() => props.value !== undefined)
 
 const shellProps = computed<FormControlShellProps>(() => ({
   disabled: props.disabled,
@@ -159,7 +158,7 @@ const rootPassthrough = computed(() => {
   return rest
 })
 
-extendCompodiumMeta<typeof props & { modelValue?: string[] }>({
+extendCompodiumMeta({
   defaultProps: {
     intent: 'primary',
     label: 'Framework',
@@ -174,7 +173,7 @@ extendCompodiumMeta<typeof props & { modelValue?: string[] }>({
     v-bind="{ ...rootPassthrough, ...attrs }"
     v-model="modelValue"
     v-model:open="open"
-    :collection="isProvider ? undefined : collection"
+    :collection
     :intent
     :size
     :ui="{ root: ui?.root }"

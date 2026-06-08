@@ -58,8 +58,8 @@ const asyncLoading = ref(false)
 const asyncOpen = ref(false)
 const asyncValue = ref<string[]>([])
 
-async function handleAsyncOpen(isOpen: boolean) {
-  asyncOpen.value = isOpen
+async function handleAsyncOpen(isOpen: boolean | undefined) {
+  asyncOpen.value = isOpen ?? false
   if (!isOpen || asyncItems.value !== null) return
   asyncLoading.value = true
   await new Promise((resolve) => setTimeout(resolve, 1200))

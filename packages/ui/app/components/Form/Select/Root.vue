@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
   Select as ArkSelect,
+  createListCollection,
   type SelectRootBaseProps,
   type SelectRootProviderBaseProps,
   type UseSelectReturn,
@@ -25,9 +26,11 @@ export interface UIFormSelectRootSlots {
 
 export interface SelectRootProps
   extends
-    Omit<SelectRootBaseProps<SelectItem>, 'modelValue' | 'open'>,
-    Omit<SelectRootProviderBaseProps, 'value'> {
-  value?: UseSelectReturn
+    Omit<SelectRootBaseProps<SelectItem>, 'modelValue' | 'open' | 'collection'>,
+    Omit<SelectRootProviderBaseProps<SelectItem>, 'value'> {
+  collection?: SelectRootBaseProps<SelectItem>['collection']
+  /** Pass the return value of `useSelect()` to enable RootProvider mode. */
+  value?: UseSelectReturn<SelectItem>['value']
   intent?: SelectIntent
   size?: SelectSize
   ui?: Partial<UIFormSelectRootSlots & UISelectSlots>
@@ -50,19 +53,15 @@ provide(selectChromeKey, {
   size: toRef(props, 'size'),
 })
 
-const isProvider = computed(() => props.value !== undefined)
+const arkAttrs = computed(() => splitArkAttrs(attrs))
 
-const rootComponent = computed(() => (isProvider.value ? ArkSelect.RootProvider : ArkSelect.Root))
+const fallbackCollection = createListCollection<SelectItem>({ items: [] })
 
-const rootProps = computed(() => {
-  if (isProvider.value) {
-    return pick(props, ['asChild', 'lazyMount', 'unmountOnExit', 'value'])
-  }
-  return pick(props, [
+const rootOnlyProps = computed(() =>
+  pick(props, [
     'asChild',
     'autoComplete',
     'closeOnSelect',
-    'collection',
     'composite',
     'defaultHighlightedValue',
     'defaultOpen',
@@ -83,33 +82,37 @@ const rootProps = computed(() => {
     'required',
     'scrollToIndexFn',
     'unmountOnExit',
-  ])
-})
+  ] as const),
+)
 
-const arkAttrs = computed(() => splitArkAttrs(attrs))
+const rootClass = computed(() =>
+  cn(selectRootCVA(), arkAttrs.value.class as ClassValue, props.ui?.root),
+)
 
-const rootBindings = computed(() => {
-  const base: Record<string, unknown> = {
-    ...rootProps.value,
-    ...arkAttrs.value,
-    class: cn(selectRootCVA(), arkAttrs.value.class as ClassValue, props.ui?.root),
-  }
+const providerBindings = computed(() => ({
+  ...pick(props, ['asChild', 'lazyMount', 'unmountOnExit'] as const),
+  ...arkAttrs.value,
+  class: rootClass.value,
+}))
 
-  if (!isProvider.value) {
-    if (open.value !== undefined) {
-      base.open = open.value
-      base['onUpdate:open'] = (next: boolean) => {
-        open.value = next
+const rootBindings = computed(() => ({
+  ...rootOnlyProps.value,
+  collection: props.collection ?? fallbackCollection,
+  ...arkAttrs.value,
+  class: rootClass.value,
+  ...(open.value !== undefined
+    ? {
+        'onUpdate:open': (next: boolean) => {
+          open.value = next
+        },
+        open: open.value,
       }
-    }
-    base.modelValue = modelValue.value ?? []
-    base['onUpdate:modelValue'] = (next: string[]) => {
-      modelValue.value = next
-    }
-  }
-
-  return base
-})
+    : {}),
+  modelValue: modelValue.value ?? [],
+  'onUpdate:modelValue': (next: string[]) => {
+    modelValue.value = next
+  },
+}))
 
 function onValueChange(details: { value: string[] }) {
   if (modelValue.value !== undefined) {
@@ -117,7 +120,7 @@ function onValueChange(details: { value: string[] }) {
   }
 }
 
-extendCompodiumMeta<typeof props & { modelValue?: string[] }>({
+extendCompodiumMeta({
   defaultProps: {
     intent: 'primary',
     size: 'md',
@@ -126,7 +129,10 @@ extendCompodiumMeta<typeof props & { modelValue?: string[] }>({
 </script>
 
 <template>
-  <component :is="rootComponent" v-bind="rootBindings" @value-change="onValueChange">
+  <ArkSelect.RootProvider v-if="value" :value="value" v-bind="providerBindings">
     <slot />
-  </component>
+  </ArkSelect.RootProvider>
+  <ArkSelect.Root v-else v-bind="rootBindings" @value-change="onValueChange">
+    <slot />
+  </ArkSelect.Root>
 </template>

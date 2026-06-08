@@ -44,7 +44,7 @@ const clearAttrs = computed(() => {
     @click.prevent
   >
     <slot>
-      <Icon name="tabler:x" :class="iconClass" />
+      <UIFormSelectGlyph name="x" :glyph-class="iconClass" />
     </slot>
   </ArkSelect.ClearTrigger>
 </template>

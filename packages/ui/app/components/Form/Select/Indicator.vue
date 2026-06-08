@@ -49,7 +49,7 @@ const indicatorAttrs = computed(() => {
     "
   >
     <slot>
-      <Icon name="tabler:chevron-down" :class="iconClass" />
+      <UIFormSelectGlyph name="chevron-down" :glyph-class="iconClass" />
     </slot>
   </ArkSelect.Indicator>
 </template>

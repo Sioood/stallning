@@ -102,11 +102,9 @@ const rootBindings = computed(() => {
         open.value = next
       }
     }
-    if (modelValue.value !== undefined) {
-      base.modelValue = modelValue.value
-      base['onUpdate:modelValue'] = (next: string[]) => {
-        modelValue.value = next
-      }
+    base.modelValue = modelValue.value ?? []
+    base['onUpdate:modelValue'] = (next: string[]) => {
+      modelValue.value = next
     }
   }
 
@@ -119,7 +117,7 @@ function onValueChange(details: { value: string[] }) {
   }
 }
 
-extendCompodiumMeta({
+extendCompodiumMeta<typeof props & { modelValue?: string[] }>({
   defaultProps: {
     intent: 'primary',
     size: 'md',

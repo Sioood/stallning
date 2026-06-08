@@ -23,7 +23,7 @@ export const selectTriggerCVA = cva('w-full justify-between active:scale-100', {
 })
 
 export const selectClearTriggerCVA = cva(
-  'cursor-pointer hover:text-error-text-default-hover data-[disabled=true]:cursor-not-allowed',
+  'cursor-pointer hover:text-error-text-default-hover data-[disabled=true]:cursor-not-allowed [hidden]:hidden',
 )
 
 export const selectPositionerCVA = cva('z-9999 origin-(--transform-origin)')
@@ -98,18 +98,18 @@ export const selectLabelCVA = cva('block', {
   variants: {
     intent: {
       accent:
-        'text-accent-text-subtle data-[disabled]:opacity-50 data-[invalid]:text-error-text-default',
+        'text-accent-text-default data-[disabled]:opacity-50 data-[invalid]:text-error-text-default',
       neutral:
-        'text-neutral-text-subtle data-[disabled]:opacity-50 data-[invalid]:text-error-text-default',
+        'text-neutral-text-default data-[disabled]:opacity-50 data-[invalid]:text-error-text-default',
       primary:
-        'text-primary-text-subtle data-[disabled]:opacity-50 data-[invalid]:text-error-text-default',
+        'text-primary-text-default data-[disabled]:opacity-50 data-[invalid]:text-error-text-default',
       secondary:
-        'text-secondary-text-subtle data-[disabled]:opacity-50 data-[invalid]:text-error-text-default',
+        'text-secondary-text-default data-[disabled]:opacity-50 data-[invalid]:text-error-text-default',
     } satisfies Record<SelectIntent, string>,
     size: {
-      lg: 'txt-label mb-1.5',
-      md: 'txt-caption mb-1',
-      sm: 'txt-caption mb-1',
+      lg: 'txt-h6',
+      md: 'txt-label',
+      sm: 'txt-caption',
     } satisfies Record<SelectSize, string>,
   },
 })

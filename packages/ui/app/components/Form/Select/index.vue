@@ -12,6 +12,7 @@ import type {
   SelectItem,
   UISelectSlots,
 } from '~/utils/Components/Form/Select/context'
+import type { FormControlShellProps } from '~ui/app/components/Form/FormControlShell.vue'
 
 defineOptions({ inheritAttrs: false })
 
@@ -31,6 +32,8 @@ export interface SelectProps
   items?: SelectItem[] | null
   placeholder?: string
   label?: string
+  helperText?: string
+  error?: string
   /** Allow multiple selection */
   multiple?: boolean
   /** Maximum number of items that can be selected (requires `multiple`) */
@@ -52,15 +55,19 @@ export interface SelectProps
   ui?: Partial<UISelectSlots>
 }
 
-const modelValue = defineModel<string[]>({ default: () => [] })
-const open = defineModel<boolean>('open', { default: false })
+const modelValue = defineModel<string[]>()
+const open = defineModel<boolean>('open')
 
 const props = withDefaults(defineProps<SelectProps>(), {
   allowSelectAll: false,
+  closeOnSelect: true,
   emptyText: 'select.noOptions',
+  error: undefined,
+  helperText: undefined,
   intent: 'primary',
   items: () => [],
   label: undefined,
+  lazyMount: true,
   loading: false,
   loadingText: 'select.loading',
   maxSelection: undefined,
@@ -72,6 +79,7 @@ const props = withDefaults(defineProps<SelectProps>(), {
   size: 'md',
   teleportTo: 'body',
   ui: undefined,
+  unmountOnExit: true,
   value: undefined,
 })
 
@@ -79,17 +87,21 @@ const attrs = useAttrs()
 
 const rawItems = computed(() => props.items ?? [])
 
+const coalescedValue = computed(() => modelValue.value ?? [])
+
+const hasValue = computed(() => coalescedValue.value.length > 0)
+
 const hasMaxReached = computed(
   () =>
     props.multiple &&
     props.maxSelection !== undefined &&
-    modelValue.value.length >= props.maxSelection,
+    coalescedValue.value.length >= props.maxSelection,
 )
 
 const collection = computed(() => {
   const processed = rawItems.value.map((item) => ({
     ...item,
-    disabled: item.disabled || (hasMaxReached.value && !modelValue.value.includes(item.value)),
+    disabled: item.disabled || (hasMaxReached.value && !coalescedValue.value.includes(item.value)),
   }))
 
   if (processed.some((item) => item.group)) {
@@ -106,6 +118,21 @@ const isGrouped = computed(() => rawItems.value.some((item) => item.group))
 
 const isProvider = computed(() => props.value !== undefined)
 
+const shellProps = computed<FormControlShellProps>(() => ({
+  disabled: props.disabled,
+  error: props.error,
+  helperText: props.helperText,
+  intent: props.intent,
+  invalid: props.invalid || String(props.error ?? '').length > 0,
+  label: props.label,
+  readOnly: props.readOnly,
+  required: props.required,
+  size: props.size,
+  ui: {
+    shell: props.ui?.control,
+  },
+}))
+
 function handleValueChange(details: { value: string[] }) {
   if (props.maxSelection !== undefined && details.value.length > props.maxSelection) return
   modelValue.value = details.value
@@ -115,6 +142,8 @@ const rootPassthrough = computed(() => {
   const {
     allowSelectAll: _allowSelectAll,
     emptyText: _emptyText,
+    error: _error,
+    helperText: _helperText,
     items: _items,
     label: _label,
     loading: _loading,
@@ -130,7 +159,7 @@ const rootPassthrough = computed(() => {
   return rest
 })
 
-extendCompodiumMeta({
+extendCompodiumMeta<typeof props & { modelValue?: string[] }>({
   defaultProps: {
     intent: 'primary',
     label: 'Framework',
@@ -151,23 +180,25 @@ extendCompodiumMeta({
     :ui="{ root: ui?.root }"
     @value-change="handleValueChange"
   >
-    <UIFormSelectLabel v-if="label" :ui="ui?.label">
-      {{ $te(label) ? $t(label) : label }}
-    </UIFormSelectLabel>
-
-    <UIFormSelectControl :ui="ui?.control">
-      <UIFormSelectTrigger :disabled :ui="ui?.trigger">
-        <UIFormSelectValueText
-          :placeholder="$te(placeholder) ? $t(placeholder) : placeholder"
-          :ui="ui?.valueText"
-        />
-        <UIFormSelectClearTrigger
-          v-if="showClear && modelValue.length > 0"
-          :ui="ui?.clearTrigger"
-        />
-        <UIFormSelectIndicator :ui="ui?.indicator" />
-      </UIFormSelectTrigger>
-    </UIFormSelectControl>
+    <UIFormControlShell v-bind="shellProps">
+      <UIFormSelectControl
+        :ui="cn('min-w-0 flex-1 border-0 bg-transparent p-0 shadow-none', ui?.control)"
+      >
+        <UIFormSelectTrigger
+          :disabled
+          :ui="cn('w-full border-0 bg-transparent shadow-none active:scale-100', ui?.trigger)"
+        >
+          <UIFormSelectValueText
+            :placeholder="$te(placeholder) ? $t(placeholder) : placeholder"
+            :ui="ui?.valueText"
+          />
+          <ClientOnly>
+            <UIFormSelectClearTrigger v-if="showClear && hasValue" :ui="ui?.clearTrigger" />
+          </ClientOnly>
+          <UIFormSelectIndicator :ui="ui?.indicator" />
+        </UIFormSelectTrigger>
+      </UIFormSelectControl>
+    </UIFormControlShell>
 
     <Teleport :to="teleportTo" :disabled="!portalled">
       <UIFormSelectPositioner :ui="ui?.positioner">
@@ -189,7 +220,9 @@ extendCompodiumMeta({
       </UIFormSelectPositioner>
     </Teleport>
 
-    <UIFormSelectHiddenInput />
+    <ClientOnly>
+      <UIFormSelectHiddenSelect />
+    </ClientOnly>
 
     <slot />
   </UIFormSelectRoot>

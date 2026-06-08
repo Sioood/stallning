@@ -318,7 +318,7 @@ const providerApi = useSelect({
             </UIFormSelectContent>
           </UIFormSelectPositioner>
         </Teleport>
-        <UIFormSelectHiddenInput />
+        <UIFormSelectHiddenSelect />
       </UIFormSelectRoot>
     </section>
   </div>

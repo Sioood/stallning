@@ -43,7 +43,7 @@ const indicatorAttrs = computed(() => {
     :class="cn('data-[state=unchecked]:invisible', indicatorAttrs.class as ClassValue, ui)"
   >
     <slot>
-      <Icon name="tabler:check" :class="iconClass" />
+      <UIFormSelectGlyph name="check" :glyph-class="iconClass" />
     </slot>
   </ArkSelect.ItemIndicator>
 </template>

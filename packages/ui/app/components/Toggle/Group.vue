@@ -54,13 +54,13 @@ interface ToggleGroupProps
 }
 
 const modelValue = defineModel<string[]>({ required: false })
-const pressedByValue = reactive<Record<string, boolean>>({})
 
 const props = withDefaults(defineProps<ToggleGroupProps>(), {
   activeBackground: false,
   iconOnly: false,
   intent: 'primary',
   options: () => [],
+  orientation: 'horizontal',
   size: 'sm',
   ui: undefined,
   value: undefined,
@@ -94,33 +94,43 @@ const rootProps = computed(() => {
 const attrs = useAttrs()
 const arkAttrs = computed(() => splitArkAttrs(attrs))
 
+const rootClass = computed(() =>
+  cn(
+    groupRootCVA({ orientation: props.orientation }),
+    arkAttrs.value.class as ClassValue,
+    props.ui?.root,
+  ),
+)
+
+const coalescedValue = computed(() => modelValue.value ?? [])
+
+function handleModelValueUpdate(next: string[] | null) {
+  modelValue.value = next ?? []
+}
+
+function handleValueChange(details: { value: string[] }) {
+  modelValue.value = details.value
+}
+
 const rootBindings = computed(() => {
   const base: Record<string, unknown> = {
-    ...arkAttrs.value,
     ...rootProps.value,
-    class: cn(
-      groupRootCVA({ orientation: props.orientation }),
-      arkAttrs.value.class as ClassValue,
-      props.ui?.root,
-    ),
+    ...arkAttrs.value,
+    class: rootClass.value,
   }
 
-  if (!isProvider.value && modelValue.value !== undefined) {
-    base.modelValue = modelValue.value
-    base['onUpdate:modelValue'] = (next: string[] | null) => {
-      modelValue.value = next ?? []
-    }
+  if (!isProvider.value) {
+    base.modelValue = coalescedValue.value
+    base['onUpdate:modelValue'] = handleModelValueUpdate
+    base.onValueChange = handleValueChange
   }
 
   return base
 })
 
-watchEffect(() => {
-  const selected = modelValue.value ?? []
-  for (const option of props.options) {
-    pressedByValue[option.value] = selected.includes(option.value)
-  }
-})
+function isOptionPressed(optionValue: string) {
+  return coalescedValue.value.includes(optionValue)
+}
 </script>
 
 <template>
@@ -133,14 +143,15 @@ watchEffect(() => {
       :disabled="disabled || option.disabled"
     >
       <UIToggle
-        :pressed="pressedByValue[option.value]"
+        group-item
+        :pressed="isOptionPressed(option.value)"
         :active-background="activeBackground"
         :disabled="disabled || option.disabled"
         :icon-only="iconOnly"
         :intent
         :size
         :variant
-        :ui="{ root: cn('join-item', ui?.item) }"
+        :ui="{ root: ui?.item }"
       >
         <template #on>
           <slot name="item" :option="option" :pressed="true">

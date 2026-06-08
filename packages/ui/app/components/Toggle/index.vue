@@ -23,6 +23,11 @@ export interface ToggleProps extends Omit<ArkToggleRootBaseProps, 'pressed'> {
   activeBackground?: boolean
   /** Compact square padding for icon-only toggles (e.g. password visibility). */
   iconOnly?: boolean
+  /**
+   * Render as a plain button for `ToggleGroup.Item` (`as-child`).
+   * Selection is driven by the group (`data-state`); `pressed` is one-way for Swap only.
+   */
+  groupItem?: boolean
   intent?: ToggleIntent
   size?: ToggleSize
   variant?: ToggleVariant
@@ -32,6 +37,7 @@ export interface ToggleProps extends Omit<ArkToggleRootBaseProps, 'pressed'> {
 
 const props = withDefaults(defineProps<ToggleProps>(), {
   activeBackground: false,
+  groupItem: false,
   iconOnly: false,
   indicatorAnimation: 'fade',
   intent: 'primary',
@@ -40,7 +46,7 @@ const props = withDefaults(defineProps<ToggleProps>(), {
   variant: 'ghost',
 })
 
-const pressed = defineModel<boolean>('pressed', { default: false })
+const pressed = defineModel<boolean>('pressed', { required: false })
 
 const attrs = useAttrs()
 
@@ -52,39 +58,59 @@ const rootAttrs = computed(() => {
   const { ui: _ui, ...rest } = attrs as Record<string, unknown> & { ui?: Partial<UIToggleSlots> }
   return rest
 })
+
+const rootClass = computed(() =>
+  cn(
+    buttonCVA({
+      disabled: props.disabled,
+      intent: props.intent,
+      size: props.size,
+      variant: props.variant,
+    }),
+    props.activeBackground ? toggleCVA({ intent: props.intent, variant: props.variant }) : null,
+    props.iconOnly ? 'min-w-0 shrink-0 gap-0 px-1.5 py-1.5' : null,
+    props.groupItem ? 'join-item' : null,
+    props.ui?.root,
+  ),
+)
+
+const swapPressed = computed(() => pressed.value ?? false)
+
+const swapIndicatorClass = computed(() =>
+  cn(
+    'flex items-center justify-center',
+    props.ui?.indicator,
+    props.groupItem ? null : props.indicatorAnimation,
+  ),
+)
 </script>
 
 <template>
+  <button v-if="groupItem" type="button" v-bind="rootAttrs" :disabled="disabled" :class="rootClass">
+    <Swap.Root :swap="swapPressed" :unmount-on-exit="false">
+      <Swap.Indicator type="on" :class="swapIndicatorClass">
+        <slot name="on" />
+      </Swap.Indicator>
+      <Swap.Indicator type="off" :class="swapIndicatorClass">
+        <slot name="off" />
+      </Swap.Indicator>
+    </Swap.Root>
+  </button>
+
   <ArkToggle.Root
+    v-else
     v-bind="{ ...rootProps, ...rootAttrs }"
     v-model:pressed="pressed"
     type="button"
-    :class="
-      cn(
-        buttonCVA({
-          disabled: props.disabled,
-          intent: props.intent,
-          size: props.size,
-          variant: props.variant,
-        }),
-        props.activeBackground ? toggleCVA({ intent: props.intent, variant: props.variant }) : null,
-        props.iconOnly ? 'min-w-0 shrink-0 gap-0 px-1.5 py-1.5' : null,
-        props.ui?.root,
-      )
-    "
+    :class="rootClass"
   >
-    <Swap.Root :swap="pressed">
-      <ArkToggle.Indicator :class="cn('flex items-center justify-center', ui?.indicator)">
-        <Swap.Indicator type="on" :class="indicatorAnimation">
-          <slot name="on" />
-        </Swap.Indicator>
-
-        <template #fallback>
-          <Swap.Indicator type="off" :class="indicatorAnimation">
-            <slot name="off" />
-          </Swap.Indicator>
-        </template>
-      </ArkToggle.Indicator>
+    <Swap.Root :swap="swapPressed">
+      <Swap.Indicator type="on" :class="swapIndicatorClass">
+        <slot name="on" />
+      </Swap.Indicator>
+      <Swap.Indicator type="off" :class="swapIndicatorClass">
+        <slot name="off" />
+      </Swap.Indicator>
     </Swap.Root>
   </ArkToggle.Root>
 </template>

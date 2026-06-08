@@ -94,6 +94,45 @@ describe('Toggle/Group', () => {
     expect(events.at(-1)?.[0]).toEqual(['left', 'center'])
   })
 
+  it('renders icons for all icon-only options', async () => {
+    const wrapper = await mountSuspended(ToggleGroup, {
+      props: {
+        activeBackground: true,
+        iconOnly: true,
+        modelValue: ['private'],
+        options: [
+          { icon: 'tabler:world', value: 'public' },
+          { icon: 'tabler:users', value: 'followers' },
+          { icon: 'tabler:lock', value: 'private' },
+        ],
+      },
+    })
+
+    expect(wrapper.findAll('button')).toHaveLength(3)
+    expect(wrapper.findAll('button svg').length).toBeGreaterThanOrEqual(3)
+  })
+
+  it('reflects controlled model-value updates from parent', async () => {
+    const wrapper = await mountSuspended(ToggleGroup, {
+      props: {
+        activeBackground: true,
+        iconOnly: true,
+        modelValue: ['public'],
+        options: [
+          { icon: 'tabler:world', value: 'public' },
+          { icon: 'tabler:lock', value: 'private' },
+        ],
+      },
+    })
+
+    expect(wrapper.find('[data-state="on"]').exists()).toBe(true)
+
+    await wrapper.setProps({ modelValue: ['private'] })
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.findAll('[data-state="on"]')).toHaveLength(1)
+  })
+
   it('does not emit selection for disabled option', async () => {
     const wrapper = await mountSuspended(ToggleGroup, {
       props: {

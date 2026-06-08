@@ -3,6 +3,13 @@ import { describe, expect, it } from 'vitest'
 
 import Toggle from '~ui/app/components/Toggle/index.vue'
 
+function visibleSwapText(wrapper: Awaited<ReturnType<typeof mountSuspended>>) {
+  const swapState = wrapper.find('[data-swap]').attributes('data-swap')
+  const type = swapState === 'on' ? 'on' : 'off'
+
+  return wrapper.find(`[data-type="${type}"]`).text()
+}
+
 describe('Toggle', () => {
   it('shows the off slot when not pressed', async () => {
     const wrapper = await mountSuspended(Toggle, {
@@ -13,8 +20,7 @@ describe('Toggle', () => {
       },
     })
 
-    expect(wrapper.text()).toContain('Off')
-    expect(wrapper.text()).not.toContain('On')
+    expect(visibleSwapText(wrapper)).toBe('Off')
   })
 
   it('shows the on slot when pressed', async () => {
@@ -26,8 +32,7 @@ describe('Toggle', () => {
       },
     })
 
-    expect(wrapper.text()).toContain('On')
-    expect(wrapper.text()).not.toContain('Off')
+    expect(visibleSwapText(wrapper)).toBe('On')
   })
 
   it('emits update:pressed when clicked', async () => {
@@ -78,6 +83,25 @@ describe('Toggle', () => {
 
     const classes = wrapper.find('button').classes().join(' ')
     expect(classes).toMatch(/data-\[state=on\]/)
+  })
+
+  it('does not emit update:pressed on click in group-item mode', async () => {
+    const wrapper = await mountSuspended(Toggle, {
+      props: { groupItem: true, pressed: false },
+      slots: { off: 'Off', on: 'On' },
+    })
+
+    await wrapper.find('button').trigger('click')
+    expect(wrapper.emitted('update:pressed')).toBeUndefined()
+  })
+
+  it('shows on slot in group-item mode when pressed is true', async () => {
+    const wrapper = await mountSuspended(Toggle, {
+      props: { groupItem: true, pressed: true },
+      slots: { off: 'Off', on: 'On' },
+    })
+
+    expect(visibleSwapText(wrapper)).toBe('On')
   })
 
   it('renders as a button element with type button', async () => {

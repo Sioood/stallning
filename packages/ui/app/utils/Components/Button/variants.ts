@@ -2,7 +2,7 @@ import { cva } from 'class-variance-authority'
 
 import type { ButtonIntent, ButtonSize, ButtonVariant } from '~/utils/Components/Button/context'
 
-export const buttonCVA = cva('inline-flex items-center justify-center', {
+export const buttonCVA = cva('inline-flex h-full items-center justify-center', {
   compoundVariants: [
     {
       class:

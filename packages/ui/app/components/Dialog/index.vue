@@ -16,7 +16,7 @@ export type ScrollBehavior = 'inside' | 'outside'
 
 const dialogBackdropCVA = cva([
   'fixed inset-0 z-9999',
-  'bg-neutral-fill-strong/60 dark:bg-neutral-fill-subtle/60',
+  'bg-black/60',
   'data-[state=open]:animate-in data-[state=closed]:animate-out',
   'data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0',
   'duration-200',

@@ -158,7 +158,7 @@ extendCompodiumMeta({
     />
     <slot>
       <span :class="cn(badgeLabelCVA({ intent, size }), ui?.label)">
-        {{ $te(label) ? label : $t(label) }}
+        {{ $te(label) ? $t(label) : label }}
       </span>
     </slot>
     <Icon

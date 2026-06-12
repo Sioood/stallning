@@ -166,13 +166,13 @@ const cardBaseProps = computed(() => ({
         :class="cn(CardBodyTitleDescriptionWrapperCVA({ size }), ui?.bodyTitleDescriptionWrapper)"
       >
         <h3 v-if="title" :class="cn(CardBodyTitleCVA({ intent, size }), ui?.bodyTitle)">
-          {{ $te(title) ? title : $t(title) }}
+          {{ $te(title) ? $t(title) : title }}
         </h3>
         <p
           v-if="description"
           :class="cn(CardBodyDescriptionCVA({ intent, size }), ui?.bodyDescription)"
         >
-          {{ $te(description) ? description : $t(description) }}
+          {{ $te(description) ? $t(description) : description }}
         </p>
       </div>
 

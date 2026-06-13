@@ -1,9 +1,7 @@
 import type {
   AxisConfigInterface,
   CrosshairConfigInterface,
-  DonutConfigInterface,
   SingleContainerConfigInterface,
-  StackedBarConfigInterface,
   TooltipConfigInterface,
   XYContainerConfigInterface,
 } from '@unovis/ts'
@@ -76,9 +74,6 @@ export interface UIChartAxisSlots {
   root?: ClassValue
 }
 
-// Unovis configs use extends-chains the Vue SFC compiler cannot resolve; use @vue-ignore on those bases.
-export type { DonutConfigInterface, StackedBarConfigInterface }
-
 export interface ChartXYContainerProps<T extends Record<string, unknown> = Record<string, unknown>>
   extends /* @vue-ignore */ XYContainerConfigInterface<T> {
   data?: T[]
@@ -127,7 +122,7 @@ export interface ChartAxesConfig<T extends Record<string, unknown> = Record<stri
   y?: ChartAxisProps<T>
 }
 
-export interface ChartLegendConfig {
+interface ChartLegendConfig {
   show?: boolean
   placement?: ChartLegendPlacement
   ui?: Partial<UIChartLegendSlots>

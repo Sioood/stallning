@@ -2,7 +2,7 @@ import { omitUndefinedValues, pickDefined } from '@/utils/object'
 
 import type { NumericAccessor, StackedBarConfigInterface } from '@unovis/ts'
 
-export const CHART_STACKED_BAR_VIS_PROP_KEYS = [
+const CHART_STACKED_BAR_VIS_PROP_KEYS = [
   'attributes',
   'barMaxWidth',
   'barMinHeight1Px',

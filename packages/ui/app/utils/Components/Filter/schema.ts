@@ -2,7 +2,7 @@ import type { SelectItem } from '../Form/Select/context'
 import type Fuse from 'fuse.js'
 import type { IFuseOptions } from 'fuse.js'
 
-export interface FilterToggleGroupOption {
+interface FilterToggleGroupOption {
   disabled?: boolean
   icon?: string
   title?: string
@@ -18,7 +18,7 @@ export function filterLayoutRowKeys(row: FilterBarLayout<string>): string[] {
   return [...row]
 }
 
-export interface FuseSearchConfig<TItem> {
+interface FuseSearchConfig<TItem> {
   fuseOptions?: IFuseOptions<TItem>
   resultLimit?: number
   matchAllWhenSearchEmpty?: boolean
@@ -30,7 +30,7 @@ export interface FilterApplyContext<TItem> {
   searchKey: string | undefined
 }
 
-export interface FilterFieldBase<TItem, TValue> {
+interface FilterFieldBase<TItem, TValue> {
   label?: string
   defaultValue: TValue
   /** Extract a comparable value from an item (select / toggle / toggle-group). */
@@ -50,7 +50,7 @@ export interface SearchFilterField<TItem> extends FilterFieldBase<TItem, string>
   search?: (items: readonly TItem[], query: string, fuse: Fuse<TItem>) => readonly TItem[]
 }
 
-export interface SelectFilterField<TItem> extends FilterFieldBase<TItem, string[]> {
+interface SelectFilterField<TItem> extends FilterFieldBase<TItem, string[]> {
   type: 'select'
   props?: {
     items?: SelectItem[]
@@ -62,15 +62,15 @@ export interface SelectFilterField<TItem> extends FilterFieldBase<TItem, string[
   }
 }
 
-export type ToggleFilterVariant = 'switch' | 'toggle'
+type ToggleFilterVariant = 'switch' | 'toggle'
 
-export interface ToggleFilterField<TItem> extends FilterFieldBase<TItem, boolean> {
+interface ToggleFilterField<TItem> extends FilterFieldBase<TItem, boolean> {
   type: 'toggle'
   variant?: ToggleFilterVariant
   props?: Record<string, unknown>
 }
 
-export interface ToggleGroupFilterField<TItem> extends FilterFieldBase<TItem, string[]> {
+interface ToggleGroupFilterField<TItem> extends FilterFieldBase<TItem, string[]> {
   type: 'toggle-group'
   props?: {
     options?: FilterToggleGroupOption[]

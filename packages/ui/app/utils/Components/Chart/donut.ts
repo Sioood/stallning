@@ -2,7 +2,7 @@ import { omitUndefinedValues, pickDefined } from '@/utils/object'
 
 import type { DonutConfigInterface, NumericAccessor } from '@unovis/ts'
 
-export const CHART_DONUT_VIS_PROP_KEYS = [
+const CHART_DONUT_VIS_PROP_KEYS = [
   'angleRange',
   'arcWidth',
   'attributes',

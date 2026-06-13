@@ -194,7 +194,7 @@ export const chartLegendCVA = cva('', {
   },
 })
 
-export function chartAxisThemeClasses(options: {
+function chartAxisThemeClasses(options: {
   intent: ChartIntent
   axisVariant?: ChartAxisVariant
 }): string {
@@ -204,10 +204,7 @@ export function chartAxisThemeClasses(options: {
   )
 }
 
-export function chartTooltipThemeClasses(options: {
-  intent: ChartIntent
-  size: ChartSize
-}): string {
+function chartTooltipThemeClasses(options: { intent: ChartIntent; size: ChartSize }): string {
   return chartTooltipCVA({ intent: options.intent, size: options.size })
 }
 

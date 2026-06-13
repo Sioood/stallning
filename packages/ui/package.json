@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@ark-ui/vue": "catalog:",
-    "@internationalized/date": "3.12.0",
+    "@internationalized/date": "catalog:",
     "@nuxt/fonts": "0.14.0",
     "@nuxt/icon": "2.2.1",
     "@nuxt/image": "2.0.0",

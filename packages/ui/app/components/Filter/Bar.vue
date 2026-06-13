@@ -273,6 +273,17 @@ extendCompodiumMeta({
         :intent
         @update:model-value="setFieldValue(key, $event)"
       />
+
+      <UIButton
+        class="shrink-0"
+        :disabled="!hasActiveFilters"
+        :intent
+        size="sm"
+        variant="subtle"
+        @click="reset()"
+      >
+        {{ $te(resetLabel) ? $t(resetLabel) : resetLabel }}
+      </UIButton>
     </div>
   </div>
 </template>

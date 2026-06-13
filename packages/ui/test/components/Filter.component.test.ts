@@ -70,9 +70,10 @@ describe('UIFilterBar', () => {
     })
 
     expect(wrapper.attributes('data-ui-filter-bar')).toBeDefined()
-    expect(wrapper.find('input[type="search"]').attributes('placeholder')).toBe('Search rows')
+    expect(wrapper.find('input[inputmode="search"]').attributes('placeholder')).toBe('Search rows')
     expect(wrapper.text()).toContain('Status')
     expect(wrapper.text()).toContain('Premium')
+    expect(wrapper.get('button[disabled]').text()).toContain('Réinitialiser les filtres')
 
     vi.unstubAllGlobals()
   })

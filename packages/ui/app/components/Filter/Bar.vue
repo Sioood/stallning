@@ -177,7 +177,7 @@ extendCompodiumMeta({
         ref="searchRef"
         :model-value="(internalValues[searchKey] as string) ?? ''"
         :debounce="searchSchema?.debounce ?? debounce"
-        :intent="props.intent"
+        :intent
         :label="searchSchema?.label"
         :placeholder="searchSchema?.placeholder"
         :show-pending="showSearchPending"
@@ -190,13 +190,14 @@ extendCompodiumMeta({
         v-model:open="filtersOpen"
         :auto-focus="false"
         :lazy-mount="false"
+        :intent
         :positioning="{ gutter: 8, placement: 'bottom-end' }"
         :ui="{ content: 'min-w-72 p-0' }"
       >
         <template #trigger>
           <UIButton
             :aria-label="$t('filter.open')"
-            :intent="props.intent"
+            :intent
             class="shrink-0"
             size="sm"
             square
@@ -213,7 +214,7 @@ extendCompodiumMeta({
               ref="searchRef"
               :model-value="(internalValues[searchKey] as string) ?? ''"
               :debounce="searchSchema?.debounce ?? debounce"
-              :intent="props.intent"
+              :intent
               :label="searchSchema?.label"
               :placeholder="searchSchema?.placeholder"
               :show-pending="showSearchPending"
@@ -228,7 +229,7 @@ extendCompodiumMeta({
               menu-mode
               :config="schema[key]!"
               :field-key="key"
-              :intent="props.intent"
+              :intent
               @update:model-value="setFieldValue(key, $event)"
             />
 
@@ -236,7 +237,7 @@ extendCompodiumMeta({
               <UIButton
                 class="w-full"
                 :disabled="!hasActiveFilters"
-                :intent="props.intent"
+                :intent
                 size="sm"
                 variant="subtle"
                 @click="reset()"
@@ -255,7 +256,7 @@ extendCompodiumMeta({
         ref="searchRef"
         :model-value="(internalValues[searchKey] as string) ?? ''"
         :debounce="searchSchema?.debounce ?? debounce"
-        :intent="props.intent"
+        :intent
         :label="searchSchema?.label"
         :placeholder="searchSchema?.placeholder"
         :show-pending="showSearchPending"
@@ -269,7 +270,7 @@ extendCompodiumMeta({
         :model-value="internalValues[key]!"
         :config="schema[key]!"
         :field-key="key"
-        :intent="props.intent"
+        :intent
         @update:model-value="setFieldValue(key, $event)"
       />
     </div>

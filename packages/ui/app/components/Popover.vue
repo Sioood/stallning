@@ -11,8 +11,14 @@ import { useFloatingLayerPositionerRef } from '~/composables/useLayerZIndexRef'
 
 import type { ClassValue } from 'vue'
 
-
-type PopoverIntent = 'neutral'
+type PopoverIntent =
+  | 'neutral'
+  | 'primary'
+  | 'secondary'
+  | 'accent'
+  | 'success'
+  | 'warning'
+  | 'error'
 type PopoverSize = 'md'
 
 type PopoverTriggerValueSource = { triggerValue?: string | null }
@@ -31,7 +37,13 @@ const popoverContentCVA = cva(
   {
     variants: {
       intent: {
+        accent: 'bg-accent-surface-default text-accent-text-default',
+        error: 'bg-error-surface-default text-error-text-default',
         neutral: 'bg-neutral-surface-default text-neutral-text-default',
+        primary: 'bg-primary-surface-default text-primary-text-default',
+        secondary: 'bg-secondary-surface-default text-secondary-text-default',
+        success: 'bg-success-surface-default text-success-text-default',
+        warning: 'bg-warning-surface-default text-warning-text-default',
       } satisfies Record<PopoverIntent, string>,
       size: {
         md: 'txt-caption flex flex-col gap-2 p-2',
@@ -43,7 +55,13 @@ const popoverContentCVA = cva(
 const popoverArrowCVA = cva('flex items-center justify-center', {
   variants: {
     intent: {
+      accent: '[--arrow-background:var(--color-accent-surface-default)]',
+      error: '[--arrow-background:var(--color-error-surface-default)]',
       neutral: '[--arrow-background:var(--color-neutral-surface-default)]',
+      primary: '[--arrow-background:var(--color-primary-surface-default)]',
+      secondary: '[--arrow-background:var(--color-secondary-surface-default)]',
+      success: '[--arrow-background:var(--color-success-surface-default)]',
+      warning: '[--arrow-background:var(--color-warning-surface-default)]',
     } satisfies Record<PopoverIntent, string>,
     size: {
       md: '[--arrow-size:calc(var(--spacing)*2)]',
@@ -55,7 +73,13 @@ const popoverArrowTipCVA = cva('size-full')
 const popoverTitleCVA = cva('', {
   variants: {
     intent: {
+      accent: 'text-accent-text-default',
+      error: 'text-error-text-default',
       neutral: 'text-neutral-text-default',
+      primary: 'text-primary-text-default',
+      secondary: 'text-secondary-text-default',
+      success: 'text-success-text-default',
+      warning: 'text-warning-text-default',
     } satisfies Record<PopoverIntent, string>,
     size: {
       md: 'txt-label',
@@ -65,7 +89,13 @@ const popoverTitleCVA = cva('', {
 const popoverDescriptionCVA = cva('', {
   variants: {
     intent: {
+      accent: 'text-accent-text-subtle',
+      error: 'text-error-text-subtle',
       neutral: 'text-neutral-text-subtle',
+      primary: 'text-primary-text-subtle',
+      secondary: 'text-secondary-text-subtle',
+      success: 'text-success-text-subtle',
+      warning: 'text-warning-text-subtle',
     } satisfies Record<PopoverIntent, string>,
     size: {
       md: 'txt-caption',

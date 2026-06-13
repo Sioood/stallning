@@ -8,6 +8,8 @@ import {
 import { cva, type VariantProps } from 'class-variance-authority'
 import { nextTick, watch, type ClassValue } from 'vue'
 
+import { useLayerZIndexRef } from '~/composables/useLayerZIndexRef'
+
 defineOptions({ inheritAttrs: false })
 
 export type DialogIntent = 'neutral' | 'primary' | 'secondary' | 'accent'
@@ -15,14 +17,14 @@ export type DialogSize = 'sm' | 'md' | 'lg' | 'full'
 export type ScrollBehavior = 'inside' | 'outside'
 
 const dialogBackdropCVA = cva([
-  'fixed inset-0 z-9999',
+  'fixed inset-0',
   'bg-black/60',
   'data-[state=open]:animate-in data-[state=closed]:animate-out',
   'data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0',
   'duration-200',
 ])
 
-const dialogPositionerCVA = cva('fixed inset-0 z-9999 flex justify-center', {
+const dialogPositionerCVA = cva('fixed inset-0 flex justify-center', {
   variants: {
     scrollBehavior: {
       inside: 'items-center',
@@ -229,6 +231,9 @@ watch(
   { flush: 'post' },
 )
 
+const backdropLayerRef = useLayerZIndexRef('modal')
+const positionerLayerRef = useLayerZIndexRef('modal')
+
 extendCompodiumMeta({
   defaultProps: {
     description: 'A concise description of the dialog content.',
@@ -250,9 +255,16 @@ extendCompodiumMeta({
       </slot>
 
       <Teleport to="body" :disabled="!portalled">
-        <ArkDialog.Backdrop v-if="modal" :class="cn(dialogBackdropCVA(), ui?.backdrop)" />
+        <ArkDialog.Backdrop
+          v-if="modal"
+          :ref="backdropLayerRef"
+          :class="cn(dialogBackdropCVA(), ui?.backdrop)"
+        />
 
-        <ArkDialog.Positioner :class="cn(dialogPositionerCVA({ scrollBehavior }), ui?.positioner)">
+        <ArkDialog.Positioner
+          :ref="positionerLayerRef"
+          :class="cn(dialogPositionerCVA({ scrollBehavior }), ui?.positioner)"
+        >
           <ArkDialog.Content
             :class="cn(dialogContentCVA({ size, intent, scrollBehavior }), ui?.content)"
           >

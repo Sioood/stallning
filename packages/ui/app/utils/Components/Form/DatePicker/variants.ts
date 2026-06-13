@@ -85,7 +85,7 @@ export const datePickerClearTriggerCVA = cva(
   },
 )
 
-export const datePickerPositionerCVA = cva('z-9999 origin-(--transform-origin)')
+export const datePickerPositionerCVA = cva('origin-(--transform-origin)')
 
 export const datePickerContentCVA = cva(
   [

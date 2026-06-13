@@ -7,7 +7,10 @@ import {
 } from '@ark-ui/vue/popover'
 import { cva, type VariantProps } from 'class-variance-authority'
 
+import { useFloatingLayerPositionerRef } from '~/composables/useLayerZIndexRef'
+
 import type { ClassValue } from 'vue'
+
 
 type PopoverIntent = 'neutral'
 type PopoverSize = 'md'
@@ -163,6 +166,8 @@ const rootBindings = computed(() => ({
   ...arkAttrs.value,
   ...rootProps.value,
 }))
+
+const positionerRef = useFloatingLayerPositionerRef()
 </script>
 
 <template>
@@ -181,7 +186,7 @@ const rootBindings = computed(() => ({
         </ArkPopover.Trigger>
       </slot>
 
-      <ArkPopover.Positioner class="origin-(--transform-origin) [--z-index:9999]">
+      <ArkPopover.Positioner :ref="positionerRef" class="origin-(--transform-origin)">
         <ArkPopover.Content :class="cn(popoverContentCVA({ intent, size }), ui?.content)">
           <ArkPopover.Title v-if="title" :class="cn(popoverTitleCVA({ intent, size }), ui?.title)">
             {{ title }}

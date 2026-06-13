@@ -7,7 +7,10 @@ import {
 } from '@ark-ui/vue/tooltip'
 import { cva, type VariantProps } from 'class-variance-authority'
 
+import { useFloatingLayerPositionerRef } from '~/composables/useLayerZIndexRef'
+
 import type { ClassValue } from 'vue'
+
 
 type TooltipIntent =
   | 'neutral'
@@ -162,6 +165,8 @@ const rootBindings = computed(() => ({
   ...rootProps.value,
 }))
 
+const positionerRef = useFloatingLayerPositionerRef()
+
 function handleTriggerPointerMove(
   event: PointerEvent,
   tooltip: { reposition: (options?: Record<string, unknown>) => void },
@@ -188,7 +193,7 @@ function handleTriggerPointerMove(
           </slot>
         </ArkTooltip.Trigger>
       </slot>
-      <ArkTooltip.Positioner class="origin-(--transform-origin) [--z-index:9999]">
+      <ArkTooltip.Positioner :ref="positionerRef" class="origin-(--transform-origin)">
         <ArkTooltip.Content :class="cn(tooltipContentCVA({ intent, size }), ui?.content)">
           <slot name="content" :tooltip="tooltip" :trigger-value="tooltipTriggerValue(tooltip)">
             {{ content }}

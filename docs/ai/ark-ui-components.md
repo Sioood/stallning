@@ -469,6 +469,40 @@ base['onUpdate:modelValue'] = (next: string[] | null) => {
 
 ---
 
+## Z-index / Positioner stacking
+
+Zag/Ark **positioners set `z-index: auto` inline** during floating-ui updates. Tailwind classes such as `z-9999` are ignored because inline styles win.
+
+Use [`useLayerZIndexRef`](../../packages/ui/app/composables/useLayerZIndexRef.ts) (or the `useFloatingLayerPositionerRef` alias) on every Ark `Positioner`, modal backdrop, and toaster root:
+
+```vue
+<script setup lang="ts">
+const positionerRef = useFloatingLayerPositionerRef()
+</script>
+
+<template>
+  <ArkSelect.Positioner :ref="positionerRef" :class="cn(selectPositionerCVA(), ui)">
+    <slot />
+  </ArkSelect.Positioner>
+</template>
+```
+
+The composable applies `style.setProperty('z-index', …, 'important')` and re-applies it via `MutationObserver` when Zag mutates `style`.
+
+Layer constants live in [`layer-z-index.ts`](../../packages/ui/app/utils/layer-z-index.ts):
+
+| Layer    | Value   | Usage                                                |
+| -------- | ------- | ---------------------------------------------------- |
+| floating | `10000` | Select, menu, popover, tooltip, combobox, datepicker |
+| modal    | `11000` | Dialog, drawer, tour overlays                        |
+| toast    | `12000` | `ArkToaster`                                         |
+
+**Call `useLayerZIndexRef()` once per DOM node** — sharing a single ref callback across backdrop + positioner disconnects the observer from the first element.
+
+**Inside an open dialog/drawer:** floating layers teleported to `body` render below modals (`10000` < `11000`). Use `portalled: false` on selects/menus inside modal content, or teleport to a container inside the modal.
+
+---
+
 ## Common Pitfalls Checklist
 
 Before shipping any new Ark UI component, verify:
@@ -483,4 +517,5 @@ Before shipping any new Ark UI component, verify:
 - [ ] Root mode `rootProps` does NOT include `value: UseXxxReturn` (that's provider-only)
 - [ ] `rootProps` pick is complete — compare against Ark MCP `get_component_props` output
 - [ ] SegmentGroup/RadioGroup items include `ItemHiddenInput`
+- [ ] Ark `Positioner` / modal backdrop uses `useLayerZIndexRef` (Tailwind `z-*` alone is not enough)
 - [ ] `extendCompodiumMeta` has representative `defaultProps`

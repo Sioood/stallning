@@ -2,6 +2,7 @@
 import { Toast as ArkToast, Toaster as ArkToaster, type ToasterBaseProps } from '@ark-ui/vue/toast'
 import { cva, type VariantProps } from 'class-variance-authority'
 
+import { useLayerZIndexRef } from '~/composables/useLayerZIndexRef'
 import {
   useComponentIcons,
   type ComponentState,
@@ -133,11 +134,13 @@ const getType = (type: string | undefined): ToastRootCVAProps['intent'] | undefi
   }
   return type as ToastRootCVAProps['intent']
 }
+
+const toastLayerRef = useLayerZIndexRef('toast')
 </script>
 
 <template>
   <Teleport v-if="toaster" to="body">
-    <ArkToaster v-slot="toast" :toaster="toaster" v-bind="toasterProps">
+    <ArkToaster v-slot="toast" :ref="toastLayerRef" :toaster="toaster" v-bind="toasterProps">
       <ArkToast.Root
         :class="
           cn(

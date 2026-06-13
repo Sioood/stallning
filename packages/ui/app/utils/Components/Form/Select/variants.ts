@@ -26,7 +26,7 @@ export const selectClearTriggerCVA = cva(
   'cursor-pointer hover:text-error-text-default-hover data-[disabled=true]:cursor-not-allowed [hidden]:hidden',
 )
 
-export const selectPositionerCVA = cva('z-9999 origin-(--transform-origin)')
+export const selectPositionerCVA = cva('origin-(--transform-origin)')
 
 export const selectContentCVA = cva(
   [

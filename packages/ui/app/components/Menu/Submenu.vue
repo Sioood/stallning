@@ -83,7 +83,7 @@ withDefaults(defineProps<MenuSubmenuProps>(), {
       </ClientOnly>
     </ArkMenu.TriggerItem>
     <Teleport to="body">
-      <ArkMenu.Positioner>
+      <UIMenuPositioner>
         <ArkMenu.Content :class="menuSubmenuContentCVA({ intent, size })">
           <UIMenuEntryRenderer
             :items
@@ -97,7 +97,7 @@ withDefaults(defineProps<MenuSubmenuProps>(), {
             :item-text="itemText"
           />
         </ArkMenu.Content>
-      </ArkMenu.Positioner>
+      </UIMenuPositioner>
     </Teleport>
   </ArkMenu.Root>
 </template>

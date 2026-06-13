@@ -7,7 +7,10 @@ import {
 } from '@ark-ui/vue/drawer'
 import { cva } from 'class-variance-authority'
 
+import { useLayerZIndexRef } from '~/composables/useLayerZIndexRef'
+
 import type { ClassValue } from 'vue'
+
 
 defineOptions({ inheritAttrs: false })
 
@@ -25,7 +28,7 @@ const swipeDirectionMap: Record<DrawerSwipeDirection, ArkSwipeDirection> = {
 }
 
 const drawerBackdropCVA = cva([
-  'fixed inset-0 z-9999 bg-black/50',
+  'fixed inset-0 bg-black/50',
   'data-[state=open]:animate-in data-[state=closed]:animate-out',
   'data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0',
   'data-[state=closed]:duration-300 data-[state=open]:duration-500',
@@ -294,6 +297,9 @@ const rootBindings = computed(() => ({
   ...arkAttrs.value,
   ...rootProps.value,
 }))
+
+const backdropLayerRef = useLayerZIndexRef('modal')
+const positionerLayerRef = useLayerZIndexRef('modal')
 </script>
 
 <template>
@@ -310,12 +316,17 @@ const rootBindings = computed(() => ({
 
       <Teleport to="body" :disabled="!portalled">
         <ClientOnly>
-          <ArkDrawer.Backdrop v-if="modal" :class="cn(drawerBackdropCVA(), ui?.backdrop)" />
+          <ArkDrawer.Backdrop
+            v-if="modal"
+            :ref="backdropLayerRef"
+            :class="cn(drawerBackdropCVA(), ui?.backdrop)"
+          />
 
           <ArkDrawer.Positioner
+            :ref="positionerLayerRef"
             :class="
               cn(
-                'fixed inset-0 z-9999 flex items-end justify-center',
+                'fixed inset-0 flex items-end justify-center',
                 'data-[swipe-direction=up]:items-start',
                 'data-[swipe-direction=left]:items-stretch data-[swipe-direction=left]:justify-start',
                 'data-[swipe-direction=right]:items-stretch data-[swipe-direction=right]:justify-end',

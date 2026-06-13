@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { Drawer as ArkDrawer } from '@ark-ui/vue/drawer'
 
+import { MODAL_LAYER_Z_INDEX } from '@/utils/layer-z-index'
+
 import type { ClassValue } from 'vue'
 
 export interface UIDrawerIndentBackgroundSlots {
@@ -14,6 +16,8 @@ interface DrawerIndentBackgroundProps {
 const props = withDefaults(defineProps<DrawerIndentBackgroundProps>(), {
   ui: undefined,
 })
+
+const indentZIndex = MODAL_LAYER_Z_INDEX - 2
 </script>
 
 <template>
@@ -24,7 +28,7 @@ const props = withDefaults(defineProps<DrawerIndentBackgroundProps>(), {
 .drawer-indent-bg {
   position: fixed;
   inset: 0;
-  z-index: 9998;
+  z-index: v-bind(indentZIndex);
   pointer-events: none;
   background: black;
   opacity: 0;

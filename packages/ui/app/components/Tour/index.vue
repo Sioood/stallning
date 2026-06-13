@@ -7,7 +7,9 @@ import {
 } from '@ark-ui/vue/tour'
 import { cva } from 'class-variance-authority'
 
+import { useLayerZIndexRef } from '~/composables/useLayerZIndexRef'
 import { resolveActionVariant } from '~ui/app/utils/Components/Tour/variants'
+
 
 import type { ClassValue } from 'vue'
 
@@ -281,6 +283,10 @@ const rootBindings = computed(() => {
   }
   return base
 })
+
+const backdropLayerRef = useLayerZIndexRef('modal')
+const spotlightLayerRef = useLayerZIndexRef('modal')
+const positionerLayerRef = useLayerZIndexRef('modal')
 </script>
 
 <template>
@@ -289,16 +295,24 @@ const rootBindings = computed(() => {
       <slot name="backdrop" :ctx>
         <ArkTour.Backdrop
           v-if="showBackdrop"
+          :ref="backdropLayerRef"
           :class="cn(tourBackdropCVA({ intent }), ui?.backdrop)"
         />
       </slot>
 
       <slot name="spotlight" :ctx>
-        <ArkTour.Spotlight v-if="showSpotlight" :class="cn(tourSpotlightCVA(), ui?.spotlight)" />
+        <ArkTour.Spotlight
+          v-if="showSpotlight"
+          :ref="spotlightLayerRef"
+          :class="cn(tourSpotlightCVA(), ui?.spotlight)"
+        />
       </slot>
 
       <slot name="positioner" :ctx>
-        <ArkTour.Positioner :class="cn(tourPositionerCVA({ intent }), ui?.positioner)">
+        <ArkTour.Positioner
+          :ref="positionerLayerRef"
+          :class="cn(tourPositionerCVA({ intent }), ui?.positioner)"
+        >
           <slot name="content" :ctx>
             <ArkTour.Content :class="cn(tourContentCVA({ intent, size }), ui?.content)">
               <slot name="arrow" :ctx>

@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { Combobox as ArkCombobox } from '@ark-ui/vue/combobox'
+import { Menu as ArkMenu } from '@ark-ui/vue/menu'
 
 import { useFloatingLayerPositionerRef } from '~/composables/useLayerZIndexRef'
-import { comboboxPositionerCVA } from '~/utils/Components/Form/Combobox/variants'
+import { menuPositionerCVA } from '~/utils/Components/Menu/variants'
 
 import type { ClassValue } from 'vue'
 
 defineOptions({ inheritAttrs: false })
 
-export interface ComboboxPositionerProps {
+export interface MenuPositionerProps {
   ui?: ClassValue
 }
 
-withDefaults(defineProps<ComboboxPositionerProps>(), {
+withDefaults(defineProps<MenuPositionerProps>(), {
   ui: undefined,
 })
 
@@ -26,11 +26,11 @@ const positionerAttrs = computed(() => {
 </script>
 
 <template>
-  <ArkCombobox.Positioner
+  <ArkMenu.Positioner
     :ref="positionerRef"
     v-bind="positionerAttrs"
-    :class="cn(comboboxPositionerCVA(), positionerAttrs.class as ClassValue, ui)"
+    :class="cn(menuPositionerCVA(), positionerAttrs.class as ClassValue, ui)"
   >
     <slot />
-  </ArkCombobox.Positioner>
+  </ArkMenu.Positioner>
 </template>

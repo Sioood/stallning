@@ -19,7 +19,6 @@ import {
   menuArrowTipCVA,
   menuContentCVA,
   menuIndicatorCVA,
-  menuPositionerCVA,
   menuUnstyledTriggerCVA,
 } from '~/utils/Components/Menu/variants'
 
@@ -255,7 +254,7 @@ extendCompodiumMeta({
       </slot>
 
       <Teleport :to="teleportTo" :disabled="!portalled">
-        <ArkMenu.Positioner :class="cn(menuPositionerCVA(), ui?.positioner)">
+        <UIMenuPositioner :ui="ui?.positioner">
           <ArkMenu.Content :class="cn(menuContentCVA({ intent, size }), ui?.content)">
             <ArkMenu.Arrow v-if="showArrow" :class="cn(menuArrowCVA({ intent, size }), ui?.arrow)">
               <ArkMenu.ArrowTip :class="cn(menuArrowTipCVA(), ui?.arrowTip)" />
@@ -284,7 +283,7 @@ extendCompodiumMeta({
               <UIMenuEntryRenderer :items :intent :size v-bind="itemUiProps" />
             </slot>
           </ArkMenu.Content>
-        </ArkMenu.Positioner>
+        </UIMenuPositioner>
       </Teleport>
     </ArkMenu.Context>
   </component>

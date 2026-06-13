@@ -14,6 +14,9 @@ tagsInput:
   loading: 'Chargement'
   noOptions: 'Aucun résultat'
 open: 'Ouvrir'
+filter:
+  open: 'Filtres'
+  reset: 'Réinitialiser les filtres'
 fileUpload:
   dropzoneText: 'Glissez & déposez des fichiers ici, ou cliquez pour parcourir'
   clearText: 'Tout effacer'

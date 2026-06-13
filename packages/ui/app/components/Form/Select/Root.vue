@@ -37,6 +37,7 @@ export interface SelectRootProps
 }
 
 const props = withDefaults(defineProps<SelectRootProps>(), {
+  collection: undefined,
   intent: 'primary',
   size: 'md',
   ui: undefined,

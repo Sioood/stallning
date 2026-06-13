@@ -37,8 +37,10 @@ catalog:
   '@vitest/browser': ^4.1.7
   '@vitest/browser-playwright': ^4.1.7
   '@vitest/coverage-v8': ^4.1.7
+  '@vueuse/core': ^14.3.0
   '@vueuse/nuxt': ^14.3.0
   class-variance-authority: ^0.7.1
+  fuse.js: ^7.4.2
   eslint: ^10.4.0
   eslint-config-prettier: ^10.1.8
   eslint-plugin-vue: ^10.9.1

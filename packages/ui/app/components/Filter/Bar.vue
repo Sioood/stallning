@@ -18,9 +18,11 @@ export interface FilterBarProps<TItem> {
   schema: FilterSchema<TItem>
   layout?: FilterBarLayout<keyof FilterSchema<TItem> & string>[]
   size?: 'sm' | 'md'
+  /** When true, always use the compact popover layout (ignores breakpoint). */
+  forceCompact?: boolean
   debounce?: number
   intent?: FilterIntent
-  /** When true, search is rendered inside the filter menu (menu / small layout only). */
+  /** When true, search is rendered inside the filter menu (compact layout only). */
   searchInMenu?: boolean
   showSearchPending?: boolean
   resetLabel?: string
@@ -39,6 +41,7 @@ defineOptions({ inheritAttrs: false })
 
 const props = withDefaults(defineProps<FilterBarProps<TItem>>(), {
   debounce: 300,
+  forceCompact: false,
   intent: 'primary',
   layout: undefined,
   resetLabel: 'filter.reset',
@@ -112,7 +115,7 @@ const hasActiveFilters = computed(() => computeHasActiveFilters(props.schema, in
 
 const filtersOpen = ref(false)
 
-const showMenu = computed(() => props.size === 'sm' || !isLargeScreen.value)
+const showMenu = computed(() => props.forceCompact || !isLargeScreen.value)
 
 const searchSchema = computed(() => {
   const key = searchKey.value

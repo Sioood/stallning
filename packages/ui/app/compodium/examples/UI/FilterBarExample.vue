@@ -131,13 +131,13 @@ function onFilterChange(values: FilterValues) {
     </section>
 
     <section class="flex flex-col gap-3">
-      <h3 class="text-lg font-bold">Small (menu forcé)</h3>
-      <UIFilterBar v-model="filterValues" :schema="schema" size="sm" />
+      <h3 class="text-lg font-bold">Compact (forcé)</h3>
+      <UIFilterBar v-model="filterValues" :schema="schema" force-compact />
     </section>
 
     <section class="flex flex-col gap-3">
       <h3 class="text-lg font-bold">Search dans le menu</h3>
-      <UIFilterBar v-model="filterValues" :schema="schema" search-in-menu size="sm" />
+      <UIFilterBar v-model="filterValues" :schema="schema" force-compact search-in-menu />
     </section>
 
     <section class="flex flex-col gap-3">

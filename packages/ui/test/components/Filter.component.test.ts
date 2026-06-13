@@ -78,6 +78,25 @@ describe('UIFilterBar', () => {
     vi.unstubAllGlobals()
   })
 
+  it('renders compact popover layout when forceCompact is true', async () => {
+    vi.stubGlobal('useBreakpoints', () => ({
+      greaterOrEqual: () => ref(true),
+    }))
+
+    const wrapper = await mountSuspended(FilterBar, {
+      props: {
+        forceCompact: true,
+        schema,
+      },
+    })
+
+    expect(wrapper.attributes('data-ui-filter-bar')).toBeDefined()
+    expect(wrapper.get('button[aria-label="Filtres"]').exists()).toBe(true)
+    expect(wrapper.text()).toContain('Réinitialiser les filtres')
+
+    vi.unstubAllGlobals()
+  })
+
   it('filters items when values are applied through applyFilters', async () => {
     const values: FilterValues = {
       premium: false,

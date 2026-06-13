@@ -29,7 +29,7 @@ catalog:
   '@tanstack/table-core': ^8.21.3
   '@tanstack/vue-form': ^1.32.0
   '@tanstack/vue-table': ^8.21.3
-  '@tanstack/vue-virtual': ^3.13.12
+  '@tanstack/vue-virtual': ^3.13.25
   '@types/minimist': ^1.2.5
   '@types/node': ^25.9.1
   '@typescript-eslint/parser': ^8.59.4
@@ -40,6 +40,7 @@ catalog:
   '@vueuse/core': ^14.3.0
   '@vueuse/nuxt': ^14.3.0
   class-variance-authority: ^0.7.1
+  commander: ^13.1.0
   fuse.js: ^7.4.2
   eslint: ^10.4.0
   eslint-config-prettier: ^10.1.8
@@ -61,8 +62,20 @@ catalog:
   zod: ^4.4.3
 
 minimumReleaseAge: 1440 # 24 hours
+minimumReleaseAgeExclude:
+  - esbuild@0.28.1
+
+packageExtensions:
+  '@unhead/bundler@3.1.0':
+    dependencies:
+      unhead: ^3.1.0
+    peerDependenciesMeta:
+      unhead:
+        optional: true
+
 overrides:
   '@internationalized/date': 3.12.0
+  esbuild: '>=0.28.1'
   '@nuxt/nitro-server@>=4.2.0 <=4.4.5': '>=4.4.6'
   ajv@>=7.0.0-alpha.0 <8.18.0: '>=8.20.0'
   brace-expansion@>=2.0.0 <2.0.3: '>=5.0.6'

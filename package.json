@@ -47,7 +47,7 @@
     "@stallning/typescript": "workspace:^",
     "@types/minimist": "catalog:",
     "@types/node": "catalog:",
-    "commander": "^14.0.3",
+    "commander": "catalog:",
     "consola": "^3.4.2",
     "eslint": "catalog:",
     "husky": "^9.1.7",

@@ -45,39 +45,43 @@ const portalled = computed(() => {
   }
   return true
 })
+
+const fieldRootClass = computed(() => cn(props.menuMode ? 'w-full' : 'max-w-48 min-w-40'))
 </script>
 
 <template>
   <UIFormSelect
     v-if="config.type === 'select'"
     v-model="modelValue as string[]"
-    :intent="props.intent"
+    :intent
     :label="config.label"
     :items="config.props?.items ?? []"
     :multiple="config.props?.multiple ?? true"
     :placeholder="config.props?.placeholder"
-    :portalled="portalled"
+    :portalled
     :size="selectSize"
     v-bind="config.props ?? {}"
-    class="min-w-40"
+    :class="fieldRootClass"
   />
 
   <UISwitch
     v-else-if="config.type === 'toggle' && (config.variant ?? 'switch') === 'switch'"
     v-model="modelValue as boolean"
-    :intent="props.intent"
+    :intent
     :label="config.label"
     size="sm"
     v-bind="config.props ?? {}"
+    :class="fieldRootClass"
   />
 
   <UIToggle
     v-else-if="config.type === 'toggle' && config.variant === 'toggle'"
     v-model:pressed="modelValue as boolean"
-    :intent="props.intent"
+    :intent
     variant="subtle"
     size="sm"
     v-bind="config.props ?? {}"
+    :class="fieldRootClass"
   >
     <template #off>{{ config.label }}</template>
     <template #on>{{ config.label }}</template>
@@ -87,11 +91,12 @@ const portalled = computed(() => {
     v-else-if="config.type === 'toggle-group'"
     v-model="modelValue as string[]"
     active-background
-    :intent="props.intent"
+    :intent
     :options="config.props?.options ?? []"
     :icon-only="config.props?.iconOnly"
     :size="toggleGroupSize"
     variant="subtle"
     v-bind="config.props ?? {}"
+    :class="fieldRootClass"
   />
 </template>

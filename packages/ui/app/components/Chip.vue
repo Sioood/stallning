@@ -75,9 +75,9 @@ const chipCVA = cva(['flex items-center justify-center', 'group'], {
       true: '',
     },
     size: {
-      lg: 'gap-1.5 border p-1.5',
-      md: 'gap-1 border p-1',
-      sm: 'gap-0.5 border p-0.5',
+      lg: 'gap-1.5 rounded-xs border p-1.5',
+      md: 'gap-1 rounded-xs border p-1',
+      sm: 'gap-0.5 rounded-xs border p-0.5',
     } satisfies Record<ChipSize, string>,
   },
 })

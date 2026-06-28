@@ -45,9 +45,9 @@ const badgeCVA = cva('flex w-fit items-center justify-center', {
       yellow: 'border-yellow-border bg-yellow-surface',
     } satisfies Record<BadgeIntent, string>,
     size: {
-      lg: 'gap-1.5 border p-1.5',
-      md: 'gap-1 border p-1',
-      sm: 'gap-0.5 border p-0.5',
+      lg: 'gap-1.5 rounded-xs border p-1.5',
+      md: 'gap-1 rounded-xs border p-1',
+      sm: 'gap-0.5 rounded-xs border p-0.5',
     } satisfies Record<BadgeSize, string>,
     variant: {
       default: '',

@@ -4,7 +4,7 @@ import type { FormFieldIntent, FormFieldSize } from './context'
 
 export const checkboxControlCVA = cva(
   [
-    'size-4 shrink-0 border',
+    'size-4 shrink-0 overflow-hidden border',
     'border-primary-border data-hover:border-primary-border-hover data-[disabled]:border-primary-border-subtle data-[invalid]:border-error-border',
   ],
   {
@@ -28,9 +28,9 @@ export const checkboxControlCVA = cva(
         true: '',
       } satisfies Record<'false' | 'true', string>,
       size: {
-        lg: '',
-        md: '',
-        sm: '',
+        lg: 'rounded-xs',
+        md: 'rounded-xs',
+        sm: 'rounded-xs',
       } satisfies Record<FormFieldSize, string>,
     },
   },

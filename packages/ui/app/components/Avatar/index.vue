@@ -38,9 +38,9 @@ const avatarRootCVA = cva(
         secondary: 'bg-secondary-fill-subtle text-secondary-text',
       } satisfies Record<AvatarIntent, string>,
       size: {
-        lg: 'txt-base size-12',
-        md: 'txt-label size-10',
-        sm: 'txt-caption size-8',
+        lg: 'txt-base size-12 rounded-xs',
+        md: 'txt-label size-10 rounded-xs',
+        sm: 'txt-caption size-8 rounded-xs',
       } satisfies Record<AvatarSize, string>,
     },
   },

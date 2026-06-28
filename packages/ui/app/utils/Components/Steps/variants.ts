@@ -153,9 +153,9 @@ export const stepsIndicatorCVA = cva(
         secondary: '',
       } satisfies Record<StepsIntent, string>,
       size: {
-        lg: 'txt-base size-10 border',
-        md: 'txt-label size-8 border',
-        sm: 'txt-caption size-6 border',
+        lg: 'txt-base size-10 rounded-xs border',
+        md: 'txt-label size-8 rounded-xs border',
+        sm: 'txt-caption size-6 rounded-xs border',
       } satisfies Record<StepsSize, string>,
       status: {
         completed: '',

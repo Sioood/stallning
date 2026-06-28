@@ -46,7 +46,7 @@ const popoverContentCVA = cva(
         warning: 'bg-warning-surface text-warning-text',
       } satisfies Record<PopoverIntent, string>,
       size: {
-        md: 'txt-caption flex flex-col gap-2 p-2',
+        md: 'txt-caption flex flex-col gap-2 rounded-xs p-2',
       } satisfies Record<PopoverSize, string>,
     },
   },

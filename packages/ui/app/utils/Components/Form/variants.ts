@@ -71,9 +71,9 @@ export const controlShellCVA = cva('flex w-full min-w-0 items-center gap-0.5', {
       true: 'border-error-border!',
     },
     size: {
-      lg: 'border',
-      md: 'border',
-      sm: 'border',
+      lg: 'rounded-xs border',
+      md: 'rounded-xs border',
+      sm: 'rounded-xs border',
     } satisfies Record<FormFieldSize, string>,
   },
 })
@@ -90,9 +90,9 @@ export const pinSlotCVA = cva(
         true: 'border-error-border! focus:border-error-border-strong! focus:focus-ring',
       },
       size: {
-        lg: 'txt-h5 size-12',
-        md: 'txt-base size-10',
-        sm: 'txt-label size-8',
+        lg: 'txt-h5 size-12 rounded-xs',
+        md: 'txt-base size-10 rounded-xs',
+        sm: 'txt-label size-8 rounded-xs',
       } satisfies Record<FormFieldSize, string>,
     },
   },

@@ -131,9 +131,9 @@ const sliderThumbCVA = cva(
           'data-[disabled]:bg-secondary border-secondary-border bg-secondary-fill disabled:pointer-events-none disabled:opacity-40',
       } satisfies Record<FormSliderIntent, string>,
       size: {
-        lg: 'size-5 border',
-        md: 'size-4 border',
-        sm: 'size-3 border',
+        lg: 'size-5 rounded-xs border',
+        md: 'size-4 rounded-xs border',
+        sm: 'size-3 rounded-xs border',
       } satisfies Record<FormSliderSize, string>,
     },
   },

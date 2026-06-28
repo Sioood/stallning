@@ -74,9 +74,9 @@ const fileUploadDropzoneCVA = cva(
           'data-[disabled]:border-secondary-border-subtle-disabled border-secondary-border-subtle bg-secondary-fill-subtle/50 not-data-[dragging]:not-data-[disabled]:hover:border-secondary-border not-data-[dragging]:not-data-[disabled]:hover:bg-secondary-fill-subtle disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-secondary-fill-subtle/50 data-[invalid]:border-error-border data-[invalid]:bg-error-fill-subtle/20',
       } satisfies Record<FileUploadIntent, string>,
       size: {
-        lg: 'txt-h6 p-12',
-        md: 'txt-label p-8',
-        sm: 'txt-caption p-4',
+        lg: 'txt-h6 rounded-xs p-12',
+        md: 'txt-label rounded-xs p-8',
+        sm: 'txt-caption rounded-xs p-4',
       } satisfies Record<FileUploadSize, string>,
     },
   },

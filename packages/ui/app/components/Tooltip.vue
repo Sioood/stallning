@@ -55,7 +55,7 @@ const tooltipContentCVA = cva(
         warning: 'bg-warning-surface text-warning-text',
       } satisfies Record<TooltipIntent, string>,
       size: {
-        md: 'txt-caption px-2 py-1',
+        md: 'txt-caption rounded-xs px-2 py-1',
       } satisfies Record<TooltipSize, string>,
     },
   },

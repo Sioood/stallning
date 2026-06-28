@@ -2246,7 +2246,7 @@ select:focus-visible {
 .join {
   @apply inline-flex items-stretch;
   /* --join-radius: var(--radius-field, 9999px); */
-  --join-radius: var(--radius-field, 0);
+  --join-radius: var(--radius-field, 2px);
   --join-border-width: var(--border, 1px);
   --join-ss: 0;
   --join-se: 0;

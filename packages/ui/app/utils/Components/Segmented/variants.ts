@@ -90,7 +90,7 @@ export const segmentedRootCVA = cva('relative inline-flex w-fit items-center', {
     } satisfies Record<SegmentedSize, string>,
     variant: {
       line: '',
-      pill: 'border p-0.5',
+      pill: 'rounded-xs border p-0.5',
     } satisfies Record<SegmentedVariant, string>,
   },
 })
@@ -174,7 +174,7 @@ export const segmentedItemCVA = cva(
       } satisfies Record<SegmentedSize, string>,
       variant: {
         line: '',
-        pill: '',
+        pill: 'rounded-xs',
       } satisfies Record<SegmentedVariant, string>,
     },
   },

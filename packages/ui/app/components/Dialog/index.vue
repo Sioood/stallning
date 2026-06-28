@@ -62,9 +62,9 @@ const dialogContentCVA = cva(
       } satisfies Record<ScrollBehavior, string>,
       size: {
         full: 'm-2 max-w-full',
-        lg: 'm-2 max-w-lg',
-        md: 'm-2 max-w-md',
-        sm: 'm-2 max-w-sm',
+        lg: 'm-2 max-w-lg rounded-xs',
+        md: 'm-2 max-w-md rounded-xs',
+        sm: 'm-2 max-w-sm rounded-xs',
       } satisfies Record<DialogSize, string>,
     },
   },

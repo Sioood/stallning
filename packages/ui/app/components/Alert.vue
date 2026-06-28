@@ -18,7 +18,7 @@ const alertRootCVA = cva(['alertRoot', 'relative'], {
       warning: 'border-warning-border bg-warning-surface-subtle',
     } satisfies Record<AlertIntent, string>,
     size: {
-      md: 'flex justify-between gap-8 border p-4',
+      md: 'flex justify-between gap-8 rounded-xs border p-4',
     } satisfies Record<AlertSize, string>,
   },
 })

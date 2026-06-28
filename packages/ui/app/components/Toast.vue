@@ -39,7 +39,7 @@ const toastRootCVA = cva(
         warning: 'border-warning-border bg-warning-surface text-warning-text',
       } satisfies Record<ToastIntent, string>,
       size: {
-        md: 'min-w-64 p-2 pr-12',
+        md: 'min-w-64 rounded-xs p-2 pr-12',
       } satisfies Record<ToastSize, string>,
     },
   },

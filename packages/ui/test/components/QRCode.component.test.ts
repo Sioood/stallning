@@ -17,7 +17,7 @@ describe('QRCode', () => {
 
     const root = wrapper.find('.qrCodeRoot')
     expect(root.exists()).toBe(true)
-    expect(root.classes().join(' ')).toMatch(/text-neutral-surface-default/)
+    expect(root.classes().join(' ')).toMatch(/text-neutral-surface/)
 
     const frame = wrapper.find('.qrCodeFrame')
     expect(frame.exists()).toBe(true)
@@ -34,7 +34,7 @@ describe('QRCode', () => {
       },
     })
 
-    expect(wrapper.find('.qrCodeRoot').classes().join(' ')).toMatch(/text-primary-surface-default/)
+    expect(wrapper.find('.qrCodeRoot').classes().join(' ')).toMatch(/text-primary-surface/)
     expect(wrapper.find('.qrCodeFrame').classes().join(' ')).toMatch(/bg-primary-fill-subtle/)
   })
 

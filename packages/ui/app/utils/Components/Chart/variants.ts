@@ -89,15 +89,15 @@ const chartTooltipCVA = cva('[--vis-tooltip-border-radius:0]', {
   variants: {
     intent: {
       accent:
-        '[--vis-tooltip-background-color:var(--color-accent-surface-default)] [--vis-tooltip-border-color:transparent] [--vis-tooltip-text-color:var(--color-accent-text-default)]',
+        '[--vis-tooltip-background-color:var(--color-accent-surface)] [--vis-tooltip-border-color:transparent] [--vis-tooltip-text-color:var(--color-accent-text)]',
       multicolor:
-        '[--vis-tooltip-background-color:var(--color-neutral-surface-default)] [--vis-tooltip-border-color:transparent] [--vis-tooltip-text-color:var(--color-neutral-text-default)]',
+        '[--vis-tooltip-background-color:var(--color-neutral-surface)] [--vis-tooltip-border-color:transparent] [--vis-tooltip-text-color:var(--color-neutral-text)]',
       neutral:
-        '[--vis-tooltip-background-color:var(--color-neutral-surface-default)] [--vis-tooltip-border-color:transparent] [--vis-tooltip-text-color:var(--color-neutral-text-default)]',
+        '[--vis-tooltip-background-color:var(--color-neutral-surface)] [--vis-tooltip-border-color:transparent] [--vis-tooltip-text-color:var(--color-neutral-text)]',
       primary:
-        '[--vis-tooltip-background-color:var(--color-primary-surface-default)] [--vis-tooltip-border-color:transparent] [--vis-tooltip-text-color:var(--color-primary-text-default)]',
+        '[--vis-tooltip-background-color:var(--color-primary-surface)] [--vis-tooltip-border-color:transparent] [--vis-tooltip-text-color:var(--color-primary-text)]',
       secondary:
-        '[--vis-tooltip-background-color:var(--color-secondary-surface-default)] [--vis-tooltip-border-color:transparent] [--vis-tooltip-text-color:var(--color-secondary-text-default)]',
+        '[--vis-tooltip-background-color:var(--color-secondary-surface)] [--vis-tooltip-border-color:transparent] [--vis-tooltip-text-color:var(--color-secondary-text)]',
     } satisfies Record<ChartIntent, string>,
     size: {
       lg: 'txt-base [--vis-tooltip-padding:calc(var(--spacing)*1.5)_calc(var(--spacing)*3)]',
@@ -111,15 +111,15 @@ const chartDonutCVA = cva('', {
   variants: {
     intent: {
       accent:
-        '[--vis-donut-background-color:var(--color-accent-fill-subtle)] [--vis-donut-central-label-text-color:var(--color-accent-text-default)] [--vis-donut-central-sub-label-text-color:var(--color-accent-text-subtle)]',
+        '[--vis-donut-background-color:var(--color-accent-fill-subtle)] [--vis-donut-central-label-text-color:var(--color-accent-text)] [--vis-donut-central-sub-label-text-color:var(--color-accent-text-subtle)]',
       multicolor:
-        '[--vis-donut-background-color:var(--color-neutral-fill-subtle)] [--vis-donut-central-label-text-color:var(--color-neutral-text-default)] [--vis-donut-central-sub-label-text-color:var(--color-neutral-text-subtle)]',
+        '[--vis-donut-background-color:var(--color-neutral-fill-subtle)] [--vis-donut-central-label-text-color:var(--color-neutral-text)] [--vis-donut-central-sub-label-text-color:var(--color-neutral-text-subtle)]',
       neutral:
-        '[--vis-donut-background-color:var(--color-neutral-fill-subtle)] [--vis-donut-central-label-text-color:var(--color-neutral-text-default)] [--vis-donut-central-sub-label-text-color:var(--color-neutral-text-subtle)]',
+        '[--vis-donut-background-color:var(--color-neutral-fill-subtle)] [--vis-donut-central-label-text-color:var(--color-neutral-text)] [--vis-donut-central-sub-label-text-color:var(--color-neutral-text-subtle)]',
       primary:
-        '[--vis-donut-background-color:var(--color-primary-fill-subtle)] [--vis-donut-central-label-text-color:var(--color-primary-text-default)] [--vis-donut-central-sub-label-text-color:var(--color-primary-text-subtle)]',
+        '[--vis-donut-background-color:var(--color-primary-fill-subtle)] [--vis-donut-central-label-text-color:var(--color-primary-text)] [--vis-donut-central-sub-label-text-color:var(--color-primary-text-subtle)]',
       secondary:
-        '[--vis-donut-background-color:var(--color-secondary-fill-subtle)] [--vis-donut-central-label-text-color:var(--color-secondary-text-default)] [--vis-donut-central-sub-label-text-color:var(--color-secondary-text-subtle)]',
+        '[--vis-donut-background-color:var(--color-secondary-fill-subtle)] [--vis-donut-central-label-text-color:var(--color-secondary-text)] [--vis-donut-central-sub-label-text-color:var(--color-secondary-text-subtle)]',
     } satisfies Record<ChartIntent, string>,
     size: {
       lg: '[--vis-donut-central-label-font-size:1.25rem] [--vis-donut-central-sub-label-font-size:0.875rem]',
@@ -133,15 +133,15 @@ const chartAxisCVA = cva('', {
   variants: {
     intent: {
       accent:
-        '[--vis-axis-grid-color:var(--color-accent-border-subtle)] [--vis-axis-text-color:var(--color-accent-text-default)] [--vis-axis-tick-color:var(--color-accent-border-subtle)]',
+        '[--vis-axis-grid-color:var(--color-accent-border-subtle)] [--vis-axis-text-color:var(--color-accent-text)] [--vis-axis-tick-color:var(--color-accent-border-subtle)]',
       multicolor:
-        '[--vis-axis-grid-color:var(--color-neutral-border-subtle)] [--vis-axis-text-color:var(--color-neutral-text-default)] [--vis-axis-tick-color:var(--color-neutral-border-subtle)]',
+        '[--vis-axis-grid-color:var(--color-neutral-border-subtle)] [--vis-axis-text-color:var(--color-neutral-text)] [--vis-axis-tick-color:var(--color-neutral-border-subtle)]',
       neutral:
-        '[--vis-axis-grid-color:var(--color-neutral-border-subtle)] [--vis-axis-text-color:var(--color-neutral-text-default)] [--vis-axis-tick-color:var(--color-neutral-border-subtle)]',
+        '[--vis-axis-grid-color:var(--color-neutral-border-subtle)] [--vis-axis-text-color:var(--color-neutral-text)] [--vis-axis-tick-color:var(--color-neutral-border-subtle)]',
       primary:
-        '[--vis-axis-grid-color:var(--color-primary-border-subtle)] [--vis-axis-text-color:var(--color-primary-text-default)] [--vis-axis-tick-color:var(--color-primary-border-subtle)]',
+        '[--vis-axis-grid-color:var(--color-primary-border-subtle)] [--vis-axis-text-color:var(--color-primary-text)] [--vis-axis-tick-color:var(--color-primary-border-subtle)]',
       secondary:
-        '[--vis-axis-grid-color:var(--color-secondary-border-subtle)] [--vis-axis-text-color:var(--color-secondary-text-default)] [--vis-axis-tick-color:var(--color-secondary-border-subtle)]',
+        '[--vis-axis-grid-color:var(--color-secondary-border-subtle)] [--vis-axis-text-color:var(--color-secondary-text)] [--vis-axis-tick-color:var(--color-secondary-border-subtle)]',
     } satisfies Record<ChartIntent, string>,
     variant: {
       dashed: '[--vis-axis-domain-line-dasharray:none] [--vis-axis-grid-line-dasharray:5_5]',
@@ -166,7 +166,7 @@ const chartRootCVA = cva('flex w-full font-mono', {
       accent:
         '[--vis-color0:var(--color-accent-300)] [--vis-color1:var(--color-accent-400)] [--vis-color2:var(--color-accent-500)] [--vis-color3:var(--color-accent-600)] [--vis-color4:var(--color-accent-700)] [--vis-color5:var(--color-accent-800)]',
       multicolor:
-        '[--vis-color0:var(--color-blue-fill-default)] [--vis-color1:var(--color-red-fill-default)] [--vis-color2:var(--color-green-fill-default)] [--vis-color3:var(--color-purple-fill-default)] [--vis-color4:var(--color-yellow-fill-default)] [--vis-color5:var(--color-pink-fill-default)]',
+        '[--vis-color0:var(--color-blue-fill)] [--vis-color1:var(--color-red-fill)] [--vis-color2:var(--color-green-fill)] [--vis-color3:var(--color-purple-fill)] [--vis-color4:var(--color-yellow-fill)] [--vis-color5:var(--color-pink-fill)]',
       neutral:
         '[--vis-color0:var(--color-neutral-300)] [--vis-color1:var(--color-neutral-400)] [--vis-color2:var(--color-neutral-500)] [--vis-color3:var(--color-neutral-600)] [--vis-color4:var(--color-neutral-700)] [--vis-color5:var(--color-neutral-800)]',
       primary:

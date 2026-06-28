@@ -11,7 +11,6 @@ import { useLayerZIndexRef } from '~/composables/useLayerZIndexRef'
 
 import type { ClassValue } from 'vue'
 
-
 defineOptions({ inheritAttrs: false })
 
 export type DrawerIntent = 'neutral' | 'primary' | 'secondary' | 'accent'
@@ -109,10 +108,10 @@ const drawerBodyCVA = cva(
   {
     variants: {
       intent: {
-        accent: 'bg-accent-surface-default',
-        neutral: 'bg-neutral-surface-default',
-        primary: 'bg-primary-surface-default',
-        secondary: 'bg-secondary-surface-default',
+        accent: 'bg-accent-surface',
+        neutral: 'bg-neutral-surface',
+        primary: 'bg-primary-surface',
+        secondary: 'bg-secondary-surface',
       } satisfies Record<DrawerIntent, string>,
       swipeDirection: {
         down: [
@@ -166,10 +165,10 @@ const drawerGrabberIndicatorCVA = cva('bg-neutral-border-inverse transition-colo
 const drawerTitleCVA = cva('txt-h5', {
   variants: {
     intent: {
-      accent: 'text-accent-text-strong',
-      neutral: 'text-neutral-text-strong',
-      primary: 'text-primary-text-strong',
-      secondary: 'text-secondary-text-strong',
+      accent: 'text-accent-text',
+      neutral: 'text-neutral-text',
+      primary: 'text-primary-text',
+      secondary: 'text-secondary-text',
     } satisfies Record<DrawerIntent, string>,
   },
 })

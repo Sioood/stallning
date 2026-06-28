@@ -72,10 +72,10 @@ export const stepsContentCVA = cva('w-full', {
   },
   variants: {
     intent: {
-      accent: 'text-accent-text-default',
-      neutral: 'text-neutral-text-default',
-      primary: 'text-primary-text-default',
-      secondary: 'text-secondary-text-default',
+      accent: 'text-accent-text',
+      neutral: 'text-neutral-text',
+      primary: 'text-primary-text',
+      secondary: 'text-secondary-text',
     } satisfies Record<StepsIntent, string>,
     size: {
       lg: 'txt-h6 py-4',
@@ -91,47 +91,51 @@ export const stepsIndicatorCVA = cva(
     compoundVariants: [
       // Pending
       {
-        className: 'border-neutral-border-subtle bg-neutral-fill-subtle text-neutral-text-subtle',
+        className:
+          'border-neutral-border-subtle bg-neutral-fill-subtle text-neutral-text-subtle disabled:pointer-events-none disabled:opacity-40',
         intent: 'neutral',
         status: 'pending',
       },
       {
-        className: 'border-primary-border-subtle bg-primary-fill-subtle text-primary-text-subtle',
+        className:
+          'border-primary-border-subtle bg-primary-fill-subtle text-primary-text-subtle disabled:pointer-events-none disabled:opacity-40',
         intent: 'primary',
         status: 'pending',
       },
       {
         className:
-          'border-secondary-border-subtle bg-secondary-fill-subtle text-secondary-text-subtle',
+          'border-secondary-border-subtle bg-secondary-fill-subtle text-secondary-text-subtle disabled:pointer-events-none disabled:opacity-40',
         intent: 'secondary',
         status: 'pending',
       },
       {
-        className: 'border-accent-border-subtle bg-accent-fill-subtle text-accent-text-subtle',
+        className:
+          'border-accent-border-subtle bg-accent-fill-subtle text-accent-text-subtle disabled:pointer-events-none disabled:opacity-40',
         intent: 'accent',
         status: 'pending',
       },
       // Current
       {
         className:
-          'border-neutral-border-default bg-neutral-fill-default text-neutral-text-inverse',
+          'border-neutral-border bg-neutral-fill text-neutral-on-fill disabled:pointer-events-none disabled:opacity-40',
         intent: 'neutral',
         status: ['current', 'completed'],
       },
       {
         className:
-          'border-primary-border-default bg-primary-fill-default text-primary-text-inverse',
+          'border-primary-border bg-primary-fill text-primary-on-fill disabled:pointer-events-none disabled:opacity-40',
         intent: 'primary',
         status: ['current', 'completed'],
       },
       {
         className:
-          'border-secondary-border-default bg-secondary-fill-default text-secondary-text-inverse',
+          'border-secondary-border bg-secondary-fill text-secondary-on-fill disabled:pointer-events-none disabled:opacity-40',
         intent: 'secondary',
         status: ['current', 'completed'],
       },
       {
-        className: 'border-accent-border-default bg-accent-fill-default text-accent-text-inverse',
+        className:
+          'border-accent-border bg-accent-fill text-accent-on-fill disabled:pointer-events-none disabled:opacity-40',
         intent: 'accent',
         status: ['current', 'completed'],
       },
@@ -165,22 +169,22 @@ export const stepsIndicatorCVA = cva(
 export const stepsSeparatorCVA = cva(['flex-1 shrink-0 transition-colors duration-150'], {
   compoundVariants: [
     {
-      className: 'bg-neutral-border-default',
+      className: 'bg-neutral-border',
       completed: true,
       intent: 'neutral',
     },
     {
-      className: 'bg-primary-border-default',
+      className: 'bg-primary-border',
       completed: true,
       intent: 'primary',
     },
     {
-      className: 'bg-secondary-border-default',
+      className: 'bg-secondary-border',
       completed: true,
       intent: 'secondary',
     },
     {
-      className: 'bg-accent-border-default',
+      className: 'bg-accent-border',
       completed: true,
       intent: 'accent',
     },
@@ -221,10 +225,10 @@ export const stepsCompletedContentCVA = cva('w-full', {
   },
   variants: {
     intent: {
-      accent: 'text-accent-text-default',
-      neutral: 'text-neutral-text-default',
-      primary: 'text-primary-text-default',
-      secondary: 'text-secondary-text-default',
+      accent: 'text-accent-text',
+      neutral: 'text-neutral-text',
+      primary: 'text-primary-text',
+      secondary: 'text-secondary-text',
     } satisfies Record<StepsIntent, string>,
     size: {
       lg: 'txt-h6 py-4',

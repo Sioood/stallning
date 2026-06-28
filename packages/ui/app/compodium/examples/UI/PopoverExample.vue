@@ -85,7 +85,7 @@ const triggerLabels: Record<string, string> = {
         </template>
         <template #content="{ triggerValue }">
           <div class="p-2">
-            <span class="font-bold text-primary-text-default">Active:</span>
+            <span class="font-bold text-primary-text">Active:</span>
             {{ triggerLabels[triggerValue ?? ''] ?? 'Select a trigger' }}
           </div>
         </template>

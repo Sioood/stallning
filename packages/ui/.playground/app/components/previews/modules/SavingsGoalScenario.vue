@@ -23,7 +23,7 @@ function addContribution() {
 <template>
   <div class="flex flex-col items-center gap-3">
     <UIProgressCircular :model-value="progress" size="md" intent="primary" label="Objectif" />
-    <p class="txt-h6 text-neutral-text-strong tabular-nums">
+    <p class="txt-h6 text-neutral-text tabular-nums">
       {{ saved.toLocaleString('fr-FR') }} € / {{ target.toLocaleString('fr-FR') }} €
     </p>
     <div class="flex items-center gap-2">

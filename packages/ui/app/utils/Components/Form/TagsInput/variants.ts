@@ -33,13 +33,13 @@ export const tagsInputInputCVA = cva(
     variants: {
       intent: {
         accent:
-          'text-accent-text-default placeholder:text-accent-text-subtle disabled:text-accent-text-default-disabled',
+          'text-accent-text placeholder:text-accent-text-muted disabled:text-accent-text-disabled',
         neutral:
-          'text-neutral-text-default placeholder:text-neutral-text-subtle disabled:text-neutral-text-default-disabled',
+          'text-neutral-text placeholder:text-neutral-text-muted disabled:text-neutral-text-disabled',
         primary:
-          'text-primary-text-default placeholder:text-primary-text-subtle disabled:text-primary-text-default-disabled',
+          'text-primary-text placeholder:text-primary-text-muted disabled:text-primary-text-disabled',
         secondary:
-          'text-secondary-text-default placeholder:text-secondary-text-subtle disabled:text-secondary-text-default-disabled',
+          'text-secondary-text placeholder:text-secondary-text-muted disabled:text-secondary-text-disabled',
       } satisfies Record<TagsInputIntent, string>,
       size: {
         lg: 'txt-base',
@@ -59,10 +59,10 @@ export const tagsInputItemInputCVA = cva(
   {
     variants: {
       intent: {
-        accent: 'text-accent-text-default',
-        neutral: 'text-neutral-text-default',
-        primary: 'text-primary-text-default',
-        secondary: 'text-secondary-text-default',
+        accent: 'text-accent-text',
+        neutral: 'text-neutral-text',
+        primary: 'text-primary-text',
+        secondary: 'text-secondary-text',
       } satisfies Record<TagsInputIntent, string>,
     },
   },

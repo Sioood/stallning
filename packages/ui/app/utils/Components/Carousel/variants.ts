@@ -11,10 +11,10 @@ export const carouselRootCVA = cva(
     },
     variants: {
       intent: {
-        accent: 'text-accent-text-default',
-        neutral: 'text-neutral-text-default',
-        primary: 'text-primary-text-default',
-        secondary: 'text-secondary-text-default',
+        accent: 'text-accent-text',
+        neutral: 'text-neutral-text',
+        primary: 'text-primary-text',
+        secondary: 'text-secondary-text',
       } satisfies Record<CarouselIntent, string>,
       size: {
         lg: 'gap-5',
@@ -122,7 +122,7 @@ export const carouselIndicatorGroupCVA = cva('flex items-center justify-center',
 })
 
 export const carouselDotIndicatorCVA = cva(
-  'size-2.5 shrink-0 cursor-pointer border-0 p-0 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-border-default disabled:cursor-not-allowed disabled:opacity-50 data-[current]:ring',
+  'size-2.5 shrink-0 cursor-pointer border-0 p-0 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-border disabled:cursor-not-allowed disabled:opacity-50 data-[current]:ring',
   {
     defaultVariants: {
       intent: 'primary',
@@ -130,20 +130,20 @@ export const carouselDotIndicatorCVA = cva(
     variants: {
       intent: {
         accent:
-          'bg-accent-fill-subtle data-[current]:bg-accent-fill-default data-[current]:ring-accent-border-default',
+          'bg-accent-fill-subtle data-[current]:bg-accent-fill data-[current]:ring-accent-border',
         neutral:
-          'bg-neutral-fill-subtle data-[current]:bg-neutral-fill-default data-[current]:ring-neutral-border-default',
+          'bg-neutral-fill-subtle data-[current]:bg-neutral-fill data-[current]:ring-neutral-border',
         primary:
-          'bg-primary-fill-subtle data-[current]:bg-primary-fill-default data-[current]:ring-primary-border-default',
+          'bg-primary-fill-subtle data-[current]:bg-primary-fill data-[current]:ring-primary-border',
         secondary:
-          'bg-secondary-fill-subtle data-[current]:bg-secondary-fill-default data-[current]:ring-secondary-border-default',
+          'bg-secondary-fill-subtle data-[current]:bg-secondary-fill data-[current]:ring-secondary-border',
       } satisfies Record<CarouselIntent, string>,
     },
   },
 )
 
 export const carouselThumbnailIndicatorCVA = cva(
-  'block shrink-0 cursor-pointer overflow-hidden border-2 border-transparent p-0 opacity-60 transition-[opacity,border-color] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-border-default disabled:cursor-not-allowed disabled:opacity-50 data-[current]:opacity-100 data-[current]:ring',
+  'block shrink-0 cursor-pointer overflow-hidden border-2 border-transparent p-0 opacity-60 transition-[opacity,border-color] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-border disabled:cursor-not-allowed disabled:opacity-50 data-[current]:opacity-100 data-[current]:ring',
   {
     defaultVariants: {
       intent: 'primary',
@@ -151,10 +151,10 @@ export const carouselThumbnailIndicatorCVA = cva(
     },
     variants: {
       intent: {
-        accent: 'data-[current]:ring-accent-border-default',
-        neutral: 'data-[current]:ring-neutral-border-default',
-        primary: 'data-[current]:ring-primary-border-default',
-        secondary: 'data-[current]:ring-secondary-border-default',
+        accent: 'data-[current]:ring-accent-border',
+        neutral: 'data-[current]:ring-neutral-border',
+        primary: 'data-[current]:ring-primary-border',
+        secondary: 'data-[current]:ring-secondary-border',
       } satisfies Record<CarouselIntent, string>,
       size: {
         lg: 'h-28 w-44',

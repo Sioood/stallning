@@ -17,13 +17,13 @@ const xTickFormat = (tick: number | Date) => `M${Number(tick)}`
 <template>
   <div class="flex w-full max-w-lg flex-col gap-8 p-4">
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h3 text-neutral-text-default">UIChartAxis</h3>
+      <h3 class="txt-h3 text-neutral-text">UIChartAxis</h3>
       <p class="txt-caption text-neutral-text-subtle">
         Must be used inside <code class="font-mono">VisXYContainer</code>. Forwards Unovis axis
         props (ticks, labels, grid, events).
       </p>
       <div
-        class="[--vis-axis-grid-color:var(--color-neutral-border-subtle)] [--vis-axis-grid-line-dasharray:5_5] [--vis-axis-text-color:var(--color-neutral-text-default)] [--vis-axis-tick-color:var(--color-neutral-border-subtle)]"
+        class="[--vis-axis-grid-color:var(--color-neutral-border-subtle)] [--vis-axis-grid-line-dasharray:5_5] [--vis-axis-text-color:var(--color-neutral-text)] [--vis-axis-tick-color:var(--color-neutral-border-subtle)]"
       >
         <VisXYContainer :data="data" :height="280">
           <VisLine :x="x" :y="y" />

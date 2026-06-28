@@ -17,11 +17,11 @@ const externalQrCode = useQrCode({ value: 'https://ark-ui.com' })
           <UIQRCode v-model="url" />
         </div>
         <div class="flex flex-col gap-2">
-          <label class="text-sm font-medium text-neutral-text-default">Edit URL</label>
+          <label class="text-sm font-medium text-neutral-text">Edit URL</label>
           <input
             v-model="url"
             type="text"
-            class="rounded-md border border-neutral-border-default bg-neutral-surface-default px-3 py-1.5 text-sm text-neutral-text-default"
+            class="rounded-md border border-neutral-border bg-neutral-surface px-3 py-1.5 text-sm text-neutral-text"
           />
           <p class="font-mono text-xs text-neutral-text-subtle">{{ url }}</p>
         </div>
@@ -48,7 +48,7 @@ const externalQrCode = useQrCode({ value: 'https://ark-ui.com' })
         <UIQRCode v-model="url" intent="primary" :encoding="{ ecc: 'H', boostEcc: true }">
           <template #overlay>
             <div
-              class="flex size-8 items-center justify-center rounded-full bg-primary-fill-default text-primary-text-inverse"
+              class="flex size-8 items-center justify-center rounded-full bg-primary-fill text-primary-on-fill"
             >
               <Icon name="tabler:link" class="size-4" />
             </div>

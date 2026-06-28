@@ -22,7 +22,7 @@ const halfDonutAngleRange = DONUT_HALF_ANGLE_RANGE_TOP
 <template>
   <div class="flex w-full max-w-4xl flex-col gap-10 p-4">
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h3 text-neutral-text-default">Basic</h3>
+      <h3 class="txt-h3 text-neutral-text">Basic</h3>
       <p class="txt-caption text-neutral-text-subtle">Traffic mix (Unovis basic donut pattern).</p>
       <UIChartDonut
         :data="trafficSourceData"
@@ -36,7 +36,7 @@ const halfDonutAngleRange = DONUT_HALF_ANGLE_RANGE_TOP
     </section>
 
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h3 text-neutral-text-default">Auto legend</h3>
+      <h3 class="txt-h3 text-neutral-text">Auto legend</h3>
       <p class="txt-caption text-neutral-text-subtle">
         Legend built from <code class="font-mono">label</code> accessor when
         <code class="font-mono">series</code> is omitted.
@@ -51,7 +51,7 @@ const halfDonutAngleRange = DONUT_HALF_ANGLE_RANGE_TOP
     </section>
 
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h3 text-neutral-text-default">Half donut</h3>
+      <h3 class="txt-h3 text-neutral-text">Half donut</h3>
       <UIChartDonut
         :data="trafficSourceData"
         :series="trafficSourceSeries"
@@ -65,7 +65,7 @@ const halfDonutAngleRange = DONUT_HALF_ANGLE_RANGE_TOP
     </section>
 
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h3 text-neutral-text-default">Styling</h3>
+      <h3 class="txt-h3 text-neutral-text">Styling</h3>
       <p class="txt-caption text-neutral-text-subtle">
         <code class="font-mono">cornerRadius</code> and <code class="font-mono">padAngle</code>.
       </p>
@@ -80,7 +80,7 @@ const halfDonutAngleRange = DONUT_HALF_ANGLE_RANGE_TOP
     </section>
 
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h3 text-neutral-text-default">Pie chart</h3>
+      <h3 class="txt-h3 text-neutral-text">Pie chart</h3>
       <p class="txt-caption text-neutral-text-subtle">
         Set <code class="font-mono">arcWidth={0}</code> for a filled pie.
       </p>
@@ -95,7 +95,7 @@ const halfDonutAngleRange = DONUT_HALF_ANGLE_RANGE_TOP
     </section>
 
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h3 text-neutral-text-default">Empty segments</h3>
+      <h3 class="txt-h3 text-neutral-text">Empty segments</h3>
       <UIChartDonut
         :data="[...trafficSourceData, { label: 'Email', value: 0 }]"
         :value="value"
@@ -108,7 +108,7 @@ const halfDonutAngleRange = DONUT_HALF_ANGLE_RANGE_TOP
     </section>
 
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h3 text-neutral-text-default">Segment events</h3>
+      <h3 class="txt-h3 text-neutral-text">Segment events</h3>
       <p class="txt-caption text-neutral-text-subtle">Click a segment — check the console.</p>
       <UIChartDonut
         :data="trafficSourceData"
@@ -120,7 +120,7 @@ const halfDonutAngleRange = DONUT_HALF_ANGLE_RANGE_TOP
     </section>
 
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h3 text-neutral-text-default">Legend placement</h3>
+      <h3 class="txt-h3 text-neutral-text">Legend placement</h3>
       <div class="grid gap-8 lg:grid-cols-2">
         <UIChartDonut
           :data="trafficSourceData"
@@ -142,7 +142,7 @@ const halfDonutAngleRange = DONUT_HALF_ANGLE_RANGE_TOP
     </section>
 
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h3 text-neutral-text-default">Minimal chrome</h3>
+      <h3 class="txt-h3 text-neutral-text">Minimal chrome</h3>
       <UIChartDonut
         :data="trafficSourceData"
         :series="trafficSourceSeries"

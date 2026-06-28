@@ -59,7 +59,7 @@ describe('UIFormSignaturePad', () => {
 
     const classes = shellClassName(wrapper)
     expect(classes).toMatch(/bg-primary-fill-subtle/)
-    expect(classes).toMatch(/border-primary-border-default/)
+    expect(classes).toMatch(/border-primary-border/)
     expect(classes).not.toMatch(/bg-transparent/)
   })
 
@@ -70,7 +70,7 @@ describe('UIFormSignaturePad', () => {
 
     const classes = shellClassName(wrapper)
     expect(classes).toMatch(/bg-transparent/)
-    expect(classes).toMatch(/border-primary-border-default/)
+    expect(classes).toMatch(/border-primary-border/)
     expect(classes).not.toMatch(/bg-primary-fill-subtle/)
   })
 
@@ -89,7 +89,7 @@ describe('UIFormSignaturePad', () => {
     })
 
     const segment = wrapper.find('[data-part="segment"]')
-    expect(segment.classes().join(' ')).toMatch(/text-accent-text-default/)
+    expect(segment.classes().join(' ')).toMatch(/text-accent-text/)
   })
 
   it('applies intent-colored guide line', async () => {
@@ -98,7 +98,7 @@ describe('UIFormSignaturePad', () => {
     })
 
     const guide = wrapper.find('[data-part="guide"]')
-    expect(guide.classes().join(' ')).toMatch(/border-secondary-border-default/)
+    expect(guide.classes().join(' ')).toMatch(/border-secondary-border/)
   })
 
   it('applies invalid border on the shell', async () => {
@@ -106,7 +106,7 @@ describe('UIFormSignaturePad', () => {
       props: { error: 'Required', invalid: true, label: 'Signature' },
     })
 
-    expect(shellClassName(wrapper)).toMatch(/border-error-border-default/)
+    expect(shellClassName(wrapper)).toMatch(/border-error-border/)
   })
 
   it('renders clear trigger when clearable', async () => {

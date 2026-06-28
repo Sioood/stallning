@@ -11,11 +11,11 @@ type AlertSize = 'md'
 const alertRootCVA = cva(['alertRoot', 'relative'], {
   variants: {
     intent: {
-      error: 'border-error-border-default bg-error-surface-subtle',
-      info: 'border-info-border-default bg-info-surface-subtle',
-      neutral: 'border-neutral-border-default bg-neutral-surface-subtle',
-      success: 'border-success-border-default bg-success-surface-subtle',
-      warning: 'border-warning-border-default bg-warning-surface-subtle',
+      error: 'border-error-border bg-error-surface-subtle',
+      info: 'border-info-border bg-info-surface-subtle',
+      neutral: 'border-neutral-border bg-neutral-surface-subtle',
+      success: 'border-success-border bg-success-surface-subtle',
+      warning: 'border-warning-border bg-warning-surface-subtle',
     } satisfies Record<AlertIntent, string>,
     size: {
       md: 'flex justify-between gap-8 border p-4',
@@ -28,11 +28,11 @@ type AlertRootCVAProps = VariantProps<typeof alertRootCVA>
 const alertContentCVA = cva(['alertContent', 'group/alertContent'], {
   variants: {
     intent: {
-      error: 'text-error-text-default',
-      info: 'text-info-text-default',
-      neutral: 'text-neutral-text-default',
-      success: 'text-success-text-default',
-      warning: 'text-warning-text-default',
+      error: 'text-error-text',
+      info: 'text-info-text',
+      neutral: 'text-neutral-text',
+      success: 'text-success-text',
+      warning: 'text-warning-text',
     } satisfies Record<AlertIntent, string>,
     size: {
       md: 'grid gap-4 not-has-[>svg]:grid-rows-[auto_1fr] has-[>svg]:grid-cols-[auto_1fr]',
@@ -51,11 +51,11 @@ const alertContentIconCVA = cva(['alertContentIcon'], {
 const alertTitleCVA = cva(['alertTitle'], {
   variants: {
     intent: {
-      error: 'text-error-text-default',
-      info: 'text-info-text-default',
-      neutral: 'text-neutral-text-default',
-      success: 'text-success-text-default',
-      warning: 'text-warning-text-default',
+      error: 'text-error-text',
+      info: 'text-info-text',
+      neutral: 'text-neutral-text',
+      success: 'text-success-text',
+      warning: 'text-warning-text',
     } satisfies Record<AlertIntent, string>,
     size: {
       md: 'txt-label',

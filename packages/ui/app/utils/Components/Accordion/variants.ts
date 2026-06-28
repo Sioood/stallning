@@ -14,10 +14,10 @@ export const accordionRootCVA = cva(
     },
     variants: {
       intent: {
-        accent: 'text-accent-text-default',
-        neutral: 'text-neutral-text-default',
-        primary: 'text-primary-text-default',
-        secondary: 'text-secondary-text-default',
+        accent: 'text-accent-text',
+        neutral: 'text-neutral-text',
+        primary: 'text-primary-text',
+        secondary: 'text-secondary-text',
       } satisfies Record<AccordionIntent, string>,
       size: {
         md: '',
@@ -65,10 +65,10 @@ export const accordionItemTriggerCVA = cva(
     },
     variants: {
       intent: {
-        accent: 'text-accent-text-default',
-        neutral: 'text-neutral-text-default',
-        primary: 'text-primary-text-default',
-        secondary: 'text-secondary-text-default',
+        accent: 'text-accent-text',
+        neutral: 'text-neutral-text',
+        primary: 'text-primary-text',
+        secondary: 'text-secondary-text',
       } satisfies Record<AccordionIntent, string>,
       size: {
         md: 'txt-h6 gap-3 p-1',
@@ -92,10 +92,10 @@ export const accordionItemContentCVA = cva(
     },
     variants: {
       intent: {
-        accent: 'border-accent-border-subtle text-accent-text-default',
-        neutral: 'border-neutral-border-subtle text-neutral-text-default',
-        primary: 'border-primary-border-subtle text-primary-text-default',
-        secondary: 'border-secondary-border-subtle text-secondary-text-default',
+        accent: 'border-accent-border-subtle text-accent-text',
+        neutral: 'border-neutral-border-subtle text-neutral-text',
+        primary: 'border-primary-border-subtle text-primary-text',
+        secondary: 'border-secondary-border-subtle text-secondary-text',
       } satisfies Record<AccordionIntent, string>,
       size: {
         md: 'txt-base data-[orientation=horizontal]:border-l data-[orientation=horizontal]:px-4 data-[orientation=vertical]:border-t data-[orientation=vertical]:py-4',

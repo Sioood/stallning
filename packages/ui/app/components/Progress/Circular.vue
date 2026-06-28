@@ -13,10 +13,10 @@ import type { ProgressCircularSize, ProgressIntent } from '~/utils/Components/Pr
 const progressCircleRootCVA = cva('', {
   variants: {
     intent: {
-      accent: 'text-accent-text-default',
-      neutral: 'text-neutral-text-default',
-      primary: 'text-primary-text-default',
-      secondary: 'text-secondary-text-default',
+      accent: 'text-accent-text',
+      neutral: 'text-neutral-text',
+      primary: 'text-primary-text',
+      secondary: 'text-secondary-text',
     } satisfies Record<ProgressIntent, string>,
     size: {
       'icon-lg': 'flex w-min flex-col',
@@ -75,10 +75,10 @@ const progressCircleTrackCVA = cva('', {
 const progressCircleRangeCVA = cva('[transition-[stroke-dasharray,stroke] ease-out] duration-600', {
   variants: {
     intent: {
-      accent: 'stroke-accent-fill-default',
-      neutral: 'stroke-neutral-fill-default',
-      primary: 'stroke-primary-fill-default',
-      secondary: 'stroke-secondary-fill-default',
+      accent: 'stroke-accent-fill',
+      neutral: 'stroke-neutral-fill',
+      primary: 'stroke-primary-fill',
+      secondary: 'stroke-secondary-fill',
     } satisfies Record<ProgressIntent, string>,
   },
 })

@@ -57,7 +57,7 @@ function legendSwatchStyle(color: string | undefined, index: number): { backgrou
       v-for="(seriesItem, index) in props.series"
       :key="seriesItem.key"
       role="listitem"
-      :class="cn('inline-flex items-center gap-1.5 text-neutral-text-default', props.ui?.item)"
+      :class="cn('inline-flex items-center gap-1.5 text-neutral-text', props.ui?.item)"
     >
       <span
         :class="cn('size-2.5 shrink-0', props.ui?.swatch)"

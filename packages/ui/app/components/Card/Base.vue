@@ -12,23 +12,22 @@ const cardCVA = cva('', {
   compoundVariants: [
     /** default */
     {
-      class: 'border-neutral-border-default bg-neutral-surface-default text-neutral-text-default',
+      class: 'border-neutral-border bg-neutral-surface text-neutral-text',
       intent: 'neutral',
       variant: 'default',
     },
     {
-      class: 'border-primary-border-default bg-primary-surface-default text-primary-text-default',
+      class: 'border-primary-border bg-primary-surface text-primary-text',
       intent: 'primary',
       variant: 'default',
     },
     {
-      class:
-        'border-secondary-border-default bg-secondary-surface-default text-secondary-text-default',
+      class: 'border-secondary-border bg-secondary-surface text-secondary-text',
       intent: 'secondary',
       variant: 'default',
     },
     {
-      class: 'border-accent-border-default bg-accent-surface-default text-accent-text-default',
+      class: 'border-accent-border bg-accent-surface text-accent-text',
       intent: 'accent',
       variant: 'default',
     },
@@ -61,23 +60,22 @@ const cardCVA = cva('', {
     },
     /** strong */
     {
-      class: 'border-neutral-border-strong bg-neutral-surface-strong text-neutral-text-strong',
+      class: 'border-neutral-border-strong bg-neutral-surface text-neutral-text',
       intent: 'neutral',
       variant: 'strong',
     },
     {
-      class: 'border-primary-border-strong bg-primary-surface-strong text-primary-text-strong',
+      class: 'border-primary-border-strong bg-primary-surface text-primary-text',
       intent: 'primary',
       variant: 'strong',
     },
     {
-      class:
-        'border-secondary-border-strong bg-secondary-surface-strong text-secondary-text-strong',
+      class: 'border-secondary-border-strong bg-secondary-surface text-secondary-text',
       intent: 'secondary',
       variant: 'strong',
     },
     {
-      class: 'border-accent-border-strong bg-accent-surface-strong text-accent-text-strong',
+      class: 'border-accent-border-strong bg-accent-surface text-accent-text',
       intent: 'accent',
       variant: 'strong',
     },
@@ -129,72 +127,69 @@ const cardHeaderFooterCVA = cva('', {
   compoundVariants: [
     /** default */
     {
-      class: 'border-neutral-border-default bg-neutral-surface-strong text-neutral-text-strong',
+      class: 'border-neutral-border bg-neutral-surface text-neutral-text',
       intent: 'neutral',
       variant: 'default',
     },
     {
-      class: 'border-primary-border-default bg-primary-surface-strong text-primary-text-strong',
+      class: 'border-primary-border bg-primary-surface text-primary-text',
       intent: 'primary',
       variant: 'default',
     },
     {
-      class:
-        'border-secondary-border-default bg-secondary-surface-strong text-secondary-text-strong',
+      class: 'border-secondary-border bg-secondary-surface text-secondary-text',
       intent: 'secondary',
       variant: 'default',
     },
     {
-      class: 'border-accent-border-default bg-accent-surface-strong text-accent-text-strong',
+      class: 'border-accent-border bg-accent-surface text-accent-text',
       intent: 'accent',
       variant: 'default',
     },
     /** subtle */
     {
-      class: 'border-accent-border-subtle bg-accent-surface-default text-accent-text-default',
+      class: 'border-accent-border-subtle bg-accent-surface text-accent-text',
       intent: 'accent',
       variant: 'subtle',
     },
     {
-      class: 'border-neutral-border-subtle bg-neutral-surface-default text-neutral-text-default',
+      class: 'border-neutral-border-subtle bg-neutral-surface text-neutral-text',
       intent: 'neutral',
       variant: 'subtle',
     },
     {
-      class: 'border-primary-border-subtle bg-primary-surface-default text-primary-text-default',
+      class: 'border-primary-border-subtle bg-primary-surface text-primary-text',
       intent: 'primary',
       variant: 'subtle',
     },
     {
-      class:
-        'border-secondary-border-subtle bg-secondary-surface-default text-secondary-text-default',
+      class: 'border-secondary-border-subtle bg-secondary-surface text-secondary-text',
       intent: 'secondary',
       variant: 'subtle',
     },
     {
-      class: 'border-accent-border-subtle bg-accent-surface-default text-accent-text-default',
+      class: 'border-accent-border-subtle bg-accent-surface text-accent-text',
       intent: 'accent',
       variant: 'subtle',
     },
     /** strong */
     {
-      class: 'border-neutral-border-strong bg-neutral-surface-strong text-neutral-text-strong',
+      class: 'border-neutral-border-strong bg-neutral-surface text-neutral-text',
       intent: 'neutral',
       variant: 'strong',
     },
     {
-      class: 'border-primary-border-strong bg-primary-surface-strong text-primary-text-strong',
+      class: 'border-primary-border-strong bg-primary-surface text-primary-text',
       intent: 'primary',
       variant: 'strong',
     },
     {
-      class:
-        'border-secondary-border-strong bg-secondary-surface-strong text-secondary-text-strong',
+      class: 'border-secondary-border-strong bg-secondary-surface text-secondary-text',
       intent: 'secondary',
       variant: 'strong',
     },
     {
-      class: 'border-accent-border-strong bg-accent-surface-strong text-accent-text-strong',
+      class: 'border-accent-border-strong bg-accent-surface text-accent-text',
       intent: 'accent',
       variant: 'strong',
     },

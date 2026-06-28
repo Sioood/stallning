@@ -26,7 +26,7 @@ const switchControlCVA = cva(
   [
     'relative inline-flex shrink-0 items-center transition-colors duration-200',
     'not-data-[disabled]:cursor-pointer data-[disabled]:cursor-not-allowed',
-    'data-[invalid]:outline data-[invalid]:outline-error-border-default',
+    'data-[invalid]:outline data-[invalid]:outline-error-border',
   ],
   {
     defaultVariants: {
@@ -36,13 +36,13 @@ const switchControlCVA = cva(
     variants: {
       intent: {
         accent:
-          'bg-accent-fill-default data-[disabled]:bg-primary-fill-default-disabled! data-[state=checked]:bg-accent-fill-default-active',
+          'data-[disabled]:bg-primary! bg-accent-fill data-[state=checked]:bg-accent-fill-active',
         neutral:
-          'bg-neutral-fill-default data-[disabled]:bg-primary-fill-default-disabled! data-[state=checked]:bg-neutral-fill-default-active',
+          'data-[disabled]:bg-primary! bg-neutral-fill data-[state=checked]:bg-neutral-fill-active',
         primary:
-          'bg-primary-fill-default data-[disabled]:bg-primary-fill-default-disabled! data-[state=checked]:bg-primary-fill-default-active',
+          'data-[disabled]:bg-primary! bg-primary-fill data-[state=checked]:bg-primary-fill-active',
         secondary:
-          'bg-secondary-fill-default data-[disabled]:bg-primary-fill-default-disabled! data-[state=checked]:bg-secondary-fill-default-active',
+          'data-[disabled]:bg-primary! bg-secondary-fill data-[state=checked]:bg-secondary-fill-active',
       } satisfies Record<SwitchIntent, string>,
       size: {
         lg: 'h-6 w-11',
@@ -61,10 +61,10 @@ const switchThumbCVA = cva(
     },
     variants: {
       intent: {
-        accent: 'bg-accent-fill-inverse',
-        neutral: 'bg-neutral-fill-inverse',
-        primary: 'bg-primary-fill-inverse',
-        secondary: 'bg-secondary-fill-inverse',
+        accent: 'bg-accent-on-fill',
+        neutral: 'bg-neutral-on-fill',
+        primary: 'bg-primary-on-fill',
+        secondary: 'bg-secondary-on-fill',
       } satisfies Record<SwitchIntent, string>,
       size: {
         lg: 'size-4 translate-x-1 data-[state=checked]:translate-x-6',
@@ -78,10 +78,10 @@ const switchThumbCVA = cva(
 const switchLabelCVA = cva('', {
   variants: {
     intent: {
-      accent: 'text-accent-text-default data-[disabled]:text-accent-text-default-disabled',
-      neutral: 'text-neutral-text-default data-[disabled]:text-neutral-text-default-disabled',
-      primary: 'text-primary-text-default data-[disabled]:text-primary-text-default-disabled',
-      secondary: 'text-secondary-text-default data-[disabled]:text-secondary-text-default-disabled',
+      accent: 'data-[disabled]:text-accent text-accent-text',
+      neutral: 'data-[disabled]:text-neutral text-neutral-text',
+      primary: 'data-[disabled]:text-primary text-primary-text',
+      secondary: 'data-[disabled]:text-secondary text-secondary-text',
     } satisfies Record<SwitchIntent, string>,
     size: {
       lg: 'txt-h6',
@@ -208,9 +208,7 @@ extendCompodiumMeta({
       <ArkSwitch.Label :class="cn(switchLabelCVA({ intent, size }), ui?.label)">
         <template v-if="label">{{ label }}</template>
 
-        <span v-if="required" class="txt-caption text-error-icon-default" aria-hidden="true">
-          *
-        </span>
+        <span v-if="required" class="txt-caption text-error-icon" aria-hidden="true"> * </span>
       </ArkSwitch.Label>
       <ArkSwitch.HiddenInput />
     </component>

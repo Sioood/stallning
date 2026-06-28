@@ -90,7 +90,7 @@ const addonTrailing = cn(
       </template>
       <template #content>
         <div class="flex min-w-48 flex-col gap-3">
-          <p class="txt-label text-neutral-text-default">Filtres</p>
+          <p class="txt-label text-neutral-text">Filtres</p>
           <UIFormSelect
             v-model="status"
             label="Statut"
@@ -130,7 +130,7 @@ const addonTrailing = cn(
         :key="project.id"
         class="txt-caption flex items-center justify-between gap-2 border-b border-neutral-border-subtle py-1"
       >
-        <span class="min-w-0 truncate text-neutral-text-default">{{ project.name }}</span>
+        <span class="min-w-0 truncate text-neutral-text">{{ project.name }}</span>
         <div class="flex shrink-0 items-center gap-1">
           <UIBadge v-if="project.premium" intent="accent" label="Premium" size="sm" />
           <UIChip

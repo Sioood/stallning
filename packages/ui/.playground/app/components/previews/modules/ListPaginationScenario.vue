@@ -76,7 +76,7 @@ function removeFilter(filter: string) {
         :key="item.id"
         class="txt-caption flex items-center justify-between gap-2 border-b border-neutral-border-subtle py-1"
       >
-        <span class="min-w-0 truncate text-neutral-text-default">{{ item.name }}</span>
+        <span class="min-w-0 truncate text-neutral-text">{{ item.name }}</span>
         <UIBadge v-if="item.premium" intent="accent" label="Premium" size="sm" />
       </li>
     </ul>
@@ -85,7 +85,7 @@ function removeFilter(filter: string) {
       <div
         v-for="item in pagedItems"
         :key="item.id"
-        class="txt-caption truncate rounded border border-neutral-border-subtle bg-neutral-surface-subtle p-2 text-neutral-text-default"
+        class="txt-caption truncate rounded border border-neutral-border-subtle bg-neutral-surface-subtle p-2 text-neutral-text"
       >
         {{ item.name }}
       </div>

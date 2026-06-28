@@ -24,10 +24,10 @@ const sliderRootCVA = cva('flex w-full flex-col', {
 const sliderLabelCVA = cva('', {
   variants: {
     intent: {
-      accent: 'text-accent-text-default',
-      neutral: 'text-neutral-text-default',
-      primary: 'text-primary-text-default',
-      secondary: 'text-secondary-text-default',
+      accent: 'text-accent-text',
+      neutral: 'text-neutral-text',
+      primary: 'text-primary-text',
+      secondary: 'text-secondary-text',
     } satisfies Record<FormSliderIntent, string>,
     size: {
       lg: 'txt-h6',
@@ -104,10 +104,10 @@ const sliderTrackCVA = cva('relative overflow-hidden', {
 const sliderRangeCVA = cva('', {
   variants: {
     intent: {
-      accent: 'bg-accent-fill-default',
-      neutral: 'bg-neutral-fill-default',
-      primary: 'bg-primary-fill-default',
-      secondary: 'bg-secondary-fill-default',
+      accent: 'bg-accent-fill',
+      neutral: 'bg-neutral-fill',
+      primary: 'bg-primary-fill',
+      secondary: 'bg-secondary-fill',
     } satisfies Record<FormSliderIntent, string>,
     orientation: {
       horizontal: 'h-full',
@@ -122,13 +122,13 @@ const sliderThumbCVA = cva(
     variants: {
       intent: {
         accent:
-          'border-accent-border-default bg-accent-fill-default data-[disabled]:bg-accent-fill-default-disabled',
+          'data-[disabled]:bg-accent border-accent-border bg-accent-fill disabled:pointer-events-none disabled:opacity-40',
         neutral:
-          'border-neutral-border-default bg-neutral-fill-default data-[disabled]:bg-neutral-fill-default-disabled',
+          'data-[disabled]:bg-neutral border-neutral-border bg-neutral-fill disabled:pointer-events-none disabled:opacity-40',
         primary:
-          'border-primary-border-default bg-primary-fill-default data-[disabled]:bg-primary-fill-default-disabled',
+          'data-[disabled]:bg-primary border-primary-border bg-primary-fill disabled:pointer-events-none disabled:opacity-40',
         secondary:
-          'border-secondary-border-default bg-secondary-fill-default data-[disabled]:bg-secondary-fill-default-disabled',
+          'data-[disabled]:bg-secondary border-secondary-border bg-secondary-fill disabled:pointer-events-none disabled:opacity-40',
       } satisfies Record<FormSliderIntent, string>,
       size: {
         lg: 'size-5 border',
@@ -142,10 +142,10 @@ const sliderThumbCVA = cva(
 const sliderDraggingIndicatorCVA = cva(['absolute', 'z-50', 'tabular-nums', 'font-mono'], {
   variants: {
     intent: {
-      accent: 'bg-accent-surface-default text-accent-text-default',
-      neutral: 'bg-neutral-surface-default text-neutral-text-default',
-      primary: 'bg-primary-surface-default text-primary-text-default',
-      secondary: 'bg-secondary-surface-default text-secondary-text-default',
+      accent: 'bg-accent-surface text-accent-text',
+      neutral: 'bg-neutral-surface text-neutral-text',
+      primary: 'bg-primary-surface text-primary-text',
+      secondary: 'bg-secondary-surface text-secondary-text',
     } satisfies Record<FormSliderIntent, string>,
     size: {
       lg: 'txt-base left-1/2 h-fit w-fit px-3 py-1.5 data-[orientation="horizontal"]:-top-[200%] data-[orientation="vertical"]:-left-[225%]',
@@ -158,10 +158,10 @@ const sliderDraggingIndicatorCVA = cva(['absolute', 'z-50', 'tabular-nums', 'fon
 const sliderDraggingIndicatorArrowCVA = cva('absolute border-transparent', {
   variants: {
     intent: {
-      accent: 'border-t-accent-surface-default',
-      neutral: 'border-t-neutral-surface-default',
-      primary: 'border-t-primary-surface-default',
-      secondary: 'border-t-secondary-surface-default',
+      accent: 'border-t-accent-surface',
+      neutral: 'border-t-neutral-surface',
+      primary: 'border-t-primary-surface',
+      secondary: 'border-t-secondary-surface',
     } satisfies Record<FormSliderIntent, string>,
     size: {
       lg: 'top-full left-1/2 -translate-x-1/2 border-4 data-[orientation="vertical"]:top-1/2 data-[orientation="vertical"]:-left-full',
@@ -186,13 +186,13 @@ const sliderMarkerCVA = cva(
     variants: {
       intent: {
         accent:
-          "text-accent-text-subtle before:bg-neutral-fill-subtle-hover [&[data-is-range='false'][data-state='under-value']::before]:bg-neutral-fill-strong [&[data-state='at-value']::before]:bg-neutral-fill-strong",
+          "text-accent-text-subtle before:bg-neutral-fill-subtle-hover [&[data-is-range='false'][data-state='under-value']::before]:bg-neutral-fill [&[data-state='at-value']::before]:bg-neutral-fill",
         neutral:
-          "text-neutral-text-subtle before:bg-neutral-fill-subtle-hover [&[data-is-range='false'][data-state='under-value']::before]:bg-neutral-fill-strong [&[data-state='at-value']::before]:bg-neutral-fill-strong",
+          "text-neutral-text-subtle before:bg-neutral-fill-subtle-hover [&[data-is-range='false'][data-state='under-value']::before]:bg-neutral-fill [&[data-state='at-value']::before]:bg-neutral-fill",
         primary:
-          "text-primary-text-subtle before:bg-neutral-fill-subtle-hover [&[data-is-range='false'][data-state='under-value']::before]:bg-neutral-fill-strong [&[data-state='at-value']::before]:bg-neutral-fill-strong",
+          "text-primary-text-subtle before:bg-neutral-fill-subtle-hover [&[data-is-range='false'][data-state='under-value']::before]:bg-neutral-fill [&[data-state='at-value']::before]:bg-neutral-fill",
         secondary:
-          "text-secondary-text-subtle before:bg-neutral-fill-subtle-hover [&[data-is-range='false'][data-state='under-value']::before]:bg-neutral-fill-strong [&[data-state='at-value']::before]:bg-neutral-fill-strong",
+          "text-secondary-text-subtle before:bg-neutral-fill-subtle-hover [&[data-is-range='false'][data-state='under-value']::before]:bg-neutral-fill [&[data-state='at-value']::before]:bg-neutral-fill",
       } satisfies Record<FormSliderIntent, string>,
       size: {
         lg: "txt-base before:absolute before:-top-1 before:left-1/2 before:block before:size-0.5 before:content-['\u200B'] data-[orientation='horizontal']:pt-1 data-[orientation='horizontal']:before:-translate-x-1/2 data-[orientation='vertical']:pl-1 data-[orientation='vertical']:before:top-1/2 data-[orientation='vertical']:before:-left-2 data-[orientation='vertical']:before:-translate-y-1/2",

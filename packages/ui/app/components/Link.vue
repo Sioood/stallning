@@ -12,19 +12,13 @@ type linkVariant = 'default' | 'ghost'
 const linkCVA = cva('w-fit', {
   variants: {
     intent: {
-      accent:
-        'text-accent-text-default hover:text-accent-text-default-hover active:text-accent-text-default-active',
-      error:
-        'text-error-text-default hover:text-error-text-default-hover active:text-error-text-default-active',
-      info: 'text-info-text-default hover:text-info-text-default-hover active:text-info-text-default-active',
-      neutral:
-        'text-neutral-text-default hover:text-neutral-text-default-hover active:text-neutral-text-default-active',
-      primary:
-        'text-primary-text-default hover:text-primary-text-default-hover active:text-primary-text-default-active',
-      secondary:
-        'text-secondary-text-default hover:text-secondary-text-default-hover active:text-secondary-text-default-active',
-      warning:
-        'text-warning-text-default hover:text-warning-text-default-hover active:text-warning-text-default-active',
+      accent: 'text-accent-text',
+      error: 'text-error-text',
+      info: 'text-info-text',
+      neutral: 'text-neutral-text',
+      primary: 'text-primary-text',
+      secondary: 'text-secondary-text',
+      warning: 'text-warning-text',
     } satisfies Record<linkIntent, string>,
     variant: {
       default: 'underline',

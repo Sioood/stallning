@@ -51,10 +51,10 @@ const dialogContentCVA = cva(
   {
     variants: {
       intent: {
-        accent: 'bg-accent-surface-default',
-        neutral: 'bg-neutral-surface-default',
-        primary: 'bg-primary-surface-default',
-        secondary: 'bg-secondary-surface-default',
+        accent: 'bg-accent-surface',
+        neutral: 'bg-neutral-surface',
+        primary: 'bg-primary-surface',
+        secondary: 'bg-secondary-surface',
       } satisfies Record<DialogIntent, string>,
       scrollBehavior: {
         inside: 'max-h-[calc(100dvh-4rem)]',
@@ -84,10 +84,10 @@ const dialogHeaderCVA = cva('flex shrink-0 items-start justify-between gap-4 p-4
 const dialogTitleCVA = cva('txt-h5', {
   variants: {
     intent: {
-      accent: 'text-accent-text-strong',
-      neutral: 'text-neutral-text-strong',
-      primary: 'text-primary-text-strong',
-      secondary: 'text-secondary-text-strong',
+      accent: 'text-accent-text',
+      neutral: 'text-neutral-text',
+      primary: 'text-primary-text',
+      secondary: 'text-secondary-text',
     } satisfies Record<DialogIntent, string>,
   },
 })

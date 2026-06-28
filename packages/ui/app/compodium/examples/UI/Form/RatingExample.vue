@@ -130,7 +130,7 @@ function onHoverChange(d: RatingGroupHoverChangeDetails) {
         <template #item="{ highlighted }">
           <Icon
             :name="highlighted ? 'tabler:heart-filled' : 'tabler:heart'"
-            class="size-5 text-accent-fill-default"
+            class="size-5 text-accent-fill"
           />
         </template>
       </UIFormRating>

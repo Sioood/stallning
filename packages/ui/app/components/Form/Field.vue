@@ -41,14 +41,14 @@ type FieldCVAProps = VariantProps<typeof fieldRootCVA>
 const fieldLabelCVA = cva('', {
   variants: {
     intent: {
-      accent: 'text-accent-text-default',
-      error: 'text-error-text-default',
-      info: 'text-info-text-default',
-      neutral: 'text-neutral-text-default',
-      primary: 'text-primary-text-default',
-      secondary: 'text-secondary-text-default',
-      success: 'text-success-text-default',
-      warning: 'text-warning-text-default',
+      accent: 'text-accent-text',
+      error: 'text-error-text',
+      info: 'text-info-text',
+      neutral: 'text-neutral-text',
+      primary: 'text-primary-text',
+      secondary: 'text-secondary-text',
+      success: 'text-success-text',
+      warning: 'text-warning-text',
     } satisfies Record<FormFieldIntent, string>,
     size: {
       lg: 'txt-h6',
@@ -184,13 +184,13 @@ extendCompodiumMeta({
       <template v-if="label">{{ label }}</template>
       <ArkField.RequiredIndicator
         v-if="required && !asFieldset"
-        :class="cn('txt-caption text-error-icon-default', ui?.requiredIndicator)"
+        :class="cn('txt-caption text-error-icon', ui?.requiredIndicator)"
       >
         *
       </ArkField.RequiredIndicator>
       <span
         v-else-if="required"
-        :class="cn('txt-caption text-error-icon-default', ui?.requiredIndicator)"
+        :class="cn('txt-caption text-error-icon', ui?.requiredIndicator)"
         aria-hidden="true"
       >
         *
@@ -215,7 +215,7 @@ extendCompodiumMeta({
       :is="errorTextComponent"
       v-if="shouldShowError"
       aria-live="polite"
-      :class="cn('txt-caption text-error-text-default', ui?.error)"
+      :class="cn('txt-caption text-error-text', ui?.error)"
     >
       <slot name="error">{{ error }}</slot>
     </component>

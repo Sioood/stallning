@@ -51,11 +51,11 @@ const menuItems = [
       <dl class="txt-caption flex flex-col gap-1 text-neutral-text-subtle">
         <div class="flex justify-between gap-2">
           <dt>Auteur</dt>
-          <dd class="text-neutral-text-default">Marie Dupont</dd>
+          <dd class="text-neutral-text">Marie Dupont</dd>
         </div>
         <div class="flex justify-between gap-2">
           <dt>Modifié</dt>
-          <dd class="text-neutral-text-default">23 mai 2026</dd>
+          <dd class="text-neutral-text">23 mai 2026</dd>
         </div>
       </dl>
     </UICollapsible>

@@ -49,7 +49,7 @@ const actionItems = computed<MenuListEntry[]>(() => [
   { label: 'Save As...', onSelect: () => logAction('save-as'), type: 'item', value: 'save-as' },
   {
     customClass:
-      'text-error-text-default data-[highlighted]:bg-error-fill-subtle-hover data-[disabled]:text-error-text-subtle',
+      'text-error-text data-[highlighted]:bg-error-fill-subtle-hover data-[disabled]:text-error-text-subtle',
     label: 'Delete',
     onSelect: () => logAction('delete'),
     type: 'item',
@@ -318,7 +318,7 @@ const accountMenuItems = computed<MenuListEntry[]>(() => [
   { type: 'separator' },
   {
     customClass:
-      'text-error-text-default data-[highlighted]:bg-error-fill-subtle-hover data-[disabled]:text-error-text-subtle',
+      'text-error-text data-[highlighted]:bg-error-fill-subtle-hover data-[disabled]:text-error-text-subtle',
     label: 'Sign out',
     onSelect: () => logAction('account-sign-out'),
     type: 'item',
@@ -408,7 +408,7 @@ function onAccountMenuSelect(event: { value: string }) {
             class="join-item"
           >
             <span
-              class="txt-caption inline-flex h-8 min-w-16 items-center justify-center border border-neutral-border-subtle bg-neutral-fill-subtle px-2 text-neutral-text-default"
+              class="txt-caption inline-flex h-8 min-w-16 items-center justify-center border border-neutral-border-subtle bg-neutral-fill-subtle px-2 text-neutral-text disabled:pointer-events-none disabled:opacity-40"
             >
               {{ id }}
             </span>
@@ -444,7 +444,7 @@ function onAccountMenuSelect(event: { value: string }) {
             <component :is="Positioner">
               <component
                 :is="ContentPart"
-                class="menuContent txt-label border border-neutral-border-subtle bg-neutral-fill-subtle p-1"
+                class="menuContent txt-label border border-neutral-border-subtle bg-neutral-fill-subtle p-1 disabled:pointer-events-none disabled:opacity-40"
               >
                 <component
                   :is="Item"

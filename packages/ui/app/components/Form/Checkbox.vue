@@ -62,12 +62,12 @@ const invalidState = computed(() => Boolean(checkboxInvalidFlag(Boolean(invalid.
 const fieldLabelCVA = cva('', {
   variants: {
     intent: {
-      accent: 'text-accent-text-default data-[disabled]:text-accent-text-default-disabled',
+      accent: 'data-[disabled]:text-accent text-accent-text',
       error: '',
       info: '',
-      neutral: 'text-neutral-text-default data-[disabled]:text-neutral-text-default-disabled',
-      primary: 'text-primary-text-default data-[disabled]:text-primary-text-default-disabled',
-      secondary: 'text-secondary-text-default data-[disabled]:text-secondary-text-default-disabled',
+      neutral: 'data-[disabled]:text-neutral text-neutral-text',
+      primary: 'data-[disabled]:text-primary text-primary-text',
+      secondary: 'data-[disabled]:text-secondary text-secondary-text',
       success: '',
       warning: '',
     } satisfies Record<FormFieldIntent, string>,
@@ -226,9 +226,7 @@ const [DefineCheckboxControl, ReuseCheckboxControl] =
       >
         <template v-if="label">{{ label }}</template>
 
-        <span v-if="required" class="txt-caption text-error-icon-default" aria-hidden="true">
-          *
-        </span>
+        <span v-if="required" class="txt-caption text-error-icon" aria-hidden="true"> * </span>
       </ArkCheckbox.Label>
       <ArkCheckbox.HiddenInput :class="cn(ui?.hiddenInput)" @blur="emit('blur', $event)" />
     </ArkCheckbox.Root>

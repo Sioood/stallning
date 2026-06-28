@@ -108,7 +108,7 @@ const providerApi = useSelect({
   <div class="flex max-w-xl flex-col gap-8 p-6">
     <!-- Basic single select -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">Basic</p>
+      <p class="txt-label text-neutral-text">Basic</p>
       <UIFormSelect
         v-model="basicValue"
         :items="frameworks"
@@ -120,7 +120,7 @@ const providerApi = useSelect({
 
     <!-- Multiple selection -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">Multiple</p>
+      <p class="txt-label text-neutral-text">Multiple</p>
       <UIFormSelect
         v-model="multipleValue"
         :items="frameworks"
@@ -135,7 +135,7 @@ const providerApi = useSelect({
 
     <!-- Grouping -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">Grouping</p>
+      <p class="txt-label text-neutral-text">Grouping</p>
       <UIFormSelect
         v-model="groupValue"
         :items="groupedItems"
@@ -147,7 +147,7 @@ const providerApi = useSelect({
 
     <!-- Max selection -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">Max selection ({{ MAX }})</p>
+      <p class="txt-label text-neutral-text">Max selection ({{ MAX }})</p>
       <UIFormSelect
         v-model="maxValue"
         :items="frameworks"
@@ -163,7 +163,7 @@ const providerApi = useSelect({
 
     <!-- Select All -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">Select All</p>
+      <p class="txt-label text-neutral-text">Select All</p>
       <UIFormSelect
         v-model="selectAllValue"
         :items="frameworks"
@@ -179,7 +179,7 @@ const providerApi = useSelect({
 
     <!-- Async loading -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">Async loading</p>
+      <p class="txt-label text-neutral-text">Async loading</p>
       <UIFormSelect
         v-model="asyncValue"
         v-model:open="asyncOpen"
@@ -194,7 +194,7 @@ const providerApi = useSelect({
 
     <!-- Form usage -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">Form usage</p>
+      <p class="txt-label text-neutral-text">Form usage</p>
       <form class="flex flex-col gap-3" @submit="handleFormSubmit">
         <UIFormSelect
           v-model="formValue"
@@ -213,7 +213,7 @@ const providerApi = useSelect({
 
     <!-- Controlled open -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">Controlled open</p>
+      <p class="txt-label text-neutral-text">Controlled open</p>
       <div class="flex items-center gap-2">
         <UIButton
           size="sm"
@@ -233,7 +233,7 @@ const providerApi = useSelect({
 
     <!-- Deselectable single select -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">Deselectable (single)</p>
+      <p class="txt-label text-neutral-text">Deselectable (single)</p>
       <UIFormSelect
         v-model="deselectableValue"
         :items="frameworks"
@@ -248,7 +248,7 @@ const providerApi = useSelect({
 
     <!-- Intents -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">Intents</p>
+      <p class="txt-label text-neutral-text">Intents</p>
       <div class="grid grid-cols-2 gap-2">
         <UIFormSelect
           v-for="intent in ['neutral', 'primary', 'secondary', 'accent'] as const"
@@ -264,7 +264,7 @@ const providerApi = useSelect({
 
     <!-- Sizes -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">Sizes</p>
+      <p class="txt-label text-neutral-text">Sizes</p>
       <UIFormSelect
         v-for="size in ['sm', 'md', 'lg'] as const"
         :key="size"
@@ -277,7 +277,7 @@ const providerApi = useSelect({
 
     <!-- Disabled / invalid / read-only -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">States</p>
+      <p class="txt-label text-neutral-text">States</p>
       <UIFormSelect v-model="basicValue" :items="frameworks" placeholder="Disabled" disabled />
       <UIFormSelect v-model="basicValue" :items="frameworks" placeholder="Invalid" invalid />
       <UIFormSelect
@@ -290,7 +290,7 @@ const providerApi = useSelect({
 
     <!-- RootProvider compound mode -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">RootProvider compound</p>
+      <p class="txt-label text-neutral-text">RootProvider compound</p>
       <UIButton size="sm" @click="providerApi.setValue(['react'])">
         Select React externally
       </UIButton>

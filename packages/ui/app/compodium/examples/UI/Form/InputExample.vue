@@ -72,14 +72,14 @@ const addonTrailing = cn(addonBase, 'rounded-l-none')
 
     <!-- Basic -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">Basic</p>
+      <p class="txt-label text-neutral-text">Basic</p>
       <UIFormInput v-model="basicValue" label="Name" placeholder="Enter your name" />
       <p class="txt-caption text-neutral-text-subtle">Value: {{ basicValue || '(empty)' }}</p>
     </section>
 
     <!-- With .com suffix (trailing addon) -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">With suffix addon</p>
+      <p class="txt-label text-neutral-text">With suffix addon</p>
       <UIFormInput v-model="domainValue" label="Domain">
         <template #trailing>
           <span :class="cn(addonTrailing, 'border border-l-0 px-3')">.com</span>
@@ -90,7 +90,7 @@ const addonTrailing = cn(addonBase, 'rounded-l-none')
 
     <!-- With https:// prefix (leading addon) -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">With prefix addon</p>
+      <p class="txt-label text-neutral-text">With prefix addon</p>
       <UIFormInput v-model="urlValue" label="Website">
         <template #leading>
           <span :class="cn(addonLeading, 'border border-r-0 px-3')">https://</span>
@@ -101,7 +101,7 @@ const addonTrailing = cn(addonBase, 'rounded-l-none')
 
     <!-- With both prefix and suffix -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">With prefix and suffix</p>
+      <p class="txt-label text-neutral-text">With prefix and suffix</p>
       <UIFormInput v-model="fullUrlValue" label="URL">
         <template #leading>
           <span :class="cn(addonLeading, 'border border-r-0 px-3')">https://</span>
@@ -115,7 +115,7 @@ const addonTrailing = cn(addonBase, 'rounded-l-none')
 
     <!-- With button addon -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">With button addon</p>
+      <p class="txt-label text-neutral-text">With button addon</p>
       <UIFormInput v-model="emailValue" label="Email" type="email">
         <template #trailing>
           <span :class="addonTrailing">
@@ -127,7 +127,7 @@ const addonTrailing = cn(addonBase, 'rounded-l-none')
 
     <!-- Phone input with country code -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">Phone with country code</p>
+      <p class="txt-label text-neutral-text">Phone with country code</p>
       <UIFormPhoneInput
         v-model="phoneValue"
         label="Phone"
@@ -140,7 +140,7 @@ const addonTrailing = cn(addonBase, 'rounded-l-none')
 
     <!-- With inner leading indicator ($) -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">With inner leading indicator</p>
+      <p class="txt-label text-neutral-text">With inner leading indicator</p>
       <UIFormInput v-model="priceValue" label="Price" type="number">
         <template #inner-leading>
           <span class="txt-label text-neutral-text-subtle">$</span>
@@ -150,7 +150,7 @@ const addonTrailing = cn(addonBase, 'rounded-l-none')
 
     <!-- With inner trailing indicator (%) -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">With inner trailing indicator</p>
+      <p class="txt-label text-neutral-text">With inner trailing indicator</p>
       <UIFormInput v-model="weightValue" label="Progress" type="number">
         <template #inner-trailing>
           <span class="txt-label text-neutral-text-subtle">%</span>
@@ -160,7 +160,7 @@ const addonTrailing = cn(addonBase, 'rounded-l-none')
 
     <!-- Password -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">Password</p>
+      <p class="txt-label text-neutral-text">Password</p>
       <UIFormInput
         v-model="passwordValue"
         type="password"
@@ -171,13 +171,13 @@ const addonTrailing = cn(addonBase, 'rounded-l-none')
 
     <!-- With clear button -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">With clear button</p>
+      <p class="txt-label text-neutral-text">With clear button</p>
       <UIFormInput v-model="searchableValue" label="Search" clearable />
     </section>
 
     <!-- With leading icon -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">With leading icon</p>
+      <p class="txt-label text-neutral-text">With leading icon</p>
       <UIFormInput
         v-model="iconLeadingValue"
         label="Username"
@@ -189,7 +189,7 @@ const addonTrailing = cn(addonBase, 'rounded-l-none')
 
     <!-- With trailing icon -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">With trailing icon</p>
+      <p class="txt-label text-neutral-text">With trailing icon</p>
       <UIFormInput
         v-model="iconTrailingValue"
         label="Website"
@@ -201,7 +201,7 @@ const addonTrailing = cn(addonBase, 'rounded-l-none')
 
     <!-- Intents -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">Intents</p>
+      <p class="txt-label text-neutral-text">Intents</p>
       <div class="grid grid-cols-2 gap-3">
         <UIFormInput
           v-for="intent in ['neutral', 'primary', 'secondary', 'accent'] as const"
@@ -217,7 +217,7 @@ const addonTrailing = cn(addonBase, 'rounded-l-none')
 
     <!-- Sizes -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">Sizes</p>
+      <p class="txt-label text-neutral-text">Sizes</p>
       <UIFormInput
         v-for="size in ['sm', 'md', 'lg'] as const"
         :key="size"
@@ -230,7 +230,7 @@ const addonTrailing = cn(addonBase, 'rounded-l-none')
 
     <!-- States -->
     <section class="flex flex-col gap-2">
-      <p class="txt-label text-neutral-text-default">States</p>
+      <p class="txt-label text-neutral-text">States</p>
       <UIFormInput v-model="disabledValue" label="Disabled" disabled />
       <UIFormInput v-model="readOnlyValue" label="Read-only" read-only />
       <UIFormInput

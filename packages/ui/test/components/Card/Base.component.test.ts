@@ -13,16 +13,16 @@ describe('Card/Base', () => {
 
   it('applies default variant and primary intent surface classes', async () => {
     const wrapper = await mountSuspended(CardBase)
-    const classes = wrapper.find('div').classes().join(' ')
-    expect(classes).toMatch(/bg-primary-surface-default/)
-    expect(classes).toMatch(/border-primary-border-default/)
+    const classes = wrapper.find('.join-item').classes().join(' ')
+    expect(classes).toMatch(/bg-primary-surface/)
+    expect(classes).toMatch(/border-primary-border/)
   })
 
   it('applies subtle neutral compound classes', async () => {
     const wrapper = await mountSuspended(CardBase, {
       props: { intent: 'neutral', variant: 'subtle' },
     })
-    const classes = wrapper.find('div').classes().join(' ')
+    const classes = wrapper.find('.join-item').classes().join(' ')
     expect(classes).toMatch(/bg-neutral-surface-subtle/)
     expect(classes).toMatch(/border-neutral-border-subtle/)
   })
@@ -31,7 +31,7 @@ describe('Card/Base', () => {
     const wrapper = await mountSuspended(CardBase, {
       props: { size: 'lg' },
     })
-    expect(wrapper.find('div').classes().join(' ')).toMatch(/p-4/)
+    expect(wrapper.find('.join-item').classes().join(' ')).toMatch(/p-4/)
   })
 
   it('merges custom class', async () => {

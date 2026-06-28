@@ -31,7 +31,7 @@ watchEffect(() => {
     <div class="flex flex-col gap-6">
       <h3 class="text-lg font-bold">Linear Progress</h3>
       <div v-for="intent in intents" :key="intent" class="flex flex-col gap-4">
-        <h4 class="font-semibold text-neutral-text-default capitalize">{{ intent }}</h4>
+        <h4 class="font-semibold text-neutral-text capitalize">{{ intent }}</h4>
         <div class="flex flex-col gap-2">
           <UIProgress
             v-for="size in sizes"
@@ -47,7 +47,7 @@ watchEffect(() => {
         </div>
       </div>
 
-      <h4 class="font-semibold text-neutral-text-default capitalize">Vertical</h4>
+      <h4 class="font-semibold text-neutral-text capitalize">Vertical</h4>
       <div class="flex h-40 gap-4">
         <UIProgress
           v-for="intent in intents"
@@ -59,7 +59,7 @@ watchEffect(() => {
         />
       </div>
 
-      <h4 class="font-semibold text-neutral-text-default capitalize">Indeterminate (undefined)</h4>
+      <h4 class="font-semibold text-neutral-text capitalize">Indeterminate (undefined)</h4>
       <UIProgress :model-value="undefined" label="Indeterminate" />
     </div>
 
@@ -67,7 +67,7 @@ watchEffect(() => {
     <div class="flex flex-col gap-6">
       <h3 class="text-lg font-bold">Circular Progress</h3>
       <div v-for="intent in intents" :key="intent" class="flex flex-col gap-4">
-        <h4 class="font-semibold text-neutral-text-default capitalize">{{ intent }}</h4>
+        <h4 class="font-semibold text-neutral-text capitalize">{{ intent }}</h4>
         <div class="flex flex-wrap gap-4">
           <UIProgressCircular
             v-for="size in circularSizes"
@@ -83,7 +83,7 @@ watchEffect(() => {
         </div>
       </div>
 
-      <h4 class="font-semibold text-neutral-text-default capitalize">Indeterminate (undefined)</h4>
+      <h4 class="font-semibold text-neutral-text capitalize">Indeterminate (undefined)</h4>
       <div class="flex flex-wrap gap-4">
         <UIProgressCircular
           v-for="size in circularSizes"

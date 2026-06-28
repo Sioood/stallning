@@ -23,7 +23,7 @@ const progressValue = computed(() => Math.round(((step.value + 1) / 3) * 100))
         <p class="txt-caption text-neutral-text-subtle">Carte se terminant par 4242</p>
       </UIStepsContent>
       <UIStepsCompletedContent>
-        <p class="txt-label text-success-text-default">Commande confirmée</p>
+        <p class="txt-label text-success-text">Commande confirmée</p>
       </UIStepsCompletedContent>
     </UISteps>
     <UIProgress :model-value="progressValue" label="Progression" intent="primary" size="sm" />

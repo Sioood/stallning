@@ -165,7 +165,7 @@ extendCompodiumMeta({
             :ui="
               cn(
                 fieldInputCVA({ size, intent, disabled: Boolean(disabled) }),
-                inputIndex > 1 ? 'border-l border-neutral-border-default' : undefined,
+                inputIndex > 1 ? 'border-l border-neutral-border' : undefined,
                 ui?.input,
               )
             "

@@ -12,22 +12,26 @@ export type SegmentedVariant = 'pill' | 'line'
 export const segmentedRootCVA = cva('relative inline-flex w-fit items-center', {
   compoundVariants: [
     {
-      class: 'border-neutral-border-default bg-neutral-fill-subtle',
+      class:
+        'border-neutral-border bg-neutral-fill-subtle disabled:pointer-events-none disabled:opacity-40',
       intent: 'neutral',
       variant: 'pill',
     },
     {
-      class: 'border-primary-border-default bg-primary-fill-subtle',
+      class:
+        'border-primary-border bg-primary-fill-subtle disabled:pointer-events-none disabled:opacity-40',
       intent: 'primary',
       variant: 'pill',
     },
     {
-      class: 'border-secondary-border-default bg-secondary-fill-subtle',
+      class:
+        'border-secondary-border bg-secondary-fill-subtle disabled:pointer-events-none disabled:opacity-40',
       intent: 'secondary',
       variant: 'pill',
     },
     {
-      class: 'border-accent-border-default bg-accent-fill-subtle',
+      class:
+        'border-accent-border bg-accent-fill-subtle disabled:pointer-events-none disabled:opacity-40',
       intent: 'accent',
       variant: 'pill',
     },
@@ -120,26 +124,22 @@ export const segmentedItemCVA = cva(
         variant: 'pill',
       },
       {
-        class:
-          'data-selected:text-neutral-text-default data-[state="checked"]:text-neutral-text-default',
+        class: 'data-selected:text-neutral-text data-[state="checked"]:text-neutral-text',
         intent: 'neutral',
         variant: 'line',
       },
       {
-        class:
-          'data-selected:text-primary-text-default data-[state="checked"]:text-primary-text-default',
+        class: 'data-selected:text-primary-text data-[state="checked"]:text-primary-text',
         intent: 'primary',
         variant: 'line',
       },
       {
-        class:
-          'data-selected:text-secondary-text-default data-[state="checked"]:text-secondary-text-default',
+        class: 'data-selected:text-secondary-text data-[state="checked"]:text-secondary-text',
         intent: 'secondary',
         variant: 'line',
       },
       {
-        class:
-          'data-selected:text-accent-text-default data-[state="checked"]:text-accent-text-default',
+        class: 'data-selected:text-accent-text data-[state="checked"]:text-accent-text',
         intent: 'accent',
         variant: 'line',
       },
@@ -156,14 +156,11 @@ export const segmentedItemCVA = cva(
         true: 'pointer-events-none cursor-not-allowed opacity-50',
       },
       intent: {
-        accent:
-          'border-accent-border-subtle text-accent-text-subtle hover:text-accent-text-default',
-        neutral:
-          'border-neutral-border-subtle text-neutral-text-subtle hover:text-neutral-text-default',
-        primary:
-          'border-primary-border-subtle text-primary-text-subtle hover:text-primary-text-default',
+        accent: 'border-accent-border-subtle text-accent-text-subtle hover:text-accent-text',
+        neutral: 'border-neutral-border-subtle text-neutral-text-subtle hover:text-neutral-text',
+        primary: 'border-primary-border-subtle text-primary-text-subtle hover:text-primary-text',
         secondary:
-          'border-secondary-border-subtle text-secondary-text-subtle hover:text-secondary-text-default',
+          'border-secondary-border-subtle text-secondary-text-subtle hover:text-secondary-text',
       } satisfies Record<SegmentedIntent, string>,
       orientation: {
         horizontal:
@@ -198,22 +195,22 @@ export const segmentedIndicatorCVA = cva(
         variant: 'line',
       },
       {
-        class: 'border-neutral-fill-default',
+        class: 'border-neutral-fill',
         intent: 'neutral',
         variant: 'line',
       },
       {
-        class: 'border-primary-fill-default',
+        class: 'border-primary-fill',
         intent: 'primary',
         variant: 'line',
       },
       {
-        class: 'border-secondary-fill-default',
+        class: 'border-secondary-fill',
         intent: 'secondary',
         variant: 'line',
       },
       {
-        class: 'border-accent-fill-default',
+        class: 'border-accent-fill',
         intent: 'accent',
         variant: 'line',
       },
@@ -225,10 +222,10 @@ export const segmentedIndicatorCVA = cva(
     },
     variants: {
       intent: {
-        accent: 'bg-accent-fill-default',
-        neutral: 'bg-neutral-fill-default',
-        primary: 'bg-primary-fill-default',
-        secondary: 'bg-secondary-fill-default',
+        accent: 'bg-accent-fill',
+        neutral: 'bg-neutral-fill',
+        primary: 'bg-primary-fill',
+        secondary: 'bg-secondary-fill',
       } satisfies Record<SegmentedIntent, string>,
       orientation: {
         horizontal: '',

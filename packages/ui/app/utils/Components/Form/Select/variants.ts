@@ -23,7 +23,7 @@ export const selectTriggerCVA = cva('w-full justify-between active:scale-100', {
 })
 
 export const selectClearTriggerCVA = cva(
-  'cursor-pointer hover:text-error-text-default-hover data-[disabled=true]:cursor-not-allowed [hidden]:hidden',
+  'cursor-pointer data-[disabled=true]:cursor-not-allowed [hidden]:hidden',
 )
 
 export const selectPositionerCVA = cva('origin-(--transform-origin)')
@@ -40,11 +40,14 @@ export const selectContentCVA = cva(
   {
     variants: {
       intent: {
-        accent: 'border-accent-border-subtle bg-accent-fill-subtle text-accent-text-default',
-        neutral: 'border-neutral-border-subtle bg-neutral-fill-subtle text-neutral-text-default',
-        primary: 'border-primary-border-subtle bg-primary-fill-subtle text-primary-text-default',
+        accent:
+          'border-accent-border-subtle bg-accent-fill-subtle text-accent-text disabled:pointer-events-none disabled:opacity-40',
+        neutral:
+          'border-neutral-border-subtle bg-neutral-fill-subtle text-neutral-text disabled:pointer-events-none disabled:opacity-40',
+        primary:
+          'border-primary-border-subtle bg-primary-fill-subtle text-primary-text disabled:pointer-events-none disabled:opacity-40',
         secondary:
-          'border-secondary-border-subtle bg-secondary-fill-subtle text-secondary-text-default',
+          'border-secondary-border-subtle bg-secondary-fill-subtle text-secondary-text disabled:pointer-events-none disabled:opacity-40',
       } satisfies Record<SelectIntent, string>,
       size: {
         lg: 'txt-base p-1',
@@ -61,13 +64,13 @@ export const selectItemCVA = cva(
     variants: {
       intent: {
         accent:
-          'text-accent-text-default data-[disabled]:text-accent-text-subtle data-[highlighted]:bg-accent-fill-subtle-hover',
+          'text-accent-text data-[disabled]:text-accent-text-subtle data-[highlighted]:bg-accent-fill-subtle-hover',
         neutral:
-          'text-neutral-text-default data-[disabled]:text-neutral-text-subtle data-[highlighted]:bg-neutral-fill-subtle-hover',
+          'text-neutral-text data-[disabled]:text-neutral-text-subtle data-[highlighted]:bg-neutral-fill-subtle-hover',
         primary:
-          'text-primary-text-default data-[disabled]:text-primary-text-subtle data-[highlighted]:bg-primary-fill-subtle-hover',
+          'text-primary-text data-[disabled]:text-primary-text-subtle data-[highlighted]:bg-primary-fill-subtle-hover',
         secondary:
-          'text-secondary-text-default data-[disabled]:text-secondary-text-subtle data-[highlighted]:bg-secondary-fill-subtle-hover',
+          'text-secondary-text data-[disabled]:text-secondary-text-subtle data-[highlighted]:bg-secondary-fill-subtle-hover',
       } satisfies Record<SelectIntent, string>,
       size: {
         lg: 'txt-base gap-2 px-3 py-2',
@@ -97,14 +100,10 @@ export const selectItemGroupLabelCVA = cva('', {
 export const selectLabelCVA = cva('block', {
   variants: {
     intent: {
-      accent:
-        'text-accent-text-default data-[disabled]:opacity-50 data-[invalid]:text-error-text-default',
-      neutral:
-        'text-neutral-text-default data-[disabled]:opacity-50 data-[invalid]:text-error-text-default',
-      primary:
-        'text-primary-text-default data-[disabled]:opacity-50 data-[invalid]:text-error-text-default',
-      secondary:
-        'text-secondary-text-default data-[disabled]:opacity-50 data-[invalid]:text-error-text-default',
+      accent: 'text-accent-text data-[disabled]:opacity-50 data-[invalid]:text-error-text',
+      neutral: 'text-neutral-text data-[disabled]:opacity-50 data-[invalid]:text-error-text',
+      primary: 'text-primary-text data-[disabled]:opacity-50 data-[invalid]:text-error-text',
+      secondary: 'text-secondary-text data-[disabled]:opacity-50 data-[invalid]:text-error-text',
     } satisfies Record<SelectIntent, string>,
     size: {
       lg: 'txt-h6',

@@ -188,7 +188,7 @@ extendCompodiumMeta({
                 />
                 <div
                   v-else
-                  class="txt-h3 flex h-48 w-full items-center justify-center border border-neutral-border-subtle bg-neutral-fill-subtle"
+                  class="txt-h3 flex h-48 w-full items-center justify-center border border-neutral-border-subtle bg-neutral-fill-subtle disabled:pointer-events-none disabled:opacity-40"
                 >
                   {{ item.label ?? `Slide ${index + 1}` }}
                 </div>

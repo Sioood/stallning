@@ -261,7 +261,7 @@ extendCompodiumMeta({
           :class="
             cn(
               'flex w-5 shrink-0 cursor-ew-resize items-center justify-center text-primary-icon-subtle transition-colors select-none',
-              'hover:bg-primary-fill-subtle-hover hover:text-primary-icon-default-hover active:cursor-ew-resize active:bg-primary-fill-subtle-active active:text-primary-icon-default-active',
+              'hover:bg-primary-fill-subtle-hover active:cursor-ew-resize active:bg-primary-fill-subtle-active',
               ui?.scrubber,
             )
           "

@@ -59,7 +59,7 @@ const externalDialog = useDialog({ defaultOpen: false })
   <div class="flex flex-col gap-12 p-6">
     <!-- ── BASIC ──────────────────────────────────────────────── -->
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h4 text-neutral-text-strong">Basic</h3>
+      <h3 class="txt-h4 text-neutral-text">Basic</h3>
       <div class="flex flex-wrap gap-3">
         <UIDialog
           title="Welcome"
@@ -67,7 +67,7 @@ const externalDialog = useDialog({ defaultOpen: false })
           @open-change="(d: DialogOpenChangeDetails) => console.log('openChange', d)"
         >
           <template #default>
-            <p class="txt-base text-neutral-text-default">
+            <p class="txt-base text-neutral-text">
               Dialog content goes here. You can place any elements inside the default slot.
             </p>
           </template>
@@ -83,7 +83,7 @@ const externalDialog = useDialog({ defaultOpen: false })
           :show-close-trigger="false"
         >
           <template #default>
-            <p class="txt-base text-neutral-text-default">Use the footer buttons to dismiss.</p>
+            <p class="txt-base text-neutral-text">Use the footer buttons to dismiss.</p>
           </template>
           <template #trigger>
             <UIButton variant="subtle" intent="neutral">No × Button</UIButton>
@@ -97,7 +97,7 @@ const externalDialog = useDialog({ defaultOpen: false })
 
     <!-- ── INTENTS ────────────────────────────────────────────── -->
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h4 text-neutral-text-strong">Intents</h3>
+      <h3 class="txt-h4 text-neutral-text">Intents</h3>
       <div class="flex flex-wrap gap-3">
         <UIDialog
           v-for="intent in ['neutral', 'primary', 'secondary', 'accent'] as const"
@@ -110,9 +110,7 @@ const externalDialog = useDialog({ defaultOpen: false })
             <UIButton :intent variant="subtle">{{ intent }}</UIButton>
           </template>
           <template #default>
-            <p class="txt-base text-neutral-text-default">
-              Intent controls the header color scheme.
-            </p>
+            <p class="txt-base text-neutral-text">Intent controls the header color scheme.</p>
           </template>
           <template #footer>
             <UIButton :intent>Close</UIButton>
@@ -123,7 +121,7 @@ const externalDialog = useDialog({ defaultOpen: false })
 
     <!-- ── SIZES ──────────────────────────────────────────────── -->
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h4 text-neutral-text-strong">Sizes</h3>
+      <h3 class="txt-h4 text-neutral-text">Sizes</h3>
       <div class="flex flex-wrap gap-3">
         <UIDialog
           v-for="size in ['sm', 'md', 'lg', 'full'] as const"
@@ -136,7 +134,7 @@ const externalDialog = useDialog({ defaultOpen: false })
             <UIButton variant="subtle" intent="neutral">{{ size }}</UIButton>
           </template>
           <template #default>
-            <p class="txt-base text-neutral-text-default">
+            <p class="txt-base text-neutral-text">
               Max width is constrained to
               <code class="txt-caption bg-neutral-fill-subtle px-1">{{ size }} </code>.
             </p>
@@ -147,7 +145,7 @@ const externalDialog = useDialog({ defaultOpen: false })
 
     <!-- ── ALERT DIALOG ────────────────────────────────────────── -->
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h4 text-neutral-text-strong">Alert Dialog</h3>
+      <h3 class="txt-h4 text-neutral-text">Alert Dialog</h3>
       <p class="txt-caption text-neutral-text-subtle">
         Use <code>role="alertdialog"</code>. Focus moves to the first focusable element (the Cancel
         button). Cannot be closed by clicking outside.
@@ -163,7 +161,7 @@ const externalDialog = useDialog({ defaultOpen: false })
           <UIButton intent="accent" variant="subtle">Delete Account</UIButton>
         </template>
         <template #default>
-          <p class="txt-base text-neutral-text-default">
+          <p class="txt-base text-neutral-text">
             All your data will be permanently removed. You will lose access immediately.
           </p>
         </template>
@@ -178,7 +176,7 @@ const externalDialog = useDialog({ defaultOpen: false })
 
     <!-- ── LAZY MOUNT ──────────────────────────────────────────── -->
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h4 text-neutral-text-strong">Lazy Mount</h3>
+      <h3 class="txt-h4 text-neutral-text">Lazy Mount</h3>
       <p class="txt-caption text-neutral-text-subtle">
         Content renders only when first opened (<code>lazyMount</code>) and unmounts when closed
         (<code>unmountOnExit</code>). Both are enabled by default in this component.
@@ -190,7 +188,7 @@ const externalDialog = useDialog({ defaultOpen: false })
         :unmount-on-exit="true"
       >
         <template #default>
-          <p class="txt-base text-neutral-text-default">
+          <p class="txt-base text-neutral-text">
             Check the DOM — this element is removed after closing.
           </p>
         </template>
@@ -199,7 +197,7 @@ const externalDialog = useDialog({ defaultOpen: false })
 
     <!-- ── INITIAL FOCUS ───────────────────────────────────────── -->
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h4 text-neutral-text-strong">Initial Focus</h3>
+      <h3 class="txt-h4 text-neutral-text">Initial Focus</h3>
       <p class="txt-caption text-neutral-text-subtle">
         Pass <code>:initial-focus-el="() => inputRef?.getControlElement() ?? undefined"</code> on a
         <code>UIFormInput</code> ref so the real <code>&lt;input&gt;</code> receives focus when the
@@ -224,7 +222,7 @@ const externalDialog = useDialog({ defaultOpen: false })
 
     <!-- ── FINAL FOCUS ─────────────────────────────────────────── -->
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h4 text-neutral-text-strong">Final Focus</h3>
+      <h3 class="txt-h4 text-neutral-text">Final Focus</h3>
       <p class="txt-caption text-neutral-text-subtle">
         Pass <code>:final-focus-el="() => buttonRef?.getControlElement()"</code> so focus moves to a
         specific element when the dialog closes (instead of the trigger).
@@ -236,7 +234,7 @@ const externalDialog = useDialog({ defaultOpen: false })
           description="After closing, focus moves to the accent button."
         >
           <template #default>
-            <p class="txt-base text-neutral-text-default">Close this dialog to see focus shift.</p>
+            <p class="txt-base text-neutral-text">Close this dialog to see focus shift.</p>
           </template>
         </UIDialog>
         <UIButton ref="finalFocusButtonRef" type="button" intent="accent" variant="default">
@@ -247,7 +245,7 @@ const externalDialog = useDialog({ defaultOpen: false })
 
     <!-- ── NON-MODAL ────────────────────────────────────────────── -->
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h4 text-neutral-text-strong">Non-Modal</h3>
+      <h3 class="txt-h4 text-neutral-text">Non-Modal</h3>
       <p class="txt-caption text-neutral-text-subtle">
         Set <code>:modal="false"</code> to allow interaction outside the dialog. Focus is NOT
         trapped and scroll is NOT prevented.
@@ -259,7 +257,7 @@ const externalDialog = useDialog({ defaultOpen: false })
         size="sm"
       >
         <template #default>
-          <p class="txt-base text-neutral-text-default">
+          <p class="txt-base text-neutral-text">
             Click anywhere outside — the page remains interactive.
           </p>
         </template>
@@ -268,7 +266,7 @@ const externalDialog = useDialog({ defaultOpen: false })
 
     <!-- ── SCROLL: INSIDE ──────────────────────────────────────── -->
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h4 text-neutral-text-strong">Scroll: Inside</h3>
+      <h3 class="txt-h4 text-neutral-text">Scroll: Inside</h3>
       <p class="txt-caption text-neutral-text-subtle">
         <code>scrollBehavior="inside"</code> — dialog has a max-height and its body area scrolls.
         Header and footer stay fixed.
@@ -280,7 +278,7 @@ const externalDialog = useDialog({ defaultOpen: false })
       >
         <template #default>
           <div class="flex flex-col gap-2">
-            <p v-for="i in 20" :key="i" class="txt-base text-neutral-text-default">
+            <p v-for="i in 20" :key="i" class="txt-base text-neutral-text">
               Section {{ i }} — Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
               vehicula nisi at purus hendrerit, in mollis enim facilisis.
             </p>
@@ -297,7 +295,7 @@ const externalDialog = useDialog({ defaultOpen: false })
 
     <!-- ── SCROLL: OUTSIDE ─────────────────────────────────────── -->
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h4 text-neutral-text-strong">Scroll: Outside</h3>
+      <h3 class="txt-h4 text-neutral-text">Scroll: Outside</h3>
       <p class="txt-caption text-neutral-text-subtle">
         <code>scrollBehavior="outside"</code> — the positioner scrolls so the dialog can extend
         beyond the viewport.
@@ -310,12 +308,10 @@ const externalDialog = useDialog({ defaultOpen: false })
         <template #default>
           <div class="flex flex-col gap-3">
             <div v-for="i in 15" :key="i" class="flex flex-col gap-1">
-              <label :for="`field-${i}`" class="txt-label text-neutral-text-default">
-                Field {{ i }}
-              </label>
+              <label :for="`field-${i}`" class="txt-label text-neutral-text"> Field {{ i }} </label>
               <input
                 :id="`field-${i}`"
-                class="txt-base border border-neutral-border-default bg-neutral-surface-default p-2 text-neutral-text-default outline-none"
+                class="txt-base border border-neutral-border bg-neutral-surface p-2 text-neutral-text outline-none"
               />
             </div>
           </div>
@@ -331,7 +327,7 @@ const externalDialog = useDialog({ defaultOpen: false })
 
     <!-- ── MULTIPLE TRIGGERS ───────────────────────────────────── -->
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h4 text-neutral-text-strong">Multiple Triggers</h3>
+      <h3 class="txt-h4 text-neutral-text">Multiple Triggers</h3>
       <p class="txt-caption text-neutral-text-subtle">
         Each <code>Dialog.Trigger</code> carries a <code>value</code>. Use
         <code>@trigger-value-change</code> to update dialog content based on which was clicked.
@@ -357,13 +353,13 @@ const externalDialog = useDialog({ defaultOpen: false })
         <template #default>
           <div v-if="activeTrigger" class="flex flex-col gap-2">
             <template v-if="productContent[activeTrigger]">
-              <p class="txt-h5 text-neutral-text-strong">
+              <p class="txt-h5 text-neutral-text">
                 {{ productContent[activeTrigger]!.name }}
               </p>
-              <p class="txt-label text-primary-text-default">
+              <p class="txt-label text-primary-text">
                 {{ productContent[activeTrigger]!.price }}
               </p>
-              <p class="txt-base text-neutral-text-default">
+              <p class="txt-base text-neutral-text">
                 {{ productContent[activeTrigger]!.desc }}
               </p>
             </template>
@@ -374,7 +370,7 @@ const externalDialog = useDialog({ defaultOpen: false })
 
     <!-- ── CONTROLLED ──────────────────────────────────────────── -->
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h4 text-neutral-text-strong">Controlled (v-model:open)</h3>
+      <h3 class="txt-h4 text-neutral-text">Controlled (v-model:open)</h3>
       <div class="flex flex-wrap gap-3">
         <UIButton size="sm" variant="subtle" @click="controlledOpen = true">Open</UIButton>
         <UIButton size="sm" variant="subtle" @click="controlledOpen = false">Close</UIButton>
@@ -387,7 +383,7 @@ const externalDialog = useDialog({ defaultOpen: false })
         :hide-trigger="true"
       >
         <template #default>
-          <p class="txt-base text-neutral-text-default">
+          <p class="txt-base text-neutral-text">
             Use the buttons above to open and close this dialog programmatically.
           </p>
         </template>
@@ -399,14 +395,14 @@ const externalDialog = useDialog({ defaultOpen: false })
 
     <!-- ── NESTED DIALOGS ──────────────────────────────────────── -->
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h4 text-neutral-text-strong">Nested Dialogs</h3>
+      <h3 class="txt-h4 text-neutral-text">Nested Dialogs</h3>
       <p class="txt-caption text-neutral-text-subtle">
         Opening an inner dialog adds <code>data-has-nested</code> to the parent content. The parent
         scales down slightly via CSS.
       </p>
       <UIDialog title="Outer Dialog" description="Open the inner dialog from here.">
         <template #default>
-          <p class="txt-base mb-4 text-neutral-text-default">This is the outer dialog's content.</p>
+          <p class="txt-base mb-4 text-neutral-text">This is the outer dialog's content.</p>
           <!-- Inner dialog rendered inside outer dialog content -->
           <UIDialog
             title="Inner Dialog"
@@ -415,7 +411,7 @@ const externalDialog = useDialog({ defaultOpen: false })
             intent="primary"
           >
             <template #default>
-              <p class="txt-base text-neutral-text-default">
+              <p class="txt-base text-neutral-text">
                 The outer dialog scaled down when this opened.
               </p>
             </template>
@@ -434,7 +430,7 @@ const externalDialog = useDialog({ defaultOpen: false })
 
     <!-- ── CONFIRMATION ────────────────────────────────────────── -->
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h4 text-neutral-text-strong">Confirmation (Unsaved Changes)</h3>
+      <h3 class="txt-h4 text-neutral-text">Confirmation (Unsaved Changes)</h3>
       <p class="txt-caption text-neutral-text-subtle">
         Intercepts close attempts when there are unsaved changes.
         <code>closeOnInteractOutside</code> is disabled; Escape is overridden.
@@ -460,17 +456,15 @@ const externalDialog = useDialog({ defaultOpen: false })
         </template>
         <template #default>
           <div class="flex flex-col gap-2">
-            <label for="edit-name" class="txt-label text-neutral-text-default">Name</label>
+            <label for="edit-name" class="txt-label text-neutral-text">Name</label>
             <input
               id="edit-name"
               v-model="editName"
-              class="txt-base border border-neutral-border-default bg-neutral-surface-default p-2 text-neutral-text-default outline-none focus:border-primary-border-default"
+              class="txt-base border border-neutral-border bg-neutral-surface p-2 text-neutral-text outline-none focus:border-primary-border"
               placeholder="Enter your name…"
               @input="editDirty = true"
             />
-            <p v-if="editDirty" class="txt-caption text-accent-text-default">
-              You have unsaved changes.
-            </p>
+            <p v-if="editDirty" class="txt-caption text-accent-text">You have unsaved changes.</p>
           </div>
         </template>
         <template #footer>
@@ -492,7 +486,7 @@ const externalDialog = useDialog({ defaultOpen: false })
         :hide-trigger="true"
       >
         <template #default>
-          <p class="txt-base text-neutral-text-default">This action cannot be undone.</p>
+          <p class="txt-base text-neutral-text">This action cannot be undone.</p>
         </template>
         <template #footer>
           <UIButton variant="subtle" intent="neutral" @click="confirmOpen = false">
@@ -505,7 +499,7 @@ const externalDialog = useDialog({ defaultOpen: false })
 
     <!-- ── ROOT PROVIDER ───────────────────────────────────────── -->
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h4 text-neutral-text-strong">RootProvider Mode</h3>
+      <h3 class="txt-h4 text-neutral-text">RootProvider Mode</h3>
       <p class="txt-caption text-neutral-text-subtle">
         Created via <code>useDialog()</code>. Call <code>externalDialog.value.setOpen(true)</code>
         from anywhere to open programmatically.
@@ -522,7 +516,7 @@ const externalDialog = useDialog({ defaultOpen: false })
         :hide-trigger="true"
       >
         <template #default>
-          <p class="txt-base text-neutral-text-default">
+          <p class="txt-base text-neutral-text">
             This dialog has no trigger element — it's opened by the buttons above.
           </p>
         </template>

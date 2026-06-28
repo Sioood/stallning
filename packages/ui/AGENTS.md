@@ -104,8 +104,8 @@ test/
 
 Use semantic tokens — NEVER raw color values:
 
-- `primary-fill-default`, `primary-text-inverse`
-- `neutral-fill-subtle`, `neutral-text-default`, `neutral-border-subtle`
+- `primary-fill`, `primary-on-fill`
+- `neutral-fill-subtle`, `neutral-text`, `neutral-border-subtle`
 - `secondary-*`, `accent-*` for alternative intents
 
 ### Intent System
@@ -139,7 +139,7 @@ Follow Tailwind's spacing scale. Components use consistent sizes:
 
 ### Styling
 
-- **Tokens:** Semantic color tokens in `main.css` (`primary-fill-default`, `neutral-text-subtle`, etc.)
+- **Tokens:** Semantic color tokens in `main.css` (`primary-fill`, `neutral-text-muted`, etc.). Regenerate role tokens from Figma export via `pnpm generate:tokens`.
 - **CVA:** Define variants inline in the component unless shared (like `buttonVariants`)
 - **`cn()` helper:** Always use for class merging — handles Vue reactive classes + tailwind-merge
 - **`ui` prop:** Every component accepts an optional `ui` prop for slot-level class overrides

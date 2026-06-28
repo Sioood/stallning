@@ -101,7 +101,7 @@ describe('UIFormRating', () => {
     })
 
     expect(wrapper.findAll('svg')).toHaveLength(5)
-    expect(wrapper.html()).toContain('text-primary-fill-default')
+    expect(wrapper.html()).toContain('text-primary-fill')
     expect(wrapper.html()).toContain('text-primary-text-subtle')
   })
 

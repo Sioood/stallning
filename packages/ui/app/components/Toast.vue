@@ -29,19 +29,14 @@ const toastRootCVA = cva(
   {
     variants: {
       intent: {
-        accent: 'border-accent-border-default bg-accent-surface-default text-accent-text-default',
-        error: 'border-error-border-default bg-error-surface-default text-error-text-default',
-        info: 'border-info-border-default bg-info-surface-default text-info-text-default',
-        neutral:
-          'border-neutral-border-default bg-neutral-surface-default text-neutral-text-default',
-        primary:
-          'border-primary-border-default bg-primary-surface-default text-primary-text-default',
-        secondary:
-          'border-secondary-border-default bg-secondary-surface-default text-secondary-text-default',
-        success:
-          'border-success-border-default bg-success-surface-default text-success-text-default',
-        warning:
-          'border-warning-border-default bg-warning-surface-default text-warning-text-default',
+        accent: 'border-accent-border bg-accent-surface text-accent-text',
+        error: 'border-error-border bg-error-surface text-error-text',
+        info: 'border-info-border bg-info-surface text-info-text',
+        neutral: 'border-neutral-border bg-neutral-surface text-neutral-text',
+        primary: 'border-primary-border bg-primary-surface text-primary-text',
+        secondary: 'border-secondary-border bg-secondary-surface text-secondary-text',
+        success: 'border-success-border bg-success-surface text-success-text',
+        warning: 'border-warning-border bg-warning-surface text-warning-text',
       } satisfies Record<ToastIntent, string>,
       size: {
         md: 'min-w-64 p-2 pr-12',

@@ -228,28 +228,28 @@ function removeSlide() {
           <UICarouselItemGroup>
             <UICarouselItem :index="0" snap-align="start" :ui="{ root: 'w-48' }">
               <div
-                class="flex h-32 items-center justify-center border border-neutral-border-subtle bg-neutral-fill-subtle"
+                class="flex h-32 items-center justify-center border border-neutral-border-subtle bg-neutral-fill-subtle disabled:pointer-events-none disabled:opacity-40"
               >
                 Narrow
               </div>
             </UICarouselItem>
             <UICarouselItem :index="1" snap-align="center" :ui="{ root: 'w-72' }">
               <div
-                class="flex h-32 items-center justify-center border border-primary-border-subtle bg-primary-fill-subtle"
+                class="flex h-32 items-center justify-center border border-primary-border-subtle bg-primary-fill-subtle disabled:pointer-events-none disabled:opacity-40"
               >
                 Wide
               </div>
             </UICarouselItem>
             <UICarouselItem :index="2" snap-align="end" :ui="{ root: 'w-56' }">
               <div
-                class="flex h-32 items-center justify-center border border-secondary-border-subtle bg-secondary-fill-subtle"
+                class="flex h-32 items-center justify-center border border-secondary-border-subtle bg-secondary-fill-subtle disabled:pointer-events-none disabled:opacity-40"
               >
                 Medium
               </div>
             </UICarouselItem>
             <UICarouselItem :index="3" :ui="{ root: 'w-64' }">
               <div
-                class="flex h-32 items-center justify-center border border-accent-border-subtle bg-accent-fill-subtle"
+                class="flex h-32 items-center justify-center border border-accent-border-subtle bg-accent-fill-subtle disabled:pointer-events-none disabled:opacity-40"
               >
                 Default snap
               </div>

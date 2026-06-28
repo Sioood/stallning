@@ -34,13 +34,13 @@ export const comboboxInputCVA = cva(
     variants: {
       intent: {
         accent:
-          'text-accent-text-default placeholder:text-accent-text-subtle disabled:text-accent-text-default-disabled',
+          'text-accent-text placeholder:text-accent-text-muted disabled:text-accent-text-disabled',
         neutral:
-          'text-neutral-text-default placeholder:text-neutral-text-subtle disabled:text-neutral-text-default-disabled',
+          'text-neutral-text placeholder:text-neutral-text-muted disabled:text-neutral-text-disabled',
         primary:
-          'text-primary-text-default placeholder:text-primary-text-subtle disabled:text-primary-text-default-disabled',
+          'text-primary-text placeholder:text-primary-text-muted disabled:text-primary-text-disabled',
         secondary:
-          'text-secondary-text-default placeholder:text-secondary-text-subtle disabled:text-secondary-text-default-disabled',
+          'text-secondary-text placeholder:text-secondary-text-muted disabled:text-secondary-text-disabled',
       } satisfies Record<ComboboxIntent, string>,
       size: {
         lg: 'txt-base',
@@ -56,14 +56,13 @@ export const comboboxTriggerCVA = cva(
   {
     variants: {
       intent: {
-        accent:
-          'text-accent-text-subtle hover:text-accent-text-default disabled:text-accent-text-default-disabled',
+        accent: 'text-accent-text-subtle hover:text-accent-text disabled:text-accent-text-disabled',
         neutral:
-          'text-neutral-text-subtle hover:text-neutral-text-default disabled:text-neutral-text-default-disabled',
+          'text-neutral-text-subtle hover:text-neutral-text disabled:text-neutral-text-disabled',
         primary:
-          'text-primary-text-subtle hover:text-primary-text-default disabled:text-primary-text-default-disabled',
+          'text-primary-text-subtle hover:text-primary-text disabled:text-primary-text-disabled',
         secondary:
-          'text-secondary-text-subtle hover:text-secondary-text-default disabled:text-secondary-text-default-disabled',
+          'text-secondary-text-subtle hover:text-secondary-text disabled:text-secondary-text-disabled',
       } satisfies Record<ComboboxIntent, string>,
       size: {
         lg: 'size-9',
@@ -75,7 +74,7 @@ export const comboboxTriggerCVA = cva(
 )
 
 export const comboboxClearTriggerCVA = cva(
-  'inline-flex shrink-0 cursor-pointer items-center justify-center border-0 bg-transparent outline-none hover:text-error-text-default-hover data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50',
+  'inline-flex shrink-0 cursor-pointer items-center justify-center border-0 bg-transparent outline-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50',
   {
     variants: {
       size: {

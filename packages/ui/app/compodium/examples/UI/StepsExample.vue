@@ -69,7 +69,7 @@ function onLinearStepUpdate(next: number | undefined) {
           <p class="text-sm text-neutral-text-subtle">Automated payment content.</p>
         </UIStepsContent>
         <UIStepsCompletedContent>
-          <p class="font-semibold text-success-text-default">✓ All done automatically!</p>
+          <p class="font-semibold text-success-text">✓ All done automatically!</p>
         </UIStepsCompletedContent>
       </UISteps>
     </section>
@@ -112,7 +112,7 @@ function onLinearStepUpdate(next: number | undefined) {
         </UIStepsContent>
 
         <UIStepsCompletedContent>
-          <p class="font-semibold text-success-text-default">✓ Order placed successfully!</p>
+          <p class="font-semibold text-success-text">✓ Order placed successfully!</p>
         </UIStepsCompletedContent>
 
         <div class="flex justify-between">
@@ -195,7 +195,7 @@ function onLinearStepUpdate(next: number | undefined) {
           <p class="text-sm text-neutral-text-subtle">Payment info.</p>
         </UIStepsContent>
         <UIStepsCompletedContent>
-          <p class="font-semibold text-success-text-default">✓ Done!</p>
+          <p class="font-semibold text-success-text">✓ Done!</p>
         </UIStepsCompletedContent>
         <div class="flex justify-between">
           <UIStepsPrevTrigger />
@@ -238,7 +238,7 @@ function onLinearStepUpdate(next: number | undefined) {
           <p class="text-sm text-neutral-text-subtle">Final step.</p>
         </UIStepsContent>
         <UIStepsCompletedContent>
-          <p class="font-semibold text-success-text-default">✓ Complete!</p>
+          <p class="font-semibold text-success-text">✓ Complete!</p>
         </UIStepsCompletedContent>
         <div class="flex justify-between">
           <UIStepsPrevTrigger />
@@ -283,7 +283,7 @@ function onLinearStepUpdate(next: number | undefined) {
           <div class="flex flex-col gap-3">
             <p class="text-sm text-neutral-text-subtle">Enter your personal details to continue.</p>
             <UIFormCheckbox v-model="step1Accepted" label="I have filled in my details" />
-            <p v-if="attemptedFrom === 0" role="alert" class="txt-caption text-error-text-default">
+            <p v-if="attemptedFrom === 0" role="alert" class="txt-caption text-error-text">
               ⚠ Please complete this step before continuing.
             </p>
           </div>
@@ -292,7 +292,7 @@ function onLinearStepUpdate(next: number | undefined) {
           <div class="flex flex-col gap-3">
             <p class="text-sm text-neutral-text-subtle">Choose your shipping method.</p>
             <UIFormCheckbox v-model="step2Accepted" label="I have selected a shipping method" />
-            <p v-if="attemptedFrom === 1" role="alert" class="txt-caption text-error-text-default">
+            <p v-if="attemptedFrom === 1" role="alert" class="txt-caption text-error-text">
               ⚠ Please complete this step before continuing.
             </p>
           </div>
@@ -302,7 +302,7 @@ function onLinearStepUpdate(next: number | undefined) {
         </UIStepsContent>
 
         <UIStepsCompletedContent>
-          <p class="font-semibold text-success-text-default">✓ All steps validated and complete!</p>
+          <p class="font-semibold text-success-text">✓ All steps validated and complete!</p>
         </UIStepsCompletedContent>
 
         <div class="flex justify-between">
@@ -352,7 +352,7 @@ function onLinearStepUpdate(next: number | undefined) {
           <p class="text-sm text-neutral-text-subtle">Confirm and submit.</p>
         </UIStepsContent>
         <UIStepsCompletedContent>
-          <p class="font-semibold text-success-text-default">✓ Registration complete!</p>
+          <p class="font-semibold text-success-text">✓ Registration complete!</p>
         </UIStepsCompletedContent>
         <div class="flex justify-between">
           <UIStepsPrevTrigger />
@@ -491,7 +491,7 @@ function onLinearStepUpdate(next: number | undefined) {
           <p class="text-sm text-neutral-text-subtle">Launch your project!</p>
         </UIStepsContent>
         <UIStepsCompletedContent>
-          <p class="font-semibold text-success-text-default">✓ Launched!</p>
+          <p class="font-semibold text-success-text">✓ Launched!</p>
         </UIStepsCompletedContent>
         <div class="flex justify-between">
           <UIStepsPrevTrigger />
@@ -589,7 +589,7 @@ function onLinearStepUpdate(next: number | undefined) {
           <p class="text-sm text-neutral-text-subtle">Pay securely.</p>
         </UIStepsContent>
         <UIStepsCompletedContent>
-          <p class="font-semibold text-success-text-default">✓ Order complete!</p>
+          <p class="font-semibold text-success-text">✓ Order complete!</p>
         </UIStepsCompletedContent>
         <div class="flex justify-between">
           <UIStepsPrevTrigger />

@@ -70,10 +70,10 @@ const CardBodyTitleDescriptionWrapperCVA = cva('flex flex-col', {
 const CardBodyTitleCVA = cva('', {
   variants: {
     intent: {
-      accent: 'text-accent-text-strong',
-      neutral: 'text-neutral-text-strong',
-      primary: 'text-primary-text-strong',
-      secondary: 'text-secondary-text-strong',
+      accent: 'text-accent-text',
+      neutral: 'text-neutral-text',
+      primary: 'text-primary-text',
+      secondary: 'text-secondary-text',
     } as const satisfies Record<CardIntent, string>,
     size: {
       lg: 'txt-h3',
@@ -86,10 +86,10 @@ const CardBodyTitleCVA = cva('', {
 const CardBodyDescriptionCVA = cva('', {
   variants: {
     intent: {
-      accent: 'text-accent-text-default',
-      neutral: 'text-neutral-text-default',
-      primary: 'text-primary-text-default',
-      secondary: 'text-secondary-text-default',
+      accent: 'text-accent-text',
+      neutral: 'text-neutral-text',
+      primary: 'text-primary-text',
+      secondary: 'text-secondary-text',
     } as const satisfies Record<CardIntent, string>,
     size: {
       lg: 'txt-base',

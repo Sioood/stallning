@@ -21,7 +21,7 @@ const intents = ['neutral', 'primary', 'secondary', 'accent'] as const
     <section class="flex flex-col gap-6">
       <h2 class="text-xl font-bold">App Settings</h2>
       <div
-        class="flex flex-col overflow-hidden rounded-xl border border-neutral-border-subtle bg-neutral-fill-subtle/5"
+        class="flex flex-col overflow-hidden rounded-xl border border-neutral-border-subtle bg-neutral-fill-subtle/5 disabled:pointer-events-none disabled:opacity-40"
       >
         <div
           v-for="(key, i) in ['notifications', 'darkMode', 'autoUpdate', 'biometrics'] as const"
@@ -32,7 +32,7 @@ const intents = ['neutral', 'primary', 'secondary', 'accent'] as const
           ]"
         >
           <div class="flex flex-col">
-            <span class="font-medium text-neutral-text-default capitalize">{{ key }}</span>
+            <span class="font-medium text-neutral-text capitalize">{{ key }}</span>
             <span class="text-xs text-neutral-text-subtle">Toggle {{ key }} setting</span>
           </div>
           <UISwitch
@@ -50,7 +50,7 @@ const intents = ['neutral', 'primary', 'secondary', 'accent'] as const
     <section class="flex flex-col gap-4">
       <h2 class="text-xl font-bold">Intents</h2>
       <div
-        class="flex flex-col items-start gap-4 rounded-xl border border-neutral-border-subtle bg-neutral-fill-subtle/10 p-6"
+        class="flex flex-col items-start gap-4 rounded-xl border border-neutral-border-subtle bg-neutral-fill-subtle/10 p-6 disabled:pointer-events-none disabled:opacity-40"
       >
         <UISwitch
           v-for="intent in intents"
@@ -67,7 +67,7 @@ const intents = ['neutral', 'primary', 'secondary', 'accent'] as const
       <section class="flex flex-col gap-4">
         <h3 class="text-lg font-bold">Sizes</h3>
         <div
-          class="flex flex-col items-start gap-4 rounded-xl border border-neutral-border-subtle bg-neutral-fill-subtle/10 p-6"
+          class="flex flex-col items-start gap-4 rounded-xl border border-neutral-border-subtle bg-neutral-fill-subtle/10 p-6 disabled:pointer-events-none disabled:opacity-40"
         >
           <UISwitch
             v-for="size in sizes"
@@ -82,7 +82,7 @@ const intents = ['neutral', 'primary', 'secondary', 'accent'] as const
       <section class="flex flex-col gap-4">
         <h3 class="text-lg font-bold">States</h3>
         <div
-          class="flex flex-col items-start gap-4 rounded-xl border border-neutral-border-subtle bg-neutral-fill-subtle/10 p-6"
+          class="flex flex-col items-start gap-4 rounded-xl border border-neutral-border-subtle bg-neutral-fill-subtle/10 p-6 disabled:pointer-events-none disabled:opacity-40"
         >
           <UISwitch label="Required" required :model-value="false" />
           <UISwitch label="Disabled (on)" disabled :model-value="true" />

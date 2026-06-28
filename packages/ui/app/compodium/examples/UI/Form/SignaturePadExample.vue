@@ -61,7 +61,7 @@ function onDrawEnd(details: SignaturePadDrawEndDetails) {
         v-if="imageUrl"
         :src="imageUrl"
         alt="Signature preview"
-        class="mt-2 max-h-24 w-auto border border-neutral-border-default object-contain"
+        class="mt-2 max-h-24 w-auto border border-neutral-border object-contain"
       />
       <p v-else class="text-xs text-neutral-text-subtle">
         Draw a signature above to see the preview

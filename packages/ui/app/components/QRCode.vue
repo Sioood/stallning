@@ -18,11 +18,11 @@ type QrCodeSize = 'md'
 const qrCodeRootCVA = cva(['flex size-full flex-col items-center justify-center'], {
   variants: {
     intent: {
-      accent: 'text-accent-surface-default',
+      accent: 'text-accent-surface',
       blackAndWhite: 'text-black',
-      neutral: 'text-neutral-surface-default',
-      primary: 'text-primary-surface-default',
-      secondary: 'text-secondary-surface-default',
+      neutral: 'text-neutral-surface',
+      primary: 'text-primary-surface',
+      secondary: 'text-secondary-surface',
     } satisfies Record<QrCodeIntent, string>,
     size: {
       md: 'gap-2',
@@ -35,11 +35,11 @@ type QrCodeRootCVAProps = VariantProps<typeof qrCodeRootCVA>
 const qrCodeFrameCVA = cva('size-full', {
   variants: {
     intent: {
-      accent: 'bg-accent-fill-subtle fill-accent-fill-strong',
+      accent: 'bg-accent-fill-subtle fill-accent-fill',
       blackAndWhite: 'bg-white fill-black',
-      neutral: 'bg-neutral-fill-subtle fill-neutral-fill-strong',
-      primary: 'bg-primary-fill-subtle fill-primary-fill-strong',
-      secondary: 'bg-secondary-fill-subtle fill-secondary-fill-strong',
+      neutral: 'bg-neutral-fill-subtle fill-neutral-fill',
+      primary: 'bg-primary-fill-subtle fill-primary-fill',
+      secondary: 'bg-secondary-fill-subtle fill-secondary-fill',
     } satisfies Record<QrCodeIntent, string>,
   },
 })

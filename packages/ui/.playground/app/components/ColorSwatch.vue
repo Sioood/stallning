@@ -262,7 +262,7 @@ const bg950CVA = cva('', {
   },
 })
 
-const textDefaultCVA = cva('text-neutral-text-default')
+const textDefaultCVA = cva('text-neutral-text')
 
 const text50CVA = cva('', {
   variants: {
@@ -577,52 +577,46 @@ const props = withDefaults(
 )
 
 const colorScales = [
-  { CVA: { bg: bg50CVA, text: text950CVA }, tokens: ['bg-subtle', 'text-on-fill'], value: 50 },
+  { CVA: { bg: bg50CVA, text: text950CVA }, tokens: ['bg-subtle', 'on-fill'], value: 50 },
   {
     CVA: { bg: bg100CVA, text: text900CVA },
-    tokens: ['bg-default', 'fill-subtle-disabled', 'fill-inverse', 'text-inverse', 'icon-inverse'],
+    tokens: ['bg', 'fill-inverse', 'text-inverse', 'icon-inverse'],
     value: 100,
   },
   {
     CVA: { bg: bg200CVA, text: text800CVA },
     tokens: [
-      'bg-strong',
       'surface-subtle',
       'fill-inverse-hover',
-      'border-subtle-disabled',
       'border-inverse',
-      'text-inverse-hover',
-      'icon-inverse-hover',
+      'text-inverse',
+      'icon-inverse',
     ],
     value: 200,
   },
   {
     CVA: { bg: bg300CVA, text: text700CVA },
     tokens: [
-      'surface-default',
+      'surface',
       'fill-subtle',
-      'fill-default-disabled',
       'fill-inverse-active',
       'border-inverse-hover',
-      'text-subtle-disabled',
-      'text-inverse-active',
-      'icon-subtle-disabled',
-      'icon-inverse-active',
+      'text-subtle',
+      'text-inverse',
+      'icon-subtle',
+      'icon-inverse',
     ],
     value: 300,
   },
   {
     CVA: { bg: bg400CVA, text: text600CVA },
     tokens: [
-      'surface-strong',
       'fill-subtle-hover',
-      'fill-strong-disabled',
       'border-subtle',
-      'border-default-disabled',
       'border-inverse-active',
-      'text-default-disabled',
-      'icon-subtle',
-      'icon-default-disabled',
+      'text-disabled',
+      'icon',
+      'icon-disabled',
     ],
     value: 400,
   },
@@ -630,73 +624,36 @@ const colorScales = [
     CVA: { bg: bg500CVA, text: textDefaultCVA },
     tokens: [
       'fill-subtle-active',
-      'fill-default',
       'border-subtle-hover',
       'text-subtle',
-      'icon-subtle-hover',
-      'text-strong-disabled',
-      'icon-strong-disabled',
+      'text-muted',
+      'icon-subtle',
     ],
     value: 500,
   },
   {
     CVA: { bg: bg600CVA, text: text400CVA },
-    tokens: [
-      'fill-default-hover',
-      'border-subtle-active',
-      'border-default',
-      'border-strong-disabled',
-      'text-subtle-hover',
-      'text-inverse-disabled',
-      'icon-subtle-active',
-      'icon-inverse-disabled',
-    ],
+    tokens: ['fill', 'fill-hover', 'border-subtle-active', 'border', 'icon-subtle', 'icon-inverse'],
     value: 600,
   },
   {
     CVA: { bg: bg700CVA, text: text300CVA },
-    tokens: [
-      'fill-default-active',
-      'fill-strong',
-      'fill-inverse-disabled',
-      'border-default-hover',
-      'border-inverse-disabled',
-      'text-default',
-      'text-subtle-active',
-      'icon-default',
-    ],
+    tokens: ['fill-active', 'border-hover', 'border-inverse', 'text', 'icon', 'on-fill'],
     value: 700,
   },
   {
     CVA: { bg: bg800CVA, text: text200CVA },
-    tokens: [
-      'surface-inverse',
-      'fill-strong-hover',
-      'border-default-active',
-      'border-strong',
-      'text-default-hover',
-      'text-strong',
-      'icon-default-hover',
-      'icon-strong',
-    ],
+    tokens: ['surface-inverse', 'border-active', 'border-strong', 'text-inverse', 'icon-inverse'],
     value: 800,
   },
   {
     CVA: { bg: bg900CVA, text: text100CVA },
-    tokens: [
-      'bg-inverse',
-      'fill-strong-active',
-      'border-strong-hover',
-      'text-default-active',
-      'text-strong-hover',
-      'icon-default-active',
-      'icon-strong-hover',
-    ],
+    tokens: ['bg-inverse', 'border-strong-hover', 'text', 'icon'],
     value: 900,
   },
   {
     CVA: { bg: bg950CVA, text: text50CVA },
-    tokens: ['border-strong-active', 'text-strong-active', 'icon-strong-active'],
+    tokens: ['border-strong-active'],
     value: 950,
   },
 ] as const

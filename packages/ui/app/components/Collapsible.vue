@@ -21,7 +21,7 @@ const collapsibleTriggerCVA = cva('flex w-full items-center justify-between text
       true: 'cursor-not-allowed',
     },
     intent: {
-      neutral: 'border-neutral-border-default text-neutral-text-default',
+      neutral: 'border-neutral-border text-neutral-text',
     } satisfies Record<CollapsibleIntent, string>,
     size: {
       md: 'txt-h6 gap-3 border-b p-1',

@@ -38,9 +38,10 @@ describe('buttonVariants', () => {
 
   it('generates compound variant for default + primary intent', () => {
     const result = button({ intent: 'primary', variant: 'default' })
-    expect(result).toContain('bg-primary-fill-default')
-    expect(result).toContain('border-primary-border-default')
-    expect(result).toContain('text-primary-text-inverse')
+    expect(result).toContain('bg-primary-fill')
+    expect(result).toContain('border-primary-border')
+    expect(result).toContain('text-primary-on-fill')
+    expect(result).toContain('disabled:opacity-40')
   })
 
   it('generates compound variant for subtle + error intent', () => {
@@ -60,8 +61,8 @@ describe('buttonVariants', () => {
 describe('toggleCVA', () => {
   it('applies pressed state classes for default + primary', () => {
     const result = toggleCVA({ intent: 'primary', variant: 'default' })
-    expect(result).toContain('data-[state=on]:bg-primary-fill-default-active')
-    expect(result).toContain('data-[state=on]:border-primary-border-default-active')
+    expect(result).toContain('data-[state=on]:bg-primary-fill-active')
+    expect(result).toContain('data-[state=on]:border-primary-border-active')
   })
 
   it('applies pressed state classes for ghost + success', () => {

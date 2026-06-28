@@ -22,7 +22,7 @@ const handleClearError = () => clearError({ redirect: '/' })
   <div class="flex min-h-screen flex-col items-center justify-center gap-4 px-4 text-center">
     <div class="flex flex-col items-center justify-center">
       <span class="txt-title text-accent-text-subtle">{{ statusCode }}</span>
-      <h1 class="txt-h2 mt-4 text-neutral-text-default">{{ title }}</h1>
+      <h1 class="txt-h2 mt-4 text-neutral-text">{{ title }}</h1>
       <p class="txt-caption mt-2 max-w-md text-neutral-text-subtle">{{ description }}</p>
     </div>
     <UIButton class="mt-8" @click="handleClearError">

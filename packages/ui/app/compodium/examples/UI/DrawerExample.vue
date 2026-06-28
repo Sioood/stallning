@@ -26,10 +26,10 @@ const drawer = useDrawer({
   <div class="flex flex-col gap-10 p-4">
     <!-- ── Basic ─────────────────────────────────────────────────────────── -->
     <section class="flex flex-col gap-2">
-      <h3 class="txt-h5 text-neutral-text-strong">Basic</h3>
+      <h3 class="txt-h5 text-neutral-text">Basic</h3>
       <div class="flex flex-wrap gap-2">
         <UIDrawer title="Drawer Title" description="A panel that slides in from the edge.">
-          <p class="txt-base text-neutral-text-default">
+          <p class="txt-base text-neutral-text">
             This is the default bottom drawer with full drag support.
           </p>
         </UIDrawer>
@@ -38,41 +38,41 @@ const drawer = useDrawer({
 
     <!-- ── Intents ────────────────────────────────────────────────────────── -->
     <section class="flex flex-col gap-2">
-      <h3 class="txt-h5 text-neutral-text-strong">Intents</h3>
+      <h3 class="txt-h5 text-neutral-text">Intents</h3>
       <div class="flex flex-wrap gap-2">
         <UIDrawer intent="neutral" title="Neutral" description="Neutral intent drawer.">
           <template #trigger>
             <UIButton variant="subtle" intent="neutral">Neutral</UIButton>
           </template>
-          <p class="txt-base text-neutral-text-default">Neutral drawer content.</p>
+          <p class="txt-base text-neutral-text">Neutral drawer content.</p>
         </UIDrawer>
 
         <UIDrawer intent="primary" title="Primary" description="Primary intent drawer.">
           <template #trigger>
             <UIButton variant="subtle" intent="primary">Primary</UIButton>
           </template>
-          <p class="txt-base text-primary-text-default">Primary drawer content.</p>
+          <p class="txt-base text-primary-text">Primary drawer content.</p>
         </UIDrawer>
 
         <UIDrawer intent="secondary" title="Secondary" description="Secondary intent drawer.">
           <template #trigger>
             <UIButton variant="subtle" intent="secondary">Secondary</UIButton>
           </template>
-          <p class="txt-base text-secondary-text-default">Secondary drawer content.</p>
+          <p class="txt-base text-secondary-text">Secondary drawer content.</p>
         </UIDrawer>
 
         <UIDrawer intent="accent" title="Accent" description="Accent intent drawer.">
           <template #trigger>
             <UIButton variant="subtle" intent="accent">Accent</UIButton>
           </template>
-          <p class="txt-base text-accent-text-default">Accent drawer content.</p>
+          <p class="txt-base text-accent-text">Accent drawer content.</p>
         </UIDrawer>
       </div>
     </section>
 
     <!-- ── Swipe direction ────────────────────────────────────────────────── -->
     <section class="flex flex-col gap-2">
-      <h3 class="txt-h5 text-neutral-text-strong">Swipe Direction</h3>
+      <h3 class="txt-h5 text-neutral-text">Swipe Direction</h3>
       <div class="flex flex-wrap gap-2">
         <UIDrawer
           swipe-direction="down"
@@ -82,14 +82,14 @@ const drawer = useDrawer({
           <template #trigger>
             <UIButton>↓ Bottom</UIButton>
           </template>
-          <p class="txt-base text-neutral-text-default">Bottom drawer — the default.</p>
+          <p class="txt-base text-neutral-text">Bottom drawer — the default.</p>
         </UIDrawer>
 
         <UIDrawer swipe-direction="up" title="Top Drawer" description="Slides in from the top.">
           <template #trigger>
             <UIButton>↑ Top</UIButton>
           </template>
-          <p class="txt-base text-neutral-text-default">Top drawer.</p>
+          <p class="txt-base text-neutral-text">Top drawer.</p>
         </UIDrawer>
 
         <UIDrawer
@@ -100,7 +100,7 @@ const drawer = useDrawer({
           <template #trigger>
             <UIButton>← Left</UIButton>
           </template>
-          <p class="txt-base text-neutral-text-default">Left side drawer.</p>
+          <p class="txt-base text-neutral-text">Left side drawer.</p>
         </UIDrawer>
 
         <UIDrawer
@@ -111,48 +111,48 @@ const drawer = useDrawer({
           <template #trigger>
             <UIButton>→ Right</UIButton>
           </template>
-          <p class="txt-base text-neutral-text-default">Right side drawer.</p>
+          <p class="txt-base text-neutral-text">Right side drawer.</p>
         </UIDrawer>
       </div>
     </section>
 
     <!-- ── Sizes ──────────────────────────────────────────────────────────── -->
     <section class="flex flex-col gap-2">
-      <h3 class="txt-h5 text-neutral-text-strong">Sizes (bottom drawer)</h3>
+      <h3 class="txt-h5 text-neutral-text">Sizes (bottom drawer)</h3>
       <div class="flex flex-wrap gap-2">
         <UIDrawer size="sm" title="Small" description="50% viewport height.">
           <template #trigger>
             <UIButton size="sm">sm</UIButton>
           </template>
-          <p class="txt-base text-neutral-text-default">Small drawer.</p>
+          <p class="txt-base text-neutral-text">Small drawer.</p>
         </UIDrawer>
 
         <UIDrawer size="md" title="Medium" description="75% viewport height (default).">
           <template #trigger>
             <UIButton size="sm">md</UIButton>
           </template>
-          <p class="txt-base text-neutral-text-default">Medium drawer.</p>
+          <p class="txt-base text-neutral-text">Medium drawer.</p>
         </UIDrawer>
 
         <UIDrawer size="lg" title="Large" description="90% viewport height.">
           <template #trigger>
             <UIButton size="sm">lg</UIButton>
           </template>
-          <p class="txt-base text-neutral-text-default">Large drawer.</p>
+          <p class="txt-base text-neutral-text">Large drawer.</p>
         </UIDrawer>
 
         <UIDrawer size="full" title="Full" description="Full viewport height.">
           <template #trigger>
             <UIButton size="sm">full</UIButton>
           </template>
-          <p class="txt-base text-neutral-text-default">Full-height drawer.</p>
+          <p class="txt-base text-neutral-text">Full-height drawer.</p>
         </UIDrawer>
       </div>
     </section>
 
     <!-- ── Snap Points ────────────────────────────────────────────────────── -->
     <section class="flex flex-col gap-2">
-      <h3 class="txt-h5 text-neutral-text-strong">Snap Points</h3>
+      <h3 class="txt-h5 text-neutral-text">Snap Points</h3>
       <UIDrawer
         title="Snap Points"
         description="Drawer with intermediate snap positions at 25%, 50%, and 100%."
@@ -163,7 +163,7 @@ const drawer = useDrawer({
         <template #trigger>
           <UIButton>Open with snap points</UIButton>
         </template>
-        <p class="txt-base text-neutral-text-default">
+        <p class="txt-base text-neutral-text">
           Drag the handle to snap between 25%, 50%, and 100% of the viewport height.
         </p>
       </UIDrawer>
@@ -171,7 +171,7 @@ const drawer = useDrawer({
 
     <!-- ── Controlled ─────────────────────────────────────────────────────── -->
     <section class="flex flex-col gap-2">
-      <h3 class="txt-h5 text-neutral-text-strong">Controlled (v-model:open)</h3>
+      <h3 class="txt-h5 text-neutral-text">Controlled (v-model:open)</h3>
       <div class="flex flex-wrap items-center gap-3">
         <UIButton @click="isOpen = true">Open programmatically</UIButton>
         <span class="txt-caption text-neutral-text-subtle">
@@ -184,7 +184,7 @@ const drawer = useDrawer({
         description="State is owned by Vue — opened programmatically."
         :hide-trigger="true"
       >
-        <p class="txt-base text-neutral-text-default">
+        <p class="txt-base text-neutral-text">
           This drawer is controlled via
           <code class="txt-caption rounded bg-neutral-fill-subtle px-1">v-model:open</code>. Closing
           it updates the ref automatically.
@@ -198,7 +198,7 @@ const drawer = useDrawer({
 
     <!-- ── Scrollable ─────────────────────────────────────────────────────── -->
     <section class="flex flex-col gap-2">
-      <h3 class="txt-h5 text-neutral-text-strong">Scrollable</h3>
+      <h3 class="txt-h5 text-neutral-text">Scrollable</h3>
       <UIDrawer
         title="Scrollable Content"
         description="The body scrolls while the header and footer stay fixed."
@@ -212,7 +212,7 @@ const drawer = useDrawer({
           <div
             v-for="i in 20"
             :key="i"
-            class="txt-label flex h-12 items-center justify-center rounded-lg border border-neutral-border-subtle bg-neutral-fill-subtle text-neutral-text-default"
+            class="txt-label flex h-12 items-center justify-center rounded-lg border border-neutral-border-subtle bg-neutral-fill-subtle text-neutral-text disabled:pointer-events-none disabled:opacity-40"
           >
             Item {{ i }}
           </div>
@@ -226,7 +226,7 @@ const drawer = useDrawer({
 
     <!-- ── Non-draggable ──────────────────────────────────────────────────── -->
     <section class="flex flex-col gap-2">
-      <h3 class="txt-h5 text-neutral-text-strong">Non-draggable</h3>
+      <h3 class="txt-h5 text-neutral-text">Non-draggable</h3>
       <UIDrawer
         title="Non-draggable Drawer"
         description="Drag-to-dismiss is disabled. Use the close button or press Escape."
@@ -236,7 +236,7 @@ const drawer = useDrawer({
         <template #trigger>
           <UIButton>Open non-draggable</UIButton>
         </template>
-        <p class="txt-base text-neutral-text-default">
+        <p class="txt-base text-neutral-text">
           This drawer can only be closed with the × button or the Escape key.
         </p>
       </UIDrawer>
@@ -244,7 +244,7 @@ const drawer = useDrawer({
 
     <!-- ── No-drag area ───────────────────────────────────────────────────── -->
     <section class="flex flex-col gap-2">
-      <h3 class="txt-h5 text-neutral-text-strong">No-drag Area</h3>
+      <h3 class="txt-h5 text-neutral-text">No-drag Area</h3>
       <UIDrawer
         title="No-drag Area"
         description="The text input below prevents drag from starting."
@@ -253,7 +253,7 @@ const drawer = useDrawer({
           <UIButton>Open with no-drag area</UIButton>
         </template>
         <div class="flex flex-col gap-3">
-          <p class="txt-base text-neutral-text-default">
+          <p class="txt-base text-neutral-text">
             Dragging the grabber or empty areas dismisses the drawer. The input below uses
             <code class="txt-caption rounded bg-neutral-fill-subtle px-1">data-no-drag</code>
             to opt out.
@@ -263,7 +263,7 @@ const drawer = useDrawer({
             data-no-drag
             type="text"
             placeholder="Type here — drag won't start inside"
-            class="txt-base w-full rounded-md border border-neutral-border-default bg-neutral-surface-default px-3 py-2 text-neutral-text-default outline-none focus:border-primary-border-default focus:ring-1 focus:ring-primary-border-default"
+            class="txt-base w-full rounded-md border border-neutral-border bg-neutral-surface px-3 py-2 text-neutral-text outline-none focus:border-primary-border focus:ring-1 focus:ring-primary-border"
           />
         </div>
       </UIDrawer>
@@ -271,7 +271,7 @@ const drawer = useDrawer({
 
     <!-- ── Multiple triggers ──────────────────────────────────────────────── -->
     <section class="flex flex-col gap-2">
-      <h3 class="txt-h5 text-neutral-text-strong">Multiple Triggers</h3>
+      <h3 class="txt-h5 text-neutral-text">Multiple Triggers</h3>
       <UIDrawer
         title="Multiple Triggers"
         description="Different triggers open the same drawer with different context."
@@ -298,7 +298,7 @@ const drawer = useDrawer({
         </template>
         <template #default="{ drawer: drawerContext }">
           <div class="flex flex-col gap-2">
-            <p class="txt-base text-neutral-text-default">
+            <p class="txt-base text-neutral-text">
               Opened via: <strong>{{ drawerContext.triggerValue ?? 'unknown' }}</strong>
             </p>
           </div>
@@ -308,7 +308,7 @@ const drawer = useDrawer({
 
     <!-- ── Non-modal ──────────────────────────────────────────────────────── -->
     <section class="flex flex-col gap-2">
-      <h3 class="txt-h5 text-neutral-text-strong">Non-modal</h3>
+      <h3 class="txt-h5 text-neutral-text">Non-modal</h3>
       <UIDrawer
         title="Non-modal Drawer"
         description="The rest of the page stays interactive while this drawer is open."
@@ -318,7 +318,7 @@ const drawer = useDrawer({
         <template #trigger>
           <UIButton>Open non-modal</UIButton>
         </template>
-        <p class="txt-base text-neutral-text-default">
+        <p class="txt-base text-neutral-text">
           You can still interact with the page behind this drawer.
         </p>
       </UIDrawer>
@@ -326,7 +326,7 @@ const drawer = useDrawer({
 
     <!-- ── Indent + stack (requires UIDrawerStack) ─────────────────────────── -->
     <section class="flex flex-col gap-2">
-      <h3 class="txt-h5 text-neutral-text-strong">Indent + indent background</h3>
+      <h3 class="txt-h5 text-neutral-text">Indent + indent background</h3>
       <p class="txt-caption text-neutral-text-subtle">
         Uses <code class="rounded bg-neutral-fill-subtle px-1">UIDrawerStack</code>,
         <code class="rounded bg-neutral-fill-subtle px-1">UIDrawerIndentBackground</code>, and
@@ -344,7 +344,7 @@ const drawer = useDrawer({
             <template #trigger>
               <UIButton>Open stacked drawer</UIButton>
             </template>
-            <p class="txt-base text-neutral-text-default">
+            <p class="txt-base text-neutral-text">
               Swipe the grabber to see the indent effect on the page behind this panel.
             </p>
           </UIDrawer>
@@ -354,7 +354,7 @@ const drawer = useDrawer({
 
     <!-- ── RootProvider mode ──────────────────────────────────────────────── -->
     <section class="flex flex-col gap-2">
-      <h3 class="txt-h5 text-neutral-text-strong">RootProvider mode</h3>
+      <h3 class="txt-h5 text-neutral-text">RootProvider mode</h3>
       <div class="flex flex-wrap gap-2">
         <UIButton @click="drawer.setOpen(true)">Open via API</UIButton>
         <UIButton @click="drawer.setSnapPoint(0.25)">Snap to 25%</UIButton>
@@ -365,7 +365,7 @@ const drawer = useDrawer({
       <UIDrawer :value="drawer" title="RootProvider Drawer" size="full">
         <template #default="{ drawer: ctx }">
           <div class="flex flex-col gap-3">
-            <p class="txt-base text-neutral-text-default">
+            <p class="txt-base text-neutral-text">
               Controlled externally via
               <code class="txt-caption rounded bg-neutral-fill-subtle px-1">useDrawer()</code>.
             </p>
@@ -384,7 +384,7 @@ const drawer = useDrawer({
 
     <!-- ── Emit forwarding ────────────────────────────────────────────────── -->
     <section class="flex flex-col gap-2">
-      <h3 class="txt-h5 text-neutral-text-strong">Emit forwarding</h3>
+      <h3 class="txt-h5 text-neutral-text">Emit forwarding</h3>
       <UIDrawer
         title="Event listeners"
         description="All Ark events are forwarded through $attrs."
@@ -394,7 +394,7 @@ const drawer = useDrawer({
         <template #trigger>
           <UIButton>Open (check console)</UIButton>
         </template>
-        <p class="txt-base text-neutral-text-default">Open the browser console to see events.</p>
+        <p class="txt-base text-neutral-text">Open the browser console to see events.</p>
       </UIDrawer>
     </section>
   </div>

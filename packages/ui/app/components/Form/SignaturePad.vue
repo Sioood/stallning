@@ -21,12 +21,12 @@ const signaturePadSegmentCVA = cva(
   {
     variants: {
       intent: {
-        accent: 'text-accent-text-default',
+        accent: 'text-accent-text',
         error: '',
         info: '',
-        neutral: 'text-neutral-text-default',
-        primary: 'text-primary-text-default',
-        secondary: 'text-secondary-text-default',
+        neutral: 'text-neutral-text',
+        primary: 'text-primary-text',
+        secondary: 'text-secondary-text',
         success: '',
         warning: '',
       } satisfies Record<FormFieldIntent, string>,
@@ -43,112 +43,104 @@ const signaturePadShellCVA = cva('flex w-full min-w-0 items-stretch gap-0.5 bord
   compoundVariants: [
     {
       class:
-        'border-neutral-border-default bg-neutral-fill-subtle text-neutral-text-default focus-within:border-neutral-border-strong focus-within:focus-ring',
+        'border-neutral-border bg-neutral-fill-subtle text-neutral-text focus-within:border-neutral-border-strong focus-within:focus-ring disabled:pointer-events-none disabled:opacity-40',
       disabled: false,
       intent: 'neutral',
       variant: 'default',
     },
     {
-      class:
-        'border-neutral-border-default-disabled bg-neutral-fill-subtle-disabled text-neutral-text-default-disabled',
+      class: 'border-neutral text-neutral bg-neutral-fill-subtle',
       disabled: true,
       intent: 'neutral',
       variant: 'default',
     },
     {
       class:
-        'border-primary-border-default bg-primary-fill-subtle text-primary-text-default focus-within:border-primary-border-strong focus-within:focus-ring',
+        'border-primary-border bg-primary-fill-subtle text-primary-text focus-within:border-primary-border-strong focus-within:focus-ring disabled:pointer-events-none disabled:opacity-40',
       disabled: false,
       intent: 'primary',
       variant: 'default',
     },
     {
-      class:
-        'border-primary-border-default-disabled bg-primary-fill-subtle-disabled text-primary-text-default-disabled',
+      class: 'border-primary text-primary bg-primary-fill-subtle',
       disabled: true,
       intent: 'primary',
       variant: 'default',
     },
     {
       class:
-        'border-secondary-border-default bg-secondary-fill-subtle text-secondary-text-default focus-within:border-secondary-border-strong focus-within:focus-ring',
+        'border-secondary-border bg-secondary-fill-subtle text-secondary-text focus-within:border-secondary-border-strong focus-within:focus-ring disabled:pointer-events-none disabled:opacity-40',
       disabled: false,
       intent: 'secondary',
       variant: 'default',
     },
     {
-      class:
-        'border-secondary-border-default-disabled bg-secondary-fill-subtle-disabled text-secondary-text-default-disabled',
+      class: 'border-secondary text-secondary bg-secondary-fill-subtle',
       disabled: true,
       intent: 'secondary',
       variant: 'default',
     },
     {
       class:
-        'border-accent-border-default bg-accent-fill-subtle text-accent-text-default focus-within:border-accent-border-strong focus-within:focus-ring',
+        'border-accent-border bg-accent-fill-subtle text-accent-text focus-within:border-accent-border-strong focus-within:focus-ring disabled:pointer-events-none disabled:opacity-40',
       disabled: false,
       intent: 'accent',
       variant: 'default',
     },
     {
-      class:
-        'border-accent-border-default-disabled bg-accent-fill-subtle-disabled text-accent-text-default-disabled',
+      class: 'border-accent text-accent bg-accent-fill-subtle',
       disabled: true,
       intent: 'accent',
       variant: 'default',
     },
     {
       class:
-        'border-neutral-border-default bg-transparent text-neutral-text-default focus-within:border-neutral-border-strong focus-within:focus-ring',
+        'border-neutral-border bg-transparent text-neutral-text focus-within:border-neutral-border-strong focus-within:focus-ring',
       disabled: false,
       intent: 'neutral',
       variant: 'subtle',
     },
     {
-      class:
-        'border-neutral-border-default-disabled bg-transparent text-neutral-text-default-disabled',
+      class: 'border-neutral text-neutral bg-transparent',
       disabled: true,
       intent: 'neutral',
       variant: 'subtle',
     },
     {
       class:
-        'border-primary-border-default bg-transparent text-primary-text-default focus-within:border-primary-border-strong focus-within:focus-ring',
+        'border-primary-border bg-transparent text-primary-text focus-within:border-primary-border-strong focus-within:focus-ring',
       disabled: false,
       intent: 'primary',
       variant: 'subtle',
     },
     {
-      class:
-        'border-primary-border-default-disabled bg-transparent text-primary-text-default-disabled',
+      class: 'border-primary text-primary bg-transparent',
       disabled: true,
       intent: 'primary',
       variant: 'subtle',
     },
     {
       class:
-        'border-secondary-border-default bg-transparent text-secondary-text-default focus-within:border-secondary-border-strong focus-within:focus-ring',
+        'border-secondary-border bg-transparent text-secondary-text focus-within:border-secondary-border-strong focus-within:focus-ring',
       disabled: false,
       intent: 'secondary',
       variant: 'subtle',
     },
     {
-      class:
-        'border-secondary-border-default-disabled bg-transparent text-secondary-text-default-disabled',
+      class: 'border-secondary text-secondary bg-transparent',
       disabled: true,
       intent: 'secondary',
       variant: 'subtle',
     },
     {
       class:
-        'border-accent-border-default bg-transparent text-accent-text-default focus-within:border-accent-border-strong focus-within:focus-ring',
+        'border-accent-border bg-transparent text-accent-text focus-within:border-accent-border-strong focus-within:focus-ring',
       disabled: false,
       intent: 'accent',
       variant: 'subtle',
     },
     {
-      class:
-        'border-accent-border-default-disabled bg-transparent text-accent-text-default-disabled',
+      class: 'border-accent text-accent bg-transparent',
       disabled: true,
       intent: 'accent',
       variant: 'subtle',
@@ -172,7 +164,7 @@ const signaturePadShellCVA = cva('flex w-full min-w-0 items-stretch gap-0.5 bord
       warning: '',
     } satisfies Record<FormFieldIntent, string>,
     invalid: {
-      true: 'border-error-border-default!',
+      true: 'border-error-border!',
     },
     size: {
       lg: 'min-h-48',
@@ -191,12 +183,12 @@ const signaturePadGuideCVA = cva(
   {
     variants: {
       intent: {
-        accent: 'border-accent-border-default',
+        accent: 'border-accent-border',
         error: '',
         info: '',
-        neutral: 'border-neutral-border-default',
-        primary: 'border-primary-border-default',
-        secondary: 'border-secondary-border-default',
+        neutral: 'border-neutral-border',
+        primary: 'border-primary-border',
+        secondary: 'border-secondary-border',
         success: '',
         warning: '',
       } satisfies Record<FormFieldIntent, string>,

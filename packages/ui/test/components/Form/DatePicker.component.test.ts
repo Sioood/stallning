@@ -239,7 +239,7 @@ describe('UIFormDatePicker (assembled)', () => {
     )
 
     const shell = wrapper.find('[data-part="control"]')?.element.parentElement
-    expect(shell?.className).toContain('border-primary-border-default')
+    expect(shell?.className).toContain('border-primary-border')
     expect(wrapper.find('[data-part="content"]').classes().join(' ')).toContain(
       'border-primary-border-subtle',
     )

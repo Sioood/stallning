@@ -117,7 +117,7 @@ function onValueInvalid(d: PinInputValueInvalidDetails) {
         helper-text="Focus is removed when all digits entered"
         @value-complete="onValueComplete"
       />
-      <p v-if="completeCode" class="font-mono text-xs text-success-text-default">
+      <p v-if="completeCode" class="font-mono text-xs text-success-text">
         Complete! Code: {{ completeCode }}
       </p>
     </section>

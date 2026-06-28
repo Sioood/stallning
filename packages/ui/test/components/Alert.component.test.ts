@@ -25,7 +25,7 @@ describe('Alert', () => {
     })
 
     expect(wrapper.find('.alertRoot').classes().join(' ')).toMatch(/bg-success-surface-subtle/)
-    expect(wrapper.find('.alertContent').classes().join(' ')).toMatch(/text-success-text-default/)
+    expect(wrapper.find('.alertContent').classes().join(' ')).toMatch(/text-success-text/)
     expect(wrapper.find('.alertContentIcon').exists()).toBe(true)
   })
 
@@ -41,7 +41,7 @@ describe('Alert', () => {
 
     const actionButton = wrapper.findAll('button').find((el) => el.text().includes('Retry'))
     expect(actionButton).toBeDefined()
-    expect(actionButton?.classes().join(' ')).toMatch(/bg-warning-fill-default/)
+    expect(actionButton?.classes().join(' ')).toMatch(/bg-warning-fill/)
   })
 
   it('hides alert when close button is clicked', async () => {

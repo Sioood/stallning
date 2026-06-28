@@ -61,10 +61,10 @@ const progressTrackCVA = cva('overflow-hidden', {
 const progressRangeCVA = cva('', {
   variants: {
     intent: {
-      accent: 'bg-accent-fill-default',
-      neutral: 'bg-neutral-fill-default',
-      primary: 'bg-primary-fill-default',
-      secondary: 'bg-secondary-fill-default',
+      accent: 'bg-accent-fill',
+      neutral: 'bg-neutral-fill',
+      primary: 'bg-primary-fill',
+      secondary: 'bg-secondary-fill',
     } satisfies Record<ProgressIntent, string>,
     size: {
       lg: 'h-full',

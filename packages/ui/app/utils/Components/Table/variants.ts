@@ -24,10 +24,10 @@ const stickyFooterBackground: Record<TableIntent, string> = {
 }
 
 const loadingIndicatorBackground: Record<TableIntent, string> = {
-  accent: 'after:bg-accent-fill-default',
-  neutral: 'after:bg-neutral-fill-default',
-  primary: 'after:bg-primary-fill-default',
-  secondary: 'after:bg-secondary-fill-default',
+  accent: 'after:bg-accent-fill',
+  neutral: 'after:bg-neutral-fill',
+  primary: 'after:bg-primary-fill',
+  secondary: 'after:bg-secondary-fill',
 }
 
 const pinnedHeadBackground: Record<TableIntent, string> = {
@@ -231,10 +231,10 @@ export const tableHeadCVA = cva(
     },
     variants: {
       intent: {
-        accent: 'border-accent-border-subtle text-accent-text-default',
-        neutral: 'border-neutral-border-subtle text-neutral-text-default',
-        primary: 'border-primary-border-subtle text-primary-text-default',
-        secondary: 'border-secondary-border-subtle text-secondary-text-default',
+        accent: 'border-accent-border-subtle text-accent-text',
+        neutral: 'border-neutral-border-subtle text-neutral-text',
+        primary: 'border-primary-border-subtle text-primary-text',
+        secondary: 'border-secondary-border-subtle text-secondary-text',
       } satisfies Record<TableIntent, string>,
       pinned: {
         false: '',

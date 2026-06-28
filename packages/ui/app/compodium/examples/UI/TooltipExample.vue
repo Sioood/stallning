@@ -22,7 +22,7 @@ const externalTooltip = useTooltip({ openDelay: 0 })
     <section class="flex flex-col gap-4">
       <h3 class="text-xl font-bold">Standard Placements</h3>
       <div
-        class="flex flex-wrap justify-center gap-8 rounded-xl border border-dashed border-neutral-border-subtle bg-neutral-fill-subtle/20 p-8"
+        class="flex flex-wrap justify-center gap-8 rounded-xl border border-dashed border-neutral-border-subtle bg-neutral-fill-subtle/20 p-8 disabled:pointer-events-none disabled:opacity-40"
       >
         <UITooltip
           v-for="placement in placements"
@@ -75,10 +75,10 @@ const externalTooltip = useTooltip({ openDelay: 0 })
           follow-cursor
           :open-delay="0"
           :close-delay="50"
-          class="flex h-32 w-full cursor-crosshair items-center justify-center rounded-lg border border-primary-border-subtle bg-primary-fill-subtle/30"
+          class="flex h-32 w-full cursor-crosshair items-center justify-center rounded-lg border border-primary-border-subtle bg-primary-fill-subtle/30 disabled:pointer-events-none disabled:opacity-40"
         >
           <template #trigger>
-            <span class="font-medium text-primary-text-default">Hover anywhere in this box</span>
+            <span class="font-medium text-primary-text">Hover anywhere in this box</span>
           </template>
         </UITooltip>
       </section>
@@ -94,10 +94,10 @@ const externalTooltip = useTooltip({ openDelay: 0 })
             <div class="flex max-w-50 flex-col gap-1">
               <span class="font-bold">Rich Tooltip</span>
               <span>
-                This tooltip is <span class="text-accent-text-default">interactive</span> and allows
+                This tooltip is <span class="text-accent-text">interactive</span> and allows
                 clicking inside.
               </span>
-              <a href="#" class="mt-1 text-primary-text-default underline">Learn more</a>
+              <a href="#" class="mt-1 text-primary-text underline">Learn more</a>
             </div>
           </template>
         </UITooltip>
@@ -110,7 +110,7 @@ const externalTooltip = useTooltip({ openDelay: 0 })
       <UITooltip content="Shared tooltip" :positioning="{ placement: 'top', gutter: 12 }">
         <template #triggers="{ trigger: Trigger, onTriggerPointerMove }">
           <div
-            class="flex justify-center gap-2 rounded-lg border border-neutral-border-subtle bg-neutral-fill-subtle/10 p-4"
+            class="flex justify-center gap-2 rounded-lg border border-neutral-border-subtle bg-neutral-fill-subtle/10 p-4 disabled:pointer-events-none disabled:opacity-40"
           >
             <component
               :is="Trigger"
@@ -120,7 +120,7 @@ const externalTooltip = useTooltip({ openDelay: 0 })
               class="rounded-md p-2 transition-colors hover:bg-neutral-fill-subtle"
               @pointermove="onTriggerPointerMove($event)"
             >
-              <Icon :name="icon" class="size-6 text-neutral-text-default" />
+              <Icon :name="icon" class="size-6 text-neutral-text" />
             </component>
           </div>
         </template>

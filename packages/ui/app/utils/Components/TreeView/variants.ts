@@ -9,10 +9,10 @@ export const treeViewRootCVA = cva('flex w-full flex-col gap-2', {
   },
   variants: {
     intent: {
-      accent: 'text-accent-text-default',
-      neutral: 'text-neutral-text-default',
-      primary: 'text-primary-text-default',
-      secondary: 'text-secondary-text-default',
+      accent: 'text-accent-text',
+      neutral: 'text-neutral-text',
+      primary: 'text-primary-text',
+      secondary: 'text-secondary-text',
     } satisfies Record<TreeViewIntent, string>,
     size: {
       lg: 'txt-base max-w-md',
@@ -29,10 +29,10 @@ export const treeViewLabelCVA = cva('font-medium select-none', {
   },
   variants: {
     intent: {
-      accent: 'text-accent-text-default',
-      neutral: 'text-neutral-text-default',
-      primary: 'text-primary-text-default',
-      secondary: 'text-secondary-text-default',
+      accent: 'text-accent-text',
+      neutral: 'text-neutral-text',
+      primary: 'text-primary-text',
+      secondary: 'text-secondary-text',
     } satisfies Record<TreeViewIntent, string>,
     size: {
       lg: 'txt-base',
@@ -71,10 +71,10 @@ const treeNodeRowBase = [
 ]
 
 const treeNodeSelectedText = {
-  accent: 'data-[selected]:font-medium data-[selected]:text-accent-text-strong',
-  neutral: 'data-[selected]:font-medium data-[selected]:text-neutral-text-strong',
-  primary: 'data-[selected]:font-medium data-[selected]:text-primary-text-strong',
-  secondary: 'data-[selected]:font-medium data-[selected]:text-secondary-text-strong',
+  accent: 'data-[selected]:font-medium data-[selected]:text-accent-text',
+  neutral: 'data-[selected]:font-medium data-[selected]:text-neutral-text',
+  primary: 'data-[selected]:font-medium data-[selected]:text-primary-text',
+  secondary: 'data-[selected]:font-medium data-[selected]:text-secondary-text',
 } satisfies Record<TreeViewIntent, string>
 
 export const treeViewBranchControlCVA = cva(treeNodeRowBase, {
@@ -84,10 +84,10 @@ export const treeViewBranchControlCVA = cva(treeNodeRowBase, {
   },
   variants: {
     intent: {
-      accent: `text-accent-text-default hover:text-accent-text-strong ${treeNodeSelectedText.accent}`,
-      neutral: `text-neutral-text-default hover:text-neutral-text-strong ${treeNodeSelectedText.neutral}`,
-      primary: `text-primary-text-default hover:text-primary-text-strong ${treeNodeSelectedText.primary}`,
-      secondary: `text-secondary-text-default hover:text-secondary-text-strong ${treeNodeSelectedText.secondary}`,
+      accent: `text-accent-text hover:text-accent-text ${treeNodeSelectedText.accent}`,
+      neutral: `text-neutral-text hover:text-neutral-text ${treeNodeSelectedText.neutral}`,
+      primary: `text-primary-text hover:text-primary-text ${treeNodeSelectedText.primary}`,
+      secondary: `text-secondary-text hover:text-secondary-text ${treeNodeSelectedText.secondary}`,
     } satisfies Record<TreeViewIntent, string>,
     size: {
       lg: 'txt-base',
@@ -104,10 +104,10 @@ export const treeViewItemCVA = cva(treeNodeRowBase, {
   },
   variants: {
     intent: {
-      accent: `text-accent-text-default hover:text-accent-text-strong ${treeNodeSelectedText.accent}`,
-      neutral: `text-neutral-text-default hover:text-neutral-text-strong ${treeNodeSelectedText.neutral}`,
-      primary: `text-primary-text-default hover:text-primary-text-strong ${treeNodeSelectedText.primary}`,
-      secondary: `text-secondary-text-default hover:text-secondary-text-strong ${treeNodeSelectedText.secondary}`,
+      accent: `text-accent-text hover:text-accent-text ${treeNodeSelectedText.accent}`,
+      neutral: `text-neutral-text hover:text-neutral-text ${treeNodeSelectedText.neutral}`,
+      primary: `text-primary-text hover:text-primary-text ${treeNodeSelectedText.primary}`,
+      secondary: `text-secondary-text hover:text-secondary-text ${treeNodeSelectedText.secondary}`,
     } satisfies Record<TreeViewIntent, string>,
     size: {
       lg: 'txt-base',
@@ -208,14 +208,14 @@ export const treeViewNodeTextCVA = cva('inline-flex min-w-0 flex-1 items-center 
 })
 
 export const treeViewNodeRenameInputCVA = cva(
-  'txt-label min-w-0 flex-1 border border-primary-border-strong bg-neutral-fill-subtle px-1 py-0 text-primary-text-default outline-none focus-visible:focus-ring',
+  'txt-label min-w-0 flex-1 border border-primary-border-strong bg-neutral-fill-subtle px-1 py-0 text-primary-text outline-none focus-visible:focus-ring disabled:pointer-events-none disabled:opacity-40',
   {
     variants: {
       intent: {
-        accent: 'border-accent-border-strong text-accent-text-default',
-        neutral: 'border-neutral-border-strong text-neutral-text-default',
-        primary: 'border-primary-border-strong text-primary-text-default',
-        secondary: 'border-secondary-border-strong text-secondary-text-default',
+        accent: 'border-accent-border-strong text-accent-text',
+        neutral: 'border-neutral-border-strong text-neutral-text',
+        primary: 'border-primary-border-strong text-primary-text',
+        secondary: 'border-secondary-border-strong text-secondary-text',
       } satisfies Record<TreeViewIntent, string>,
       size: {
         lg: 'txt-base',

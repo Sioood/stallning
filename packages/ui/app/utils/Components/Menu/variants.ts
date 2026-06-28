@@ -6,7 +6,7 @@ export const menuIndicatorCVA = cva('inline-flex items-center')
 
 /** Unstyled trigger shell for `#trigger` slot (`as-child` anchor). */
 export const menuUnstyledTriggerCVA = cva(
-  'inline-flex w-fit cursor-pointer items-center border-0 bg-transparent p-0 outline-none focus-visible:ring-2 focus-visible:ring-primary-border-default',
+  'inline-flex w-fit cursor-pointer items-center border-0 bg-transparent p-0 outline-none focus-visible:ring-2 focus-visible:ring-primary-border',
 )
 
 export const menuPositionerCVA = cva('origin-(--transform-origin)')
@@ -19,11 +19,14 @@ export const menuContentCVA = cva(
   {
     variants: {
       intent: {
-        accent: 'border-accent-border-subtle bg-accent-fill-subtle text-accent-text-default',
-        neutral: 'border-neutral-border-subtle bg-neutral-fill-subtle text-neutral-text-default',
-        primary: 'border-primary-border-subtle bg-primary-fill-subtle text-primary-text-default',
+        accent:
+          'border-accent-border-subtle bg-accent-fill-subtle text-accent-text disabled:pointer-events-none disabled:opacity-40',
+        neutral:
+          'border-neutral-border-subtle bg-neutral-fill-subtle text-neutral-text disabled:pointer-events-none disabled:opacity-40',
+        primary:
+          'border-primary-border-subtle bg-primary-fill-subtle text-primary-text disabled:pointer-events-none disabled:opacity-40',
         secondary:
-          'border-secondary-border-subtle bg-secondary-fill-subtle text-secondary-text-default',
+          'border-secondary-border-subtle bg-secondary-fill-subtle text-secondary-text disabled:pointer-events-none disabled:opacity-40',
       } satisfies Record<MenuIntent, string>,
       size: {
         md: 'txt-label',

@@ -123,7 +123,7 @@ function onFilterChange(values: FilterValues) {
         <li
           v-for="project in filteredProjects"
           :key="project.id"
-          class="txt-caption border-b border-neutral-border-subtle py-1 text-neutral-text-default"
+          class="txt-caption border-b border-neutral-border-subtle py-1 text-neutral-text"
         >
           {{ project.name }}
         </li>

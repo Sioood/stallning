@@ -11,7 +11,6 @@ import { useFloatingLayerPositionerRef } from '~/composables/useLayerZIndexRef'
 
 import type { ClassValue } from 'vue'
 
-
 type TooltipIntent =
   | 'neutral'
   | 'primary'
@@ -46,14 +45,14 @@ const tooltipContentCVA = cva(
   {
     variants: {
       intent: {
-        accent: 'bg-accent-surface-default text-accent-text-default',
-        error: 'bg-error-surface-default text-error-text-default',
-        info: 'bg-info-surface-default text-info-text-default',
-        neutral: 'bg-neutral-surface-default text-neutral-text-default',
-        primary: 'bg-primary-surface-default text-primary-text-default',
-        secondary: 'bg-secondary-surface-default text-secondary-text-default',
-        success: 'bg-success-surface-default text-success-text-default',
-        warning: 'bg-warning-surface-default text-warning-text-default',
+        accent: 'bg-accent-surface text-accent-text',
+        error: 'bg-error-surface text-error-text',
+        info: 'bg-info-surface text-info-text',
+        neutral: 'bg-neutral-surface text-neutral-text',
+        primary: 'bg-primary-surface text-primary-text',
+        secondary: 'bg-secondary-surface text-secondary-text',
+        success: 'bg-success-surface text-success-text',
+        warning: 'bg-warning-surface text-warning-text',
       } satisfies Record<TooltipIntent, string>,
       size: {
         md: 'txt-caption px-2 py-1',
@@ -65,14 +64,14 @@ const tooltipContentCVA = cva(
 const tooltipArrowCVA = cva(['tooltipArrow', 'flex items-center justify-center'], {
   variants: {
     intent: {
-      accent: '[--arrow-background:var(--color-accent-surface-default)]',
-      error: '[--arrow-background:var(--color-error-surface-default)]',
-      info: '[--arrow-background:var(--color-info-surface-default)]',
-      neutral: '[--arrow-background:var(--color-neutral-surface-default)]',
-      primary: '[--arrow-background:var(--color-primary-surface-default)]',
-      secondary: '[--arrow-background:var(--color-secondary-surface-default)]',
-      success: '[--arrow-background:var(--color-success-surface-default)]',
-      warning: '[--arrow-background:var(--color-warning-surface-default)]',
+      accent: '[--arrow-background:var(--color-accent-surface)]',
+      error: '[--arrow-background:var(--color-error-surface)]',
+      info: '[--arrow-background:var(--color-info-surface)]',
+      neutral: '[--arrow-background:var(--color-neutral-surface)]',
+      primary: '[--arrow-background:var(--color-primary-surface)]',
+      secondary: '[--arrow-background:var(--color-secondary-surface)]',
+      success: '[--arrow-background:var(--color-success-surface)]',
+      warning: '[--arrow-background:var(--color-warning-surface)]',
     } satisfies Record<TooltipIntent, string>,
     size: {
       md: '[--arrow-size:calc(var(--spacing)*2)]',

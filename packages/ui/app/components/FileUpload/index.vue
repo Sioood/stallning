@@ -38,10 +38,10 @@ const fileUploadRootCVA = cva('flex flex-col gap-3', {
 const fileUploadLabelCVA = cva('', {
   variants: {
     intent: {
-      accent: 'text-accent-text-default data-[disabled]:text-accent-text-default-disabled',
-      neutral: 'text-neutral-text-default data-[disabled]:text-neutral-text-default-disabled',
-      primary: 'text-primary-text-default data-[disabled]:text-primary-text-default-disabled',
-      secondary: 'text-secondary-text-default data-[disabled]:text-secondary-text-default-disabled',
+      accent: 'data-[disabled]:text-accent text-accent-text',
+      neutral: 'data-[disabled]:text-neutral text-neutral-text',
+      primary: 'data-[disabled]:text-primary text-primary-text',
+      secondary: 'data-[disabled]:text-secondary text-secondary-text',
     } satisfies Record<FileUploadIntent, string>,
     size: {
       lg: 'txt-h6',
@@ -55,7 +55,7 @@ const fileUploadDropzoneCVA = cva(
   [
     'relative flex flex-col items-center justify-center gap-2 border border-dashed p-8 transition-colors duration-200',
     'not-data-[disabled]:cursor-pointer data-[disabled]:cursor-not-allowed',
-    'data-[dragging]:border-primary-border-strong data-[dragging]:bg-primary-fill-subtle/20',
+    'disabled:pointer-events-none disabled:opacity-40 data-[dragging]:border-primary-border-strong data-[dragging]:bg-primary-fill-subtle/20',
   ],
   {
     defaultVariants: {
@@ -65,13 +65,13 @@ const fileUploadDropzoneCVA = cva(
     variants: {
       intent: {
         accent:
-          'border-accent-border-subtle bg-accent-fill-subtle/50 not-data-[dragging]:not-data-[disabled]:hover:border-accent-border-default not-data-[dragging]:not-data-[disabled]:hover:bg-accent-fill-subtle data-[disabled]:border-accent-border-subtle-disabled data-[disabled]:bg-accent-fill-subtle-disabled/50 data-[invalid]:border-error-border-default data-[invalid]:bg-error-fill-subtle/20',
+          'data-[disabled]:border-accent-border-subtle-disabled border-accent-border-subtle bg-accent-fill-subtle/50 not-data-[dragging]:not-data-[disabled]:hover:border-accent-border not-data-[dragging]:not-data-[disabled]:hover:bg-accent-fill-subtle disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-accent-fill-subtle/50 data-[invalid]:border-error-border data-[invalid]:bg-error-fill-subtle/20',
         neutral:
-          'border-neutral-border-subtle bg-neutral-fill-subtle/50 not-data-[dragging]:not-data-[disabled]:hover:border-neutral-border-default not-data-[dragging]:not-data-[disabled]:hover:bg-neutral-fill-subtle data-[disabled]:border-neutral-border-subtle-disabled data-[disabled]:bg-neutral-fill-subtle-disabled/50 data-[invalid]:border-error-border-default data-[invalid]:bg-error-fill-subtle/20',
+          'data-[disabled]:border-neutral-border-subtle-disabled border-neutral-border-subtle bg-neutral-fill-subtle/50 not-data-[dragging]:not-data-[disabled]:hover:border-neutral-border not-data-[dragging]:not-data-[disabled]:hover:bg-neutral-fill-subtle disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-neutral-fill-subtle/50 data-[invalid]:border-error-border data-[invalid]:bg-error-fill-subtle/20',
         primary:
-          'border-primary-border-subtle bg-primary-fill-subtle/50 not-data-[dragging]:not-data-[disabled]:hover:border-primary-border-default not-data-[dragging]:not-data-[disabled]:hover:bg-primary-fill-subtle data-[disabled]:border-primary-border-subtle-disabled data-[disabled]:bg-primary-fill-subtle-disabled/50 data-[invalid]:border-error-border-default data-[invalid]:bg-error-fill-subtle/20',
+          'data-[disabled]:border-primary-border-subtle-disabled border-primary-border-subtle bg-primary-fill-subtle/50 not-data-[dragging]:not-data-[disabled]:hover:border-primary-border not-data-[dragging]:not-data-[disabled]:hover:bg-primary-fill-subtle disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-primary-fill-subtle/50 data-[invalid]:border-error-border data-[invalid]:bg-error-fill-subtle/20',
         secondary:
-          'border-secondary-border-subtle bg-secondary-fill-subtle/50 not-data-[dragging]:not-data-[disabled]:hover:border-secondary-border-default not-data-[dragging]:not-data-[disabled]:hover:bg-secondary-fill-subtle data-[disabled]:border-secondary-border-subtle-disabled data-[disabled]:bg-secondary-fill-subtle-disabled/50 data-[invalid]:border-error-border-default data-[invalid]:bg-error-fill-subtle/20',
+          'data-[disabled]:border-secondary-border-subtle-disabled border-secondary-border-subtle bg-secondary-fill-subtle/50 not-data-[dragging]:not-data-[disabled]:hover:border-secondary-border not-data-[dragging]:not-data-[disabled]:hover:bg-secondary-fill-subtle disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-secondary-fill-subtle/50 data-[invalid]:border-error-border data-[invalid]:bg-error-fill-subtle/20',
       } satisfies Record<FileUploadIntent, string>,
       size: {
         lg: 'txt-h6 p-12',
@@ -90,15 +90,15 @@ const fileUploadItemCVA = cva('flex items-center gap-3 border p-3 transition-col
   variants: {
     intent: {
       accent:
-        'border-accent-border-default bg-accent-surface-default text-accent-text-default data-[disabled]:border-accent-border-default-disabled data-[disabled]:bg-accent-fill-subtle-disabled',
+        'data-[disabled]:border-accent border-accent-border bg-accent-surface text-accent-text disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-accent-fill-subtle',
       error:
-        'border-error-border-default bg-error-surface-default text-error-text-default data-[disabled]:border-error-border-default-disabled data-[disabled]:bg-error-fill-subtle-disabled',
+        'data-[disabled]:border-error border-error-border bg-error-surface text-error-text disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-error-fill-subtle',
       neutral:
-        'border-neutral-border-default bg-neutral-surface-default text-neutral-text-default data-[disabled]:border-neutral-border-default-disabled data-[disabled]:bg-neutral-fill-subtle-disabled',
+        'data-[disabled]:border-neutral border-neutral-border bg-neutral-surface text-neutral-text disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-neutral-fill-subtle',
       primary:
-        'border-primary-border-default bg-primary-surface-default text-primary-text-default data-[disabled]:border-primary-border-default-disabled data-[disabled]:bg-primary-fill-subtle-disabled',
+        'data-[disabled]:border-primary border-primary-border bg-primary-surface text-primary-text disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-primary-fill-subtle',
       secondary:
-        'border-secondary-border-default bg-secondary-surface-default text-secondary-text-default data-[disabled]:border-secondary-border-default-disabled data-[disabled]:bg-secondary-fill-subtle-disabled',
+        'data-[disabled]:border-secondary border-secondary-border bg-secondary-surface text-secondary-text disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-secondary-fill-subtle',
     } satisfies Record<FileUploadIntent | 'error', string>,
     size: {
       lg: 'txt-h6',
@@ -111,11 +111,11 @@ const fileUploadItemCVA = cva('flex items-center gap-3 border p-3 transition-col
 const fileUploadItemNameCVA = cva('flex-1 truncate', {
   variants: {
     intent: {
-      accent: 'text-accent-text-default',
-      error: 'text-error-text-default',
-      neutral: 'text-neutral-text-default',
-      primary: 'text-primary-text-default',
-      secondary: 'text-secondary-text-default',
+      accent: 'text-accent-text',
+      error: 'text-error-text',
+      neutral: 'text-neutral-text',
+      primary: 'text-primary-text',
+      secondary: 'text-secondary-text',
     } satisfies Record<FileUploadIntent | 'error', string>,
   },
 })
@@ -167,15 +167,15 @@ const fileUploadItemDeleteTriggerCVA = cva(
     variants: {
       intent: {
         accent:
-          'bg-transparent text-accent-text-subtle hover:bg-accent-fill-subtle-hover hover:text-accent-text-subtle-hover active:bg-accent-fill-subtle-active active:text-accent-text-subtle-active data-[disabled]:bg-accent-fill-subtle-disabled data-[disabled]:text-accent-text-subtle-disabled',
+          'data-[disabled]:text-accent-text-subtle-disabled bg-transparent text-accent-text-subtle hover:bg-accent-fill-subtle-hover active:bg-accent-fill-subtle-active data-[disabled]:bg-accent-fill-subtle',
         error:
-          'bg-transparent text-error-text-subtle hover:bg-error-fill-subtle-hover hover:text-error-text-subtle-hover active:bg-error-fill-subtle-active active:text-error-text-subtle-active data-[disabled]:bg-error-fill-subtle-disabled data-[disabled]:text-error-text-subtle-disabled',
+          'data-[disabled]:text-error-text-subtle-disabled bg-transparent text-error-text-subtle hover:bg-error-fill-subtle-hover active:bg-error-fill-subtle-active data-[disabled]:bg-error-fill-subtle',
         neutral:
-          'bg-transparent text-neutral-text-subtle hover:bg-neutral-fill-subtle-hover hover:text-neutral-text-subtle-hover active:bg-neutral-fill-subtle-active active:text-neutral-text-subtle-active data-[disabled]:bg-neutral-fill-subtle-disabled data-[disabled]:text-neutral-text-subtle-disabled',
+          'data-[disabled]:text-neutral-text-subtle-disabled bg-transparent text-neutral-text-subtle hover:bg-neutral-fill-subtle-hover active:bg-neutral-fill-subtle-active data-[disabled]:bg-neutral-fill-subtle',
         primary:
-          'bg-transparent text-primary-text-subtle hover:bg-primary-fill-subtle-hover hover:text-primary-text-subtle-hover active:bg-primary-fill-subtle-active active:text-primary-text-subtle-active data-[disabled]:bg-primary-fill-subtle-disabled data-[disabled]:text-primary-text-subtle-disabled',
+          'data-[disabled]:text-primary-text-subtle-disabled bg-transparent text-primary-text-subtle hover:bg-primary-fill-subtle-hover active:bg-primary-fill-subtle-active data-[disabled]:bg-primary-fill-subtle',
         secondary:
-          'bg-transparent text-secondary-text-subtle hover:bg-secondary-fill-subtle-hover hover:text-secondary-text-subtle-hover active:bg-secondary-fill-subtle-active active:text-secondary-text-subtle-active data-[disabled]:bg-secondary-fill-subtle-disabled data-[disabled]:text-secondary-text-subtle-disabled',
+          'data-[disabled]:text-secondary-text-subtle-disabled bg-transparent text-secondary-text-subtle hover:bg-secondary-fill-subtle-hover active:bg-secondary-fill-subtle-active data-[disabled]:bg-secondary-fill-subtle',
       } satisfies Record<FileUploadIntent | 'error', string>,
       size: {
         lg: 'size-8',
@@ -468,9 +468,7 @@ extendCompodiumMeta({
           :class="cn(fileUploadLabelCVA({ intent, size }), ui?.label)"
         >
           <template v-if="label">{{ label }}</template>
-          <span v-if="required" class="txt-caption text-error-icon-default" aria-hidden="true">
-            *
-          </span>
+          <span v-if="required" class="txt-caption text-error-icon" aria-hidden="true"> * </span>
         </ArkFileUpload.Label>
 
         <template v-if="props.dropzone">
@@ -478,7 +476,7 @@ extendCompodiumMeta({
             :class="
               cn(
                 fileUploadDropzoneCVA({ intent, size }),
-                invalid && 'border-error-border-default!',
+                invalid && 'border-error-border!',
                 ui?.dropzone,
               )
             "
@@ -534,7 +532,7 @@ extendCompodiumMeta({
                 <ArkFileUpload.ItemPreviewImage class="size-full object-cover" />
               </template>
               <template v-else>
-                <Icon name="tabler:file" class="size-5 text-neutral-icon-default" />
+                <Icon name="tabler:file" class="size-5 text-neutral-icon" />
               </template>
             </ArkFileUpload.ItemPreview>
 
@@ -572,7 +570,7 @@ extendCompodiumMeta({
               :class="
                 cn(
                   fileUploadItemPreviewCVA({ size }),
-                  'flex items-center justify-center text-error-icon-default',
+                  'flex items-center justify-center text-error-icon',
                 )
               "
             >
@@ -588,7 +586,7 @@ extendCompodiumMeta({
               <ArkFileUpload.ItemSizeText
                 :class="cn(fileUploadItemSizeTextCVA({ intent: 'error', size }), ui?.itemSizeText)"
               />
-              <div class="txt-caption flex flex-col gap-0.5 text-error-text-default">
+              <div class="txt-caption flex flex-col gap-0.5 text-error-text">
                 <span v-for="err in rejection.errors" :key="err">
                   {{ resolveErrorText(err as FileUploadFileError) }}
                 </span>

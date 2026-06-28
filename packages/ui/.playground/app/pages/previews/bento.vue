@@ -1,7 +1,7 @@
 <template>
-  <main class="min-h-screen bg-neutral-bg-default p-4 text-neutral-text-default md:p-6">
+  <main class="min-h-screen bg-neutral-bg p-4 text-neutral-text md:p-6">
     <header class="mb-6">
-      <h1 class="txt-h4 text-neutral-text-strong">Component Bento</h1>
+      <h1 class="txt-h4 text-neutral-text">Component Bento</h1>
       <p class="txt-caption text-neutral-text-subtle">
         Mini-scénarios interactifs pour se projeter dans l'utilisation des composants
       </p>

@@ -119,7 +119,7 @@ defineExpose({ form })
     <div
       v-if="showErrorSummary && formSubmissionAttempts > 0 && errorSummaryText.length > 0"
       role="alert"
-      class="txt-caption text-error-text-default"
+      class="txt-caption text-error-text"
     >
       {{ errorSummaryText }}
     </div>

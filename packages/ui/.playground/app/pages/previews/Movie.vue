@@ -97,10 +97,10 @@ const prevMovie = 'American Beauty (1999)'
 const nextMovie = 'Memento (2000)'
 
 const statValueClass: Record<StatTone, string> = {
-  accent: 'text-accent-text-strong',
-  default: 'text-neutral-text-strong',
-  error: 'text-error-text-strong',
-  success: 'text-success-text-strong',
+  accent: 'text-accent-text',
+  default: 'text-neutral-text',
+  error: 'text-error-text',
+  success: 'text-success-text',
 }
 
 const collapsibleTriggerUi = {
@@ -110,14 +110,12 @@ const collapsibleTriggerUi = {
 </script>
 
 <template>
-  <div class="flex min-h-screen bg-neutral-bg-default text-neutral-text-default">
+  <div class="flex min-h-screen bg-neutral-bg text-neutral-text">
     <aside
-      class="fixed z-40 flex h-full w-64 flex-col border-r border-neutral-border-subtle bg-neutral-bg-default"
+      class="fixed z-40 flex h-full w-64 flex-col border-r border-neutral-border-subtle bg-neutral-bg"
     >
       <div class="border-b border-neutral-border-subtle p-4">
-        <h1 class="txt-h6 font-mono font-bold tracking-wider text-neutral-text-default">
-          Ställning TV
-        </h1>
+        <h1 class="txt-h6 font-mono font-bold tracking-wider text-neutral-text">Ställning TV</h1>
         <div class="mt-3 flex items-center justify-between">
           <span class="txt-caption text-neutral-text-subtle">siod</span>
           <div class="flex gap-1">
@@ -140,7 +138,7 @@ const collapsibleTriggerUi = {
           size="sm"
           :ui="{ root: 'size-full' }"
         >
-          <UITabsList :ui="{ root: 'flex w-full flex-col p-1 border-none bg-neutral-bg-default' }">
+          <UITabsList :ui="{ root: 'flex w-full flex-col p-1 border-none bg-neutral-bg' }">
             <UITabsTrigger
               v-for="tab in navTabs"
               :key="tab.value"
@@ -162,7 +160,7 @@ const collapsibleTriggerUi = {
 
       <div class="border-t border-neutral-border-subtle p-4">
         <div class="flex items-center gap-2">
-          <div class="size-2 animate-pulse bg-success-fill-strong" />
+          <div class="size-2 animate-pulse bg-success-fill" />
           <span class="txt-caption text-neutral-text-subtle">Service online</span>
         </div>
         <span class="txt-caption text-neutral-text-subtle">v1.0.0</span>
@@ -178,7 +176,7 @@ const collapsibleTriggerUi = {
         >
           <Icon name="tabler:chevron-left" class="size-4 shrink-0" />
           <div class="min-w-0 text-left">
-            <span class="txt-label block text-neutral-text-default">PRÉCÉDENT</span>
+            <span class="txt-label block text-neutral-text">PRÉCÉDENT</span>
             <span class="txt-caption block truncate text-neutral-text-subtle">{{ prevMovie }}</span>
           </div>
         </UIButton>
@@ -188,7 +186,7 @@ const collapsibleTriggerUi = {
           class="w-full justify-end rounded-none px-4 py-3"
         >
           <div class="min-w-0 text-right">
-            <span class="txt-label block text-neutral-text-default">SUIVANT</span>
+            <span class="txt-label block text-neutral-text">SUIVANT</span>
             <span class="txt-caption block truncate text-neutral-text-subtle">{{ nextMovie }}</span>
           </div>
           <Icon name="tabler:chevron-right" class="size-4 shrink-0" />
@@ -209,7 +207,7 @@ const collapsibleTriggerUi = {
 
           <div class="flex-1 space-y-4">
             <div>
-              <h2 class="txt-h3 text-neutral-text-default">
+              <h2 class="txt-h3 text-neutral-text">
                 {{ movie.title }}
                 <span class="text-neutral-text-subtle">({{ movie.year }})</span>
               </h2>
@@ -251,7 +249,7 @@ const collapsibleTriggerUi = {
                 size="sm"
               >
                 <span class="txt-label block text-neutral-text-subtle">{{ cell.label }}</span>
-                <span class="txt-caption text-neutral-text-default">{{ cell.value }}</span>
+                <span class="txt-caption text-neutral-text">{{ cell.value }}</span>
               </UICardBase>
             </div>
 
@@ -350,7 +348,7 @@ const collapsibleTriggerUi = {
             <div class="grid grid-cols-2 gap-6">
               <div>
                 <h3 class="txt-label mb-2 text-neutral-text-subtle">SYNOPSIS</h3>
-                <p class="txt-base leading-relaxed text-neutral-text-default">
+                <p class="txt-base leading-relaxed text-neutral-text">
                   {{ movie.synopsis }}
                 </p>
               </div>
@@ -383,15 +381,13 @@ const collapsibleTriggerUi = {
                 :name="crewOpen ? 'tabler:chevron-down' : 'tabler:chevron-right'"
                 class="size-4 text-neutral-text-subtle"
               />
-              <span class="txt-h6 text-neutral-text-default">Équipe artistique</span>
+              <span class="txt-h6 text-neutral-text">Équipe artistique</span>
             </div>
           </template>
           <ul class="txt-base space-y-2 px-4 pb-4 text-neutral-text-subtle">
-            <li>
-              <span class="text-neutral-text-default">Réalisation :</span> {{ movie.director }}
-            </li>
-            <li><span class="text-neutral-text-default">Scénario :</span> {{ movie.writers }}</li>
-            <li><span class="text-neutral-text-default">Musique :</span> {{ movie.music }}</li>
+            <li><span class="text-neutral-text">Réalisation :</span> {{ movie.director }}</li>
+            <li><span class="text-neutral-text">Scénario :</span> {{ movie.writers }}</li>
+            <li><span class="text-neutral-text">Musique :</span> {{ movie.music }}</li>
           </ul>
         </UICollapsible>
 
@@ -402,11 +398,11 @@ const collapsibleTriggerUi = {
                 :name="awardsOpen ? 'tabler:chevron-down' : 'tabler:chevron-right'"
                 class="size-4 text-neutral-text-subtle"
               />
-              <span class="txt-h6 text-neutral-text-default">Distinctions</span>
+              <span class="txt-h6 text-neutral-text">Distinctions</span>
               <UIBadge :label="String(movie.awards.length)" intent="neutral" />
             </div>
           </template>
-          <ul class="txt-base list-disc space-y-1 px-4 pb-4 pl-8 text-neutral-text-default">
+          <ul class="txt-base list-disc space-y-1 px-4 pb-4 pl-8 text-neutral-text">
             <li v-for="award in movie.awards" :key="award">{{ award }}</li>
           </ul>
         </UICollapsible>

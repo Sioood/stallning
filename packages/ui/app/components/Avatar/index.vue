@@ -32,10 +32,10 @@ const avatarRootCVA = cva(
     },
     variants: {
       intent: {
-        accent: 'bg-accent-fill-subtle text-accent-text-default',
-        neutral: 'bg-neutral-fill-subtle text-neutral-text-default',
-        primary: 'bg-primary-fill-subtle text-primary-text-default',
-        secondary: 'bg-secondary-fill-subtle text-secondary-text-default',
+        accent: 'bg-accent-fill-subtle text-accent-text',
+        neutral: 'bg-neutral-fill-subtle text-neutral-text',
+        primary: 'bg-primary-fill-subtle text-primary-text',
+        secondary: 'bg-secondary-fill-subtle text-secondary-text',
       } satisfies Record<AvatarIntent, string>,
       size: {
         lg: 'txt-base size-12',

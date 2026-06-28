@@ -5,7 +5,7 @@ import type { FormFieldIntent, FormFieldSize } from './context'
 export const checkboxControlCVA = cva(
   [
     'size-4 shrink-0 border',
-    'border-primary-border-default data-hover:border-primary-border-default-hover data-[disabled]:border-primary-border-subtle data-[invalid]:border-error-border-default',
+    'border-primary-border data-hover:border-primary-border-hover data-[disabled]:border-primary-border-subtle data-[invalid]:border-error-border',
   ],
   {
     variants: {
@@ -39,9 +39,9 @@ export const checkboxControlCVA = cva(
 export const checkboxIndicatorCVA = cva(
   [
     'flex size-full items-center justify-center',
-    'bg-primary-fill-subtle text-primary-text-default',
-    'group-data-[state=checked]:bg-primary-fill-default group-data-[state=checked]:text-primary-fill-inverse',
-    'group-data-[state=indeterminate]:bg-primary-fill-default group-data-[state=indeterminate]:text-primary-fill-inverse',
+    'bg-primary-fill-subtle text-primary-text',
+    'group-data-[state=checked]:bg-primary-fill group-data-[state=checked]:text-primary-on-fill',
+    'group-data-[state=indeterminate]:bg-primary-fill group-data-[state=indeterminate]:text-primary-on-fill',
   ],
   {
     variants: {
@@ -76,10 +76,10 @@ export const checkboxIndicatorCVA = cva(
 export const treeNodeCheckboxCVA = cva(
   [
     'inline-flex size-4 shrink-0 items-center justify-center border',
-    'border-primary-border-default bg-primary-fill-subtle text-primary-text-default',
-    'data-hover:border-primary-border-default-hover',
-    'data-[state=checked]:border-primary-fill-default data-[state=checked]:bg-primary-fill-default data-[state=checked]:text-primary-fill-inverse',
-    'data-[state=indeterminate]:border-primary-fill-default data-[state=indeterminate]:bg-primary-fill-default data-[state=indeterminate]:text-primary-fill-inverse',
+    'border-primary-border bg-primary-fill-subtle text-primary-text disabled:pointer-events-none disabled:opacity-40',
+    'data-hover:border-primary-border-hover',
+    'data-[state=checked]:border-primary-fill data-[state=checked]:bg-primary-fill data-[state=checked]:text-primary-on-fill',
+    'data-[state=indeterminate]:border-primary-fill data-[state=indeterminate]:bg-primary-fill data-[state=indeterminate]:text-primary-on-fill',
     'data-[disabled]:cursor-not-allowed data-[disabled]:border-primary-border-subtle',
   ],
   {
@@ -100,7 +100,7 @@ export const treeNodeCheckboxCVA = cva(
       } satisfies Record<FormFieldIntent, string>,
       invalid: {
         false: '',
-        true: 'data-[invalid]:border-error-border-default',
+        true: 'data-[invalid]:border-error-border',
       } satisfies Record<'false' | 'true', string>,
       size: {
         lg: '',

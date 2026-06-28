@@ -8,10 +8,10 @@ export const ratingRootCVA = cva('flex flex-col gap-1.5 data-[readonly]:pointer-
   },
   variants: {
     intent: {
-      accent: 'text-accent-text-default',
-      neutral: 'text-neutral-text-default',
-      primary: 'text-primary-text-default',
-      secondary: 'text-secondary-text-default',
+      accent: 'text-accent-text',
+      neutral: 'text-neutral-text',
+      primary: 'text-primary-text',
+      secondary: 'text-secondary-text',
     } satisfies Record<RatingIntent, string>,
   },
 })
@@ -23,10 +23,10 @@ export const ratingLabelCVA = cva('select-none data-[disabled]:opacity-50', {
   },
   variants: {
     intent: {
-      accent: 'text-accent-text-default',
-      neutral: 'text-neutral-text-default',
-      primary: 'text-primary-text-default',
-      secondary: 'text-secondary-text-default',
+      accent: 'text-accent-text',
+      neutral: 'text-neutral-text',
+      primary: 'text-primary-text',
+      secondary: 'text-secondary-text',
     } satisfies Record<RatingIntent, string>,
     size: {
       lg: 'txt-h6',
@@ -58,10 +58,10 @@ export const ratingItemCVA = cva(
     },
     variants: {
       intent: {
-        accent: 'focus-visible:ring-accent-border-default',
-        neutral: 'focus-visible:ring-neutral-border-default',
-        primary: 'focus-visible:ring-primary-border-default',
-        secondary: 'focus-visible:ring-secondary-border-default',
+        accent: 'focus-visible:ring-accent-border',
+        neutral: 'focus-visible:ring-neutral-border',
+        primary: 'focus-visible:ring-primary-border',
+        secondary: 'focus-visible:ring-secondary-border',
       } satisfies Record<RatingIntent, string>,
       size: {
         lg: '',
@@ -95,42 +95,42 @@ export const ratingStarIconCVA = cva('shrink-0', {
       state: 'empty',
     },
     {
-      class: 'text-neutral-fill-default',
+      class: 'text-neutral-fill',
       intent: 'neutral',
       state: 'half',
     },
     {
-      class: 'text-primary-fill-default',
+      class: 'text-primary-fill',
       intent: 'primary',
       state: 'half',
     },
     {
-      class: 'text-secondary-fill-default',
+      class: 'text-secondary-fill',
       intent: 'secondary',
       state: 'half',
     },
     {
-      class: 'text-accent-fill-default',
+      class: 'text-accent-fill',
       intent: 'accent',
       state: 'half',
     },
     {
-      class: 'text-neutral-fill-default',
+      class: 'text-neutral-fill',
       intent: 'neutral',
       state: 'full',
     },
     {
-      class: 'text-primary-fill-default',
+      class: 'text-primary-fill',
       intent: 'primary',
       state: 'full',
     },
     {
-      class: 'text-secondary-fill-default',
+      class: 'text-secondary-fill',
       intent: 'secondary',
       state: 'full',
     },
     {
-      class: 'text-accent-fill-default',
+      class: 'text-accent-fill',
       intent: 'accent',
       state: 'full',
     },

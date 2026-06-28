@@ -29,7 +29,7 @@ const barEvents = {
 <template>
   <div class="flex w-full max-w-4xl flex-col gap-10 p-4">
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h3 text-neutral-text-default">Basic</h3>
+      <h3 class="txt-h3 text-neutral-text">Basic</h3>
       <p class="txt-caption text-neutral-text-subtle">
         Music industry revenue by format (Unovis stacked bar demo data).
       </p>
@@ -43,7 +43,7 @@ const barEvents = {
     </section>
 
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h3 text-neutral-text-default">Reactive data</h3>
+      <h3 class="txt-h3 text-neutral-text">Reactive data</h3>
       <div class="flex flex-wrap items-center gap-2">
         <span class="txt-label text-neutral-text-subtle">Years shown: {{ reactiveWindow }}</span>
         <UIButton
@@ -71,7 +71,7 @@ const barEvents = {
     </section>
 
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h3 text-neutral-text-default">Orientation</h3>
+      <h3 class="txt-h3 text-neutral-text">Orientation</h3>
       <p class="txt-caption text-neutral-text-subtle">
         Horizontal layout: hover a bar row for the tooltip (Unovis crosshair is vertical-only).
       </p>
@@ -87,7 +87,7 @@ const barEvents = {
     </section>
 
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h3 text-neutral-text-default">Rounded corners</h3>
+      <h3 class="txt-h3 text-neutral-text">Rounded corners</h3>
       <UIChartStackedBar
         :data="musicFormatData.slice(-15)"
         :series="musicFormatSeries"
@@ -98,7 +98,7 @@ const barEvents = {
     </section>
 
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h3 text-neutral-text-default">Bar sizing</h3>
+      <h3 class="txt-h3 text-neutral-text">Bar sizing</h3>
       <p class="txt-caption text-neutral-text-subtle">
         Fixed <code class="font-mono">barWidth</code> and <code class="font-mono">barPadding</code>.
       </p>
@@ -113,7 +113,7 @@ const barEvents = {
     </section>
 
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h3 text-neutral-text-default">Explicit y accessors</h3>
+      <h3 class="txt-h3 text-neutral-text">Explicit y accessors</h3>
       <UIChartStackedBar
         :data="musicFormatData.slice(-10)"
         :x="x"
@@ -130,7 +130,7 @@ const barEvents = {
     </section>
 
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h3 text-neutral-text-default">Bar events</h3>
+      <h3 class="txt-h3 text-neutral-text">Bar events</h3>
       <p class="txt-caption text-neutral-text-subtle">Click a bar — check the console.</p>
       <UIChartStackedBar
         :data="musicFormatData.slice(-12)"
@@ -142,7 +142,7 @@ const barEvents = {
     </section>
 
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h3 text-neutral-text-default">Axis configuration</h3>
+      <h3 class="txt-h3 text-neutral-text">Axis configuration</h3>
       <p class="txt-caption text-neutral-text-subtle">
         Tick labels, axis titles, and grid styling via
         <code class="font-mono">axis.x</code> / <code class="font-mono">axis.y</code> (Unovis
@@ -176,7 +176,7 @@ const barEvents = {
     </section>
 
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h3 text-neutral-text-default">Legend placement</h3>
+      <h3 class="txt-h3 text-neutral-text">Legend placement</h3>
       <p class="txt-caption text-neutral-text-subtle">
         Use <code class="font-mono">legend.placement</code> — e.g.
         <code class="font-mono">top-end</code>, <code class="font-mono">right-center</code>,
@@ -223,7 +223,7 @@ const barEvents = {
     </section>
 
     <section class="flex flex-col gap-3">
-      <h3 class="txt-h3 text-neutral-text-default">Minimal chrome</h3>
+      <h3 class="txt-h3 text-neutral-text">Minimal chrome</h3>
       <UIChartStackedBar
         :data="musicFormatData.slice(-6)"
         :series="musicFormatSeries"

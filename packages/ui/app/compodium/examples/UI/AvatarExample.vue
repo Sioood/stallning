@@ -27,7 +27,7 @@ const accountMenuItems: MenuListEntry[] = [
   { type: 'separator' },
   {
     customClass:
-      'text-error-text-default data-[highlighted]:bg-error-fill-subtle-hover data-[disabled]:text-error-text-subtle',
+      'text-error-text data-[highlighted]:bg-error-fill-subtle-hover data-[disabled]:text-error-text-subtle',
     label: 'Sign out',
     type: 'item',
     value: 'sign-out',

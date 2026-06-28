@@ -9,10 +9,10 @@ export const paginationRootCVA = cva('flex items-stretch', {
   },
   variants: {
     intent: {
-      accent: 'text-accent-text-default',
-      neutral: 'text-neutral-text-default',
-      primary: 'text-primary-text-default',
-      secondary: 'text-secondary-text-default',
+      accent: 'text-accent-text',
+      neutral: 'text-neutral-text',
+      primary: 'text-primary-text',
+      secondary: 'text-secondary-text',
     } satisfies Record<PaginationIntent, string>,
     size: {
       lg: 'gap-2',

@@ -100,7 +100,7 @@ function domainTrailing() {
     'span',
     {
       class:
-        'flex w-auto shrink-0 items-center border border-l-0 border-neutral-border-default bg-neutral-fill-subtle px-3 txt-label text-neutral-text-subtle',
+        'flex w-auto shrink-0 items-center border border-l-0 border-neutral-border bg-neutral-fill-subtle px-3 txt-label text-neutral-text-subtle disabled:opacity-40 disabled:pointer-events-none',
     },
     '.com',
   )
@@ -110,7 +110,7 @@ function websiteLeading() {
     'span',
     {
       class:
-        'flex w-auto shrink-0 items-center border border-r-0 border-neutral-border-default bg-neutral-fill-subtle px-3 txt-label text-neutral-text-subtle',
+        'flex w-auto shrink-0 items-center border border-r-0 border-neutral-border bg-neutral-fill-subtle px-3 txt-label text-neutral-text-subtle disabled:opacity-40 disabled:pointer-events-none',
     },
     'https://',
   )

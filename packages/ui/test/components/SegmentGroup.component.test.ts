@@ -71,7 +71,7 @@ describe('UISegmentGroup', () => {
       },
     })
 
-    expect(wrapper.html()).toContain('border-primary-border-default')
+    expect(wrapper.html()).toContain('border-primary-border')
     expect(wrapper.html()).toContain('bg-primary-fill-subtle')
     expect(wrapper.html()).not.toContain('border-b')
   })
@@ -98,7 +98,7 @@ describe('UISegmentGroup', () => {
     })
 
     expect(wrapper.html()).toContain('border-accent-border-subtle')
-    expect(wrapper.html()).toContain('bg-accent-fill-default')
+    expect(wrapper.html()).toContain('bg-accent-fill')
   })
 
   it('applies size classes to root', async () => {

@@ -38,7 +38,7 @@ function onPointerDown(event: PointerEvent) {
 
 <template>
   <div
-    class="absolute top-0 right-0 h-full w-1 cursor-col-resize touch-none bg-transparent select-none hover:bg-primary-fill-default/40"
+    class="absolute top-0 right-0 h-full w-1 cursor-col-resize touch-none bg-transparent select-none hover:bg-primary-fill/40"
     @pointerdown="onPointerDown"
   />
 </template>

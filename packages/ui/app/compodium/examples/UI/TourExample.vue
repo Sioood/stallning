@@ -666,7 +666,7 @@ const scenarios = [
             />
             <div class="flex items-center gap-2">
               <UISwitch id="wi-terms-checkbox" />
-              <label for="wi-terms-checkbox" class="txt-caption text-neutral-text-default">
+              <label for="wi-terms-checkbox" class="txt-caption text-neutral-text">
                 J'accepte les conditions d'utilisation
               </label>
             </div>
@@ -706,7 +706,7 @@ const scenarios = [
                   : undefined
               "
             >
-              <span class="txt-label text-neutral-text-default">{{ item }}</span>
+              <span class="txt-label text-neutral-text">{{ item }}</span>
               <UIBadge
                 v-if="index === waitElementItems.length - 1 && waitElementItems.length > 2"
                 intent="primary"
@@ -730,7 +730,7 @@ const scenarios = [
         </UIButton>
         <UICardBase id="async-user-card" class="flex items-center gap-3">
           <Icon name="tabler:user-circle" class="size-8 text-neutral-text-subtle" />
-          <span class="txt-label text-neutral-text-default">Carte profil utilisateur</span>
+          <span class="txt-label text-neutral-text">Carte profil utilisateur</span>
         </UICardBase>
         <UITour :tour="asyncTour" intent="neutral" size="md" />
       </div>
@@ -752,7 +752,7 @@ const scenarios = [
         </div>
         <UICardBase class="max-h-32 overflow-y-auto">
           <div class="flex flex-col gap-1">
-            <strong class="txt-caption text-neutral-text-default">Journal d'événements :</strong>
+            <strong class="txt-caption text-neutral-text">Journal d'événements :</strong>
             <div v-if="eventLogs.length === 0" class="text-neutral-text-subtle">
               Lancez la visite pour voir les événements
             </div>

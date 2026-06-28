@@ -15,7 +15,7 @@ const navOptions = [
     <main class="flex-1">
       <slot />
     </main>
-    <nav class="sticky bottom-0 bg-primary-surface-default">
+    <nav class="sticky bottom-0 bg-primary-surface">
       <UITabs
         v-model="route.path"
         :options="[...navOptions]"

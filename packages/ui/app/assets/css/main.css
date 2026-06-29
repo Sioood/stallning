@@ -991,7 +991,7 @@ html {
     --color-accent-icon-disabled: var(--color-yellow-700);
     --color-accent-icon-inverse: var(--color-yellow-800);
     --color-accent-icon-subtle: var(--color-yellow-500);
-    --color-accent-on-fill: var(--color-yellow-900);
+    --color-accent-on-fill: var(--color-yellow-100);
     --color-accent-on-fill-subtle: var(--color-yellow-100);
     --color-accent-surface: var(--color-yellow-800);
     --color-accent-surface-inverse: var(--color-yellow-200);
@@ -1027,7 +1027,7 @@ html {
     --color-blue-icon-disabled: var(--color-blue-700);
     --color-blue-icon-inverse: var(--color-blue-800);
     --color-blue-icon-subtle: var(--color-blue-500);
-    --color-blue-on-fill: var(--color-blue-900);
+    --color-blue-on-fill: var(--color-blue-100);
     --color-blue-on-fill-subtle: var(--color-blue-100);
     --color-blue-surface: var(--color-blue-800);
     --color-blue-surface-inverse: var(--color-blue-200);
@@ -1063,7 +1063,7 @@ html {
     --color-error-icon-disabled: var(--color-red-700);
     --color-error-icon-inverse: var(--color-red-800);
     --color-error-icon-subtle: var(--color-red-500);
-    --color-error-on-fill: var(--color-red-900);
+    --color-error-on-fill: var(--color-red-100);
     --color-error-on-fill-subtle: var(--color-red-100);
     --color-error-surface: var(--color-red-800);
     --color-error-surface-inverse: var(--color-red-200);
@@ -1099,7 +1099,7 @@ html {
     --color-gray-icon-disabled: var(--color-gray-700);
     --color-gray-icon-inverse: var(--color-gray-800);
     --color-gray-icon-subtle: var(--color-gray-500);
-    --color-gray-on-fill: var(--color-gray-900);
+    --color-gray-on-fill: var(--color-gray-100);
     --color-gray-on-fill-subtle: var(--color-gray-100);
     --color-gray-surface: var(--color-gray-800);
     --color-gray-surface-inverse: var(--color-gray-200);
@@ -1135,7 +1135,7 @@ html {
     --color-green-icon-disabled: var(--color-green-700);
     --color-green-icon-inverse: var(--color-green-800);
     --color-green-icon-subtle: var(--color-green-500);
-    --color-green-on-fill: var(--color-green-900);
+    --color-green-on-fill: var(--color-green-100);
     --color-green-on-fill-subtle: var(--color-green-100);
     --color-green-surface: var(--color-green-800);
     --color-green-surface-inverse: var(--color-green-200);
@@ -1171,7 +1171,7 @@ html {
     --color-info-icon-disabled: var(--color-blue-700);
     --color-info-icon-inverse: var(--color-blue-800);
     --color-info-icon-subtle: var(--color-blue-500);
-    --color-info-on-fill: var(--color-blue-900);
+    --color-info-on-fill: var(--color-blue-100);
     --color-info-on-fill-subtle: var(--color-blue-100);
     --color-info-surface: var(--color-blue-800);
     --color-info-surface-inverse: var(--color-blue-200);
@@ -1207,7 +1207,7 @@ html {
     --color-neutral-icon-disabled: var(--color-neutral-700);
     --color-neutral-icon-inverse: var(--color-neutral-800);
     --color-neutral-icon-subtle: var(--color-neutral-500);
-    --color-neutral-on-fill: var(--color-neutral-900);
+    --color-neutral-on-fill: var(--color-neutral-100);
     --color-neutral-on-fill-subtle: var(--color-neutral-100);
     --color-neutral-surface: var(--color-neutral-800);
     --color-neutral-surface-inverse: var(--color-neutral-200);
@@ -1243,7 +1243,7 @@ html {
     --color-orange-icon-disabled: var(--color-orange-700);
     --color-orange-icon-inverse: var(--color-orange-800);
     --color-orange-icon-subtle: var(--color-orange-500);
-    --color-orange-on-fill: var(--color-orange-900);
+    --color-orange-on-fill: var(--color-orange-100);
     --color-orange-on-fill-subtle: var(--color-orange-100);
     --color-orange-surface: var(--color-orange-800);
     --color-orange-surface-inverse: var(--color-orange-200);
@@ -1279,7 +1279,7 @@ html {
     --color-pink-icon-disabled: var(--color-pink-700);
     --color-pink-icon-inverse: var(--color-pink-800);
     --color-pink-icon-subtle: var(--color-pink-500);
-    --color-pink-on-fill: var(--color-pink-900);
+    --color-pink-on-fill: var(--color-pink-100);
     --color-pink-on-fill-subtle: var(--color-pink-100);
     --color-pink-surface: var(--color-pink-800);
     --color-pink-surface-inverse: var(--color-pink-200);
@@ -1351,7 +1351,7 @@ html {
     --color-purple-icon-disabled: var(--color-purple-700);
     --color-purple-icon-inverse: var(--color-purple-800);
     --color-purple-icon-subtle: var(--color-purple-500);
-    --color-purple-on-fill: var(--color-purple-900);
+    --color-purple-on-fill: var(--color-purple-100);
     --color-purple-on-fill-subtle: var(--color-purple-100);
     --color-purple-surface: var(--color-purple-800);
     --color-purple-surface-inverse: var(--color-purple-200);
@@ -1387,7 +1387,7 @@ html {
     --color-red-icon-disabled: var(--color-red-700);
     --color-red-icon-inverse: var(--color-red-800);
     --color-red-icon-subtle: var(--color-red-500);
-    --color-red-on-fill: var(--color-red-900);
+    --color-red-on-fill: var(--color-red-100);
     --color-red-on-fill-subtle: var(--color-red-100);
     --color-red-surface: var(--color-red-800);
     --color-red-surface-inverse: var(--color-red-200);
@@ -1423,7 +1423,7 @@ html {
     --color-secondary-icon-disabled: var(--color-purple-700);
     --color-secondary-icon-inverse: var(--color-purple-800);
     --color-secondary-icon-subtle: var(--color-purple-500);
-    --color-secondary-on-fill: var(--color-purple-900);
+    --color-secondary-on-fill: var(--color-purple-100);
     --color-secondary-on-fill-subtle: var(--color-purple-100);
     --color-secondary-surface: var(--color-purple-800);
     --color-secondary-surface-inverse: var(--color-purple-200);
@@ -1459,7 +1459,7 @@ html {
     --color-success-icon-disabled: var(--color-green-700);
     --color-success-icon-inverse: var(--color-green-800);
     --color-success-icon-subtle: var(--color-green-500);
-    --color-success-on-fill: var(--color-green-900);
+    --color-success-on-fill: var(--color-green-100);
     --color-success-on-fill-subtle: var(--color-green-100);
     --color-success-surface: var(--color-green-800);
     --color-success-surface-inverse: var(--color-green-200);
@@ -1495,7 +1495,7 @@ html {
     --color-warning-icon-disabled: var(--color-orange-700);
     --color-warning-icon-inverse: var(--color-orange-800);
     --color-warning-icon-subtle: var(--color-orange-500);
-    --color-warning-on-fill: var(--color-orange-900);
+    --color-warning-on-fill: var(--color-orange-100);
     --color-warning-on-fill-subtle: var(--color-orange-100);
     --color-warning-surface: var(--color-orange-800);
     --color-warning-surface-inverse: var(--color-orange-200);
@@ -1531,7 +1531,7 @@ html {
     --color-yellow-icon-disabled: var(--color-yellow-700);
     --color-yellow-icon-inverse: var(--color-yellow-800);
     --color-yellow-icon-subtle: var(--color-yellow-500);
-    --color-yellow-on-fill: var(--color-yellow-900);
+    --color-yellow-on-fill: var(--color-yellow-100);
     --color-yellow-on-fill-subtle: var(--color-yellow-100);
     --color-yellow-surface: var(--color-yellow-800);
     --color-yellow-surface-inverse: var(--color-yellow-200);
@@ -1576,7 +1576,7 @@ html.dark {
   --color-accent-icon-disabled: var(--color-yellow-700);
   --color-accent-icon-inverse: var(--color-yellow-800);
   --color-accent-icon-subtle: var(--color-yellow-500);
-  --color-accent-on-fill: var(--color-yellow-900);
+  --color-accent-on-fill: var(--color-yellow-100);
   --color-accent-on-fill-subtle: var(--color-yellow-100);
   --color-accent-surface: var(--color-yellow-800);
   --color-accent-surface-inverse: var(--color-yellow-200);
@@ -1612,7 +1612,7 @@ html.dark {
   --color-blue-icon-disabled: var(--color-blue-700);
   --color-blue-icon-inverse: var(--color-blue-800);
   --color-blue-icon-subtle: var(--color-blue-500);
-  --color-blue-on-fill: var(--color-blue-900);
+  --color-blue-on-fill: var(--color-blue-100);
   --color-blue-on-fill-subtle: var(--color-blue-100);
   --color-blue-surface: var(--color-blue-800);
   --color-blue-surface-inverse: var(--color-blue-200);
@@ -1648,7 +1648,7 @@ html.dark {
   --color-error-icon-disabled: var(--color-red-700);
   --color-error-icon-inverse: var(--color-red-800);
   --color-error-icon-subtle: var(--color-red-500);
-  --color-error-on-fill: var(--color-red-900);
+  --color-error-on-fill: var(--color-red-100);
   --color-error-on-fill-subtle: var(--color-red-100);
   --color-error-surface: var(--color-red-800);
   --color-error-surface-inverse: var(--color-red-200);
@@ -1684,7 +1684,7 @@ html.dark {
   --color-gray-icon-disabled: var(--color-gray-700);
   --color-gray-icon-inverse: var(--color-gray-800);
   --color-gray-icon-subtle: var(--color-gray-500);
-  --color-gray-on-fill: var(--color-gray-900);
+  --color-gray-on-fill: var(--color-gray-100);
   --color-gray-on-fill-subtle: var(--color-gray-100);
   --color-gray-surface: var(--color-gray-800);
   --color-gray-surface-inverse: var(--color-gray-200);
@@ -1720,7 +1720,7 @@ html.dark {
   --color-green-icon-disabled: var(--color-green-700);
   --color-green-icon-inverse: var(--color-green-800);
   --color-green-icon-subtle: var(--color-green-500);
-  --color-green-on-fill: var(--color-green-900);
+  --color-green-on-fill: var(--color-green-100);
   --color-green-on-fill-subtle: var(--color-green-100);
   --color-green-surface: var(--color-green-800);
   --color-green-surface-inverse: var(--color-green-200);
@@ -1756,7 +1756,7 @@ html.dark {
   --color-info-icon-disabled: var(--color-blue-700);
   --color-info-icon-inverse: var(--color-blue-800);
   --color-info-icon-subtle: var(--color-blue-500);
-  --color-info-on-fill: var(--color-blue-900);
+  --color-info-on-fill: var(--color-blue-100);
   --color-info-on-fill-subtle: var(--color-blue-100);
   --color-info-surface: var(--color-blue-800);
   --color-info-surface-inverse: var(--color-blue-200);
@@ -1792,7 +1792,7 @@ html.dark {
   --color-neutral-icon-disabled: var(--color-neutral-700);
   --color-neutral-icon-inverse: var(--color-neutral-800);
   --color-neutral-icon-subtle: var(--color-neutral-500);
-  --color-neutral-on-fill: var(--color-neutral-900);
+  --color-neutral-on-fill: var(--color-neutral-100);
   --color-neutral-on-fill-subtle: var(--color-neutral-100);
   --color-neutral-surface: var(--color-neutral-800);
   --color-neutral-surface-inverse: var(--color-neutral-200);
@@ -1828,7 +1828,7 @@ html.dark {
   --color-orange-icon-disabled: var(--color-orange-700);
   --color-orange-icon-inverse: var(--color-orange-800);
   --color-orange-icon-subtle: var(--color-orange-500);
-  --color-orange-on-fill: var(--color-orange-900);
+  --color-orange-on-fill: var(--color-orange-100);
   --color-orange-on-fill-subtle: var(--color-orange-100);
   --color-orange-surface: var(--color-orange-800);
   --color-orange-surface-inverse: var(--color-orange-200);
@@ -1864,7 +1864,7 @@ html.dark {
   --color-pink-icon-disabled: var(--color-pink-700);
   --color-pink-icon-inverse: var(--color-pink-800);
   --color-pink-icon-subtle: var(--color-pink-500);
-  --color-pink-on-fill: var(--color-pink-900);
+  --color-pink-on-fill: var(--color-pink-100);
   --color-pink-on-fill-subtle: var(--color-pink-100);
   --color-pink-surface: var(--color-pink-800);
   --color-pink-surface-inverse: var(--color-pink-200);
@@ -1936,7 +1936,7 @@ html.dark {
   --color-purple-icon-disabled: var(--color-purple-700);
   --color-purple-icon-inverse: var(--color-purple-800);
   --color-purple-icon-subtle: var(--color-purple-500);
-  --color-purple-on-fill: var(--color-purple-900);
+  --color-purple-on-fill: var(--color-purple-100);
   --color-purple-on-fill-subtle: var(--color-purple-100);
   --color-purple-surface: var(--color-purple-800);
   --color-purple-surface-inverse: var(--color-purple-200);
@@ -1972,7 +1972,7 @@ html.dark {
   --color-red-icon-disabled: var(--color-red-700);
   --color-red-icon-inverse: var(--color-red-800);
   --color-red-icon-subtle: var(--color-red-500);
-  --color-red-on-fill: var(--color-red-900);
+  --color-red-on-fill: var(--color-red-100);
   --color-red-on-fill-subtle: var(--color-red-100);
   --color-red-surface: var(--color-red-800);
   --color-red-surface-inverse: var(--color-red-200);
@@ -2008,7 +2008,7 @@ html.dark {
   --color-secondary-icon-disabled: var(--color-purple-700);
   --color-secondary-icon-inverse: var(--color-purple-800);
   --color-secondary-icon-subtle: var(--color-purple-500);
-  --color-secondary-on-fill: var(--color-purple-900);
+  --color-secondary-on-fill: var(--color-purple-100);
   --color-secondary-on-fill-subtle: var(--color-purple-100);
   --color-secondary-surface: var(--color-purple-800);
   --color-secondary-surface-inverse: var(--color-purple-200);
@@ -2044,7 +2044,7 @@ html.dark {
   --color-success-icon-disabled: var(--color-green-700);
   --color-success-icon-inverse: var(--color-green-800);
   --color-success-icon-subtle: var(--color-green-500);
-  --color-success-on-fill: var(--color-green-900);
+  --color-success-on-fill: var(--color-green-100);
   --color-success-on-fill-subtle: var(--color-green-100);
   --color-success-surface: var(--color-green-800);
   --color-success-surface-inverse: var(--color-green-200);
@@ -2080,7 +2080,7 @@ html.dark {
   --color-warning-icon-disabled: var(--color-orange-700);
   --color-warning-icon-inverse: var(--color-orange-800);
   --color-warning-icon-subtle: var(--color-orange-500);
-  --color-warning-on-fill: var(--color-orange-900);
+  --color-warning-on-fill: var(--color-orange-100);
   --color-warning-on-fill-subtle: var(--color-orange-100);
   --color-warning-surface: var(--color-orange-800);
   --color-warning-surface-inverse: var(--color-orange-200);
@@ -2116,7 +2116,7 @@ html.dark {
   --color-yellow-icon-disabled: var(--color-yellow-700);
   --color-yellow-icon-inverse: var(--color-yellow-800);
   --color-yellow-icon-subtle: var(--color-yellow-500);
-  --color-yellow-on-fill: var(--color-yellow-900);
+  --color-yellow-on-fill: var(--color-yellow-100);
   --color-yellow-on-fill-subtle: var(--color-yellow-100);
   --color-yellow-surface: var(--color-yellow-800);
   --color-yellow-surface-inverse: var(--color-yellow-200);

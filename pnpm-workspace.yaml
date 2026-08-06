@@ -1,7 +1,12 @@
+# yaml-language-server: $schema=./.vscode/schemas/pnpm-workspace.json
 packages:
   - 'apps/*'
   - 'packages/*'
   - 'packages/config/*'
+
+# pnpm 11 prompts before wiping stale node_modules; without a TTY (husky/IDE) that aborts.
+# SchemaStore still omits this key; local schema above allows it.
+confirmModulesPurge: false
 
 linkWorkspacePackages: true
 preferWorkspacePackages: true

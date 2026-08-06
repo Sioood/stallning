@@ -1,35 +1,48 @@
 # Stallning Monorepo
 
-## Context
+pnpm workspace + Turborepo. Shared tooling lives in `packages/config/*`.
 
 Stallning is a **pnpm workspace monorepo** orchestrated with **Turborepo**. It contains a Nuxt 4 web application built on top of a layered architecture where each package extends the previous one.
 
-## Architecture
+**Node:** >= 25.8.0 · **pnpm only**
 
-```
-apps/web          -> extends packages/ui
-packages/ui       -> extends packages/nuxt-essentials
-packages/nuxt-essentials  -> base Nuxt layer (modules, i18n, PWA, security)
-packages/config/* -> shared eslint, oxlint, typescript configs
-```
+## Principles
 
-### Dependency Graph
+- Prefer the simplest implementation that fully meets current requirements. Avoid speculative abstractions, config, and indirection.
+- Grow in layers: ship the smallest end-to-end version first; add capabilities on a working product. Never trade a working product for unfinished complexity.
+- Keep components modular and concerns separated.
+- Prefer established libraries when they reduce complexity or improve reliability. Do not reimplement common functionality without a clear reason.
+- Prefer existing project dependencies before new packages or custom code. Check docs and types before assuming a gap.
+- Make long-term architectural choices. Do not accept stopgaps meant to be replaced later.
 
+## Tooling
+
+- Catalog versions in `pnpm-workspace.yaml` (`"catalog:"`); internal deps: `workspace:*` / `workspace:^`
+- Format: oxfmt · Lint: oxlint + ESLint (`@stallning/eslint`) · TS: strict, no `any` (use `unknown`)
+- Commits: conventional (`feat`/`fix`/…) · scopes: `global`, `config`, `docs`, `nuxt-essentials`, `ui`, `web` · header ≤ 100 chars
+- Before push: `pnpm verify` (or `make verify`); pre-push also runs `pnpm audit --audit-level=high`
 - `@stallning/web` depends on `@stallning/ui` (runtime) + `@stallning/nuxt-essentials` (dev, for i18n CLI)
 - `@stallning/ui` depends on `@stallning/nuxt-essentials` (runtime)
 - All packages use `@stallning/eslint`, `@stallning/oxlint`, `@stallning/typescript` for tooling
 
-### Key Technologies
+## Layout
 
+```
+apps/web                 -> extends packages/ui
+packages/ui              -> extends packages/nuxt-essentials
+packages/nuxt-essentials -> base Nuxt layer (modules, i18n, PWA, security)
+packages/config/*        -> shared eslint, oxlint, typescript configs
+```
+
+- `apps/` · `packages/` · `packages/config/` (eslint, oxlint, typescript)
 - **Runtime:** Nuxt 4, Vue 3, Pinia, VueUse, Ark UI, TanStack Form, Zod v4
 - **Styling:** Tailwind CSS v4 (Vite plugin), CVA (class-variance-authority), tailwind-merge
-- **Tooling:** pnpm 10.33+, Turborepo, ESLint (flat config), oxlint, oxfmt, Vitest, Playwright
+- **Tooling:** pnpm 11+, Turborepo, ESLint (flat config), oxlint, oxfmt, Vitest, Playwright
 - **Testing:** Vitest (unit/component/visual), Playwright (E2E), Stryker (mutation)
 - **CI/CD:** GitHub Actions, Changesets for versioning
 - **Security:** nuxt-security (CSP, CORS, rate limiting, SRI) — disabled in dev
-- **Node:** >= 25.8.0
 
-## Conventions
+## Rules
 
 ### Package Management
 

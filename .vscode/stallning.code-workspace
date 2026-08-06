@@ -63,6 +63,9 @@
     },
     "oxc.enable": true,
     "oxc.enable.oxfmt": true,
+    "yaml.schemas": {
+      "./schemas/pnpm-workspace.json": ["pnpm-workspace.yaml"],
+    },
     "cSpell.words": ["stallning", "oxlint", "nuxt", "compodium"],
     "[vue]": {
       "editor.defaultFormatter": "oxc.oxc-vscode",

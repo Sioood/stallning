@@ -1,5 +1,6 @@
 {
   "name": "@stallning/nuxt-essentials",
+  "version": "0.0.0",
   "private": true,
   "bin": {
     "stallning-i18n-coverage": "./stallning-i18n-coverage.mjs"

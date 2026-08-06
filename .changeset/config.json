@@ -3,7 +3,15 @@
   "changelog": "@changesets/cli/changelog",
   "commit": false,
   "fixed": [],
-  "linked": [["@stallning/eslint", "@stallning/typescript"]],
+  "linked": [
+    [
+      "@stallning/eslint",
+      "@stallning/typescript",
+      "@stallning/ui",
+      "@stallning/nuxt-essentials",
+      "@stallning/web"
+    ]
+  ],
   "access": "restricted",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",

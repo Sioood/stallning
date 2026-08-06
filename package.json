@@ -22,26 +22,28 @@
     "changeset": "pnpm exec changeset",
     "changeset:conventional-commits": "node ./.changeset/changeset-conventional-commits.ts",
     "changeset:release": "pnpm exec changeset tag",
-    "init": "node ./scripts/init/index.ts",
-    "sync:merge": "node ./scripts/sync-from-minimal.ts",
-    "sync:pick": "node ./scripts/pick-commits.ts",
+    "sync:merge": "node ./scripts/sync/index.ts merge",
+    "sync:pick": "node ./scripts/sync/index.ts pick",
     "build": "turbo run build",
     "knip": "knip",
     "knip:fix": "knip --fix",
-    "todoctor": "pnpx todoctor"
+    "todoctor": "pnpx todoctor",
+    "sync": "node ./scripts/sync/index.ts",
+    "sync:status": "node ./scripts/sync/index.ts status",
+    "sync:backport": "node ./scripts/sync/index.ts backport"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
     "@changesets/read": "^0.6.7",
     "@changesets/types": "^6.1.0",
     "@changesets/write": "^0.4.0",
+    "@clack/prompts": "catalog:",
     "@commitlint/cli": "^21.0.1",
     "@commitlint/config-conventional": "^21.0.1",
     "@manypkg/get-packages": "^3.1.0",
     "@stallning/eslint": "workspace:^",
     "@stallning/oxlint": "workspace:^",
     "@stallning/typescript": "workspace:^",
-    "@types/minimist": "catalog:",
     "@types/node": "catalog:",
     "commander": "catalog:",
     "consola": "^3.4.2",
@@ -49,7 +51,6 @@
     "husky": "^9.1.7",
     "knip": "^6.14.2",
     "lint-staged": "^17.0.5",
-    "minimist": "^1.2.8",
     "only-allow": "^1.2.2",
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
@@ -77,9 +78,10 @@
         2,
         "always",
         [
-          "global",
           "config",
-          "docs"
+          "docs",
+          "global",
+          "sync"
         ]
       ],
       "type-enum": [

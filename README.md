@@ -47,17 +47,19 @@ pnpm install
 
 ### Root (Turborepo orchestrated)
 
-| Script              | Description                   |
-| ------------------- | ----------------------------- |
-| `pnpm dev`          | Start all dev servers         |
-| `pnpm build`        | Build all packages            |
-| `pnpm lint`         | ESLint + Oxlint all packages  |
-| `pnpm format`       | Format with oxfmt             |
-| `pnpm format:check` | Check formatting              |
-| `pnpm check-types`  | TypeScript type checking      |
-| `pnpm verify`       | Run full CI check job locally |
-| `pnpm knip`         | Detect dead code/unused deps  |
-| `pnpm changeset`    | Create a changeset            |
+| Script              | Description                    |
+| ------------------- | ------------------------------ |
+| `pnpm dev`          | Start all dev servers          |
+| `pnpm build`        | Build all packages             |
+| `pnpm lint`         | ESLint + Oxlint all packages   |
+| `pnpm format`       | Format with oxfmt              |
+| `pnpm format:check` | Check formatting               |
+| `pnpm check-types`  | TypeScript type checking       |
+| `pnpm verify`       | Run full CI check job locally  |
+| `pnpm sync`         | Interactive branch sync wizard |
+| `pnpm sync status`  | Show classified branch delta   |
+| `pnpm knip`         | Detect dead code/unused deps   |
+| `pnpm changeset`    | Create a changeset             |
 
 ### Makefile
 

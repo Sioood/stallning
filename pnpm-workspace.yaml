@@ -7,7 +7,7 @@ allowBuilds:
   unrs-resolver: true
 
 catalog:
-  '@types/minimist': ^1.2.5
+  '@clack/prompts': ^1.7.0
   '@types/node': ^25.9.1
   commander: ^13.1.0
   eslint: ^10.4.0

@@ -58,9 +58,7 @@ describe('MyComponent', () => {
 
   it('emits events on interaction', async () => {
     const wrapper = await mountSuspended(MyComponent, {
-      props: {
-        /* ... */
-      },
+      props: {/* ... */},
     })
     await wrapper.find('button').trigger('click')
     expect(wrapper.emitted('update:modelValue')).toBeTruthy()

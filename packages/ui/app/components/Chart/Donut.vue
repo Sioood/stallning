@@ -103,8 +103,8 @@ const legendPlacement = computed(() => props.legend?.placement ?? 'top-center')
 
 const showTooltipResolved = computed(() => props.tooltip?.show ?? true)
 
-const chartIntent = computed(
-  (): ChartIntent => (typeof props.intent === 'object' ? props.intent.data : props.intent),
+const chartIntent = computed((): ChartIntent =>
+  typeof props.intent === 'object' ? props.intent.data : props.intent,
 )
 
 const themeClass = computed(() =>
@@ -128,13 +128,12 @@ const legendUi = computed(() => props.legend?.ui)
 
 const containerUiClass = computed(() => cn(props.ui?.chart))
 
-const visDonutBind = computed(
-  (): DonutConfigInterface<T> =>
-    buildChartDonutVisBind({
-      color: barColor.value,
-      passthrough: donutVisPassthrough.value,
-      value: valueAccessor.value!,
-    }),
+const visDonutBind = computed((): DonutConfigInterface<T> =>
+  buildChartDonutVisBind({
+    color: barColor.value,
+    passthrough: donutVisPassthrough.value,
+    value: valueAccessor.value!,
+  }),
 )
 
 function formatValue(value: number, seriesItem: ChartLegendSeries): string {

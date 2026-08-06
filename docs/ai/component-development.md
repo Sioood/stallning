@@ -271,9 +271,7 @@ Every example file should cover:
 <script setup lang="ts">
 import { useMyComponent } from '@ark-ui/vue/my-component'
 
-const externalApi = useMyComponent({
-  /* config */
-})
+const externalApi = useMyComponent({/* config */})
 </script>
 
 <template>

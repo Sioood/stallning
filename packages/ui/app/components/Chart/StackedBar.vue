@@ -78,19 +78,15 @@ const props = withDefaults(defineProps<ChartStackedBarProps<T>>(), {
 
 const stackedBarVisPassthrough = computed(() => pickChartStackedBarVisProps(props))
 
-const axisXConfig = computed(
-  (): ChartAxisProps<T> => ({
-    show: true,
-    ...props.axis?.x,
-  }),
-)
+const axisXConfig = computed((): ChartAxisProps<T> => ({
+  show: true,
+  ...props.axis?.x,
+}))
 
-const axisYConfig = computed(
-  (): ChartAxisProps<T> => ({
-    show: true,
-    ...props.axis?.y,
-  }),
-)
+const axisYConfig = computed((): ChartAxisProps<T> => ({
+  show: true,
+  ...props.axis?.y,
+}))
 
 const resolvedSeries = computed((): ChartLegendSeries[] => {
   if (props.series?.length) {
@@ -179,17 +175,16 @@ const showCrosshairOnChart = computed(
   () => showCrosshairResolved.value && !isHorizontalStackedBar.value,
 )
 
-const visStackedBarBind = computed(
-  (): StackedBarConfigInterface<T> =>
-    buildChartStackedBarVisBind({
-      color: barColor.value,
-      passthrough: {
-        ...stackedBarVisPassthrough.value,
-        orientation: stackedBarOrientation.value,
-      },
-      x: xAccessor.value!,
-      y: yAccessors.value,
-    }),
+const visStackedBarBind = computed((): StackedBarConfigInterface<T> =>
+  buildChartStackedBarVisBind({
+    color: barColor.value,
+    passthrough: {
+      ...stackedBarVisPassthrough.value,
+      orientation: stackedBarOrientation.value,
+    },
+    x: xAccessor.value!,
+    y: yAccessors.value,
+  }),
 )
 
 function formatValue(value: number, seriesItem: ChartLegendSeries): string {

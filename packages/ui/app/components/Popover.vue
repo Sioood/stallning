@@ -31,7 +31,7 @@ defineOptions({ inheritAttrs: false })
 
 const popoverContentCVA = cva(
   [
-    'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0',
+    'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0',
     'w-[min(var(--available-width),max-content)] max-w-[min(var(--available-width),28rem)]',
   ],
   {

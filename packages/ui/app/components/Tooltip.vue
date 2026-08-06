@@ -38,8 +38,7 @@ defineOptions({ inheritAttrs: false })
 
 const tooltipContentCVA = cva(
   [
-    'tooltipContent',
-    'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0',
+    'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0',
     'w-[min(var(--available-width),max-content)] max-w-[min(var(--available-width),28rem)]',
   ],
   {
@@ -61,7 +60,7 @@ const tooltipContentCVA = cva(
   },
 )
 
-const tooltipArrowCVA = cva(['tooltipArrow', 'flex items-center justify-center'], {
+const tooltipArrowCVA = cva('flex items-center justify-center', {
   variants: {
     intent: {
       accent: '[--arrow-background:var(--color-accent-surface)]',
@@ -78,7 +77,7 @@ const tooltipArrowCVA = cva(['tooltipArrow', 'flex items-center justify-center']
     } satisfies Record<TooltipSize, string>,
   },
 })
-const tooltipArrowTipCVA = cva(['tooltipArrowTip', 'size-full'])
+const tooltipArrowTipCVA = cva('size-full')
 
 type TooltipCVAProps = VariantProps<typeof tooltipContentCVA>
 

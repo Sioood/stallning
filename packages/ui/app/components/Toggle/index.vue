@@ -68,7 +68,7 @@ const rootClass = computed(() =>
       variant: props.variant,
     }),
     props.activeBackground ? toggleCVA({ intent: props.intent, variant: props.variant }) : null,
-    props.iconOnly ? 'min-w-0 shrink-0 gap-0 px-1.5 py-1.5' : null,
+    props.iconOnly ? 'min-w-0 shrink-0 gap-0 p-1.5' : null,
     props.groupItem ? 'join-item' : null,
     props.ui?.root,
   ),

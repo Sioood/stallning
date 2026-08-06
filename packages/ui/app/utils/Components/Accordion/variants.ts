@@ -3,10 +3,7 @@ import { cva } from 'class-variance-authority'
 import type { AccordionIntent, AccordionSize } from './context'
 
 export const accordionRootCVA = cva(
-  [
-    'accordionRoot flex w-full',
-    'data-[orientation=horizontal]:flex-row data-[orientation=vertical]:flex-col',
-  ],
+  ['flex w-full', 'data-[orientation=horizontal]:flex-row data-[orientation=vertical]:flex-col'],
   {
     defaultVariants: {
       intent: 'neutral',
@@ -28,7 +25,6 @@ export const accordionRootCVA = cva(
 
 export const accordionItemCVA = cva(
   [
-    'accordionItem',
     'overflow-hidden',
     'flex w-full items-center data-[orientation=horizontal]:w-fit data-[orientation=vertical]:flex-col',
   ],
@@ -53,7 +49,6 @@ export const accordionItemCVA = cva(
 
 export const accordionItemTriggerCVA = cva(
   [
-    'accordionItemTrigger',
     'flex w-full items-center justify-between text-left data-[orientation=horizontal]:w-fit data-[orientation=horizontal]:flex-col',
     'not-disabled:cursor-pointer disabled:pointer-events-none',
     'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
@@ -79,9 +74,8 @@ export const accordionItemTriggerCVA = cva(
 
 export const accordionItemContentCVA = cva(
   [
-    'accordionItemContent',
     'size-full',
-    'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+    'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0',
     'data-[state=closed]:slide-out-to-top-1 data-[state=open]:slide-in-from-top-1',
     'data-[orientation=horizontal]:data-[state=closed]:slide-out-to-left-1 data-[orientation=horizontal]:data-[state=open]:slide-in-from-left-1',
   ],
@@ -106,7 +100,7 @@ export const accordionItemContentCVA = cva(
 
 export const accordionItemIndicatorCVA = cva(
   [
-    'accordionItemIndicator inline-flex shrink-0 transition-transform duration-200',
+    'inline-flex shrink-0 transition-transform duration-200',
     'data-[state=open]:data-[orientation=vertical]:rotate-180',
     'data-[state=open]:data-[orientation=horizontal]:rotate-90',
   ],

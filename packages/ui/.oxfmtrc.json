@@ -11,7 +11,8 @@
     "**/dist/**",
     "**/.turbo/**",
     "**/.cache/**",
-    "**/pnpm-lock.yaml"
+    "**/pnpm-lock.yaml",
+    "app/assets/css/tw-animate.css"
   ],
   "semi": false,
   "singleQuote": true

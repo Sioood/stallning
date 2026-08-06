@@ -72,7 +72,7 @@ const progressCircleTrackCVA = cva('', {
   },
 })
 
-const progressCircleRangeCVA = cva('[transition-[stroke-dasharray,stroke] ease-out] duration-600', {
+const progressCircleRangeCVA = cva('transition-[stroke-dasharray,stroke] duration-600 ease-out', {
   variants: {
     intent: {
       accent: 'stroke-accent-fill',

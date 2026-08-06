@@ -31,9 +31,9 @@ export const selectPositionerCVA = cva('origin-(--transform-origin)')
 export const selectContentCVA = cva(
   [
     'overflow-y-auto border',
-    'data-[state=open]:animate-in data-[state=closed]:animate-out',
-    'data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0',
-    'data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95',
+    'data-[state=closed]:animate-out data-[state=open]:animate-in',
+    'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+    'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
     'max-h-[min(var(--available-height,20rem),20rem)]',
     'w-(--reference-width) max-w-(--reference-width) min-w-(--reference-width)',
   ],

@@ -24,9 +24,9 @@ describe('Alert', () => {
       },
     })
 
-    expect(wrapper.find('.alertRoot').classes().join(' ')).toMatch(/bg-success-surface-subtle/)
-    expect(wrapper.find('.alertContent').classes().join(' ')).toMatch(/text-success-text/)
-    expect(wrapper.find('.alertContentIcon').exists()).toBe(true)
+    expect(wrapper.classes().join(' ')).toMatch(/bg-success-surface-subtle/)
+    expect(wrapper.find('.group\\/content').classes().join(' ')).toMatch(/text-success-text/)
+    expect(wrapper.find('svg').exists()).toBe(true)
   })
 
   it('renders action buttons and falls back action intent/size to alert values', async () => {
@@ -53,9 +53,9 @@ describe('Alert', () => {
       },
     })
 
-    expect(wrapper.find('.alertRoot').exists()).toBe(true)
+    expect(wrapper.find('.relative').exists()).toBe(true)
     await wrapper.findAll('button')[0]?.trigger('click')
-    expect(wrapper.find('.alertRoot').exists()).toBe(false)
+    expect(wrapper.find('.relative').exists()).toBe(false)
   })
 
   it('calls action onClick when action button is clicked', async () => {
@@ -82,7 +82,7 @@ describe('Alert', () => {
       },
     })
 
-    expect(wrapper.find('.alertRoot').classes().join(' ')).toMatch(/bg-error-surface-subtle/)
+    expect(wrapper.classes().join(' ')).toMatch(/bg-error-surface-subtle/)
   })
 
   it('renders content slot', async () => {
@@ -105,8 +105,8 @@ describe('Alert', () => {
       },
     })
 
-    expect(wrapper.find('.alertContentIcon').exists()).toBe(true)
-    expect(wrapper.find('.alertRoot').classes().join(' ')).toMatch(/bg-neutral-surface-subtle/)
+    expect(wrapper.find('svg').exists()).toBe(true)
+    expect(wrapper.classes().join(' ')).toMatch(/bg-neutral-surface-subtle/)
   })
 
   it('does not render icon when no type and no icon prop', async () => {
@@ -114,7 +114,7 @@ describe('Alert', () => {
       props: { title: 'No icon' },
     })
 
-    expect(wrapper.find('.alertContentIcon').exists()).toBe(false)
+    expect(wrapper.find('svg').exists()).toBe(false)
   })
 
   it('renders custom icon from prop', async () => {
@@ -125,7 +125,7 @@ describe('Alert', () => {
       },
     })
 
-    expect(wrapper.find('.alertContentIcon').exists()).toBe(true)
+    expect(wrapper.find('svg').exists()).toBe(true)
   })
 
   it('supports v-model:visible to control visibility', async () => {
@@ -136,6 +136,6 @@ describe('Alert', () => {
       },
     })
 
-    expect(wrapper.find('.alertRoot').exists()).toBe(false)
+    expect(wrapper.find('.relative').exists()).toBe(false)
   })
 })

@@ -13,7 +13,7 @@ export const menuPositionerCVA = cva('origin-(--transform-origin)')
 export const menuContentCVA = cva(
   [
     'border',
-    'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0',
+    'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0',
     'min-w-48 p-1',
   ],
   {

@@ -26,7 +26,7 @@ type ToastSize = 'md'
 const toaster = useToast()
 
 const toastRootCVA = cva(
-  'z-index-(--z-index) relative h-(--height) translate-x-(--x) translate-y-(--y) scale-(--scale) flex-col overflow-hidden border opacity-(--opacity) transition-all duration-300 ease-in-out will-change-[transform,opacity]',
+  'relative z-(--z-index) h-(--height) translate-x-(--x) translate-y-(--y) scale-(--scale) flex-col overflow-hidden border opacity-(--opacity) transition-all duration-300 ease-in-out will-change-[transform,opacity]',
   {
     variants: {
       intent: {

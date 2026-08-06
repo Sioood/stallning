@@ -86,9 +86,9 @@ export const datePickerPositionerCVA = cva('origin-(--transform-origin)')
 export const datePickerContentCVA = cva(
   [
     'flex flex-col gap-3 border p-3 shadow-md outline-none',
-    'data-[state=open]:animate-in data-[state=closed]:animate-out',
-    'data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0',
-    'data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95',
+    'data-[state=closed]:animate-out data-[state=open]:animate-in',
+    'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+    'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
     'min-w-[17.5rem]',
   ],
   {

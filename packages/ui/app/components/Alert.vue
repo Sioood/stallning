@@ -8,7 +8,7 @@ import type { ClassValue } from 'vue'
 type AlertIntent = 'neutral' | 'success' | 'warning' | 'error' | 'info'
 type AlertSize = 'md'
 
-const alertRootCVA = cva(['alertRoot', 'relative'], {
+const alertRootCVA = cva('relative', {
   variants: {
     intent: {
       error: 'border-error-border bg-error-surface-subtle',
@@ -25,7 +25,7 @@ const alertRootCVA = cva(['alertRoot', 'relative'], {
 
 type AlertRootCVAProps = VariantProps<typeof alertRootCVA>
 
-const alertContentCVA = cva(['alertContent', 'group/alertContent'], {
+const alertContentCVA = cva('group/content', {
   variants: {
     intent: {
       error: 'text-error-text',
@@ -40,7 +40,7 @@ const alertContentCVA = cva(['alertContent', 'group/alertContent'], {
   },
 })
 
-const alertContentIconCVA = cva(['alertContentIcon'], {
+const alertContentIconCVA = cva('', {
   variants: {
     size: {
       md: 'size-4',
@@ -48,7 +48,7 @@ const alertContentIconCVA = cva(['alertContentIcon'], {
   },
 })
 
-const alertTitleCVA = cva(['alertTitle'], {
+const alertTitleCVA = cva('', {
   variants: {
     intent: {
       error: 'text-error-text',
@@ -63,7 +63,7 @@ const alertTitleCVA = cva(['alertTitle'], {
   },
 })
 
-const alertDescriptionCVA = cva(['alertDescription'], {
+const alertDescriptionCVA = cva('', {
   variants: {
     intent: {
       error: 'text-error-text-subtle',
@@ -73,20 +73,20 @@ const alertDescriptionCVA = cva(['alertDescription'], {
       warning: 'text-warning-text-subtle',
     } satisfies Record<AlertIntent, string>,
     size: {
-      md: 'txt-caption group-has-[>svg]/alertContent:col-start-2',
+      md: 'txt-caption group-has-[>svg]/content:col-start-2',
     } satisfies Record<AlertSize, string>,
   },
 })
 
-const alertSlotContentWrapperCVA = cva(['alertSlotContentWrapper'], {
+const alertSlotContentWrapperCVA = cva('', {
   variants: {
     size: {
-      md: 'group-has-[>svg]/alertContent:col-start-2',
+      md: 'group-has-[>svg]/content:col-start-2',
     } satisfies Record<AlertSize, string>,
   },
 })
 
-const alertActionsCVA = cva(['alertActions'], {
+const alertActionsCVA = cva('', {
   variants: {
     size: {
       md: 'flex flex-col items-end gap-2 pt-5',

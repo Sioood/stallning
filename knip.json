@@ -25,6 +25,7 @@
         "app/compodium/**/*.vue",
         "test/**/*.test.ts",
         "test/extend-compodium-meta-stub.ts",
+        "test/nuxt/plugins/i18n-vitest-stub.ts",
         "test/visual/stubs/nuxt-app.ts"
       ],
       "project": ["app/**/*.{ts,vue}", "test/**/*.ts", "i18n/**/*.ts", "*.d.ts"],
@@ -32,7 +33,7 @@
         "~ui/*": ["./*"],
         "~nuxt-essentials/*": ["../nuxt-essentials/*"]
       },
-      "ignoreDependencies": ["vue-router", "vue-i18n"],
+      "ignoreDependencies": ["vue-router", "vue-i18n", "vitest-environment-nuxt"],
       "ignoreBinaries": ["open"],
       "vitest": {
         "config": ["vitest.knip.config.ts"]

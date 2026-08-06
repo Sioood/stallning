@@ -28,8 +28,8 @@ const swipeDirectionMap: Record<DrawerSwipeDirection, ArkSwipeDirection> = {
 
 const drawerBackdropCVA = cva([
   'fixed inset-0 bg-black/50',
-  'data-[state=open]:animate-in data-[state=closed]:animate-out',
-  'data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0',
+  'data-[state=closed]:animate-out data-[state=open]:animate-in',
+  'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
   'data-[state=closed]:duration-300 data-[state=open]:duration-500',
   'data-[state=closed]:ease-[cubic-bezier(0.4,0,0.2,1)] data-[state=open]:ease-[cubic-bezier(0.32,0.72,0,1)]',
 ])
@@ -101,10 +101,7 @@ const drawerContentRootCVA = cva(
  * animation at `translate: 0 0` without cancelling it, preventing restarts.
  */
 const drawerBodyCVA = cva(
-  [
-    'relative flex size-full min-h-0 min-w-0 shadow-xl',
-    'group-data-[dragging]:[animation-play-state:paused]',
-  ],
+  ['relative flex size-full min-h-0 min-w-0 shadow-xl', 'group-data-dragging:paused'],
   {
     variants: {
       intent: {

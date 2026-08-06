@@ -19,8 +19,8 @@ export type ScrollBehavior = 'inside' | 'outside'
 const dialogBackdropCVA = cva([
   'fixed inset-0',
   'bg-black/60',
-  'data-[state=open]:animate-in data-[state=closed]:animate-out',
-  'data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0',
+  'data-[state=closed]:animate-out data-[state=open]:animate-in',
+  'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
   'duration-200',
 ])
 
@@ -43,9 +43,9 @@ const dialogContentCVA = cva(
   [
     'relative mx-auto flex w-full flex-col',
     'shadow-lg',
-    'data-[state=open]:animate-in data-[state=closed]:animate-out',
-    'data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0',
-    'data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95',
+    'data-[state=closed]:animate-out data-[state=open]:animate-in',
+    'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+    'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
     'duration-200',
   ],
   {

@@ -1,12 +1,12 @@
 import { createRequire } from 'node:module'
-import { dirname, join } from 'node:path'
 
 import ViteYaml from '@modyfi/vite-plugin-yaml'
 import { createResolver } from '@nuxt/kit'
 
 const require = createRequire(import.meta.url)
 const { resolve } = createResolver(import.meta.url)
-const piniaEsmEntry = join(dirname(require.resolve('pinia/package.json')), 'dist/pinia.mjs')
+// Pinia 4 is ESM-only and ships `dist/pinia.js` (no more `dist/pinia.mjs`).
+const piniaEsmEntry = require.resolve('pinia')
 
 const isDev = process.env.NODE_ENV !== 'production'
 const isVitest = process.env.VITEST === 'true'

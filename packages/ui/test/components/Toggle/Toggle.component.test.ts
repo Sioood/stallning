@@ -72,7 +72,7 @@ describe('Toggle', () => {
     })
 
     const classes = wrapper.find('button').classes().join(' ')
-    expect(classes).toContain('px-1.5')
+    expect(classes).toContain('p-1.5')
   })
 
   it('applies activeBackground pressed-on styles when pressed and activeBackground is true', async () => {

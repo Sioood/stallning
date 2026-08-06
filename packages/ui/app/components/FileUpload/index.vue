@@ -9,8 +9,9 @@ import {
 } from '@ark-ui/vue/file-upload'
 import { cva, type VariantProps } from 'class-variance-authority'
 
-import type { ClassValue } from 'vue'
 import type { FieldProps } from '~ui/app/components/Form/Field.vue'
+
+import type { ClassValue } from 'vue'
 
 defineOptions({ inheritAttrs: false })
 
@@ -38,10 +39,10 @@ const fileUploadRootCVA = cva('flex flex-col gap-3', {
 const fileUploadLabelCVA = cva('', {
   variants: {
     intent: {
-      accent: 'data-[disabled]:text-accent text-accent-text',
-      neutral: 'data-[disabled]:text-neutral text-neutral-text',
-      primary: 'data-[disabled]:text-primary text-primary-text',
-      secondary: 'data-[disabled]:text-secondary text-secondary-text',
+      accent: 'text-accent-text data-[disabled]:text-accent-text-disabled',
+      neutral: 'text-neutral-text data-[disabled]:text-neutral-text-disabled',
+      primary: 'text-primary-text data-[disabled]:text-primary-text-disabled',
+      secondary: 'text-secondary-text data-[disabled]:text-secondary-text-disabled',
     } satisfies Record<FileUploadIntent, string>,
     size: {
       lg: 'txt-h6',
@@ -90,15 +91,15 @@ const fileUploadItemCVA = cva('flex items-center gap-3 border p-3 transition-col
   variants: {
     intent: {
       accent:
-        'data-[disabled]:border-accent border-accent-border bg-accent-surface text-accent-text disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-accent-fill-subtle',
+        'border-accent-border bg-accent-surface text-accent-text disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-accent-fill-subtle',
       error:
         'data-[disabled]:border-error border-error-border bg-error-surface text-error-text disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-error-fill-subtle',
       neutral:
-        'data-[disabled]:border-neutral border-neutral-border bg-neutral-surface text-neutral-text disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-neutral-fill-subtle',
+        'border-neutral-border bg-neutral-surface text-neutral-text disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-neutral-fill-subtle',
       primary:
-        'data-[disabled]:border-primary border-primary-border bg-primary-surface text-primary-text disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-primary-fill-subtle',
+        'border-primary-border bg-primary-surface text-primary-text disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-primary-fill-subtle',
       secondary:
-        'data-[disabled]:border-secondary border-secondary-border bg-secondary-surface text-secondary-text disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-secondary-fill-subtle',
+        'border-secondary-border bg-secondary-surface text-secondary-text disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-secondary-fill-subtle',
     } satisfies Record<FileUploadIntent | 'error', string>,
     size: {
       lg: 'txt-h6',

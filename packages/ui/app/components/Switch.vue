@@ -7,8 +7,9 @@ import {
 } from '@ark-ui/vue/switch'
 import { cva } from 'class-variance-authority'
 
-import type { ClassValue } from 'vue'
 import type { FieldProps } from '~ui/app/components/Form/Field.vue'
+
+import type { ClassValue } from 'vue'
 
 defineOptions({ inheritAttrs: false })
 
@@ -78,10 +79,10 @@ const switchThumbCVA = cva(
 const switchLabelCVA = cva('', {
   variants: {
     intent: {
-      accent: 'data-[disabled]:text-accent text-accent-text',
-      neutral: 'data-[disabled]:text-neutral text-neutral-text',
-      primary: 'data-[disabled]:text-primary text-primary-text',
-      secondary: 'data-[disabled]:text-secondary text-secondary-text',
+      accent: 'text-accent-text data-[disabled]:text-accent-text-disabled',
+      neutral: 'text-neutral-text data-[disabled]:text-neutral-text-disabled',
+      primary: 'text-primary-text data-[disabled]:text-primary-text-disabled',
+      secondary: 'text-secondary-text data-[disabled]:text-secondary-text-disabled',
     } satisfies Record<SwitchIntent, string>,
     size: {
       lg: 'txt-h6',

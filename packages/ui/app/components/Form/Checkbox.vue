@@ -7,6 +7,8 @@ import {
 import { cva, type VariantProps } from 'class-variance-authority'
 import { useAttrs } from 'vue'
 
+import type { FieldProps } from '~ui/app/components/Form/Field.vue'
+
 import { splitArkAttrs } from '~/utils/ark'
 import {
   checkboxControlCVA,
@@ -20,7 +22,6 @@ import type {
   FormFieldSize,
   UICheckboxSlots,
 } from '~/utils/Components/Form/context'
-import type { FieldProps } from '~ui/app/components/Form/Field.vue'
 
 export type { UICheckboxSlots } from '~/utils/Components/Form/context'
 
@@ -62,12 +63,12 @@ const invalidState = computed(() => Boolean(checkboxInvalidFlag(Boolean(invalid.
 const fieldLabelCVA = cva('', {
   variants: {
     intent: {
-      accent: 'data-[disabled]:text-accent text-accent-text',
+      accent: 'text-accent-text data-[disabled]:text-accent-text-disabled',
       error: '',
       info: '',
-      neutral: 'data-[disabled]:text-neutral text-neutral-text',
-      primary: 'data-[disabled]:text-primary text-primary-text',
-      secondary: 'data-[disabled]:text-secondary text-secondary-text',
+      neutral: 'text-neutral-text data-[disabled]:text-neutral-text-disabled',
+      primary: 'text-primary-text data-[disabled]:text-primary-text-disabled',
+      secondary: 'text-secondary-text data-[disabled]:text-secondary-text-disabled',
       success: '',
       warning: '',
     } satisfies Record<FormFieldIntent, string>,

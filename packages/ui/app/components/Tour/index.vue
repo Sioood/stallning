@@ -7,8 +7,9 @@ import {
 } from '@ark-ui/vue/tour'
 import { cva } from 'class-variance-authority'
 
-import { useLayerZIndexRef } from '~/composables/useLayerZIndexRef'
 import { resolveActionVariant } from '~ui/app/utils/Components/Tour/variants'
+
+import { useLayerZIndexRef } from '~/composables/useLayerZIndexRef'
 
 import type { ClassValue } from 'vue'
 
@@ -183,7 +184,7 @@ const tourActionTriggerCVA = cva(
       variant: {
         default:
           'border border-neutral-border bg-transparent text-neutral-text hover:bg-neutral-fill-subtle disabled:pointer-events-none disabled:opacity-40',
-        primary: 'border-primary-fill bg-primary-fill text-primary-on-fill hover:bg-primary-fill',
+        primary: 'border-primary-fill bg-primary-fill text-primary-on-fill',
       },
     },
   },

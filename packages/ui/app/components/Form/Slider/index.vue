@@ -7,8 +7,9 @@ import {
 } from '@ark-ui/vue/slider'
 import { cva } from 'class-variance-authority'
 
-import type { UISliderSlots } from '~/utils/Components/Form/context'
 import type { FieldProps } from '~ui/app/components/Form/Field.vue'
+
+import type { UISliderSlots } from '~/utils/Components/Form/context'
 
 defineOptions({ inheritAttrs: false })
 
@@ -122,13 +123,13 @@ const sliderThumbCVA = cva(
     variants: {
       intent: {
         accent:
-          'data-[disabled]:bg-accent border-accent-border bg-accent-fill disabled:pointer-events-none disabled:opacity-40',
+          'border-accent-border bg-accent-fill disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-accent-fill-subtle',
         neutral:
-          'data-[disabled]:bg-neutral border-neutral-border bg-neutral-fill disabled:pointer-events-none disabled:opacity-40',
+          'border-neutral-border bg-neutral-fill disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-neutral-fill-subtle',
         primary:
-          'data-[disabled]:bg-primary border-primary-border bg-primary-fill disabled:pointer-events-none disabled:opacity-40',
+          'border-primary-border bg-primary-fill disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-primary-fill-subtle',
         secondary:
-          'data-[disabled]:bg-secondary border-secondary-border bg-secondary-fill disabled:pointer-events-none disabled:opacity-40',
+          'border-secondary-border bg-secondary-fill disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-secondary-fill-subtle',
       } satisfies Record<FormSliderIntent, string>,
       size: {
         lg: 'size-5 rounded-xs border',

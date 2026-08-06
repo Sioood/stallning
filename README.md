@@ -77,6 +77,8 @@ pnpm install
 | `pnpm format:check`  | Check formatting               |
 | `pnpm check-types`   | TypeScript type checking       |
 | `pnpm verify`        | Run full CI check job locally  |
+| `pnpm sync`          | Interactive branch sync wizard |
+| `pnpm sync status`   | Show classified branch delta   |
 | `pnpm knip`          | Detect dead code/unused deps   |
 | `pnpm changeset`     | Create a changeset             |
 

@@ -70,7 +70,7 @@ export default defineNuxtConfig({
         },
   ...(isVitest
     ? {
-        plugins: [resolve('./app/plugins/i18n-vitest-stub.ts')],
+        plugins: [resolve('./test/nuxt/plugins/i18n-vitest-stub.ts')],
       }
     : {}),
   runtimeConfig: {

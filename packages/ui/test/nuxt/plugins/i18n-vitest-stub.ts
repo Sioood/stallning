@@ -1,8 +1,10 @@
 import essentialsTranslations from '~nuxt-essentials/i18n/locales/fr-FR/translations.yaml'
 
-import uiTranslations from '../../i18n/locales/fr-FR/translations.yaml'
+import uiTranslations from '../../../i18n/locales/fr-FR/translations.yaml'
 
-type MessageTree = Record<string, string | MessageTree>
+interface MessageTree {
+  [key: string]: string | MessageTree
+}
 
 function mergeMessages(...sources: MessageTree[]): MessageTree {
   const merged: MessageTree = {}

@@ -34,7 +34,8 @@ allowBuilds:
   vue-demi: true
 
 catalog:
-  '@ark-ui/vue': ^5.38.0
+  # 5.38.0 dropped *.vue.d.ts while index.d.ts still re-exports from *.vue — breaks Vue SFC prop extends.
+  '@ark-ui/vue': 5.37.2
   '@clack/prompts': ^1.7.0
   '@internationalized/date': 3.12.0
   '@nuxt/eslint': ^1.16.0

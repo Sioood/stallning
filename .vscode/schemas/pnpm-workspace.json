@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "pnpm-workspace.yaml (project)",
+  "description": "Local schema: SchemaStore omits confirmModulesPurge (valid in pnpm 11+). Uses additionalProperties so new pnpm settings are not rejected.",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "packages": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "confirmModulesPurge": {
+      "description": "When false, skip the confirmation prompt before removing and recreating node_modules (needed for non-TTY husky/IDE).",
+      "type": "boolean",
+      "default": true
+    },
+    "catalog": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "catalogs": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "allowBuilds": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "overrides": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "minimumReleaseAge": {
+      "type": "number"
+    },
+    "minimumReleaseAgeExclude": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

@@ -12,6 +12,8 @@ concurrency:
 
 env:
   HUSKY: 0
+  PNPM_VERSION: 11.2.2
+  NODE_OPTIONS: --max-old-space-size=4096
 
 jobs:
   check:
@@ -22,7 +24,7 @@ jobs:
 
       - uses: pnpm/action-setup@v4
         with:
-          version: 10.33.0
+          version: ${{ env.PNPM_VERSION }}
 
       - uses: actions/setup-node@v4
         with:
@@ -32,19 +34,16 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - name: Check types
-        run: pnpm check-types
+        run: ./scripts/verify.sh types
 
       - name: Lint
-        run: pnpm lint
+        run: ./scripts/verify.sh lint
 
       - name: Format check
-        run: pnpm format:check
-
-      - name: Build
-        run: pnpm build
+        run: ./scripts/verify.sh format
 
       - name: Dead code check
-        run: pnpm knip
+        run: ./scripts/verify.sh knip
 
-      - name: Unit tests
-        run: pnpm test
+      - name: Build
+        run: ./scripts/verify.sh build

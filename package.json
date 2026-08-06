@@ -16,6 +16,7 @@
     "format": "pnpm exec oxfmt --write .",
     "format:check": "pnpm exec oxfmt --check .",
     "check-types": "turbo run check-types",
+    "verify": "bash ./scripts/verify.sh",
     "prepare": "husky || true",
     "pre-commit": "lint-staged",
     "changeset": "pnpm exec changeset",

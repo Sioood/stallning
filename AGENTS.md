@@ -73,7 +73,8 @@ Conventional commits enforced by commitlint:
 
 ## Security
 
-- `pnpm audit --audit-level=high` runs on every `git push` (husky pre-push)
+- `pnpm audit --audit-level=high` runs on every `git push` (husky pre-push, after `pnpm verify`)
+- Run `make verify` or `pnpm verify` locally to mirror the CI check job before pushing
 
 ## Common Pitfalls
 

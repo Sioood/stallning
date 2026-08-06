@@ -104,10 +104,9 @@ git cherry-pick --abort
 Run after every sync:
 
 ```sh
-pnpm check-types
-pnpm lint
-pnpm format:check
-pnpm build
+make verify
+# or, including security audit (pre-push equivalent):
+make check
 ```
 
 ## Commit and PR conventions

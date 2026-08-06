@@ -17,7 +17,7 @@ A production-ready pnpm workspace monorepo boilerplate with best-in-class DX, te
 ├── packages/
 │   └── config/                 # Shared configs (eslint, oxlint, typescript)
 ├── .github/
-│   ├── workflows/ci.yml        # CI pipeline
+│   ├── workflows/ci.yaml        # CI pipeline
 │   ├── workflows/release.yaml  # Changesets release
 │   └── pull_request_template.md
 ├── turbo.json                  # Turborepo task config
@@ -47,16 +47,27 @@ pnpm install
 
 ### Root (Turborepo orchestrated)
 
-| Script              | Description                  |
-| ------------------- | ---------------------------- |
-| `pnpm dev`          | Start all dev servers        |
-| `pnpm build`        | Build all packages           |
-| `pnpm lint`         | ESLint + Oxlint all packages |
-| `pnpm format`       | Format with oxfmt            |
-| `pnpm format:check` | Check formatting             |
-| `pnpm check-types`  | TypeScript type checking     |
-| `pnpm knip`         | Detect dead code/unused deps |
-| `pnpm changeset`    | Create a changeset           |
+| Script              | Description                   |
+| ------------------- | ----------------------------- |
+| `pnpm dev`          | Start all dev servers         |
+| `pnpm build`        | Build all packages            |
+| `pnpm lint`         | ESLint + Oxlint all packages  |
+| `pnpm format`       | Format with oxfmt             |
+| `pnpm format:check` | Check formatting              |
+| `pnpm check-types`  | TypeScript type checking      |
+| `pnpm verify`       | Run full CI check job locally |
+| `pnpm knip`         | Detect dead code/unused deps  |
+| `pnpm changeset`    | Create a changeset            |
+
+### Makefile
+
+Run `make help` to list all targets. Common shortcuts:
+
+| Target        | Description                                      |
+| ------------- | ------------------------------------------------ |
+| `make verify` | CI check job locally (types, lint, format, etc.) |
+| `make check`  | `verify` + security audit (pre-push equivalent)  |
+| `make fix`    | Auto-fix lint and formatting issues              |
 
 ---
 
@@ -64,11 +75,11 @@ pnpm install
 
 ### Git Hooks (Husky)
 
-| Hook       | Action                                        |
-| ---------- | --------------------------------------------- |
-| pre-commit | lint-staged (oxlint + eslint + oxfmt)         |
-| pre-push   | `git fetch` + `pnpm audit --audit-level=high` |
-| commit-msg | commitlint (conventional commits)             |
+| Hook       | Action                                                        |
+| ---------- | ------------------------------------------------------------- |
+| pre-commit | lint-staged (oxlint + eslint + oxfmt)                         |
+| pre-push   | `git fetch` + `pnpm verify` + `pnpm audit --audit-level=high` |
+| commit-msg | commitlint (conventional commits)                             |
 
 ### Commit Convention
 
@@ -125,16 +136,12 @@ pnpm deps:check:major   # Check for major updates
 
 ## CI/CD Pipeline
 
-### GitHub Actions (ci.yml)
+### GitHub Actions (ci.yaml)
 
 ```
 check job:
   ├── pnpm install --frozen-lockfile
-  ├── check-types
-  ├── lint (eslint + oxlint)
-  ├── format:check
-  ├── build
-  └── knip (dead code)
+  └── scripts/verify.sh (types → lint → format:check → knip → build)
 ```
 
 ### Releases (Changesets)

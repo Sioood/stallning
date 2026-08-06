@@ -1,10 +1,5 @@
 # @stallning/typescript
 
-Shared **TypeScript** preset (`base.json`) extended by all TS projects.
+Shared TS preset. See [../AGENTS.md](../AGENTS.md).
 
-Parent context: [../AGENTS.md](../AGENTS.md).
-
-## This package only
-
-- **Entry:** `base.json` — strict, ESNext, DOM; no project-specific `paths` here
-- **Scope:** Config JSON only — no application source; `check-types` is a no-op by design
+- Entry: `base.json` (strict, ESNext) — no project `paths` here

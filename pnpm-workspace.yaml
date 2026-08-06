@@ -12,51 +12,51 @@ allowBuilds:
   vue-demi: true
 
 catalog:
-  '@ark-ui/vue': ^5.36.2
+  '@ark-ui/vue': ^5.38.0
   '@clack/prompts': ^1.7.0
   '@internationalized/date': 3.12.0
-  '@nuxt/eslint': ^1.15.2
+  '@nuxt/eslint': ^1.16.0
   '@nuxt/kit': ^4.5.2
   '@nuxtjs/i18n': ^10.6.0
-  '@nuxtjs/seo': ^5.1.3
+  '@nuxtjs/seo': ^5.3.10
   '@pinia/nuxt': ^0.11.3
-  '@unovis/ts': ^1.6.5
-  '@unovis/vue': ^1.6.5
+  '@unovis/ts': ^1.6.7
+  '@unovis/vue': ^1.6.7
   pinia: ^3.0.4
-  '@playwright/test': ^1.60.0
-  '@tailwindcss/vite': ^4.3.0
-  tailwindcss: ^4.3.0
-  '@tanstack/form-core': ^1.32.0
+  '@playwright/test': ^1.62.1
+  '@tailwindcss/vite': ^4.3.3
+  tailwindcss: ^4.3.3
+  '@tanstack/form-core': ^1.33.3
   '@tanstack/table-core': ^8.21.3
-  '@tanstack/vue-form': ^1.32.0
+  '@tanstack/vue-form': ^1.33.3
   '@tanstack/vue-table': ^8.21.3
-  '@tanstack/vue-virtual': ^3.13.25
+  '@tanstack/vue-virtual': ^3.13.35
   '@types/node': ^26.1.2
   '@typescript-eslint/parser': ^8.66.0
   '@vite-pwa/nuxt': ^1.1.1
   '@vitest/browser': ^4.1.10
   '@vitest/browser-playwright': ^4.1.10
   '@vitest/coverage-v8': ^4.1.10
-  '@vueuse/core': ^14.3.0
-  '@vueuse/nuxt': ^14.3.0
+  '@vueuse/core': ^14.4.0
+  '@vueuse/nuxt': ^14.4.0
   class-variance-authority: ^0.7.1
   commander: ^15.0.0
-  fuse.js: ^7.4.2
+  fuse.js: ^7.5.0
   eslint: ^10.8.0
   eslint-config-prettier: ^10.1.8
-  eslint-plugin-vue: ^10.9.1
+  eslint-plugin-vue: ^10.10.0
   nuxt: ^4.5.2
   nuxt-security: ^2.6.0
   oxfmt: ^0.62.0
   oxlint: ^1.77.0
   oxlint-tailwindcss: ^0.8.0
-  playwright: ^1.60.0
+  playwright: ^1.62.1
   tailwind-merge: ^3.6.0
   typescript: ^6.0.3
   typescript-eslint: ^8.66.0
   vitest: ^4.1.10
-  'vue': ^3.5.34
-  vue-eslint-parser: ^10.4.0
+  'vue': ^3.5.41
+  vue-eslint-parser: ^10.4.1
   'vue-router': ^5.2.0
   'yaml': ^2.9.0
   zod: ^4.4.3
@@ -99,17 +99,17 @@ packageExtensions:
 
 overrides:
   vue-router: ^5.2.0
-  sharp: '>=0.35.0'
+  sharp: '>=0.35.3'
   '@internationalized/date': 3.12.0
   '@vitest/browser@>=4.0.0 <4.1.10': '>=4.1.10'
   vitest@>=4.0.0 <4.1.10: '>=4.1.10'
   esbuild: '>=0.28.1'
-  '@nuxt/nitro-server@>=4.2.0 <=4.4.5': '>=4.4.6'
+  '@nuxt/nitro-server@>=4.2.0 <=4.4.5': '>=4.5.2'
   ajv@>=7.0.0-alpha.0 <8.18.0: '>=8.20.0'
   brace-expansion@>=2.0.0 <2.0.3: '>=5.0.9'
   brace-expansion@>=3.0.0 <5.0.9: '>=5.0.9'
   brace-expansion@>=5.0.0 <5.0.9: '>=5.0.9'
-  devalue@>=5.6.3 <=5.8.0: '>=5.8.1'
+  devalue@>=5.6.3 <=5.8.0: '>=5.9.0'
   fast-uri@<=3.1.0: '>=3.1.4'
   fast-uri@<=3.1.3: '>=3.1.4'
   flatted@<3.4.0: '>=3.4.0'
@@ -119,10 +119,10 @@ overrides:
   js-yaml@>=4.0.0 <4.3.0: 4.3.1
   minimatch@>=9.0.0 <9.0.6: '>=10.2.6'
   minimatch@>=9.0.0 <9.0.7: '>=10.2.6'
-  nuxt@>=4.0.0-alpha.1 <=4.4.5: '>=4.4.6'
+  nuxt@>=4.0.0-alpha.1 <=4.4.5: '>=4.5.2'
   picomatch@<2.3.2: '>=2.3.2'
   picomatch@>=4.0.0 <4.0.4: '>=4.0.5'
-  qs@>=6.11.1 <=6.15.1: '>=6.15.2'
+  qs@>=6.11.1 <=6.15.1: '>=6.15.3'
   turbo@<=2.9.13: '>=2.9.14'
   turbo@>=1.1.0 <2.9.14: '>=2.10.8'
-  ws@>=8.0.0 <8.20.1: '>=8.21.0'
+  ws@>=8.0.0 <8.20.1: '>=8.21.2'

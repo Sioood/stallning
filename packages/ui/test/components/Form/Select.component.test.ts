@@ -190,6 +190,6 @@ describe('UIFormSelect', () => {
     await wrapper.find('button[data-part="trigger"]').trigger('click')
     await flushPromises()
 
-    expect(wrapper.text()).toMatch(/Select All|Sélectionner Tout/)
+    expect(wrapper.text()).toMatch(/Select All|Tout sélectionner/)
   })
 })

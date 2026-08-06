@@ -105,7 +105,8 @@ Conventional commits enforced by commitlint:
 
 - `nuxt-security` is **disabled in dev** (`enabled: !isDev`) to allow DevTools
 - In production: strict CSP (nonce-based), CORS, HSTS, rate limiting, SRI
-- `pnpm audit --audit-level=high` runs on every `git push` (husky pre-push)
+- `pnpm audit --audit-level=high` runs on every `git push` (husky pre-push, after `pnpm verify`)
+- Run `make verify` or `pnpm verify` locally to mirror the CI check job before pushing
 - Override security config per-route in consuming apps via `routeRules`
 
 ## Guides

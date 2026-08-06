@@ -76,8 +76,20 @@ pnpm install
 | `pnpm format`        | Format with oxfmt              |
 | `pnpm format:check`  | Check formatting               |
 | `pnpm check-types`   | TypeScript type checking       |
+| `pnpm verify`        | Run full CI check job locally  |
 | `pnpm knip`          | Detect dead code/unused deps   |
 | `pnpm changeset`     | Create a changeset             |
+
+### Makefile
+
+Run `make help` to list all targets. Common shortcuts:
+
+| Target        | Description                                      |
+| ------------- | ------------------------------------------------ |
+| `make verify` | CI check job locally (types, lint, format, etc.) |
+| `make check`  | `verify` + security audit (pre-push equivalent)  |
+| `make fix`    | Auto-fix lint and formatting issues              |
+| `make e2e`    | Playwright E2E tests (not part of pre-push)      |
 
 ### Per-package (UI)
 
@@ -278,7 +290,7 @@ In **development**, CSP/CORS/rate-limiting are disabled to allow Nuxt DevTools a
 ### Supply Chain Protection
 
 - **`minimumReleaseAge: 1440`** in `pnpm-workspace.yaml` — blocks packages published less than 24h ago
-- **`pnpm audit --audit-level=high`** runs on every `git push` (husky pre-push hook)
+- **`pnpm audit --audit-level=high`** runs on every `git push` (husky pre-push hook, after `pnpm verify`)
 - **Targeted hoisting** (`.npmrc`) instead of `shamefully-hoist` — strict dependency resolution
 
 ### Overriding Security in Consuming Apps
@@ -306,11 +318,11 @@ export default defineNuxtConfig({
 
 ### Git Hooks (Husky)
 
-| Hook       | Action                                        |
-| ---------- | --------------------------------------------- |
-| pre-commit | lint-staged (oxlint + eslint + oxfmt)         |
-| pre-push   | `git fetch` + `pnpm audit --audit-level=high` |
-| commit-msg | commitlint (conventional commits)             |
+| Hook       | Action                                                        |
+| ---------- | ------------------------------------------------------------- |
+| pre-commit | lint-staged (oxlint + eslint + oxfmt)                         |
+| pre-push   | `git fetch` + `pnpm verify` + `pnpm audit --audit-level=high` |
+| commit-msg | commitlint (conventional commits)                             |
 
 ### Commit Convention
 
@@ -423,12 +435,7 @@ const myComponentCVA = cva('base-classes', {
 ```
 check job:
   ├── pnpm install --frozen-lockfile
-  ├── check-types
-  ├── lint (eslint + oxlint)
-  ├── format:check
-  ├── build
-  ├── knip (dead code)
-  └── test (unit + component)
+  └── scripts/verify.sh (types → lint → format:check → knip → test → build)
 
 e2e job (after check):
   ├── pnpm install --frozen-lockfile

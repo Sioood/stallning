@@ -58,10 +58,6 @@ const collapsibleIconCVA = cva('shrink-0', {
 
 const collapsibleContentCVA = cva('overflow-hidden', {
   variants: {
-    animated: {
-      false: '',
-      true: '',
-    },
     size: {
       md: 'pt-2',
     } satisfies Record<CollapsibleSize, string>,
@@ -176,7 +172,8 @@ extendCompodiumMeta({
     </Collapsible.Trigger>
 
     <Collapsible.Content
-      :class="cn(collapsibleContentCVA({ size, animated: contentAnimated }), ui?.content)"
+      :class="cn(collapsibleContentCVA({ size }), ui?.content)"
+      :data-static="contentAnimated ? undefined : ''"
     >
       <slot />
     </Collapsible.Content>
@@ -220,8 +217,8 @@ extendCompodiumMeta({
   }
 }
 
-:deep([data-part='content']--static[data-state='open']),
-:deep([data-part='content']--static[data-state='closed']) {
+:deep([data-part='content'][data-static][data-state='open']),
+:deep([data-part='content'][data-static][data-state='closed']) {
   animation: none;
 }
 </style>

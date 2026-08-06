@@ -34,22 +34,22 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - name: Check types
-        run: pnpm check-types
+        run: ./scripts/verify.sh types
 
       - name: Lint
-        run: pnpm lint
+        run: ./scripts/verify.sh lint
 
       - name: Format check
-        run: pnpm format:check
+        run: ./scripts/verify.sh format
 
       - name: Dead code check
-        run: pnpm knip
+        run: ./scripts/verify.sh knip
 
       - name: Unit tests
-        run: pnpm test
+        run: ./scripts/verify.sh test
 
       - name: Build
-        run: pnpm build
+        run: ./scripts/verify.sh build
 
   e2e:
     name: E2E

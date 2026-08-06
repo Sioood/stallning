@@ -9,14 +9,27 @@ const { resolve } = createResolver(import.meta.url)
 const piniaEsmEntry = join(dirname(require.resolve('pinia/package.json')), 'dist/pinia.mjs')
 
 const isDev = process.env.NODE_ENV !== 'production'
+const isVitest = process.env.VITEST === 'true'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+  hooks: {
+    // @unhead/bundler SSRStaticReplace breaks Vite 8 client builds: it rewrites
+    // assignment targets (`head.ssr = false` → `false = false`) because oxc-walker
+    // skips AssignmentExpression parents. Safe to disable until upstream fixes it.
+    'vite:extendConfig'(config) {
+      config.plugins = (config.plugins ?? []).filter((plugin) => {
+        const name =
+          plugin && typeof plugin === 'object' && 'name' in plugin ? plugin.name : undefined
+        return name !== 'unhead:ssr-static-replace'
+      })
+    },
+  },
   modules: [
     '@nuxt/eslint',
-    '@nuxtjs/i18n',
+    ...(!isVitest ? ['@nuxtjs/i18n'] : []),
     '@nuxtjs/seo',
     '@pinia/nuxt',
     '@vite-pwa/nuxt',
@@ -26,7 +39,7 @@ export default defineNuxtConfig({
 
   alias: {
     '~nuxt-essentials': resolve('./'),
-    pinia: piniaEsmEntry,
+    ...(!isVitest ? { pinia: piniaEsmEntry } : {}),
   },
   eslint: {
     config: {

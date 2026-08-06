@@ -57,16 +57,22 @@ export default defineNuxtConfig({
       xs: 320,
     },
   },
-  imports: enableCompodium
-    ? undefined
-    : {
-        presets: [
-          {
-            from: resolve('./app/utils/extend-compodium-meta-stub.ts'),
-            imports: ['extendCompodiumMeta'],
-          },
-        ],
-      },
+  imports:
+    enableCompodium || isVitest
+      ? undefined
+      : {
+          presets: [
+            {
+              from: resolve('./app/utils/extend-compodium-meta-stub.ts'),
+              imports: ['extendCompodiumMeta'],
+            },
+          ],
+        },
+  ...(isVitest
+    ? {
+        plugins: [resolve('./app/plugins/i18n-vitest-stub.ts')],
+      }
+    : {}),
   runtimeConfig: {
     public: {
       siteUrl: 'https://ui.com',

@@ -25,6 +25,14 @@ export const imports = defineConfig([
             'type',
           ],
           'newlines-between': 'always',
+          pathGroups: [
+            {
+              group: 'internal',
+              pattern: '@stallning/**',
+              position: 'before',
+            },
+          ],
+          pathGroupsExcludedImportTypes: ['builtin', 'external'],
         },
       ],
     },

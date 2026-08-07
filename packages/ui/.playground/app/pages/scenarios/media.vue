@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
 definePageMeta({ layout: 'scenario' })
 
 const upvotePressed = ref(false)
 const downvotePressed = ref(false)
 const bookmarkPressed = ref(false)
 const crewOpen = ref(false)
-const awardsOpen = ref(false)
+const awardsOpen = ref(true)
 const activeNav = ref('accueil')
 
 const movie = {
@@ -23,13 +21,12 @@ const movie = {
     'Christopher McDonald',
     'Mark Margolis',
   ],
-  category: 'Films > Drame',
   classification: 'Interdit -12',
   country: 'États-Unis',
   director: 'Darren Aronofsky',
   festival: 'Cannes 2000 (hors compétition)',
   genre: 'Drame',
-  imdb: '8.3/10',
+  imdb: '8.3',
   imdbUrl: 'https://www.imdb.com/fr/title/tt0180093/',
   language: 'VFF, VO',
   metascore: '71',
@@ -37,6 +34,7 @@ const movie = {
   originalTitle: 'Requiem for a Dream',
   posterUrl:
     'https://m.media-amazon.com/images/M/MV5BOTdiNzJlOWUtNWMwNS00NmFlLWI0YTEtZmI3YjIzZWUyY2Y3XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX101_CR0,0,101,150_.jpg',
+  releaseDate: '6 octobre 2000',
   runtime: '1 h 42 min',
   synopsis:
     "À Coney Island, Sara Goldfarb, veuve recluse accro à la télévision, rêve de participer à son émission favorite. Son fils Harry, sa petite amie Marion et leur ami Tyrone vivent dans l'euphorie de l'héroïne jusqu'à ce que leurs addictions les entraînent dans une spirale d'illusions, de désespoir et d'autodestruction.",
@@ -60,50 +58,40 @@ const navTabs = [
   { icon: 'tabler:file-text', label: 'Mentions', value: 'mentions' },
 ] as const
 
-const metadataTags = [
-  { label: 'Genre', value: movie.genre },
+const heroMeta = [
+  movie.genre,
+  movie.runtime,
+  movie.classification,
+  movie.year,
+  movie.country,
+] as const
+
+const scoreCards = [
+  { label: 'IMDb', tone: 'accent' as const, value: `${movie.imdb}/10` },
+  { label: 'Metascore', tone: 'default' as const, value: movie.metascore },
+  { label: 'Durée', tone: 'default' as const, value: movie.runtime },
+  { label: 'Année', tone: 'default' as const, value: movie.year },
+  { label: 'Classification', tone: 'default' as const, value: movie.classification },
+  { label: 'Pays', tone: 'default' as const, value: movie.country },
+] as const
+
+const facts = [
+  { label: 'Titre original', value: movie.originalTitle },
+  { label: 'Réalisateur', value: movie.director },
+  { label: 'Scénario', value: movie.writers },
+  { label: 'Musique', value: movie.music },
   { label: 'Langue', value: movie.language },
-  { label: 'Durée', value: movie.runtime },
-  { label: 'Pays', value: movie.country },
+  { label: 'Festival', value: movie.festival },
+  { label: 'Sortie', value: movie.releaseDate },
 ] as const
 
-type StatTone = 'default' | 'success' | 'error' | 'accent'
-
-const statRows: ReadonlyArray<ReadonlyArray<{ label: string; value: string; tone: StatTone }>> = [
-  [
-    { label: 'IMDb', tone: 'accent', value: movie.imdb },
-    { label: 'METASCORE', tone: 'default', value: movie.metascore },
-    { label: 'DURÉE', tone: 'default', value: movie.runtime },
-  ],
-  [
-    { label: 'ANNÉE', tone: 'default', value: movie.year },
-    { label: 'CLASSIFICATION', tone: 'default', value: movie.classification },
-    { label: 'PAYS', tone: 'default', value: movie.country },
-  ],
-]
-
-const filmInfoRows = [
-  [
-    { label: 'Titre original', value: movie.originalTitle },
-    { label: 'Réalisateur', value: movie.director },
-    { label: 'Scénario', value: movie.writers },
-  ],
-  [
-    { label: 'Musique', value: movie.music },
-    { label: 'Festival', value: movie.festival },
-    { label: 'Sortie', value: '6 octobre 2000' },
-  ],
-] as const
+const scoreValueClass = {
+  accent: 'text-accent-text',
+  default: 'text-neutral-text',
+} as const
 
 const prevMovie = 'American Beauty (1999)'
 const nextMovie = 'Memento (2000)'
-
-const statValueClass: Record<StatTone, string> = {
-  accent: 'text-accent-text',
-  default: 'text-neutral-text',
-  error: 'text-error-text',
-  success: 'text-success-text',
-}
 
 const collapsibleTriggerUi = {
   indicator: 'sr-only',
@@ -112,34 +100,18 @@ const collapsibleTriggerUi = {
 </script>
 
 <template>
-  <div class="flex min-h-[calc(100svh-3.25rem)] text-neutral-text">
+  <div
+    class="flex min-h-[calc(100svh-3.25rem)] bg-primary-bg text-neutral-text dark:bg-primary-bg-subtle"
+  >
     <aside
-      class="fixed top-[3.25rem] z-30 flex h-[calc(100svh-3.25rem)] w-56 flex-col border-r border-neutral-border-subtle md:w-60"
+      class="fixed top-[3.25rem] z-30 flex h-[calc(100svh-3.25rem)] w-56 flex-col border-r border-neutral-border-subtle bg-neutral-surface-subtle md:w-60"
     >
-      <div class="border-b border-neutral-border-subtle p-4">
-        <h1 class="txt-h6 font-mono font-bold tracking-wider text-neutral-text">Ställning TV</h1>
-        <div class="mt-3 flex items-center justify-between gap-2">
-          <span class="txt-caption text-neutral-text-subtle">siod</span>
-          <div class="flex items-center gap-1">
-            <UIButton
-              variant="ghost"
-              intent="neutral"
-              size="sm"
-              leading-icon="tabler:bell"
-              aria-label="Notifications"
-            />
-            <UIButton
-              variant="ghost"
-              intent="neutral"
-              size="sm"
-              leading-icon="tabler:logout"
-              aria-label="Déconnexion"
-            />
-          </div>
-        </div>
+      <div class="border-b border-neutral-border-subtle px-5 py-5">
+        <p class="txt-h6 font-mono font-bold tracking-wider text-neutral-text">Ställning TV</p>
+        <p class="txt-caption mt-1 text-neutral-text-subtle">Catalogue cinéma</p>
       </div>
 
-      <nav class="flex-1 overflow-y-auto p-1">
+      <nav class="flex-1 overflow-y-auto px-2 py-3">
         <UITabs
           v-model="activeNav"
           orientation="vertical"
@@ -156,249 +128,256 @@ const collapsibleTriggerUi = {
         />
       </nav>
 
-      <div class="border-t border-neutral-border-subtle p-4">
+      <div class="border-t border-neutral-border-subtle px-5 py-4">
         <div class="flex items-center gap-2">
-          <div class="size-2 animate-pulse bg-success-fill" />
+          <span class="size-2 shrink-0 rounded-full bg-success-fill" />
           <span class="txt-caption text-neutral-text-subtle">Service online</span>
         </div>
-        <span class="txt-caption text-neutral-text-subtle">v1.0.0</span>
+        <p class="txt-caption mt-1 text-neutral-text-muted">v1.0.0</p>
       </div>
     </aside>
 
-    <main class="ml-56 flex-1 px-6 py-8 md:ml-60 md:px-12 lg:px-16">
-      <div class="mb-8 flex gap-4">
-        <UIButton
-          variant="ghost"
-          intent="neutral"
-          class="w-full items-center justify-start gap-3 rounded-xs px-4 py-3"
-        >
-          <Icon name="tabler:chevron-left" class="size-4 shrink-0 self-center" />
-          <div class="min-w-0 text-left">
-            <span class="txt-label block leading-none text-neutral-text">PRÉCÉDENT</span>
-            <span class="txt-caption mt-1 block truncate text-neutral-text-subtle">{{
-              prevMovie
-            }}</span>
-          </div>
-        </UIButton>
-        <UIButton
-          variant="ghost"
-          intent="neutral"
-          class="w-full items-center justify-end gap-3 rounded-xs px-4 py-3"
-        >
-          <div class="min-w-0 text-right">
-            <span class="txt-label block leading-none text-neutral-text">SUIVANT</span>
-            <span class="txt-caption mt-1 block truncate text-neutral-text-subtle">{{
-              nextMovie
-            }}</span>
-          </div>
-          <Icon name="tabler:chevron-right" class="size-4 shrink-0 self-center" />
-        </UIButton>
+    <main class="ml-56 min-w-0 flex-1 md:ml-60">
+      <div class="border-b border-neutral-border-subtle px-6 py-3 md:px-10 lg:px-14">
+        <div class="mx-auto flex max-w-5xl items-center justify-between gap-4">
+          <UIButton
+            variant="ghost"
+            intent="neutral"
+            size="sm"
+            class="max-w-[45%] min-w-0 justify-start gap-2"
+          >
+            <Icon name="tabler:arrow-left" class="size-4 shrink-0" />
+            <span class="truncate text-neutral-text-subtle">{{ prevMovie }}</span>
+          </UIButton>
+          <UIButton
+            variant="ghost"
+            intent="neutral"
+            size="sm"
+            class="max-w-[45%] min-w-0 justify-end gap-2"
+          >
+            <span class="truncate text-neutral-text-subtle">{{ nextMovie }}</span>
+            <Icon name="tabler:arrow-right" class="size-4 shrink-0" />
+          </UIButton>
+        </div>
       </div>
 
-      <UICardBase variant="subtle" intent="neutral" size="lg" class="mb-6">
-        <div class="flex gap-6">
-          <div class="w-48 shrink-0">
-            <NuxtImg
-              :src="movie.posterUrl"
-              :alt="`Affiche de ${movie.title}`"
-              width="192"
-              height="288"
-              class="aspect-2/3 w-full border border-neutral-border-subtle object-cover"
-            />
-          </div>
-
-          <div class="flex-1 space-y-4">
-            <div>
-              <h2 class="txt-h3 text-neutral-text">
-                {{ movie.title }}
-                <span class="text-neutral-text-subtle">({{ movie.year }})</span>
-              </h2>
-              <p class="txt-caption mt-1 text-neutral-text-subtle">
-                {{ movie.originalTitle }} — {{ movie.festival }}
-              </p>
-            </div>
-
-            <UIBadge :label="movie.category" intent="orange" />
-
-            <div class="flex flex-wrap gap-2">
-              <UIBadge
-                v-for="tag in metadataTags"
-                :key="tag.label"
-                :label="`${tag.label}: ${tag.value}`"
-                intent="neutral"
+      <div
+        class="mx-auto flex max-w-5xl flex-col gap-6 px-6 py-8 md:gap-8 md:px-10 md:py-10 lg:px-14"
+      >
+        <UICardBase variant="subtle" intent="neutral" size="lg" class="w-full">
+          <div class="flex flex-col gap-8 md:flex-row md:items-start md:gap-8">
+            <div class="mx-auto w-44 shrink-0 sm:w-52 md:mx-0 md:w-48">
+              <NuxtImg
+                :src="movie.posterUrl"
+                :alt="`Affiche de ${movie.title}`"
+                width="192"
+                height="288"
+                class="aspect-2/3 w-full rounded-xs border border-neutral-border-subtle object-cover"
               />
             </div>
 
-            <div class="grid grid-cols-3 gap-2">
-              <UICardBase
-                v-for="(cell, index) in statRows.flat()"
-                :key="index"
-                variant="default"
-                intent="neutral"
-                size="sm"
-              >
-                <span class="txt-label block text-neutral-text-subtle">{{ cell.label }}</span>
-                <span class="txt-caption" :class="statValueClass[cell.tone]">{{ cell.value }}</span>
-              </UICardBase>
-            </div>
-
-            <div class="grid grid-cols-3 gap-2">
-              <UICardBase
-                v-for="(cell, index) in filmInfoRows.flat()"
-                :key="index"
-                variant="default"
-                intent="neutral"
-                size="sm"
-              >
-                <span class="txt-label block text-neutral-text-subtle">{{ cell.label }}</span>
-                <span class="txt-caption text-neutral-text">{{ cell.value }}</span>
-              </UICardBase>
-            </div>
-
-            <div class="flex flex-wrap items-center gap-3">
-              <span class="txt-label text-neutral-text-subtle">Noter ce film :</span>
-              <UIToggle v-model:pressed="upvotePressed" size="sm" variant="subtle" intent="neutral">
-                <template #on>
-                  <Icon name="tabler:thumb-up-filled" class="size-3.5 shrink-0" />
-                  <span class="leading-none">J'aime</span>
-                </template>
-                <template #off>
-                  <Icon name="tabler:thumb-up" class="size-3.5 shrink-0" />
-                  <span class="leading-none">J'aime</span>
-                </template>
-              </UIToggle>
-              <UIToggle
-                v-model:pressed="downvotePressed"
-                size="sm"
-                variant="subtle"
-                intent="neutral"
-              >
-                <template #on>
-                  <Icon name="tabler:thumb-down-filled" class="size-3.5 shrink-0" />
-                  <span class="leading-none">Je n'aime pas</span>
-                </template>
-                <template #off>
-                  <Icon name="tabler:thumb-down" class="size-3.5 shrink-0" />
-                  <span class="leading-none">Je n'aime pas</span>
-                </template>
-              </UIToggle>
-            </div>
-
-            <UIDivider intent="neutral" />
-
-            <div class="flex flex-wrap items-center gap-2">
-              <UIButton intent="accent" leading-icon="tabler:player-play">
-                Voir la bande-annonce
-              </UIButton>
-              <UIToggle
-                v-model:pressed="bookmarkPressed"
-                variant="subtle"
-                intent="neutral"
-                size="md"
-              >
-                <template #on>
-                  <Icon name="tabler:bookmark-filled" class="size-4 shrink-0" />
-                  <span class="leading-none">Marque-page</span>
-                </template>
-                <template #off>
-                  <Icon name="tabler:bookmark" class="size-4 shrink-0" />
-                  <span class="leading-none">Marque-page</span>
-                </template>
-              </UIToggle>
-            </div>
-
-            <div class="flex flex-wrap items-center gap-2">
-              <UIButton
-                variant="subtle"
-                size="sm"
-                intent="accent"
-                leading-icon="tabler:device-tv"
-                :to="movie.imdbUrl"
-                target="_blank"
-                text="IMDb"
-              />
-              <UIButton
-                variant="subtle"
-                size="sm"
-                intent="info"
-                leading-icon="tabler:device-tv"
-                :to="movie.tmdbUrl"
-                target="_blank"
-                text="TMDB"
-              />
-              <UIButton
-                variant="subtle"
-                size="sm"
-                intent="neutral"
-                leading-icon="tabler:share"
-                text="Partager"
-              />
-            </div>
-
-            <UIDivider intent="neutral" />
-
-            <div class="grid grid-cols-2 gap-6">
-              <div>
-                <h3 class="txt-label mb-2 text-neutral-text-subtle">SYNOPSIS</h3>
-                <p class="txt-base leading-relaxed text-neutral-text">
-                  {{ movie.synopsis }}
+            <div class="flex min-w-0 flex-1 flex-col gap-5">
+              <div class="flex flex-col gap-2">
+                <div class="flex flex-wrap items-center gap-2">
+                  <UIBadge :label="movie.genre" intent="accent" size="sm" />
+                  <span class="txt-caption text-neutral-text-muted">{{ movie.festival }}</span>
+                </div>
+                <h1 class="txt-h2 text-balance text-neutral-text">
+                  {{ movie.title }}
+                  <span class="font-normal text-neutral-text-subtle">({{ movie.year }})</span>
+                </h1>
+                <p class="txt-caption text-neutral-text-subtle">
+                  {{ heroMeta.join(' · ') }}
                 </p>
               </div>
-              <div>
-                <h3 class="txt-label mb-2 text-neutral-text-subtle">DISTRIBUTION</h3>
-                <div class="flex flex-wrap gap-2">
-                  <UIBadge
-                    v-for="actor in movie.casting"
-                    :key="actor"
-                    :label="actor"
-                    intent="neutral"
-                  />
-                </div>
+
+              <div class="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                <UICardBase
+                  v-for="score in scoreCards"
+                  :key="score.label"
+                  variant="default"
+                  intent="neutral"
+                  size="sm"
+                  class="flex flex-col gap-1"
+                >
+                  <span class="txt-caption text-neutral-text-muted">{{ score.label }}</span>
+                  <span class="txt-label tabular-nums" :class="scoreValueClass[score.tone]">
+                    {{ score.value }}
+                  </span>
+                </UICardBase>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-2">
+                <UIButton intent="accent" size="md" leading-icon="tabler:player-play">
+                  Voir la bande-annonce
+                </UIButton>
+                <UIToggle
+                  v-model:pressed="bookmarkPressed"
+                  variant="subtle"
+                  intent="neutral"
+                  size="md"
+                >
+                  <template #on>
+                    <Icon name="tabler:bookmark-filled" class="size-4 shrink-0" />
+                    <span class="leading-none">Enregistré</span>
+                  </template>
+                  <template #off>
+                    <Icon name="tabler:bookmark" class="size-4 shrink-0" />
+                    <span class="leading-none">Marque-page</span>
+                  </template>
+                </UIToggle>
+                <UIToggle
+                  v-model:pressed="upvotePressed"
+                  size="md"
+                  variant="subtle"
+                  intent="neutral"
+                  aria-label="J'aime"
+                >
+                  <template #on>
+                    <Icon name="tabler:thumb-up-filled" class="size-4 shrink-0" />
+                  </template>
+                  <template #off>
+                    <Icon name="tabler:thumb-up" class="size-4 shrink-0" />
+                  </template>
+                </UIToggle>
+                <UIToggle
+                  v-model:pressed="downvotePressed"
+                  size="md"
+                  variant="subtle"
+                  intent="neutral"
+                  aria-label="Je n'aime pas"
+                >
+                  <template #on>
+                    <Icon name="tabler:thumb-down-filled" class="size-4 shrink-0" />
+                  </template>
+                  <template #off>
+                    <Icon name="tabler:thumb-down" class="size-4 shrink-0" />
+                  </template>
+                </UIToggle>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-2">
+                <UIButton
+                  variant="subtle"
+                  size="sm"
+                  intent="accent"
+                  leading-icon="tabler:external-link"
+                  :to="movie.imdbUrl"
+                  target="_blank"
+                  text="IMDb"
+                />
+                <UIButton
+                  variant="subtle"
+                  size="sm"
+                  intent="info"
+                  leading-icon="tabler:external-link"
+                  :to="movie.tmdbUrl"
+                  target="_blank"
+                  text="TMDB"
+                />
+                <UIButton
+                  variant="subtle"
+                  size="sm"
+                  intent="neutral"
+                  leading-icon="tabler:share"
+                  text="Partager"
+                />
               </div>
             </div>
           </div>
+        </UICardBase>
+
+        <div class="grid items-stretch gap-4 md:grid-cols-2">
+          <UICardBase
+            variant="subtle"
+            intent="neutral"
+            size="lg"
+            :ui="{ root: 'h-full' }"
+            class="flex h-full flex-col gap-3"
+          >
+            <h2 class="txt-label text-neutral-text-muted">Synopsis</h2>
+            <p class="txt-base flex-1 leading-relaxed text-neutral-text">
+              {{ movie.synopsis }}
+            </p>
+          </UICardBase>
+
+          <UICardBase
+            variant="subtle"
+            intent="neutral"
+            size="lg"
+            :ui="{ root: 'h-full' }"
+            class="flex h-full flex-col gap-3"
+          >
+            <h2 class="txt-label text-neutral-text-muted">Distribution</h2>
+            <div class="flex flex-1 flex-wrap content-start gap-2">
+              <UIBadge
+                v-for="actor in movie.casting"
+                :key="actor"
+                :label="actor"
+                intent="neutral"
+                size="sm"
+              />
+            </div>
+          </UICardBase>
         </div>
-      </UICardBase>
 
-      <UICardBase
-        variant="subtle"
-        intent="neutral"
-        size="lg"
-        class="divide-y divide-neutral-border-subtle overflow-hidden p-0"
-      >
-        <UICollapsible v-model="crewOpen" :ui="collapsibleTriggerUi">
-          <template #title>
-            <div class="flex items-center gap-2 font-mono">
-              <Icon
-                :name="crewOpen ? 'tabler:chevron-down' : 'tabler:chevron-right'"
-                class="size-4 text-neutral-text-subtle"
-              />
-              <span class="txt-h6 text-neutral-text">Équipe artistique</span>
-            </div>
-          </template>
-          <ul class="txt-base space-y-2 px-4 pb-4 text-neutral-text-subtle">
-            <li><span class="text-neutral-text">Réalisation :</span> {{ movie.director }}</li>
-            <li><span class="text-neutral-text">Scénario :</span> {{ movie.writers }}</li>
-            <li><span class="text-neutral-text">Musique :</span> {{ movie.music }}</li>
-          </ul>
-        </UICollapsible>
+        <UICardBase variant="subtle" intent="neutral" size="lg" class="flex flex-col gap-4">
+          <h2 class="txt-label text-neutral-text-muted">Fiche technique</h2>
+          <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            <UICardBase
+              v-for="fact in facts"
+              :key="fact.label"
+              variant="default"
+              intent="neutral"
+              size="sm"
+              class="flex flex-col gap-1"
+            >
+              <span class="txt-caption text-neutral-text-muted">{{ fact.label }}</span>
+              <span class="txt-caption text-neutral-text">{{ fact.value }}</span>
+            </UICardBase>
+          </div>
+        </UICardBase>
 
-        <UICollapsible v-model="awardsOpen" :ui="collapsibleTriggerUi">
-          <template #title>
-            <div class="flex items-center gap-2 font-mono">
-              <Icon
-                :name="awardsOpen ? 'tabler:chevron-down' : 'tabler:chevron-right'"
-                class="size-4 text-neutral-text-subtle"
-              />
-              <span class="txt-h6 text-neutral-text">Distinctions</span>
-              <UIBadge :label="String(movie.awards.length)" intent="neutral" />
-            </div>
-          </template>
-          <ul class="txt-base list-disc space-y-1 px-4 pb-4 pl-8 text-neutral-text">
-            <li v-for="award in movie.awards" :key="award">{{ award }}</li>
-          </ul>
-        </UICollapsible>
-      </UICardBase>
+        <UICardBase
+          variant="subtle"
+          intent="neutral"
+          size="lg"
+          class="divide-y divide-neutral-border-subtle overflow-hidden p-0"
+        >
+          <UICollapsible v-model="crewOpen" :ui="collapsibleTriggerUi">
+            <template #title>
+              <div class="flex items-center gap-2">
+                <Icon
+                  :name="crewOpen ? 'tabler:chevron-down' : 'tabler:chevron-right'"
+                  class="size-4 text-neutral-text-subtle"
+                />
+                <span class="txt-label text-neutral-text">Équipe artistique</span>
+              </div>
+            </template>
+            <ul class="txt-base space-y-2 px-4 pb-4 text-neutral-text-subtle">
+              <li><span class="text-neutral-text">Réalisation —</span> {{ movie.director }}</li>
+              <li><span class="text-neutral-text">Scénario —</span> {{ movie.writers }}</li>
+              <li><span class="text-neutral-text">Musique —</span> {{ movie.music }}</li>
+            </ul>
+          </UICollapsible>
+
+          <UICollapsible v-model="awardsOpen" :ui="collapsibleTriggerUi">
+            <template #title>
+              <div class="flex items-center gap-2">
+                <Icon
+                  :name="awardsOpen ? 'tabler:chevron-down' : 'tabler:chevron-right'"
+                  class="size-4 text-neutral-text-subtle"
+                />
+                <span class="txt-label text-neutral-text">Distinctions</span>
+                <UIBadge :label="String(movie.awards.length)" intent="neutral" size="sm" />
+              </div>
+            </template>
+            <ul class="txt-base list-disc space-y-1.5 px-4 pb-4 pl-8 text-neutral-text">
+              <li v-for="award in movie.awards" :key="award">{{ award }}</li>
+            </ul>
+          </UICollapsible>
+        </UICardBase>
+      </div>
     </main>
   </div>
 </template>

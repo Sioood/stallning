@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  HUSKY: 0
+  NODE_OPTIONS: --max-old-space-size=4096
+
+jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Check types
+        run: ./scripts/verify.sh types
+
+      - name: Lint
+        run: ./scripts/verify.sh lint
+
+      - name: Format check
+        run: ./scripts/verify.sh format
+
+      - name: Dead code check
+        run: ./scripts/verify.sh knip
+
+      - name: Build
+        run: ./scripts/verify.sh build

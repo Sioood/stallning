@@ -98,7 +98,7 @@ function onValueChange(d: SegmentGroupValueChangeDetails) {
     <section class="flex flex-col gap-4">
       <h2 class="text-xl font-bold">Pill Variant</h2>
       <p class="text-sm text-neutral-text-subtle">
-        Pill-style segment group without container background.
+        High-contrast filled pill for strong selection emphasis.
       </p>
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div class="flex flex-col gap-2">
@@ -111,6 +111,29 @@ function onValueChange(d: SegmentGroupValueChangeDetails) {
             :options
             :model-value="options[0]?.value"
             variant="pill"
+            orientation="vertical"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Pill Subtle Variant -->
+    <section class="flex flex-col gap-4">
+      <h2 class="text-xl font-bold">Pill Subtle Variant</h2>
+      <p class="text-sm text-neutral-text-subtle">
+        Soft surface-subtle track with fill-subtle indicator — same base as subtle cards.
+      </p>
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div class="flex flex-col gap-2">
+          <p class="text-sm font-medium text-neutral-text-subtle">Horizontal pill-subtle</p>
+          <UISegmentGroup v-model="selected" :options variant="pill-subtle" />
+        </div>
+        <div class="flex flex-col gap-2">
+          <p class="text-sm font-medium text-neutral-text-subtle">Vertical pill-subtle</p>
+          <UISegmentGroup
+            :options
+            :model-value="options[0]?.value"
+            variant="pill-subtle"
             orientation="vertical"
           />
         </div>

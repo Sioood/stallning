@@ -46,7 +46,7 @@ watch([fullName, bio], () => {
       <UITabs
         v-model="section"
         orientation="vertical"
-        variant="pill"
+        variant="pill-subtle"
         intent="neutral"
         size="md"
         :options="navOptions"

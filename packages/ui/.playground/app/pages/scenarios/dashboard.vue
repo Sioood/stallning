@@ -241,8 +241,8 @@ const funnelSteps = [
         <UITabs
           v-model="nav"
           orientation="vertical"
-          variant="pill"
-          intent="neutral"
+          variant="pill-subtle"
+          intent="primary"
           size="sm"
           :options="navOptions"
           :render-content="false"
@@ -265,8 +265,8 @@ const funnelSteps = [
           <UISegmentGroup
             v-model="period"
             :options="periodOptions"
-            intent="neutral"
-            variant="pill"
+            intent="primary"
+            variant="pill-subtle"
             size="sm"
           />
         </header>

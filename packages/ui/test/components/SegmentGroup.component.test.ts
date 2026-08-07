@@ -76,6 +76,22 @@ describe('UISegmentGroup', () => {
     expect(wrapper.html()).not.toContain('border-b')
   })
 
+  it('applies pill-subtle variant classes to root and indicator', async () => {
+    const wrapper = await mountSuspended(UISegmentGroup, {
+      props: {
+        intent: 'neutral',
+        modelValue: 'a',
+        options: [{ label: 'A', value: 'a' }],
+        variant: 'pill-subtle',
+      },
+    })
+
+    expect(wrapper.html()).toContain('border-neutral-border-subtle')
+    expect(wrapper.html()).toContain('bg-neutral-surface-subtle')
+    expect(wrapper.html()).toContain('bg-neutral-fill-subtle')
+    expect(wrapper.html()).not.toContain('border-b')
+  })
+
   it('applies line variant classes to root', async () => {
     const wrapper = await mountSuspended(UISegmentGroup, {
       props: {
@@ -98,7 +114,7 @@ describe('UISegmentGroup', () => {
     })
 
     expect(wrapper.html()).toContain('border-accent-border-subtle')
-    expect(wrapper.html()).toContain('bg-accent-fill')
+    expect(wrapper.html()).toContain('border-accent-fill')
   })
 
   it('applies size classes to root', async () => {

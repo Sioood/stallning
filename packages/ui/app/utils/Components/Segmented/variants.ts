@@ -7,7 +7,7 @@ export type SegmentedIntent = NonNullable<
 >
 export type SegmentedSize = NonNullable<ComponentSize>
 export type SegmentedOrientation = 'horizontal' | 'vertical'
-export type SegmentedVariant = 'pill' | 'line'
+export type SegmentedVariant = 'pill' | 'pill-subtle' | 'line'
 
 export const segmentedRootCVA = cva('relative inline-flex w-fit items-center', {
   compoundVariants: [
@@ -34,6 +34,30 @@ export const segmentedRootCVA = cva('relative inline-flex w-fit items-center', {
         'border-accent-border bg-accent-fill-subtle disabled:pointer-events-none disabled:opacity-40',
       intent: 'accent',
       variant: 'pill',
+    },
+    {
+      class:
+        'border-neutral-border-subtle bg-neutral-surface-subtle disabled:pointer-events-none disabled:opacity-40',
+      intent: 'neutral',
+      variant: 'pill-subtle',
+    },
+    {
+      class:
+        'border-primary-border-subtle bg-primary-surface-subtle disabled:pointer-events-none disabled:opacity-40',
+      intent: 'primary',
+      variant: 'pill-subtle',
+    },
+    {
+      class:
+        'border-secondary-border-subtle bg-secondary-surface-subtle disabled:pointer-events-none disabled:opacity-40',
+      intent: 'secondary',
+      variant: 'pill-subtle',
+    },
+    {
+      class:
+        'border-accent-border-subtle bg-accent-surface-subtle disabled:pointer-events-none disabled:opacity-40',
+      intent: 'accent',
+      variant: 'pill-subtle',
     },
     {
       class: 'border-b p-0',
@@ -91,6 +115,7 @@ export const segmentedRootCVA = cva('relative inline-flex w-fit items-center', {
     variant: {
       line: '',
       pill: 'rounded-xs border p-0.5',
+      'pill-subtle': 'rounded-xs border p-0.5',
     } satisfies Record<SegmentedVariant, string>,
   },
 })
@@ -122,6 +147,26 @@ export const segmentedItemCVA = cva(
           'data-selected:text-accent-text-inverse data-[state="checked"]:text-accent-text-inverse',
         intent: 'accent',
         variant: 'pill',
+      },
+      {
+        class: 'data-selected:text-neutral-text data-[state="checked"]:text-neutral-text',
+        intent: 'neutral',
+        variant: 'pill-subtle',
+      },
+      {
+        class: 'data-selected:text-primary-text data-[state="checked"]:text-primary-text',
+        intent: 'primary',
+        variant: 'pill-subtle',
+      },
+      {
+        class: 'data-selected:text-secondary-text data-[state="checked"]:text-secondary-text',
+        intent: 'secondary',
+        variant: 'pill-subtle',
+      },
+      {
+        class: 'data-selected:text-accent-text data-[state="checked"]:text-accent-text',
+        intent: 'accent',
+        variant: 'pill-subtle',
       },
       {
         class: 'data-selected:text-neutral-text data-[state="checked"]:text-neutral-text',
@@ -175,6 +220,7 @@ export const segmentedItemCVA = cva(
       variant: {
         line: '',
         pill: 'rounded-xs',
+        'pill-subtle': 'rounded-xs',
       } satisfies Record<SegmentedVariant, string>,
     },
   },
@@ -214,6 +260,46 @@ export const segmentedIndicatorCVA = cva(
         intent: 'accent',
         variant: 'line',
       },
+      {
+        class: 'bg-neutral-fill',
+        intent: 'neutral',
+        variant: 'pill',
+      },
+      {
+        class: 'bg-primary-fill',
+        intent: 'primary',
+        variant: 'pill',
+      },
+      {
+        class: 'bg-secondary-fill',
+        intent: 'secondary',
+        variant: 'pill',
+      },
+      {
+        class: 'bg-accent-fill',
+        intent: 'accent',
+        variant: 'pill',
+      },
+      {
+        class: 'bg-neutral-fill-subtle',
+        intent: 'neutral',
+        variant: 'pill-subtle',
+      },
+      {
+        class: 'bg-primary-fill-subtle',
+        intent: 'primary',
+        variant: 'pill-subtle',
+      },
+      {
+        class: 'bg-secondary-fill-subtle',
+        intent: 'secondary',
+        variant: 'pill-subtle',
+      },
+      {
+        class: 'bg-accent-fill-subtle',
+        intent: 'accent',
+        variant: 'pill-subtle',
+      },
     ],
     defaultVariants: {
       intent: 'primary',
@@ -222,10 +308,10 @@ export const segmentedIndicatorCVA = cva(
     },
     variants: {
       intent: {
-        accent: 'bg-accent-fill',
-        neutral: 'bg-neutral-fill',
-        primary: 'bg-primary-fill',
-        secondary: 'bg-secondary-fill',
+        accent: '',
+        neutral: '',
+        primary: '',
+        secondary: '',
       } satisfies Record<SegmentedIntent, string>,
       orientation: {
         horizontal: '',
@@ -234,6 +320,7 @@ export const segmentedIndicatorCVA = cva(
       variant: {
         line: 'z-10 bg-transparent!',
         pill: '',
+        'pill-subtle': '',
       } satisfies Record<SegmentedVariant, string>,
     },
   },

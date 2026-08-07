@@ -115,7 +115,7 @@ const collapsibleTriggerUi = {
         <UITabs
           v-model="activeNav"
           orientation="vertical"
-          variant="pill"
+          variant="pill-subtle"
           intent="neutral"
           size="sm"
           :options="[...navTabs]"

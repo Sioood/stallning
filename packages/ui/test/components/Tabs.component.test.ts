@@ -74,7 +74,7 @@ describe('UITabs', () => {
     })
 
     expect(wrapper.html()).toContain('border-accent-border-subtle')
-    expect(wrapper.html()).toContain('bg-accent-fill')
+    expect(wrapper.html()).toContain('border-accent-fill')
   })
 
   it('applies size classes to list', async () => {

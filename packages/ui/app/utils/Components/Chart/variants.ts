@@ -141,7 +141,7 @@ const chartAxisCVA = cva('', {
 })
 
 /** Layout of chart + legend wrapper from legend placement. */
-const chartRootCVA = cva('flex w-full font-mono', {
+const chartRootCVA = cva('flex w-full min-w-0 font-mono', {
   defaultVariants: {
     gap: 'md',
     legendPlacement: 'top',

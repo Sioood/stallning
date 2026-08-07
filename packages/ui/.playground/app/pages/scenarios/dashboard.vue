@@ -62,7 +62,7 @@ const kpis = [
     icon: 'tabler:mood-smile',
     label: 'NPS',
     progress: 62,
-    progressIntent: 'neutral' as const,
+    progressIntent: 'primary' as const,
     value: '62',
   },
 ]
@@ -234,7 +234,7 @@ const funnelSteps = [
 </script>
 
 <template>
-  <div class="min-h-[calc(100svh-3.25rem)]">
+  <div class="min-h-[calc(100svh-3.25rem)] w-full">
     <div class="mx-auto flex w-full max-w-7xl gap-8 px-4 py-8 md:px-8">
       <aside class="hidden w-56 shrink-0 lg:block">
         <p class="txt-caption mb-4 font-medium text-neutral-text">Stallning Admin</p>
@@ -254,7 +254,7 @@ const funnelSteps = [
         />
       </aside>
 
-      <div class="flex min-w-0 flex-1 flex-col gap-8">
+      <div class="flex w-full min-w-0 flex-1 flex-col gap-8">
         <header class="flex flex-wrap items-end justify-between gap-4">
           <div class="min-w-0">
             <h1 class="txt-h4 text-neutral-text">Tableau de bord</h1>
@@ -290,25 +290,25 @@ const funnelSteps = [
               :label="kpi.label"
               :intent="kpi.progressIntent"
               size="sm"
+              :ui="{ label: 'sr-only', track: 'bg-neutral-700' }"
             />
           </UICard>
         </div>
 
-        <div class="flex w-full min-w-0 flex-col gap-6 lg:flex-row">
+        <div class="flex w-full min-w-0 flex-col gap-6 lg:flex-row lg:items-start">
           <UICardBase
             variant="subtle"
             intent="neutral"
             size="lg"
-            class="flex min-h-80 w-full min-w-0 flex-1 flex-col gap-4 lg:basis-0"
+            :ui="{ root: 'min-w-0 flex-1 lg:basis-0' }"
+            class="flex w-full flex-col gap-4"
           >
-            <div class="flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <p class="txt-label text-neutral-text">Revenus par offre</p>
-                <p class="txt-caption text-neutral-text-subtle">
-                  Stacked bar — période «
-                  {{ periodOptions.find((p) => p.value === period)?.label }} ».
-                </p>
-              </div>
+            <div>
+              <p class="txt-label text-neutral-text">Revenus par offre</p>
+              <p class="txt-caption text-neutral-text-subtle">
+                Stacked bar — période «
+                {{ periodOptions.find((p) => p.value === period)?.label }} ».
+              </p>
             </div>
             <UIChartStackedBar
               :data="revenueData"
@@ -334,7 +334,8 @@ const funnelSteps = [
             variant="subtle"
             intent="neutral"
             size="lg"
-            class="flex min-h-80 w-full min-w-0 flex-1 flex-col gap-4 lg:max-w-md lg:basis-0"
+            :ui="{ root: 'min-w-0 w-full flex-1 lg:max-w-md lg:basis-0' }"
+            class="flex w-full flex-col gap-4"
           >
             <div>
               <p class="txt-label text-neutral-text">Acquisition</p>
@@ -377,7 +378,12 @@ const funnelSteps = [
                 class="flex w-full flex-col items-center gap-5 lg:col-span-2"
               >
                 <p class="txt-label w-full text-neutral-text">Objectif mensuel</p>
-                <UIProgressCircular :model-value="72" size="lg" intent="primary" />
+                <UIProgressCircular
+                  :model-value="72"
+                  size="lg"
+                  intent="primary"
+                  :ui="{ track: 'stroke-neutral-700' }"
+                />
                 <p class="txt-caption text-center text-neutral-text-subtle">17 900 € / 25 000 €</p>
               </UICardBase>
 
@@ -419,6 +425,7 @@ const funnelSteps = [
                     :label="step.label"
                     intent="primary"
                     size="sm"
+                    :ui="{ label: 'sr-only', track: 'bg-neutral-700' }"
                   />
                 </div>
               </UICardBase>

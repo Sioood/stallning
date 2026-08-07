@@ -126,7 +126,11 @@ const rootClass = computed(() => cn(layoutClasses.value.root, themeClass.value, 
 
 const legendUi = computed(() => props.legend?.ui)
 
-const containerUiClass = computed(() => cn(props.ui?.chart))
+const containerUiClass = computed(() => cn('size-full', props.ui?.chart))
+
+const chartFrameStyle = computed(() =>
+  props.height === null ? undefined : { height: `${props.height}px` },
+)
 
 const visDonutBind = computed((): DonutConfigInterface<T> =>
   buildChartDonutVisBind({
@@ -196,24 +200,25 @@ extendCompodiumMeta({
 
     <slot name="legend" :series="resolvedSeries" />
 
-    <UIChartSingleContainer
-      v-if="isChartReady"
-      :data
-      :height
-      :width
-      :aria-label
-      :ui="{ root: containerUiClass }"
-      v-bind="props.container"
-    >
-      <VisDonut v-bind="visDonutBind" />
-      <UIChartTooltip v-bind="chartTooltipProps" />
-    </UIChartSingleContainer>
+    <div v-if="isChartReady" class="w-full min-w-0 overflow-hidden" :style="chartFrameStyle">
+      <UIChartSingleContainer
+        :data
+        :height
+        :width
+        :aria-label
+        :ui="{ root: containerUiClass }"
+        v-bind="props.container"
+      >
+        <VisDonut v-bind="visDonutBind" />
+        <UIChartTooltip v-bind="chartTooltipProps" />
+      </UIChartSingleContainer>
+    </div>
 
     <div
       v-else
-      class="flex items-center justify-center border border-neutral-border-subtle bg-neutral-surface-subtle px-4 text-center text-neutral-text-subtle"
+      class="flex w-full items-center justify-center overflow-hidden border border-neutral-border-subtle bg-neutral-surface-subtle px-4 text-center text-neutral-text-subtle"
       :class="chartLegendCVA({ size: props.size })"
-      :style="{ minHeight: `${props.height}px` }"
+      :style="chartFrameStyle"
     >
       Provide <code class="font-mono">data</code> and <code class="font-mono">value</code> to render
       the chart.

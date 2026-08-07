@@ -8,6 +8,7 @@ import {
   fetchRemote,
   listCommitsBetween,
   listLocalBranches,
+  listRemoteBranches,
   listRemotes,
   showCommitStat,
 } from './git.ts'
@@ -45,16 +46,34 @@ async function selectRemote(defaultRemote: string): Promise<string> {
   return remote as string
 }
 
-async function selectBranch(message: string, initial?: string): Promise<string> {
-  const branches = listLocalBranches()
-  if (!branches.length) throw new Error('No local branches found.')
+function pickInitial(branches: string[], initial?: string): string | undefined {
+  return initial && branches.includes(initial) ? initial : branches[0]
+}
+
+async function selectFromBranches(
+  message: string,
+  branches: string[],
+  initial?: string,
+): Promise<string> {
   const branch = await p.select({
-    initialValue: initial && branches.includes(initial) ? initial : branches[0],
+    initialValue: pickInitial(branches, initial),
     message,
     options: branches.map((name) => ({ label: name, value: name })),
   })
   exitOnCancel(branch)
   return branch as string
+}
+
+async function selectRemoteBranch(remote: string, initial?: string): Promise<string> {
+  const branches = listRemoteBranches(remote)
+  if (!branches.length) throw new Error(`No branches found on remote '${remote}'.`)
+  return selectFromBranches(`Source branch (on ${remote})`, branches, initial)
+}
+
+async function selectLocalBranch(message: string, initial?: string): Promise<string> {
+  const branches = listLocalBranches()
+  if (!branches.length) throw new Error('No local branches found.')
+  return selectFromBranches(message, branches, initial)
 }
 
 async function confirmDryRun(): Promise<boolean> {
@@ -86,11 +105,8 @@ export async function runWizard(): Promise<void> {
   exitOnCancel(action)
 
   const remote = await selectRemote('origin')
-  const sourceBranch = await selectBranch(
-    'Source branch (on remote)',
-    action === 'backport' ? 'nuxt' : 'minimal',
-  )
-  const target = await selectBranch(
+  const sourceBranch = await selectRemoteBranch(remote, action === 'backport' ? 'nuxt' : 'minimal')
+  const target = await selectLocalBranch(
     'Target local branch',
     action === 'backport' ? 'minimal' : action === 'status' ? currentBranch() || 'nuxt' : 'nuxt',
   )

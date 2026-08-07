@@ -136,18 +136,18 @@ function onValueChange(d: TabsValueChangeDetails) {
       >
         <template #content-overview>
           <div
-            class="rounded-md border border-neutral-border-subtle bg-neutral-fill-subtle p-4 disabled:pointer-events-none disabled:opacity-40"
+            class="rounded-xs border border-neutral-border-subtle bg-neutral-fill-subtle p-4 disabled:pointer-events-none disabled:opacity-40"
           >
             <h3 class="text-lg font-semibold text-neutral-text">Overview</h3>
             <p class="mt-2 text-sm text-neutral-text-subtle">
               Dashboard overview with key metrics and recent activity.
             </p>
             <div class="mt-4 grid grid-cols-2 gap-4">
-              <div class="rounded-md bg-neutral-bg p-3">
+              <div class="rounded-xs bg-neutral-bg p-3">
                 <p class="text-2xl font-bold text-primary-text">1,234</p>
                 <p class="text-xs text-neutral-text-subtle">Total Users</p>
               </div>
-              <div class="rounded-md bg-neutral-bg p-3">
+              <div class="rounded-xs bg-neutral-bg p-3">
                 <p class="text-2xl font-bold text-accent-text">567</p>
                 <p class="text-xs text-neutral-text-subtle">Active Sessions</p>
               </div>
@@ -156,7 +156,7 @@ function onValueChange(d: TabsValueChangeDetails) {
         </template>
         <template #content-analytics>
           <div
-            class="rounded-md border border-neutral-border-subtle bg-neutral-fill-subtle p-4 disabled:pointer-events-none disabled:opacity-40"
+            class="rounded-xs border border-neutral-border-subtle bg-neutral-fill-subtle p-4 disabled:pointer-events-none disabled:opacity-40"
           >
             <h3 class="text-lg font-semibold text-neutral-text">Analytics</h3>
             <p class="mt-2 text-sm text-neutral-text-subtle">
@@ -166,7 +166,7 @@ function onValueChange(d: TabsValueChangeDetails) {
         </template>
         <template #content-reports>
           <div
-            class="rounded-md border border-neutral-border-subtle bg-neutral-fill-subtle p-4 disabled:pointer-events-none disabled:opacity-40"
+            class="rounded-xs border border-neutral-border-subtle bg-neutral-fill-subtle p-4 disabled:pointer-events-none disabled:opacity-40"
           >
             <h3 class="text-lg font-semibold text-neutral-text">Reports</h3>
             <p class="mt-2 text-sm text-neutral-text-subtle">Generate and view reports.</p>
@@ -174,7 +174,7 @@ function onValueChange(d: TabsValueChangeDetails) {
         </template>
         <template #content-settings>
           <div
-            class="rounded-md border border-neutral-border-subtle bg-neutral-fill-subtle p-4 disabled:pointer-events-none disabled:opacity-40"
+            class="rounded-xs border border-neutral-border-subtle bg-neutral-fill-subtle p-4 disabled:pointer-events-none disabled:opacity-40"
           >
             <h3 class="text-lg font-semibold text-neutral-text">Settings</h3>
             <p class="mt-2 text-sm text-neutral-text-subtle">

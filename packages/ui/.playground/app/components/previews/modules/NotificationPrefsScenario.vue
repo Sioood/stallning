@@ -9,10 +9,22 @@ const allDisabled = computed(
 </script>
 
 <template>
-  <div class="flex flex-col gap-3">
-    <UISwitch v-model:checked="emailNotifs" label="Notifications e-mail" />
-    <UISwitch v-model:checked="pushNotifs" label="Notifications push" />
-    <UISwitch v-model:checked="marketingNotifs" label="Offres marketing" />
+  <div class="flex flex-col gap-4">
+    <UISwitch
+      v-model="emailNotifs"
+      label="Notifications e-mail"
+      :ui="{ root: 'w-full flex-row-reverse justify-between' }"
+    />
+    <UISwitch
+      v-model="pushNotifs"
+      label="Notifications push"
+      :ui="{ root: 'w-full flex-row-reverse justify-between' }"
+    />
+    <UISwitch
+      v-model="marketingNotifs"
+      label="Offres marketing"
+      :ui="{ root: 'w-full flex-row-reverse justify-between' }"
+    />
     <UIAlert
       v-if="allDisabled"
       type="info"

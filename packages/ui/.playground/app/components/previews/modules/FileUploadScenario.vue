@@ -32,7 +32,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-3">
+  <div class="flex flex-col gap-5">
     <UIFileUpload
       v-model="files"
       label="Contrat signé"

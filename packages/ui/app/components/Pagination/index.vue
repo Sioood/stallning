@@ -6,6 +6,7 @@ import type {
 } from '@ark-ui/vue/pagination'
 import type { ClassValue } from 'vue'
 import type {
+  PaginationAlign,
   PaginationIntent,
   PaginationSize,
   PaginationVariant,
@@ -33,6 +34,8 @@ export interface PaginationProps
     Omit<PaginationRootBaseProps, 'page' | 'pageSize'>,
     Omit<PaginationRootProviderBaseProps, 'value'> {
   value?: UsePaginationReturn['value']
+  /** Horizontal alignment of the pagination controls. @default 'center' */
+  align?: PaginationAlign
   intent?: PaginationIntent
   size?: PaginationSize
   variant?: PaginationVariant
@@ -42,6 +45,7 @@ export interface PaginationProps
 }
 
 const props = withDefaults(defineProps<PaginationProps>(), {
+  align: 'center',
   intent: 'primary',
   showFirstLast: false,
   size: 'md',

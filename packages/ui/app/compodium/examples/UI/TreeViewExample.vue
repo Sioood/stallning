@@ -198,7 +198,7 @@ const sizes = ['sm', 'md', 'lg'] as const
         :items="fileTreeItems"
         :default-expanded-value="['src']"
       />
-      <pre class="txt-caption rounded-md bg-neutral-fill-subtle p-3">{{ controlledChecked }}</pre>
+      <pre class="txt-caption rounded-xs bg-neutral-fill-subtle p-3">{{ controlledChecked }}</pre>
     </section>
   </div>
 </template>

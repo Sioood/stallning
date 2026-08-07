@@ -844,6 +844,9 @@
   /* SPACING */
   --spacing: 4px;
 
+  /* RADIUS — sharp, barely rounded (design system default) */
+  --radius-xs: 0.125rem;
+
   /* FONTS */
   --font-primary: 'Inter', sans-serif;
   --font-mono: 'Spline Sans Mono', monospace;
@@ -966,7 +969,8 @@ html {
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  /* System dark only when light is not forced (class strategy + VueUse) */
+  :root:not(.light) {
     /* @generated role-tokens-dark:start */
     /* ── accent ── */
     --color-accent-bg: var(--color-yellow-900);
@@ -1546,8 +1550,9 @@ html {
     /* @generated role-tokens-dark:end */
   }
 
-  html {
-    @apply bg-primary-bg!;
+  html:not(.light) {
+    /* Deeper canvas in dark — same as html.dark override */
+    background-color: var(--color-primary-bg-subtle) !important;
   }
 }
 
@@ -2130,6 +2135,11 @@ html.dark {
   --color-yellow-text-subtle: var(--color-yellow-400);
 
   @apply bg-primary-bg!;
+}
+
+/* Dark canvas only: deeper page background without changing DS role tokens */
+html.dark {
+  background-color: var(--color-primary-bg-subtle) !important;
 }
 
 :root {

@@ -17,7 +17,7 @@ watch(shareUrl, () => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-3">
+  <div class="flex flex-col gap-5">
     <div class="mx-auto size-28">
       <UIQRCode v-model="shareUrl" intent="primary" />
     </div>

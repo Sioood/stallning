@@ -212,7 +212,7 @@ const intents = ['neutral', 'primary', 'secondary', 'accent'] as const
         orientation="horizontal"
         collapsible
         intent="accent"
-        class="h-40 overflow-hidden rounded-lg border border-accent-border-subtle"
+        class="h-40 overflow-hidden rounded-xs border border-accent-border-subtle"
       >
         <UIAccordionItem value="h1" class="border-r border-accent-border-subtle">
           <UIAccordionItemTrigger class="flex h-full items-center justify-center px-4">

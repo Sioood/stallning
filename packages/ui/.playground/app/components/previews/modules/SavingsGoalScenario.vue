@@ -21,12 +21,12 @@ function addContribution() {
 </script>
 
 <template>
-  <div class="flex flex-col items-center gap-3">
-    <UIProgressCircular :model-value="progress" size="md" intent="primary" label="Objectif" />
-    <p class="txt-h6 text-neutral-text tabular-nums">
+  <div class="flex flex-col items-center gap-5">
+    <UIProgressCircular :model-value="progress" size="lg" intent="primary" />
+    <p class="txt-h6 text-center text-neutral-text tabular-nums">
       {{ saved.toLocaleString('fr-FR') }} € / {{ target.toLocaleString('fr-FR') }} €
     </p>
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2.5">
       <UIBadge :intent="trendIntent" :label="trendLabel" size="sm" />
       <UIButton
         size="sm"

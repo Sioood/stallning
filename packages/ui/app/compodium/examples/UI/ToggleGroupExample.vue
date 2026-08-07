@@ -41,7 +41,7 @@ const externalGroup = useToggleGroup({ defaultValue: ['bold'], multiple: true })
     <section class="flex flex-col gap-4">
       <h3 class="text-xl font-bold">Text Alignment (Single)</h3>
       <div
-        class="flex flex-col items-center gap-2 rounded-xl border border-neutral-border-subtle bg-neutral-fill-subtle/10 p-6 disabled:pointer-events-none disabled:opacity-40"
+        class="flex flex-col items-center gap-2 rounded-xs border border-neutral-border-subtle bg-neutral-fill-subtle/10 p-6 disabled:pointer-events-none disabled:opacity-40"
       >
         <UIToggleGroup
           v-model="align"
@@ -58,7 +58,7 @@ const externalGroup = useToggleGroup({ defaultValue: ['bold'], multiple: true })
     <section class="flex flex-col gap-4">
       <h3 class="text-xl font-bold">Rich Text Formatting (Multiple)</h3>
       <div
-        class="flex flex-col items-center gap-2 rounded-xl border border-neutral-border-subtle bg-neutral-fill-subtle/10 p-6 disabled:pointer-events-none disabled:opacity-40"
+        class="flex flex-col items-center gap-2 rounded-xs border border-neutral-border-subtle bg-neutral-fill-subtle/10 p-6 disabled:pointer-events-none disabled:opacity-40"
       >
         <UIToggleGroup
           v-model="formatting"
@@ -76,7 +76,7 @@ const externalGroup = useToggleGroup({ defaultValue: ['bold'], multiple: true })
     <section class="flex flex-col gap-4">
       <h3 class="text-xl font-bold">Vertical Orientation</h3>
       <div
-        class="flex flex-col items-start gap-2 rounded-xl border border-neutral-border-subtle bg-neutral-fill-subtle/10 p-6 disabled:pointer-events-none disabled:opacity-40"
+        class="flex flex-col items-start gap-2 rounded-xs border border-neutral-border-subtle bg-neutral-fill-subtle/10 p-6 disabled:pointer-events-none disabled:opacity-40"
       >
         <UIToggleGroup
           v-model="align"
@@ -93,7 +93,7 @@ const externalGroup = useToggleGroup({ defaultValue: ['bold'], multiple: true })
     <section class="flex flex-col gap-4">
       <h3 class="text-xl font-bold">Disabled Options</h3>
       <div
-        class="flex flex-col items-center gap-2 rounded-xl border border-neutral-border-subtle bg-neutral-fill-subtle/10 p-6 disabled:pointer-events-none disabled:opacity-40"
+        class="flex flex-col items-center gap-2 rounded-xs border border-neutral-border-subtle bg-neutral-fill-subtle/10 p-6 disabled:pointer-events-none disabled:opacity-40"
       >
         <UIToggleGroup
           v-model="align"
@@ -113,7 +113,7 @@ const externalGroup = useToggleGroup({ defaultValue: ['bold'], multiple: true })
     <section class="flex flex-col gap-4">
       <h3 class="text-xl font-bold">Custom Slot</h3>
       <div
-        class="flex flex-col items-center gap-2 rounded-xl border border-neutral-border-subtle bg-neutral-fill-subtle/10 p-6 disabled:pointer-events-none disabled:opacity-40"
+        class="flex flex-col items-center gap-2 rounded-xs border border-neutral-border-subtle bg-neutral-fill-subtle/10 p-6 disabled:pointer-events-none disabled:opacity-40"
       >
         <UIToggleGroup
           v-model="devices"

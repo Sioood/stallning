@@ -57,7 +57,7 @@ const addonTrailing = cn(
 </script>
 
 <template>
-  <div class="flex flex-col gap-3">
+  <div class="flex flex-col gap-4">
     <UIFormInput
       v-model="query"
       label="Rechercher"
@@ -89,7 +89,7 @@ const addonTrailing = cn(
         <span class="hidden" aria-hidden="true" />
       </template>
       <template #content>
-        <div class="flex min-w-48 flex-col gap-3">
+        <div class="flex min-w-48 flex-col gap-4">
           <p class="txt-label text-neutral-text">Filtres</p>
           <UIFormSelect
             v-model="status"
@@ -103,12 +103,12 @@ const addonTrailing = cn(
               content: 'relative z-10',
             }"
           />
-          <UISwitch v-model:checked="showPremiumOnly" label="Premium uniquement" size="sm" />
+          <UISwitch v-model="showPremiumOnly" label="Premium uniquement" size="sm" />
         </div>
       </template>
     </UIPopover>
 
-    <div v-if="activeFilterLabels.length > 0" class="flex flex-wrap gap-1">
+    <div v-if="activeFilterLabels.length > 0" class="flex flex-wrap gap-2">
       <UIChip
         v-for="label in activeFilterLabels"
         :key="label"
@@ -124,14 +124,14 @@ const addonTrailing = cn(
       <span v-if="selectedStatus !== 'all'"> · {{ selectedStatusLabel }}</span>
     </p>
 
-    <ul v-if="filteredProjects.length > 0" class="flex max-h-40 flex-col gap-1 overflow-y-auto">
+    <ul v-if="filteredProjects.length > 0" class="flex max-h-48 flex-col gap-0 overflow-y-auto">
       <li
         v-for="project in filteredProjects"
         :key="project.id"
-        class="txt-caption flex items-center justify-between gap-2 border-b border-neutral-border-subtle py-1"
+        class="txt-caption flex items-center justify-between gap-2 border-b border-neutral-border-subtle py-2.5"
       >
         <span class="min-w-0 truncate text-neutral-text">{{ project.name }}</span>
-        <div class="flex shrink-0 items-center gap-1">
+        <div class="flex shrink-0 items-center gap-1.5">
           <UIBadge v-if="project.premium" intent="accent" label="Premium" size="sm" />
           <UIChip
             :label="project.status === 'active' ? 'Actif' : 'Archivé'"

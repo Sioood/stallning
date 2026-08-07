@@ -5,6 +5,7 @@ export type PaginationIntent = NonNullable<
 >
 export type PaginationSize = NonNullable<ButtonSize>
 export type PaginationVariant = NonNullable<ButtonVariant>
+export type PaginationAlign = 'start' | 'center' | 'end'
 
 export interface PaginationChromeContext {
   intent: Ref<PaginationIntent>

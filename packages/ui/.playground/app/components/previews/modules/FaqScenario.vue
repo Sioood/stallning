@@ -21,7 +21,7 @@ const faqItems = [
 </script>
 
 <template>
-  <div class="flex flex-col gap-3">
+  <div class="flex flex-col gap-4">
     <UIAccordion v-model="expandedPanels" collapsible multiple>
       <UIAccordionItem v-for="item in faqItems" :key="item.value" :value="item.value">
         <UIAccordionItemTrigger>

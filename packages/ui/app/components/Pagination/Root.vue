@@ -8,6 +8,7 @@ import {
 
 import {
   paginationChromeKey,
+  type PaginationAlign,
   type PaginationIntent,
   type PaginationSize,
   type PaginationVariant,
@@ -33,6 +34,8 @@ export interface PaginationRootProps
    * Omit (or leave `undefined`) to use the default **Root** mode with `v-model:page`.
    */
   value?: UsePaginationReturn['value']
+  /** Horizontal alignment of the pagination controls. @default 'center' */
+  align?: PaginationAlign
   intent?: PaginationIntent
   size?: PaginationSize
   variant?: PaginationVariant
@@ -40,6 +43,7 @@ export interface PaginationRootProps
 }
 
 const props = withDefaults(defineProps<PaginationRootProps>(), {
+  align: 'center',
   intent: 'primary',
   size: 'md',
   ui: undefined,
@@ -89,7 +93,11 @@ const rootBindings = computed(() => {
     ...rootProps.value,
     ...arkAttrs.value,
     class: cn(
-      paginationRootCVA({ intent: intent.value, size: size.value }),
+      paginationRootCVA({
+        align: props.align,
+        intent: intent.value,
+        size: size.value,
+      }),
       arkAttrs.value.class as ClassValue,
       props.ui?.root,
     ),

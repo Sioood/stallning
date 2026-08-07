@@ -13,7 +13,7 @@ export type { UIFieldSlots } from '~/utils/Components/Form/context'
 
 defineOptions({ inheritAttrs: false })
 
-const fieldRootCVA = cva('flex flex-col gap-1', {
+const fieldRootCVA = cva('flex flex-col gap-2', {
   variants: {
     intent: {
       accent: '',

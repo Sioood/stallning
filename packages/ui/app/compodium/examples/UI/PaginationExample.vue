@@ -42,6 +42,22 @@ const slicedItems = computed(() => {
       />
     </section>
 
+    <!-- Alignment -->
+    <section class="flex flex-col gap-4">
+      <div class="flex flex-col gap-1">
+        <h2 class="text-xl font-bold">Alignment</h2>
+        <p class="text-sm text-neutral-text-subtle">
+          Use <code>align</code> (<code>start</code> | <code>center</code> | <code>end</code>).
+          Default is <code>center</code>.
+        </p>
+      </div>
+      <div class="flex flex-col gap-4 rounded-xs border border-neutral-border-subtle p-4">
+        <UIPagination :count="80" :page-size="10" align="start" size="sm" />
+        <UIPagination :count="80" :page-size="10" align="center" size="sm" />
+        <UIPagination :count="80" :page-size="10" align="end" size="sm" />
+      </div>
+    </section>
+
     <!-- Assembled with showFirstLast -->
     <section class="flex flex-col gap-4">
       <h2 class="text-xl font-bold">Assembled with First / Last</h2>

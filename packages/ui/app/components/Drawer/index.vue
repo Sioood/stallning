@@ -27,7 +27,7 @@ const swipeDirectionMap: Record<DrawerSwipeDirection, ArkSwipeDirection> = {
 }
 
 const drawerBackdropCVA = cva([
-  'fixed inset-0 bg-black/50',
+  'fixed inset-0 z-11000 bg-black/50',
   'data-[state=closed]:animate-out data-[state=open]:animate-in',
   'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
   'data-[state=closed]:duration-300 data-[state=open]:duration-500',
@@ -72,11 +72,11 @@ const drawerContentRootCVA = cva(
           'h-full data-[state=closed]:animate-[ui-drawer-slide-out-down_0.3s_cubic-bezier(0.4,0,0.2,1)_forwards]',
         ],
         end: [
-          'h-full max-h-none w-auto',
+          'h-full max-h-none w-[min(100%,28rem)]',
           'data-[state=closed]:animate-[ui-drawer-slide-out-end_0.3s_cubic-bezier(0.4,0,0.2,1)_forwards]',
         ],
         start: [
-          'h-full max-h-none w-auto',
+          'h-full max-h-none w-[min(100%,28rem)]',
           'data-[state=closed]:animate-[ui-drawer-slide-out-start_0.3s_cubic-bezier(0.4,0,0.2,1)_forwards]',
         ],
         up: [
@@ -112,19 +112,19 @@ const drawerBodyCVA = cva(
       } satisfies Record<DrawerIntent, string>,
       swipeDirection: {
         down: [
-          'drawer-bleed-down flex-col',
+          'drawer-bleed-down flex-col rounded-t-xs',
           'group-data-[state=open]:animate-[ui-drawer-body-slide-in-down_0.5s_cubic-bezier(0.32,0.72,0,1)_both]',
         ],
         end: [
-          'drawer-bleed-end flex-row',
+          'drawer-bleed-end flex-row rounded-l-xs',
           'group-data-[state=open]:animate-[ui-drawer-body-slide-in-end_0.5s_cubic-bezier(0.32,0.72,0,1)_both]',
         ],
         start: [
-          'drawer-bleed-start flex-row-reverse',
+          'drawer-bleed-start flex-row-reverse rounded-r-xs',
           'group-data-[state=open]:animate-[ui-drawer-body-slide-in-start_0.5s_cubic-bezier(0.32,0.72,0,1)_both]',
         ],
         up: [
-          'drawer-bleed-up flex-col-reverse',
+          'drawer-bleed-up flex-col-reverse rounded-b-xs',
           'group-data-[state=open]:animate-[ui-drawer-body-slide-in-up_0.5s_cubic-bezier(0.32,0.72,0,1)_both]',
         ],
       } satisfies Record<DrawerSwipeDirection, string[]>,
@@ -322,7 +322,7 @@ const positionerLayerRef = useLayerZIndexRef('modal')
             :ref="positionerLayerRef"
             :class="
               cn(
-                'fixed inset-0 flex items-end justify-center',
+                'fixed inset-0 z-[11000] flex items-end justify-center',
                 'data-[swipe-direction=up]:items-start',
                 'data-[swipe-direction=left]:items-stretch data-[swipe-direction=left]:justify-start',
                 'data-[swipe-direction=right]:items-stretch data-[swipe-direction=right]:justify-end',
@@ -351,10 +351,12 @@ const positionerLayerRef = useLayerZIndexRef('modal')
                   />
                 </ArkDrawer.Grabber>
 
-                <div class="flex min-w-0 flex-col overflow-hidden">
+                <div class="flex min-h-0 w-full min-w-0 flex-1 flex-col overflow-hidden">
                   <slot name="header" :drawer>
                     <div
-                      :class="cn('flex shrink-0 items-start justify-between gap-4 p-4', ui?.header)"
+                      :class="
+                        cn('flex w-full shrink-0 items-start justify-between gap-4 p-4', ui?.header)
+                      "
                     >
                       <div class="flex min-w-0 flex-1 flex-col gap-0.5">
                         <ArkDrawer.Title
@@ -384,7 +386,7 @@ const positionerLayerRef = useLayerZIndexRef('modal')
                   <div
                     :class="
                       cn(
-                        'min-h-0 p-4',
+                        'min-h-0 w-full p-4',
                         scrollable && 'h-full! overflow-y-auto overscroll-contain',
                         ui?.scrollBody,
                       )
@@ -395,7 +397,7 @@ const positionerLayerRef = useLayerZIndexRef('modal')
 
                   <div
                     v-if="$slots.footer"
-                    :class="cn('flex shrink-0 justify-end gap-2 p-4', ui?.footer)"
+                    :class="cn('flex w-full shrink-0 justify-end gap-2 p-4', ui?.footer)"
                   >
                     <slot name="footer" :drawer />
                   </div>

@@ -1,22 +1,42 @@
 <script setup lang="ts">
 const previews = [
   {
+    description: '15+ mini-scénarios interactifs pour composer entre composants.',
+    tag: 'Compositions',
     title: 'Component Bento',
     to: '/previews/bento',
   },
   {
-    title: 'Movie Detail Page',
-    to: '/previews/movie',
+    description: 'Page média complète — détail film avec sidebar et métadonnées.',
+    tag: 'Product',
+    title: 'Media / Movie',
+    to: '/scenarios/media',
   },
-]
+] as const
 </script>
 
 <template>
-  <main class="flex flex-col gap-4 p-12">
-    <ul class="flex flex-col gap-2">
-      <li v-for="preview in previews" :key="preview.title">
-        <UILink :to="preview.to">{{ preview.title }}</UILink>
-      </li>
-    </ul>
-  </main>
+  <div class="mx-auto max-w-7xl px-4 py-10 md:px-8 md:py-14">
+    <header class="mb-10 max-w-2xl">
+      <p class="txt-caption mb-3 text-neutral-text-subtle">Previews</p>
+      <h1 class="txt-h4 mb-3 text-neutral-text">Compositions</h1>
+      <p class="txt-base text-neutral-text-subtle">
+        Vitrines interactives du design system. Pour les pages produit complètes, voir
+        <UILink to="/scenarios">Scénarios</UILink>.
+      </p>
+    </header>
+
+    <div class="grid gap-4 sm:grid-cols-2">
+      <NuxtLink
+        v-for="preview in previews"
+        :key="preview.to"
+        :to="preview.to"
+        class="rounded-xs border border-neutral-border-subtle bg-neutral-surface p-5 transition-colors hover:border-neutral-border"
+      >
+        <UIBadge :label="preview.tag" size="sm" intent="neutral" variant="subtle" class="mb-3" />
+        <h2 class="txt-label mb-1.5 text-neutral-text">{{ preview.title }}</h2>
+        <p class="txt-caption text-neutral-text-subtle">{{ preview.description }}</p>
+      </NuxtLink>
+    </div>
+  </div>
 </template>

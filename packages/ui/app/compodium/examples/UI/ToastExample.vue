@@ -43,7 +43,7 @@ const showActionToast = () => {
     <section class="flex flex-col gap-4">
       <h3 class="text-xl font-bold">Standard Notifications</h3>
       <div
-        class="flex flex-wrap gap-3 rounded-xl border border-neutral-border-subtle bg-neutral-fill-subtle/10 p-6 disabled:pointer-events-none disabled:opacity-40"
+        class="flex flex-wrap gap-3 rounded-xs border border-neutral-border-subtle bg-neutral-fill-subtle/10 p-6 disabled:pointer-events-none disabled:opacity-40"
       >
         <UIButton
           v-for="type in ['info', 'success', 'warning', 'error'] as const"

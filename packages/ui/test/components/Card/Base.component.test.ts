@@ -31,13 +31,13 @@ describe('Card/Base', () => {
     const wrapper = await mountSuspended(CardBase, {
       props: { size: 'lg' },
     })
-    expect(wrapper.find('.join-item').classes().join(' ')).toMatch(/p-4/)
+    expect(wrapper.find('.join-item').classes().join(' ')).toMatch(/p-6/)
   })
 
-  it('merges custom class', async () => {
+  it('merges custom class onto the body', async () => {
     const wrapper = await mountSuspended(CardBase, {
-      props: { class: 'rounded-xl' },
+      attrs: { class: 'gap-8' },
     })
-    expect(wrapper.find('div').classes()).toContain('rounded-xl')
+    expect(wrapper.find('.join-item').classes()).toContain('gap-8')
   })
 })

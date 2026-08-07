@@ -32,7 +32,7 @@ const menuItems = [
 </script>
 
 <template>
-  <div class="flex flex-col gap-3">
+  <div class="flex flex-col gap-4">
     <div class="flex items-center gap-2">
       <UIMenu
         v-model:open="menuOpen"
@@ -48,7 +48,7 @@ const menuItems = [
       </UITooltip>
     </div>
     <UICollapsible v-model="metadataOpen" heading="Métadonnées">
-      <dl class="txt-caption flex flex-col gap-1 text-neutral-text-subtle">
+      <dl class="txt-caption flex flex-col gap-2 text-neutral-text-subtle">
         <div class="flex justify-between gap-2">
           <dt>Auteur</dt>
           <dd class="text-neutral-text">Marie Dupont</dd>

@@ -212,7 +212,7 @@ const drawer = useDrawer({
           <div
             v-for="i in 20"
             :key="i"
-            class="txt-label flex h-12 items-center justify-center rounded-lg border border-neutral-border-subtle bg-neutral-fill-subtle text-neutral-text disabled:pointer-events-none disabled:opacity-40"
+            class="txt-label flex h-12 items-center justify-center rounded-xs border border-neutral-border-subtle bg-neutral-fill-subtle text-neutral-text disabled:pointer-events-none disabled:opacity-40"
           >
             Item {{ i }}
           </div>
@@ -263,7 +263,7 @@ const drawer = useDrawer({
             data-no-drag
             type="text"
             placeholder="Type here — drag won't start inside"
-            class="txt-base w-full rounded-md border border-neutral-border bg-neutral-surface px-3 py-2 text-neutral-text outline-none focus:border-primary-border focus:ring-1 focus:ring-primary-border"
+            class="txt-base w-full rounded-xs border border-neutral-border bg-neutral-surface px-3 py-2 text-neutral-text outline-none focus:border-primary-border focus:ring-1 focus:ring-primary-border"
           />
         </div>
       </UIDrawer>

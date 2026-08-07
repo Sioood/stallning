@@ -5,7 +5,7 @@ const progressValue = computed(() => Math.round(((step.value + 1) / 3) * 100))
 </script>
 
 <template>
-  <div class="flex flex-col gap-3">
+  <div class="flex flex-col gap-5">
     <UISteps
       v-model:step="step"
       :items="['Panier', 'Livraison', 'Paiement']"
@@ -14,18 +14,18 @@ const progressValue = computed(() => Math.round(((step.value + 1) / 3) * 100))
       size="sm"
     >
       <UIStepsContent :index="0">
-        <p class="txt-caption text-neutral-text-subtle">2 articles — 148,00 €</p>
+        <p class="txt-caption pt-1 text-neutral-text-subtle">2 articles — 148,00 €</p>
       </UIStepsContent>
       <UIStepsContent :index="1">
-        <p class="txt-caption text-neutral-text-subtle">Adresse : 12 rue de la Paix, Paris</p>
+        <p class="txt-caption pt-1 text-neutral-text-subtle">Adresse : 12 rue de la Paix, Paris</p>
       </UIStepsContent>
       <UIStepsContent :index="2">
-        <p class="txt-caption text-neutral-text-subtle">Carte se terminant par 4242</p>
+        <p class="txt-caption pt-1 text-neutral-text-subtle">Carte se terminant par 4242</p>
       </UIStepsContent>
       <UIStepsCompletedContent>
         <p class="txt-label text-success-text">Commande confirmée</p>
       </UIStepsCompletedContent>
     </UISteps>
-    <UIProgress :model-value="progressValue" label="Progression" intent="primary" size="sm" />
+    <UIProgress :model-value="progressValue" label="Progression" intent="primary" size="md" />
   </div>
 </template>

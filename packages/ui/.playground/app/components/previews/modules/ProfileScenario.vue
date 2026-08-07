@@ -16,7 +16,7 @@ function saveProfile() {
 </script>
 
 <template>
-  <div class="flex flex-col gap-3">
+  <div class="flex flex-col gap-5">
     <div class="flex items-center justify-between gap-2">
       <span class="txt-caption text-neutral-text-subtle">Profil public</span>
       <UIBadge :intent="statusIntent" :label="statusLabel" size="sm" />

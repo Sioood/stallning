@@ -226,7 +226,7 @@ function formatPercentage(value: number, _index: number): string {
     <!-- ── Event Log ────────────────────────────────────────────────── -->
     <section class="flex w-full max-w-md flex-col gap-3">
       <h2 class="text-lg font-semibold">Event Log</h2>
-      <div class="max-h-40 overflow-y-auto rounded-md bg-neutral-fill-subtle p-3 font-mono text-xs">
+      <div class="max-h-40 overflow-y-auto rounded-xs bg-neutral-fill-subtle p-3 font-mono text-xs">
         <div v-for="(entry, i) in eventLog" :key="i" class="py-0.5 text-neutral-text-subtle">
           {{ entry }}
         </div>

@@ -15,7 +15,7 @@ watch(code, () => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-3">
+  <div class="flex flex-col gap-5">
     <UIFormPinInput v-model="code" label="Code de vérification" :count="4" />
     <UIAlert
       v-if="!verified"

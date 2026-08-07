@@ -78,7 +78,7 @@ const swapPressed = computed(() => pressed.value ?? false)
 
 const swapIndicatorClass = computed(() =>
   cn(
-    'flex items-center justify-center',
+    'inline-flex items-center justify-center gap-1.5',
     props.ui?.indicator,
     props.groupItem ? null : props.indicatorAnimation,
   ),

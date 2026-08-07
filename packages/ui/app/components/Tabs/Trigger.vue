@@ -56,9 +56,11 @@ const triggerLayout = computed<TabsTriggerLayout>(
 )
 const isDisabled = computed(() => props.disabled ?? false)
 
-/** Stacked triggers always use the horizontal item base; list orientation stays on the root. */
+/** Stacked layout uses its own flex-col; vertical lists keep icon+label on one row. */
 const itemOrientation = computed(() =>
-  triggerLayout.value === 'stacked' ? 'horizontal' : listOrientation.value,
+  triggerLayout.value === 'stacked' || listOrientation.value === 'vertical'
+    ? 'horizontal'
+    : listOrientation.value,
 )
 
 const triggerProps = computed(() => pick(props, ['asChild', 'disabled', 'value'] as const))

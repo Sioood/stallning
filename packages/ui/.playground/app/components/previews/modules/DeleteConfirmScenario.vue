@@ -13,8 +13,14 @@ function confirmDelete() {
 </script>
 
 <template>
-  <div class="flex flex-col gap-3">
-    <UIButton intent="error" variant="subtle" text="Supprimer le projet" @click="openConfirm" />
+  <div class="flex flex-col gap-4">
+    <UIButton
+      intent="error"
+      variant="subtle"
+      text="Supprimer le projet"
+      class="w-full"
+      @click="openConfirm"
+    />
     <UIDialog
       v-model:open="confirmOpen"
       hide-trigger
@@ -24,12 +30,12 @@ function confirmDelete() {
     >
       <template #footer>
         <UIButton variant="subtle" intent="neutral" text="Annuler" @click="confirmOpen = false" />
-        <UIButton intent="primary" text="Supprimer" @click="confirmDelete" />
+        <UIButton intent="error" text="Supprimer" @click="confirmDelete" />
       </template>
     </UIDialog>
     <UIAlert
       v-if="deleted"
-      type="warning"
+      type="error"
       title="Projet supprimé"
       description="Le projet a été retiré de votre espace."
     />

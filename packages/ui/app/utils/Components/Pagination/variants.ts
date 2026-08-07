@@ -1,13 +1,19 @@
 import { cva } from 'class-variance-authority'
 
-import type { PaginationIntent, PaginationSize } from './context'
+import type { PaginationAlign, PaginationIntent, PaginationSize } from './context'
 
-export const paginationRootCVA = cva('flex items-stretch', {
+export const paginationRootCVA = cva('flex w-full items-stretch', {
   defaultVariants: {
+    align: 'center',
     intent: 'neutral',
     size: 'md',
   },
   variants: {
+    align: {
+      center: 'justify-center',
+      end: 'justify-end',
+      start: 'justify-start',
+    } satisfies Record<PaginationAlign, string>,
     intent: {
       accent: 'text-accent-text',
       neutral: 'text-neutral-text',

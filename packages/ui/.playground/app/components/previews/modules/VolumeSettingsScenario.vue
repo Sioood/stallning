@@ -14,9 +14,13 @@ watch(volume, (value) => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-3">
+  <div class="flex flex-col gap-5">
     <UIFormSlider v-model="volume" :min="0" :max="100" label="Volume" intent="primary" />
     <UIDivider />
-    <UISwitch v-model:checked="muted" label="Muet" />
+    <UISwitch
+      v-model="muted"
+      label="Muet"
+      :ui="{ root: 'w-full flex-row-reverse justify-between' }"
+    />
   </div>
 </template>

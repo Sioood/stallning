@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const ROW_HEIGHT_PX = 10
-const GAP_PX = 12
+const GAP_PX = 28
 
 const gridRef = ref<HTMLElement | null>(null)
 let resizeObserver: ResizeObserver | undefined
@@ -43,12 +43,14 @@ onMounted(async () => {
 onUnmounted(() => {
   resizeObserver?.disconnect()
 })
+
+defineExpose({ relayout: layoutMasonry })
 </script>
 
 <template>
   <div
     ref="gridRef"
-    class="grid-auto-rows-[10px] grid grid-cols-[repeat(auto-fill,400px)] justify-center gap-3"
+    class="grid-auto-rows-[10px] grid grid-cols-[repeat(auto-fill,minmax(280px,420px))] justify-center gap-7"
   >
     <slot />
   </div>

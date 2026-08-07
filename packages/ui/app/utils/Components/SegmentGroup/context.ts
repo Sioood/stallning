@@ -12,6 +12,7 @@ export interface SegmentGroupContext {
   size: Ref<SegmentGroupSize>
   orientation: Ref<SegmentedOrientation>
   variant: Ref<SegmentedVariant>
+  fullWidth: Ref<boolean>
 }
 
 export const segmentGroupChromeKey: InjectionKey<SegmentGroupContext> = Symbol('segmentGroupChrome')

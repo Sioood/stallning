@@ -10,7 +10,7 @@ import { cva } from 'class-variance-authority'
 import type { ClassValue } from 'vue'
 import type { ProgressCircularSize, ProgressIntent } from '~/utils/Components/Progress/context'
 
-const progressCircleRootCVA = cva('', {
+const progressCircleRootCVA = cva('inline-flex flex-col items-center', {
   variants: {
     intent: {
       accent: 'text-accent-text',
@@ -19,12 +19,12 @@ const progressCircleRootCVA = cva('', {
       secondary: 'text-secondary-text',
     } satisfies Record<ProgressIntent, string>,
     size: {
-      'icon-lg': 'flex w-min flex-col',
-      'icon-md': 'flex w-min flex-col',
-      'icon-sm': 'flex w-min flex-col',
-      lg: 'flex w-min flex-col gap-1',
-      md: 'flex w-min flex-col gap-1',
-      sm: 'flex w-min flex-col gap-1',
+      'icon-lg': '',
+      'icon-md': '',
+      'icon-sm': '',
+      lg: 'gap-2',
+      md: 'gap-1.5',
+      sm: 'gap-1',
     } satisfies Record<ProgressCircularSize, string>,
   },
 })
@@ -48,15 +48,15 @@ const progressCircleLabelCVA = cva('', {
   },
 })
 
-const progressCircleCVA = cva('', {
+const progressCircleCVA = cva('shrink-0', {
   variants: {
     size: {
       'icon-lg': '[--size:1.25rem] [--thickness:calc(var(--size)/5)]',
       'icon-md': '[--size:0.94rem] [--thickness:calc(var(--size)/5)]',
       'icon-sm': '[--size:0.785rem] [--thickness:calc(var(--size)/5)]',
-      lg: '[--size:5rem] [--thickness:calc(var(--size)/11)]',
-      md: '[--size:4rem] [--thickness:calc(var(--size)/11)]',
-      sm: '[--size:3rem] [--thickness:calc(var(--size)/11)]',
+      lg: '[--size:7.5rem] [--thickness:calc(var(--size)/12)]',
+      md: '[--size:5.5rem] [--thickness:calc(var(--size)/12)]',
+      sm: '[--size:4rem] [--thickness:calc(var(--size)/12)]',
     } satisfies Record<ProgressCircularSize, string>,
   },
 })
@@ -72,35 +72,41 @@ const progressCircleTrackCVA = cva('', {
   },
 })
 
-const progressCircleRangeCVA = cva('transition-[stroke-dasharray,stroke] duration-600 ease-out', {
-  variants: {
-    intent: {
-      accent: 'stroke-accent-fill',
-      neutral: 'stroke-neutral-fill',
-      primary: 'stroke-primary-fill',
-      secondary: 'stroke-secondary-fill',
-    } satisfies Record<ProgressIntent, string>,
+const progressCircleRangeCVA = cva(
+  'transition-[stroke-dashoffset,stroke] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]',
+  {
+    variants: {
+      intent: {
+        accent: 'stroke-accent-fill',
+        neutral: 'stroke-neutral-fill',
+        primary: 'stroke-primary-fill',
+        secondary: 'stroke-secondary-fill',
+      } satisfies Record<ProgressIntent, string>,
+    },
   },
-})
+)
 
-const progressCircleValueTextCVA = cva('absolute text-right font-mono tabular-nums', {
-  variants: {
-    intent: {
-      accent: 'text-accent-text-subtle',
-      neutral: 'text-neutral-text-subtle',
-      primary: 'text-primary-text-subtle',
-      secondary: 'text-secondary-text-subtle',
-    } satisfies Record<ProgressIntent, string>,
-    size: {
-      'icon-lg': 'hidden',
-      'icon-md': 'hidden',
-      'icon-sm': 'hidden',
-      lg: 'txt-base',
-      md: 'txt-caption',
-      sm: 'txt-small',
-    } satisfies Record<ProgressCircularSize, string>,
+const progressCircleValueTextCVA = cva(
+  'pointer-events-none absolute inset-0 flex items-center justify-center font-mono tabular-nums',
+  {
+    variants: {
+      intent: {
+        accent: 'text-accent-text',
+        neutral: 'text-neutral-text',
+        primary: 'text-primary-text',
+        secondary: 'text-secondary-text',
+      } satisfies Record<ProgressIntent, string>,
+      size: {
+        'icon-lg': 'hidden',
+        'icon-md': 'hidden',
+        'icon-sm': 'hidden',
+        lg: 'txt-label',
+        md: 'txt-caption',
+        sm: 'txt-small',
+      } satisfies Record<ProgressCircularSize, string>,
+    },
   },
-})
+)
 
 interface UIProgressCircularSlots {
   circle?: ClassValue
@@ -184,7 +190,10 @@ extendCompodiumMeta({
     "
     :class="cn(progressCircleRootCVA({ intent, size }), ui?.root)"
   >
-    <ArkProgress.Label :class="cn(progressCircleLabelCVA({ intent, size }), ui?.label)">
+    <ArkProgress.Label
+      v-if="label"
+      :class="cn(progressCircleLabelCVA({ intent, size }), ui?.label)"
+    >
       {{ $te(label) ? $t(label) : label }}
     </ArkProgress.Label>
 

@@ -21,7 +21,7 @@ const externalQrCode = useQrCode({ value: 'https://ark-ui.com' })
           <input
             v-model="url"
             type="text"
-            class="rounded-md border border-neutral-border bg-neutral-surface px-3 py-1.5 text-sm text-neutral-text"
+            class="rounded-xs border border-neutral-border bg-neutral-surface px-3 py-1.5 text-sm text-neutral-text"
           />
           <p class="font-mono text-xs text-neutral-text-subtle">{{ url }}</p>
         </div>

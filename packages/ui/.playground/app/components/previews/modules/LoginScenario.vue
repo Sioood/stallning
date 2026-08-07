@@ -13,7 +13,7 @@ function submit() {
 </script>
 
 <template>
-  <div class="flex flex-col gap-3">
+  <div class="flex flex-col gap-5">
     <UIFormInput v-model="email" label="Adresse e-mail" type="email" />
     <UIFormInput v-model="password" label="Mot de passe" type="password" />
     <UIFormCheckbox v-model="remember" label="Se souvenir de moi" />

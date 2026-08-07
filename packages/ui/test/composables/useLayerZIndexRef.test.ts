@@ -68,6 +68,33 @@ describe('useLayerZIndexRef', () => {
 
       expect(el.style.getPropertyValue('z-index')).toBe(String(TOAST_LAYER_Z_INDEX))
       expect(el.style.getPropertyPriority('z-index')).toBe('important')
+      expect(el.style.getPropertyValue('--z-index')).toBe(String(TOAST_LAYER_Z_INDEX))
+    })
+    scope.stop()
+  })
+
+  it('retries when $el is not yet an HTMLElement (Ark Presence)', () => {
+    const frames: FrameRequestCallback[] = []
+    vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => {
+      frames.push(cb)
+      return frames.length
+    })
+    vi.stubGlobal('cancelAnimationFrame', vi.fn())
+
+    const scope = effectScope(true)
+    scope.run(() => {
+      const setRef = useLayerZIndexRef('modal')
+      const host: { $el: Node } = { $el: document.createComment('presence') }
+      setRef(host)
+
+      expect(frames.length).toBeGreaterThan(0)
+
+      const el = document.createElement('div')
+      host.$el = el
+      frames[0]?.(0)
+
+      expect(el.style.getPropertyValue('z-index')).toBe(String(MODAL_LAYER_Z_INDEX))
+      expect(el.style.getPropertyPriority('z-index')).toBe('important')
     })
     scope.stop()
   })

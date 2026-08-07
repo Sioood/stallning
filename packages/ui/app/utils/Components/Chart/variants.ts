@@ -19,26 +19,16 @@ const LEGEND_SIDES = [
 ] as const satisfies readonly ChartLegendSide[]
 const LEGEND_ALIGNS = ['start', 'center', 'end'] as const satisfies readonly ChartLegendAlign[]
 
-function legendAlignItems(align: ChartLegendAlign): string {
-  return (
-    {
-      center: 'items-center',
-      end: 'items-end',
-      start: 'items-start',
-    } as const
-  )[align]
-}
-
-function chartRootPlacementClass(side: ChartLegendSide, align: ChartLegendAlign): string {
+function chartRootPlacementClass(side: ChartLegendSide, _align: ChartLegendAlign): string {
   switch (side) {
     case 'top':
-      return `flex-col ${legendAlignItems(align)}`
+      return 'flex-col'
     case 'bottom':
-      return `flex-col-reverse ${legendAlignItems(align)}`
+      return 'flex-col-reverse'
     case 'left':
-      return `flex-row ${legendAlignItems(align)}`
+      return 'flex-row items-stretch'
     case 'right':
-      return `flex-row-reverse ${legendAlignItems(align)}`
+      return 'flex-row-reverse items-stretch'
   }
 }
 

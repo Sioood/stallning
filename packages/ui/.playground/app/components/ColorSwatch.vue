@@ -726,11 +726,7 @@ function tokensForScale(triggerValue: string | null) {
     </div>
 
     <div class="flex aspect-9/13.5 min-w-87.5 flex-col bg-primary-100">
-      <UITooltip
-        class="flex min-h-0 flex-1 flex-col"
-        :positioning="{ placement: 'top', gutter: 8 }"
-        :open-delay="200"
-      >
+      <UITooltip :positioning="{ placement: 'top', gutter: 8 }" :open-delay="200">
         <template #triggers="{ trigger: Trigger }">
           <div class="flex min-h-0 flex-1 flex-col">
             <component

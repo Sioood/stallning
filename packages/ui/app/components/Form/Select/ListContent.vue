@@ -48,7 +48,7 @@ const groups = computed(() => {
 
 <template>
   <div v-if="loading" :class="cn(itemClass, 'cursor-default gap-2 text-neutral-text-subtle')">
-    <UIFormSelectGlyph name="loader" :glyph-class="cn(iconClass, 'animate-spin')" />
+    <Icon name="tabler:loader" :class="cn(iconClass, 'animate-spin')" />
     {{ loadingText }}
   </div>
 
@@ -71,7 +71,7 @@ const groups = computed(() => {
           }
         "
       >
-        <UIFormSelectGlyph name="checks" :glyph-class="iconClass" />
+        <Icon name="tabler:checks" :class="iconClass" />
         {{ $t('select.selectAll') }}
       </button>
     </UIFormSelectContext>

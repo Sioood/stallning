@@ -55,10 +55,10 @@ function removeFilter(filter: string) {
 </script>
 
 <template>
-  <div class="flex min-h-0 flex-col gap-3">
-    <UISegmentGroup v-model="viewMode" :options="viewOptions" size="sm" />
+  <div class="flex min-h-0 flex-col gap-4">
+    <UISegmentGroup v-model="viewMode" :options="viewOptions" size="sm" full-width />
 
-    <div v-if="activeFilters.length > 0" class="flex flex-wrap gap-1">
+    <div v-if="activeFilters.length > 0" class="flex flex-wrap gap-2">
       <UIChip
         v-for="filter in activeFilters"
         :key="filter"
@@ -70,22 +70,25 @@ function removeFilter(filter: string) {
     </div>
     <p v-else class="txt-caption text-neutral-text-subtle">Aucun filtre actif</p>
 
-    <ul v-if="viewMode === 'list'" class="flex min-h-0 flex-1 flex-col gap-1">
+    <ul v-if="viewMode === 'list'" class="flex min-h-0 flex-1 flex-col gap-0">
       <li
         v-for="item in pagedItems"
         :key="item.id"
-        class="txt-caption flex items-center justify-between gap-2 border-b border-neutral-border-subtle py-1"
+        class="txt-caption flex items-center justify-between gap-2 border-b border-neutral-border-subtle py-2.5"
       >
         <span class="min-w-0 truncate text-neutral-text">{{ item.name }}</span>
         <UIBadge v-if="item.premium" intent="accent" label="Premium" size="sm" />
       </li>
     </ul>
 
-    <div v-else class="grid auto-rows-auto grid-cols-[repeat(auto-fill,400px)] justify-start gap-1">
+    <div
+      v-else
+      class="grid auto-rows-auto grid-cols-[repeat(auto-fill,minmax(8rem,1fr))] justify-start gap-2"
+    >
       <div
         v-for="item in pagedItems"
         :key="item.id"
-        class="txt-caption truncate rounded border border-neutral-border-subtle bg-neutral-surface-subtle p-2 text-neutral-text"
+        class="txt-caption truncate rounded-xs border border-neutral-border-subtle bg-neutral-surface-subtle p-3 text-neutral-text"
       >
         {{ item.name }}
       </div>

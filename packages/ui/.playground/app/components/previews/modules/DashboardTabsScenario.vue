@@ -16,7 +16,7 @@ const activitySummary = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-3">
+  <div class="flex flex-col gap-4">
     <UITabs v-model="activeTab" :options="tabOptions" intent="primary" size="sm">
       <template #content-overview>
         <p class="txt-caption text-neutral-text-subtle">

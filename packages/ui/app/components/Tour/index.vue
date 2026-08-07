@@ -33,7 +33,7 @@ const tourRootCVA = cva('flex flex-col', {
   },
 })
 
-const tourBackdropCVA = cva('fixed inset-0', {
+const tourBackdropCVA = cva('fixed inset-0 z-11000', {
   defaultVariants: {
     intent: 'neutral',
   },

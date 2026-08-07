@@ -12,12 +12,12 @@ import type { ProgressIntent, ProgressSize } from '~/utils/Components/Progress/c
 
 defineOptions({ inheritAttrs: false })
 
-const progressRootCVA = cva('', {
+const progressRootCVA = cva('grid w-full grid-cols-2 items-center', {
   variants: {
     size: {
-      lg: 'row-gap-2 grid w-full grid-cols-2 items-center gap-1',
-      md: 'row-gap-2 grid w-full grid-cols-2 items-center gap-1',
-      sm: 'row-gap-2 grid w-full grid-cols-2 items-center gap-1',
+      lg: 'gap-x-3 gap-y-3',
+      md: 'gap-x-2 gap-y-2.5',
+      sm: 'gap-x-2 gap-y-2',
     } satisfies Record<ProgressSize, string>,
   },
 })
@@ -38,7 +38,7 @@ const progressLabelCVA = cva('', {
   },
 })
 
-const progressTrackCVA = cva('overflow-hidden', {
+const progressTrackCVA = cva('overflow-hidden rounded-xs', {
   variants: {
     intent: {
       accent: 'bg-accent-fill-subtle',
@@ -51,28 +51,31 @@ const progressTrackCVA = cva('overflow-hidden', {
       vertical: 'h-50 w-1.5',
     } satisfies Record<'horizontal' | 'vertical', string>,
     size: {
-      lg: 'col-span-full h-2',
-      md: 'col-span-full h-1.5',
-      sm: 'col-span-full h-1',
+      lg: 'col-span-full h-2.5',
+      md: 'col-span-full h-2',
+      sm: 'col-span-full h-1.5',
     } satisfies Record<ProgressSize, string>,
   },
 })
 
-const progressRangeCVA = cva('', {
-  variants: {
-    intent: {
-      accent: 'bg-accent-fill',
-      neutral: 'bg-neutral-fill',
-      primary: 'bg-primary-fill',
-      secondary: 'bg-secondary-fill',
-    } satisfies Record<ProgressIntent, string>,
-    size: {
-      lg: 'h-full',
-      md: 'h-full',
-      sm: 'h-full',
-    } satisfies Record<ProgressSize, string>,
+const progressRangeCVA = cva(
+  'rounded-xs transition-[width,height] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]',
+  {
+    variants: {
+      intent: {
+        accent: 'bg-accent-fill',
+        neutral: 'bg-neutral-fill',
+        primary: 'bg-primary-fill',
+        secondary: 'bg-secondary-fill',
+      } satisfies Record<ProgressIntent, string>,
+      size: {
+        lg: 'h-full',
+        md: 'h-full',
+        sm: 'h-full',
+      } satisfies Record<ProgressSize, string>,
+    },
   },
-})
+)
 
 const progressValueTextCVA = cva('text-right font-mono tabular-nums', {
   variants: {
@@ -183,7 +186,7 @@ extendCompodiumMeta({
 
 <template>
   <component :is="rootComponent" v-bind="rootBindings">
-    <ArkProgress.Label :class="cn(progressLabelCVA({ intent, size }), ui?.label)">
+    <ArkProgress.Label v-if="label" :class="cn(progressLabelCVA({ intent, size }), ui?.label)">
       {{ $te(label) ? $t(label) : label }}
     </ArkProgress.Label>
     <ArkProgress.ValueText :class="cn(progressValueTextCVA({ intent, size }), ui?.valueText)" />

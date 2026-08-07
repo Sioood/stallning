@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { cva, type VariantProps } from 'class-variance-authority'
 
+import type { ClassValue } from 'vue'
 import type {
   CardIntent,
   CardSize,
@@ -110,9 +111,9 @@ const cardCVA = cva('', {
       secondary: '',
     } satisfies Record<CardIntent, string>,
     size: {
-      lg: 'p-4',
-      md: 'p-2',
-      sm: 'p-1',
+      lg: 'p-6',
+      md: 'p-4',
+      sm: 'p-2',
     } satisfies Record<CardSize, string>,
     variant: {
       default: 'border',
@@ -224,9 +225,9 @@ const cardHeaderFooterCVA = cva('', {
       secondary: '',
     } satisfies Record<CardIntent, string>,
     size: {
-      lg: 'p-4',
-      md: 'p-2',
-      sm: 'p-1',
+      lg: 'p-6',
+      md: 'p-4',
+      sm: 'p-2',
     } satisfies Record<CardSize, string>,
     variant: {
       default: 'border',
@@ -246,28 +247,52 @@ export interface CardBaseProps {
   ui?: Partial<UICardBaseSlots>
 }
 
+defineOptions({ inheritAttrs: false })
+
 withDefaults(defineProps<CardBaseProps>(), {
   intent: 'primary',
   size: 'md',
   ui: undefined,
   variant: 'default',
 })
+
+const attrs = useAttrs()
+
+const bodyAttrs = computed(() => {
+  const { class: _class, ...rest } = attrs
+  return rest
+})
 </script>
 
 <template>
-  <div class="join join-vertical" :class="ui?.root">
+  <div class="join join-vertical w-full rounded-xs" :class="ui?.root">
     <div
       v-if="$slots.header"
-      :class="cn('join-item', cardHeaderFooterCVA({ variant, intent, size }), ui?.header)"
+      :class="
+        cn('join-item rounded-xs', cardHeaderFooterCVA({ variant, intent, size }), ui?.header)
+      "
     >
       <slot name="header" />
     </div>
-    <div :class="cn('join-item', cardCVA({ variant, intent, size }), ui?.body)">
-      <slot :class="cn(ui?.content)" />
+    <div
+      v-bind="bodyAttrs"
+      :class="
+        cn(
+          'join-item rounded-xs',
+          cardCVA({ variant, intent, size }),
+          ui?.body,
+          ui?.content,
+          attrs.class as ClassValue,
+        )
+      "
+    >
+      <slot />
     </div>
     <div
       v-if="$slots.footer"
-      :class="cn('join-item', cardHeaderFooterCVA({ variant, intent, size }), ui?.footer)"
+      :class="
+        cn('join-item rounded-xs', cardHeaderFooterCVA({ variant, intent, size }), ui?.footer)
+      "
     >
       <slot name="footer" />
     </div>

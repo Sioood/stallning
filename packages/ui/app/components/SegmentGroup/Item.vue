@@ -40,6 +40,7 @@ const intent = computed<SegmentGroupIntent>(() => props.intent ?? chrome?.intent
 const size = computed<SegmentGroupSize>(() => props.size ?? chrome?.size.value ?? 'md')
 const orientation = computed(() => chrome?.orientation.value ?? 'horizontal')
 const variant = computed(() => chrome?.variant.value ?? 'line')
+const fullWidth = computed(() => chrome?.fullWidth.value ?? false)
 const isDisabled = computed(() => props.disabled ?? false)
 
 const itemProps = computed(() => pick(props, ['asChild', 'disabled', 'value'] as const))
@@ -56,7 +57,11 @@ extendCompodiumMeta({
   <ArkSegmentGroup.Item
     v-bind="{ ...itemProps, ...itemAttrs }"
     :class="
-      cn(segmentedItemCVA({ variant, intent, size, orientation, disabled: isDisabled }), ui?.root)
+      cn(
+        segmentedItemCVA({ variant, intent, size, orientation, disabled: isDisabled }),
+        fullWidth && orientation === 'horizontal' && 'flex-1',
+        ui?.root,
+      )
     "
   >
     <slot />

@@ -50,6 +50,8 @@ export interface SegmentGroupProps
   size?: SegmentGroupSize
   /** Layout orientation. @default 'horizontal' */
   orientation?: SegmentedOrientation
+  /** Stretch the group and items to fill available width. @default false */
+  fullWidth?: boolean
   /** Predefined options to render. */
   options?: SegmentGroupOption[]
   /** Slot-level class overrides. */
@@ -60,6 +62,7 @@ const modelValue = defineModel<string>()
 
 const props = withDefaults(defineProps<SegmentGroupProps>(), {
   disabled: false,
+  fullWidth: false,
   intent: 'primary',
   options: () => [],
   orientation: 'horizontal',
@@ -72,6 +75,7 @@ const props = withDefaults(defineProps<SegmentGroupProps>(), {
 const attrs = useAttrs()
 
 provide(segmentGroupChromeKey, {
+  fullWidth: computed(() => props.fullWidth),
   intent: computed(() => props.intent),
   orientation: computed(() => props.orientation),
   size: computed(() => props.size),
@@ -103,6 +107,7 @@ const rootClass = computed(() =>
       size: props.size,
       variant: props.variant,
     }),
+    props.fullWidth && 'flex w-full',
     arkAttrs.value.class as string,
     props.ui?.root,
   ),

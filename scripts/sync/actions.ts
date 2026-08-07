@@ -2,6 +2,15 @@ import { spawnSync } from 'node:child_process'
 
 import consola from 'consola'
 
+import {
+  aheadFromRef,
+  bumpSyncBaseline,
+  ensureBaselineObject,
+  readSyncBaseline,
+  resolveSyncBaselineSha,
+  showSyncBaseline,
+  SYNC_BASELINE_PATH,
+} from './baseline.ts'
 import { classifyFiles, sharedFilesOnly } from './classify.ts'
 import {
   commitExistsInRef,
@@ -20,6 +29,12 @@ import { printPlan, type PlannedCommit, type SyncPlan } from './plan.ts'
 import { clearSyncState, readSyncState, writeSyncState } from './state.ts'
 
 import type { PickOptions, SyncGlobalOptions } from './options.ts'
+
+function maybeBumpBaselineAfterSync(sourceRef: string, appliedSha?: string): void {
+  if (!readSyncBaseline()) return
+  const tip = appliedSha ?? gitStdout(['rev-parse', sourceRef])
+  bumpSyncBaseline({ remote: sourceRef.split('/')[0], sha: tip })
+}
 
 function requireSourceBranch(options: SyncGlobalOptions): string {
   if (!options.sourceBranch) throw new Error('Missing --source-branch / -s.')
@@ -108,10 +123,17 @@ export function runStatus(options: SyncGlobalOptions): void {
   ensureLocalBranchExists(target)
 
   const sourceRef = `${options.sourceRemote}/${sourceBranch}`
-  const ahead = listCommitsBetween(target, sourceRef).map(toPlanned)
+  const baselineSha = resolveSyncBaselineSha()
+  if (baselineSha) ensureBaselineObject(baselineSha)
+  const aheadFrom = aheadFromRef(target)
+  const ahead = listCommitsBetween(aheadFrom, sourceRef).map(toPlanned)
   const behind = listCommitsBetween(sourceRef, target).map(toPlanned)
 
-  consola.box(`Delta: ${sourceRef} ↔ ${target}`)
+  consola.box(
+    baselineSha
+      ? `Delta: ${sourceRef} ↔ ${target} (baseline ${baselineSha.slice(0, 7)})`
+      : `Delta: ${sourceRef} ↔ ${target}`,
+  )
 
   consola.info(`On source, not in target (${ahead.length}):`)
   if (!ahead.length) consola.log('  (none)')
@@ -154,6 +176,7 @@ export function runMerge(options: SyncGlobalOptions): void {
     process.exit(1)
   }
   consola.success(`Baseline sync complete: merged '${sourceRef}' into '${target}'.`)
+  maybeBumpBaselineAfterSync(sourceRef)
   runVerifyIfRequested(options.verify, options.dryRun)
 }
 
@@ -204,7 +227,9 @@ function resolvePickCommits(
       selected.push(loadCommit(sha))
     }
   } else {
-    selected = listCommitsBetween(target, sourceRef).map(toPlanned)
+    const baselineSha = resolveSyncBaselineSha()
+    if (baselineSha) ensureBaselineObject(baselineSha)
+    selected = listCommitsBetween(aheadFromRef(target), sourceRef).map(toPlanned)
   }
 
   const withoutMerges = selected.filter((commit) => !isMergeCommit(commit.sha))
@@ -287,6 +312,8 @@ function cherryPickQueue(input: {
 
   clearSyncState()
   consola.success(`Sync complete: applied ${commits.length} commit(s) into '${target}'.`)
+  const lastApplied = commits[commits.length - 1]?.sha
+  if (mode === 'pick') maybeBumpBaselineAfterSync(sourceRef, lastApplied)
   runVerifyIfRequested(options.verify, options.dryRun)
 }
 
@@ -403,3 +430,33 @@ export function runPaths(options: SyncGlobalOptions & { paths: string[]; ref?: s
 }
 
 export { toPlanned }
+
+export function runBaselineShow(): void {
+  showSyncBaseline()
+}
+
+export function runBaselineSet(sha: string, options: { template?: string; remote?: string }): void {
+  bumpSyncBaseline({
+    remote: options.remote,
+    sha,
+    template: options.template,
+  })
+}
+
+export function runBaselineBump(options: SyncGlobalOptions): void {
+  if (!readSyncBaseline()) {
+    throw new Error(
+      `No ${SYNC_BASELINE_PATH} to bump. Create one with: pnpm sync baseline set <sha>`,
+    )
+  }
+  const sourceBranch = requireSourceBranch(options)
+  fetchRemote(options.sourceRemote)
+  ensureRemoteBranchExists(options.sourceRemote, sourceBranch)
+  const sourceRef = `${options.sourceRemote}/${sourceBranch}`
+  const tip = gitStdout(['rev-parse', sourceRef])
+  if (options.dryRun) {
+    consola.info(`[dry-run] bump baseline → ${tip}`)
+    return
+  }
+  bumpSyncBaseline({ remote: options.sourceRemote, sha: tip, template: sourceBranch })
+}

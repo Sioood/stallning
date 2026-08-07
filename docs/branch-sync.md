@@ -30,6 +30,20 @@ git fetch upstream
 - `origin`: your fork.
 - `upstream`: source template repository.
 
+### Sync baseline (forks)
+
+`create-stallning` wipes `.git` and writes a fresh root commit, so there is **no shared ancestry** with Stallning. Without a baseline, `sync status` / `sync pick` would list the entire template history.
+
+New projects get `.stallning/sync-baseline` at create time (template tip SHA). When that file exists, the “on source” delta is `baseline..source` instead of `target..source`.
+
+```sh
+pnpm sync baseline show
+pnpm sync baseline set <sha> --template nuxt --remote upstream   # existing forks
+pnpm sync baseline bump -r upstream -s nuxt                      # mark fully synced to tip
+```
+
+After a successful `sync merge`, the baseline bumps to the source tip. After a successful `sync pick`, it bumps to the last applied commit.
+
 ## CLI
 
 ```sh
@@ -39,6 +53,7 @@ pnpm sync merge [flags]
 pnpm sync pick [flags]
 pnpm sync backport [flags]
 pnpm sync paths <paths...> [flags]
+pnpm sync baseline show|set|bump
 ```
 
 Compat aliases:

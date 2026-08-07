@@ -8,6 +8,7 @@ const SHARED_PREFIXES = [
   '.changeset/',
   '.github/workflows/',
   '.github/pull_request_template.md',
+  '.stallning/',
   '.vscode/',
   'docs/branch-sync.md',
   'docs/',

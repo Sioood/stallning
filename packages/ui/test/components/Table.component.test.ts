@@ -364,17 +364,15 @@ describe('UITable (assembled)', () => {
 
     expect(table).toBeDefined()
 
-    const durations: number[] = []
+    const { onSortingChange } = table!.options
+    expect(onSortingChange).toBeTypeOf('function')
+
     for (let index = 0; index < 20; index += 1) {
-      const started = performance.now()
       table!.getColumn('email')?.toggleSorting(index % 2 === 0)
       await flushPromises()
-      durations.push(performance.now() - started)
+      expect(table!.options.onSortingChange).toBe(onSortingChange)
     }
 
-    const firstHalf = durations.slice(0, 10).reduce((sum, value) => sum + value, 0) / 10
-    const secondHalf = durations.slice(10).reduce((sum, value) => sum + value, 0) / 10
-
-    expect(secondHalf).toBeLessThan(firstHalf * 4)
+    expect(sorting.value).toEqual([{ desc: false, id: 'email' }])
   })
 })

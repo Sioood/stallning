@@ -32,7 +32,7 @@ describe('UIProgress', () => {
     const intents = ['primary', 'secondary', 'accent'] as const
     for (const intent of intents) {
       const wrapper = await mountSuspended(UIProgress, {
-        props: { intent },
+        props: { intent, label: 'Loading' },
       })
       const label = wrapper.find('[data-part="label"]')
       expect(label.classes().some((c) => c.includes(intent))).toBe(true)

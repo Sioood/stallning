@@ -24,8 +24,8 @@ describe('UIDialog', () => {
 
     expect(backdrop).not.toBeNull()
     expect(positioner).not.toBeNull()
-    expect(backdrop?.className).toContain('z-[11000]')
-    expect(positioner?.className).toContain('z-[11000]')
+    expect(backdrop?.className).toContain('z-11000')
+    expect(positioner?.className).toContain('z-11000')
 
     const backdropZ = Number.parseInt(getComputedStyle(backdrop!).zIndex, 10)
     const positionerZ = Number.parseInt(getComputedStyle(positioner!).zIndex, 10)

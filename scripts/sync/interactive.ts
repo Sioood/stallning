@@ -2,6 +2,7 @@ import * as p from '@clack/prompts'
 import consola from 'consola'
 
 import { runBackport, runMerge, runPaths, runPick, runStatus, toPlanned } from './actions.ts'
+import { aheadFromRef, ensureBaselineObject, resolveSyncBaselineSha } from './baseline.ts'
 import {
   currentBranch,
   ensureLocalBranchExists,
@@ -153,7 +154,9 @@ export async function runWizard(): Promise<void> {
   fetchRemote(remote)
   ensureLocalBranchExists(target)
   const sourceRef = `${remote}/${sourceBranch}`
-  const commits = listCommitsBetween(target, sourceRef).map(toPlanned)
+  const baselineSha = resolveSyncBaselineSha()
+  if (baselineSha) ensureBaselineObject(baselineSha)
+  const commits = listCommitsBetween(aheadFromRef(target), sourceRef).map(toPlanned)
 
   if (!commits.length) {
     consola.warn('No commits in delta.')

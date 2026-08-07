@@ -4,7 +4,17 @@
 import { Command } from 'commander'
 import consola from 'consola'
 
-import { runBackport, runMerge, runPaths, runPick, runStatus } from './actions.ts'
+import {
+  runBackport,
+  runBaselineBump,
+  runBaselineSet,
+  runBaselineShow,
+  runMerge,
+  runPaths,
+  runPick,
+  runStatus,
+} from './actions.ts'
+import { SYNC_BASELINE_PATH } from './baseline.ts'
 import { runWizard } from './interactive.ts'
 import { parseFilter, type PickOptions, type SyncGlobalOptions } from './options.ts'
 
@@ -107,6 +117,33 @@ async function main(): Promise<void> {
       const opts = command.optsWithGlobals() as { ref?: string }
       const cleaned = paths.filter((entry) => entry !== '--')
       runPaths({ ...baseOptions(command), paths: cleaned, ref: opts.ref })
+    })
+
+  const baseline = program
+    .command('baseline')
+    .description(`Manage fork sync baseline (${SYNC_BASELINE_PATH})`)
+
+  baseline
+    .command('show')
+    .description('Show the current sync baseline')
+    .action(() => {
+      runBaselineShow()
+    })
+
+  baseline
+    .command('set')
+    .description('Set the sync baseline SHA (for existing forks)')
+    .argument('<sha>', 'Template tip SHA at fork / last synced commit')
+    .option('--template <branch>', 'Template branch name (e.g. nuxt)')
+    .option('--remote <remote>', 'Source remote name', 'upstream')
+    .action((sha: string, opts: { template?: string; remote?: string }) => {
+      runBaselineSet(sha, opts)
+    })
+
+  addGlobalOptions(baseline.command('bump'))
+    .description('Bump baseline to the current source tip')
+    .action((_opts: unknown, command: Command) => {
+      runBaselineBump(baseOptions(command))
     })
 
   await program.parseAsync(process.argv)

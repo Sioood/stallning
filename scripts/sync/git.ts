@@ -73,6 +73,23 @@ export function listLocalBranches(): string[] {
     .filter(Boolean)
 }
 
+export function listRemoteBranches(remote: string): string[] {
+  const result = runGit(['ls-remote', '--heads', remote], { capture: true })
+  if (result.status !== 0) {
+    if (result.stderr) consola.error(result.stderr.trim())
+    throw new Error(`Failed to list branches on remote '${remote}'.`)
+  }
+  return result.stdout
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => {
+      const ref = line.split('\t')[1] ?? ''
+      return ref.startsWith('refs/heads/') ? ref.slice('refs/heads/'.length) : ''
+    })
+    .filter(Boolean)
+}
+
 export function currentBranch(): string {
   return gitStdout(['branch', '--show-current'])
 }

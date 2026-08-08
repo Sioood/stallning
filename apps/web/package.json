@@ -25,7 +25,7 @@
     "@stallning/ui": "workspace:^",
     "nuxt": "catalog:",
     "vue": "catalog:",
-    "vue-router": "catalog:"
+    "vue-router": "^5.2.0"
   },
   "devDependencies": {
     "@nuxt/kit": "catalog:",

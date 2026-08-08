@@ -73,7 +73,7 @@ catalogs:
       specifier: ^4.1.10
       version: 4.1.10
     '@vue/devtools-api':
-      specifier: ^8.1.5
+      specifier: ^8.2.1
       version: 8.2.1
     '@vueuse/core':
       specifier: ^14.4.0

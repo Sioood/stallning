@@ -39,7 +39,7 @@
     "nuxt-security": "catalog:",
     "pinia": "catalog:",
     "vue": "catalog:",
-    "vue-router": "catalog:"
+    "vue-router": "^5.2.0"
   },
   "devDependencies": {
     "@modyfi/vite-plugin-yaml": "^1.1.1",

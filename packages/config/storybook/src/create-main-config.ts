@@ -24,7 +24,11 @@ export type CreateMainConfigOptions = {
   uiPackageRoot: string
   /** Unique Vite cache directory for this Storybook host. */
   cacheDir?: string
-  staticDirs?: StorybookConfig['staticDirs']
+  /**
+   * Extra static dirs merged after `packages/ui/public`.
+   * Array form only — Storybook's preset-function variant is not supported here.
+   */
+  staticDirs?: Extract<NonNullable<StorybookConfig['staticDirs']>, readonly unknown[]>
 } & Partial<Omit<StorybookConfig, 'stories' | 'framework' | 'addons' | 'staticDirs'>>
 
 export function createMainConfig(options: CreateMainConfigOptions): StorybookConfig {
@@ -32,7 +36,7 @@ export function createMainConfig(options: CreateMainConfigOptions): StorybookCon
     stories,
     uiPackageRoot,
     cacheDir,
-    staticDirs,
+    staticDirs = [],
     viteFinal: userViteFinal,
     ...rest
   } = options
@@ -53,7 +57,9 @@ export function createMainConfig(options: CreateMainConfigOptions): StorybookCon
         docgen: false,
       },
     },
-    staticDirs,
+    // Serve `packages/ui/public` so `@font-face` URLs like `/stallning/Miame4VF.ttf` resolve
+    // (same as Nuxt's public/ root). Hosts can append extra dirs via `staticDirs`.
+    staticDirs: [join(uiPackageRoot, 'public'), ...staticDirs],
     stories,
     async viteFinal(baseConfig, env) {
       const withStallning = await stallningViteFinal(baseConfig, {

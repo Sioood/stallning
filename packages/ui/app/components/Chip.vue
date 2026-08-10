@@ -201,17 +201,6 @@ const handleClick = async () => {
   if (props.disabled || !props.onClick) return
   await props.onClick()
 }
-
-extendCompodiumMeta({
-  defaultProps: {
-    icon: 'tabler:badge',
-    intent: 'primary',
-    label: 'Chip',
-    onClick: () => {},
-    size: 'md',
-    ui: undefined,
-  },
-})
 </script>
 
 <template>

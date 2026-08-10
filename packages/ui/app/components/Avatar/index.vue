@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useState } from '#app'
 import {
   Avatar as ArkAvatar,
   type AvatarRootBaseProps as ArkAvatarRootBaseProps,
@@ -131,15 +132,6 @@ const resolvedSrc = computed(() => {
 const resolvedAlt = computed(
   () => props.alt ?? (props.name?.trim() ? `${props.name.trim()} avatar` : 'Avatar'),
 )
-
-extendCompodiumMeta({
-  defaultProps: {
-    intent: 'neutral',
-    lettersOnly: false,
-    name: 'Ada Lovelace',
-    size: 'md',
-  },
-})
 </script>
 
 <template>

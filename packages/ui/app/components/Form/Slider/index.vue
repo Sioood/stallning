@@ -320,15 +320,6 @@ const fieldProps = computed(() => ({
 const defaultFormatValue = (v: number, _index: number): string => `${v}`
 
 const formatFn = computed(() => props.formatValue ?? defaultFormatValue)
-
-extendCompodiumMeta({
-  defaultProps: {
-    defaultValue: [50],
-    intent: 'neutral',
-    label: 'Slider',
-    size: 'md',
-  },
-})
 </script>
 
 <template>

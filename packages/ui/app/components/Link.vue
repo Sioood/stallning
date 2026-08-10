@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useRuntimeConfig } from '#app'
 import { cva } from 'class-variance-authority'
 
 import type { NuxtLinkProps } from '#app'

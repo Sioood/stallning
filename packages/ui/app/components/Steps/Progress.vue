@@ -34,10 +34,6 @@ const progressAttrs = computed(() => {
   }
   return rest
 })
-
-extendCompodiumMeta({
-  defaultProps: {},
-})
 </script>
 
 <template>

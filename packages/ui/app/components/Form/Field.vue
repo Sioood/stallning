@@ -156,18 +156,6 @@ const mergedRootBind = computed(() => ({
   ...(props.asFieldset ? fieldsetRootProps.value : arkFieldRootProps.value),
   ...fieldRootAttrs.value,
 }))
-
-extendCompodiumMeta({
-  defaultProps: {
-    error: undefined,
-    helperText: 'Enter your email address',
-    intent: 'primary',
-    invalid: false,
-    label: 'Email',
-    required: true,
-    size: 'md',
-  },
-})
 </script>
 
 <template>

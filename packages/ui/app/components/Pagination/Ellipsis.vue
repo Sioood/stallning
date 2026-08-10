@@ -39,12 +39,6 @@ const ellipsisAttrs = computed(() => {
   }
   return rest
 })
-
-extendCompodiumMeta({
-  defaultProps: {
-    index: 0,
-  },
-})
 </script>
 
 <template>

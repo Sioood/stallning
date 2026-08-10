@@ -95,15 +95,6 @@ const rootPassthrough = computed(() => {
   } = props
   return rest
 })
-
-extendCompodiumMeta({
-  defaultProps: {
-    intent: 'primary',
-    label: 'Tags',
-    placeholder: 'tagsInput.placeholder',
-    size: 'md',
-  },
-})
 </script>
 
 <template>

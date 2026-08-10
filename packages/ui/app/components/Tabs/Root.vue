@@ -104,16 +104,6 @@ const rootClass = computed(() =>
     props.ui?.root,
   ),
 )
-
-extendCompodiumMeta({
-  defaultProps: {
-    intent: 'primary',
-    modelValue: 'react',
-    orientation: 'horizontal',
-    size: 'md',
-    variant: 'line',
-  },
-})
 </script>
 
 <template>

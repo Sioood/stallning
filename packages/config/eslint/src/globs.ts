@@ -34,6 +34,7 @@ export const GLOB_EXCLUDE = [
   '**/components.d.ts',
 
   '**/.turbo',
+  '**/storybook-static',
 ]
 
 export const GLOB_VUE = '**/*.vue'

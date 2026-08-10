@@ -1,3 +1,4 @@
+import { createI18n } from 'vue-i18n'
 import essentialsTranslations from '~nuxt-essentials/i18n/locales/fr-FR/translations.yaml'
 
 import uiTranslations from '../../../i18n/locales/fr-FR/translations.yaml'
@@ -56,6 +57,17 @@ const messages = mergeMessages(essentialsTranslations as MessageTree, uiTranslat
 
 /** Loads fr-FR YAML messages when `@nuxtjs/i18n` is omitted in Vitest (jiti + vue-router/unplugin). */
 export default defineNuxtPlugin((nuxtApp) => {
+  const i18n = createI18n({
+    fallbackLocale: 'fr-FR',
+    legacy: false,
+    locale: 'fr-FR',
+    messages: {
+      'fr-FR': messages,
+    },
+  })
+
+  nuxtApp.vueApp.use(i18n)
+
   const { t, te } = createTranslator(messages)
 
   nuxtApp.vueApp.config.globalProperties.$t = t

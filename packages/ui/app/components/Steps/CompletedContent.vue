@@ -39,10 +39,6 @@ const contentAttrs = computed(() => {
   }
   return rest
 })
-
-extendCompodiumMeta({
-  defaultProps: {},
-})
 </script>
 
 <template>

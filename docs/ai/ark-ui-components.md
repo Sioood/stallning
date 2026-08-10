@@ -518,4 +518,4 @@ Before shipping any new Ark UI component, verify:
 - [ ] `rootProps` pick is complete — compare against Ark MCP `get_component_props` output
 - [ ] SegmentGroup/RadioGroup items include `ItemHiddenInput`
 - [ ] Ark `Positioner` / modal backdrop uses `useLayerZIndexRef` (Tailwind `z-*` alone is not enough)
-- [ ] `extendCompodiumMeta` has representative `defaultProps`
+- [ ] Co-located `*.stories.ts` with **Playground** (Controls) + optional **Gallery** (`*.demo.vue`)

@@ -1,0 +1,11 @@
+{
+  "extends": "@stallning/typescript/base.json",
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    // Source is consumed directly (Vite / Storybook resolve `./x.ts` specifiers) — never emitted.
+    "allowImportingTsExtensions": true,
+    "types": ["node"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts"]
+}

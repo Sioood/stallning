@@ -79,7 +79,6 @@ describe('MyComponent', () => {
 - Import components via `~ui/app/components/...`
 - Query Ark UI elements via `[data-part="..."]` selectors
 - Use `document.body.querySelector(...)` for teleported content
-- `extendCompodiumMeta` is auto-stubbed (via vitest config)
 - Add `await nextTick()` + `await flushPromises()` for async state changes
 
 **Known limitations (happy-dom):**

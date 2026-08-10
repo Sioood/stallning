@@ -45,10 +45,6 @@ const triggerAttrs = computed(() => {
   }
   return rest
 })
-
-extendCompodiumMeta({
-  defaultProps: {},
-})
 </script>
 
 <template>

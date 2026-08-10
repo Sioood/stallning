@@ -20,6 +20,10 @@
       "name": "web",
       "path": "../apps/web",
     },
+    {
+      "name": "storybook",
+      "path": "../apps/storybook",
+    },
   ],
   "settings": {
     "files.exclude": {
@@ -66,7 +70,7 @@
     "yaml.schemas": {
       "./schemas/pnpm-workspace.json": ["pnpm-workspace.yaml"],
     },
-    "cSpell.words": ["stallning", "oxlint", "nuxt", "compodium"],
+    "cSpell.words": ["stallning", "oxlint", "nuxt", "storybook"],
     "[vue]": {
       "editor.defaultFormatter": "oxc.oxc-vscode",
     },

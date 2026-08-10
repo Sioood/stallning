@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { navigateTo } from '#app'
 import {
   type TabsRootBaseProps as ArkTabsRootBaseProps,
   type TabsRootProviderBaseProps as ArkTabsRootProviderBaseProps,
@@ -116,23 +117,6 @@ function resolveOptionLabel(option: UITabOption): string | undefined {
 const shouldRenderAutoContent = computed(
   () => props.renderContent && resolvedOptions.value.length > 0,
 )
-
-extendCompodiumMeta({
-  defaultProps: {
-    intent: 'primary',
-    modelValue: 'react',
-    options: [
-      { icon: 'tabler:brand-react', label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { icon: 'tabler:brand-svelte', label: 'Svelte', value: 'svelte' },
-      { icon: 'tabler:brand-vue', label: 'Vue', value: 'vue' },
-    ],
-    orientation: 'horizontal',
-    size: 'md',
-    triggerLayout: 'inline',
-    variant: 'line',
-  },
-})
 </script>
 
 <template>

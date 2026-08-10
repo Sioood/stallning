@@ -6,7 +6,6 @@ import { defineVitestConfig } from '@nuxt/test-utils/config'
 
 import { packageRoot } from './vitest.shared.ts'
 
-const stubPath = fileURLToPath(new URL('./test/extend-compodium-meta-stub.ts', import.meta.url))
 const componentSetupPath = fileURLToPath(new URL('./test/component-setup.ts', import.meta.url))
 
 export default defineVitestConfig({
@@ -15,9 +14,6 @@ export default defineVitestConfig({
     environmentOptions: {
       nuxt: {
         overrides: {
-          imports: {
-            imports: [{ from: stubPath, name: 'extendCompodiumMeta' }],
-          },
           ogImage: { enabled: false },
         },
       },

@@ -40,7 +40,7 @@ import type {
 interface ChartStackedBarProps<T extends Record<string, unknown> = Record<string, unknown>>
   extends ChartShellProps, ChartStackedBarVisPassthrough<T> {
   data?: T[]
-  /** Required in app code; omitted only in Compodium preview (built-in demo fallback). */
+  /** Required in app code; Storybook demos supply sample series when omitted. */
   x?: NumericAccessor<T>
   y?: NumericAccessor<T>[]
   series?: ChartLegendSeries[]

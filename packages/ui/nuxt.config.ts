@@ -4,25 +4,18 @@ import tailwindcss from '@tailwindcss/vite'
 const { resolve } = createResolver(import.meta.url)
 
 const isVitest = process.env.VITEST === 'true'
-const isProduction = process.env.NODE_ENV === 'production'
-const enableCompodium = !isVitest && !isProduction
 
 // // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   extends: [resolve('../nuxt-essentials')],
-  modules: [
-    '@nuxt/fonts',
-    '@nuxt/icon',
-    ...(enableCompodium ? ['@compodium/nuxt'] : []),
-    '@nuxt/image',
-    'v-gsap-nuxt',
-  ],
+  modules: ['@nuxt/fonts', '@nuxt/icon', '@nuxt/image', 'v-gsap-nuxt'],
 
   alias: { '~ui': resolve('./') },
   components: [
     {
+      ignore: ['**/*.demo.vue', '**/*.stories.ts', '**/*-data.ts'],
       path: resolve('./app/components'),
       prefix: 'UI',
     },
@@ -57,17 +50,6 @@ export default defineNuxtConfig({
       xs: 320,
     },
   },
-  imports:
-    enableCompodium || isVitest
-      ? undefined
-      : {
-          presets: [
-            {
-              from: resolve('./app/utils/extend-compodium-meta-stub.ts'),
-              imports: ['extendCompodiumMeta'],
-            },
-          ],
-        },
   ...(isVitest
     ? {
         plugins: [resolve('./test/nuxt/plugins/i18n-vitest-stub.ts')],
@@ -78,14 +60,6 @@ export default defineNuxtConfig({
       siteUrl: 'https://ui.com',
     },
   },
-  ...(enableCompodium
-    ? {
-        compodium: {
-          dir: 'app/compodium/',
-          includeLibraryCollections: true,
-        },
-      }
-    : {}),
   site: {
     description: 'UI component library',
     name: 'UI',

@@ -50,10 +50,6 @@ const separatorAttrs = computed(() => {
   // do NOT bind it manually to avoid overriding with undefined.
   return rest
 })
-
-extendCompodiumMeta({
-  defaultProps: {},
-})
 </script>
 
 <template>

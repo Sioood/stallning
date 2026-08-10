@@ -1,0 +1,43 @@
+{
+  // TS program used *only* by `vue-component-meta` (Storybook Controls / Autodocs).
+  //
+  // Why a dedicated file: the plugin resolves `docgen.tsconfig` against Storybook's
+  // project root (the monorepo root), and the root `tsconfig.json` only includes
+  // `.changeset/*.ts`. With an empty program every component resolves to
+  // `TypeMeta.Unknown`, so no props are emitted and Controls fall back to nothing.
+  //
+  // It must see the UI sources plus the same aliases the SFCs use, otherwise DS
+  // aliases (`Extract<ComponentIntent, …>`, `VariantProps<typeof cva>['intent']`)
+  // cannot be expanded into literal unions.
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "types": ["node"],
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["../../ui/app/*"],
+      "@/*": ["../../ui/app/*"],
+      "~ui/*": ["../../ui/*"],
+      "~nuxt-essentials/*": ["../../nuxt-essentials/*"],
+      "#app": ["./src/stubs/nuxt-app.ts"],
+      "#app/*": ["./src/stubs/nuxt-app.ts"],
+      "#imports": ["./src/stubs/nuxt-app.ts"]
+    }
+  },
+  "include": [
+    "../../ui/app/**/*.ts",
+    "../../ui/app/**/*.vue",
+    "../../nuxt-essentials/**/*.ts",
+    "./src/stubs/**/*.ts"
+  ],
+  "exclude": ["**/node_modules/**", "**/.nuxt/**", "**/*.stories.ts", "**/*.spec.ts"]
+}

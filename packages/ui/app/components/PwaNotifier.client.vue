@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useNuxtApp } from '#app'
+import { useI18n } from 'vue-i18n'
+
 const toaster = useToast()
 const { $pwa } = useNuxtApp()
 const { t } = useI18n()

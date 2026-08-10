@@ -107,14 +107,6 @@ defineExpose<UIFormSearchInputExpose>({
   cancelSearch,
   flushSearch,
 })
-
-extendCompodiumMeta({
-  defaultProps: {
-    intent: 'primary',
-    placeholder: 'Search…',
-    size: 'md',
-  },
-})
 </script>
 
 <template>

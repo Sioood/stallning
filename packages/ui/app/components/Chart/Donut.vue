@@ -36,7 +36,7 @@ import type {
 
 interface ChartDonutProps extends Omit<ChartShellProps, 'intent'>, ChartDonutVisPassthrough<T> {
   data?: T[]
-  /** Required in app code; omitted only in Compodium preview (built-in demo fallback). */
+  /** Required in app code; Storybook demos supply sample series when omitted. */
   value?: NumericAccessor<T>
   label?: StringAccessor<T>
   series?: ChartLegendSeries[]
@@ -176,15 +176,6 @@ const chartTooltipProps = computed(() => {
       triggers: props.tooltip?.triggers ?? defaultTriggers,
     }),
   }
-})
-
-extendCompodiumMeta({
-  data: [
-    { label: 'Desktop', value: 42 },
-    { label: 'Mobile', value: 35 },
-    { label: 'Tablet', value: 23 },
-  ],
-  value: (d: { value: number }) => d.value,
 })
 </script>
 

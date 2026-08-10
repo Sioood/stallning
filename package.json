@@ -26,6 +26,8 @@
     "sync:merge": "node ./scripts/sync/index.ts merge",
     "sync:pick": "node ./scripts/sync/index.ts pick",
     "build": "turbo run build",
+    "storybook": "pnpm --filter @stallning/storybook-app dev",
+    "storybook:web": "pnpm --filter @stallning/web storybook",
     "knip": "pnpm --filter @stallning/ui exec nuxt prepare && knip",
     "knip:fix": "knip --fix",
     "mutation": "turbo run mutation",
@@ -93,7 +95,8 @@
           "nuxt-essentials",
           "sync",
           "ui",
-          "web"
+          "web",
+          "storybook"
         ]
       ],
       "type-enum": [

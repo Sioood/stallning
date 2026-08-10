@@ -1,3 +1,4 @@
+import { useNuxtApp } from '#app'
 import { createToaster } from '@ark-ui/vue/toast'
 import { nextTick, shallowRef, type ShallowRef } from 'vue'
 

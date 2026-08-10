@@ -97,15 +97,6 @@ const rootBindings = computed(() => {
   }
   return base
 })
-
-extendCompodiumMeta({
-  defaultProps: {
-    collapsible: true,
-    defaultValue: ['one'],
-    intent: 'neutral',
-    size: 'md',
-  },
-})
 </script>
 
 <template>

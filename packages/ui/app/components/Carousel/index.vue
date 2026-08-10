@@ -145,16 +145,6 @@ function handleViewportLeave(carousel: CarouselContextApi) {
     carousel.play()
   }
 }
-
-extendCompodiumMeta({
-  defaultProps: {
-    allowMouseDrag: true,
-    intent: 'primary',
-    showIndicators: true,
-    showTriggers: true,
-    size: 'md',
-  },
-})
 </script>
 
 <template>

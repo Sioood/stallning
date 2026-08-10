@@ -1,0 +1,53 @@
+{
+  "name": "@stallning/storybook",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Shared Storybook config for Stallning Vue/Nuxt packages",
+  "files": [
+    "src"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./preview": "./src/preview-entry.ts",
+    "./vite-final": "./src/vite-final.ts",
+    "./i18n": "./src/i18n.ts",
+    "./stubs": "./src/stubs/index.ts"
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit -p tsconfig.json",
+    "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
+    "lint:oxlint": "pnpm exec oxlint -c .oxlintrc.json . --threads 2",
+    "lint:eslint": "pnpm exec eslint .",
+    "format": "pnpm exec oxfmt --write .",
+    "format:check": "pnpm exec oxfmt --check ."
+  },
+  "dependencies": {
+    "@iconify/vue": "^5.0.0",
+    "@modyfi/vite-plugin-yaml": "^1.1.1",
+    "@storybook/addon-a11y": "catalog:",
+    "@storybook/addon-docs": "catalog:",
+    "@storybook/addon-links": "catalog:",
+    "@storybook/addon-themes": "catalog:",
+    "@storybook/addon-vitest": "catalog:",
+    "@storybook/vue3": "catalog:",
+    "@storybook/vue3-vite": "catalog:",
+    "@tailwindcss/vite": "catalog:",
+    "@vitejs/plugin-vue": "^6.0.8",
+    "storybook": "catalog:",
+    "unplugin-auto-import": "^21.1.0",
+    "unplugin-vue-components": "^32.0.0",
+    "vue": "catalog:",
+    "vue-component-meta": "^3.3.9",
+    "vue-i18n": "catalog:"
+  },
+  "devDependencies": {
+    "@stallning/eslint": "workspace:^",
+    "@stallning/oxlint": "workspace:^",
+    "@types/node": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "typescript": "catalog:",
+    "vite": "^7.3.5"
+  }
+}

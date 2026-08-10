@@ -172,17 +172,6 @@ defineExpose({
   },
   getControlElement: (): HTMLInputElement | null => controlElement.value,
 } satisfies UIFormPinInputExpose)
-
-extendCompodiumMeta({
-  defaultProps: {
-    count: 5,
-    intent: 'primary',
-    label: 'Verification code',
-    modelValue: '',
-    size: 'md',
-    type: 'numeric',
-  },
-})
 </script>
 
 <template>

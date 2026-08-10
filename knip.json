@@ -4,9 +4,9 @@
   "workspaces": {
     ".": {},
     "apps/web": {
-      "entry": ["i18n/locales/**/*.ts"],
-      "project": ["app/**/*.{ts,vue}", "i18n/**/*.ts"],
-      "ignoreDependencies": ["@stallning/ui", "vue", "vue-router"]
+      "entry": ["i18n/locales/**/*.ts", "app/**/*.stories.ts", ".storybook/**/*.ts"],
+      "project": ["app/**/*.{ts,vue}", "i18n/**/*.ts", ".storybook/**/*.ts"],
+      "ignoreDependencies": ["@stallning/ui", "vue", "vue-router", "vue-i18n"]
     },
     "packages/config/oxlint": {
       "entry": [
@@ -21,10 +21,10 @@
       "entry": [
         "i18n/locales/**/*.ts",
         "app/components/**/*.vue",
+        "app/components/**/*.stories.ts",
+        "app/composables/**/*.ts",
         "yaml.d.ts",
-        "app/compodium/**/*.vue",
         "test/**/*.test.ts",
-        "test/extend-compodium-meta-stub.ts",
         "test/nuxt/plugins/i18n-vitest-stub.ts",
         "test/visual/stubs/nuxt-app.ts"
       ],
@@ -33,11 +33,33 @@
         "~ui/*": ["./*"],
         "~nuxt-essentials/*": ["../nuxt-essentials/*"]
       },
-      "ignoreDependencies": ["vue-router", "vue-i18n", "vitest-environment-nuxt"],
+      "ignoreDependencies": [
+        "vue-router",
+        "vue-i18n",
+        "vitest-environment-nuxt",
+        "@storybook/vue3"
+      ],
       "ignoreBinaries": ["open"],
       "vitest": {
         "config": ["vitest.knip.config.ts"]
       }
+    },
+    "apps/storybook": {
+      "entry": [".storybook/**/*.ts", "vitest.config.ts"],
+      "project": [".storybook/**/*.ts", "vitest.config.ts"],
+      "ignoreDependencies": ["@stallning/ui", "vue", "vue-i18n"],
+      "ignoreBinaries": ["http-server"]
+    },
+    "packages/config/storybook": {
+      "entry": ["src/index.ts", "src/stubs/**/*.ts"],
+      "project": ["src/**/*.ts"],
+      "ignoreDependencies": [
+        "@storybook/addon-a11y",
+        "@storybook/addon-docs",
+        "@storybook/addon-links",
+        "@storybook/addon-vitest",
+        "vite"
+      ]
     },
     "packages/nuxt-essentials": {
       "entry": ["i18n/locales/**/*.ts", "i18n/utils/namespace.ts", "yaml.d.ts"],

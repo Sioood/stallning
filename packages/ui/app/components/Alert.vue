@@ -159,24 +159,6 @@ const defaultIntent = computed(() => {
   if (props.type) return props.type
   return props.intent
 })
-
-extendCompodiumMeta({
-  defaultProps: {
-    actions: [
-      {
-        intent: 'primary',
-        onClick: () => {
-          // oxlint-disable-next-line no-console
-          console.log('Action clicked')
-        },
-        size: 'sm',
-        text: 'Action',
-      },
-    ],
-    description: 'Alert description',
-    title: 'Alert title',
-  },
-})
 </script>
 
 <template>

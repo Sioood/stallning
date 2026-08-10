@@ -226,15 +226,6 @@ function handleInputKeydown(event: KeyboardEvent) {
 
   open.value = false
 }
-
-extendCompodiumMeta({
-  defaultProps: {
-    intent: 'primary',
-    label: 'Combobox',
-    placeholder: 'combobox.placeholder',
-    size: 'md',
-  },
-})
 </script>
 
 <template>

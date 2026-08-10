@@ -117,15 +117,6 @@ const rootBindings = computed(() => {
 
   return base
 })
-
-extendCompodiumMeta({
-  defaultProps: {
-    allowMouseDrag: true,
-    intent: 'primary',
-    size: 'md',
-    slideCount: 5,
-  },
-})
 </script>
 
 <template>

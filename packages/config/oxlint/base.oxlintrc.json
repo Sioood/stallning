@@ -23,7 +23,7 @@
     "prefer-destructuring": "error",
     "sort-keys": ["error", "asc", { "allowLineSeparatedGroups": true, "natural": true }]
   },
-  "ignorePatterns": ["**/node_modules/**", "**/dist/**"],
+  "ignorePatterns": ["**/node_modules/**", "**/dist/**", "**/storybook-static/**"],
   "overrides": [
     {
       "files": ["**/*.test.ts", "**/*.component.test.ts", "test/**/*.ts"],

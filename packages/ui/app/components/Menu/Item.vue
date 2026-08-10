@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useRuntimeConfig } from '#app'
 import { Menu as ArkMenu } from '@ark-ui/vue/menu'
 import { cva } from 'class-variance-authority'
 

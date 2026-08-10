@@ -103,14 +103,6 @@ function handleCheckedChange(details: TreeViewCheckedChangeDetails) {
 function handleContextReady(context: UseTreeViewContext<TreeViewItem>) {
   treeContext.value = context
 }
-
-extendCompodiumMeta({
-  defaultProps: {
-    intent: 'primary',
-    label: 'Tree',
-    size: 'md',
-  },
-})
 </script>
 
 <template>

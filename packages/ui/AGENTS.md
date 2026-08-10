@@ -8,5 +8,6 @@ Guides: [component development](../../docs/ai/component-development.md) · [Ark 
 - Style with semantic tokens + CVA + `cn()`; Tailwind full class strings only; optional `ui` slot overrides
 - Forms: Zod → `useSchemaForm` / `<UIForm>`; icons `tabler:*`; images via `<NuxtImg>`
 - Discriminated unions + `assertNever`; export types from `<script setup>`; `defineModel` for two-way state
-- Prefer VueUse over custom DOM/reactivity helpers; Compodium examples under `app/compodium/examples/`
-- Tests in `test/` (unit/component/visual); mutation on utils/composables (`pnpm mutation`); stub `extendCompodiumMeta`
+- Prefer VueUse over custom DOM/reactivity helpers; Storybook stories co-located as `*.stories.ts` (+ optional `*.demo.vue`)
+- Design system Storybook: `pnpm --filter @stallning/storybook-app dev`
+- Tests in `test/` (unit/component/visual); mutation on utils/composables (`pnpm mutation`)

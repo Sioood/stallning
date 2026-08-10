@@ -1,0 +1,14 @@
+{
+  "extends": "@stallning/typescript/base.json",
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    // `@stallning/storybook` is consumed as source, and it imports with `./x.ts` specifiers.
+    "allowImportingTsExtensions": true,
+    "types": ["node"],
+    "paths": {
+      "~ui/*": ["../../packages/ui/*"]
+    }
+  },
+  "include": [".storybook/**/*.ts", "vitest.config.ts", "messages/**/*.ts", "yaml.d.ts"]
+}

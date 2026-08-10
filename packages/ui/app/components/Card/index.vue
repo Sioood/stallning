@@ -2,6 +2,7 @@
 import { cva } from 'class-variance-authority'
 
 import type { CardBaseProps } from './Base.vue'
+import type { UseComponentIconsProps } from '@/composables/useComponentIcons'
 import type {
   CardIntent,
   CardSize,
@@ -99,7 +100,8 @@ const CardBodyDescriptionCVA = cva('', {
   },
 })
 
-export interface CardProps extends Omit<CardBaseProps, 'ui'>, UseComponentIconsProps {
+export interface CardProps
+  extends /* @vue-ignore */ Omit<CardBaseProps, 'ui'>, UseComponentIconsProps {
   subtitle?: string
   tag?: string
   title?: string

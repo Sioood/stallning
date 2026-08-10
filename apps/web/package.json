@@ -17,6 +17,10 @@
     "format:check": "pnpm exec oxfmt --check .",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
+    "storybook": "storybook dev -p 6007 --no-open",
+    "build:storybook": "storybook build -o storybook-static",
+    "test:storybook": "vitest run --config vitest.storybook.config.ts",
+    "test:storybook:coverage": "vitest run --config vitest.storybook.config.ts --coverage",
     "i18n:coverage": "pnpm exec stallning-i18n-coverage -f ./i18n/locales",
     "i18n:coverage:namespace": "pnpm exec stallning-i18n-coverage -f ./i18n/locales --ns"
   },
@@ -25,15 +29,30 @@
     "@stallning/ui": "workspace:^",
     "nuxt": "catalog:",
     "vue": "catalog:",
-    "vue-router": "^5.2.0"
+    "vue-i18n": "catalog:",
+    "vue-router": "catalog:"
   },
   "devDependencies": {
     "@nuxt/kit": "catalog:",
     "@playwright/test": "catalog:",
     "@stallning/eslint": "workspace:^",
     "@stallning/oxlint": "workspace:^",
+    "@stallning/storybook": "workspace:*",
+    "@storybook/addon-a11y": "catalog:",
+    "@storybook/addon-docs": "catalog:",
+    "@storybook/addon-links": "catalog:",
+    "@storybook/addon-themes": "catalog:",
+    "@storybook/addon-vitest": "catalog:",
+    "@storybook/vue3": "catalog:",
+    "@storybook/vue3-vite": "catalog:",
+    "@vitest/browser": "catalog:",
+    "@vitest/browser-playwright": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
     "eslint": "catalog:",
     "oxfmt": "catalog:",
-    "oxlint": "catalog:"
+    "oxlint": "catalog:",
+    "playwright": "catalog:",
+    "storybook": "catalog:",
+    "vitest": "catalog:"
   }
 }

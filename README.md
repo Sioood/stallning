@@ -401,7 +401,7 @@ Zod error messages are automatically synced with the active i18n locale via `app
 ### Creating a New Component
 
 1. Create `packages/ui/app/components/MyComponent.vue`
-2. Add an example in `packages/ui/app/compodium/examples/UI/MyComponentExample.vue`
+2. Add a Storybook story in `packages/ui/app/components/MyComponent.stories.ts` (optional `MyComponent.demo.vue`)
 3. Add a test in `packages/ui/test/components/MyComponent.component.test.ts`
 4. Use CVA for variant styling:
 

@@ -72,14 +72,6 @@ const rootProps = computed(() => {
   const { items: _, showProgress: __, showTriggers: ___, ...rest } = props
   return rest
 })
-
-extendCompodiumMeta({
-  defaultProps: {
-    intent: 'neutral',
-    showTriggers: true,
-    size: 'md',
-  },
-})
 </script>
 
 <template>

@@ -178,21 +178,6 @@ const passthroughAttrs = computed(() => {
   }
   return rest
 })
-
-extendCompodiumMeta({
-  defaultProps: {
-    helperText: 'Choose your preferred framework',
-    items: [
-      { label: 'React', value: 'react' },
-      { disabled: true, label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ],
-    label: 'Framework (radio group)',
-    modelValue: 'react',
-    orientation: 'vertical',
-    required: true,
-  },
-})
 </script>
 
 <template>

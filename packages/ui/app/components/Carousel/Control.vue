@@ -33,10 +33,6 @@ const controlAttrs = computed(() => {
   }
   return rest
 })
-
-extendCompodiumMeta({
-  defaultProps: {},
-})
 </script>
 
 <template>

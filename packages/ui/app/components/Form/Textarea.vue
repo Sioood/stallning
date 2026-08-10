@@ -108,17 +108,6 @@ defineExpose({
   },
   getControlElement: (): HTMLTextAreaElement | null => controlElement.value,
 } satisfies UIFormTextareaExpose)
-
-extendCompodiumMeta({
-  defaultProps: {
-    autoresize: false,
-    intent: 'primary',
-    label: 'Bio',
-    modelValue: '',
-    placeholder: 'Tell us about yourself…',
-    size: 'md',
-  },
-})
 </script>
 
 <template>

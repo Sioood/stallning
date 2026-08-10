@@ -109,13 +109,6 @@ function onValueChange(details: { value: string[] }) {
     modelValue.value = details.value
   }
 }
-
-extendCompodiumMeta({
-  defaultProps: {
-    intent: 'primary',
-    size: 'md',
-  },
-})
 </script>
 
 <template>

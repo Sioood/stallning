@@ -36,10 +36,6 @@ const variant = computed(() => chrome?.variant.value ?? 'line')
 
 const listProps = computed(() => pick(props, ['asChild'] as const))
 const listAttrs = computed(() => splitArkAttrs(attrs))
-
-extendCompodiumMeta({
-  defaultProps: {},
-})
 </script>
 
 <template>

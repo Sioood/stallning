@@ -53,12 +53,6 @@ const itemAttrs = computed(() => {
   }
   return rest
 })
-
-extendCompodiumMeta({
-  defaultProps: {
-    value: 1,
-  },
-})
 </script>
 
 <template>

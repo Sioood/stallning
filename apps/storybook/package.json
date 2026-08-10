@@ -1,0 +1,49 @@
+{
+  "name": "@stallning/storybook-app",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "storybook dev -p 6006 --no-open",
+    "build": "pnpm run build:storybook",
+    "build:storybook": "storybook build -o storybook-static",
+    "preview": "pnpm exec http-server storybook-static -p 6006 -c-1",
+    "test:storybook": "vitest run --config vitest.config.ts",
+    "test:storybook:coverage": "vitest run --config vitest.config.ts --coverage",
+    "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
+    "lint:fix": "pnpm run lint:oxlint --fix && pnpm run lint:eslint --fix",
+    "lint:oxlint": "pnpm exec oxlint -c .oxlintrc.json . --threads 2",
+    "lint:eslint": "pnpm exec eslint .",
+    "format": "pnpm exec oxfmt --write .",
+    "format:check": "pnpm exec oxfmt --check .",
+    "check-types": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@stallning/ui": "workspace:*",
+    "vue": "catalog:",
+    "vue-i18n": "catalog:"
+  },
+  "devDependencies": {
+    "@stallning/eslint": "workspace:^",
+    "@stallning/oxlint": "workspace:^",
+    "@stallning/storybook": "workspace:*",
+    "@stallning/typescript": "workspace:^",
+    "@storybook/addon-a11y": "catalog:",
+    "@storybook/addon-docs": "catalog:",
+    "@storybook/addon-links": "catalog:",
+    "@storybook/addon-themes": "catalog:",
+    "@storybook/addon-vitest": "catalog:",
+    "@storybook/vue3": "catalog:",
+    "@storybook/vue3-vite": "catalog:",
+    "@types/node": "catalog:",
+    "@vitest/browser": "catalog:",
+    "@vitest/browser-playwright": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "playwright": "catalog:",
+    "storybook": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

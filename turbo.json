@@ -7,7 +7,16 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".output/**", ".nuxt/**"]
+      "inputs": ["$TURBO_DEFAULT$", "!**/*.stories.{ts,tsx,mdx}", "!**/*.demo.vue"],
+      "outputs": [".output/**", ".nuxt/**", "storybook-static/**"]
+    },
+    "build:storybook": {
+      "dependsOn": ["^build"],
+      "outputs": ["storybook-static/**"]
+    },
+    "test:storybook": {
+      "dependsOn": [],
+      "outputs": ["coverage/**", "coverage-storybook/**"]
     },
     "check-types": {
       "dependsOn": ["^check-types"]

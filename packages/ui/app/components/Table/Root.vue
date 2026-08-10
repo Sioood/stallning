@@ -46,14 +46,6 @@ defineExpose({
   tableApi: table,
   tableRef,
 })
-
-extendCompodiumMeta({
-  defaultProps: {
-    intent: 'neutral',
-    loading: false,
-    size: 'md',
-  },
-})
 </script>
 
 <template>

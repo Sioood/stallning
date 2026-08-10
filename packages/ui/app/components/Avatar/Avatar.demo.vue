@@ -2,7 +2,7 @@
 // oxlint-disable no-console
 import { useAvatar, type AvatarStatusChangeDetails } from '@ark-ui/vue/avatar'
 
-import type { MenuListEntry } from '@/components/Menu/index.vue'
+import type { MenuListEntry } from '@/utils/Components/Menu/entries'
 
 const names = ['Ada Lovelace', 'Grace Hopper', 'Alan Turing'] as const
 const intents = ['neutral', 'primary', 'secondary', 'accent'] as const

@@ -179,15 +179,6 @@ defineExpose({
     return rootRef.value?.tableRef ?? null
   },
 })
-
-extendCompodiumMeta({
-  defaultProps: {
-    intent: 'neutral',
-    loading: false,
-    selectable: false,
-    size: 'md',
-  },
-})
 </script>
 
 <template>

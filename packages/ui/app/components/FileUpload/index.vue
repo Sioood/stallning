@@ -447,17 +447,6 @@ const resolveErrorText = (key: FileUploadFileError) => {
   const text = errorMessages.value[key]
   return text ? ($te(text) ? $t(text) : text) : undefined
 }
-
-extendCompodiumMeta({
-  defaultProps: {
-    clearable: false,
-    disabled: false,
-    dropzone: true,
-    intent: 'neutral',
-    maxFiles: 5,
-    size: 'md',
-  },
-})
 </script>
 
 <template>

@@ -92,17 +92,6 @@ const fieldProps = computed(() => ({
 function formatValue(value: number | undefined, count: number): string {
   return `${value ?? 0}/${count}`
 }
-
-extendCompodiumMeta({
-  defaultProps: {
-    count: 5,
-    defaultValue: 3,
-    helperText: 'Select a rating from 1 to 5',
-    intent: 'primary',
-    label: 'Rating',
-    size: 'md',
-  },
-})
 </script>
 
 <template>

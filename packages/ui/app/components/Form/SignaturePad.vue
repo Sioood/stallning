@@ -324,18 +324,6 @@ const fieldProps = computed(() => ({
     root: props.ui?.root,
   },
 }))
-
-extendCompodiumMeta({
-  defaultProps: {
-    clearable: true,
-    helperText: 'Sign in the box above',
-    intent: 'primary',
-    label: 'Signature',
-    modelValue: [],
-    size: 'md',
-    variant: 'default',
-  },
-})
 </script>
 
 <template>

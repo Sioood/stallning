@@ -161,13 +161,6 @@ defineExpose<UIFilterBarExpose>({
   reset,
   values,
 })
-
-extendCompodiumMeta({
-  defaultProps: {
-    intent: 'primary',
-    size: 'md',
-  },
-})
 </script>
 
 <template>

@@ -123,20 +123,6 @@ defineExpose({
   },
   getControlElement: (): HTMLInputElement | null => controlElement.value,
 } satisfies UIFormInputExpose)
-
-extendCompodiumMeta({
-  defaultProps: {
-    intent: 'primary',
-    label: 'Email',
-    leading: true,
-    leadingIcon: 'tabler:sparkles',
-    modelValue: '',
-    placeholder: 'you@example.com',
-    required: true,
-    size: 'md',
-    type: 'text',
-  },
-})
 </script>
 
 <template>

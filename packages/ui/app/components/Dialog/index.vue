@@ -233,13 +233,6 @@ watch(
 
 const backdropLayerRef = useLayerZIndexRef('modal')
 const positionerLayerRef = useLayerZIndexRef('modal')
-
-extendCompodiumMeta({
-  defaultProps: {
-    description: 'A concise description of the dialog content.',
-    title: 'Dialog Title',
-  },
-})
 </script>
 
 <template>

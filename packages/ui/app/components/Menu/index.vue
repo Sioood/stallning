@@ -201,16 +201,6 @@ const styledTriggerClass = computed(() =>
         props.ui?.trigger,
       ),
 )
-
-extendCompodiumMeta({
-  defaultProps: {
-    intent: 'neutral',
-    showArrow: false,
-    showIndicator: true,
-    size: 'md',
-    triggerText: 'Actions',
-  },
-})
 </script>
 
 <template>

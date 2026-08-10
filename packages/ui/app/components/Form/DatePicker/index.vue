@@ -123,16 +123,6 @@ const rootPassthrough = computed(() => {
   } = props
   return rest
 })
-
-extendCompodiumMeta({
-  defaultProps: {
-    intent: 'primary',
-    label: 'Date',
-    placeholder: 'Select date…',
-    selectionMode: 'single',
-    size: 'md',
-  },
-})
 </script>
 
 <template>

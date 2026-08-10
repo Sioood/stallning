@@ -1,0 +1,47 @@
+/**
+ * Theme the iframe + Docs chrome via DS tokens (`html.light` / `html.dark`).
+ * Do not override `.docs-story` / preview backgrounds — Storybook owns the grid.
+ */
+
+html,
+body,
+#storybook-root {
+  background-color: var(--color-primary-bg);
+  color: var(--color-neutral-text);
+  min-height: 100%;
+}
+
+html.dark,
+html.dark body,
+html.dark #storybook-root {
+  background-color: var(--color-primary-bg-subtle);
+}
+
+/* Docs page chrome follows the toolbar theme */
+.sbdocs,
+.sbdocs-wrapper,
+.sbdocs-content {
+  background-color: var(--color-primary-bg) !important;
+  color: var(--color-neutral-text) !important;
+}
+
+html.dark .sbdocs,
+html.dark .sbdocs-wrapper,
+html.dark .sbdocs-content {
+  background-color: var(--color-primary-bg-subtle) !important;
+  color: var(--color-neutral-text) !important;
+}
+
+.sbdocs h1,
+.sbdocs h2,
+.sbdocs h3,
+.sbdocs h4,
+.sbdocs h5,
+.sbdocs h6,
+.sbdocs p,
+.sbdocs li,
+.sbdocs td,
+.sbdocs th,
+.sbdocs .sbdocs-title {
+  color: inherit !important;
+}

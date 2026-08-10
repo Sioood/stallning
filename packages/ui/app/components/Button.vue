@@ -167,24 +167,6 @@ defineExpose({
   },
   getControlElement: (): HTMLElement | null => controlElement.value,
 } satisfies UIButtonExpose)
-
-extendCompodiumMeta({
-  defaultProps: {
-    disabled: false,
-    errorIcon: 'tabler:alert-hexagon',
-    icon: 'tabler:scribble',
-    intent: 'primary',
-    leading: true,
-    loadingIcon: 'tabler:loader',
-    size: 'md',
-    state: 'default',
-    successIcon: 'tabler:circle-check',
-    text: 'Button',
-    trailing: true,
-    variant: 'default',
-    warningIcon: 'tabler:alert-triangle',
-  },
-})
 </script>
 
 <template>

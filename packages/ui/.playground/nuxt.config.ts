@@ -3,9 +3,6 @@ const { resolve } = createResolver(import.meta.url)
 export default defineNuxtConfig({
   extends: ['..'],
 
-  compodium: {
-    dir: '../app/compodium/',
-  },
   components: {
     dirs: [
       {

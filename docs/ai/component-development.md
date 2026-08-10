@@ -12,7 +12,7 @@ There are two distinct types of components in this library:
 ## Workflow
 
 1. Create component file in `packages/ui/app/components/`
-2. Create compodium example in `packages/ui/app/compodium/examples/UI/`
+2. Create a co-located Storybook story in `packages/ui/app/components/` (`Name.stories.ts`, optional `Name.demo.vue`)
 3. Create component test in `packages/ui/test/components/`
 4. Run mutation testing if adding utils/composables logic
 
@@ -41,7 +41,7 @@ Before writing custom logic for DOM events, refs, scroll, debounce, clipboard, s
 
 ### Reference in this repo
 
-`UITable` helpers demonstrate the pattern: debounced filters (`refDebounced`), column resize listeners (`useEventListener`), pagination footer bridging, and Compodium examples for infinite scroll / row reorder.
+`UITable` helpers demonstrate the pattern: debounced filters (`refDebounced`), column resize listeners (`useEventListener`), pagination footer bridging, and Storybook demos for infinite scroll / row reorder.
 
 For integrations, see [`@vueuse/integrations`](https://vueuse.org/integrations/README.html).
 
@@ -89,13 +89,6 @@ const props = withDefaults(defineProps<MyComponentProps>(), {
   size: 'md',
   ui: undefined,
 })
-
-extendCompodiumMeta({
-  defaultProps: {
-    intent: 'neutral',
-    size: 'md',
-  },
-})
 </script>
 
 <template>
@@ -127,7 +120,7 @@ Use `satisfies Record<MyIntent, string>` on every CVA variant map to enforce exh
 - Use `defineModel` for two-way bindings (`open`, `pressed`, `checked`, `modelValue`)
 - Use `withDefaults` for all optional props — always include `ui: undefined` and object defaults
 - Use `@/` alias under `app/` directories (Nuxt auto-alias); use `~ui/app/...` from outside
-- Add `extendCompodiumMeta` with representative defaults for the playground
+- Add a co-located `Name.stories.ts` (and optional `Name.demo.vue`) for Storybook
 - Export interface types from `<script setup>` so consumers can import them
 
 ### Discriminated Unions
@@ -165,14 +158,15 @@ switch (entry.type) {
 
 ## File Naming
 
-| Type              | Location                                    | Convention           |
-| ----------------- | ------------------------------------------- | -------------------- |
-| Simple component  | `app/components/Name.vue`                   | PascalCase           |
-| Feature folder    | `app/components/Name/index.vue`             | Folder + index       |
-| Sub-component     | `app/components/Name/Part.vue`              | Internal only        |
-| Compodium example | `app/compodium/examples/UI/NameExample.vue` | `{Name}Example.vue`  |
-| Component test    | `test/components/Name.component.test.ts`    | `.component.test.ts` |
-| Unit test         | `test/utils/name.test.ts`                   | `.test.ts`           |
+| Type             | Location                                 | Convention                          |
+| ---------------- | ---------------------------------------- | ----------------------------------- |
+| Simple component | `app/components/Name.vue`                | PascalCase                          |
+| Feature folder   | `app/components/Name/index.vue`          | Folder + index                      |
+| Sub-component    | `app/components/Name/Part.vue`           | Internal only                       |
+| Storybook story  | `app/components/Name.stories.ts`         | CSF3: Playground + optional Gallery |
+| Storybook demo   | `app/components/Name.demo.vue`           | Optional Gallery showcase           |
+| Component test   | `test/components/Name.component.test.ts` | `.component.test.ts`                |
+| Unit test        | `test/utils/name.test.ts`                | `.test.ts`                          |
 
 ---
 
@@ -254,9 +248,74 @@ The `#inner-leading` slot places the select **inside** the shell border, sharing
 
 ---
 
-## Compodium Example Template
+## Storybook Convention
 
-Every example file should cover:
+Storybook distinguishes **Docs** from individual **stories**:
+
+| Surface        | Role                                                                                    |
+| -------------- | --------------------------------------------------------------------------------------- |
+| **Docs**       | Autodocs page: props/description + every named story rendered as examples               |
+| **Playground** | Controllable story — tweak props in the Controls panel                                  |
+| **Gallery**    | Optional rich multi-section `*.demo.vue` (former Compodium example) — Controls disabled |
+
+Always set `meta.component` to the **real UI SFC** (not the demo). Tag with `autodocs`.
+
+Controls are generated automatically from SFC props via `vue-docgen-api` (Storybook framework `docgen`). Still set `args` / `argTypes` when you want sensible defaults or select options that docgen cannot infer well.
+
+```ts
+import type { Meta, StoryObj } from '@storybook/vue3'
+
+import { createGalleryStory, createUIMeta } from '~/utils/storybook'
+import MyComponent from './MyComponent.vue'
+import MyComponentDemo from './MyComponent.demo.vue'
+
+const meta = createUIMeta({
+  title: 'UI/MyComponent',
+  component: MyComponent,
+  args: {
+    intent: 'primary',
+    size: 'md',
+  },
+  argTypes: {
+    intent: {
+      control: 'select',
+      options: ['neutral', 'primary', 'secondary', 'accent'],
+    },
+  },
+}) satisfies Meta<typeof MyComponent>
+
+export default meta
+type Story = StoryObj<typeof meta>
+
+/** Controllable — primary Canvas entry. */
+export const Playground: Story = {}
+
+/** Multi-section showcase. */
+export const Gallery = createGalleryStory(MyComponentDemo)
+```
+
+For components that need slots in Playground, provide a `render` function:
+
+```ts
+export const Playground: Story = {
+  args: { content: 'Hello' },
+  render: (args) => ({
+    components: { MyComponent, UIButton: Button },
+    setup: () => ({ args }),
+    template: `
+      <MyComponent v-bind="args">
+        <template #trigger>
+          <UIButton size="sm">Hover me</UIButton>
+        </template>
+      </MyComponent>
+    `,
+  }),
+}
+```
+
+### Gallery content checklist
+
+Every `*.demo.vue` should still cover:
 
 1. **Basic usage** — default props, minimal setup
 2. **Intents** — all applicable intent variants
@@ -276,13 +335,11 @@ const externalApi = useMyComponent({/* config */})
 
 <template>
   <div class="flex flex-col gap-8 p-4">
-    <!-- Basic -->
     <section class="flex flex-col gap-2">
       <h3 class="text-lg font-bold">Basic</h3>
       <UIMyComponent @some-event="(d) => console.log('someEvent', d)" />
     </section>
 
-    <!-- RootProvider mode -->
     <section class="flex flex-col gap-2">
       <h3 class="text-lg font-bold">RootProvider mode</h3>
       <UIButton @click="externalApi.doSomething()">Trigger externally</UIButton>

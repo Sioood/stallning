@@ -35,6 +35,8 @@ publicHoistPattern:
   - tailwind-merge
   - class-variance-authority
   - zod
+  - '@storybook/*'
+  - storybook
 
 allowBuilds:
   '@parcel/watcher': true
@@ -93,9 +95,19 @@ catalog:
   vitest: ^4.1.10
   'vue': ^3.5.41
   vue-eslint-parser: ^10.4.1
+  'vue-i18n': ^11.1.12
   'vue-router': ^5.2.0
   'yaml': ^2.9.0
   zod: ^4.4.3
+  # Storybook (pin patch line together — hosts + @stallning/storybook)
+  storybook: 10.5.7
+  '@storybook/vue3': 10.5.7
+  '@storybook/vue3-vite': 10.5.7
+  '@storybook/addon-a11y': 10.5.7
+  '@storybook/addon-docs': 10.5.7
+  '@storybook/addon-links': 10.5.7
+  '@storybook/addon-themes': 10.5.7
+  '@storybook/addon-vitest': 10.5.7
 
 minimumReleaseAge: 1440 # 24 hours
 minimumReleaseAgeExclude:

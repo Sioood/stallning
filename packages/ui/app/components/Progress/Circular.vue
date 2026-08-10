@@ -6,6 +6,7 @@ import {
   type UseProgressReturn,
 } from '@ark-ui/vue/progress'
 import { cva } from 'class-variance-authority'
+import { useI18n } from 'vue-i18n'
 
 import type { ClassValue } from 'vue'
 import type { ProgressCircularSize, ProgressIntent } from '~/utils/Components/Progress/context'
@@ -167,12 +168,6 @@ const rootProps = computed(() => {
     ] as const),
     locale: locale.value,
   }
-})
-
-extendCompodiumMeta({
-  defaultProps: {
-    label: 'Loading...',
-  },
 })
 </script>
 

@@ -190,17 +190,6 @@ defineExpose({
   },
   getControlElement: (): HTMLInputElement | null => controlElement.value,
 } satisfies UIFormNumberInputExpose)
-
-extendCompodiumMeta({
-  defaultProps: {
-    intent: 'primary',
-    label: 'Quantity',
-    max: 100,
-    min: 0,
-    size: 'md',
-    step: 1,
-  },
-})
 </script>
 
 <template>

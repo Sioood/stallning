@@ -5,6 +5,7 @@
     "**/.nuxt/**",
     "**/.output/**",
     "**/dist/**",
+    "**/storybook-static/**",
     "**/.turbo/**",
     "**/.cache/**",
     "**/pnpm-lock.yaml",

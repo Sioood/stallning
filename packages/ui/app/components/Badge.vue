@@ -137,16 +137,6 @@ const props = withDefaults(defineProps<BadgeProps>(), {
 })
 
 const { isLeading, isTrailing, leadingIconName, trailingIconName } = useComponentIcons(() => props)
-
-extendCompodiumMeta({
-  defaultProps: {
-    intent: 'primary',
-    label: 'Badge',
-    leadingIcon: 'tabler:badge',
-    size: 'md',
-    ui: undefined,
-  },
-})
 </script>
 
 <template>

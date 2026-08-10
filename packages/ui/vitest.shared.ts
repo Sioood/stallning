@@ -34,14 +34,14 @@ export const uiCoverage = {
     ...coverageConfigDefaults.exclude,
     '**/nuxt.config.ts',
     '**/vitest-nuxt-environment.ts',
-    '**/app/compodium/**',
-    'app/compodium/**',
+    '**/*.stories.ts',
+    '**/*.demo.vue',
     '**/i18n/locales/**',
     'test/**',
   ],
   /**
    * Without this, `exclude` / `include` are not re-applied after V8 results are remapped to source
-   * paths, so Nuxt-loaded files (e.g. `app/compodium/**`) still appear in the table at 0%.
+   * paths.
    */
   excludeAfterRemap: true,
   include: [

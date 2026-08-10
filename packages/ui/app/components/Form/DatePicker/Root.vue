@@ -6,6 +6,7 @@ import {
   type DatePickerRootProviderBaseProps,
   type UseDatePickerReturn,
 } from '@ark-ui/vue/date-picker'
+import { useI18n } from 'vue-i18n'
 
 import {
   datePickerChromeKey,
@@ -177,13 +178,6 @@ function onValueChange(details: { value: DateValue[] }) {
     modelValue.value = details.value
   }
 }
-
-extendCompodiumMeta({
-  defaultProps: {
-    intent: 'primary',
-    size: 'md',
-  },
-})
 </script>
 
 <template>

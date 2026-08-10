@@ -136,5 +136,5 @@ Detailed implementation guides for common workflows:
 - The `~ui` and `~nuxt-essentials` aliases resolve to package roots
 - `.npmrc` uses targeted `public-hoist-pattern` — add new patterns if a dep can't be resolved
 - Tailwind needs full class strings (no dynamic interpolation like `bg-${color}-500`)
-- `extendCompodiumMeta` is a global provided by Nuxt plugin — stub it in tests
 - Security headers only apply in production (`NODE_ENV=production`)
+- Storybook hosts: `@stallning/storybook-app` (UI) and `@stallning/web` (`pnpm storybook`); shared config `@stallning/storybook`

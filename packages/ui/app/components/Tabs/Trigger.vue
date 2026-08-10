@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { navigateTo, useRouter, useRuntimeConfig } from '#app'
 import { TabTrigger, type TabTriggerBaseProps } from '@ark-ui/vue/tabs'
 
 import { segmentedItemCVA } from '~/utils/Components/Segmented/variants'
@@ -109,12 +110,6 @@ function onInternalLinkClick(event: MouseEvent) {
   event.preventDefault()
   void navigateTo(props.to!)
 }
-
-extendCompodiumMeta({
-  defaultProps: {
-    value: 'react',
-  },
-})
 </script>
 
 <template>

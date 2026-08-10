@@ -44,3 +44,7 @@ reports/stryker-mutation.html
 
 .nuxt
 .nuxtrc
+
+# Storybook
+storybook-static
+*storybook.log

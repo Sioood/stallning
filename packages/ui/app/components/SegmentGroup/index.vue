@@ -112,22 +112,6 @@ const rootClass = computed(() =>
     props.ui?.root,
   ),
 )
-
-extendCompodiumMeta({
-  defaultProps: {
-    intent: 'primary',
-    modelValue: 'react',
-    options: [
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Svelte', value: 'svelte' },
-      { label: 'Vue', value: 'vue' },
-    ],
-    orientation: 'horizontal',
-    size: 'md',
-    variant: 'line',
-  },
-})
 </script>
 
 <template>

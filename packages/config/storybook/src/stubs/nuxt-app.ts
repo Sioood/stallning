@@ -72,13 +72,29 @@ export function useRuntimeConfig(): StorybookRuntimeConfig {
   }
 }
 
+const storybookRoute = ref({
+  fullPath: '/',
+  hash: '',
+  matched: [],
+  meta: {},
+  name: undefined,
+  params: {},
+  path: '/',
+  query: {},
+})
+
 /** Minimal router stub for components that call `useRouter()` / `navigateTo`. */
 export function useRouter() {
   return {
-    currentRoute: ref({ fullPath: '/', params: {}, path: '/', query: {} }),
+    currentRoute: storybookRoute,
     push: async (_to: unknown) => undefined,
     replace: async (_to: unknown) => undefined,
   }
+}
+
+/** Storybook stand-in for Nuxt’s `useRoute()` (e.g. web navbar active link). */
+export function useRoute() {
+  return storybookRoute
 }
 
 export async function navigateTo(_to: unknown): Promise<void> {

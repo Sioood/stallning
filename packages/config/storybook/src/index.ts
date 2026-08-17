@@ -6,6 +6,7 @@ export {
 export {
   stallningViteFinal,
   buildUIComponentMap,
+  buildAppComponentMap,
   type StallningViteFinalOptions,
 } from './vite-final.ts'
 export { stallningVueDocgen, type StallningVueDocgenOptions } from './docgen.ts'

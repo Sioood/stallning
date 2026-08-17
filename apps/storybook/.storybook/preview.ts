@@ -4,8 +4,11 @@ import essentialsFr from '../../../packages/nuxt-essentials/i18n/locales/fr-FR/t
 import { applyZodLocaleFromI18n } from '../../../packages/ui/app/utils/zod-locale'
 import uiPwaFr from '../../../packages/ui/i18n/locales/fr-FR/pwa.yaml'
 import uiFr from '../../../packages/ui/i18n/locales/fr-FR/translations.yaml'
+import webEn from '../../web/i18n/locales/en-US/translations.yaml'
+import webFr from '../../web/i18n/locales/fr-FR/translations.yaml'
 
 import '../../../packages/ui/app/assets/css/main.css'
+import '../../web/app/assets/css/main.css'
 
 function deepMerge(...sources: Array<Record<string, unknown>>): Record<string, unknown> {
   const merged: Record<string, unknown> = {}
@@ -38,15 +41,27 @@ function prefixKeys(prefix: string, obj: Record<string, unknown>): Record<string
 }
 
 const frMessages = {
-  ...deepMerge(essentialsFr as Record<string, unknown>, uiFr as Record<string, unknown>),
+  ...deepMerge(
+    essentialsFr as Record<string, unknown>,
+    uiFr as Record<string, unknown>,
+    webFr as Record<string, unknown>,
+  ),
+  ...prefixKeys('pwa', uiPwaFr as Record<string, unknown>),
+}
+
+const enMessages = {
+  ...deepMerge(
+    essentialsFr as Record<string, unknown>,
+    uiFr as Record<string, unknown>,
+    webEn as Record<string, unknown>,
+  ),
   ...prefixKeys('pwa', uiPwaFr as Record<string, unknown>),
 }
 
 const i18n = createI18nForStorybook({
   defaultLocale: 'fr-FR',
   messagesByLocale: {
-    // UI layer is fr-only today; keep en-US selectable with French fallback.
-    'en-US': frMessages,
+    'en-US': enMessages,
     'fr-FR': frMessages,
   },
 })

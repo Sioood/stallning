@@ -22,6 +22,8 @@ export type CreateMainConfigOptions = {
   stories: StorybookConfig['stories']
   /** Absolute path to `packages/ui` (for aliases + component auto-import). */
   uiPackageRoot: string
+  /** Absolute path to `apps/web` (optional — enables `Web/*` stories). */
+  webPackageRoot?: string
   /** Unique Vite cache directory for this Storybook host. */
   cacheDir?: string
   /**
@@ -35,6 +37,7 @@ export function createMainConfig(options: CreateMainConfigOptions): StorybookCon
   const {
     stories,
     uiPackageRoot,
+    webPackageRoot,
     cacheDir,
     staticDirs = [],
     viteFinal: userViteFinal,
@@ -66,6 +69,7 @@ export function createMainConfig(options: CreateMainConfigOptions): StorybookCon
         cacheDir,
         docgenTsconfigPath,
         uiPackageRoot,
+        webPackageRoot,
       })
       if (userViteFinal) {
         return userViteFinal(withStallning, env)

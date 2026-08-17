@@ -22,6 +22,8 @@ const stubsDir = fileURLToPath(new URL('./stubs', import.meta.url))
 
 export type StallningViteFinalOptions = {
   uiPackageRoot: string
+  /** Absolute path to `apps/web` (enables web component + composable auto-import). */
+  webPackageRoot?: string
   /** Unique Vite cache per Storybook host (avoids multi-instance collisions). */
   cacheDir?: string
   /** Absolute path to the tsconfig backing `vue-component-meta` docgen. */
@@ -91,8 +93,33 @@ function nuxtUIComponentName(relativePathWithoutExt: string): string | undefined
   return segments.map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1)).join('')
 }
 
+/** Match Nuxt app component names (no prefix) from a relative path under `app/components`. */
+function nuxtAppComponentName(relativePathWithoutExt: string): string | undefined {
+  const parts = relativePathWithoutExt.split('/').filter(Boolean)
+  if (parts.length === 0) return undefined
+
+  const last = parts.at(-1) ?? ''
+  const dirParts = parts.slice(0, -1)
+  const fileName = last.toLowerCase() === 'index' ? '' : last
+  const segments = resolveComponentNameSegments(fileName, dirParts).filter(Boolean)
+  if (segments.length === 0) return undefined
+  return segments.map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1)).join('')
+}
+
 /** Build Nuxt-style `UI*` name → absolute `.vue` path map (iterative walk). */
 export function buildUIComponentMap(componentsDir: string): Map<string, string> {
+  return buildComponentMap(componentsDir, nuxtUIComponentName)
+}
+
+/** Build Nuxt-style app component name → absolute `.vue` path map (iterative walk). */
+export function buildAppComponentMap(componentsDir: string): Map<string, string> {
+  return buildComponentMap(componentsDir, nuxtAppComponentName)
+}
+
+function buildComponentMap(
+  componentsDir: string,
+  resolveName: (relativePathWithoutExt: string) => string | undefined,
+): Map<string, string> {
   const map = new Map<string, string>()
   const stack = [componentsDir]
 
@@ -111,7 +138,7 @@ export function buildUIComponentMap(componentsDir: string): Map<string, string> 
 
       const rel = relative(componentsDir, full).replaceAll('\\', '/')
       const withoutExt = rel.replace(/\.vue$/u, '').replace(/\.client$/u, '')
-      const name = nuxtUIComponentName(withoutExt)
+      const name = resolveName(withoutExt)
       if (!name) continue
 
       map.set(name, full)
@@ -180,14 +207,32 @@ export async function stallningViteFinal(
   baseConfig: UserConfig,
   options: StallningViteFinalOptions,
 ): Promise<UserConfig> {
-  const { uiPackageRoot, cacheDir, docgenTsconfigPath } = options
+  const { uiPackageRoot, webPackageRoot, cacheDir, docgenTsconfigPath } = options
   const uiApp = join(uiPackageRoot, 'app')
   const componentsDir = join(uiApp, 'components')
+  const webApp = webPackageRoot ? join(webPackageRoot, 'app') : undefined
+  const webComponentsDir = webApp ? join(webApp, 'components') : undefined
   const nuxtEssentialsRoot = join(uiPackageRoot, '..', 'nuxt-essentials')
   const workspaceRoot = searchForWorkspaceRoot(uiPackageRoot)
   const uiComponentMap = buildUIComponentMap(componentsDir)
+  const webComponentMap = webComponentsDir ? buildAppComponentMap(webComponentsDir) : undefined
+
+  const autoImportDirs = [join(uiApp, 'composables/**'), join(uiApp, 'utils/**')]
+  if (webApp) {
+    autoImportDirs.push(join(webApp, 'composables/**'))
+  }
 
   const existingAllow = baseConfig.server?.fs?.allow ?? []
+  const fsAllow = [
+    ...existingAllow,
+    workspaceRoot,
+    uiPackageRoot,
+    nuxtEssentialsRoot,
+    stubsDir,
+  ]
+  if (webPackageRoot) {
+    fsAllow.push(webPackageRoot)
+  }
 
   // Drop Storybook's default Vue plugin — it does not reliably compile SFCs outside the app root.
   const basePlugins = flattenPlugins(baseConfig.plugins).filter((plugin) => {
@@ -226,7 +271,7 @@ export async function stallningViteFinal(
         },
       }),
       AutoImport({
-        dirs: [join(uiApp, 'composables/**'), join(uiApp, 'utils/**')],
+        dirs: autoImportDirs,
         dts: false,
         imports: [
           'vue',
@@ -238,6 +283,7 @@ export async function stallningViteFinal(
             [join(stubsDir, 'nuxt-app.ts')]: [
               'navigateTo',
               'useNuxtApp',
+              'useRoute',
               'useRouter',
               'useRuntimeConfig',
               'useState',
@@ -255,9 +301,10 @@ export async function stallningViteFinal(
         resolvers: [
           {
             resolve: (name: string) => {
-              const file = uiComponentMap.get(name)
-              if (!file) return
-              return { from: file, name: 'default' }
+              const uiFile = uiComponentMap.get(name)
+              if (uiFile) return { from: uiFile, name: 'default' }
+              const webFile = webComponentMap?.get(name)
+              if (webFile) return { from: webFile, name: 'default' }
             },
             type: 'component',
           },
@@ -270,7 +317,7 @@ export async function stallningViteFinal(
     },
     server: {
       fs: {
-        allow: [...existingAllow, workspaceRoot, uiPackageRoot, nuxtEssentialsRoot, stubsDir],
+        allow: fsAllow,
         strict: false,
       },
     },

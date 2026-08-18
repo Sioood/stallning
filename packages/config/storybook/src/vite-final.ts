@@ -223,13 +223,7 @@ export async function stallningViteFinal(
   }
 
   const existingAllow = baseConfig.server?.fs?.allow ?? []
-  const fsAllow = [
-    ...existingAllow,
-    workspaceRoot,
-    uiPackageRoot,
-    nuxtEssentialsRoot,
-    stubsDir,
-  ]
+  const fsAllow = [...existingAllow, workspaceRoot, uiPackageRoot, nuxtEssentialsRoot, stubsDir]
   if (webPackageRoot) {
     fsAllow.push(webPackageRoot)
   }

@@ -23,7 +23,7 @@
     "format:check": "pnpm exec oxfmt --check ."
   },
   "dependencies": {
-    "@iconify/vue": "^5.0.0",
+    "@iconify/vue": "^5.0.1",
     "@modyfi/vite-plugin-yaml": "^1.1.1",
     "@storybook/addon-a11y": "catalog:",
     "@storybook/addon-docs": "catalog:",
@@ -36,7 +36,7 @@
     "@vitejs/plugin-vue": "^6.0.8",
     "storybook": "catalog:",
     "unplugin-auto-import": "^21.1.0",
-    "unplugin-vue-components": "^32.0.0",
+    "unplugin-vue-components": "^32.1.0",
     "vue": "catalog:",
     "vue-component-meta": "^3.3.9",
     "vue-i18n": "catalog:"
@@ -48,6 +48,6 @@
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
     "typescript": "catalog:",
-    "vite": "^7.3.5"
+    "vite": "^7.3.6"
   }
 }

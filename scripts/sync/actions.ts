@@ -4,12 +4,12 @@ import consola from 'consola'
 
 import {
   aheadFromRef,
-  bumpSyncBaseline,
-  ensureBaselineObject,
+  ensureCommitObject,
   readSyncBaseline,
-  resolveSyncBaselineSha,
+  resolveBaselineCommit,
   showSyncBaseline,
-  SYNC_BASELINE_PATH,
+  SYNC_PATH,
+  writeSyncBaseline,
 } from './baseline.ts'
 import { classifyFiles, sharedFilesOnly } from './classify.ts'
 import {
@@ -21,29 +21,35 @@ import {
   fetchRemote,
   gitStdout,
   listCommitsBetween,
+  loadCommitInfo,
   runGit,
   runGitOrThrow,
   type CommitInfo,
 } from './git.ts'
-import { printPlan, type PlannedCommit, type SyncPlan } from './plan.ts'
+import { newestFirst, printPlan, type PlannedCommit, type SyncPlan } from './plan.ts'
+import { readStallningConfig, showStallningConfig, writeStallningConfig } from './project.ts'
 import { clearSyncState, readSyncState, writeSyncState } from './state.ts'
 
 import type { PickOptions, SyncGlobalOptions } from './options.ts'
 
-function maybeBumpBaselineAfterSync(sourceRef: string, appliedSha?: string): void {
+function maybeBumpLastCommitAfterSync(sourceRef: string, appliedCommit?: string): void {
   if (!readSyncBaseline()) return
-  const tip = appliedSha ?? gitStdout(['rev-parse', sourceRef])
-  bumpSyncBaseline({ remote: sourceRef.split('/')[0], sha: tip })
+  const tip = appliedCommit ?? gitStdout(['rev-parse', sourceRef])
+  writeSyncBaseline({ commit: tip })
 }
 
 function requireSourceBranch(options: SyncGlobalOptions): string {
-  if (!options.sourceBranch) throw new Error('Missing --source-branch / -s.')
-  return options.sourceBranch
+  if (options.sourceBranch) return options.sourceBranch
+  const { template } = readStallningConfig()
+  if (template) return template
+  throw new Error('Missing --source-branch / -s (or set template in .stallning/config.yaml).')
 }
 
 function requireTarget(options: SyncGlobalOptions): string {
-  if (!options.target) throw new Error('Missing --target / -t.')
-  return options.target
+  if (options.target) return options.target
+  const branch = currentBranch()
+  if (branch) return branch
+  throw new Error('Missing --target / -t.')
 }
 
 function sourceRefOf(options: SyncGlobalOptions): string {
@@ -76,23 +82,7 @@ function isMergeCommit(sha: string): boolean {
 }
 
 function loadCommit(sha: string): PlannedCommit {
-  const filesRaw = runGit(['diff-tree', '--no-commit-id', '--name-only', '-r', sha], {
-    capture: true,
-  })
-  const files =
-    filesRaw.status === 0
-      ? filesRaw.stdout
-          .split('\n')
-          .map((line) => line.trim())
-          .filter(Boolean)
-      : []
-  return {
-    classification: classifyFiles(files),
-    files,
-    sha,
-    shortSha: gitStdout(['rev-parse', '--short', sha]),
-    subject: gitStdout(['log', '-1', '--format=%s', sha]),
-  }
+  return toPlanned(loadCommitInfo(sha))
 }
 
 function filterCommits(commits: PlannedCommit[], filter: PickOptions['filter']): PlannedCommit[] {
@@ -123,27 +113,27 @@ export function runStatus(options: SyncGlobalOptions): void {
   ensureLocalBranchExists(target)
 
   const sourceRef = `${options.sourceRemote}/${sourceBranch}`
-  const baselineSha = resolveSyncBaselineSha()
-  if (baselineSha) ensureBaselineObject(baselineSha)
+  const lastCommit = resolveBaselineCommit()
+  if (lastCommit) ensureCommitObject(lastCommit)
   const aheadFrom = aheadFromRef(target)
   const ahead = listCommitsBetween(aheadFrom, sourceRef).map(toPlanned)
   const behind = listCommitsBetween(sourceRef, target).map(toPlanned)
 
   consola.box(
-    baselineSha
-      ? `Delta: ${sourceRef} ↔ ${target} (baseline ${baselineSha.slice(0, 7)})`
+    lastCommit
+      ? `Delta: ${sourceRef} ↔ ${target} (baseline ${lastCommit.slice(0, 7)})`
       : `Delta: ${sourceRef} ↔ ${target}`,
   )
 
-  consola.info(`On source, not in target (${ahead.length}):`)
+  consola.info(`On source, not in target (${ahead.length}, newest first):`)
   if (!ahead.length) consola.log('  (none)')
-  for (const commit of ahead) {
+  for (const commit of newestFirst(ahead)) {
     consola.log(`  ${commit.shortSha}  [${commit.classification}]  ${commit.subject}`)
   }
 
-  consola.info(`On target, not in source (${behind.length}):`)
+  consola.info(`On target, not in source (${behind.length}, newest first):`)
   if (!behind.length) consola.log('  (none)')
-  for (const commit of behind) {
+  for (const commit of newestFirst(behind)) {
     consola.log(`  ${commit.shortSha}  [${commit.classification}]  ${commit.subject}`)
   }
 }
@@ -175,8 +165,8 @@ export function runMerge(options: SyncGlobalOptions): void {
     consola.info('  git merge --abort')
     process.exit(1)
   }
-  consola.success(`Baseline sync complete: merged '${sourceRef}' into '${target}'.`)
-  maybeBumpBaselineAfterSync(sourceRef)
+  consola.success(`Merge complete: merged '${sourceRef}' into '${target}'.`)
+  maybeBumpLastCommitAfterSync(sourceRef)
   runVerifyIfRequested(options.verify, options.dryRun)
 }
 
@@ -227,8 +217,8 @@ function resolvePickCommits(
       selected.push(loadCommit(sha))
     }
   } else {
-    const baselineSha = resolveSyncBaselineSha()
-    if (baselineSha) ensureBaselineObject(baselineSha)
+    const lastCommit = resolveBaselineCommit()
+    if (lastCommit) ensureCommitObject(lastCommit)
     selected = listCommitsBetween(aheadFromRef(target), sourceRef).map(toPlanned)
   }
 
@@ -313,7 +303,7 @@ function cherryPickQueue(input: {
   clearSyncState()
   consola.success(`Sync complete: applied ${commits.length} commit(s) into '${target}'.`)
   const lastApplied = commits[commits.length - 1]?.sha
-  if (mode === 'pick') maybeBumpBaselineAfterSync(sourceRef, lastApplied)
+  if (mode === 'pick') maybeBumpLastCommitAfterSync(sourceRef, lastApplied)
   runVerifyIfRequested(options.verify, options.dryRun)
 }
 
@@ -431,23 +421,32 @@ export function runPaths(options: SyncGlobalOptions & { paths: string[]; ref?: s
 
 export { toPlanned }
 
-export function runBaselineShow(): void {
+export function runConfigShow(): void {
+  showStallningConfig()
+}
+
+export function runConfigSet(options: { template?: string; remote?: string }): void {
+  writeStallningConfig({ remote: options.remote, template: options.template })
+}
+
+export function runLastCommitShow(): void {
   showSyncBaseline()
 }
 
-export function runBaselineSet(sha: string, options: { template?: string; remote?: string }): void {
-  bumpSyncBaseline({
+export function runLastCommitSet(
+  commit: string,
+  options: { template?: string; remote?: string },
+): void {
+  writeSyncBaseline({
+    commit,
     remote: options.remote,
-    sha,
     template: options.template,
   })
 }
 
-export function runBaselineBump(options: SyncGlobalOptions): void {
+export function runLastCommitBump(options: SyncGlobalOptions): void {
   if (!readSyncBaseline()) {
-    throw new Error(
-      `No ${SYNC_BASELINE_PATH} to bump. Create one with: pnpm sync baseline set <sha>`,
-    )
+    throw new Error(`No ${SYNC_PATH} to bump. Create one with: pnpm sync baseline set <commit>`)
   }
   const sourceBranch = requireSourceBranch(options)
   fetchRemote(options.sourceRemote)
@@ -455,8 +454,12 @@ export function runBaselineBump(options: SyncGlobalOptions): void {
   const sourceRef = `${options.sourceRemote}/${sourceBranch}`
   const tip = gitStdout(['rev-parse', sourceRef])
   if (options.dryRun) {
-    consola.info(`[dry-run] bump baseline → ${tip}`)
+    consola.info(`[dry-run] baseline → ${tip}`)
     return
   }
-  bumpSyncBaseline({ remote: options.sourceRemote, sha: tip, template: sourceBranch })
+  writeSyncBaseline({
+    commit: tip,
+    remote: options.sourceRemote,
+    template: sourceBranch,
+  })
 }

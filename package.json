@@ -62,7 +62,8 @@
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
     "turbo": "^2.10.8",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "yaml": "catalog:"
   },
   "lint-staged": {
     "**/*.{js,mjs,cjs,ts,mts,cts,vue}": [

@@ -2,7 +2,10 @@
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "tags": ["-lintignore"],
   "workspaces": {
-    ".": {},
+    ".": {
+      "entry": ["scripts/sync/index.ts", "scripts/*.mjs", ".changeset/*.ts"],
+      "project": ["scripts/**/*.ts", "scripts/**/*.mjs", ".changeset/*.ts"]
+    },
     "apps/web": {
       "entry": ["i18n/locales/**/*.ts", "app/**/*.stories.ts", ".storybook/**/*.ts"],
       "project": ["app/**/*.{ts,vue}", "i18n/**/*.ts", ".storybook/**/*.ts"],

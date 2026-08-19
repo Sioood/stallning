@@ -1,134 +1,162 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
-import { dirname, join } from 'node:path'
+import { existsSync, readFileSync, rmSync } from 'node:fs'
 
 import consola from 'consola'
 
 import { gitStdout, runGit } from './git.ts'
+import {
+  asString,
+  CONFIG_PATH,
+  LEGACY_SYNC_BASELINE_PATH,
+  mergeStallningConfig,
+  parseYamlMapping,
+  readLegacyBaseline,
+  readStallningConfig,
+  stallningPath,
+  SYNC_PATH,
+  writeConfigYaml,
+  writeYamlFile,
+} from './project.ts'
 
-export const SYNC_BASELINE_PATH = '.stallning/sync-baseline'
+export { SYNC_PATH }
+
+const COMMIT_HASH = /^[0-9a-f]{7,40}$/i
 
 export type SyncBaseline = {
-  sha: string
-  template?: string
-  remote?: string
+  baseline: string
   createdAt?: string
   updatedAt?: string
 }
 
-function baselineAbsolutePath(): string {
-  const root = gitStdout(['rev-parse', '--show-toplevel'])
-  return join(root, SYNC_BASELINE_PATH)
-}
-
-function parseSyncBaseline(raw: string): SyncBaseline {
-  const fields: Record<string, string> = {}
-  for (const line of raw.split('\n')) {
-    const trimmed = line.trim()
-    if (!trimmed || trimmed.startsWith('#')) continue
-    const separator = trimmed.indexOf('=')
-    if (separator <= 0) continue
-    const key = trimmed.slice(0, separator).trim()
-    const value = trimmed.slice(separator + 1).trim()
-    if (key && value) fields[key] = value
-  }
-  if (!fields.sha || !/^[0-9a-f]{7,40}$/i.test(fields.sha)) {
-    throw new Error(`Invalid ${SYNC_BASELINE_PATH}: missing or invalid sha.`)
-  }
-  return {
-    createdAt: fields.createdAt,
-    remote: fields.remote,
-    sha: fields.sha.toLowerCase(),
-    template: fields.template,
-    updatedAt: fields.updatedAt,
-  }
-}
-
-function formatSyncBaseline(baseline: SyncBaseline): string {
-  const lines = [`sha=${baseline.sha}`]
-  if (baseline.template) lines.push(`template=${baseline.template}`)
-  if (baseline.remote) lines.push(`remote=${baseline.remote}`)
-  if (baseline.createdAt) lines.push(`createdAt=${baseline.createdAt}`)
-  if (baseline.updatedAt) lines.push(`updatedAt=${baseline.updatedAt}`)
-  return `${lines.join('\n')}\n`
-}
+const SYNC_HEADER = `# Sync baseline: Stallning commit this project has applied up to.
+# \`pnpm sync status\` / pick start after this commit. Override with:
+#   pnpm sync baseline set <commit>
+`
 
 export function readSyncBaseline(): SyncBaseline | undefined {
-  const path = baselineAbsolutePath()
-  if (!existsSync(path)) return undefined
-  return parseSyncBaseline(readFileSync(path, 'utf8'))
+  const path = stallningPath(SYNC_PATH)
+  if (existsSync(path)) {
+    const record = parseYamlMapping(readFileSync(path, 'utf8'), SYNC_PATH)
+    const baseline =
+      asString(record.baseline) ?? asString(record.lastCommit) ?? asString(record.sha)
+    if (!baseline || !COMMIT_HASH.test(baseline)) {
+      throw new Error(`Invalid ${SYNC_PATH}: missing or invalid baseline.`)
+    }
+    return {
+      baseline: baseline.toLowerCase(),
+      createdAt: asString(record.createdAt),
+      updatedAt: asString(record.updatedAt),
+    }
+  }
+
+  const legacy = readLegacyBaseline()
+  if (!legacy?.baseline) return undefined
+  if (!COMMIT_HASH.test(legacy.baseline)) {
+    throw new Error(`Invalid ${LEGACY_SYNC_BASELINE_PATH}: missing or invalid sha.`)
+  }
+  return {
+    baseline: legacy.baseline.toLowerCase(),
+    createdAt: legacy.createdAt,
+    updatedAt: legacy.updatedAt,
+  }
 }
 
-function writeSyncBaseline(baseline: SyncBaseline): void {
-  const path = baselineAbsolutePath()
-  mkdirSync(dirname(path), { recursive: true })
-  writeFileSync(path, formatSyncBaseline(baseline), 'utf8')
-}
-
-export function resolveSyncBaselineSha(): string | undefined {
-  return readSyncBaseline()?.sha
+export function resolveBaselineCommit(): string | undefined {
+  return readSyncBaseline()?.baseline
 }
 
 /** Lower bound for "on source, not in target" when a fork baseline exists. */
 export function aheadFromRef(target: string): string {
-  return resolveSyncBaselineSha() ?? target
+  return resolveBaselineCommit() ?? target
 }
 
-export function ensureBaselineObject(sha: string): string {
-  const resolved = runGit(['rev-parse', '--verify', `${sha}^{commit}`], { capture: true })
+export function ensureCommitObject(commit: string): string {
+  const resolved = runGit(['rev-parse', '--verify', `${commit}^{commit}`], { capture: true })
   if (resolved.status === 0) return resolved.stdout.trim()
   throw new Error(
-    `Baseline SHA '${sha}' is not available locally. Fetch the source remote first (git fetch <remote>).`,
+    `Commit '${commit}' is not available locally. Fetch the source remote first (git fetch <remote>).`,
   )
 }
 
-export function bumpSyncBaseline(input: {
-  sha: string
+function removeLegacyBaseline(): boolean {
+  const relative = LEGACY_SYNC_BASELINE_PATH
+  if (!existsSync(stallningPath(relative))) return false
+  const rm = runGit(['rm', '-f', '--', relative], { capture: true })
+  if (rm.status === 0) return true
+  rmSync(stallningPath(relative), { force: true })
+  return false
+}
+
+export function writeSyncBaseline(input: {
+  commit: string
   template?: string
   remote?: string
-  commit?: boolean
+  gitCommit?: boolean
 }): SyncBaseline {
-  const fullSha = ensureBaselineObject(input.sha)
+  const fullCommit = ensureCommitObject(input.commit)
   const existing = readSyncBaseline()
   const next: SyncBaseline = {
+    baseline: fullCommit,
     createdAt: existing?.createdAt ?? new Date().toISOString(),
-    remote: input.remote ?? existing?.remote,
-    sha: fullSha,
-    template: input.template ?? existing?.template,
     updatedAt: new Date().toISOString(),
   }
-  writeSyncBaseline(next)
+  writeYamlFile(SYNC_PATH, SYNC_HEADER, {
+    baseline: next.baseline,
+    ...(next.createdAt ? { createdAt: next.createdAt } : {}),
+    ...(next.updatedAt ? { updatedAt: next.updatedAt } : {}),
+  })
 
-  if (input.commit !== false) {
-    runGit(['add', '--', SYNC_BASELINE_PATH])
+  const currentConfig = readStallningConfig()
+  const configFileMissing = !existsSync(stallningPath(CONFIG_PATH))
+  const nextTemplate = input.template ?? currentConfig.template
+  const nextRemote = input.remote ?? currentConfig.remote
+  const wroteConfig =
+    Boolean(nextTemplate || nextRemote) &&
+    (configFileMissing ||
+      (Boolean(input.template) && input.template !== currentConfig.template) ||
+      (Boolean(input.remote) && input.remote !== currentConfig.remote))
+  if (wroteConfig) {
+    writeConfigYaml(mergeStallningConfig({ remote: nextRemote, template: nextTemplate }))
+  }
+
+  const removedLegacy = removeLegacyBaseline()
+  const staged = [SYNC_PATH]
+  if (wroteConfig) staged.push(CONFIG_PATH)
+  if (removedLegacy) staged.push(LEGACY_SYNC_BASELINE_PATH)
+
+  if (input.gitCommit !== false) {
+    runGit(['add', '--', ...staged])
+    const short = fullCommit.slice(0, 7)
     const commit = runGit([
       'commit',
       '-m',
-      'chore(sync): bump sync baseline',
+      `chore(sync): set baseline to ${short}`,
       '--',
-      SYNC_BASELINE_PATH,
+      ...staged,
     ])
-    if (commit.status === 0) {
-      consola.success(`Updated ${SYNC_BASELINE_PATH} → ${fullSha.slice(0, 7)}`)
-    } else {
-      consola.info(`Wrote ${SYNC_BASELINE_PATH} → ${fullSha.slice(0, 7)} (nothing to commit)`)
-    }
+    if (commit.status === 0) consola.success(`Baseline → ${short}`)
+    else consola.info(`Wrote ${SYNC_PATH} → ${short} (nothing to commit)`)
   } else {
-    consola.success(`Wrote ${SYNC_BASELINE_PATH} → ${fullSha.slice(0, 7)}`)
+    consola.success(`Wrote ${SYNC_PATH} → ${fullCommit.slice(0, 7)}`)
   }
 
   return next
 }
 
 export function showSyncBaseline(): void {
-  const baseline = readSyncBaseline()
-  if (!baseline) {
-    consola.info(`No ${SYNC_BASELINE_PATH} (monorepo sync uses target..source).`)
+  const synced = readSyncBaseline()
+  if (!synced) {
+    consola.info(`No ${SYNC_PATH} (monorepo sync uses target..source).`)
     return
   }
-  consola.box(`${SYNC_BASELINE_PATH}`)
-  consola.log(`sha:       ${baseline.sha}`)
-  if (baseline.template) consola.log(`template:  ${baseline.template}`)
-  if (baseline.remote) consola.log(`remote:    ${baseline.remote}`)
-  if (baseline.createdAt) consola.log(`createdAt: ${baseline.createdAt}`)
-  if (baseline.updatedAt) consola.log(`updatedAt: ${baseline.updatedAt}`)
+  consola.box(SYNC_PATH)
+  consola.log(`baseline:   ${synced.baseline}`)
+  try {
+    const subject = gitStdout(['log', '-1', '--format=%s', synced.baseline])
+    const short = gitStdout(['rev-parse', '--short', synced.baseline])
+    consola.log(`commit:     ${short}  ${subject}`)
+  } catch {
+    consola.log('commit:     (not available locally — fetch the source remote)')
+  }
+  if (synced.createdAt) consola.log(`createdAt:  ${synced.createdAt}`)
+  if (synced.updatedAt) consola.log(`updatedAt:  ${synced.updatedAt}`)
 }

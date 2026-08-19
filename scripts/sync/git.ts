@@ -111,26 +111,37 @@ export type CommitInfo = {
   files: string[]
 }
 
+export function loadCommitInfo(sha: string): CommitInfo {
+  const subject = gitStdout(['log', '-1', '--format=%s', sha])
+  const shortSha = gitStdout(['rev-parse', '--short', sha])
+  const filesRaw = runGit(['diff-tree', '--no-commit-id', '--name-only', '-r', sha], {
+    capture: true,
+  })
+  const files =
+    filesRaw.status === 0
+      ? filesRaw.stdout
+          .split('\n')
+          .map((line) => line.trim())
+          .filter(Boolean)
+      : []
+  return { files, sha, shortSha, subject }
+}
+
+/** Oldest first (cherry-pick apply order). Reverse the result for git-log display. */
 export function listCommitsBetween(fromRef: string, toRef: string): CommitInfo[] {
   const shas = gitStdout(['rev-list', '--reverse', `${fromRef}..${toRef}`])
   if (!shas) return []
-
   const commits: CommitInfo[] = []
-  for (const sha of shas.split('\n').filter(Boolean)) {
-    const subject = gitStdout(['log', '-1', '--format=%s', sha])
-    const shortSha = gitStdout(['rev-parse', '--short', sha])
-    const filesRaw = runGit(['diff-tree', '--no-commit-id', '--name-only', '-r', sha], {
-      capture: true,
-    })
-    const files =
-      filesRaw.status === 0
-        ? filesRaw.stdout
-            .split('\n')
-            .map((line) => line.trim())
-            .filter(Boolean)
-        : []
-    commits.push({ files, sha, shortSha, subject })
-  }
+  for (const sha of shas.split('\n').filter(Boolean)) commits.push(loadCommitInfo(sha))
+  return commits
+}
+
+/** Newest first, like `git log`. */
+export function listRecentCommits(ref: string, limit = 50): CommitInfo[] {
+  const shas = gitStdout(['rev-list', `-n${limit}`, ref])
+  if (!shas) return []
+  const commits: CommitInfo[] = []
+  for (const sha of shas.split('\n').filter(Boolean)) commits.push(loadCommitInfo(sha))
   return commits
 }
 

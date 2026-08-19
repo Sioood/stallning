@@ -4,10 +4,10 @@ This runbook defines how to keep specialized template branches synced with the s
 
 ## Model
 
-- `minimal` is the baseline for reusable JS/TS boilerplate.
+- `minimal` is the shared JS/TS boilerplate branch.
 - Template branches (for example `nuxt`) build on top of `minimal`.
 - Sync strategy is hybrid:
-  - regular baseline merges (`sync merge`)
+  - merges (`sync merge`)
   - selective cherry-picks (`sync pick`)
   - path-filtered backports from templates to `minimal` (`sync backport`)
 
@@ -30,30 +30,57 @@ git fetch upstream
 - `origin`: your fork.
 - `upstream`: source template repository.
 
-### Sync baseline (forks)
+### Project files (`.stallning/`)
 
-`create-stallning` wipes `.git` and writes a fresh root commit, so there is **no shared ancestry** with Stallning. Without a baseline, `sync status` / `sync pick` would list the entire template history.
+`create-stallning` wipes `.git` and writes a fresh root commit, so there is **no shared ancestry** with Stallning. The baseline commit is what `sync status` / `sync pick` use instead of git merge-base.
 
-New projects get `.stallning/sync-baseline` at create time (template tip SHA). When that file exists, the “on source” delta is `baseline..source` instead of `target..source`.
+| File                     | Role                                                      |
+| ------------------------ | --------------------------------------------------------- |
+| `.stallning/config.yaml` | Project settings (`template`, `remote`, and later extras) |
+| `.stallning/sync.yaml`   | Baseline Stallning commit this project has applied        |
 
-```sh
-pnpm sync baseline show
-pnpm sync baseline set <sha> --template nuxt --remote upstream   # existing forks
-pnpm sync baseline bump -r upstream -s nuxt                      # mark fully synced to tip
+Example `config.yaml`:
+
+```yaml
+template: nuxt
+remote: upstream
 ```
 
-After a successful `sync merge`, the baseline bumps to the source tip. After a successful `sync pick`, it bumps to the last applied commit.
+Example `sync.yaml`:
+
+```yaml
+baseline: c7ada39b009155ef6a2b1627a91f4ace0e7f44e2
+createdAt: 2026-08-07T13:25:02.439Z
+updatedAt: 2026-08-07T13:25:02.442Z
+```
+
+When `sync.yaml` exists, the “on source” delta is `baseline..source` instead of `target..source`.
+
+The legacy key=value file `.stallning/sync-baseline` is still read and migrated on the next write.
+
+```sh
+pnpm sync config show
+pnpm sync config set --template nuxt --remote upstream
+
+pnpm sync baseline show
+pnpm sync baseline set <commit> --template nuxt --remote upstream   # existing forks
+pnpm sync baseline set                 # pick a commit from recent source history
+pnpm sync baseline bump -r upstream -s nuxt   # mark fully synced to tip
+```
+
+After a successful `sync merge`, `baseline` becomes the source tip. After a successful `sync pick`, it becomes the last applied commit.
 
 ## CLI
 
 ```sh
 pnpm sync                 # interactive wizard
-pnpm sync status          # classified delta (read-only)
+pnpm sync status          # classified delta (read-only, newest first)
 pnpm sync merge [flags]
 pnpm sync pick [flags]
 pnpm sync backport [flags]
 pnpm sync paths <paths...> [flags]
 pnpm sync baseline show|set|bump
+pnpm sync config show|set
 ```
 
 Compat aliases:
@@ -67,16 +94,18 @@ pnpm sync:backport ...
 
 ### Global flags
 
-| Flag                  | Description                                      |
-| --------------------- | ------------------------------------------------ |
-| `-r, --source-remote` | Source remote (default: `origin`)                |
-| `-s, --source-branch` | Source branch (required for non-wizard commands) |
-| `-t, --target`        | Target **local** branch (required)               |
-| `-n, --dry-run`       | Print the execution plan without mutating git    |
-| `--verify`            | Run `pnpm verify` after a successful apply       |
-| `-y, --yes`           | Non-interactive when flags are complete          |
+| Flag                  | Description                                                    |
+| --------------------- | -------------------------------------------------------------- |
+| `-r, --source-remote` | Source remote (default: `config.yaml` `remote`, else `origin`) |
+| `-s, --source-branch` | Source branch (default: `config.yaml` `template`)              |
+| `-t, --target`        | Target **local** branch (default: current branch)              |
+| `-n, --dry-run`       | Print the execution plan without mutating git                  |
+| `--verify`            | Run `pnpm verify` after a successful apply                     |
+| `-y, --yes`           | Non-interactive when flags are complete                        |
 
 **Dry-run is supported on every mutating command** (`merge`, `pick`, `backport`, `paths`) and is offered first in the wizard.
+
+Commit lists (status, plan, wizard) are **newest first**, like `git log`. Cherry-picks still apply oldest → newest.
 
 ### Status
 
@@ -84,9 +113,9 @@ pnpm sync:backport ...
 pnpm sync status -r origin -s minimal -t nuxt
 ```
 
-Lists commits on each side of the delta and classifies them as `shared`, `template-only`, or `mixed`.
+Lists commits on each side of the delta (newest first) and classifies them as `shared`, `template-only`, or `mixed`.
 
-### Baseline merge
+### Merge
 
 ```sh
 pnpm sync merge -r upstream -s minimal -t nuxt --dry-run
@@ -97,7 +126,7 @@ pnpm sync merge -r upstream -s minimal -t nuxt
 
 ```sh
 pnpm sync pick -r origin -s minimal -t nuxt --dry-run
-pnpm sync pick -r origin -s minimal -t nuxt -c <sha>
+pnpm sync pick -r origin -s minimal -t nuxt -c <commit>
 pnpm sync pick -r origin -s minimal -t nuxt --range <start>..<end>
 pnpm sync pick -r origin -s minimal -t nuxt --filter shared
 ```
@@ -165,5 +194,6 @@ make check
 - Recommended titles:
   - `chore(sync): merge minimal into nuxt`
   - `chore(sync): cherry-pick minimal commits into nuxt`
-  - `chore(sync): backport shared paths from <sha>`
+  - `chore(sync): backport shared paths from <commit>`
+  - `chore(sync): set baseline to <short>`
 - Open a dedicated PR per sync wave when possible.

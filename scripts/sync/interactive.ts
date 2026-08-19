@@ -1,18 +1,35 @@
 import * as p from '@clack/prompts'
 import consola from 'consola'
 
-import { runBackport, runMerge, runPaths, runPick, runStatus, toPlanned } from './actions.ts'
-import { aheadFromRef, ensureBaselineObject, resolveSyncBaselineSha } from './baseline.ts'
+import {
+  runBackport,
+  runLastCommitBump,
+  runLastCommitShow,
+  runMerge,
+  runPaths,
+  runPick,
+  runStatus,
+  toPlanned,
+} from './actions.ts'
 import {
   currentBranch,
   ensureLocalBranchExists,
   fetchRemote,
   listCommitsBetween,
   listLocalBranches,
+  listRecentCommits,
   listRemoteBranches,
   listRemotes,
   showCommitStat,
 } from './git.ts'
+import { newestFirst, rangeInChronologicalOrder, selectedInChronologicalOrder } from './plan.ts'
+import {
+  aheadFromRef,
+  ensureCommitObject,
+  resolveBaselineCommit,
+  writeSyncBaseline,
+} from './baseline.ts'
+import { readStallningConfig } from './project.ts'
 
 import type { PickOptions, SyncGlobalOptions } from './options.ts'
 
@@ -32,11 +49,14 @@ async function selectRemote(defaultRemote: string): Promise<string> {
   if (!remotes.length) throw new Error('No git remotes found.')
   if (remotes.length === 1) return remotes[0]!
 
-  const preferred = remotes.includes('upstream')
-    ? 'upstream'
-    : remotes.includes(defaultRemote)
-      ? defaultRemote
-      : remotes[0]!
+  const { remote: configRemote } = readStallningConfig()
+  const preferred = remotes.includes(configRemote ?? '')
+    ? configRemote!
+    : remotes.includes('upstream')
+      ? 'upstream'
+      : remotes.includes(defaultRemote)
+        ? defaultRemote
+        : remotes[0]!
 
   const remote = await p.select({
     initialValue: preferred,
@@ -90,26 +110,113 @@ async function confirmDryRun(): Promise<boolean> {
   return mode === 'dry-run'
 }
 
+function commitChoice(commit: {
+  shortSha: string
+  classification?: string
+  subject: string
+  sha: string
+}): {
+  label: string
+  value: string
+} {
+  const klass = commit.classification ? ` [${commit.classification}]` : ''
+  return {
+    label: `${commit.shortSha}${klass}  ${commit.subject}`,
+    value: commit.sha,
+  }
+}
+export async function promptLastSyncedCommit(sourceRef: string): Promise<string> {
+  const commits = listRecentCommits(sourceRef)
+  if (!commits.length) throw new Error(`No commits found on '${sourceRef}'.`)
+
+  const picked = await p.select({
+    message: 'Baseline commit (newest first)',
+    options: [
+      ...commits.map((commit) => commitChoice(commit)),
+      { hint: 'paste a hash or ref', label: 'Enter a commit…', value: '__enter__' },
+    ],
+  })
+  exitOnCancel(picked)
+  if (picked !== '__enter__') return picked as string
+
+  const typed = await p.text({
+    message: 'Commit hash or ref',
+    placeholder: 'c7ada39 or origin/nuxt',
+  })
+  exitOnCancel(typed)
+  const value = String(typed).trim()
+  if (!value) throw new Error('A commit is required.')
+  return value
+}
+
 export async function runWizard(): Promise<void> {
   p.intro('Stallning branch sync')
 
+  const config = readStallningConfig()
   const action = await p.select({
     message: 'What do you want to do?',
     options: [
       { hint: 'read-only delta', label: 'Status (delta)', value: 'status' },
-      { hint: 'baseline merge', label: 'Merge', value: 'merge' },
+      { hint: 'merge source into target', label: 'Merge', value: 'merge' },
       { hint: 'select commits', label: 'Pick commits', value: 'pick' },
       { hint: 'template → minimal', label: 'Backport', value: 'backport' },
       { hint: 'checkout paths from a ref', label: 'Paths', value: 'paths' },
+      {
+        hint: 'show / set / bump last applied commit',
+        label: 'Baseline',
+        value: 'baseline',
+      },
     ],
   })
   exitOnCancel(action)
 
-  const remote = await selectRemote('origin')
-  const sourceBranch = await selectRemoteBranch(remote, action === 'backport' ? 'nuxt' : 'minimal')
+  if (action === 'baseline') {
+    const baselineAction = await p.select({
+      message: 'Baseline',
+      options: [
+        { hint: 'read .stallning/sync.yaml', label: 'Show', value: 'show' },
+        { hint: 'point a commit without applying', label: 'Set', value: 'set' },
+        { hint: 'mark source tip as fully synced', label: 'Bump', value: 'bump' },
+      ],
+    })
+    exitOnCancel(baselineAction)
+
+    if (baselineAction === 'show') {
+      runLastCommitShow()
+      p.outro('Baseline shown.')
+      return
+    }
+
+    const remote = await selectRemote(config.remote ?? 'origin')
+    const sourceBranch = await selectRemoteBranch(remote, config.template ?? 'nuxt')
+
+    if (baselineAction === 'set') {
+      fetchRemote(remote)
+      const commit = await promptLastSyncedCommit(`${remote}/${sourceBranch}`)
+      writeSyncBaseline({ commit, remote, template: sourceBranch })
+      p.outro('Baseline updated.')
+      return
+    }
+
+    const dryRun = await confirmDryRun()
+    runLastCommitBump({
+      dryRun,
+      sourceBranch,
+      sourceRemote: remote,
+      verify: false,
+      yes: false,
+    })
+    p.outro(dryRun ? 'Dry-run complete.' : 'Baseline bumped.')
+    return
+  }
+
+  const remote = await selectRemote(config.remote ?? 'origin')
+  const defaultSource = config.template ?? (action === 'backport' ? 'nuxt' : 'minimal')
+  const sourceBranch = await selectRemoteBranch(remote, defaultSource)
+
   const target = await selectLocalBranch(
     'Target local branch',
-    action === 'backport' ? 'minimal' : action === 'status' ? currentBranch() || 'nuxt' : 'nuxt',
+    action === 'backport' ? 'minimal' : currentBranch() || config.template || 'nuxt',
   )
 
   const base: SyncGlobalOptions = {
@@ -150,12 +257,11 @@ export async function runWizard(): Promise<void> {
     return
   }
 
-  // pick / backport interactive commit selection
   fetchRemote(remote)
   ensureLocalBranchExists(target)
   const sourceRef = `${remote}/${sourceBranch}`
-  const baselineSha = resolveSyncBaselineSha()
-  if (baselineSha) ensureBaselineObject(baselineSha)
+  const lastCommit = resolveBaselineCommit()
+  if (lastCommit) ensureCommitObject(lastCommit)
   const commits = listCommitsBetween(aheadFromRef(target), sourceRef).map(toPlanned)
 
   if (!commits.length) {
@@ -193,12 +299,13 @@ export async function runWizard(): Promise<void> {
     return
   }
 
+  const displayed = newestFirst(candidates)
   const selectionMode = await p.select({
     initialValue: 'multi',
     message: 'How do you want to select commits?',
     options: [
-      { label: 'Multi-select commits', value: 'multi' },
-      { label: 'Range (first → last)', value: 'range' },
+      { hint: 'newest at the top', label: 'Multi-select commits', value: 'multi' },
+      { hint: 'two bounds, applied oldest → newest', label: 'Range', value: 'range' },
     ],
   })
   exitOnCancel(selectionMode)
@@ -207,36 +314,24 @@ export async function runWizard(): Promise<void> {
 
   if (selectionMode === 'range') {
     const first = await p.select({
-      message: 'Range start (oldest)',
-      options: candidates.map((commit) => ({
-        label: `${commit.shortSha} [${commit.classification}] ${commit.subject}`,
-        value: commit.sha,
-      })),
+      message: 'Range bound (newest first)',
+      options: displayed.map((commit) => commitChoice(commit)),
     })
     exitOnCancel(first)
-    const startIndex = candidates.findIndex((commit) => commit.sha === first)
-    const last = await p.select({
-      initialValue: candidates[candidates.length - 1]?.sha,
-      message: 'Range end (newest)',
-      options: candidates.slice(startIndex).map((commit) => ({
-        label: `${commit.shortSha} [${commit.classification}] ${commit.subject}`,
-        value: commit.sha,
-      })),
+    const second = await p.select({
+      message: 'Other range bound',
+      options: displayed.map((commit) => commitChoice(commit)),
     })
-    exitOnCancel(last)
-    const endIndex = candidates.findIndex((commit) => commit.sha === last)
-    selectedShas = candidates.slice(startIndex, endIndex + 1).map((commit) => commit.sha)
+    exitOnCancel(second)
+    selectedShas = rangeInChronologicalOrder(candidates, first as string, second as string)
   } else {
     const picked = await p.multiselect({
-      message: 'Select commits (space to toggle)',
-      options: candidates.map((commit) => ({
-        label: `${commit.shortSha} [${commit.classification}] ${commit.subject}`,
-        value: commit.sha,
-      })),
+      message: 'Select commits (space to toggle, newest first)',
+      options: displayed.map((commit) => commitChoice(commit)),
       required: true,
     })
     exitOnCancel(picked)
-    selectedShas = picked as string[]
+    selectedShas = selectedInChronologicalOrder(candidates, picked as string[])
   }
 
   const preview = await p.confirm({
@@ -245,7 +340,7 @@ export async function runWizard(): Promise<void> {
   })
   exitOnCancel(preview)
   if (preview) {
-    for (const sha of selectedShas) {
+    for (const sha of newestFirst(selectedShas)) {
       const info = candidates.find((commit) => commit.sha === sha)
       consola.info(`${info?.shortSha ?? sha} — ${info?.subject ?? ''}`)
       consola.log(showCommitStat(sha))

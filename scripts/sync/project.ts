@@ -6,7 +6,7 @@ import { parse as parseYaml, stringify as stringifyYaml } from 'yaml'
 
 import { gitStdout, runGit } from './git.ts'
 
-export const STALLNING_DIR = '.stallning'
+const STALLNING_DIR = '.stallning'
 export const CONFIG_PATH = `${STALLNING_DIR}/config.yaml`
 export const SYNC_PATH = `${STALLNING_DIR}/sync.yaml`
 export const LEGACY_SYNC_BASELINE_PATH = `${STALLNING_DIR}/sync-baseline`
@@ -62,7 +62,7 @@ export function writeYamlFile(
   writeFileSync(path, `${header}${stringifyYaml(data).trimEnd()}\n`, 'utf8')
 }
 
-export function parseLegacyBaseline(raw: string): LegacyBaseline {
+function parseLegacyBaseline(raw: string): LegacyBaseline {
   const fields: Record<string, string> = {}
   for (const line of raw.split('\n')) {
     const trimmed = line.trim()
@@ -99,7 +99,7 @@ function readConfigMapping(): Record<string, unknown> {
   return record
 }
 
-export function stringMapping(record: Record<string, unknown>): Record<string, string> {
+function stringMapping(record: Record<string, unknown>): Record<string, string> {
   const data: Record<string, string> = {}
   for (const [key, value] of Object.entries(record)) {
     const str = asString(value)

@@ -3,8 +3,8 @@
   "tags": ["-lintignore"],
   "workspaces": {
     ".": {
-      "entry": ["scripts/sync/index.ts", "scripts/*.mjs", ".changeset/*.ts"],
-      "project": ["scripts/**/*.ts", "scripts/**/*.mjs", ".changeset/*.ts"]
+      "entry": [".changeset/*.ts"],
+      "project": ["scripts/**/*.ts", ".changeset/*.ts"]
     }
   },
   "ignoreDependencies": ["@stallning/oxlint"]

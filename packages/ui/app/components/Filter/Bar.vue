@@ -141,6 +141,8 @@ const filterIcon = computed(() =>
   hasActiveFilters.value ? 'tabler:filter-check' : 'tabler:filter',
 )
 
+const controlHeightClass = computed(() => (props.size === 'sm' ? 'h-7' : 'h-8'))
+
 const searchRef = ref<UIFormSearchInputExpose | null>(null)
 
 function reset() {
@@ -178,8 +180,8 @@ defineExpose<UIFilterBarExpose>({
         :label="searchSchema?.label"
         :placeholder="searchSchema?.placeholder"
         :show-pending="showSearchPending"
-        :size="size === 'sm' ? 'sm' : 'md'"
-        :ui="{ root: 'min-w-0 flex-1' }"
+        :size
+        :ui="{ root: 'min-w-0 flex-1', shell: controlHeightClass }"
         @update:model-value="setFieldValue(searchKey, $event)"
       />
 
@@ -196,7 +198,8 @@ defineExpose<UIFilterBarExpose>({
             :aria-label="$t('filter.open')"
             :intent
             class="shrink-0"
-            size="sm"
+            :size
+            :ui="{ root: controlHeightClass }"
             square
             variant="subtle"
           >
@@ -216,6 +219,7 @@ defineExpose<UIFilterBarExpose>({
               :placeholder="searchSchema?.placeholder"
               :show-pending="showSearchPending"
               size="sm"
+              :ui="{ shell: 'h-7' }"
               @update:model-value="setFieldValue(searchKey, $event)"
             />
 
@@ -227,6 +231,7 @@ defineExpose<UIFilterBarExpose>({
               :config="schema[key]!"
               :field-key="key"
               :intent
+              size="sm"
               @update:model-value="setFieldValue(key, $event)"
             />
 
@@ -247,7 +252,7 @@ defineExpose<UIFilterBarExpose>({
       </UIPopover>
     </div>
 
-    <div v-else class="flex flex-wrap items-end gap-3">
+    <div v-else class="flex w-full flex-wrap items-end gap-3">
       <UIFormSearchInput
         v-if="showSearchInBar && searchKey"
         ref="searchRef"
@@ -257,7 +262,8 @@ defineExpose<UIFilterBarExpose>({
         :label="searchSchema?.label"
         :placeholder="searchSchema?.placeholder"
         :show-pending="showSearchPending"
-        :size="size === 'sm' ? 'sm' : 'md'"
+        :size
+        :ui="{ shell: controlHeightClass }"
         @update:model-value="setFieldValue(searchKey, $event)"
       />
 
@@ -268,6 +274,7 @@ defineExpose<UIFilterBarExpose>({
         :config="schema[key]!"
         :field-key="key"
         :intent
+        :size
         @update:model-value="setFieldValue(key, $event)"
       />
 
@@ -275,7 +282,8 @@ defineExpose<UIFilterBarExpose>({
         class="shrink-0"
         :disabled="!hasActiveFilters"
         :intent
-        size="sm"
+        :size
+        :ui="{ root: controlHeightClass }"
         variant="subtle"
         @click="reset()"
       >

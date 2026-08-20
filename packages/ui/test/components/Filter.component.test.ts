@@ -18,6 +18,17 @@ const rows: Row[] = [
 ]
 
 const schema = {
+  category: {
+    defaultValue: [] as string[],
+    getValue: (item: Row) => item.status,
+    props: {
+      options: [
+        { title: 'Web', value: 'web' },
+        { title: 'Mobile', value: 'mobile' },
+      ],
+    },
+    type: 'toggle-group',
+  },
   premium: {
     defaultValue: false,
     getValue: (item: Row) => item.premium,
@@ -59,7 +70,7 @@ describe('UIFilterBar', () => {
 
     const wrapper = await mountSuspended(FilterBar, {
       props: {
-        layout: ['search', 'status', 'premium'],
+        layout: ['search', 'status', 'premium', 'category'],
         modelValue: values.value,
         'onUpdate:modelValue': (next: FilterValues) => {
           values.value = next
@@ -72,7 +83,34 @@ describe('UIFilterBar', () => {
     expect(wrapper.find('input[inputmode="search"]').attributes('placeholder')).toBe('Search rows')
     expect(wrapper.text()).toContain('Status')
     expect(wrapper.text()).toContain('Premium')
+    expect(wrapper.text()).toContain('Web')
     expect(wrapper.get('button[disabled]').text()).toContain('Réinitialiser les filtres')
+
+    vi.unstubAllGlobals()
+  })
+
+  it('aligns search, select and toggle-group to the same control height', async () => {
+    vi.stubGlobal('useBreakpoints', () => ({
+      greaterOrEqual: () => ref(true),
+    }))
+
+    const wrapper = await mountSuspended(FilterBar, {
+      props: {
+        layout: ['search', 'status', 'premium', 'category'],
+        schema,
+        size: 'md',
+      },
+    })
+
+    const searchShell = wrapper.find('input[inputmode="search"]').element.parentElement
+    expect(searchShell?.className).toContain('h-8')
+
+    const selectTrigger = wrapper.find('[data-part="trigger"]')
+    expect(selectTrigger.classes()).toContain('h-full')
+    expect(selectTrigger.classes()).toContain('py-0')
+
+    const toggleGroup = wrapper.find('.join')
+    expect(toggleGroup.classes()).toContain('h-8')
 
     vi.unstubAllGlobals()
   })

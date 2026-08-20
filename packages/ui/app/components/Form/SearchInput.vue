@@ -19,6 +19,8 @@ const searchInputCVA = cva('min-w-48 flex-1', {
 
 export interface UIFormSearchInputSlots {
   root?: ClassValue
+  shell?: ClassValue
+  input?: ClassValue
 }
 
 export interface FormSearchInputProps {
@@ -126,7 +128,13 @@ defineExpose<UIFormSearchInputExpose>({
       :state="isPending ? 'loading' : 'default'"
       :trailing="isPending"
       loading-icon="tabler:loader-2"
-      :ui="{ root: 'w-full' } satisfies Partial<UIInputSlots>"
+      :ui="
+        {
+          input: props.ui?.input,
+          root: 'w-full',
+          shell: props.ui?.shell,
+        } satisfies Partial<UIInputSlots>
+      "
       @blur="onBlur"
       @keydown="onKeydown"
     />

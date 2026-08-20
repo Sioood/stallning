@@ -2,6 +2,7 @@
 import type { FilterFieldConfig, FilterFieldValue } from '~/utils/Components/Filter/schema'
 
 type FilterFieldIntent = 'accent' | 'neutral' | 'primary' | 'secondary'
+type FilterFieldSize = 'sm' | 'md' | 'lg'
 
 defineOptions({ inheritAttrs: false })
 
@@ -11,29 +12,39 @@ const props = withDefaults(
     config: FilterFieldConfig<TItem>
     intent?: FilterFieldIntent
     menuMode?: boolean
+    size?: 'sm' | 'md'
   }>(),
   {
     intent: 'primary',
     menuMode: false,
+    size: 'md',
   },
 )
 
 const modelValue = defineModel<FilterFieldValue>({ required: true })
 
-const selectSize = computed(() => {
-  if (props.config.type !== 'select') {
-    return 'sm' as const
+const resolvedSize = computed((): FilterFieldSize => {
+  if (
+    props.config.type === 'select' ||
+    props.config.type === 'toggle' ||
+    props.config.type === 'toggle-group'
+  ) {
+    const size = props.config.props?.size
+    if (size === 'sm' || size === 'md' || size === 'lg') {
+      return size
+    }
   }
-  const size = props.config.props?.size
-  return size === 'md' || size === 'lg' ? size : 'sm'
+  return props.menuMode ? 'sm' : props.size
 })
 
-const toggleGroupSize = computed(() => {
-  if (props.config.type !== 'toggle-group') {
-    return 'sm' as const
+const controlHeightClass = computed(() => {
+  if (resolvedSize.value === 'sm') {
+    return 'h-7'
   }
-  const size = props.config.props?.size
-  return size === 'md' || size === 'lg' ? size : 'sm'
+  if (resolvedSize.value === 'lg') {
+    return 'h-9'
+  }
+  return 'h-8'
 })
 
 const portalled = computed(() => {
@@ -46,7 +57,15 @@ const portalled = computed(() => {
   return true
 })
 
-const fieldRootClass = computed(() => cn(props.menuMode ? 'w-full' : 'max-w-48 min-w-40'))
+const fieldRootClass = computed(() => {
+  if (props.menuMode) {
+    return 'w-full'
+  }
+  if (props.config.type === 'select') {
+    return 'max-w-48 min-w-40'
+  }
+  return 'shrink-0'
+})
 </script>
 
 <template>
@@ -59,9 +78,10 @@ const fieldRootClass = computed(() => cn(props.menuMode ? 'w-full' : 'max-w-48 m
     :multiple="config.props?.multiple ?? true"
     :placeholder="config.props?.placeholder"
     :portalled
-    :size="selectSize"
     v-bind="config.props ?? {}"
+    :size="resolvedSize"
     :class="fieldRootClass"
+    :ui="{ control: controlHeightClass, trigger: 'h-full py-0' }"
   />
 
   <UISwitch
@@ -69,9 +89,9 @@ const fieldRootClass = computed(() => cn(props.menuMode ? 'w-full' : 'max-w-48 m
     v-model="modelValue as boolean"
     :intent
     :label="config.label"
-    size="sm"
     v-bind="config.props ?? {}"
-    :class="fieldRootClass"
+    :size="resolvedSize"
+    :ui="{ root: cn(fieldRootClass, controlHeightClass) }"
   />
 
   <UIToggle
@@ -79,9 +99,9 @@ const fieldRootClass = computed(() => cn(props.menuMode ? 'w-full' : 'max-w-48 m
     v-model:pressed="modelValue as boolean"
     :intent
     variant="subtle"
-    size="sm"
     v-bind="config.props ?? {}"
-    :class="fieldRootClass"
+    :size="resolvedSize"
+    :class="cn(fieldRootClass, controlHeightClass)"
   >
     <template #off>{{ config.label }}</template>
     <template #on>{{ config.label }}</template>
@@ -94,9 +114,10 @@ const fieldRootClass = computed(() => cn(props.menuMode ? 'w-full' : 'max-w-48 m
     :intent
     :options="config.props?.options ?? []"
     :icon-only="config.props?.iconOnly"
-    :size="toggleGroupSize"
     variant="subtle"
     v-bind="config.props ?? {}"
-    :class="fieldRootClass"
+    :size="resolvedSize"
+    :class="cn(fieldRootClass, controlHeightClass)"
+    :ui="{ item: 'h-full' }"
   />
 </template>

@@ -177,6 +177,18 @@ describe('UIFormSelect', () => {
     expect(item.exists()).toBe(true)
   })
 
+  it('accepts null modelValue without crashing', async () => {
+    const wrapper = await mountSuspended(UIFormSelect, {
+      props: {
+        items,
+        modelValue: null,
+        placeholder: 'Pick one',
+      },
+    })
+
+    expect(wrapper.find('button[data-part="trigger"]').exists()).toBe(true)
+  })
+
   it('renders Select All button when allowSelectAll and multiple are true', async () => {
     const wrapper = await mountSuspended(UIFormSelect, {
       props: {

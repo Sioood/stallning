@@ -10,12 +10,7 @@ import { useAttrs } from 'vue'
 import type { FieldProps } from '~ui/app/components/Form/Field.vue'
 
 import { splitArkAttrs } from '~/utils/ark'
-import {
-  checkboxControlCVA,
-  checkboxDisabledFlag,
-  checkboxIndicatorCVA,
-  checkboxInvalidFlag,
-} from '~/utils/Components/Form/checkbox-variants'
+import { checkboxControlCVA, checkboxIndicatorCVA } from '~/utils/Components/Form/checkbox-variants'
 
 import type {
   FormFieldIntent,
@@ -57,25 +52,25 @@ const checkboxRootCVA = cva('group inline-flex items-center gap-2', {
 
 type CheckboxRootVariants = VariantProps<typeof checkboxRootCVA>
 
-const disabled = computed(() => Boolean(checkboxDisabledFlag(Boolean(props.disabled))))
-const invalidState = computed(() => Boolean(checkboxInvalidFlag(Boolean(invalid.value))))
+const disabled = computed(() => Boolean(props.disabled))
+const invalidState = computed(() => Boolean(invalid.value))
 
 const fieldLabelCVA = cva('', {
   variants: {
     intent: {
       accent: 'text-accent-text data-[disabled]:text-accent-text-disabled',
-      error: '',
-      info: '',
+      error: 'text-error-text data-[disabled]:text-error-text-disabled',
+      info: 'text-info-text data-[disabled]:text-info-text-disabled',
       neutral: 'text-neutral-text data-[disabled]:text-neutral-text-disabled',
       primary: 'text-primary-text data-[disabled]:text-primary-text-disabled',
       secondary: 'text-secondary-text data-[disabled]:text-secondary-text-disabled',
-      success: '',
-      warning: '',
+      success: 'text-success-text data-[disabled]:text-success-text-disabled',
+      warning: 'text-warning-text data-[disabled]:text-warning-text-disabled',
     } satisfies Record<FormFieldIntent, string>,
     size: {
-      lg: 'txt-label',
+      lg: 'txt-base',
       md: 'txt-label',
-      sm: 'txt-label',
+      sm: 'txt-caption',
     } satisfies Record<FormFieldSize, string>,
   },
 })

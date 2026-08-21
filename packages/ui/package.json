@@ -9,6 +9,8 @@
     "generate": "nuxt generate .playground",
     "preview": "nuxt preview .playground",
     "postinstall": "nuxt prepare && nuxt prepare .playground",
+    "tokens": "node scripts/gen-tokens.ts",
+    "tokens:check": "node scripts/gen-tokens.ts --check",
     "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
     "lint:fix": "pnpm run lint:oxlint --fix && pnpm run lint:eslint --fix",
     "lint:oxlint": "pnpm exec oxlint -c .oxlintrc.json . --threads 2",
@@ -71,6 +73,7 @@
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
     "playwright": "catalog:",
+    "storybook": "catalog:",
     "unplugin-auto-import": "^21.1.0",
     "vitest": "catalog:"
   }

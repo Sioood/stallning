@@ -39,14 +39,14 @@ export const carouselControlCVA = cva('flex items-center gap-2', {
 
 export const carouselItemGroupCVA = cva(
   [
-    'flex min-w-0 flex-1 overflow-x-auto overflow-y-hidden',
+    'min-w-0 w-full overflow-x-auto overflow-y-hidden',
     'scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none]',
     '[&::-webkit-scrollbar]:hidden',
-    'data-[orientation=vertical]:flex-col data-[orientation=vertical]:overflow-x-hidden data-[orientation=vertical]:overflow-y-auto',
+    'data-[orientation=vertical]:overflow-x-hidden data-[orientation=vertical]:overflow-y-auto',
   ].join(' '),
 )
 
-export const carouselItemCVA = cva('min-w-0 shrink-0 grow-0 basis-(--slide-item-size,100%)', {
+export const carouselItemCVA = cva('max-w-full min-w-0', {
   variants: {
     size: {
       lg: '',
@@ -56,7 +56,10 @@ export const carouselItemCVA = cva('min-w-0 shrink-0 grow-0 basis-(--slide-item-
   },
 })
 
-export const carouselViewportCVA = cva('group/viewport relative w-full')
+export const carouselViewportCVA = cva('group/viewport relative w-full overflow-hidden')
+
+/** Overlay / inline nav buttons — override Button `h-full` so triggers stay compact. */
+export const carouselTriggerButtonCVA = cva('h-auto shrink-0 shadow-sm backdrop-blur-sm')
 
 export const carouselOverlayTriggerCVA = cva(
   [
@@ -104,7 +107,7 @@ export const carouselOverlayTriggerCVA = cva(
   },
 )
 
-export const carouselIndicatorGroupCVA = cva('flex items-center justify-center', {
+export const carouselIndicatorGroupCVA = cva('flex items-center', {
   defaultVariants: {
     orientation: 'horizontal',
     variant: 'dot',
@@ -115,14 +118,15 @@ export const carouselIndicatorGroupCVA = cva('flex items-center justify-center',
       vertical: 'flex-col',
     },
     variant: {
-      dot: 'gap-2',
-      thumbnail: 'gap-3',
+      dot: 'justify-center gap-2',
+      // justify-start: centered flex + overflow-x clips the first/last thumbnails at scroll edges.
+      thumbnail: 'w-full justify-start gap-2 overflow-hidden',
     },
   },
 })
 
 export const carouselDotIndicatorCVA = cva(
-  'size-2.5 shrink-0 cursor-pointer border-0 p-0 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-border disabled:cursor-not-allowed disabled:opacity-50 data-[current]:ring',
+  'size-2.5 shrink-0 cursor-pointer border-0 p-0 transition-colors focus-visible:focus-ring disabled:cursor-not-allowed disabled:opacity-50 data-[current]:ring',
   {
     defaultVariants: {
       intent: 'primary',
@@ -143,7 +147,12 @@ export const carouselDotIndicatorCVA = cva(
 )
 
 export const carouselThumbnailIndicatorCVA = cva(
-  'block shrink-0 cursor-pointer overflow-hidden border-2 border-transparent p-0 opacity-60 transition-[opacity,border-color] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-border disabled:cursor-not-allowed disabled:opacity-50 data-[current]:opacity-100 data-[current]:ring',
+  [
+    'block aspect-video min-h-0 min-w-0 flex-1 basis-0 cursor-pointer overflow-hidden',
+    'border-2 border-transparent p-0 opacity-60 transition-[opacity,border-color]',
+    'focus-visible:focus-ring disabled:cursor-not-allowed disabled:opacity-50',
+    'data-[current]:opacity-100 data-[current]:ring',
+  ].join(' '),
   {
     defaultVariants: {
       intent: 'primary',
@@ -157,9 +166,9 @@ export const carouselThumbnailIndicatorCVA = cva(
         secondary: 'data-[current]:ring-secondary-border',
       } satisfies Record<CarouselIntent, string>,
       size: {
-        lg: 'h-28 w-44',
-        md: 'h-24 w-36',
-        sm: 'h-20 w-28',
+        lg: 'max-h-28',
+        md: 'max-h-24',
+        sm: 'max-h-20',
       } satisfies Record<CarouselSize, string>,
     },
   },

@@ -33,7 +33,7 @@ const sliderLabelCVA = cva('', {
     size: {
       lg: 'txt-h6',
       md: 'txt-label',
-      sm: 'txt-base',
+      sm: 'txt-caption',
     } satisfies Record<FormSliderSize, string>,
   },
 })

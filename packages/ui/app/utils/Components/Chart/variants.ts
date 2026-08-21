@@ -92,7 +92,7 @@ const chartTooltipCVA = cva('[--vis-tooltip-border-radius:0]', {
     size: {
       lg: 'txt-base [--vis-tooltip-padding:calc(var(--spacing)*1.5)_calc(var(--spacing)*3)]',
       md: 'txt-caption [--vis-tooltip-padding:var(--spacing)_calc(var(--spacing)*2)]',
-      sm: 'txt-caption [--vis-tooltip-padding:calc(var(--spacing)*0.5)_var(--spacing)]',
+      sm: 'txt-small [--vis-tooltip-padding:calc(var(--spacing)*0.5)_var(--spacing)]',
     } satisfies Record<ChartSize, string>,
   },
 })

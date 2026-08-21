@@ -23,8 +23,10 @@ export default defineNuxtConfig({
   css: [resolve('./app/assets/css/main.css')],
   fonts: {
     families: [
-      { name: 'Inter', provider: 'google' },
-      { name: 'Spline Sans Mono', provider: 'google' },
+      // Pretendard is not on Google Fonts; `fontsource` serves the latin subset.
+      // It ships as static weights (no variable axis), so the list is explicit.
+      { name: 'Pretendard', provider: 'fontsource', weights: [400, 500, 600, 700] },
+      { name: 'Spline Sans Mono', provider: 'google', weights: [400, 500, 600] },
     ],
   },
   i18n: {

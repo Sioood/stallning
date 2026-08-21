@@ -22,13 +22,13 @@ const signaturePadSegmentCVA = cva(
     variants: {
       intent: {
         accent: 'text-accent-text',
-        error: '',
-        info: '',
+        error: 'text-error-text',
+        info: 'text-info-text',
         neutral: 'text-neutral-text',
         primary: 'text-primary-text',
         secondary: 'text-secondary-text',
-        success: '',
-        warning: '',
+        success: 'text-success-text',
+        warning: 'text-warning-text',
       } satisfies Record<FormFieldIntent, string>,
       size: {
         lg: 'min-h-48',
@@ -43,7 +43,7 @@ const signaturePadShellCVA = cva('flex w-full min-w-0 items-stretch gap-0.5 bord
   compoundVariants: [
     {
       class:
-        'border-neutral-border bg-neutral-fill-subtle text-neutral-text focus-within:border-neutral-border-strong focus-within:focus-ring disabled:pointer-events-none disabled:opacity-40',
+        'border-neutral-border bg-neutral-fill-subtle text-neutral-text focus-within:focus-ring disabled:pointer-events-none disabled:opacity-40',
       disabled: false,
       intent: 'neutral',
       variant: 'default',
@@ -56,7 +56,7 @@ const signaturePadShellCVA = cva('flex w-full min-w-0 items-stretch gap-0.5 bord
     },
     {
       class:
-        'border-primary-border bg-primary-fill-subtle text-primary-text focus-within:border-primary-border-strong focus-within:focus-ring disabled:pointer-events-none disabled:opacity-40',
+        'border-primary-border bg-primary-fill-subtle text-primary-text focus-within:focus-ring disabled:pointer-events-none disabled:opacity-40',
       disabled: false,
       intent: 'primary',
       variant: 'default',
@@ -69,7 +69,7 @@ const signaturePadShellCVA = cva('flex w-full min-w-0 items-stretch gap-0.5 bord
     },
     {
       class:
-        'border-secondary-border bg-secondary-fill-subtle text-secondary-text focus-within:border-secondary-border-strong focus-within:focus-ring disabled:pointer-events-none disabled:opacity-40',
+        'border-secondary-border bg-secondary-fill-subtle text-secondary-text focus-within:focus-ring disabled:pointer-events-none disabled:opacity-40',
       disabled: false,
       intent: 'secondary',
       variant: 'default',
@@ -82,7 +82,7 @@ const signaturePadShellCVA = cva('flex w-full min-w-0 items-stretch gap-0.5 bord
     },
     {
       class:
-        'border-accent-border bg-accent-fill-subtle text-accent-text focus-within:border-accent-border-strong focus-within:focus-ring disabled:pointer-events-none disabled:opacity-40',
+        'border-accent-border bg-accent-fill-subtle text-accent-text focus-within:focus-ring disabled:pointer-events-none disabled:opacity-40',
       disabled: false,
       intent: 'accent',
       variant: 'default',
@@ -94,8 +94,7 @@ const signaturePadShellCVA = cva('flex w-full min-w-0 items-stretch gap-0.5 bord
       variant: 'default',
     },
     {
-      class:
-        'border-neutral-border bg-transparent text-neutral-text focus-within:border-neutral-border-strong focus-within:focus-ring',
+      class: 'border-neutral-border bg-transparent text-neutral-text focus-within:focus-ring',
       disabled: false,
       intent: 'neutral',
       variant: 'subtle',
@@ -107,8 +106,7 @@ const signaturePadShellCVA = cva('flex w-full min-w-0 items-stretch gap-0.5 bord
       variant: 'subtle',
     },
     {
-      class:
-        'border-primary-border bg-transparent text-primary-text focus-within:border-primary-border-strong focus-within:focus-ring',
+      class: 'border-primary-border bg-transparent text-primary-text focus-within:focus-ring',
       disabled: false,
       intent: 'primary',
       variant: 'subtle',
@@ -120,8 +118,7 @@ const signaturePadShellCVA = cva('flex w-full min-w-0 items-stretch gap-0.5 bord
       variant: 'subtle',
     },
     {
-      class:
-        'border-secondary-border bg-transparent text-secondary-text focus-within:border-secondary-border-strong focus-within:focus-ring',
+      class: 'border-secondary-border bg-transparent text-secondary-text focus-within:focus-ring',
       disabled: false,
       intent: 'secondary',
       variant: 'subtle',
@@ -133,8 +130,7 @@ const signaturePadShellCVA = cva('flex w-full min-w-0 items-stretch gap-0.5 bord
       variant: 'subtle',
     },
     {
-      class:
-        'border-accent-border bg-transparent text-accent-text focus-within:border-accent-border-strong focus-within:focus-ring',
+      class: 'border-accent-border bg-transparent text-accent-text focus-within:focus-ring',
       disabled: false,
       intent: 'accent',
       variant: 'subtle',
@@ -184,13 +180,34 @@ const signaturePadGuideCVA = cva(
     variants: {
       intent: {
         accent: 'border-accent-border',
-        error: '',
-        info: '',
+        error: 'border-error-border',
+        info: 'border-info-border',
         neutral: 'border-neutral-border',
         primary: 'border-primary-border',
         secondary: 'border-secondary-border',
-        success: '',
-        warning: '',
+        success: 'border-success-border',
+        warning: 'border-warning-border',
+      } satisfies Record<FormFieldIntent, string>,
+    },
+  },
+)
+
+const signaturePadClearTriggerCVA = cva(
+  [
+    'absolute top-2 right-2 z-10 inline-flex size-8 cursor-pointer items-center justify-center rounded-md transition-colors',
+    'disabled:pointer-events-none disabled:opacity-40 [hidden]:hidden',
+  ],
+  {
+    variants: {
+      intent: {
+        accent: 'text-accent-text-subtle hover:bg-accent-fill-subtle',
+        error: 'text-error-text-subtle hover:bg-error-fill-subtle',
+        info: 'text-info-text-subtle hover:bg-info-fill-subtle',
+        neutral: 'text-neutral-text-subtle hover:bg-neutral-fill-subtle',
+        primary: 'text-primary-text-subtle hover:bg-primary-fill-subtle',
+        secondary: 'text-secondary-text-subtle hover:bg-secondary-fill-subtle',
+        success: 'text-success-text-subtle hover:bg-success-fill-subtle',
+        warning: 'text-warning-text-subtle hover:bg-warning-fill-subtle',
       } satisfies Record<FormFieldIntent, string>,
     },
   },
@@ -345,24 +362,20 @@ const fieldProps = computed(() => ({
             )
           "
         >
-          <ArkSignaturePad.Control :class="cn('flex w-full flex-1', ui?.control)">
+          <ArkSignaturePad.Control :class="cn('relative w-full flex-1', ui?.control)">
             <ArkSignaturePad.Segment
               :class="cn(signaturePadSegmentCVA({ intent, size }), ui?.segment)"
             />
 
             <ArkSignaturePad.Guide :class="cn(signaturePadGuideCVA({ intent }), ui?.guide)" />
 
-            <ArkSignaturePad.ClearTrigger v-if="clearable" as-child>
-              <UIButton
-                variant="ghost"
-                :intent
-                size="sm"
-                icon-only
-                icon="tabler:x"
-                :disabled="disabled || readOnly"
-                :ui="{ root: cn('absolute top-2 right-2 z-10', ui?.clearTrigger) }"
-                aria-label="Clear signature"
-              />
+            <ArkSignaturePad.ClearTrigger
+              v-if="clearable"
+              :class="cn(signaturePadClearTriggerCVA({ intent }), ui?.clearTrigger)"
+              :disabled="disabled || readOnly"
+              aria-label="Clear signature"
+            >
+              <Icon name="tabler:x" class="size-4" />
             </ArkSignaturePad.ClearTrigger>
           </ArkSignaturePad.Control>
         </div>

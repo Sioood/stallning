@@ -33,6 +33,9 @@ jobs:
       - name: Check types
         run: ./scripts/verify.sh types
 
+      - name: Design tokens up to date
+        run: ./scripts/verify.sh tokens
+
       - name: Lint
         run: ./scripts/verify.sh lint
 
@@ -41,6 +44,11 @@ jobs:
 
       - name: Dead code check
         run: ./scripts/verify.sh knip
+
+      # Includes the WCAG contrast floors for the design tokens
+      # (packages/ui/test/tokens/contrast.test.ts).
+      - name: Tests
+        run: ./scripts/verify.sh test
 
       - name: Build
         run: ./scripts/verify.sh build

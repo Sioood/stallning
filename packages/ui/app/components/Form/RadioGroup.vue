@@ -36,20 +36,10 @@ const radioItemCVA = cva(
   'inline-flex items-center not-data-[disabled]:cursor-pointer data-[disabled]:cursor-not-allowed',
   {
     variants: {
-      intent: {
-        accent: '',
-        error: '',
-        info: '',
-        neutral: '',
-        primary: '',
-        secondary: '',
-        success: '',
-        warning: '',
-      } satisfies Record<FormFieldIntent, string>,
       size: {
-        lg: '',
+        lg: 'gap-2.5',
         md: 'gap-2',
-        sm: '',
+        sm: 'gap-1.5',
       } satisfies Record<FormFieldSize, string>,
     },
   },
@@ -58,20 +48,28 @@ const radioItemCVA = cva(
 const radioControlCVA = cva('relative', {
   variants: {
     intent: {
-      accent: '',
-      error: '',
-      info: '',
-      neutral: '',
+      accent:
+        'border-accent-border data-hover:border-accent-border-hover data-[disabled]:border-accent-border-subtle data-[invalid]:border-error-border',
+      error:
+        'border-error-border data-hover:border-error-border-hover data-[disabled]:border-error-border-subtle data-[invalid]:border-error-border',
+      info: 'border-info-border data-hover:border-info-border-hover data-[disabled]:border-info-border-subtle data-[invalid]:border-error-border',
+      neutral:
+        'border-neutral-border data-hover:border-neutral-border-hover data-[disabled]:border-neutral-border-subtle data-[invalid]:border-error-border',
       primary:
         'border-primary-border data-hover:border-primary-border-hover data-[disabled]:border-primary-border-subtle data-[invalid]:border-error-border',
-      secondary: '',
-      success: '',
-      warning: '',
+      secondary:
+        'border-secondary-border data-hover:border-secondary-border-hover data-[disabled]:border-secondary-border-subtle data-[invalid]:border-error-border',
+      success:
+        'border-success-border data-hover:border-success-border-hover data-[disabled]:border-success-border-subtle data-[invalid]:border-error-border',
+      warning:
+        'border-warning-border data-hover:border-warning-border-hover data-[disabled]:border-warning-border-subtle data-[invalid]:border-error-border',
     } satisfies Record<FormFieldIntent, string>,
+    /* Sizes must track `radioIndicatorCVA` exactly: Ark positions the indicator as a
+       floating element over the selected control, so a mismatch shows as a halo. */
     size: {
-      lg: '',
+      lg: 'size-5 rounded-full border',
       md: 'size-4 rounded-full border',
-      sm: '',
+      sm: 'size-3.5 rounded-full border',
     } satisfies Record<FormFieldSize, string>,
   },
 })
@@ -79,19 +77,20 @@ const radioControlCVA = cva('relative', {
 const radioIndicatorCVA = cva('block shrink-0', {
   variants: {
     intent: {
-      accent: '',
-      error: '',
-      info: '',
-      neutral: '',
+      accent: 'bg-accent-fill',
+      error: 'bg-error-fill',
+      info: 'bg-info-fill',
+      neutral: 'bg-neutral-fill',
       primary: 'bg-primary-fill',
-      secondary: '',
-      success: '',
-      warning: '',
+      secondary: 'bg-secondary-fill',
+      success: 'bg-success-fill',
+      warning: 'bg-warning-fill',
     } satisfies Record<FormFieldIntent, string>,
+    /* Mirrors `radioControlCVA` — see the note there. */
     size: {
-      lg: '',
+      lg: 'size-5 rounded-full',
       md: 'size-4 rounded-full',
-      sm: '',
+      sm: 'size-3.5 rounded-full',
     } satisfies Record<FormFieldSize, string>,
   },
 })
@@ -99,19 +98,19 @@ const radioIndicatorCVA = cva('block shrink-0', {
 const radioItemLabelCVA = cva('', {
   variants: {
     intent: {
-      accent: '',
-      error: '',
-      info: '',
-      neutral: '',
+      accent: 'text-accent-text data-[disabled]:text-accent-text-disabled',
+      error: 'text-error-text data-[disabled]:text-error-text-disabled',
+      info: 'text-info-text data-[disabled]:text-info-text-disabled',
+      neutral: 'text-neutral-text data-[disabled]:text-neutral-text-disabled',
       primary: 'text-primary-text data-[disabled]:text-primary-text-disabled',
-      secondary: '',
-      success: '',
-      warning: '',
+      secondary: 'text-secondary-text data-[disabled]:text-secondary-text-disabled',
+      success: 'text-success-text data-[disabled]:text-success-text-disabled',
+      warning: 'text-warning-text data-[disabled]:text-warning-text-disabled',
     } satisfies Record<FormFieldIntent, string>,
     size: {
-      lg: '',
+      lg: 'txt-base',
       md: 'txt-label',
-      sm: '',
+      sm: 'txt-caption',
     } satisfies Record<FormFieldSize, string>,
   },
 })
@@ -195,7 +194,7 @@ const passthroughAttrs = computed(() => {
         :key="item.value"
         :value="item.value"
         :disabled="item.disabled || disabled"
-        :class="cn(radioItemCVA({ intent, size }), ui?.item)"
+        :class="cn(radioItemCVA({ size }), ui?.item)"
       >
         <ArkRadioGroup.ItemControl :class="cn(radioControlCVA({ intent, size }), ui?.control)" />
         <ArkRadioGroup.ItemText :class="cn(radioItemLabelCVA({ intent, size }), ui?.label)">

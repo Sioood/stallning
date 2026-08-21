@@ -16,7 +16,7 @@ export const datePickerLabelCVA = cva('block', {
     size: {
       lg: 'txt-label mb-1.5',
       md: 'txt-caption mb-1',
-      sm: 'txt-caption mb-1',
+      sm: 'txt-small mb-1',
     } satisfies Record<DatePickerSize, string>,
   },
 })

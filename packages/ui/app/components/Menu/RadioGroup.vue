@@ -1,77 +1,17 @@
 <script setup lang="ts">
 import { Menu as ArkMenu } from '@ark-ui/vue/menu'
-import { cva } from 'class-variance-authority'
+
+import {
+  menuItemCVA,
+  menuItemGroupLabelCVA,
+  menuItemIndicatorCVA,
+  menuItemIndicatorSlotCVA,
+  menuItemTextCVA,
+} from '~/utils/Components/Menu/variants'
 
 import type { ClassValue } from 'vue'
 import type { MenuIntent } from '~/utils/Components/Menu/context'
 import type { MenuRadioGroupEntry } from '~/utils/Components/Menu/entries'
-
-const menuItemCVA = cva(
-  'flex cursor-pointer items-center justify-between outline-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-70',
-  {
-    variants: {
-      intent: {
-        accent:
-          'text-accent-text data-[disabled]:text-accent-text-subtle data-[highlighted]:bg-accent-fill-subtle-hover',
-        neutral:
-          'text-neutral-text data-[disabled]:text-neutral-text-subtle data-[highlighted]:bg-neutral-fill-subtle-hover',
-        primary:
-          'text-primary-text data-[disabled]:text-primary-text-subtle data-[highlighted]:bg-primary-fill-subtle-hover',
-        secondary:
-          'text-secondary-text data-[disabled]:text-secondary-text-subtle data-[highlighted]:bg-secondary-fill-subtle-hover',
-      },
-      size: {
-        md: 'txt-caption gap-2 px-2 py-1.5',
-      },
-    },
-  },
-)
-const menuItemGroupLabelCVA = cva('', {
-  variants: {
-    intent: {
-      accent: 'text-accent-text-subtle',
-      neutral: 'text-neutral-text-subtle',
-      primary: 'text-primary-text-subtle',
-      secondary: 'text-secondary-text-subtle',
-    },
-    size: {
-      md: 'txt-caption px-2 py-1',
-    },
-  },
-})
-const menuItemIndicatorCVA = cva('inline-flex items-center justify-center', {
-  variants: {
-    intent: {
-      accent: 'text-accent-text',
-      neutral: 'text-neutral-text',
-      primary: 'text-primary-text',
-      secondary: 'text-secondary-text',
-    },
-    size: {
-      md: 'size-4',
-    },
-  },
-})
-const menuItemIndicatorSlotCVA = cva('inline-flex shrink-0 items-center justify-center', {
-  variants: {
-    size: {
-      md: 'size-4',
-    },
-  },
-})
-const menuItemTextCVA = cva('', {
-  variants: {
-    intent: {
-      accent: 'text-accent-text',
-      neutral: 'text-neutral-text',
-      primary: 'text-primary-text',
-      secondary: 'text-secondary-text',
-    },
-    size: {
-      md: 'txt-caption',
-    },
-  },
-})
 
 export interface MenuRadioGroupProps extends MenuRadioGroupEntry {
   intent?: MenuIntent
@@ -120,7 +60,7 @@ function handleValueChange(value: string) {
     <ArkMenu.RadioItem
       v-for="radioItem in items"
       :key="radioItem.value"
-      :class="cn(menuItemCVA({ intent, size }), item, customClass)"
+      :class="cn(menuItemCVA({ intent, layout: 'split', size }), item, customClass)"
       :value="radioItem.value"
       :disabled="radioItem.disabled"
     >

@@ -1,16 +1,28 @@
 <script setup lang="ts">
 const previews = [
   {
-    description: '15+ mini-scénarios interactifs pour composer entre composants.',
+    description: '30 mini-scénarios interactifs couvrant chaque composant public.',
     tag: 'Compositions',
     title: 'Component Bento',
     to: '/previews/bento',
+  },
+  {
+    description: 'Tokens de couleur, typographie, radius, élévation et mouvement.',
+    tag: 'Tokens',
+    title: 'Foundation',
+    to: '/foundation',
   },
   {
     description: 'Page média complète — détail film avec sidebar et métadonnées.',
     tag: 'Product',
     title: 'Media / Movie',
     to: '/scenarios/media',
+  },
+  {
+    description: 'Parcours produit complets : dashboard, auth, réglages, paiement.',
+    tag: 'Product',
+    title: 'Scénarios',
+    to: '/scenarios',
   },
 ] as const
 </script>
@@ -26,7 +38,7 @@ const previews = [
       </p>
     </header>
 
-    <div class="grid gap-4 sm:grid-cols-2">
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       <NuxtLink
         v-for="preview in previews"
         :key="preview.to"

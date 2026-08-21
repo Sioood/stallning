@@ -6,6 +6,7 @@ export type CarouselIntent = NonNullable<
 >
 export type CarouselSize = NonNullable<ButtonSize>
 export type CarouselIndicatorVariant = 'dot' | 'thumbnail'
+export type CarouselImagePosition = 'center' | 'left' | 'right'
 
 export interface CarouselChromeContext {
   intent: Ref<CarouselIntent>

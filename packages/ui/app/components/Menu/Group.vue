@@ -2,23 +2,12 @@
 import { Menu as ArkMenu } from '@ark-ui/vue/menu'
 import { cva } from 'class-variance-authority'
 
+import { menuItemGroupLabelCVA } from '~/utils/Components/Menu/variants'
+
 import type { ClassValue } from 'vue'
 import type { MenuIntent } from '~/utils/Components/Menu/context'
 import type { MenuGroupEntry } from '~/utils/Components/Menu/entries'
 
-const menuItemGroupLabelCVA = cva('', {
-  variants: {
-    intent: {
-      accent: 'text-accent-text-subtle',
-      neutral: 'text-neutral-text-subtle',
-      primary: 'text-primary-text-subtle',
-      secondary: 'text-secondary-text-subtle',
-    },
-    size: {
-      md: 'txt-caption px-2 py-1',
-    },
-  },
-})
 const menuSeparatorCVA = cva('block w-full border-t', {
   variants: {
     intent: {

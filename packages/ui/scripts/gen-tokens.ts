@@ -1,0 +1,198 @@
+#!/usr/bin/env node
+/**
+ * Generates the colour layers of `app/assets/css/main.css` from `tokens.config.ts`.
+ *
+ *   node scripts/gen-tokens.ts           # write
+ *   node scripts/gen-tokens.ts --check   # verify, exit 1 on drift (CI / pnpm verify)
+ *
+ * The file carries `/* @generated <region>:start *\/ … :end` markers; only the text
+ * between them is replaced, so hand-written CSS around them is preserved. Indentation
+ * is inherited from each start marker so the emitted block matches its nesting.
+ */
+
+import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+import { resolvePalettes, roleOverrides } from './palette.ts'
+import {
+  ALIASES,
+  PALETTES,
+  ROLE_FAMILIES,
+  ROLE_MAP,
+  STOPS,
+  type HslColor,
+  type Theme,
+} from './tokens.config.ts'
+
+const here = dirname(fileURLToPath(import.meta.url))
+const cssPath = resolve(here, '../app/assets/css/main.css')
+
+const hsl = ({ hue, lightness, sat }: HslColor) =>
+  `hsl(${round(hue)} ${round(sat)}% ${round(lightness)}%)`
+const round = (n: number) => Math.round(n * 10) / 10
+
+/** Pads a `── label ──` rule out to a fixed width, matching the existing file. */
+function ruleComment(label: string, width = 62): string {
+  const head = `/* ── ${label} `
+  return `${head}${'─'.repeat(Math.max(1, width - head.length))} */`
+}
+
+function emitPalette(): string[] {
+  const palettes = resolvePalettes()
+  const lines = ['--color-white: hsl(0 0% 100%);', '--color-black: hsl(0 0% 0%);']
+  for (const [name, spec] of Object.entries(PALETTES)) {
+    lines.push('', ruleComment(`${name} · ${spec.label}`))
+    for (const stop of STOPS) {
+      lines.push(`--color-${name}-${stop}: ${hsl(palettes[name as keyof typeof PALETTES][stop])};`)
+    }
+  }
+  return lines
+}
+
+function emitAliases(): string[] {
+  const lines: string[] = []
+  for (const alias of ALIASES) {
+    if ('group' in alias && alias.group) lines.push(`/* ${alias.group} */`)
+    lines.push(ruleComment(alias.note))
+    for (const stop of STOPS) {
+      lines.push(`--color-${alias.name}-${stop}: var(--color-${alias.palette}-${stop});`)
+    }
+    lines.push('')
+  }
+  const cleaned = lines.filter((line) => line !== null)
+  while (cleaned.at(-1) === '') cleaned.pop()
+  // `neutral` additionally exposes the absolute ends of the scale.
+  cleaned.push('--color-neutral-0: white;', '--color-neutral-1000: black;')
+  return cleaned
+}
+
+function emitRoles(theme: Theme): string[] {
+  const base = ROLE_MAP[theme]
+  const lines: string[] = []
+  for (const [index, { name, palette }] of ROLE_FAMILIES.entries()) {
+    const map = { ...base, ...roleOverrides(name, theme) }
+    if (index > 0) lines.push('')
+    lines.push(`/* ── ${name} ── */`)
+    for (const role of Object.keys(map).sort()) {
+      lines.push(
+        `--color-${name}-${role}: var(--color-${palette}-${map[role as keyof typeof map]});`,
+      )
+    }
+  }
+  return lines
+}
+
+const REGIONS = {
+  aliases: emitAliases,
+  palette: emitPalette,
+  'role-tokens-dark': () => emitRoles('dark'),
+  'role-tokens-dark-class': () => emitRoles('dark'),
+  'role-tokens-light': () => emitRoles('light'),
+} satisfies Record<string, () => string[]>
+
+function replaceRegion(source: string, region: string, lines: string[]): string {
+  const pattern = new RegExp(
+    `([ \\t]*)/\\* @generated ${region}:start \\*/\\n[\\s\\S]*?([ \\t]*)/\\* @generated ${region}:end \\*/`,
+  )
+  const match = source.match(pattern)
+  if (!match) throw new Error(`Missing @generated markers for region "${region}" in main.css`)
+  const [, indent] = match
+  const body = lines.map((line) => (line === '' ? '' : `${indent}${line}`)).join('\n')
+  return source.replace(
+    pattern,
+    `${indent}/* @generated ${region}:start */\n${body}\n${indent}/* @generated ${region}:end */`,
+  )
+}
+
+/**
+ * Reverse index: which roles consume each stop, per theme. The playground renders this
+ * so its swatch documentation cannot drift from the tokens (the hand-written version it
+ * replaced conflated the light and dark mappings).
+ */
+function emitTokenIndex(): string {
+  const build = (theme: Theme) => {
+    const base = ROLE_MAP[theme]
+    const byStop: Partial<Record<number, string[]>> = {}
+    for (const role of Object.keys(base).sort()) {
+      const stop = base[role as keyof typeof base]
+      byStop[stop] ??= []
+      byStop[stop]!.push(role)
+    }
+    return byStop
+  }
+
+  const renderEntry = (stop: number, roles: string[]) => {
+    const items = roles.map((role) => `'${role}'`)
+    const inline = `    ${stop}: [${items.join(', ')}],`
+    if (inline.length <= 100) return inline
+    return [`    ${stop}: [`, ...items.map((item) => `      ${item},`), '    ],'].join('\n')
+  }
+
+  const render = (theme: Theme) =>
+    Object.entries(build(theme))
+      .sort(([a], [b]) => Number(a) - Number(b))
+      .map(([stop, roles]) => renderEntry(Number(stop), roles!))
+      .join('\n')
+
+  return `/**
+ * GENERATED by \`scripts/gen-tokens.ts\` — do not edit.
+ *
+ * Which role tokens read each palette stop, per theme. \`dark\` is not a mirror of
+ * \`light\`: text and border roles are pitched differently so both themes clear their
+ * WCAG floors against the same eleven stops.
+ */
+
+export const ROLE_INDEX = {
+  dark: {
+${render('dark')}
+  },
+  light: {
+${render('light')}
+  },
+} as const satisfies Record<'dark' | 'light', Record<number, readonly string[]>>
+
+export type RoleIndexTheme = keyof typeof ROLE_INDEX
+`
+}
+
+const indexPath = resolve(here, '../.playground/app/utils/token-index.generated.ts')
+
+const check = process.argv.includes('--check')
+const original = readFileSync(cssPath, 'utf8')
+let next = original
+for (const [region, emit] of Object.entries(REGIONS)) {
+  next = replaceRegion(next, region, emit())
+}
+
+const indexSource = emitTokenIndex()
+const indexCurrent = existsSync(indexPath) ? readFileSync(indexPath, 'utf8') : ''
+
+if (check) {
+  const stale = [
+    next === original ? null : 'app/assets/css/main.css',
+    indexSource === indexCurrent ? null : '.playground/app/utils/token-index.generated.ts',
+  ].filter(Boolean)
+
+  if (stale.length === 0) {
+    console.log('✓ generated token output matches scripts/tokens.config.ts')
+    process.exit(0)
+  }
+  console.error(`✗ out of date: ${stale.join(', ')}\n  Run: node scripts/gen-tokens.ts`)
+  process.exit(1)
+}
+
+if (indexSource !== indexCurrent) writeFileSync(indexPath, indexSource)
+
+if (next === original) {
+  console.log('✓ main.css already up to date')
+} else {
+  writeFileSync(cssPath, next)
+  const count = Object.values(REGIONS).reduce(
+    (sum, emit) => sum + emit().filter((l) => l.startsWith('--')).length,
+    0,
+  )
+  console.log(
+    `✓ wrote ${count} declarations across ${Object.keys(REGIONS).length} regions in main.css`,
+  )
+}

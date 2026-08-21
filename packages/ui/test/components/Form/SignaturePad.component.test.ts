@@ -114,7 +114,11 @@ describe('UIFormSignaturePad', () => {
       props: { clearable: true, label: 'Signature' },
     })
 
-    expect(wrapper.find('button[aria-label="Clear signature"]').exists()).toBe(true)
+    const clear = wrapper.find('button[aria-label="Clear signature"]')
+    expect(clear.exists()).toBe(true)
+    expect(clear.classes().join(' ')).toMatch(/absolute/)
+    expect(clear.classes().join(' ')).toMatch(/top-2/)
+    expect(clear.classes().join(' ')).toMatch(/right-2/)
   })
 
   it('hides clear trigger when clearable is false', async () => {

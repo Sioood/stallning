@@ -6,11 +6,20 @@ import type { FormFieldIntent, FormFieldSize } from './context'
  * Visual shell wrapping the actual input element.
  * Provides border, focus ring, background, and disabled/invalid styling.
  */
+/**
+ * Focus is carried entirely by the `focus-ring` utility.
+ *
+ * These CVAs used to also swap the border to `border-strong` on focus, which was
+ * backwards: for the ink-first `primary` intent `border` sits at the extreme stop, so
+ * `border-strong` is *weaker* than it — focusing an input dropped its border contrast
+ * against the shell by 26% in light and 66% in dark. The ring is the affordance; the
+ * border stays put.
+ */
 export const controlShellCVA = cva('flex w-full min-w-0 items-center gap-0.5', {
   compoundVariants: [
     {
       class:
-        'border-neutral-border bg-neutral-fill-subtle text-neutral-text focus-within:border-neutral-border-strong focus-within:focus-ring disabled:pointer-events-none disabled:opacity-40',
+        'border-neutral-border bg-neutral-fill-subtle text-neutral-text focus-within:focus-ring disabled:pointer-events-none disabled:opacity-40',
       disabled: false,
       intent: 'neutral',
     },
@@ -21,7 +30,7 @@ export const controlShellCVA = cva('flex w-full min-w-0 items-center gap-0.5', {
     },
     {
       class:
-        'border-primary-border bg-primary-fill-subtle text-primary-text focus-within:border-primary-border-strong focus-within:focus-ring disabled:pointer-events-none disabled:opacity-40',
+        'border-primary-border bg-primary-fill-subtle text-primary-text focus-within:focus-ring disabled:pointer-events-none disabled:opacity-40',
       disabled: false,
       intent: 'primary',
     },
@@ -32,7 +41,7 @@ export const controlShellCVA = cva('flex w-full min-w-0 items-center gap-0.5', {
     },
     {
       class:
-        'border-secondary-border bg-secondary-fill-subtle text-secondary-text focus-within:border-secondary-border-strong focus-within:focus-ring disabled:pointer-events-none disabled:opacity-40',
+        'border-secondary-border bg-secondary-fill-subtle text-secondary-text focus-within:focus-ring disabled:pointer-events-none disabled:opacity-40',
       disabled: false,
       intent: 'secondary',
     },
@@ -43,7 +52,7 @@ export const controlShellCVA = cva('flex w-full min-w-0 items-center gap-0.5', {
     },
     {
       class:
-        'border-accent-border bg-accent-fill-subtle text-accent-text focus-within:border-accent-border-strong focus-within:focus-ring disabled:pointer-events-none disabled:opacity-40',
+        'border-accent-border bg-accent-fill-subtle text-accent-text focus-within:focus-ring disabled:pointer-events-none disabled:opacity-40',
       disabled: false,
       intent: 'accent',
     },
@@ -87,7 +96,7 @@ export const pinSlotCVA = cva(
   {
     variants: {
       invalid: {
-        true: 'border-error-border! focus:border-error-border-strong! focus:focus-ring',
+        true: 'border-error-border! focus:focus-ring',
       },
       size: {
         lg: 'txt-h5 size-12 rounded-xs',
@@ -109,7 +118,7 @@ export const fieldInputCVA = cva('txt-base min-w-0 flex-1 read-only:cursor-defau
   compoundVariants: [
     {
       class:
-        'border-neutral-border bg-neutral-fill-subtle focus:border-neutral-border-strong focus:focus-ring disabled:pointer-events-none disabled:opacity-40',
+        'border-neutral-border bg-neutral-fill-subtle focus:focus-ring disabled:pointer-events-none disabled:opacity-40',
       disabled: false,
       intent: 'neutral',
       standalone: true,
@@ -122,7 +131,7 @@ export const fieldInputCVA = cva('txt-base min-w-0 flex-1 read-only:cursor-defau
     },
     {
       class:
-        'border-primary-border bg-primary-fill-subtle focus:border-primary-border-strong focus:focus-ring disabled:pointer-events-none disabled:opacity-40',
+        'border-primary-border bg-primary-fill-subtle focus:focus-ring disabled:pointer-events-none disabled:opacity-40',
       disabled: false,
       intent: 'primary',
       standalone: true,
@@ -135,7 +144,7 @@ export const fieldInputCVA = cva('txt-base min-w-0 flex-1 read-only:cursor-defau
     },
     {
       class:
-        'border-secondary-border bg-secondary-fill-subtle focus:border-secondary-border-strong focus:focus-ring disabled:pointer-events-none disabled:opacity-40',
+        'border-secondary-border bg-secondary-fill-subtle focus:focus-ring disabled:pointer-events-none disabled:opacity-40',
       disabled: false,
       intent: 'secondary',
       standalone: true,
@@ -148,7 +157,7 @@ export const fieldInputCVA = cva('txt-base min-w-0 flex-1 read-only:cursor-defau
     },
     {
       class:
-        'border-accent-border bg-accent-fill-subtle focus:border-accent-border-strong focus:focus-ring disabled:pointer-events-none disabled:opacity-40',
+        'border-accent-border bg-accent-fill-subtle focus:focus-ring disabled:pointer-events-none disabled:opacity-40',
       disabled: false,
       intent: 'accent',
       standalone: true,
@@ -170,16 +179,18 @@ export const fieldInputCVA = cva('txt-base min-w-0 flex-1 read-only:cursor-defau
     intent: {
       accent:
         'text-accent-text placeholder:text-accent-text-muted disabled:text-accent-text-disabled',
-      error: '',
-      info: '',
+      error: 'text-error-text placeholder:text-error-text-muted disabled:text-error-text-disabled',
+      info: 'text-info-text placeholder:text-info-text-muted disabled:text-info-text-disabled',
       neutral:
         'text-neutral-text placeholder:text-neutral-text-muted disabled:text-neutral-text-disabled',
       primary:
         'text-primary-text placeholder:text-primary-text-muted disabled:text-primary-text-disabled',
       secondary:
         'text-secondary-text placeholder:text-secondary-text-muted disabled:text-secondary-text-disabled',
-      success: '',
-      warning: '',
+      success:
+        'text-success-text placeholder:text-success-text-muted disabled:text-success-text-disabled',
+      warning:
+        'text-warning-text placeholder:text-warning-text-muted disabled:text-warning-text-disabled',
     } satisfies Record<FormFieldIntent, string>,
     size: {
       lg: 'px-3 py-1.5',

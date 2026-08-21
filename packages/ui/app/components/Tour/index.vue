@@ -33,19 +33,12 @@ const tourRootCVA = cva('flex flex-col', {
   },
 })
 
-const tourBackdropCVA = cva('fixed inset-0 z-11000', {
-  defaultVariants: {
-    intent: 'neutral',
-  },
-  variants: {
-    intent: {
-      accent: 'bg-accent-bg-inverse/80',
-      neutral: 'bg-neutral-bg-inverse/80',
-      primary: 'bg-primary-bg-inverse/80',
-      secondary: 'bg-secondary-bg-inverse/80',
-    } satisfies Record<TourIntent, string>,
-  },
-})
+/**
+ * The backdrop dims the page and is intentionally not intent-tinted: the previous
+ * per-intent `bg-*-bg-inverse/80` inverted between themes, so the dimmer turned
+ * *light* in dark mode. `intent` still drives the step card below.
+ */
+const tourBackdropCVA = cva('fixed inset-0 z-modal bg-scrim-strong')
 
 const tourSpotlightCVA = cva('')
 
@@ -292,7 +285,7 @@ const positionerLayerRef = useLayerZIndexRef('modal')
         <ArkTour.Backdrop
           v-if="showBackdrop"
           :ref="backdropLayerRef"
-          :class="cn(tourBackdropCVA({ intent }), ui?.backdrop)"
+          :class="cn(tourBackdropCVA(), ui?.backdrop)"
         />
       </slot>
 

@@ -207,6 +207,113 @@ function show(category: Category) {
       >
         <ToastCenterScenario />
       </PreviewModuleShell>
+      <PreviewModuleShell
+        v-if="show('forms')"
+        title="Inscription pilotée par schéma"
+        category="Forms"
+        description="Zod + TanStack Form : validation, disposition et soumission dérivées d'un schéma."
+      >
+        <SignupFormScenario />
+      </PreviewModuleShell>
+
+      <PreviewModuleShell
+        v-if="show('data')"
+        title="Annuaire d'équipe"
+        category="Data"
+        description="Avatars à initiales et recherche débouncée."
+      >
+        <TeamDirectoryScenario />
+      </PreviewModuleShell>
+
+      <PreviewModuleShell
+        v-if="show('forms')"
+        title="Mise en route"
+        category="Forms"
+        description="Groupe de cases à cocher et sélecteur de densité."
+      >
+        <OnboardingChecklistScenario />
+      </PreviewModuleShell>
+
+      <PreviewModuleShell
+        v-if="show('forms')"
+        title="Étiquettes et responsable"
+        category="Forms"
+        description="Saisie libre de tags à côté d'une combobox filtrable."
+      >
+        <TagEditorScenario />
+      </PreviewModuleShell>
+
+      <PreviewModuleShell
+        v-if="show('forms')"
+        title="Réservation"
+        category="Forms"
+        description="Sélecteur de date et compteurs numériques."
+      >
+        <BookingScenario />
+      </PreviewModuleShell>
+
+      <PreviewModuleShell
+        v-if="show('feedback')"
+        title="Avis client"
+        category="Feedback"
+        description="Notation et pavé de signature — les deux entrées au pointeur."
+      >
+        <FeedbackScenario />
+      </PreviewModuleShell>
+
+      <PreviewModuleShell
+        v-if="show('navigation')"
+        title="Explorateur de fichiers"
+        category="Navigation"
+        description="Arborescence de sélection, état déplié piloté de l'extérieur."
+      >
+        <RepoBrowserScenario />
+      </PreviewModuleShell>
+
+      <PreviewModuleShell
+        v-if="show('forms')"
+        title="Permissions du rôle"
+        category="Forms"
+        description="Arborescence à cases : les parents reflètent l'état indéterminé."
+      >
+        <PermissionsScenario />
+      </PreviewModuleShell>
+
+      <PreviewModuleShell
+        v-if="show('data')"
+        title="Trafic par origine"
+        category="Data"
+        description="Barres empilées, axes configurés et légende autonome."
+      >
+        <TrafficMetricsScenario />
+      </PreviewModuleShell>
+
+      <PreviewModuleShell
+        v-if="show('navigation')"
+        title="Galerie média"
+        category="Navigation"
+        description="Carrousel déplaçable avec vignettes."
+      >
+        <MediaGalleryScenario />
+      </PreviewModuleShell>
+
+      <PreviewModuleShell
+        v-if="show('data')"
+        title="Filtrage de traces"
+        category="Data"
+        description="Recherche floue, select et groupe de bascules via un schéma."
+      >
+        <TraceFilterScenario />
+      </PreviewModuleShell>
+
+      <PreviewModuleShell
+        v-if="show('navigation')"
+        title="Visite guidée"
+        category="Navigation"
+        description="Tour piloté depuis l'extérieur via useTour."
+      >
+        <ProductTourScenario />
+      </PreviewModuleShell>
     </PreviewBentoGrid>
   </div>
 </template>

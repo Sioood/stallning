@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
   type CarouselIndicatorVariant,
+  type CarouselImagePosition,
   type CarouselIntent,
   type CarouselSize,
 } from '~/utils/Components/Carousel/context'
@@ -66,11 +67,14 @@ export interface UICarouselProps
   showProgress?: boolean
   /** Pause autoplay while hovering the slide area. @default false */
   pauseOnHover?: boolean
+  /** Focal alignment when slides use `object-cover`. @default 'center' */
+  imagePosition?: CarouselImagePosition
   ui?: Partial<UICarouselRootSlots>
 }
 
 const props = withDefaults(defineProps<UICarouselProps>(), {
   allowMouseDrag: true,
+  imagePosition: 'center',
   indicatorVariant: 'dot',
   intent: 'primary',
   items: () => [],
@@ -98,6 +102,17 @@ const resolvedSlideCount = computed(
 const hasAutoplay = computed(() => Boolean(props.autoplay))
 
 const orientation = computed(() => props.orientation ?? 'horizontal')
+
+const imageObjectPositionClass = computed(() => {
+  switch (props.imagePosition) {
+    case 'left':
+      return 'object-left'
+    case 'right':
+      return 'object-right'
+    default:
+      return 'object-center'
+  }
+})
 
 const overlayPrevClass = computed(() =>
   carouselOverlayTriggerCVA({ orientation: orientation.value, position: 'prev' }),
@@ -172,7 +187,7 @@ function handleViewportLeave(carousel: CarouselContextApi) {
                   v-if="item.src"
                   :src="item.src"
                   :alt="item.alt ?? item.label ?? `Slide ${index + 1}`"
-                  class="size-full object-cover"
+                  :class="cn('size-full object-cover', imageObjectPositionClass)"
                   width="500"
                   height="300"
                 />
@@ -213,7 +228,7 @@ function handleViewportLeave(carousel: CarouselContextApi) {
             <NuxtImg
               :src="normalizedItems[index]!.src!"
               :alt="normalizedItems[index]!.alt ?? normalizedItems[index]!.label"
-              class="block h-full w-full object-cover"
+              :class="cn('block h-full w-full object-cover', imageObjectPositionClass)"
               :width="thumbnailImageSize.width"
               :height="thumbnailImageSize.height"
             />

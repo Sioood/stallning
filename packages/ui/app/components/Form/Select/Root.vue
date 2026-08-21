@@ -7,6 +7,7 @@ import {
   type UseSelectReturn,
 } from '@ark-ui/vue/select'
 
+import { coerceStringArrayValue } from '~/utils/Components/Form/coerce-string-array-value'
 import {
   selectChromeKey,
   type SelectIntent,
@@ -57,6 +58,8 @@ provide(selectChromeKey, {
 const arkAttrs = computed(() => splitArkAttrs(attrs))
 
 const fallbackCollection = createListCollection<SelectItem>({ items: [] })
+
+const coalescedModelValue = computed(() => coerceStringArrayValue(modelValue.value))
 
 const rootOnlyProps = computed(() =>
   pick(props, [
@@ -109,7 +112,7 @@ const rootBindings = computed(() => ({
         open: open.value,
       }
     : {}),
-  modelValue: modelValue.value ?? [],
+  modelValue: coalescedModelValue.value,
   'onUpdate:modelValue': (next: string[]) => {
     modelValue.value = next
   },

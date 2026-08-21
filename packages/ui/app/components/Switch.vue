@@ -37,13 +37,13 @@ const switchControlCVA = cva(
     variants: {
       intent: {
         accent:
-          'data-[disabled]:bg-primary! bg-accent-fill data-[state=checked]:bg-accent-fill-active',
+          'bg-accent-fill data-[disabled]:bg-accent-fill-subtle! data-[state=checked]:bg-accent-fill-active',
         neutral:
-          'data-[disabled]:bg-primary! bg-neutral-fill data-[state=checked]:bg-neutral-fill-active',
+          'bg-neutral-fill data-[disabled]:bg-neutral-fill-subtle! data-[state=checked]:bg-neutral-fill-active',
         primary:
-          'data-[disabled]:bg-primary! bg-primary-fill data-[state=checked]:bg-primary-fill-active',
+          'bg-primary-fill data-[disabled]:bg-primary-fill-subtle! data-[state=checked]:bg-primary-fill-active',
         secondary:
-          'data-[disabled]:bg-primary! bg-secondary-fill data-[state=checked]:bg-secondary-fill-active',
+          'bg-secondary-fill data-[disabled]:bg-secondary-fill-subtle! data-[state=checked]:bg-secondary-fill-active',
       } satisfies Record<SwitchIntent, string>,
       size: {
         lg: 'h-6 w-11 rounded-xs',
@@ -87,7 +87,7 @@ const switchLabelCVA = cva('', {
     size: {
       lg: 'txt-h6',
       md: 'txt-label',
-      sm: 'txt-base',
+      sm: 'txt-caption',
     } satisfies Record<SwitchSize, string>,
   },
 })

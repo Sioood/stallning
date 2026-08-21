@@ -92,7 +92,7 @@ export const selectItemGroupLabelCVA = cva('', {
     size: {
       lg: 'txt-label px-2 py-1',
       md: 'txt-caption px-2 py-1',
-      sm: 'txt-caption px-2 py-1',
+      sm: 'txt-small px-2 py-1',
     } satisfies Record<SelectSize, string>,
   },
 })

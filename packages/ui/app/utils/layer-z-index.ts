@@ -1,7 +1,7 @@
 /** Above sticky headers (`z-40` / `z-999`) and segmented controls (`z-10`). */
 export const FLOATING_LAYER_Z_INDEX = 10_000
 
-/** Above floating dropdowns/popovers. Keep in sync with `z-[11000]` on Dialog/Drawer. */
+/** Above floating dropdowns/popovers. Mirrors the `--z-index-modal` CSS token. */
 export const MODAL_LAYER_Z_INDEX = 11_000
 
 /** Above modals. */

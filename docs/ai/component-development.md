@@ -61,10 +61,10 @@ type MyComponentSize = 'sm' | 'md' | 'lg'
 const myComponentCVA = cva('base-classes', {
   variants: {
     intent: {
-      neutral: 'text-neutral-text-default bg-neutral-fill-subtle',
-      primary: 'text-primary-text-default bg-primary-fill-subtle',
-      secondary: 'text-secondary-text-default bg-secondary-fill-subtle',
-      accent: 'text-accent-text-default bg-accent-fill-subtle',
+      neutral: 'text-neutral-text bg-neutral-fill-subtle',
+      primary: 'text-primary-text bg-primary-fill-subtle',
+      secondary: 'text-secondary-text bg-secondary-fill-subtle',
+      accent: 'text-accent-text bg-accent-fill-subtle',
     } satisfies Record<MyComponentIntent, string>,
     size: {
       sm: 'px-2 py-1 txt-caption',
@@ -102,7 +102,8 @@ const props = withDefaults(defineProps<MyComponentProps>(), {
 
 ## Styling Rules
 
-- Use semantic tokens: `primary-fill-default`, `neutral-text-subtle`, `accent-border-default`
+- Use semantic tokens: `primary-fill`, `neutral-text-subtle`, `accent-border`
+  (the base token **is** the default — there is no `-default` suffix)
 - **Never** use raw colors (`red-500`, `#ff0000`)
 - **Never** interpolate Tailwind classes: `bg-${color}-500` is forbidden
 - Use `cn()` for all class merging — handles Vue reactive classes + tailwind-merge
@@ -260,14 +261,19 @@ Storybook distinguishes **Docs** from individual **stories**:
 
 Always set `meta.component` to the **real UI SFC** (not the demo). Tag with `autodocs`.
 
-Controls are generated automatically from SFC props via `vue-docgen-api` (Storybook framework `docgen`). Still set `args` / `argTypes` when you want sensible defaults or select options that docgen cannot infer well.
+Controls are generated automatically from SFC props by `@stallning/storybook`'s own
+`vue-component-meta` pipeline (`docgen.ts` + `argTypesEnhancer.ts`); the framework's built-in
+docgen is disabled (`docgen: false` in `create-main-config.ts`) because it drops any SFC that
+also exports types. Still set `args` when you want sensible defaults — but do **not** hand-write
+`intent` / `size` / `variant` option lists, since each component narrows those unions differently.
 
 ```ts
+import MyComponentDemo from './MyComponent.demo.vue'
+import MyComponent from './MyComponent.vue'
+
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 import { createGalleryStory, createUIMeta } from '~/utils/storybook'
-import MyComponent from './MyComponent.vue'
-import MyComponentDemo from './MyComponent.demo.vue'
 
 const meta = createUIMeta({
   title: 'UI/MyComponent',

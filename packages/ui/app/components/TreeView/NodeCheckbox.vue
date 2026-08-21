@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { TreeView as ArkTreeView, type TreeViewNodeCheckboxBaseProps } from '@ark-ui/vue/tree-view'
 
-import {
-  checkboxDisabledFlag,
-  checkboxInvalidFlag,
-  treeNodeCheckboxCVA,
-} from '~/utils/Components/Form/checkbox-variants'
+import { treeNodeCheckboxCVA } from '~/utils/Components/Form/checkbox-variants'
 import {
   treeViewChromeKey,
   type TreeViewIntent,
@@ -37,8 +33,8 @@ const chrome = inject(treeViewChromeKey, null)
 
 const intent = computed<TreeViewIntent>(() => props.intent ?? chrome?.intent.value ?? 'primary')
 const size = computed<TreeViewSize>(() => props.size ?? chrome?.size.value ?? 'md')
-const invalid = computed(() => Boolean(checkboxInvalidFlag(chrome?.invalid.value ?? false)))
-const disabled = computed(() => Boolean(checkboxDisabledFlag(false)))
+const invalid = computed(() => Boolean(chrome?.invalid.value ?? false))
+const disabled = computed(() => false)
 
 const checkboxProps = computed(() => pick(props, ['asChild']))
 </script>

@@ -11,6 +11,10 @@ run_types() {
   run_step "Check types" pnpm check-types
 }
 
+run_tokens() {
+  run_step "Design tokens up to date" pnpm tokens:check
+}
+
 run_lint() {
   run_step "Lint" pnpm lint
 }
@@ -33,6 +37,7 @@ run_build() {
 
 run_all() {
   run_types
+  run_tokens
   run_lint
   run_format
   run_knip
@@ -43,6 +48,9 @@ run_all() {
 case "${1:-all}" in
   types)
     run_types
+    ;;
+  tokens)
+    run_tokens
     ;;
   lint)
     run_lint
@@ -63,7 +71,7 @@ case "${1:-all}" in
     run_all
     ;;
   *)
-    echo "Usage: $0 [types|lint|format|knip|test|build|all]" >&2
+    echo "Usage: $0 [types|tokens|lint|format|knip|test|build|all]" >&2
     exit 1
     ;;
 esac

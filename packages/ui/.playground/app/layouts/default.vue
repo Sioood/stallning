@@ -4,6 +4,7 @@ const route = useRoute()
 const navItems = [
   { label: 'Hub', to: '/' },
   { label: 'Foundation', to: '/foundation' },
+  { label: 'Previews', to: '/previews' },
   { label: 'Bento', to: '/previews/bento' },
   { label: 'Scénarios', to: '/scenarios' },
 ] as const

@@ -8,6 +8,8 @@ import {
 
 import type { FormControlShellProps } from '~ui/app/components/Form/FormControlShell.vue'
 
+import { coerceStringArrayValue } from '~/utils/Components/Form/coerce-string-array-value'
+
 import type {
   SelectIntent,
   SelectSize,
@@ -88,7 +90,7 @@ const attrs = useAttrs()
 
 const rawItems = computed(() => props.items ?? [])
 
-const coalescedValue = computed(() => modelValue.value ?? [])
+const coalescedValue = computed(() => coerceStringArrayValue(modelValue.value))
 
 const hasValue = computed(() => coalescedValue.value.length > 0)
 

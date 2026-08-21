@@ -80,7 +80,7 @@ export const stepsContentCVA = cva('w-full', {
     size: {
       lg: 'txt-h6 py-4',
       md: 'txt-base py-3',
-      sm: 'txt-body-sm py-2',
+      sm: 'txt-caption py-2',
     } satisfies Record<StepsSize, string>,
   },
 })
@@ -233,7 +233,7 @@ export const stepsCompletedContentCVA = cva('w-full', {
     size: {
       lg: 'txt-h6 py-4',
       md: 'txt-base py-3',
-      sm: 'txt-body-sm py-2',
+      sm: 'txt-caption py-2',
     } satisfies Record<StepsSize, string>,
   },
 })

@@ -117,6 +117,10 @@
       ],
       "outputs": ["coverage/**"]
     },
+    "tokens:check": {
+      "dependsOn": [],
+      "outputs": []
+    },
     "mutation": {
       "dependsOn": [],
       "cache": false,

@@ -24,7 +24,110 @@ type BadgeIntent =
 type BadgeSize = 'sm' | 'md' | 'lg'
 type BadgeVariant = 'default' | 'subtle'
 
+const badgeSubtleRootCVA = [
+  {
+    class: 'border-accent-border-subtle bg-accent-fill-subtle',
+    intent: 'accent',
+    variant: 'subtle',
+  },
+  {
+    class: 'border-blue-border-subtle bg-blue-fill-subtle',
+    intent: 'blue',
+    variant: 'subtle',
+  },
+  {
+    class: 'border-error-border-subtle bg-error-fill-subtle',
+    intent: 'error',
+    variant: 'subtle',
+  },
+  {
+    class: 'border-neutral-border-subtle bg-neutral-fill-subtle',
+    intent: 'gray',
+    variant: 'subtle',
+  },
+  {
+    class: 'border-green-border-subtle bg-green-fill-subtle',
+    intent: 'green',
+    variant: 'subtle',
+  },
+  {
+    class: 'border-info-border-subtle bg-info-fill-subtle',
+    intent: 'info',
+    variant: 'subtle',
+  },
+  {
+    class: 'border-neutral-border-subtle bg-neutral-fill-subtle',
+    intent: 'neutral',
+    variant: 'subtle',
+  },
+  {
+    class: 'border-orange-border-subtle bg-orange-fill-subtle',
+    intent: 'orange',
+    variant: 'subtle',
+  },
+  {
+    class: 'border-pink-border-subtle bg-pink-fill-subtle',
+    intent: 'pink',
+    variant: 'subtle',
+  },
+  {
+    class: 'border-primary-border-subtle bg-primary-fill-subtle',
+    intent: 'primary',
+    variant: 'subtle',
+  },
+  {
+    class: 'border-purple-border-subtle bg-purple-fill-subtle',
+    intent: 'purple',
+    variant: 'subtle',
+  },
+  {
+    class: 'border-red-border-subtle bg-red-fill-subtle',
+    intent: 'red',
+    variant: 'subtle',
+  },
+  {
+    class: 'border-secondary-border-subtle bg-secondary-fill-subtle',
+    intent: 'secondary',
+    variant: 'subtle',
+  },
+  {
+    class: 'border-success-border-subtle bg-success-fill-subtle',
+    intent: 'success',
+    variant: 'subtle',
+  },
+  {
+    class: 'border-warning-border-subtle bg-warning-fill-subtle',
+    intent: 'warning',
+    variant: 'subtle',
+  },
+  {
+    class: 'border-yellow-border-subtle bg-yellow-fill-subtle',
+    intent: 'yellow',
+    variant: 'subtle',
+  },
+] as const
+
+const badgeSubtleForegroundCVA = [
+  { class: 'text-accent-on-fill-subtle', intent: 'accent', variant: 'subtle' },
+  { class: 'text-blue-on-fill-subtle', intent: 'blue', variant: 'subtle' },
+  { class: 'text-error-on-fill-subtle', intent: 'error', variant: 'subtle' },
+  { class: 'text-neutral-on-fill-subtle', intent: 'gray', variant: 'subtle' },
+  { class: 'text-green-on-fill-subtle', intent: 'green', variant: 'subtle' },
+  { class: 'text-info-on-fill-subtle', intent: 'info', variant: 'subtle' },
+  { class: 'text-neutral-on-fill-subtle', intent: 'neutral', variant: 'subtle' },
+  { class: 'text-orange-on-fill-subtle', intent: 'orange', variant: 'subtle' },
+  { class: 'text-pink-on-fill-subtle', intent: 'pink', variant: 'subtle' },
+  { class: 'text-primary-on-fill-subtle', intent: 'primary', variant: 'subtle' },
+  { class: 'text-purple-on-fill-subtle', intent: 'purple', variant: 'subtle' },
+  { class: 'text-red-on-fill-subtle', intent: 'red', variant: 'subtle' },
+  { class: 'text-secondary-on-fill-subtle', intent: 'secondary', variant: 'subtle' },
+  { class: 'text-success-on-fill-subtle', intent: 'success', variant: 'subtle' },
+  { class: 'text-warning-on-fill-subtle', intent: 'warning', variant: 'subtle' },
+  { class: 'text-yellow-on-fill-subtle', intent: 'yellow', variant: 'subtle' },
+] as const
+
 const badgeCVA = cva('flex w-fit items-center justify-center', {
+  compoundVariants: [...badgeSubtleRootCVA],
   variants: {
     intent: {
       accent: 'border-accent-border bg-accent-surface',
@@ -51,7 +154,7 @@ const badgeCVA = cva('flex w-fit items-center justify-center', {
     } satisfies Record<BadgeSize, string>,
     variant: {
       default: '',
-      subtle: 'border-none',
+      subtle: '',
     } satisfies Record<BadgeVariant, string>,
   },
 })
@@ -59,6 +162,7 @@ const badgeCVA = cva('flex w-fit items-center justify-center', {
 type BadgeCVAProps = VariantProps<typeof badgeCVA>
 
 const badgeIconCVA = cva('', {
+  compoundVariants: [...badgeSubtleForegroundCVA],
   variants: {
     intent: {
       accent: 'text-accent-icon',
@@ -83,10 +187,15 @@ const badgeIconCVA = cva('', {
       md: 'size-3',
       sm: 'size-2.5',
     } satisfies Record<BadgeSize, string>,
+    variant: {
+      default: '',
+      subtle: '',
+    } satisfies Record<BadgeVariant, string>,
   },
 })
 
-const badgeLabelCVA = cva('', {
+const badgeLabelCVA = cva('font-mono', {
+  compoundVariants: [...badgeSubtleForegroundCVA],
   variants: {
     intent: {
       accent: 'text-accent-text',
@@ -111,6 +220,10 @@ const badgeLabelCVA = cva('', {
       md: 'txt-caption',
       sm: 'txt-small',
     } satisfies Record<BadgeSize, string>,
+    variant: {
+      default: '',
+      subtle: '',
+    } satisfies Record<BadgeVariant, string>,
   },
 })
 
@@ -144,17 +257,17 @@ const { isLeading, isTrailing, leadingIconName, trailingIconName } = useComponen
     <Icon
       v-if="isLeading && leadingIconName"
       :name="leadingIconName"
-      :class="cn(badgeIconCVA({ intent, size }), ui?.icon)"
+      :class="cn(badgeIconCVA({ intent, size, variant }), ui?.icon)"
     />
     <slot>
-      <span :class="cn(badgeLabelCVA({ intent, size }), ui?.label)">
+      <span :class="cn(badgeLabelCVA({ intent, size, variant }), ui?.label)">
         {{ $te(label) ? $t(label) : label }}
       </span>
     </slot>
     <Icon
       v-if="isTrailing && trailingIconName"
       :name="trailingIconName"
-      :class="cn(badgeIconCVA({ intent, size }), ui?.icon)"
+      :class="cn(badgeIconCVA({ intent, size, variant }), ui?.icon)"
     />
   </div>
 </template>

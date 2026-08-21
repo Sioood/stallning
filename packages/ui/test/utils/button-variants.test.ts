@@ -20,12 +20,28 @@ describe('buttonVariants', () => {
     expect(sm).toContain('px-2')
 
     const md = button({ size: 'md' })
-    expect(md).toContain('txt-base')
+    expect(md).toContain('txt-label')
     expect(md).toContain('px-3')
 
     const lg = button({ size: 'lg' })
-    expect(lg).toContain('txt-label')
+    expect(lg).toContain('txt-base')
     expect(lg).toContain('px-4')
+  })
+
+  /**
+   * Guards the ramp itself, not the class names: `lg` and `md` both used to resolve
+   * to 1rem, so `lg` was never actually larger than `md`.
+   */
+  it('scales type monotonically across sizes', () => {
+    const ramp = ['txt-caption', 'txt-label', 'txt-base']
+    const sizes = (['sm', 'md', 'lg'] as const).map((size) => {
+      const classes = button({ size }).split(' ')
+      return ramp.findIndex((step) => classes.includes(step))
+    })
+
+    expect(sizes).not.toContain(-1)
+    expect(sizes).toStrictEqual([...sizes].sort((a, b) => a - b))
+    expect(new Set(sizes).size).toBe(sizes.length)
   })
 
   it('applies disabled state classes', () => {

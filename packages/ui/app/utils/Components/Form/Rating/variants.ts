@@ -49,27 +49,13 @@ export const ratingControlCVA = cva('inline-flex items-center', {
   },
 })
 
+/**
+ * Focus uses the shared `focus-ring` utility rather than a per-intent ring: a focus
+ * indicator is a system affordance and is easier to learn when it looks the same
+ * everywhere. Intent and size are expressed on `ratingStarIconCVA`.
+ */
 export const ratingItemCVA = cva(
-  'inline-flex items-center justify-center outline-none not-data-[disabled]:cursor-pointer focus-visible:ring-2 focus-visible:ring-offset-2 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50 data-[disabled]:grayscale',
-  {
-    defaultVariants: {
-      intent: 'primary',
-      size: 'md',
-    },
-    variants: {
-      intent: {
-        accent: 'focus-visible:ring-accent-border',
-        neutral: 'focus-visible:ring-neutral-border',
-        primary: 'focus-visible:ring-primary-border',
-        secondary: 'focus-visible:ring-secondary-border',
-      } satisfies Record<RatingIntent, string>,
-      size: {
-        lg: '',
-        md: '',
-        sm: '',
-      } satisfies Record<RatingSize, string>,
-    },
-  },
+  'inline-flex items-center justify-center outline-none not-data-[disabled]:cursor-pointer focus-visible:focus-ring data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50 data-[disabled]:grayscale',
 )
 
 export const ratingStarIconCVA = cva('shrink-0', {
@@ -160,7 +146,7 @@ export const ratingStarIconCVA = cva('shrink-0', {
   },
 })
 
-export const ratingValueTextCVA = cva('font-mono tabular-nums', {
+export const ratingValueTextCVA = cva('txt-numeric', {
   defaultVariants: {
     intent: 'primary',
     size: 'md',

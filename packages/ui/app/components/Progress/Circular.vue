@@ -42,7 +42,7 @@ const progressCircleLabelCVA = cva('', {
       'icon-lg': 'hidden',
       'icon-md': 'hidden',
       'icon-sm': 'hidden',
-      lg: 'txt-lg',
+      lg: 'txt-h6',
       md: 'txt-base',
       sm: 'txt-small',
     } satisfies Record<ProgressCircularSize, string>,

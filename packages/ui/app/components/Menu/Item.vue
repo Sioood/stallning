@@ -1,33 +1,12 @@
 <script setup lang="ts">
 import { useRuntimeConfig } from '#app'
 import { Menu as ArkMenu } from '@ark-ui/vue/menu'
-import { cva } from 'class-variance-authority'
 
 import { menuCloseOnSelectKey, type MenuIntent } from '~/utils/Components/Menu/context'
+import { menuItemCVA } from '~/utils/Components/Menu/variants'
 
 import type { ClassValue } from 'vue'
 import type { MenuItemEntry } from '~/utils/Components/Menu/entries'
-
-const menuItemCVA = cva(
-  'flex w-full cursor-pointer items-center gap-2 outline-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-70',
-  {
-    variants: {
-      intent: {
-        accent:
-          'text-accent-text data-[disabled]:text-accent-text-subtle data-[highlighted]:bg-accent-fill-subtle-hover',
-        neutral:
-          'text-neutral-text data-[disabled]:text-neutral-text-subtle data-[highlighted]:bg-neutral-fill-subtle-hover',
-        primary:
-          'text-primary-text data-[disabled]:text-primary-text-subtle data-[highlighted]:bg-primary-fill-subtle-hover',
-        secondary:
-          'text-secondary-text data-[disabled]:text-secondary-text-subtle data-[highlighted]:bg-secondary-fill-subtle-hover',
-      },
-      size: {
-        md: 'txt-caption px-2 py-1.5',
-      },
-    },
-  },
-)
 
 export interface MenuItemProps extends Omit<MenuItemEntry, 'closeOnSelect'> {
   intent?: MenuIntent

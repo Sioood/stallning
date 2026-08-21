@@ -199,15 +199,28 @@ Every interactive component supports these intent variants:
 
 ### Color tokens
 
-Use semantic tokens, never raw values:
+Use semantic tokens, never raw values. The shape is
+`{family}-{role}[-{prominence}][-{state}]`, and **the base token is the default** — there is
+no `-default` suffix:
 
 ```
-primary-fill-default       primary-text-default       primary-border-subtle
-neutral-fill-subtle        neutral-text-subtle         neutral-border-default
-secondary-fill-default-hover
-accent-text-default
-error-text-default         success-icon-default        warning-border-subtle
+primary-fill        primary-text          primary-border-subtle
+neutral-fill-subtle neutral-text-subtle   neutral-border
+secondary-fill-hover
+accent-text
+error-text          success-icon          warning-border-subtle
 ```
+
+Roles: `bg`, `surface`, `fill`, `border`, `text`, `icon`, `on-fill`.
+Prominence: `subtle`, `strong`, `inverse`. State: `hover`, `active` on `fill`/`border`;
+`muted`/`disabled` on `text`/`icon`.
+
+Pair `fill` with `on-fill` and `fill-subtle` with `on-fill-subtle` — those pairings are the
+ones held to a contrast floor in `test/tokens/contrast.test.ts`.
+
+Values are generated: edit `scripts/tokens.config.ts`, then run
+`node scripts/gen-tokens.ts`. `--check` fails if `main.css` has drifted, and the contrast
+test fails if any pair drops below its WCAG floor.
 
 ---
 

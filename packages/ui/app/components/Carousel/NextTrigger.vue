@@ -6,6 +6,7 @@ import {
   type CarouselIntent,
   type CarouselSize,
 } from '~/utils/Components/Carousel/context'
+import { carouselTriggerButtonCVA } from '~/utils/Components/Carousel/variants'
 
 import type { ClassValue } from 'vue'
 
@@ -58,11 +59,19 @@ const triggerAttrs = computed(() => {
       <Icon :name="nextIcon" class="size-4 shrink-0" />
     </slot>
   </ArkCarousel.NextTrigger>
-  <ArkCarousel.NextTrigger v-else v-bind="triggerAttrs" as-child :class="ui?.root">
-    <UIButton variant="subtle" :intent :size>
-      <slot>
-        <Icon :name="nextIcon" class="size-4 shrink-0" />
-      </slot>
+  <ArkCarousel.NextTrigger v-else v-bind="triggerAttrs" as-child>
+    <UIButton
+      variant="subtle"
+      :intent
+      :size
+      icon-only
+      :icon="nextIcon"
+      leading
+      :ui="{
+        root: cn(carouselTriggerButtonCVA(), ui?.root, triggerAttrs.class as ClassValue),
+      }"
+    >
+      <slot />
     </UIButton>
   </ArkCarousel.NextTrigger>
 </template>

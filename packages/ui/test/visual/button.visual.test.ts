@@ -114,12 +114,12 @@ test('Button small size renders correctly', async () => {
   })
   cleanup = unmount
 
-  await expectPngSnapshot(
-    el.querySelector('button')!,
+  await expectPngSnapshot({
+    element: el.querySelector('button')!,
+    filename: 'button-size-sm.png',
+    screenshotPathFromTestFile: `${screenshotDir}/button-size-sm.png`,
     specFolder,
-    `${screenshotDir}/button-size-sm.png`,
-    'button-size-sm.png',
-  )
+  })
 })
 
 test('Button large size renders correctly', async () => {

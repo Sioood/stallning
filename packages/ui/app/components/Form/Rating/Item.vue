@@ -33,6 +33,13 @@ const attrs = useAttrs()
 const intent = computed(() => props.intent ?? chrome?.intent.value ?? 'primary')
 const size = computed(() => props.size ?? chrome?.size.value ?? 'md')
 
+/**
+ * Re-provide the chrome so a per-item `intent` / `size` override reaches the indicator
+ * rendered in this item's slot. Previously these props only tinted the item's own focus
+ * ring, so overriding them on a single item had no visible effect on its star.
+ */
+provide(ratingChromeKey, { intent, size })
+
 const itemProps = computed(() => pick(props, ['asChild', 'index']))
 
 const itemAttrs = computed(() => {
@@ -53,7 +60,7 @@ const itemAttrs = computed(() => {
 <template>
   <ArkRatingGroup.Item
     v-bind="{ ...itemProps, ...itemAttrs }"
-    :class="cn(ratingItemCVA({ intent, size }), itemAttrs.class as ClassValue, ui)"
+    :class="cn(ratingItemCVA(), itemAttrs.class as ClassValue, ui)"
   >
     <slot />
   </ArkRatingGroup.Item>

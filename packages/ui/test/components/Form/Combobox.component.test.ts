@@ -121,6 +121,30 @@ describe('UIFormCombobox', () => {
     expect(wrapper.text()).toContain('Loading items…')
   })
 
+  it('accepts null modelValue without crashing', async () => {
+    const wrapper = await mountSuspended(UIFormCombobox, {
+      props: {
+        items,
+        modelValue: null,
+        placeholder: 'Search…',
+      },
+    })
+
+    expect(wrapper.find('input[data-part="input"]').exists()).toBe(true)
+  })
+
+  it('accepts string modelValue without crashing', async () => {
+    const wrapper = await mountSuspended(UIFormCombobox, {
+      props: {
+        items,
+        modelValue: 'react',
+        placeholder: 'Search…',
+      },
+    })
+
+    expect(wrapper.find('input[data-part="input"]').exists()).toBe(true)
+  })
+
   it('shows empty state', async () => {
     const wrapper = await mountSuspended(UIFormCombobox, {
       props: {

@@ -27,7 +27,7 @@ const swipeDirectionMap: Record<DrawerSwipeDirection, ArkSwipeDirection> = {
 }
 
 const drawerBackdropCVA = cva([
-  'fixed inset-0 z-11000 bg-black/50',
+  'fixed inset-0 z-modal bg-scrim',
   'data-[state=closed]:animate-out data-[state=open]:animate-in',
   'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
   'data-[state=closed]:duration-300 data-[state=open]:duration-500',
@@ -322,7 +322,7 @@ const positionerLayerRef = useLayerZIndexRef('modal')
             :ref="positionerLayerRef"
             :class="
               cn(
-                'fixed inset-0 z-[11000] flex items-end justify-center',
+                'fixed inset-0 z-modal flex items-end justify-center',
                 'data-[swipe-direction=up]:items-start',
                 'data-[swipe-direction=left]:items-stretch data-[swipe-direction=left]:justify-start',
                 'data-[swipe-direction=right]:items-stretch data-[swipe-direction=right]:justify-end',

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { cva, type VariantProps } from 'class-variance-authority'
 
+import { ROLE_INDEX, type RoleIndexTheme } from '../utils/token-index.generated'
+
 type BaseColors = 'primary' | 'secondary' | 'accent'
 
 type SemanticColors = 'neutral' | 'info' | 'success' | 'warning' | 'error'
@@ -577,91 +579,47 @@ const props = withDefaults(
 )
 
 const colorScales = [
-  { CVA: { bg: bg50CVA, text: text950CVA }, tokens: ['bg-subtle', 'on-fill'], value: 50 },
-  {
-    CVA: { bg: bg100CVA, text: text900CVA },
-    tokens: ['bg', 'fill-inverse', 'text-inverse', 'icon-inverse'],
-    value: 100,
-  },
-  {
-    CVA: { bg: bg200CVA, text: text800CVA },
-    tokens: [
-      'surface-subtle',
-      'fill-inverse-hover',
-      'border-inverse',
-      'text-inverse',
-      'icon-inverse',
-    ],
-    value: 200,
-  },
-  {
-    CVA: { bg: bg300CVA, text: text700CVA },
-    tokens: [
-      'surface',
-      'fill-subtle',
-      'fill-inverse-active',
-      'border-inverse-hover',
-      'text-subtle',
-      'text-inverse',
-      'icon-subtle',
-      'icon-inverse',
-    ],
-    value: 300,
-  },
-  {
-    CVA: { bg: bg400CVA, text: text600CVA },
-    tokens: [
-      'fill-subtle-hover',
-      'border-subtle',
-      'border-inverse-active',
-      'text-disabled',
-      'icon',
-      'icon-disabled',
-    ],
-    value: 400,
-  },
-  {
-    CVA: { bg: bg500CVA, text: textDefaultCVA },
-    tokens: [
-      'fill-subtle-active',
-      'border-subtle-hover',
-      'text-subtle',
-      'text-muted',
-      'icon-subtle',
-    ],
-    value: 500,
-  },
-  {
-    CVA: { bg: bg600CVA, text: text400CVA },
-    tokens: ['fill', 'fill-hover', 'border-subtle-active', 'border', 'icon-subtle', 'icon-inverse'],
-    value: 600,
-  },
-  {
-    CVA: { bg: bg700CVA, text: text300CVA },
-    tokens: ['fill-active', 'border-hover', 'border-inverse', 'text', 'icon', 'on-fill'],
-    value: 700,
-  },
-  {
-    CVA: { bg: bg800CVA, text: text200CVA },
-    tokens: ['surface-inverse', 'border-active', 'border-strong', 'text-inverse', 'icon-inverse'],
-    value: 800,
-  },
-  {
-    CVA: { bg: bg900CVA, text: text100CVA },
-    tokens: ['bg-inverse', 'border-strong-hover', 'text', 'icon'],
-    value: 900,
-  },
-  {
-    CVA: { bg: bg950CVA, text: text50CVA },
-    tokens: ['border-strong-active'],
-    value: 950,
-  },
+  { CVA: { bg: bg50CVA, text: text950CVA }, value: 50 },
+  { CVA: { bg: bg100CVA, text: text900CVA }, value: 100 },
+  { CVA: { bg: bg200CVA, text: text800CVA }, value: 200 },
+  { CVA: { bg: bg300CVA, text: text700CVA }, value: 300 },
+  { CVA: { bg: bg400CVA, text: text600CVA }, value: 400 },
+  { CVA: { bg: bg500CVA, text: textDefaultCVA }, value: 500 },
+  { CVA: { bg: bg600CVA, text: text400CVA }, value: 600 },
+  { CVA: { bg: bg700CVA, text: text300CVA }, value: 700 },
+  { CVA: { bg: bg800CVA, text: text200CVA }, value: 800 },
+  { CVA: { bg: bg900CVA, text: text100CVA }, value: 900 },
+  { CVA: { bg: bg950CVA, text: text50CVA }, value: 950 },
 ] as const
+
+/**
+ * Which roles read a given stop, taken from the generated index so this documentation
+ * cannot drift from the tokens. Keyed on the live theme, because the dark mapping is
+ * deliberately not a mirror of the light one.
+ */
+const theme = ref<RoleIndexTheme>('light')
+
+function readTheme(): RoleIndexTheme {
+  if (typeof document === 'undefined') return 'light'
+  const { classList } = document.documentElement
+  if (classList.contains('dark')) return 'dark'
+  if (classList.contains('light')) return 'light'
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+}
+
+onMounted(() => {
+  theme.value = readTheme()
+  const observer = new MutationObserver(() => {
+    theme.value = readTheme()
+  })
+  observer.observe(document.documentElement, { attributeFilter: ['class'], attributes: true })
+  onUnmounted(() => observer.disconnect())
+})
 
 function tokensForScale(triggerValue: string | null) {
   if (!triggerValue) return []
-  const scale = colorScales.find((entry) => String(entry.value) === triggerValue)
-  return scale ? [...scale.tokens] : []
+  const stop = Number(triggerValue) as keyof (typeof ROLE_INDEX)['light']
+  return [...(ROLE_INDEX[theme.value][stop] ?? [])]
 }
 </script>
 

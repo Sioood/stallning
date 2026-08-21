@@ -14,7 +14,7 @@ defineProps<{
     variant="subtle"
     intent="neutral"
     size="lg"
-    :class="cn('flex flex-col gap-5', $props.class)"
+    :class="cn('flex min-w-0 flex-col gap-5 overflow-hidden', $props.class)"
   >
     <header class="flex flex-col gap-2">
       <div class="flex items-start justify-between gap-3">
@@ -23,6 +23,8 @@ defineProps<{
       </div>
       <p v-if="description" class="txt-caption text-neutral-text-subtle">{{ description }}</p>
     </header>
-    <slot />
+    <div class="min-w-0 overflow-hidden">
+      <slot />
+    </div>
   </UICardBase>
 </template>

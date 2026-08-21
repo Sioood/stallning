@@ -165,8 +165,8 @@ export const buttonCVA = cva('inline-flex h-full items-center justify-center', {
       warning: '',
     } satisfies Record<ButtonIntent, string>,
     size: {
-      lg: 'txt-label gap-4 rounded-xs px-4 py-2',
-      md: 'txt-base gap-3 rounded-xs px-3 py-1.75',
+      lg: 'txt-base gap-4 rounded-xs px-4 py-2',
+      md: 'txt-label gap-3 rounded-xs px-3 py-1.75',
       sm: 'txt-caption gap-1.5 rounded-xs px-2 py-0.75',
     } satisfies Record<ButtonSize, string>,
     variant: {

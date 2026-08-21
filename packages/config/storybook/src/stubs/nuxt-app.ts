@@ -83,12 +83,42 @@ const storybookRoute = ref({
   query: {},
 })
 
+/** Normalises a router target into a path string, for the `resolve` stub below. */
+function hrefFor(to: unknown): string {
+  if (typeof to === 'string') return to
+  if (to && typeof to === 'object') {
+    const candidate = to as { fullPath?: string; path?: string; name?: string }
+    return candidate.fullPath ?? candidate.path ?? (candidate.name ? `/${candidate.name}` : '/')
+  }
+  return '/'
+}
+
 /** Minimal router stub for components that call `useRouter()` / `navigateTo`. */
 export function useRouter() {
   return {
     currentRoute: storybookRoute,
     push: async (_to: unknown) => undefined,
     replace: async (_to: unknown) => undefined,
+    /**
+     * `resolve` is required, not optional: `Tabs/Trigger.vue` calls
+     * `router.resolve(props.to).href` for any tab rendered as a link, and without it the
+     * whole story throws `router.resolve is not a function`.
+     */
+    resolve: (to: unknown) => {
+      const href = hrefFor(to)
+      return {
+        fullPath: href,
+        hash: '',
+        href,
+        matched: [],
+        meta: {},
+        name: undefined,
+        params: {},
+        path: href,
+        query: {},
+        redirectedFrom: undefined,
+      }
+    },
   }
 }
 

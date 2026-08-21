@@ -66,13 +66,13 @@ const fileUploadDropzoneCVA = cva(
     variants: {
       intent: {
         accent:
-          'data-[disabled]:border-accent-border-subtle-disabled border-accent-border-subtle bg-accent-fill-subtle/50 not-data-[dragging]:not-data-[disabled]:hover:border-accent-border not-data-[dragging]:not-data-[disabled]:hover:bg-accent-fill-subtle disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-accent-fill-subtle/50 data-[invalid]:border-error-border data-[invalid]:bg-error-fill-subtle/20',
+          'disabled-flat-data border-accent-border-subtle bg-accent-fill-subtle/50 not-data-[dragging]:not-data-[disabled]:hover:border-accent-border not-data-[dragging]:not-data-[disabled]:hover:bg-accent-fill-subtle data-[disabled]:bg-accent-fill-subtle/50 data-[invalid]:border-error-border data-[invalid]:bg-error-fill-subtle/20',
         neutral:
-          'data-[disabled]:border-neutral-border-subtle-disabled border-neutral-border-subtle bg-neutral-fill-subtle/50 not-data-[dragging]:not-data-[disabled]:hover:border-neutral-border not-data-[dragging]:not-data-[disabled]:hover:bg-neutral-fill-subtle disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-neutral-fill-subtle/50 data-[invalid]:border-error-border data-[invalid]:bg-error-fill-subtle/20',
+          'disabled-flat-data border-neutral-border-subtle bg-neutral-fill-subtle/50 not-data-[dragging]:not-data-[disabled]:hover:border-neutral-border not-data-[dragging]:not-data-[disabled]:hover:bg-neutral-fill-subtle data-[disabled]:bg-neutral-fill-subtle/50 data-[invalid]:border-error-border data-[invalid]:bg-error-fill-subtle/20',
         primary:
-          'data-[disabled]:border-primary-border-subtle-disabled border-primary-border-subtle bg-primary-fill-subtle/50 not-data-[dragging]:not-data-[disabled]:hover:border-primary-border not-data-[dragging]:not-data-[disabled]:hover:bg-primary-fill-subtle disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-primary-fill-subtle/50 data-[invalid]:border-error-border data-[invalid]:bg-error-fill-subtle/20',
+          'disabled-flat-data border-primary-border-subtle bg-primary-fill-subtle/50 not-data-[dragging]:not-data-[disabled]:hover:border-primary-border not-data-[dragging]:not-data-[disabled]:hover:bg-primary-fill-subtle data-[disabled]:bg-primary-fill-subtle/50 data-[invalid]:border-error-border data-[invalid]:bg-error-fill-subtle/20',
         secondary:
-          'data-[disabled]:border-secondary-border-subtle-disabled border-secondary-border-subtle bg-secondary-fill-subtle/50 not-data-[dragging]:not-data-[disabled]:hover:border-secondary-border not-data-[dragging]:not-data-[disabled]:hover:bg-secondary-fill-subtle disabled:pointer-events-none disabled:opacity-40 data-[disabled]:bg-secondary-fill-subtle/50 data-[invalid]:border-error-border data-[invalid]:bg-error-fill-subtle/20',
+          'disabled-flat-data border-secondary-border-subtle bg-secondary-fill-subtle/50 not-data-[dragging]:not-data-[disabled]:hover:border-secondary-border not-data-[dragging]:not-data-[disabled]:hover:bg-secondary-fill-subtle data-[disabled]:bg-secondary-fill-subtle/50 data-[invalid]:border-error-border data-[invalid]:bg-error-fill-subtle/20',
       } satisfies Record<FileUploadIntent, string>,
       size: {
         lg: 'txt-h6 rounded-xs p-12',

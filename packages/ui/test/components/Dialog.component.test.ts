@@ -24,8 +24,11 @@ describe('UIDialog', () => {
 
     expect(backdrop).not.toBeNull()
     expect(positioner).not.toBeNull()
-    expect(backdrop?.className).toContain('z-11000')
-    expect(positioner?.className).toContain('z-11000')
+    // `z-modal` resolves from the `--z-index-modal` theme token; asserting the class
+    // (not just the computed value) keeps the utility from being dropped in favour of
+    // relying solely on the imperative `useLayerZIndexRef` fallback.
+    expect(backdrop?.className).toContain('z-modal')
+    expect(positioner?.className).toContain('z-modal')
 
     const backdropZ = Number.parseInt(getComputedStyle(backdrop!).zIndex, 10)
     const positionerZ = Number.parseInt(getComputedStyle(positioner!).zIndex, 10)

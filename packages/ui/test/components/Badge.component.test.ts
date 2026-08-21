@@ -47,4 +47,22 @@ describe('Badge', () => {
     expect(icon.exists()).toBe(true)
     expect(icon.classes()).toContain('size-3')
   })
+
+  it('uses fill-subtle tokens for the subtle variant', async () => {
+    const wrapper = await mountSuspended(Badge, {
+      props: {
+        intent: 'accent',
+        label: '+12 %',
+        variant: 'subtle',
+      },
+    })
+
+    const root = wrapper.find('div')
+    expect(root.classes()).toContain('bg-accent-fill-subtle')
+    expect(root.classes()).toContain('border-accent-border-subtle')
+    expect(root.classes()).not.toContain('border-none')
+
+    const label = wrapper.find('span')
+    expect(label.classes()).toContain('text-accent-on-fill-subtle')
+  })
 })

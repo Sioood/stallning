@@ -71,9 +71,9 @@ const fieldHelperTextCVA = cva('', {
       warning: 'text-warning-text-subtle',
     } satisfies Record<FormFieldIntent, string>,
     size: {
-      lg: 'txt-body',
+      lg: 'txt-base',
       md: 'txt-caption',
-      sm: 'txt-legal',
+      sm: 'txt-small',
     } satisfies Record<FormFieldSize, string>,
   },
 })

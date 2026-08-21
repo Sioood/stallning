@@ -17,14 +17,14 @@ export type DialogSize = 'sm' | 'md' | 'lg' | 'full'
 export type ScrollBehavior = 'inside' | 'outside'
 
 const dialogBackdropCVA = cva([
-  'fixed inset-0 z-11000',
-  'bg-black/60',
+  'fixed inset-0 z-modal',
+  'bg-scrim',
   'data-[state=closed]:animate-out data-[state=open]:animate-in',
   'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
   'duration-200',
 ])
 
-const dialogPositionerCVA = cva('fixed inset-0 z-11000 flex justify-center', {
+const dialogPositionerCVA = cva('fixed inset-0 z-modal flex justify-center', {
   variants: {
     scrollBehavior: {
       inside: 'items-center',

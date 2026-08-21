@@ -10,21 +10,24 @@ import type {
   UICardSlots,
 } from '~/utils/Components/Card/context'
 
-const CardBodyHeaderCVA = cva('flex w-full items-center justify-between font-mono uppercase', {
-  variants: {
-    intent: {
-      accent: 'text-accent-text-subtle',
-      neutral: 'text-neutral-text-subtle',
-      primary: 'text-primary-text-subtle',
-      secondary: 'text-secondary-text-subtle',
-    } as const satisfies Record<CardIntent, string>,
-    size: {
-      lg: 'txt-base mt-3 mr-4 mb-2 min-w-60 gap-3',
-      md: 'txt-caption mt-2 mr-3 mb-1 min-w-60 gap-2',
-      sm: 'txt-small mt-1 mr-2 mb-0.5 min-w-60 gap-1',
-    } as const satisfies Record<CardSize, string>,
+const CardBodyHeaderCVA = cva(
+  'flex w-full items-center justify-between font-mono tracking-overline uppercase',
+  {
+    variants: {
+      intent: {
+        accent: 'text-accent-text-subtle',
+        neutral: 'text-neutral-text-subtle',
+        primary: 'text-primary-text-subtle',
+        secondary: 'text-secondary-text-subtle',
+      } as const satisfies Record<CardIntent, string>,
+      size: {
+        lg: 'txt-base mt-3 mr-4 mb-2 min-w-60 gap-3',
+        md: 'txt-caption mt-2 mr-3 mb-1 min-w-60 gap-2',
+        sm: 'txt-small mt-1 mr-2 mb-0.5 min-w-60 gap-1',
+      } as const satisfies Record<CardSize, string>,
+    },
   },
-})
+)
 
 const CardIconCVA = cva('', {
   variants: {
@@ -94,7 +97,7 @@ const CardBodyDescriptionCVA = cva('', {
     } as const satisfies Record<CardIntent, string>,
     size: {
       lg: 'txt-base',
-      md: 'txt-base',
+      md: 'txt-label',
       sm: 'txt-caption',
     } as const satisfies Record<CardSize, string>,
   },
@@ -141,7 +144,7 @@ const cardBaseProps = computed(() => ({
       <UIBadge
         v-if="tag"
         :label="tag"
-        :ui="{ root: 'absolute top-0 right-0' }"
+        :ui="{ root: 'absolute top-0 right-0 border-none' }"
         variant="subtle"
         :intent="elementIntent"
       />

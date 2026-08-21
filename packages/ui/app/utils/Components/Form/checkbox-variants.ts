@@ -112,11 +112,3 @@ export const treeNodeCheckboxCVA = cva(
 )
 
 export const treeNodeCheckboxIndicatorCVA = cva('flex size-full items-center justify-center')
-
-export function checkboxDisabledFlag(disabled: boolean): 'false' | 'true' {
-  return disabled ? 'true' : 'false'
-}
-
-export function checkboxInvalidFlag(invalid: boolean): 'false' | 'true' {
-  return invalid ? 'true' : 'false'
-}

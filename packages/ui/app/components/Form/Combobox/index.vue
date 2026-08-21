@@ -10,6 +10,7 @@ import { useFilter } from '@ark-ui/vue/locale'
 import type { FormControlShellProps } from '~ui/app/components/Form/FormControlShell.vue'
 
 import { formTagsInputComboboxPositioning } from '~/composables/useFormTagsInputCombobox'
+import { coerceStringArrayValue } from '~/utils/Components/Form/coerce-string-array-value'
 import {
   createComboboxCollection,
   filterComboboxItems,
@@ -95,17 +96,19 @@ const rawItems = computed(() => props.items ?? [])
 
 const isGrouped = computed(() => rawItems.value.some((item) => item.group))
 
+const coalescedValue = computed(() => coerceStringArrayValue(modelValue.value))
+
 const hasMaxReached = computed(
   () =>
     props.multiple &&
     props.maxSelection !== undefined &&
-    modelValue.value.length >= props.maxSelection,
+    coalescedValue.value.length >= props.maxSelection,
 )
 
 const processedItems = computed(() =>
   rawItems.value.map((item) => ({
     ...item,
-    disabled: item.disabled || (hasMaxReached.value && !modelValue.value.includes(item.value)),
+    disabled: item.disabled || (hasMaxReached.value && !coalescedValue.value.includes(item.value)),
   })),
 )
 
@@ -131,7 +134,7 @@ const collection = computed(() => {
 
 const isProvider = computed(() => props.value !== undefined)
 
-const hasValue = computed(() => modelValue.value.length > 0)
+const hasValue = computed(() => coalescedValue.value.length > 0)
 
 const resolvedCloseOnSelect = computed(() => {
   if (props.closeOnSelect !== undefined) return props.closeOnSelect
@@ -212,13 +215,15 @@ function handleInputKeydown(event: KeyboardEvent) {
   event.stopImmediatePropagation()
 
   if (props.multiple) {
-    if (modelValue.value.includes(match.value)) {
+    if (coalescedValue.value.includes(match.value)) {
       inputValue.value = ''
       open.value = false
       return
     }
-    if (props.maxSelection !== undefined && modelValue.value.length >= props.maxSelection) return
-    modelValue.value = [...modelValue.value, match.value]
+    if (props.maxSelection !== undefined && coalescedValue.value.length >= props.maxSelection) {
+      return
+    }
+    modelValue.value = [...coalescedValue.value, match.value]
     inputValue.value = ''
   } else {
     modelValue.value = [match.value]

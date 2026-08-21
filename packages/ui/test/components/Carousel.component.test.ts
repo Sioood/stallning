@@ -164,6 +164,79 @@ describe('UICarousel (assembled)', () => {
 
     expect(pageChangeSpy).toHaveBeenCalled()
   })
+
+  it('renders compact overlay triggers with absolute positioning', async () => {
+    const wrapper = await mountSuspended(
+      defineComponent({
+        name: 'OverlayTriggerHarness',
+        setup() {
+          return () =>
+            h(UICarousel, {
+              items: [{ label: 'A', src: 'https://example.com/a.jpg' }],
+            })
+        },
+      }),
+    )
+
+    const prev = wrapper.find('[data-part="prev-trigger"]')
+    const next = wrapper.find('[data-part="next-trigger"]')
+    expect(prev.exists()).toBe(true)
+    expect(next.exists()).toBe(true)
+
+    const prevClasses = prev.classes().join(' ')
+    expect(prevClasses).toMatch(/absolute/)
+    expect(prevClasses).toMatch(/top-1\/2/)
+    expect(prevClasses).not.toMatch(/\bh-full\b/)
+  })
+
+  it('applies imagePosition to slide images', async () => {
+    const wrapper = await mountSuspended(
+      defineComponent({
+        name: 'ImagePositionHarness',
+        setup() {
+          return () =>
+            h(UICarousel, {
+              imagePosition: 'left',
+              items: [{ alt: 'Test', src: 'https://example.com/a.jpg' }],
+            })
+        },
+      }),
+    )
+
+    const img = wrapper.find('img')
+    expect(img.exists()).toBe(true)
+    expect(img.classes()).toContain('object-left')
+  })
+
+  it('aligns thumbnail indicators from the start so the first slide is not clipped', async () => {
+    const wrapper = await mountSuspended(
+      defineComponent({
+        name: 'ThumbnailIndicatorHarness',
+        setup() {
+          return () =>
+            h(UICarousel, {
+              indicatorVariant: 'thumbnail',
+              items: [
+                { alt: 'One', src: 'https://example.com/1.jpg' },
+                { alt: 'Two', src: 'https://example.com/2.jpg' },
+                { alt: 'Three', src: 'https://example.com/3.jpg' },
+                { alt: 'Four', src: 'https://example.com/4.jpg' },
+              ],
+            })
+        },
+      }),
+    )
+
+    const group = wrapper.find('[data-part="indicator-group"]')
+    expect(group.exists()).toBe(true)
+    expect(group.classes()).toContain('justify-start')
+    expect(group.classes()).not.toContain('justify-center')
+    expect(group.classes()).not.toContain('overflow-x-auto')
+
+    const indicators = wrapper.findAll('[data-part="indicator"]')
+    expect(indicators.length).toBe(4)
+    expect(indicators[0]?.classes()).toContain('flex-1')
+  })
 })
 
 describe('UICarouselRoot (manual composition)', () => {

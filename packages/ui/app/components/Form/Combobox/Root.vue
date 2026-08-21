@@ -6,6 +6,7 @@ import {
   type UseComboboxReturn,
 } from '@ark-ui/vue/combobox'
 
+import { coerceStringArrayValue } from '~/utils/Components/Form/coerce-string-array-value'
 import {
   comboboxChromeKey,
   type ComboboxIntent,
@@ -101,6 +102,8 @@ const rootProps = computed(() => {
 
 const arkAttrs = computed(() => splitArkAttrs(attrs))
 
+const coalescedModelValue = computed(() => coerceStringArrayValue(modelValue.value))
+
 const rootBindings = computed(() => {
   const base: Record<string, unknown> = {
     ...rootProps.value,
@@ -142,7 +145,7 @@ function onValueChange(details: { value: string[] }) {
     :is="rootComponent"
     v-else
     v-bind="rootBindings"
-    :model-value="modelValue"
+    :model-value="coalescedModelValue"
     @update:model-value="(next: string[]) => (modelValue = next)"
     @value-change="onValueChange"
   >

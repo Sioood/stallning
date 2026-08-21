@@ -86,7 +86,7 @@ export const tableBaseCVA = cva('w-full caption-bottom border-separate border-sp
   variants: {
     size: {
       lg: 'txt-base',
-      md: 'txt-base',
+      md: 'txt-label',
       sm: 'txt-caption',
     } satisfies Record<TableSize, string>,
   },
@@ -217,7 +217,7 @@ export const tableRowCVA = cva('border-b transition-colors', {
 })
 
 export const tableHeadCVA = cva(
-  'border-b text-left align-middle font-semibold [&:has([role=checkbox])]:pe-0',
+  'border-b text-left align-middle font-mono font-medium tracking-overline uppercase [&:has([role=checkbox])]:pe-0',
   {
     compoundVariants: tableIntents.map((intent) => ({
       class: pinnedHeadBackground[intent],
@@ -241,9 +241,9 @@ export const tableHeadCVA = cva(
         true: 'sticky z-20',
       },
       size: {
-        lg: 'txt-base px-4 py-3.5',
-        md: 'txt-label px-4 py-3',
-        sm: 'txt-caption px-2 py-2',
+        lg: 'txt-label px-4 py-3.5',
+        md: 'txt-caption px-4 py-3',
+        sm: 'txt-small px-2 py-2',
       } satisfies Record<TableSize, string>,
     },
   },
@@ -273,7 +273,7 @@ export const tableCellCVA = cva('border-b align-middle [&:has([role=checkbox])]:
     },
     size: {
       lg: 'txt-base px-4 py-3.5',
-      md: 'txt-base px-4 py-3',
+      md: 'txt-label px-4 py-3',
       sm: 'txt-caption px-2 py-2',
     } satisfies Record<TableSize, string>,
   },
@@ -293,7 +293,7 @@ export const tableEmptyCVA = cva('py-8 text-center', {
     } satisfies Record<TableIntent, string>,
     size: {
       lg: 'txt-base',
-      md: 'txt-base',
+      md: 'txt-label',
       sm: 'txt-caption',
     } satisfies Record<TableSize, string>,
   },
@@ -313,7 +313,7 @@ export const tableLoadingCVA = cva('py-8 text-center', {
     } satisfies Record<TableIntent, string>,
     size: {
       lg: 'txt-base',
-      md: 'txt-base',
+      md: 'txt-label',
       sm: 'txt-caption',
     } satisfies Record<TableSize, string>,
   },

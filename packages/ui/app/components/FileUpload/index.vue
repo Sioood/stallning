@@ -6,6 +6,7 @@ import {
   type UseFileUploadReturn,
   type FileUploadFileRejection,
   type FileUploadFileError,
+  type FileUploadFileValidateDetails,
 } from '@ark-ui/vue/file-upload'
 import { cva, type VariantProps } from 'class-variance-authority'
 
@@ -290,8 +291,6 @@ export interface FileUploadProps
   ui?: Partial<UIFileUploadSlots>
 }
 
-const modelValue = defineModel<File[]>({ default: [] })
-
 const props = withDefaults(defineProps<FileUploadProps>(), {
   allowDrop: true,
   clearText: 'fileUpload.clearText',
@@ -320,6 +319,8 @@ const props = withDefaults(defineProps<FileUploadProps>(), {
   value: undefined,
 })
 
+const modelValue = defineModel<File[]>({ default: () => [] })
+
 const invalid = computed(() =>
   Boolean(props.invalid || (props.error && String(props.error).length > 0)),
 )
@@ -327,11 +328,13 @@ const invalid = computed(() =>
 const resolvedValidate = computed<FileUploadProps['validate']>(() => {
   if (!props.duplicate && !props.validate) return undefined
 
-  return (file, details) => {
+  return (file: File, details: FileUploadFileValidateDetails) => {
     const errors: FileUploadFileError[] = []
 
     if (!props.duplicate) {
-      const exists = details.acceptedFiles.some((f) => f.name === file.name && f.size === file.size)
+      const exists = details.acceptedFiles.some(
+        (acceptedFile: File) => acceptedFile.name === file.name && acceptedFile.size === file.size,
+      )
       if (exists) errors.push('FILE_EXISTS')
     }
 
@@ -405,6 +408,21 @@ const fieldProps = computed(() => ({
 
 const arkAttrs = computed(() => splitArkAttrs(attrs))
 
+const updateAcceptedFiles = (next: File[]) => {
+  if (!props.duplicate) {
+    const seen = new Set<string>()
+    modelValue.value = next.filter((file) => {
+      const key = `${file.name}-${file.size}`
+      if (seen.has(key)) return false
+      seen.add(key)
+      return true
+    })
+    return
+  }
+
+  modelValue.value = next
+}
+
 const rootBindings = computed(() => {
   const base: Record<string, unknown> = {
     ...rootProps.value,
@@ -418,20 +436,7 @@ const rootBindings = computed(() => {
 
   if (!isProvider.value) {
     base.acceptedFiles = modelValue.value
-    base['onUpdate:acceptedFiles'] = (next: File[]) => {
-      if (!props.duplicate) {
-        const seen = new Set<string>()
-        const filtered = next.filter((f) => {
-          const key = `${f.name}-${f.size}`
-          if (seen.has(key)) return false
-          seen.add(key)
-          return true
-        })
-        modelValue.value = filtered
-      } else {
-        modelValue.value = next
-      }
-    }
+    base['onUpdate:acceptedFiles'] = updateAcceptedFiles
   }
 
   return base
@@ -502,7 +507,7 @@ const resolveErrorText = (key: FileUploadFileError) => {
         </template>
 
         <ArkFileUpload.ClearTrigger v-if="props.clearable" as-child>
-          <UIButton variant="ghost" intent="error" size="xs" :ui="{ root: ui?.clearTrigger }">
+          <UIButton variant="ghost" intent="error" size="sm" :ui="{ root: ui?.clearTrigger }">
             <slot name="clear-trigger">
               <Icon name="tabler:x" class="size-3" />
               {{ $te(props.clearText) ? $t(props.clearText) : props.clearText }}

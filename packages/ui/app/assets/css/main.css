@@ -2308,6 +2308,19 @@ body {
   @apply overscroll-y-none;
 }
 
+/*
+ * Zag `visuallyHiddenStyle` uses `position: absolute` + `clip` without inset.
+ * With no positioned ancestor, the element's static position (deep in a tall
+ * scrolled form) extends `document.documentElement.scrollHeight` — visible as
+ * blank space under upload/select-heavy admin pages. Pin to the containing
+ * block origin (viewport ICB or nearest `relative` ancestor).
+ */
+[style*='position: absolute'][style*='clip: rect(0px, 0px, 0px, 0px)'],
+[style*='position:absolute'][style*='clip:rect(0 0 0 0)'] {
+  top: 0 !important;
+  left: 0 !important;
+}
+
 /* ─── Drawer keyframes ──────────────────────────────────────────────────── */
 /*
  * Two separate keyframe sets on two separate elements:

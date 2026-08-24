@@ -20,7 +20,10 @@ export type { FileUploadFileError }
 type FileUploadIntent = 'neutral' | 'primary' | 'secondary' | 'accent'
 type FileUploadSize = 'sm' | 'md' | 'lg'
 
-const fileUploadRootCVA = cva('flex flex-col gap-3', {
+// `relative` contains Zag's visually-hidden file input (`position: absolute`).
+// Without a positioned ancestor it uses its static position in the page and can
+// inflate document scrollHeight (blank space under tall forms with uploads).
+const fileUploadRootCVA = cva('relative flex flex-col gap-3', {
   variants: {
     intent: {
       accent: '',
@@ -592,7 +595,7 @@ const resolveErrorText = (key: FileUploadFileError) => {
           </ArkFileUpload.Item>
         </ArkFileUpload.ItemGroup>
 
-        <ArkFileUpload.HiddenInput :class="ui?.hiddenInput" />
+        <ArkFileUpload.HiddenInput :class="cn('top-0 left-0', ui?.hiddenInput)" />
 
         <slot
           :accepted-files="ctx.acceptedFiles"

@@ -24,6 +24,6 @@ const hiddenSelectAttrs = computed(() => {
 <template>
   <ArkSelect.HiddenSelect
     v-bind="hiddenSelectAttrs"
-    :class="cn(hiddenSelectAttrs.class as ClassValue, ui)"
+    :class="cn('top-0 left-0', hiddenSelectAttrs.class as ClassValue, ui)"
   />
 </template>

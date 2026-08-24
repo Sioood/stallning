@@ -2,7 +2,7 @@ import { cva } from 'class-variance-authority'
 
 import type { SelectIntent, SelectSize } from './context'
 
-export const selectRootCVA = cva('flex w-full flex-col gap-1')
+export const selectRootCVA = cva('relative flex w-full flex-col gap-1')
 
 export const selectControlCVA = cva('flex items-center gap-1')
 

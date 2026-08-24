@@ -22,7 +22,7 @@ export type { UICheckboxSlots } from '~/utils/Components/Form/context'
 
 defineOptions({ inheritAttrs: false })
 
-const checkboxRootCVA = cva('group inline-flex items-center gap-2', {
+const checkboxRootCVA = cva('group relative inline-flex items-center gap-2', {
   variants: {
     disabled: {
       false: 'cursor-pointer',
